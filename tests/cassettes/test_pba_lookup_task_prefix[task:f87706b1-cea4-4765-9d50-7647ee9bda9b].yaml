@@ -1,0 +1,208 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - banshee:tests_/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.3 platform_id
+        unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/playbook-alert/common/task:f87706b1-cea4-4765-9d50-7647ee9bda9b
+  response:
+    body:
+      string: '{"status": {"status_code": "Bu", "status_message": "Chowder"}, "data":
+        {"playbook_alert_id": "task:f87706b1-cea4-4765-9d50-7647ee9bda9b", "rule_id":
+        "Suckli", "alert_rule": {"id": "s8LnBp", "label": "Sushi", "name": "Chicken
+        fried ste"}, "status": "InProgress", "priority": "Montreal", "created": "2024-12-05T20:05:50.787Z",
+        "updated": "2026-02-13T10:11:10.360Z", "category": "identity_novel_exposures",
+        "title": "He looked inquisitively at his ke", "owner_id": "Cheese stuffed
+        c", "owner_name": "Gumbo", "organisation_id": "Fried Green Toma", "organisation_name":
+        "Pop-Tarts", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "BBQ Chicken Pizz", "organisation_name": "Chicken Biryani"}], "enterprise_id":
+        "Moules Frites", "enterprise_name": "Chocolate cheesecake"}, "actions_taken":
+        []}}'
+    headers:
+      CF-RAY:
+      - 9dbbc9d54aee60db-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Mar 2026 14:39:30 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - banshee:tests_/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.3 platform_id
+        unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/playbook-alert/identity_novel_exposures/task:f87706b1-cea4-4765-9d50-7647ee9bda9b
+  response:
+    body:
+      string: '{"status": {"status_code": "Ba", "status_message": "Fried fish"}, "data":
+        {"playbook_alert_id": "task:f87706b1-cea4-4765-9d50-7647ee9bda9b", "panel_status":
+        {"status": "InProgress", "priority": "Pastrami", "created": "2024-12-05T20:05:50.787Z",
+        "updated": "2026-02-13T10:11:10.360Z", "case_rule_id": "Potatoes O''Br", "case_rule_label":
+        "Novel Identity Exposure", "alert_rule": {"id": "s8LnBp", "label": "Deviled
+        crab", "name": "Meatcake"}, "owner_id": "Shish Kabob", "owner_name": "Apple
+        butter", "organisation_id": "Pulled pork", "organisation_name": "Corn flakes",
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Black
+        Pudding", "organisation_name": "Falafel"}], "enterprise_id": "Bear claw",
+        "enterprise_name": "Tuna Pizza"}, "entity_id": "Cornish game hen", "entity_name":
+        "Bellini", "targets": [{"name": "handled.org"}, {"name": "checked.se"}], "actions_taken":
+        []}, "panel_evidence_summary": {"assessments": [{"name": "Ice Cre", "criticality":
+        "Falafel"}], "subject": "Queso Fresco", "authorization_url": "https://consumer.holiday/",
+        "exposed_secret": {"type": "clear", "effectively_clear": true, "hashes": [{"algorithm":
+        "SHA1", "hash": "fe8da2dd41bf557972ed4e409b4434459275b40bc197c582aac36378b8d0a993"},
+        {"algorithm": "SHA256", "hash": "3c3c5fae320fb980fdab7856d137e7822093b39524c789145285fe7acee0f831"},
+        {"algorithm": "NTLM", "hash": "7f52f416b935adf1ea802cd0c879fe60fdb66a135f127a4dc98d74fb39834559"},
+        {"algorithm": "MD5", "hash": "4546d103a44bc3addf519b251f5244239d403f38dedded4df03307c9f7ad83fa"}],
+        "details": {"properties": ["Pemmic", "BBQ Chicken Pizza"], "clear_text_value":
+        "Hummus", "clear_text_hint": "Po"}}, "dump": {"name": "Churrasco", "description":
+        "Chicken fingers"}, "compromised_host": {"exfiltration_date": "2024-12-05T13:19:24.000Z"},
+        "malware_family": {"id": "nlflWX", "name": "Drunken chicken"}}, "panel_log":
+        [{"id": "kGhTZRoZB2RLC0mwhuArPtTsqLr0mfw6eMqenHJzt", "actor_name": "Reuben",
+        "actor_id": "Paella", "created": "2025-05-29T12:28:59.248Z", "modified": "Crepes",
+        "message": "Parma Ham"}, {"id": "t7yBROPIATYKJuR3XPjKdMoptIej368YiXYFNWn1d",
+        "actor_name": "Pulled pork", "actor_id": "Coleslaw", "created": "2025-05-29T12:29:58.430Z",
+        "modified": "Paella", "message": "Domesticated t"}, {"id": "j3j1CTyGJeONZIrGwpkOqQ4HUEWxxm7eiYuuK0pgn",
+        "actor_name": "London broil", "actor_id": "Corned beef", "created": "2025-05-29T12:38:19.661Z",
+        "modified": "Grits", "message": "Glorified rice"}, {"id": "dmHtfozf9AeyJ3CVYPOCbW3IaKDnMwHvvvriynVyd",
+        "actor_name": "Pork and beans", "actor_id": "Beef Manhattan", "created": "2025-05-29T15:21:37.183Z",
+        "modified": "Chicken herby pasta bake", "changes": {"status_change": {"old":
+        "New", "new": "Charlesto", "type": "status_change"}}}, {"id": "3eHEdDm3B3N8HF6T68sbyXnLw97ssetTuiCw7dAL5",
+        "actor_name": "Jerky", "actor_id": "Ice cream cake", "created": "2025-05-29T15:27:08.140Z",
+        "modified": "Philly Cheese Steak", "changes": {"status_change": {"old": "Porterhou",
+        "new": "Potato Wed", "type": "status_change"}}}, {"id": "1KehQCifbmJsQZJMtNrkxr0WM0MV9iK7xGk3G9VqD",
+        "actor_name": "Reuben sandwich", "actor_id": "Chicken Manchuri", "created":
+        "2025-05-29T15:28:17.885Z", "modified": "Bangers and mash", "changes": {"status_change":
+        {"old": "Ice cream ", "new": "Rabbit pi", "type": "status_change"}}}, {"id":
+        "GZmpyTwOtfttgK8HCPrecBVhtN4UCJueZnXRnsE9Z", "actor_name": "Texas Toast",
+        "actor_id": "Suckling Pig", "created": "2025-07-25T14:35:17.720Z", "modified":
+        "Rice and gravy", "changes": {"status_change": {"old": "Osso Buco", "new":
+        "Shish Kabo", "type": "status_change"}}}, {"id": "x5rKQVCBd2XHclSUcnDT7vxPanFeG8n9C9yUinyrV",
+        "actor_name": "Fries", "actor_id": "Butter cookie", "created": "2025-08-04T03:14:06.779Z",
+        "modified": "Russian tea cake", "changes": {"status_change": {"old": "Blue
+        chees", "new": "Haw", "type": "status_change"}}}, {"id": "z5UfPy5jsJyGFEdYMnVGFU4y0F98GOHxARr29Uecf",
+        "actor_name": "Toaster Strudel", "actor_id": "Polenta", "created": "2025-08-08T08:42:17.939Z",
+        "modified": "Supreme pizza", "changes": {"status_change": {"old": "Ban", "new":
+        "Sichuan H", "type": "status_change"}, "reopen_strategy_change": {"new": "Chick",
+        "type": "reopen_strategy_change"}}}, {"id": "5GVw6fffHPR6QmktSoI10MLPSF3UdexQJ3sSNcMcA",
+        "actor_name": "Macaroni and Cheese", "actor_id": "Massaman Curry", "created":
+        "2026-02-05T15:03:07.874Z", "modified": "Protein bar", "changes": {"status_change":
+        {"old": "Beignets", "new": "Chicken Di", "type": "status_change"}, "reopen_strategy_change":
+        {"old": "Paell", "type": "reopen_strategy_change"}}}, {"id": "BTC8NKhgSSA8mnoJ1Zz04EIDp15bsPizQ18PRI9y2",
+        "actor_name": "Chowder", "actor_id": "Rice and gravy", "created": "2026-02-05T17:23:44.961Z",
+        "modified": "Breaded shrimp", "changes": {"status_change": {"old": "Chowder",
+        "new": "French Di", "type": "status_change"}}}, {"id": "r7zIGVNFwOv29X440A2NcTasANaE60cBnx89DVwqE",
+        "actor_name": "Sushi", "actor_id": "Massaman Curry", "created": "2026-02-05T17:24:03.310Z",
+        "modified": "Protein bar", "changes": {"status_change": {"old": "BBQ Chick",
+        "new": "Beignets", "type": "status_change"}}}, {"id": "d9S41yzP6oZtu3KWu18T4MSvDgTEJQEHJf4JI5iHl",
+        "actor_name": "Cordon bleu", "actor_id": "Stuffed peppers", "created": "2026-02-13T10:10:56.424Z",
+        "modified": "Bruschetta", "changes": {"status_change": {"old": "Alphabet p",
+        "new": "Burnt end", "type": "status_change"}}}, {"id": "fQ7Oca7aXrfLNTJTt4sRoyKO6xud9SPWUnotnpZ9f",
+        "actor_name": "Chicago Hot Dog", "actor_id": "Baked potato", "created": "2026-02-13T10:11:10.360Z",
+        "modified": "Tuna Pizza", "changes": {"status_change": {"old": "Haggis", "new":
+        "Fry sauce", "type": "status_change"}}}], "panel_log_v2": [{"id": "v2Cg9nmgVsoJAjN3m5KzpNNiMxkIvGpsLEvrThiaM",
+        "author_id": "Pocky", "author_name": "Meatcake", "created": "2025-05-29T12:28:59.248Z",
+        "changes": [{"comment": "Sichuan Hot Po", "type": "comment_change"}]}, {"id":
+        "mQcNBk6J8clKpNdPuuGqOVBnfiR3q2vjoONekKxQh", "author_id": "Pistachio Ice Cr",
+        "author_name": "Texas Toast", "created": "2025-05-29T12:29:58.430Z", "changes":
+        [{"comment": "Suckling Pig", "type": "comment_change"}]}, {"id": "OwMApiuHtfrWFqCo6huuNoOiVafq47IZODQPxehn8",
+        "author_id": "Maine Lobster", "author_name": "Fry sauce", "created": "2025-05-29T12:38:19.661Z",
+        "changes": [{"comment": "Corn flakes", "type": "comment_change"}]}, {"id":
+        "WiIXZZ0N34iCEGUqIvCPbYStEnqLa2ZNN9ioix9R9", "author_id": "Hog fry", "author_name":
+        "Fajita", "created": "2025-05-29T15:21:37.183Z", "changes": [{"old": "Stu",
+        "new": "Russian d", "actions_taken": [], "type": "status_change"}]}, {"id":
+        "oXg0FCBBdlwlw7KgrOuRAGY8kel9MruwASiNWCFtN", "author_id": "Chicken Liver Pa",
+        "author_name": "Bangers and mash", "created": "2025-05-29T15:27:08.140Z",
+        "changes": [{"old": "Buffalo W", "new": "Ribs", "actions_taken": [], "type":
+        "status_change"}]}, {"id": "4lbnqijreZzXtIW5xKDT0ypbCL9WYQzlFF3ZB8iZJ", "author_id":
+        "Chinese food", "author_name": "Rabbit pie", "created": "2025-05-29T15:28:17.885Z",
+        "changes": [{"old": "Fajitas", "new": "Drunken c", "actions_taken": [], "type":
+        "status_change"}]}, {"id": "Apc7Gk5PGRPFRNHVMN1VnwZC78TCEvi0kTY5kT1Bp", "author_id":
+        "Cheese dog", "author_name": "Energy bar", "created": "2025-07-25T14:35:17.720Z",
+        "changes": [{"old": "Shepherd''", "new": "Turducken", "actions_taken": [],
+        "type": "status_change"}]}, {"id": "z66ITZPZorj9kNpcOFNKAjTCRL26j6FXnZnBarEmM",
+        "author_id": "Fajitas", "author_name": "Veggie Pizza", "created": "2025-08-04T03:14:06.779Z",
+        "changes": [{"old": "Soft Shell", "new": "Dom", "actions_taken": [], "type":
+        "status_change"}]}, {"id": "4tHRRhFPcKOJaraBxXoCm04rPXiiGSv0e88162rw8", "author_id":
+        "Patty", "author_name": "Pumpkin pie", "created": "2025-08-08T08:42:17.939Z",
+        "changes": [{"old": "Gar", "new": "Reuben sa", "actions_taken": [], "type":
+        "status_change"}, {"new": "Creme", "type": "reopen_strategy_change"}]}, {"id":
+        "izpmMWn0FiLtkFXmkN5N9jpOD9urO0zOjNpiR9SEU", "author_id": "Tuna casserole",
+        "author_name": "Lobster roll", "created": "2026-02-05T15:03:07.874Z", "changes":
+        [{"old": "Lobster N", "new": "Barbecue", "actions_taken": [], "type": "status_change"},
+        {"old": "Boull", "type": "reopen_strategy_change"}]}, {"id": "Gyu7kWQqOHhyVFdPAdTLlzHS1wGDuXXBSduejIaTV",
+        "author_id": "Carne pizzaiola", "author_name": "Chili con carne", "created":
+        "2026-02-05T17:23:44.961Z", "changes": [{"old": "Massaman C", "new": "Toaster
+        S", "actions_taken": [], "type": "status_change"}]}, {"id": "i4T0vPMnyYipMDPv553KX9bMHyoAI8buP6qYm4wz3",
+        "author_id": "Crab Rangoon", "author_name": "Hangtown fry", "created": "2026-02-05T17:24:03.310Z",
+        "changes": [{"old": "Buffalo W", "new": "Laksa", "actions_taken": [], "type":
+        "status_change"}]}, {"id": "m97J0wnNFsMSvuRKfDxP1jp71Q9wBTjN9sovPvr9X", "author_id":
+        "Poppyseed muffin", "author_name": "Bi Bim Bap", "created": "2026-02-13T10:10:56.424Z",
+        "changes": [{"old": "Mashed pum", "new": "Shucked O", "actions_taken": [],
+        "type": "status_change"}]}, {"id": "VKE9u6UDhAlF4bahPJqRbKsdRTeu7nG6uCCwsbmQD",
+        "author_id": "Alphabet pasta", "author_name": "Mashed potato", "created":
+        "2026-02-13T10:11:10.360Z", "changes": [{"old": "Montreal ", "new": "Corn
+        relis", "actions_taken": [], "type": "status_change"}]}]}}'
+    headers:
+      CF-RAY:
+      - 9dbbc9d6b9a7c53e-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Mar 2026 14:39:30 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

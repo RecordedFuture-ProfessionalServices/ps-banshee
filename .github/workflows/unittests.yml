@@ -1,0 +1,70 @@
+name: Unittests
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+permissions:
+  contents: write
+  checks: write
+  pull-requests: write
+
+
+jobs:
+  build:
+    name: "Python 3.10"
+    runs-on: ubuntu-latest
+    
+    env:
+      RF_TOKEN: ${{ secrets.RF_TOKEN }}
+
+    steps:
+      - name: Install TShark 4.4.10
+        run: |
+          sudo apt-get update
+          sudo add-apt-repository -y ppa:wireshark-dev/stable
+          sudo apt-get update
+          sudo apt-get install -y tshark
+
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v6
+
+      - name: Set up Python
+        run: uv python install 3.10
+
+      - name: Set up venv
+        run: |
+          uv venv -p 3.10
+          uv pip install '.[dev]'
+      
+      - name: Run tests
+        env:
+          RICH_NO_COLOR: 1
+          PY_COLORS: 0
+          NO_COLOR: 1
+        run: |
+          uv run -p 3.10 pytest \
+              --cov \
+              --cov-report=html:htmlcov --cov-report=term-missing --cov-branch \
+              --cov-report=term \
+              -v tests/ 
+
+      - name: Upload coverage HTML
+        if: always()
+        id: cov_html
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-html
+          path: htmlcov
+          retention-days: 14
+          if-no-files-found: error
+
+      - name: Comment link to coverage HTML
+        if: ${{ always() && github.event_name == 'pull_request' }}
+        uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            Coverage HTML (Python 3.10: ${{ steps.cov_html.outputs.artifact-url }}
+          message-id: CoverageHTML
+
+

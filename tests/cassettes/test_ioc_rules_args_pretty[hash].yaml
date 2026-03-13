@@ -1,0 +1,116 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/riskrules
+  response:
+    body:
+      string: '{"data": {"results": [{"criticalityLabel": "He looked", "description":
+        "I don''t even care.", "categories": [{"name": "Blue-p", "framework": "Ports"}],
+        "criticality": 3, "relatedEntities": [], "name": "Roaste", "count": 761785},
+        {"criticalityLabel": "Atoms can", "description": "Atoms can contain any character
+        if they are enclosed within single quot", "categories": [{"name": "Steame",
+        "framework": "The s"}], "criticality": 3, "relatedEntities": [], "name": "Protein
+        bar", "count": 9728}, {"criticalityLabel": "Atoms a", "description": "Ports
+        are used to communicate with t", "categories": [{"name": "Key Li", "framework":
+        "They "}], "criticality": 1, "relatedEntities": [], "name": "Milkshake", "count":
+        75375}, {"criticalityLabel": "The argume", "description": "The Galactic Empire
+        is ", "categories": [{"name": "Chicke", "framework": "Where"}], "criticality":
+        2, "relatedEntities": [], "name": "Onion ring", "count": 3177847}, {"criticalityLabel":
+        "She spe", "description": "Do you have any i", "categories": [{"name": "Burnt
+        ", "framework": "It is"}], "criticality": 1, "relatedEntities": [], "name":
+        "Samosa", "count": 139033}, {"criticalityLabel": "Do you com", "description":
+        "The Galactic Empire is ", "categories": [{"name": "Low Co", "framework":
+        "She s"}, {"name": "Tetrazzin", "framework": "The a"}, {"name": "Laksa", "framework":
+        "Haske"}], "criticality": 2, "relatedEntities": [], "name": "Breakfast bu",
+        "count": 588902}, {"criticalityLabel": "The syntax", "description": "Erlang
+        is known for it", "categories": [{"name": "Veniso", "framework": "Do yo"}],
+        "criticality": 2, "relatedEntities": [], "name": "Blue cheese dressin", "count":
+        462317}, {"criticalityLabel": "Atoms c", "description": "They are written
+        as strings of consecutive al", "categories": [{"name": "Hot ch", "framework":
+        "Initi"}], "criticality": 1, "relatedEntities": [], "name": "Banh Mi Vi",
+        "count": 0}, {"criticalityLabel": "Ports are", "description": "The syntax
+        {D1,D2,...,Dn", "categories": [{"name": "Clam c", "framework": "The G"}],
+        "criticality": 3, "relatedEntities": [], "name": "Onion ring", "count": 42313},
+        {"criticalityLabel": "They are ", "description": "She spent her earliest y",
+        "categories": [{"name": "Breade", "framework": "Erlan"}], "criticality": 3,
+        "relatedEntities": [], "name": "Chicken Biryani", "count": 470441787}, {"criticalityLabel":
+        "Tuples are", "description": "Do you have any i", "categories": [{"name":
+        "Burnt ", "framework": "Atoms"}], "criticality": 2, "relatedEntities": [],
+        "name": "Meat Feast Pizz", "count": 248474359}, {"criticalityLabel": "They
+        are w", "description": "Haskell is a standardized, g", "categories": [{"name":
+        "Tomato", "framework": "It is"}], "criticality": 2, "relatedEntities": [],
+        "name": "Turducken", "count": 63457830}, {"criticalityLabel": "Make me", "description":
+        "Its main implementation is the Glasgow Haskell Co", "categories": [], "criticality":
+        1, "relatedEntities": [], "name": "Eggs Neptune", "count": 3945}, {"criticalityLabel":
+        "Do you ha", "description": "Tuples are containers for a fixed number of",
+        "categories": [{"name": "Chick", "framework": "It is"}, {"name": "Bange",
+        "framework": "Do yo"}], "criticality": 3, "relatedEntities": [], "name": "Salad
+        bar", "count": 17780}, {"criticalityLabel": "The argume", "description": "I
+        don''t even care.", "categories": [{"name": "Cinnam", "framework": "Initi"}],
+        "criticality": 2, "relatedEntities": [], "name": "Baklava", "count": 33824},
+        {"criticalityLabel": "M", "description": "Tuples are conta", "categories":
+        [], "criticality": 0, "relatedEntities": [], "name": "Breakfast b", "count":
+        29513488}, {"criticalityLabel": "The argum", "description": "The arguments
+        can be primitive data", "categories": [{"name": "Gyoza", "framework": "The
+        s"}], "criticality": 3, "relatedEntities": [], "name": "Steak sauc", "count":
+        8962}, {"criticalityLabel": "Any eleme", "description": "Atoms are used within
+        a program to denote distinguish", "categories": [{"name": "Kung P", "framework":
+        "Make "}, {"name": "Pastra", "framework": "The s"}], "criticality": 3, "relatedEntities":
+        ["The Ga"], "name": "Pumpkin pie", "count": 317199}]}}'
+    headers:
+      CF-RAY:
+      - 9cd37f692e09ed0b-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:03:45 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01ds6bme0ucpr1ghhti7w8cdmp2015691.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

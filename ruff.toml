@@ -1,0 +1,130 @@
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".ruff_cache",
+    ".venv",
+    "_build",
+    "build",
+    "dist",
+    "venv",
+    "tests/vcr_utils.py",
+]
+
+line-length = 100 # Used by both linter and E501
+indent-width = 4
+output-format = "grouped"
+target-version = "py39"
+
+[lint]
+select = [
+    "A",      # flake8-builtins
+    "ARG",    # flake8-unused-arguments
+    "B",      # flake8-bugbear
+    "BLE",    # flake8-blind-except
+    "C4",     # flake8-comprehensions 
+    "COM",    # flake8-commas
+    "CPY001", # copyright
+    "C90",    # mccabe (max-complexity)
+    "D",      # pydocstyle
+    "E",      # pycodestyle errors
+    "ERA",    # eradicate
+    "F",      # pyflakes
+    "FIX",    # flake8-fixme
+    "FLY",    # flynt
+    "FURB",   # refurb
+    "I",      # isort
+    "INP",    # flake8-no-pep420
+    "ISC",    # flake8-implicit-str-concat
+    "N",      # pep8-naming
+    "PERF",   # Perflint
+    "PIE",    # flake8-pie
+    "PLE",    # pylint-error
+    "PLW",    # pylint-warning
+    "PT",     # flake8-pytest-style
+    "PTH",    # flake8-use-pathlib
+    "RET",    # flake8-return
+    "S",      # flake8-bandit
+    "SIM",    # flake8-simplify
+    "T20",    # flake8-print
+    "UP",     # pyupgrade
+    "W",      # pycodestyle warnings
+]
+
+ignore = [
+    "COM812",  # missing-trailing-comma, formatter conflict
+    "D100",    # missing docstring in public module (__init__)
+    "D104",    # missing docstring in public package (__init__)
+    "D105",    # missing docstring in magic method
+    "D107",    # Missing docstring in __init__
+    "D205",    # 1 blank line required between summary line and description
+    "D401",    # First line of docstring should be in imperative mood: "{first_line}"
+    "E266",    # multiple-leading-hashes-for-block-comment
+    "ISC001",  # single-line-implicit-string-concatenation, formatter conflict
+    "S603",    # subprocess-without-shell-equals-true 
+    "S605",    # start-process-with-a-shell
+    "S607",    # start-process-with-partial-path
+]
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+preview = true
+explicit-preview-rules = true
+
+[lint.mccabe]
+max-complexity = 10
+
+[lint.extend-per-file-ignores]
+"tests*/*" = [
+    "CPY",     # copyright
+    "D",       # pydocstyle
+    "E501",    # line too long
+    "INP001",  # implicit-namespace-package
+    "N",       # pep8-naming
+    "PERF",    # Perflint
+    "PIE794",  # duplicate-class-field-definition
+    "PT011",   # pytest-raises-too-broad
+    "PTH",     # flake8-use-pathlib
+    "S101",    # assert
+]
+
+
+"**/__init__.py" = [
+    "F401",   # unused-import
+    "F403",   # undefined-local-with-import-star
+]
+
+"banshee/*" = [
+    "T201",
+    "D103"
+]
+
+"banshee/commands/epilogs.py" = [
+    "E501",   # line too long
+]
+
+[lint.pydocstyle]
+convention = "google"
+
+[format]
+quote-style = "single"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+
+[lint.flake8-copyright]
+notice-rgx = """#################################### TERMS OF USE ###########################################
+# The following code is provided for demonstration purpose only, and should not be used      #
+# without independent verification. Recorded Future makes no representations or warranties,  #
+# express, implied, statutory, or otherwise, regarding any aspect of this code or of the     #
+# information it may retrieve, and provides it both strictly “as-is” and without assuming    #
+# responsibility for any information it may retrieve. Recorded Future shall not be liable    #
+# for, and you assume all risk of using, the foregoing. By using this code, Customer         #
+# represents that it is solely responsible for having all necessary licenses, permissions,   #
+# rights, and/or consents to connect to third party APIs, and that it is solely responsible  #
+# for having all necessary licenses, permissions, rights, and/or consents to any data        #
+# accessed from any third party API.                                                         #
+##############################################################################################""" 

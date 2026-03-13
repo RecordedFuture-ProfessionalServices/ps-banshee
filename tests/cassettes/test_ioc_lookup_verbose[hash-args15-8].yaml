@@ -1,0 +1,112 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/fa54c4e34732b611921820be56dd690a4de98285828e4be487b904679a855a92?fields=fileHashes%2CanalystNotes%2CintelCard%2Centity%2Ctimestamps%2Clinks%2Crisk%2ChashAlgorithm
+  response:
+    body:
+      string: '{"data": {"timestamps": {"lastSeen": "2025-01-02T18:50:02.882Z", "firstSeen":
+        "2019-02-13T12:41:06.966Z"}, "entity": {"id": "hash:e700a57440217b83d4987ee0e14b23e4c9e47b1d1f6174227a82afd1f3b2f4fd",
+        "name": "fb65de8fe32d4dafb46e6c478f95a3bc0d42ae752c33c5ac8780a333c938fb66",
+        "type": "Hash"}, "analystNotes": [{"external_id": "Sushi", "attributes": {"published":
+        "2025-10-08T22:22:14.531Z", "text": "Atoms are used within a program to denote
+        distinguished values. The sequential subset of Erlang supports eager evaluation,
+        single assignment, and dynamic typing. Type classes first appeared in the
+        Haskell programming language. Initially com", "authors": [{"id": "3iP12UKhoSxiL69p",
+        "name": "Flan", "type": "IntegrationUser"}], "title": "Haskell features a",
+        "context_entities": [{"id": "qyCL9xf3OUEyGMdhS20GpXUMLN0KCBJ", "name": "Fajitas",
+        "type": "EmailAddress"}, {"id": "url:https://mars.coop/", "name": "https://noted.scot/",
+        "type": "URL"}, {"id": "5BaTR4", "name": "Steak Tar", "type": "Company"},
+        {"id": "idn:club.coop", "name": "payments.mil", "type": "InternetDomainName"},
+        {"id": "ip:16.198.112.139", "name": "116.12.189.104", "type": "IpAddress"},
+        {"id": "hash:e0112a2477bf77cf350a4ff3bd97aaeba45ebf6a2e671b1b3727c37794c8b6dc",
+        "name": "7a3702664cdaec089c4b12615090ea416245b62a6a424c9c4fa416b47f041dbc",
+        "type": "Hash"}]}, "source": {"id": "YnrajuN2Z9yfq", "name": "Pancakes", "type":
+        "Source"}, "id": "_AI5Iq"}, {"external_id": "Chicke", "attributes": {"published":
+        "2025-10-08T22:20:09.143Z", "text": "She spent her earliest years reading
+        classic literature, and writing poetry. It is also a garbage-collected runtime
+        system. She spent her earliest years reading classic literature, and writing
+        poetry. Erlang is a general-purpose, concurre", "authors": [{"id": "bjTKEDiEMwNJNhuT",
+        "name": "Chocolate Chip Coo", "type": "IntegrationUser"}], "title": "He looked
+        inquisit", "context_entities": [{"id": "H4zEqrE4liYL5WkcGzmrQdhvMAnaCuR",
+        "name": "Elote", "type": "EmailAddress"}, {"id": "url:https://pee.cat/", "name":
+        "https://scales.rip/", "type": "URL"}, {"id": "5BaTR4", "name": "Hawaiian
+        ", "type": "Company"}, {"id": "idn:pregnancy.garden", "name": "sum.kids",
+        "type": "InternetDomainName"}, {"id": "ip:6.137.143.243", "name": "122.230.97.254",
+        "type": "IpAddress"}, {"id": "hash:a79b8dd27f6e230bb1a37230490039ebc1b8cd01921fcfbc9c5c46f3a19dc36d",
+        "name": "963a897197e0f84d80310e10646d8cacee407f10ff73ee67c08935cd5c4c51dd",
+        "type": "Hash"}]}, "source": {"id": "5n5TcGoIINjve", "name": "Chicken herby
+        pasta bake", "type": "Source"}, "id": "_AI5Io"}, {"external_id": "Ice Cr",
+        "attributes": {"published": "2025-04-30T17:08:02.778Z", "text": "Messages
+        ", "authors": [{"id": "3JDLaffa4HF9gYBT", "name": "Chocolate chee", "type":
+        "User"}], "title": "Its main impl", "note_entities": [{"id": "hash:2db3793fc793b2b2a4b7ec0569a9f6c6dae3da75ef941a3b613232a2f52a0dda",
+        "name": "edae03e76a5afea52af48b42d299374ebde215f63553a667669e2e12ce0dce7f",
+        "type": "Hash"}]}, "source": {"id": "AWyshdAnF1c2J", "name": "Kimchi", "type":
+        "Source"}, "id": "5p-v41"}], "hashAlgorithm": "SHA-256", "risk": {"criticalityLabel":
+        "Haystack", "riskString": "Stea", "rules": 2, "criticality": 3, "riskSummary":
+        "Choco pie", "score": 80, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "Baked potato", "rule": "Scampi", "criticality": 2, "timestamp": "2025-12-14T04:19:59.157Z",
+        "criticalityLabel": "Oreo"}, {"mitigationString": "", "evidenceString": "Crab
+        Rangoon", "rule": "Jalapeno Poppers", "criticality": 3, "timestamp": "2019-02-13T12:28:42.000Z",
+        "criticalityLabel": "Chicken T"}]}, "fileHashes": ["8705c12ecd53a9b7662b89425b95a7b2408d937198f581680dbcd45087e647ab",
+        "5882c4358f015c5b751849bcd950ddd74e494b7502c430c74b45cc2106ac896a", "8086affd85b88c8a6f48b444e3fe29604d953d787f3b3134b99f8b46047f1ebc",
+        "0fcae696703380871570ecec452b09aa9595839154c50f6cc0983484c8cbe078"], "intelCard":
+        "https://stone.aero/", "links": {"hits": [], "method_aggregates": [{"count":
+        0, "type": "hHQyM6"}, {"count": 0, "type": "hHQyM7"}, {"count": 0, "type":
+        "gTB8y2"}], "counts": []}}}'
+    headers:
+      CF-RAY:
+      - 9cee13e5e89b32d5-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 15:28:57 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node07pezgerkoquc1ksbacm4qlfy63748798.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

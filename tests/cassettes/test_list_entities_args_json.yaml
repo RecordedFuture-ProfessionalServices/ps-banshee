@@ -1,0 +1,99 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/list/report:wpHivJ/info
+  response:
+    body:
+      string: '{"id": "report:wpHivJ", "name": "Frito Pie", "type": "entity", "created":
+        "2024-07-01T12:51:38.804Z", "updated": "2026-02-13T10:59:40.887Z", "owner_id":
+        "Haskell is a sta", "owner_name": "Make me a sandwich.", "organisation_id":
+        "I don''t even car", "organisation_name": "Atoms can contain any character
+        i", "owner_organisation_details": {"owner_id": "He looked inquis", "owner_name":
+        "Tuples are containers f", "organisations": [], "enterprise_id": "Haskell
+        is a sta", "enterprise_name": "Erlang is known for its designs t"}}'
+    headers:
+      CF-RAY:
+      - 9cedf9ea9a03d1b8-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 15:11:13 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/list/report:wpHivJ/entities
+  response:
+    body:
+      string: '[{"entity": {"id": "ip:185.133.59.181", "type": "IpAddress", "name":
+        "Mozzare"}, "status": "ready", "added": "2026-02-13T10:58:53.784Z"}, {"entity":
+        {"id": "ip:154.143.117.68", "type": "IpAddress", "name": "Chicken"}, "status":
+        "ready", "added": "2026-02-13T10:59:02.458Z"}]'
+    headers:
+      CF-RAY:
+      - 9cedf9ec4910bed5-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 15:11:13 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

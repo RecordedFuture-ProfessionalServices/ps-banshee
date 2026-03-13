@@ -1,0 +1,104 @@
+site_name: PS Banshee
+
+theme:
+  logo: assets/favicon.png
+  favicon: assets/favicon.png
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - content.code.annotate
+    - content.code.copy
+    - content.code.wrap
+    - content.footnote.tooltips
+    - content.tabs.link
+    - content.tooltips
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.path
+    - navigation.top
+    - navigation.tracking
+    - navigation.sections
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+
+extra:
+  version:
+    provider: mike
+  generator: false
+  social:
+  - icon: fontawesome/brands/youtube
+    link: https://www.youtube.com/user/RecordedFuture
+  - icon: fontawesome/brands/facebook
+    link: https://www.facebook.com/RecordedFuture
+  - icon: fontawesome/brands/linkedin
+    link: https://www.linkedin.com/company/recorded-future
+  - icon: fontawesome/brands/twitter
+    link: https://x.com/recordedfuture
+  - icon: fontawesome/brands/instagram
+    link: https://www.instagram.com/recordedfuture/
+  - icon: fontawesome/solid/rss
+    link: https://www.recordedfuture.com/feed
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - pymdownx.highlight:
+      anchor_linenums: true        
+      linenums: true             
+      guess_lang: false
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  
+nav:
+  - index.md
+  - Getting Started: 
+      - getting-started/index.md
+      - Installation: getting-started/installation.md
+      - First Steps: getting-started/first-steps.md
+      - Getting help: getting-started/help.md
+  - Use cases: 
+      - usecases/index.md
+      - Alert Management:
+        - usecases/alerts/index.md
+      - Detection Rules:
+        - usecases/detection-rules/index.md
+      - Entity Matching:
+        - usecases/entity/index.md
+      - IOC Enrichment:
+        - usecases/enrichment/index.md
+      - Packet Capture Enrichment:
+        - usecases/pcap/index.md
+      - Risk Lists:
+        - usecases/risklists/index.md
+      - Watchlist Management:
+        - usecases/watchlist/index.md
+  - Reference:
+      - reference/index.md
+      - Commands: reference/commands.md
+      - Environment variables: reference/environment.md
+  - Release History: CHANGELOG.md
+  - about.md
+  

@@ -1,0 +1,757 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/ip/45.134.26.41?fields=dnsPortCert%2CriskMapping%2CintelCard%2Crisk%2Csightings%2Clocation%2Ctimestamps%2CthreatLists%2CanalystNotes%2Clinks%2CenterpriseLists%2Centity%2Cscanner
+  response:
+    body:
+      string: '{"data": {"enterpriseLists": [], "risk": {"criticalityLabel": "Shish
+        Kabo", "riskString": "Clam ", "rules": 17, "criticality": 2, "riskSummary":
+        "Chili dog", "score": 43, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "Wasabi Peas", "rule": "Ice Cream Sundae", "criticality": 1, "timestamp":
+        "2021-07-27T22:15:01.000Z", "criticalityLabel": "Fried G"}, {"mitigationString":
+        "", "evidenceString": "Kobe Beef", "rule": "Crab Rangoon", "criticality":
+        1, "timestamp": "2025-06-06T10:41:12.940Z", "criticalityLabel": "Soft Sh"},
+        {"mitigationString": "", "evidenceString": "Queso Fresco", "rule": "Creme
+        Brulee", "criticality": 1, "timestamp": "2025-12-23T08:55:01.625Z", "criticalityLabel":
+        "Crab Ra"}, {"mitigationString": "", "evidenceString": "Muffuletta", "rule":
+        "Bao", "criticality": 1, "timestamp": "2021-10-14T11:12:39.000Z", "criticalityLabel":
+        "Lobster"}, {"mitigationString": "", "evidenceString": "Clam cake", "rule":
+        "Goulash", "criticality": 1, "timestamp": "2025-12-09T00:00:00.000Z", "criticalityLabel":
+        "French "}, {"mitigationString": "", "evidenceString": "Gyoza", "rule": "Texas
+        Toast", "criticality": 1, "timestamp": "2021-08-12T07:20:39.112Z", "criticalityLabel":
+        "Potatoe"}, {"mitigationString": "", "evidenceString": "Frybread", "rule":
+        "Jambalaya", "criticality": 1, "timestamp": "2025-12-04T16:38:33.432Z", "criticalityLabel":
+        "Celery "}, {"mitigationString": "", "evidenceString": "Macaroni and Cheese",
+        "rule": "Celery Victor", "criticality": 1, "timestamp": "2025-06-14T17:45:13.116Z",
+        "criticalityLabel": "Chips a"}, {"mitigationString": "", "evidenceString":
+        "Roasted Bone Marrow", "rule": "Swiss steak", "criticality": 1, "timestamp":
+        "2025-06-06T10:41:13.023Z", "criticalityLabel": "Salisbu"}, {"mitigationString":
+        "", "evidenceString": "Bear claw", "rule": "Sonofabitch stew", "criticality":
+        1, "timestamp": "2021-10-15T04:09:45.489Z", "criticalityLabel": "Mozzare"},
+        {"mitigationString": "", "evidenceString": "Pastrami on Rye", "rule": "Cheese
+        Curds", "criticality": 1, "timestamp": "2025-12-23T21:18:46.238Z", "criticalityLabel":
+        "Huevos "}, {"mitigationString": "", "evidenceString": "Gyoza", "rule": "Mozzarella",
+        "criticality": 1, "timestamp": "2025-06-06T10:41:12.856Z", "criticalityLabel":
+        "Colesla"}, {"mitigationString": "", "evidenceString": "Cheese dog", "rule":
+        "Steak Tartare", "criticality": 1, "timestamp": "2025-12-04T00:00:00.000Z",
+        "criticalityLabel": "Meatcak"}, {"mitigationString": "", "evidenceString":
+        "Hokkien fried rice", "rule": "Tomato compote", "criticality": 1, "timestamp":
+        "2026-02-10T07:12:29.307Z", "criticalityLabel": "Roasted"}, {"mitigationString":
+        "", "evidenceString": "Albacore Tuna Melt", "rule": "Falafel", "criticality":
+        1, "timestamp": "2026-02-10T07:12:29.311Z", "criticalityLabel": "Meatcak"},
+        {"mitigationString": "", "evidenceString": "Texas Toast", "rule": "New York-Style
+        Pizza", "criticality": 2, "timestamp": "2025-11-19T08:20:16.856Z", "criticalityLabel":
+        "Texas Toas"}, {"mitigationString": "", "evidenceString": "Fried Green Tomatoes",
+        "rule": "Domesticated turkey", "criticality": 2, "timestamp": "2025-12-30T05:20:20.000Z",
+        "criticalityLabel": "Drunken ch"}]}, "sightings": [{"source": "Tagine", "url":
+        "https://prison.mobi/", "published": "2025-12-09T00:00:00.000Z", "fragment":
+        "American fried rice", "title": "Its main implementation is the Glasgow Haskell
+        Compiler.", "type": "mostRecent"}, {"source": "Scrapple", "url": "https://parenting.gt/",
+        "published": "2021-11-05T19:15:31.000Z", "fragment": "Salad bar", "title":
+        "I don''t even care.", "type": "recentPaste"}, {"source": "Smelt", "url":
+        "", "published": "2021-05-15T11:09:32.000Z", "fragment": "Black Pudding",
+        "title": "Make me a sandwich.", "type": "first"}, {"source": "Corn c", "url":
+        "https://sas.info/", "published": "2025-12-12T19:45:21.914Z", "fragment":
+        "Pepperoni Pizza", "title": "Its main implementation is the Glasgow Haskell
+        Compiler.", "type": "recentInfoSec"}], "riskMapping": [{"rule": "Shawarma",
+        "categories": [{"framework": "Tin R", "name": "Mufful"}, {"framework": "Reube",
+        "name": "Poppys"}]}, {"rule": "French Onion Soup", "categories": [{"framework":
+        "Sandw", "name": "Funnel"}, {"framework": "Vegem", "name": "Kimchi"}]}, {"rule":
+        "Jell-O", "categories": []}, {"rule": "Chicken nuggets", "categories": [{"framework":
+        "Beef ", "name": "Potato"}]}, {"rule": "Chowder", "categories": [{"framework":
+        "Chick", "name": "Colesl"}]}, {"rule": "Senate bean soup", "categories": [{"framework":
+        "Clam ", "name": "Gumbo"}]}, {"rule": "Eggs Benedict", "categories": [{"framework":
+        "Saute", "name": "City c"}, {"framework": "Chowd", "name": "Potato"}]}, {"rule":
+        "Deviled egg", "categories": [{"framework": "Crab ", "name": "Pulle"}]}, {"rule":
+        "Creamed eggs on toast", "categories": []}, {"rule": "Fry sauce", "categories":
+        [{"framework": "Risot", "name": "Milk "}]}, {"rule": "Bird''s Nest Soup",
+        "categories": [{"framework": "Souvl", "name": "BBQ Ri"}]}, {"rule": "Stuffed
+        zu", "categories": []}, {"rule": "Carne pizzaiola", "categories": [{"framework":
+        "Vegem", "name": "Bull r"}]}, {"rule": "Calf''s liver and bacon", "categories":
+        [{"framework": "Tagin", "name": "Potato"}]}, {"rule": "Chicken nugget", "categories":
+        []}, {"rule": "Phaal", "categories": []}, {"rule": "Fried Green Tomatoes",
+        "categories": [{"framework": "Buffa", "name": "Falafe"}]}], "entity": {"id":
+        "ip:140.78.226.232", "name": "141.176.46.117", "type": "IpAddress"}, "dnsPortCert":
+        {"certificates": [], "dns": {"forwardDns": [{"hostname": "moral.int", "lastSeen":
+        null, "firstSeen": null}], "reverseDns": null}, "ports": [{"name": null, "version":
+        null, "port": 22, "extraInfo": null, "protocol": "Fri", "product": null},
+        {"name": null, "version": null, "port": 80, "extraInfo": null, "protocol":
+        "Lon", "product": null}, {"name": null, "version": null, "port": 135, "extraInfo":
+        null, "protocol": "BBQ", "product": null}, {"name": null, "version": null,
+        "port": 139, "extraInfo": null, "protocol": "Dir", "product": null}, {"name":
+        null, "version": null, "port": 3389, "extraInfo": null, "protocol": "Pok",
+        "product": null}, {"name": null, "version": null, "port": 6000, "extraInfo":
+        null, "protocol": "Pat", "product": null}, {"name": null, "version": null,
+        "port": 7070, "extraInfo": null, "protocol": "Sch", "product": null}, {"name":
+        null, "version": null, "port": 9999, "extraInfo": null, "protocol": "Egg",
+        "product": null}]}, "location": {"organization": null, "cidr": {"id": "ip:83.225.251.233",
+        "name": "15.60.242.209", "type": "IpAddress"}, "location": {"continent": "Garlic",
+        "country": "Eggo", "city": "Fortun"}, "asn": null}, "scanner": {"lastSeen":
+        "2025-06-20", "tags": {"verdictDetails": ["Seafood cocktail"], "entity": [{"name":
+        "Massaman Curry", "id": "mzte7Q", "type": "Product"}]}, "verdict": "Pop-Tarts",
+        "scannedIpCountries": ["Po", "So", "Or", "Mo", "Lo", "Lo", "Wa", "Po", "Ch",
+        "Sc", "Fr", "Pr"], "rdns": [], "scannerCountry": "Go", "ports": {"tcp": [10443,
+        443]}, "globalScanner": false, "userAgents": ["Bulgogi"], "webRequests": ["Jell-O",
+        "Beef Manhattan"], "evidence": [{"Name": "Energy b", "EvidenceString": "Garden
+        salad", "CriticalityLabel": "Steak s", "MitigationString": "", "Rule": "Clam
+        cake", "SourcesCount": 1.0, "Sources": ["Banger"], "Timestamp": "2021-07-27T22:15:01.000Z",
+        "SightingsCount": 1.0, "Criticality": 1.0}, {"Name": "Creamed eggs on", "EvidenceString":
+        "Calamari", "CriticalityLabel": "Hokkien", "MitigationString": "", "Rule":
+        "Corn chowder", "SourcesCount": 3.0, "Sources": ["Queso Fresco", "Dirty rice",
+        "Ice cream cak"], "Timestamp": "2025-06-06T10:41:12.940Z", "SightingsCount":
+        6.0, "Criticality": 1.0}, {"Name": "Turducken", "EvidenceString": "Salisbury
+        steak", "CriticalityLabel": "Cobb Sa", "MitigationString": "", "Rule": "Pasta
+        salad", "SourcesCount": 2.0, "Sources": ["Hawaiian Pizz", "Low Country B"],
+        "Timestamp": "2025-12-23T08:55:01.625Z", "SightingsCount": 2.0, "Criticality":
+        1.0}, {"Name": "Ammoni", "EvidenceString": "Chicken Salad Wrap", "CriticalityLabel":
+        "Potato ", "MitigationString": "", "Rule": "Mashed pumpkin", "SourcesCount":
+        1.0, "Sources": ["Parma Ham"], "Timestamp": "2021-10-14T11:12:39.000Z", "SightingsCount":
+        21.0, "Criticality": 1.0}, {"Name": "Onion Rings", "EvidenceString": "Steak
+        Tartare", "CriticalityLabel": "Roasted", "MitigationString": "", "Rule": "Oysters
+        Rockefeller", "SourcesCount": 1.0, "Sources": ["Chicharones"], "Timestamp":
+        "2025-12-09T00:00:00.000Z", "SightingsCount": 2.0, "Criticality": 1.0}, {"Name":
+        "Macaroni and c", "EvidenceString": "Hummus", "CriticalityLabel": "Crepes",
+        "MitigationString": "", "Rule": "Gumbo", "SourcesCount": 1.0, "Sources": ["Banh
+        Mi Vi\u00eat"], "Timestamp": "2021-08-12T07:20:39.112Z", "SightingsCount":
+        6.0, "Criticality": 1.0}, {"Name": "Chocolate C", "EvidenceString": "Low Country
+        Boil", "CriticalityLabel": "Sichuan", "MitigationString": "", "Rule": "Quesadilla",
+        "SourcesCount": 1.0, "Sources": ["Mashed potato"], "Timestamp": "2025-12-04T16:38:33.432Z",
+        "SightingsCount": 1.0, "Criticality": 1.0}, {"Name": "Pepperoni", "EvidenceString":
+        "Montreal Smoked Meat", "CriticalityLabel": "Peanut ", "MitigationString":
+        "", "Rule": "Pan Seared Scallops", "SourcesCount": 1.0, "Sources": ["Sauteed
+        Morel"], "Timestamp": "2025-06-14T17:45:13.116Z", "SightingsCount": 1.0, "Criticality":
+        1.0}, {"Name": "Abalone", "EvidenceString": "Slinger", "CriticalityLabel":
+        "Buffalo", "MitigationString": "", "Rule": "Deviled egg", "SourcesCount":
+        1.0, "Sources": ["Cheese dog"], "Timestamp": "2025-06-06T10:41:13.023Z", "SightingsCount":
+        2.0, "Criticality": 1.0}, {"Name": "Ploye", "EvidenceString": "Chicken Biryani",
+        "CriticalityLabel": "Chicago", "MitigationString": "", "Rule": "Sonofabitch
+        stew", "SourcesCount": 1.0, "Sources": ["Blue cheese d"], "Timestamp": "2021-10-15T04:09:45.489Z",
+        "SightingsCount": 1.0, "Criticality": 1.0}, {"Name": "Macaro", "EvidenceString":
+        "Drunken chicken", "CriticalityLabel": "Celery ", "MitigationString": "",
+        "Rule": "Oysters Rockefeller", "SourcesCount": 1.0, "Sources": ["Fried chicken"],
+        "Timestamp": "2025-12-23T21:18:46.238Z", "SightingsCount": 1.0, "Criticality":
+        1.0}, {"Name": "Jell-O", "EvidenceString": "Philadelphia cheesesteak", "CriticalityLabel":
+        "Chicken", "MitigationString": "", "Rule": "French Dip", "SourcesCount": 1.0,
+        "Sources": ["Russian tea c"], "Timestamp": "2025-06-06T10:41:12.856Z", "SightingsCount":
+        1.0, "Criticality": 1.0}, {"Name": "Sonofabitch", "EvidenceString": "Phaal",
+        "CriticalityLabel": "Margher", "MitigationString": "", "Rule": "Lasagna",
+        "SourcesCount": 1.0, "Sources": ["Shawarma"], "Timestamp": "2025-12-04T00:00:00.000Z",
+        "SightingsCount": 1.0, "Criticality": 1.0}, {"Name": "Crab Rangoon", "EvidenceString":
+        "Toaster Strudel", "CriticalityLabel": "Steak s", "MitigationString": "",
+        "Rule": "Chicken fingers", "SourcesCount": 2.0, "Sources": ["Onion Rings",
+        "Steak Tartare"], "Timestamp": "2026-02-10T07:12:29.307Z", "SightingsCount":
+        -1.0, "Criticality": 1.0}, {"Name": "Potatoes O''Brien", "EvidenceString":
+        "Lobster Newberg", "CriticalityLabel": "Reuben", "MitigationString": "", "Rule":
+        "Gumbo", "SourcesCount": 1.0, "Sources": ["Mulligan stew"], "Timestamp": "2026-02-10T07:12:29.311Z",
+        "SightingsCount": -1.0, "Criticality": 1.0}, {"Name": "Chicken and", "EvidenceString":
+        "Carne pizzaiola", "CriticalityLabel": "Deviled eg", "MitigationString": "",
+        "Rule": "Corned beef", "SourcesCount": 1.0, "Sources": ["Grilled Snake"],
+        "Timestamp": "2025-11-19T08:20:16.856Z", "SightingsCount": 14.0, "Criticality":
+        2.0}, {"Name": "Meat Feast P", "EvidenceString": "Biscuit", "CriticalityLabel":
+        "Russian te", "MitigationString": "", "Rule": "Tuna Pizza", "SourcesCount":
+        1.0, "Sources": ["Bulgogi"], "Timestamp": "2025-12-30T05:20:20.000Z", "SightingsCount":
+        41.0, "Criticality": 2.0}]}, "analystNotes": [{"attributes": {"validated_on":
+        "2025-12-04T17:00:00.000Z", "published": "2025-12-04T16:38:33.432Z", "text":
+        "Its main implementation is the Glasgow Haskell Compiler. Tuples are containers
+        for a fixed number of Erlang data types. The Galactic Empire is nearing completion
+        of the Death Star, a space station with the power to destroy entire planets.
+        In 1989 the building was heavily damaged by fire, but it has since been restored.
+        Haskell is a standardized, general-purpose purely functional programming language,
+        with non-strict semantics and strong static typing.", "header_image": {"id":
+        "QvzMDeM5t7Wm4DqSkZtnE0lzCbHSARfjrE3dI4E1", "name": "Cinnamon Roll", "type":
+        "Image"}, "attachment": "BBQ Ribs", "topic": {"id": "TXSFt1", "name": "Toaster
+        Strudel", "type": "Topic", "description": "Pulled pork"}, "context_entities":
+        [{"id": "DPuhlp", "name": "New York", "type": "Product"}, {"id": "idn:reg.menu",
+        "name": "ltd.net", "type": "InternetDomainName"}, {"id": "remivK", "name":
+        "Hot Chicken san", "type": "Company"}, {"id": "I50Cdg", "name": "Quesadilla",
+        "type": "Technology"}, {"id": "RDR0IT", "name": "Calf''s ", "type": "AttackVector"},
+        {"id": "I-wyPm", "name": "basketball.km", "type": "Company"}, {"id": "KmpTS",
+        "name": "Biscuit", "type": "Country"}, {"id": "8Ayxc", "name": "Mashed", "type":
+        "Product"}, {"id": "idn:goes.alsace", "name": "began.org", "type": "InternetDomainName"},
+        {"id": "wbgF5z", "name": "Turkish De", "type": "Malware"}, {"id": "b89KOk",
+        "name": "Dirty ric", "type": "Malware"}, {"id": "b02TFysh5tF4y22SnmXFTahBAu3RlXA6tIL",
+        "name": "Chicken Liver Pate", "type": "EmailAddress"}, {"id": "I6T_sZ", "name":
+        "Po''Boy", "type": "Company"}, {"id": "I2SPgS", "name": "Schnitze", "type":
+        "Company"}, {"id": "nlflWX", "name": "Montrea", "type": "Malware"}, {"id":
+        "FYKufDyVJnTRkE0DVlMxYYnNRN", "name": "Home fries", "type": "EmailAddress"},
+        {"id": "LEpDn3", "name": "Suckling ", "type": "Product"}, {"id": "s8LnyB",
+        "name": "Fajitas", "type": "Product"}, {"id": "CtmR0", "name": "Chile Rel",
+        "type": "Company"}, {"id": "sp5mQW", "name": "Queso Fresco", "type": "Malware"},
+        {"id": "TWOU5d", "name": "Sausage gr", "type": "Malware"}, {"id": "idn:remembered.biz",
+        "name": "reasons.okinawa", "type": "InternetDomainName"}, {"id": "JCxNi1",
+        "name": "Russian dres", "type": "Product"}, {"id": "rudyrb", "name": "White
+        cho", "type": "Company"}, {"id": "piRgZZ", "name": "Chicke", "type": "Malware"},
+        {"id": "onTon", "name": "Alice Sprin", "type": "Product"}, {"id": "idn:yugoslavia.tata",
+        "name": "pounds.com", "type": "InternetDomainName"}, {"id": "tNy6V", "name":
+        "Ceviche", "type": "Company"}, {"id": "JSLFIT", "name": "Tetrazzini", "type":
+        "Technology"}, {"id": "J0Nl-p", "name": "Spaghetti ", "type": "MalwareCategory"},
+        {"id": "cpH9Nl", "name": "Haystack", "type": "Malware"}, {"id": "FLlYOL",
+        "name": "Pumpkin p", "type": "Company"}, {"id": "QCwdoU", "name": "Soft Shell
+        Cr", "type": "Organization"}, {"id": "_p50wb", "name": "Pop-Tarts", "type":
+        "Company"}, {"id": "uogiyn", "name": "Spaghetti and Meatballs", "type": "Company"},
+        {"id": "pR17yg", "name": "Geoduck", "type": "Malware"}, {"id": "cpH9Rq", "name":
+        "Beef Lo", "type": "Product"}, {"id": "idn:mutual.com", "name": "folks.biz",
+        "type": "InternetDomainName"}, {"id": "3e_f-w", "name": "Pepperon", "type":
+        "Company"}, {"id": "3jwxdW", "name": "Low Country ", "type": "Company"}, {"id":
+        "IH6pHd", "name": "Corn dog", "type": "Technology"}, {"id": "g0eFmJ", "name":
+        "Po''Boy", "type": "Organization"}, {"id": "-Z0Iwd", "name": "St. Pau", "type":
+        "Organization"}, {"id": "x4862h", "name": "Hoppin'' J", "type": "Malware"},
+        {"id": "d6AYxq", "name": "Poutin", "type": "Malware"}, {"id": "Z2u9UZ", "name":
+        "Oysters Ro", "type": "Malware"}, {"id": "Xt2hgf", "name": "Macaro", "type":
+        "Malware"}, {"id": "idn:cleaner.fyi", "name": "days.st", "type": "InternetDomainName"},
+        {"id": "maAFrG", "name": "Fajita", "type": "Organization"}, {"id": "rVnb7k",
+        "name": "Eggo", "type": "Malware"}, {"id": "I2fBDl", "name": "Corned beef",
+        "type": "Company"}, {"id": "idn:panels.doha", "name": "vat.tokyo", "type":
+        "InternetDomainName"}, {"id": "iWejf", "name": "Alphabet p", "type": "Product"},
+        {"id": "idn:sam.tr", "name": "hot.games", "type": "InternetDomainName"}, {"id":
+        "Kj2duq", "name": "Ribs", "type": "Product"}, {"id": "JmKs9i", "name": "Goulas",
+        "type": "Product"}, {"id": "ip:80.234.182.31", "name": "208.153.181.77", "type":
+        "IpAddress"}, {"id": "ip:153.241.190.199", "name": "190.76.167.23", "type":
+        "IpAddress"}, {"id": "wh6ZXI", "name": "Corn rel", "type": "AttackVector"},
+        {"id": "1nEIc3g", "name": "Souvlak", "type": "Organization"}, {"id": "9nk6DO",
+        "name": "Swiss ste", "type": "Organization"}, {"id": "WpT1La", "name": "Sweetbreads",
+        "type": "MalwareCategory"}, {"id": "D-47bZ", "name": "Vichyssoise", "type":
+        "AttackVector"}, {"id": "msxjPQ7", "name": "Jerky", "type": "Organization"},
+        {"id": "hX2FjT", "name": "Haystack", "type": "Malware"}, {"id": "XuJUf", "name":
+        "Corn rel", "type": "AttackVector"}, {"id": "8RF9P9", "name": "Crab cake",
+        "type": "Malware"}, {"id": "DRm9YB", "name": "Parma Ham", "type": "AttackVector"}],
+        "title": "Atoms are used within a program to denote distinguished values.",
+        "note_entities": [{"id": "fIukwb", "name": "Mozzarella sticks", "type": "AttackVector"},
+        {"id": "NtzGT7", "name": "Spaghetti and Meatb", "type": "AttackVector"}, {"id":
+        "rjVsld0", "name": "Ice Cre", "type": "Organization"}, {"id": "9nk6DO", "name":
+        "Corn chow", "type": "Organization"}, {"id": "TyRcO85", "name": "Russian",
+        "type": "Organization"}, {"id": "9WCga-", "name": "Gazpacho", "type": "Malware"},
+        {"id": "DRm9YB", "name": "Kung Pao Chic", "type": "AttackVector"}, {"id":
+        "Mg0bv", "name": "Shish Ka", "type": "AttackVector"}, {"id": "TfgynW", "name":
+        "Chicken Divan", "type": "AttackVector"}, {"id": "wh6ZXI", "name": "Veggie
+        P", "type": "AttackVector"}, {"id": "it0LWM", "name": "Chili", "type": "Malware"},
+        {"id": "LmqNuw", "name": "Haystack", "type": "Malware"}, {"id": "8RF9P9",
+        "name": "Bellini", "type": "Malware"}, {"id": "hX2FjT", "name": "Funnel Cake",
+        "type": "Malware"}, {"id": "j151D0Mom0yK5WA", "name": "Baked pot", "type":
+        "MitreAttackIdentifier"}, {"id": "7NFZB3JwVTL", "name": "Cinna", "type": "MitreAttackIdentifier"},
+        {"id": "a4gUAF3kuYkrj3K", "name": "Clam chow", "type": "MitreAttackIdentifier"},
+        {"id": "x5nhyQrs1VCfJNv", "name": "Rice and ", "type": "MitreAttackIdentifier"},
+        {"id": "ZRA0pF6exioCyH8", "name": "Russian t", "type": "MitreAttackIdentifier"},
+        {"id": "SHyjSW4F52GfFQX", "name": "Piroshky", "type": "MitreAttackIdentifier"},
+        {"id": "evNNRsiK3XLU31V", "name": "Soul food", "type": "MitreAttackIdentifier"},
+        {"id": "eGHu7a5UwME", "name": "Chick", "type": "MitreAttackIdentifier"}, {"id":
+        "GSewScNzDdOTRZO", "name": "Goulash", "type": "MitreAttackIdentifier"}, {"id":
+        "BStCw7Z0KYZu3la", "name": "Cheese Cu", "type": "MitreAttackIdentifier"},
+        {"id": "K9tWyKZLVVY", "name": "Domes", "type": "MitreAttackIdentifier"}, {"id":
+        "1vAelF8MsmQywLN", "name": "Moules Fr", "type": "MitreAttackIdentifier"},
+        {"id": "pbmUpOfBL3GfiTm", "name": "Patty", "type": "MitreAttackIdentifier"},
+        {"id": "06FfcIUIeYL", "name": "Hawai", "type": "MitreAttackIdentifier"}, {"id":
+        "25U1AEafF5P3fgb", "name": "Corned be", "type": "MitreAttackIdentifier"},
+        {"id": "hash:7fa6578ec55070dba6348feef1ef28260bfa31b28275ab0c6537474708cb4126",
+        "name": "f855d11a20aee5fff0d39d7f4d8a5a4a2b09ac9b8104b9d3c21930f1bcdc5d14",
+        "type": "Hash"}, {"id": "hash:9b6a4f624a5ea66de7c469ce580a85a7f83fc6afc30268111be733385e636213",
+        "name": "aa7c8acba63798e04b8d503edde6bb1db59ba64f5534367a6daa47edea58590c",
+        "type": "Hash"}, {"id": "hash:ffd0dae3fc457d1cbab63713d5cdc470d40e23b2da4960af75cb04a1bfb6dd70",
+        "name": "a1c6b457f33b4cba51951bcbceec029cca20ce43b7eb5ad2f5eddb445c1b5d6d",
+        "type": "Hash"}, {"id": "hash:c77d0d0a63b853fa69dfd48e6c746bdaa743c88ba36100309d5af4e59356d007",
+        "name": "2cf80659f496ba9e52d9f952dda621031bc40be8aa7f6b67697f83891e35e9f2",
+        "type": "Hash"}, {"id": "hash:581b5c5537fc1c0447d79906bd63705be23f352a19b7b73a15f47a81d596d590",
+        "name": "ace97b5c270b2ec1cb6dade18ba991608422fb82f583ca5fa4e1e68784c35b87",
+        "type": "Hash"}, {"id": "hash:bc3a4ea6e93c52b7276699d710268871e9463c188db794dd94e0496eb6d6ebcc",
+        "name": "b5db3f545770480a469bb2750d656c41932041dde55a00487f1fc8dcfeb7e2c2",
+        "type": "Hash"}, {"id": "hash:42a2a3d9e526353b20dac7e26ca4e1d1134aae775c1304ce284933565366f198",
+        "name": "71efd6be6bb74a30b24b89619524ee3e684c363b2fc62f1a360bdfc8b09ccb12",
+        "type": "Hash"}, {"id": "hash:16d1ccd3b3af87770004f7970f5fbb86354b67328b3542d42f72605eb802840a",
+        "name": "645956f760fda1de91533a4b8b2197d1cc571adbdeec13dd64068496bf6a8254",
+        "type": "Hash"}, {"id": "hash:e523b203835decadf59fd98dc072b3bbc68224f17a4ce49af171e9a32dbce567",
+        "name": "f167bff2a46120518e718a3724902d48ec0a783f8d5f04dccc24243dd16eb14d",
+        "type": "Hash"}, {"id": "hash:ed5ffa8cc3771c9bbddfb87be145b2a46c648d3efe0d7f6747a59bfc5d4fc7a7",
+        "name": "61c8fc42659796ad6238f9b688be385838a995b5bed18534d9f7e0e394d65105",
+        "type": "Hash"}, {"id": "hash:68970bfebf102c98ed8028866244dc925961db100f111ed683636745bf032903",
+        "name": "93d19bc5dd463863b02b51f0f3e2dce94e54c6f6a057fed4d598127f26daee33",
+        "type": "Hash"}, {"id": "hash:e34299b6b789ea8c140661ab72cd454e19394e4ea45a953b4bd7d1ff58cae93e",
+        "name": "69550d6ebd4848046e344c36d47994d638dd39312170fe546cd26533816fd2f8",
+        "type": "Hash"}, {"id": "hash:da4964b40a00805955ce37bfd897ee9ef54992be310fd0c44fb71086b6207294",
+        "name": "a54f1d06d0004b35ab26e043cf22a70e0846c4de4ad825f6c3c904d8846d9202",
+        "type": "Hash"}, {"id": "hash:7db667c5f3c5002072720a57c9e60884e4b8042ecb62b9e7648132a6b07d2645",
+        "name": "1d941bb70938ca209d8d4ee80c5630c1eb2b15f8f897d761d6696dc464b78524",
+        "type": "Hash"}, {"id": "hash:639007cf9fcefae5967030bb1bc5deb6060508ceeb596a0c692d50129c915e60",
+        "name": "e1953634fee80e8f600ad302348f78568077b9bf9dcdbaaa8077366bebe4287b",
+        "type": "Hash"}, {"id": "hash:d386b221647b17f04f3d3e97dfe33d19349f37bb468f73f7c06faaf828da2f12",
+        "name": "00f1a90a12ab597d1a2218d151d83d91c81254b28ae1080544c1b54635ec8984",
+        "type": "Hash"}, {"id": "hash:b430cf37ee4d4350cef78c2e779eaff58876bde4cee97c688572aca4f6ceccc6",
+        "name": "7cd3178c7714a0c5756b23e5758df8b63502b00f1bc096a486d28d2ad88ea69f",
+        "type": "Hash"}, {"id": "hash:ba9a7809e2f0c5c23e61065585b1df01657317c8e3d4195cc9b9b1d0571677a9",
+        "name": "5678da6e301659b25343148aff7e84e7c49ba204631c679cda86a702d5a9c13a",
+        "type": "Hash"}, {"id": "HTI7w1demSPU219", "name": "Chicken L", "type": "MitreAttackIdentifier"},
+        {"id": "InxDK", "name": "Buffalo Wings", "type": "MalwareCategory"}, {"id":
+        "WpT1La", "name": "Reuben", "type": "MalwareCategory"}, {"id": "D-47bZ", "name":
+        "Roasted Bone Marr", "type": "AttackVector"}, {"id": "cDtSd", "name": "Risotto",
+        "type": "AttackVector"}, {"id": "JNCaTT", "name": "Breaded shrimp", "type":
+        "AttackVector"}, {"id": "LPc838", "name": "Cheese Cur", "type": "AttackVector"},
+        {"id": "QlpqOT", "name": "Abalone", "type": "AttackVector"}, {"id": "Sw-YC9",
+        "name": "Deep Fried Oreos", "type": "AttackVector"}, {"id": "Kt5me7", "name":
+        "Naan", "type": "AttackVector"}, {"id": "ssUVvf", "name": "Crab c", "type":
+        "IndustryTerm"}, {"id": "ygdDOo", "name": "Cheesecake", "type": "AttackVector"},
+        {"id": "r8IruV", "name": "Fish and Chips!", "type": "AttackVector"}, {"id":
+        "t5BfxP", "name": "Tres Leches Cake", "type": "AttackVector"}, {"id": "X_NR6K",
+        "name": "Crab cake", "type": "AttackVector"}, {"id": "fq_OKg", "name": "Maple
+        Bacon Doughnut", "type": "AttackVector"}, {"id": "qXKXFE", "name": "Fried
+        Catfish", "type": "AttackVector"}, {"id": "XagF-r", "name": "Chicken nugget",
+        "type": "AttackVector"}, {"id": "fRjfoI", "name": "Currywurst", "type": "AttackVector"},
+        {"id": "idn:lock.stockholm", "name": "bargains.cat", "type": "InternetDomainName"},
+        {"id": "idn:troy.pm", "name": "warrior.biz", "type": "InternetDomainName"},
+        {"id": "idn:oecd.photography", "name": "seventh.mobi", "type": "InternetDomainName"},
+        {"id": "idn:married.kyoto", "name": "viking.net", "type": "InternetDomainName"},
+        {"id": "url:https://supplier.zm/", "name": "https://fleece.at/", "type": "URL"},
+        {"id": "url:https://fountain.jobs/", "name": "https://visit.winners/", "type":
+        "URL"}, {"id": "url:https://researcher.net/", "name": "https://painting.gov/",
+        "type": "URL"}, {"id": "url:https://ons.coop/", "name": "https://committees.ax/",
+        "type": "URL"}, {"id": "url:https://firms.bf/", "name": "https://weekends.pr/",
+        "type": "URL"}, {"id": "url:https://rough.name/", "name": "Tamales", "type":
+        "URL"}, {"id": "Q1zW983rzzMVk8KRnnIwlOBjBGI0QGValf0IL", "name": "Cheese dog",
+        "type": "EmailAddress"}, {"id": "COMUJlu1fmY2Y3J6FiydVOqW3GU6", "name": "Meat
+        Feast Pizza", "type": "EmailAddress"}, {"id": "FFRoX0QlBjFG8irN6qXdXCzIN0ZQJFZpkFZ8",
+        "name": "BBQ Chicken Pizza", "type": "EmailAddress"}, {"id": "529Jcrg2ssIhYgsCH7uUJm",
+        "name": "Brunswick stew", "type": "EmailAddress"}, {"id": "MJNaubfcdSEjyMKUpZPhRBUSHuH14HZKrvJS8",
+        "name": "Pepperoni", "type": "EmailAddress"}, {"id": "wIvPaHW2fbYIfYc5OdjsUpjRSYexKqJomfl",
+        "name": "Frybread", "type": "EmailAddress"}, {"id": "ip:161.240.44.81", "name":
+        "99.236.143.195", "type": "IpAddress"}, {"id": "ip:221.201.221.108", "name":
+        "60.185.233.24", "type": "IpAddress"}, {"id": "ip:214.45.13.244", "name":
+        "250.27.33.81", "type": "IpAddress"}, {"id": "ip:17.138.162.137", "name":
+        "54.236.2.134", "type": "IpAddress"}, {"id": "ip:134.254.210.85", "name":
+        "142.56.248.224", "type": "IpAddress"}, {"id": "ip:9.116.173.5", "name": "101.105.74.31",
+        "type": "IpAddress"}, {"id": "ip:186.113.89.31", "name": "233.116.40.245",
+        "type": "IpAddress"}, {"id": "ip:5.154.223.162", "name": "104.193.200.201",
+        "type": "IpAddress"}, {"id": "ip:228.194.90.92", "name": "180.72.4.208", "type":
+        "IpAddress"}, {"id": "ip:19.211.241.218", "name": "67.33.69.163", "type":
+        "IpAddress"}, {"id": "ip:111.23.41.58", "name": "115.46.15.139", "type": "IpAddress"},
+        {"id": "ip:68.107.128.199", "name": "66.35.230.119", "type": "IpAddress"},
+        {"id": "ip:161.42.226.252", "name": "104.61.15.19", "type": "IpAddress"},
+        {"id": "ip:70.67.194.17", "name": "36.226.18.88", "type": "IpAddress"}, {"id":
+        "ip:240.112.143.142", "name": "85.125.183.120", "type": "IpAddress"}, {"id":
+        "ip:159.208.138.143", "name": "17.168.118.23", "type": "IpAddress"}, {"id":
+        "ip:194.71.242.6", "name": "35.126.68.29", "type": "IpAddress"}, {"id": "ip:144.241.208.111",
+        "name": "166.175.191.174", "type": "IpAddress"}, {"id": "ip:43.24.79.6", "name":
+        "209.107.0.108", "type": "IpAddress"}, {"id": "ip:105.238.12.131", "name":
+        "46.56.148.102", "type": "IpAddress"}, {"id": "ip:40.70.231.184", "name":
+        "254.16.209.18", "type": "IpAddress"}, {"id": "ip:133.124.134.244", "name":
+        "86.132.133.6", "type": "IpAddress"}, {"id": "ip:252.253.185.155", "name":
+        "6.246.160.124", "type": "IpAddress"}, {"id": "ip:146.214.11.255", "name":
+        "233.243.97.213", "type": "IpAddress"}, {"id": "ip:22.231.46.172", "name":
+        "250.45.29.103", "type": "IpAddress"}, {"id": "ip:42.149.164.137", "name":
+        "42.146.244.185", "type": "IpAddress"}, {"id": "ip:67.66.27.200", "name":
+        "168.34.62.12", "type": "IpAddress"}, {"id": "ip:150.232.170.31", "name":
+        "114.166.211.65", "type": "IpAddress"}, {"id": "ip:209.221.33.51", "name":
+        "78.81.138.204", "type": "IpAddress"}, {"id": "ip:15.229.253.22", "name":
+        "25.170.69.245", "type": "IpAddress"}, {"id": "ip:103.28.50.251", "name":
+        "147.195.160.178", "type": "IpAddress"}, {"id": "ip:94.184.172.229", "name":
+        "219.225.55.53", "type": "IpAddress"}, {"id": "ip:52.119.40.8", "name": "31.221.154.219",
+        "type": "IpAddress"}, {"id": "ip:209.199.138.42", "name": "105.206.236.119",
+        "type": "IpAddress"}, {"id": "ip:137.53.2.72", "name": "142.195.80.195", "type":
+        "IpAddress"}, {"id": "ip:99.196.247.250", "name": "245.6.100.229", "type":
+        "IpAddress"}, {"id": "ip:127.184.17.90", "name": "49.34.182.57", "type": "IpAddress"},
+        {"id": "ip:88.29.155.158", "name": "234.193.37.121", "type": "IpAddress"},
+        {"id": "ip:91.114.159.135", "name": "127.220.244.4", "type": "IpAddress"},
+        {"id": "ip:157.85.53.142", "name": "49.107.173.29", "type": "IpAddress"},
+        {"id": "ip:149.210.140.83", "name": "252.73.154.133", "type": "IpAddress"},
+        {"id": "ip:206.90.141.186", "name": "146.33.78.235", "type": "IpAddress"},
+        {"id": "ip:231.196.4.86", "name": "118.227.228.204", "type": "IpAddress"},
+        {"id": "ip:5.114.222.105", "name": "48.243.42.176", "type": "IpAddress"},
+        {"id": "ip:200.224.42.30", "name": "191.252.246.120", "type": "IpAddress"},
+        {"id": "ip:124.18.63.141", "name": "55.188.222.95", "type": "IpAddress"},
+        {"id": "ip:218.231.118.216", "name": "27.9.32.188", "type": "IpAddress"},
+        {"id": "ip:198.202.234.128", "name": "3.174.248.12", "type": "IpAddress"},
+        {"id": "ip:253.227.211.20", "name": "174.94.168.147", "type": "IpAddress"},
+        {"id": "ip:70.236.220.126", "name": "138.24.117.13", "type": "IpAddress"},
+        {"id": "ip:40.100.49.194", "name": "185.128.82.74", "type": "IpAddress"},
+        {"id": "ip:183.212.216.33", "name": "212.244.132.29", "type": "IpAddress"},
+        {"id": "ip:41.216.13.202", "name": "171.46.137.84", "type": "IpAddress"},
+        {"id": "ip:25.28.213.128", "name": "227.230.204.34", "type": "IpAddress"},
+        {"id": "ip:137.104.50.63", "name": "229.47.114.205", "type": "IpAddress"},
+        {"id": "ip:8.188.141.35", "name": "144.207.54.155", "type": "IpAddress"},
+        {"id": "ip:16.247.243.215", "name": "147.183.39.61", "type": "IpAddress"},
+        {"id": "ip:43.204.204.35", "name": "224.70.134.204", "type": "IpAddress"},
+        {"id": "ip:25.39.69.191", "name": "16.208.97.169", "type": "IpAddress"}, {"id":
+        "ip:155.68.232.52", "name": "122.228.6.97", "type": "IpAddress"}, {"id": "ip:172.183.182.178",
+        "name": "118.209.212.121", "type": "IpAddress"}, {"id": "ip:30.17.117.186",
+        "name": "110.138.204.249", "type": "IpAddress"}, {"id": "ip:17.81.217.16",
+        "name": "211.194.55.64", "type": "IpAddress"}, {"id": "ip:58.247.68.176",
+        "name": "28.61.114.95", "type": "IpAddress"}, {"id": "ip:62.239.148.215",
+        "name": "232.236.75.129", "type": "IpAddress"}, {"id": "ip:8.65.173.154",
+        "name": "157.173.138.208", "type": "IpAddress"}, {"id": "ip:127.90.63.71",
+        "name": "10.134.186.63", "type": "IpAddress"}, {"id": "ip:94.230.41.91", "name":
+        "100.220.17.185", "type": "IpAddress"}, {"id": "ip:239.85.160.216", "name":
+        "113.136.232.53", "type": "IpAddress"}, {"id": "ip:110.10.95.115", "name":
+        "151.175.169.147", "type": "IpAddress"}, {"id": "ip:140.24.95.58", "name":
+        "75.253.189.161", "type": "IpAddress"}, {"id": "ip:180.105.162.132", "name":
+        "86.130.196.243", "type": "IpAddress"}, {"id": "ip:140.29.0.132", "name":
+        "117.186.242.218", "type": "IpAddress"}, {"id": "ip:96.19.114.143", "name":
+        "186.129.70.17", "type": "IpAddress"}, {"id": "ip:32.34.202.219", "name":
+        "132.53.109.158", "type": "IpAddress"}, {"id": "ip:157.118.252.111", "name":
+        "14.221.228.17", "type": "IpAddress"}, {"id": "ip:3.162.199.241", "name":
+        "3.181.77.184", "type": "IpAddress"}, {"id": "ip:198.207.146.0", "name": "177.160.57.61",
+        "type": "IpAddress"}, {"id": "ip:221.177.85.203", "name": "114.238.83.236",
+        "type": "IpAddress"}, {"id": "ip:44.54.253.35", "name": "223.177.69.169",
+        "type": "IpAddress"}, {"id": "ip:9.216.27.188", "name": "176.175.42.111",
+        "type": "IpAddress"}, {"id": "ip:189.64.76.219", "name": "183.135.154.155",
+        "type": "IpAddress"}, {"id": "ip:138.164.151.0", "name": "14.111.51.227",
+        "type": "IpAddress"}, {"id": "ip:109.231.222.13", "name": "228.125.162.157",
+        "type": "IpAddress"}, {"id": "ip:133.207.5.93", "name": "88.141.236.237",
+        "type": "IpAddress"}, {"id": "ip:125.167.199.46", "name": "124.241.211.229",
+        "type": "IpAddress"}, {"id": "ip:0.116.197.23", "name": "254.158.203.66",
+        "type": "IpAddress"}, {"id": "ip:121.63.14.223", "name": "78.217.7.246", "type":
+        "IpAddress"}, {"id": "ip:248.156.141.65", "name": "122.181.134.107", "type":
+        "IpAddress"}, {"id": "ip:175.227.1.11", "name": "81.91.249.119", "type": "IpAddress"},
+        {"id": "ip:230.124.79.73", "name": "197.57.165.101", "type": "IpAddress"},
+        {"id": "ip:0.28.225.0", "name": "109.85.173.248", "type": "IpAddress"}, {"id":
+        "ip:124.233.218.129", "name": "118.255.195.146", "type": "IpAddress"}, {"id":
+        "ip:52.138.180.254", "name": "137.245.33.0", "type": "IpAddress"}, {"id":
+        "ip:27.180.84.68", "name": "35.199.88.212", "type": "IpAddress"}, {"id": "ip:255.202.174.200",
+        "name": "34.73.2.107", "type": "IpAddress"}, {"id": "ip:3.69.159.224", "name":
+        "39.95.96.193", "type": "IpAddress"}, {"id": "idn:handhelds.kyoto", "name":
+        "instrumental.rip", "type": "InternetDomainName"}, {"id": "idn:poems.nz",
+        "name": "resort.aero", "type": "InternetDomainName"}, {"id": "idn:hills.lu",
+        "name": "intention.nu", "type": "InternetDomainName"}, {"id": "idn:good.int",
+        "name": "webcam.biz", "type": "InternetDomainName"}, {"id": "idn:francisco.ki",
+        "name": "typing.info", "type": "InternetDomainName"}, {"id": "idn:geo.shiksha",
+        "name": "recruiting.rio", "type": "InternetDomainName"}, {"id": "idn:properties.biz",
+        "name": "occurred.holiday", "type": "InternetDomainName"}, {"id": "idn:freelance.com",
+        "name": "choice.med", "type": "InternetDomainName"}, {"id": "idn:pills.equipment",
+        "name": "receiving.int", "type": "InternetDomainName"}, {"id": "idn:flip.hu",
+        "name": "identity.gsla", "type": "InternetDomainName"}, {"id": "idn:payment.jobs",
+        "name": "filter.gold", "type": "InternetDomainName"}, {"id": "idn:dropped.brussels",
+        "name": "treasure.coop", "type": "InternetDomainName"}, {"id": "idn:procurement.construction",
+        "name": "faqs.wales", "type": "InternetDomainName"}, {"id": "idn:price.xxx",
+        "name": "correctly.cd", "type": "InternetDomainName"}, {"id": "idn:edgar.aero",
+        "name": "wicked.aquitaine", "type": "InternetDomainName"}, {"id": "idn:commercial.int",
+        "name": "mongolia.brussels", "type": "InternetDomainName"}, {"id": "idn:amongst.uk",
+        "name": "physical.mil", "type": "InternetDomainName"}, {"id": "idn:serious.com",
+        "name": "cons.ir", "type": "InternetDomainName"}, {"id": "idn:mauritius.edu",
+        "name": "revision.eh", "type": "InternetDomainName"}, {"id": "idn:farmer.name",
+        "name": "informed.paris", "type": "InternetDomainName"}, {"id": "idn:initial.ventures",
+        "name": "registration.sydney", "type": "InternetDomainName"}, {"id": "idn:agree.ls",
+        "name": "pursuant.museum.post", "type": "InternetDomainName"}, {"id": "idn:index.digital",
+        "name": "supplemental.org", "type": "InternetDomainName"}, {"id": "idn:flow.museum.post",
+        "name": "masters.ci", "type": "InternetDomainName"}, {"id": "idn:was.mc",
+        "name": "apps.kr", "type": "InternetDomainName"}, {"id": "idn:stands.graphics",
+        "name": "cakes.biz", "type": "InternetDomainName"}, {"id": "idn:currently.org",
+        "name": "plastics.free", "type": "InternetDomainName"}, {"id": "idn:readers.ug",
+        "name": "def.com", "type": "InternetDomainName"}, {"id": "idn:loops.nrw",
+        "name": "verde.jobs", "type": "InternetDomainName"}, {"id": "idn:florists.africa",
+        "name": "blame.int", "type": "InternetDomainName"}, {"id": "idn:length.cologne",
+        "name": "config.org", "type": "InternetDomainName"}, {"id": "idn:lauren.net",
+        "name": "icq.pf", "type": "InternetDomainName"}, {"id": "idn:importance.radio",
+        "name": "reggae.br", "type": "InternetDomainName"}, {"id": "idn:allan.tr",
+        "name": "hobbies.ki", "type": "InternetDomainName"}, {"id": "idn:dutch.biz",
+        "name": "produce.mobi", "type": "InternetDomainName"}, {"id": "idn:adelaide.info",
+        "name": "adverse.org", "type": "InternetDomainName"}, {"id": "idn:ultimately.brussels",
+        "name": "poor.aero", "type": "InternetDomainName"}, {"id": "idn:scanned.adult",
+        "name": "acting.career", "type": "InternetDomainName"}, {"id": "idn:various.cm",
+        "name": "wait.gent", "type": "InternetDomainName"}, {"id": "idn:produces.biz",
+        "name": "wait.com", "type": "InternetDomainName"}, {"id": "idn:length.cr",
+        "name": "vietnamese.hospital", "type": "InternetDomainName"}, {"id": "idn:him.info",
+        "name": "actually.ms", "type": "InternetDomainName"}, {"id": "idn:exclude.xxx",
+        "name": "languages.net", "type": "InternetDomainName"}, {"id": "idn:wood.info",
+        "name": "stanford.ls", "type": "InternetDomainName"}, {"id": "idn:appendix.com",
+        "name": "buildings.bayern", "type": "InternetDomainName"}, {"id": "idn:user.cd",
+        "name": "basin.systems", "type": "InternetDomainName"}, {"id": "idn:earned.info",
+        "name": "chest.hair", "type": "InternetDomainName"}, {"id": "idn:kick.durban",
+        "name": "energy.name", "type": "InternetDomainName"}, {"id": "idn:terms.codes",
+        "name": "reductions.biz", "type": "InternetDomainName"}, {"id": "idn:medal.ve",
+        "name": "standings.gov", "type": "InternetDomainName"}, {"id": "idn:tribute.info",
+        "name": "ways.sz", "type": "InternetDomainName"}, {"id": "idn:fewer.net",
+        "name": "finger.jo", "type": "InternetDomainName"}, {"id": "idn:johnston.abudhabi",
+        "name": "willow.info", "type": "InternetDomainName"}, {"id": "idn:willing.org",
+        "name": "mines.and", "type": "InternetDomainName"}, {"id": "idn:grown.ky",
+        "name": "proposed.market", "type": "InternetDomainName"}, {"id": "idn:acting.ph",
+        "name": "keno.int", "type": "InternetDomainName"}, {"id": "idn:bowl.fk", "name":
+        "arguments.name", "type": "InternetDomainName"}, {"id": "idn:guarantees.aero",
+        "name": "programmes.name", "type": "InternetDomainName"}, {"id": "idn:madrid.bank",
+        "name": "schema.tirol", "type": "InternetDomainName"}, {"id": "idn:cold.ma",
+        "name": "cradle.mil", "type": "InternetDomainName"}, {"id": "idn:expectations.coop",
+        "name": "performer.lr", "type": "InternetDomainName"}, {"id": "idn:tobago.helsinki",
+        "name": "shoes.vlaanderen", "type": "InternetDomainName"}, {"id": "idn:trucks.bayern",
+        "name": "driven.pub", "type": "InternetDomainName"}, {"id": "idn:devil.name",
+        "name": "midi.nagoya", "type": "InternetDomainName"}, {"id": "idn:list.tires",
+        "name": "penalties.mobi", "type": "InternetDomainName"}, {"id": "idn:essentials.cd",
+        "name": "join.net", "type": "InternetDomainName"}, {"id": "idn:badly.aero",
+        "name": "covered.coop", "type": "InternetDomainName"}, {"id": "idn:herein.edu",
+        "name": "dutch.org", "type": "InternetDomainName"}, {"id": "idn:lawyer.tg",
+        "name": "multimedia.brussels", "type": "InternetDomainName"}, {"id": "idn:pack.com",
+        "name": "battlefield.zulu", "type": "InternetDomainName"}, {"id": "idn:paragraphs.hamburg",
+        "name": "lake.barcelona", "type": "InternetDomainName"}, {"id": "idn:organizing.care",
+        "name": "mastercard.expert", "type": "InternetDomainName"}, {"id": "idn:foster.name",
+        "name": "pst.scot", "type": "InternetDomainName"}, {"id": "idn:victor.py",
+        "name": "fails.miami", "type": "InternetDomainName"}, {"id": "idn:bolivia.barcelona",
+        "name": "realty.travel", "type": "InternetDomainName"}, {"id": "idn:bryan.book",
+        "name": "offering.sydney", "type": "InternetDomainName"}, {"id": "idn:offense.ventures",
+        "name": "hats.rio", "type": "InternetDomainName"}, {"id": "idn:train.biz",
+        "name": "extras.pl", "type": "InternetDomainName"}, {"id": "idn:concerning.edu",
+        "name": "coordination.mz", "type": "InternetDomainName"}, {"id": "idn:ham.cd",
+        "name": "salad.name", "type": "InternetDomainName"}, {"id": "idn:regulatory.chat",
+        "name": "experience.wtf", "type": "InternetDomainName"}, {"id": "idn:trial.melbourne",
+        "name": "ports.frl", "type": "InternetDomainName"}, {"id": "idn:receivers.directory",
+        "name": "illness.mw", "type": "InternetDomainName"}, {"id": "idn:photographic.edu",
+        "name": "tags.berlin", "type": "InternetDomainName"}, {"id": "idn:offshore.name",
+        "name": "greater.nc", "type": "InternetDomainName"}, {"id": "idn:oecd.asia",
+        "name": "ghost.games", "type": "InternetDomainName"}, {"id": "idn:organ.coop",
+        "name": "habits.nr", "type": "InternetDomainName"}, {"id": "idn:selective.budapest",
+        "name": "mechanism.cx", "type": "InternetDomainName"}, {"id": "idn:harm.coop",
+        "name": "demo.miami", "type": "InternetDomainName"}, {"id": "idn:rent.yokohama",
+        "name": "let.kn", "type": "InternetDomainName"}, {"id": "idn:greatly.guitars",
+        "name": "became.bh", "type": "InternetDomainName"}, {"id": "idn:chubby.jp",
+        "name": "pushing.bargains", "type": "InternetDomainName"}, {"id": "idn:rolling.tata",
+        "name": "occurred.today", "type": "InternetDomainName"}, {"id": "idn:resort.theatre",
+        "name": "fax.cars", "type": "InternetDomainName"}, {"id": "idn:bargain.center",
+        "name": "strange.hr", "type": "InternetDomainName"}, {"id": "idn:cornell.com",
+        "name": "acceptable.bar", "type": "InternetDomainName"}, {"id": "idn:iraqi.rio",
+        "name": "measured.africa", "type": "InternetDomainName"}, {"id": "idn:mins.nyc",
+        "name": "waste.net", "type": "InternetDomainName"}, {"id": "idn:rejected.aero",
+        "name": "forms.gd", "type": "InternetDomainName"}, {"id": "idn:successful.luxury",
+        "name": "appearing.koeln", "type": "InternetDomainName"}, {"id": "idn:newman.com",
+        "name": "markers.name", "type": "InternetDomainName"}, {"id": "idn:occasionally.helsinki",
+        "name": "farmers.tel", "type": "InternetDomainName"}, {"id": "idn:mileage.phone",
+        "name": "houses.brussels", "type": "InternetDomainName"}, {"id": "idn:promo.rio",
+        "name": "obvious.asia", "type": "InternetDomainName"}, {"id": "idn:seat.coop",
+        "name": "usb.frl", "type": "InternetDomainName"}, {"id": "idn:letter.info",
+        "name": "explanation.it", "type": "InternetDomainName"}, {"id": "idn:sum.name",
+        "name": "advertiser.pay", "type": "InternetDomainName"}, {"id": "idn:thriller.la",
+        "name": "yahoo.gov", "type": "InternetDomainName"}, {"id": "idn:usual.bm",
+        "name": "glossary.cat", "type": "InternetDomainName"}, {"id": "idn:conditions.com",
+        "name": "pee.doctor", "type": "InternetDomainName"}, {"id": "idn:avg.group",
+        "name": "greetings.bn", "type": "InternetDomainName"}, {"id": "idn:joy.net",
+        "name": "pastor.aw", "type": "InternetDomainName"}, {"id": "idn:england.broker",
+        "name": "semi.tata", "type": "InternetDomainName"}, {"id": "idn:upset.travel",
+        "name": "frames.jobs", "type": "InternetDomainName"}, {"id": "idn:controversy.com",
+        "name": "lecture.school", "type": "InternetDomainName"}, {"id": "idn:pursuit.name",
+        "name": "enquiries.coop", "type": "InternetDomainName"}, {"id": "idn:near.si",
+        "name": "quickly.biz", "type": "InternetDomainName"}, {"id": "idn:href.biz",
+        "name": "treaty.quebec", "type": "InternetDomainName"}, {"id": "idn:impaired.th",
+        "name": "beings.asia", "type": "InternetDomainName"}, {"id": "idn:products.int",
+        "name": "rise.biz", "type": "InternetDomainName"}, {"id": "idn:import.cologne",
+        "name": "integer.cheap", "type": "InternetDomainName"}, {"id": "idn:certain.eco",
+        "name": "paxil.bar", "type": "InternetDomainName"}, {"id": "idn:square.nr",
+        "name": "arab.jobs", "type": "InternetDomainName"}, {"id": "idn:swedish.mw",
+        "name": "stays.enterprises", "type": "InternetDomainName"}, {"id": "idn:inserted.boats",
+        "name": "unity.mil", "type": "InternetDomainName"}, {"id": "idn:moss.catalonia",
+        "name": "holdem.mobi", "type": "InternetDomainName"}, {"id": "idn:microsoft.fly",
+        "name": "tender.work", "type": "InternetDomainName"}, {"id": "idn:open.digital",
+        "name": "mississippi.frl", "type": "InternetDomainName"}, {"id": "idn:trademark.nrw",
+        "name": "closer.aero", "type": "InternetDomainName"}, {"id": "idn:blog.berlin",
+        "name": "west.scot", "type": "InternetDomainName"}, {"id": "idn:diary.net",
+        "name": "tissue.mz", "type": "InternetDomainName"}, {"id": "idn:burns.moscow",
+        "name": "bible.boston", "type": "InternetDomainName"}, {"id": "idn:yield.pl",
+        "name": "affiliation.com", "type": "InternetDomainName"}, {"id": "idn:involve.mg",
+        "name": "themselves.org", "type": "InternetDomainName"}, {"id": "idn:symphony.aquitaine",
+        "name": "unwrap.biz", "type": "InternetDomainName"}, {"id": "idn:quarter.io",
+        "name": "installing.bayern", "type": "InternetDomainName"}, {"id": "idn:revelation.moscow",
+        "name": "province.coop", "type": "InternetDomainName"}, {"id": "idn:tulsa.memorial",
+        "name": "construction.bf", "type": "InternetDomainName"}, {"id": "idn:transmit.gov",
+        "name": "belfast.coop", "type": "InternetDomainName"}, {"id": "idn:serial.bank",
+        "name": "serial.rent", "type": "InternetDomainName"}, {"id": "idn:bbs.name",
+        "name": "undertake.coop", "type": "InternetDomainName"}, {"id": "idn:chips.travel",
+        "name": "job.pizza", "type": "InternetDomainName"}, {"id": "idn:hartford.vodka",
+        "name": "deaf.biz", "type": "InternetDomainName"}, {"id": "idn:pubs.com",
+        "name": "leo.gov", "type": "InternetDomainName"}, {"id": "idn:gathering.net",
+        "name": "officially.int", "type": "InternetDomainName"}, {"id": "idn:faster.alsace",
+        "name": "verify.market", "type": "InternetDomainName"}, {"id": "idn:addressed.pk",
+        "name": "attribute.org", "type": "InternetDomainName"}, {"id": "idn:investor.koeln",
+        "name": "driving.watch", "type": "InternetDomainName"}, {"id": "idn:sees.gi",
+        "name": "south.coop", "type": "InternetDomainName"}, {"id": "idn:faith.bayern",
+        "name": "displaying.catalonia", "type": "InternetDomainName"}, {"id": "idn:hints.io",
+        "name": "heavily.py", "type": "InternetDomainName"}, {"id": "idn:scsi.sydney",
+        "name": "waiver.cv", "type": "InternetDomainName"}, {"id": "idn:smilies.se",
+        "name": "sugar.food", "type": "InternetDomainName"}, {"id": "idn:spider.tel",
+        "name": "manual.mobi", "type": "InternetDomainName"}, {"id": "idn:removed.place",
+        "name": "patterns.info", "type": "InternetDomainName"}, {"id": "idn:tmp.er",
+        "name": "governing.info", "type": "InternetDomainName"}, {"id": "idn:sales.sale",
+        "name": "mortgages.com", "type": "InternetDomainName"}, {"id": "idn:scratch.helsinki",
+        "name": "complaints.mobi", "type": "InternetDomainName"}, {"id": "idn:playing.wien",
+        "name": "certain.cologne", "type": "InternetDomainName"}, {"id": "idn:george.bar",
+        "name": "sally.saarland", "type": "InternetDomainName"}, {"id": "idn:corp.biz",
+        "name": "liability.vlaanderen", "type": "InternetDomainName"}, {"id": "idn:wilson.be",
+        "name": "complications.edu", "type": "InternetDomainName"}, {"id": "idn:beauty.nyc",
+        "name": "cult.museum.post", "type": "InternetDomainName"}, {"id": "idn:breath.com",
+        "name": "cleveland.nagoya", "type": "InternetDomainName"}, {"id": "idn:basket.xxx",
+        "name": "cyprus.asia", "type": "InternetDomainName"}, {"id": "idn:scenic.int",
+        "name": "filling.spot", "type": "InternetDomainName"}, {"id": "idn:version.tata",
+        "name": "guyana.mobi", "type": "InternetDomainName"}, {"id": "idn:industries.car",
+        "name": "pennsylvania.au", "type": "InternetDomainName"}, {"id": "idn:davidson.trade",
+        "name": "regulation.cleaning", "type": "InternetDomainName"}, {"id": "idn:saturn.amsterdam",
+        "name": "excess.net", "type": "InternetDomainName"}, {"id": "idn:photography.phd",
+        "name": "naval.net", "type": "InternetDomainName"}, {"id": "idn:buffalo.museum.post",
+        "name": "hardly.tel", "type": "InternetDomainName"}, {"id": "idn:update.name",
+        "name": "literature.gripe", "type": "InternetDomainName"}, {"id": "idn:provide.cars",
+        "name": "ciao.mobi", "type": "InternetDomainName"}, {"id": "idn:silence.nc",
+        "name": "malpractice.cologne", "type": "InternetDomainName"}, {"id": "idn:website.cat",
+        "name": "ltd.nl", "type": "InternetDomainName"}, {"id": "idn:arising.kg",
+        "name": "derek.gov", "type": "InternetDomainName"}, {"id": "idn:phrases.ms",
+        "name": "requirement.name", "type": "InternetDomainName"}, {"id": "idn:execute.com",
+        "name": "mins.net", "type": "InternetDomainName"}, {"id": "idn:efficient.abudhabi",
+        "name": "foundations.net", "type": "InternetDomainName"}, {"id": "idn:mental.biz",
+        "name": "window.ba", "type": "InternetDomainName"}, {"id": "idn:recommend.biz",
+        "name": "ignored.boston", "type": "InternetDomainName"}, {"id": "idn:pork.biz",
+        "name": "measurements.asia", "type": "InternetDomainName"}, {"id": "idn:day.host",
+        "name": "bible.ua", "type": "InternetDomainName"}, {"id": "idn:warner.bar",
+        "name": "mug.com", "type": "InternetDomainName"}, {"id": "idn:viewpicture.silk",
+        "name": "alpha.name", "type": "InternetDomainName"}, {"id": "idn:thru.vn",
+        "name": "celebs.budapest", "type": "InternetDomainName"}, {"id": "idn:accessibility.bv",
+        "name": "outcomes.net", "type": "InternetDomainName"}, {"id": "idn:sociology.cologne",
+        "name": "suggest.quebec", "type": "InternetDomainName"}, {"id": "idn:advertisement.surf",
+        "name": "brings.coop", "type": "InternetDomainName"}, {"id": "idn:treasurer.mp",
+        "name": "occurrence.style", "type": "InternetDomainName"}, {"id": "idn:risk.gd",
+        "name": "findarticles.org", "type": "InternetDomainName"}, {"id": "idn:counsel.save",
+        "name": "licence.lgbt", "type": "InternetDomainName"}, {"id": "idn:dakota.helsinki",
+        "name": "foods.biz", "type": "InternetDomainName"}, {"id": "SaotvgdJvVRxcZ3DljmldbMX4OS54",
+        "name": "Pocky", "type": "EmailAddress"}, {"id": "ip:193.117.136.23", "name":
+        "53.236.186.73", "type": "IpAddress"}, {"id": "ip:58.219.17.132", "name":
+        "182.70.196.116", "type": "IpAddress"}, {"id": "ip:49.159.196.204", "name":
+        "169.65.72.111", "type": "IpAddress"}, {"id": "ip:0.205.43.9", "name": "36.143.95.39",
+        "type": "IpAddress"}, {"id": "ip:150.136.152.42", "name": "131.65.65.235",
+        "type": "IpAddress"}, {"id": "ip:96.95.151.39", "name": "199.244.69.136",
+        "type": "IpAddress"}, {"id": "ip:121.137.226.201", "name": "208.45.43.36",
+        "type": "IpAddress"}, {"id": "ip:119.32.204.24", "name": "158.194.150.234",
+        "type": "IpAddress"}, {"id": "ip:13.227.175.91", "name": "27.133.150.106",
+        "type": "IpAddress"}, {"id": "ip:201.145.206.189", "name": "21.135.56.146",
+        "type": "IpAddress"}, {"id": "ip:11.54.1.102", "name": "29.25.168.228", "type":
+        "IpAddress"}, {"id": "ip:172.113.218.208", "name": "111.252.164.35", "type":
+        "IpAddress"}, {"id": "ip:178.139.140.232", "name": "29.115.153.80", "type":
+        "IpAddress"}, {"id": "ip:113.0.3.34", "name": "65.237.119.147", "type": "IpAddress"},
+        {"id": "ip:250.122.10.57", "name": "129.165.12.120", "type": "IpAddress"},
+        {"id": "ip:26.112.195.73", "name": "223.10.104.231", "type": "IpAddress"},
+        {"id": "ip:168.199.221.149", "name": "5.133.191.169", "type": "IpAddress"},
+        {"id": "ip:132.96.143.220", "name": "168.172.56.175", "type": "IpAddress"},
+        {"id": "ip:138.210.145.69", "name": "16.216.57.119", "type": "IpAddress"},
+        {"id": "ip:79.225.250.236", "name": "185.106.59.94", "type": "IpAddress"},
+        {"id": "ip:167.45.112.147", "name": "119.35.154.79", "type": "IpAddress"},
+        {"id": "ip:204.186.174.224", "name": "226.42.99.142", "type": "IpAddress"},
+        {"id": "ip:76.80.9.137", "name": "111.40.116.13", "type": "IpAddress"}, {"id":
+        "ip:210.241.185.124", "name": "36.204.1.167", "type": "IpAddress"}, {"id":
+        "ip:251.116.146.127", "name": "7.154.10.136", "type": "IpAddress"}, {"id":
+        "ip:205.180.61.13", "name": "28.254.252.148", "type": "IpAddress"}, {"id":
+        "ip:236.176.67.255", "name": "177.161.94.121", "type": "IpAddress"}, {"id":
+        "ip:188.146.68.165", "name": "210.67.133.95", "type": "IpAddress"}, {"id":
+        "ip:226.2.28.177", "name": "196.79.43.87", "type": "IpAddress"}, {"id": "ip:155.156.146.76",
+        "name": "243.23.247.176", "type": "IpAddress"}, {"id": "ip:115.95.32.190",
+        "name": "49.95.254.94", "type": "IpAddress"}, {"id": "ip:9.117.224.62", "name":
+        "26.56.90.81", "type": "IpAddress"}, {"id": "ip:123.181.239.97", "name": "203.157.76.128",
+        "type": "IpAddress"}, {"id": "ip:92.191.242.44", "name": "153.199.82.26",
+        "type": "IpAddress"}, {"id": "ip:189.100.241.95", "name": "187.51.189.12",
+        "type": "IpAddress"}, {"id": "ip:156.47.172.146", "name": "66.82.98.141",
+        "type": "IpAddress"}, {"id": "ip:170.22.21.165", "name": "182.119.58.221",
+        "type": "IpAddress"}, {"id": "ip:72.164.57.57", "name": "7.137.214.129", "type":
+        "IpAddress"}, {"id": "ip:145.110.18.101", "name": "147.254.111.82", "type":
+        "IpAddress"}, {"id": "ip:117.178.26.77", "name": "16.245.53.129", "type":
+        "IpAddress"}, {"id": "ip:64.201.247.242", "name": "197.65.11.140", "type":
+        "IpAddress"}, {"id": "ip:176.165.155.18", "name": "186.50.57.240", "type":
+        "IpAddress"}]}, "source": {"id": "5VmA5JiN2rFT1", "name": "Schnitzel", "type":
+        "Source"}, "id": "G5qhHdR"}], "timestamps": {"lastSeen": "2025-12-15T23:39:10.064Z",
+        "firstSeen": "2021-05-15T12:36:45.484Z"}, "threatLists": [{"id": "report:Q1ghC0",
+        "name": "Polenta", "type": "EntityList", "description": "Kobe Beef"}], "intelCard":
+        "https://lotus.jobs/", "links": {"hits": [{"sections": [{"section_id": {"id":
+        "iU_ZsE", "name": "Fried chicken", "type": "Category"}, "total_count": 45,
+        "lists": [{"entities": [{"id": "P2RVkVz8LMc", "name": "Corne", "type": "MitreAttackIdentifier"},
+        {"id": "3UgcSu8upFJEsUy", "name": "Polenta", "type": "MitreAttackIdentifier"},
+        {"id": "ycnF4pwIc6e2Kqz", "name": "Chimichan", "type": "MitreAttackIdentifier"},
+        {"id": "Ce8KQDMVzmNuLwd", "name": "Ammonia c", "type": "MitreAttackIdentifier"},
+        {"id": "W3EkfjyxrjfCogU", "name": "Polenta", "type": "MitreAttackIdentifier"},
+        {"id": "ZLcCDMhloufjqi7", "name": "City chic", "type": "MitreAttackIdentifier"},
+        {"id": "6WmWVhkEztB7FUz", "name": "Breaded s", "type": "MitreAttackIdentifier"},
+        {"id": "jujT6K7e1jR", "name": "Pouti", "type": "MitreAttackIdentifier"}, {"id":
+        "T2LaVMYO1yhMqoE", "name": "Juba", "type": "MitreAttackIdentifier"}, {"id":
+        "yEqGEps2IibM5dF", "name": "Chips and", "type": "MitreAttackIdentifier"},
+        {"id": "xdUR2FEZbWsVXhQ", "name": "Salted ca", "type": "MitreAttackIdentifier"},
+        {"id": "Cztu3coVznFxwBo", "name": "Bacon Che", "type": "MitreAttackIdentifier"},
+        {"id": "IPp6NgCNKQykCjM", "name": "Cheese ba", "type": "MitreAttackIdentifier"},
+        {"id": "8N6te6oYXKlafnh", "name": "Pumpkin p", "type": "MitreAttackIdentifier"},
+        {"id": "7x5JfqFcMLy", "name": "Saute", "type": "MitreAttackIdentifier"}, {"id":
+        "Qvjr18Ts2E2", "name": "Chile", "type": "MitreAttackIdentifier"}], "total_count":
+        16, "type": {"id": "S1yrZK3GbBG6Xn4KG6lzH8yNrj", "name": "Jell-O", "type":
+        "MetaType", "description": "Cheesy Garlic Bread"}}, {"entities": [{"id": "9nk6DO",
+        "name": "Pistachio", "type": "Organization"}, {"id": "fPsvkBt", "name": "Parma
+        H", "type": "Organization"}, {"id": "rXUpVv8", "name": "Domesti", "type":
+        "Organization"}], "total_count": 3, "type": {"id": "JW2OHE", "name": "Shish
+        Kabob", "type": "Position"}}, {"entities": [{"id": "NtzGT7", "name": "Maple
+        Bacon Doughnu", "type": "AttackVector"}, {"id": "LPc838", "name": "Steak sauc",
+        "type": "AttackVector"}, {"id": "wh6ZXI", "name": "Russian ", "type": "AttackVector"},
+        {"id": "t5BfxP", "name": "Turducken", "type": "AttackVector"}, {"id": "DRm9YB",
+        "name": "Meatcake", "type": "AttackVector"}, {"id": "D-47bZ", "name": "Bi
+        Bim Bap", "type": "AttackVector"}, {"id": "fIukwb", "name": "Sour cream",
+        "type": "AttackVector"}, {"id": "r8IruV", "name": "Eggs Benedict", "type":
+        "AttackVector"}, {"id": "fRjfoI", "name": "Steamed clams", "type": "AttackVector"},
+        {"id": "QlpqOT", "name": "Creamed eggs o", "type": "AttackVector"}, {"id":
+        "mu6iY", "name": "Veggie Pizza", "type": "AttackVector"}, {"id": "TfgynW",
+        "name": "Bellini", "type": "AttackVector"}, {"id": "fq_OKg", "name": "Pepperoni
+        Pizza", "type": "AttackVector"}, {"id": "ygdDOo", "name": "Mission burrit",
+        "type": "AttackVector"}, {"id": "X_NR6K", "name": "Fry sauce", "type": "AttackVector"},
+        {"id": "TPBET", "name": "Stuffed ", "type": "AttackVector"}, {"id": "Sw-YC9",
+        "name": "Pork and beans", "type": "AttackVector"}, {"id": "JNCaTT", "name":
+        "Poppyseed muffin", "type": "AttackVector"}, {"id": "qXKXFE", "name": "Glorified
+        rice", "type": "AttackVector"}, {"id": "Kt5me7", "name": "Rolled oy", "type":
+        "AttackVector"}, {"id": "XagF-r", "name": "Bi Bim Bap", "type": "AttackVector"}],
+        "total_count": 21, "type": {"id": "iYoGrVU071KNhC7eP", "name": "Hot Chicken
+        ", "type": "MetaType", "description": "Veggie Pizza"}}, {"entities": [{"id":
+        "LmqNuw", "name": "Corn dog", "type": "Malware"}, {"id": "8RF9P9", "name":
+        "Supreme pizz", "type": "Malware"}, {"id": "9WCga-", "name": "Potatoes ",
+        "type": "Malware"}, {"id": "hX2FjT", "name": "Biscuit", "type": "Malware"},
+        {"id": "it0LWM", "name": "Porte", "type": "Malware"}], "total_count": 5, "type":
+        {"id": "yVTaX0ljfcb2", "name": "Salted ", "type": "MetaType", "description":
+        "Chicken A"}}]}], "start_date": "2025-12-04", "stop_date": "2025-12-04", "total_count":
+        1, "sample_reference_ids": ["Brunswick s"], "counts": [{"count": 1, "type":
+        {"id": "oJRaeSR0cUMI1", "name": "Fortune cook", "type": "Source"}}], "event_count":
+        1}], "method_aggregates": [{"count": 0, "type": "hHQyM6"}, {"count": 1, "type":
+        "hHQyM7"}, {"count": 0, "type": "gTB8y2"}], "counts": [{"count": 1, "type":
+        {"id": "9izLMmtTpCXVq", "name": "Fish and Chi", "type": "Source"}}]}}}'
+    headers:
+      CF-RAY:
+      - 9cee1c7979b78882-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 15:34:50 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node020rpf4rdfzeg1bw55yuh7mkf03752243.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

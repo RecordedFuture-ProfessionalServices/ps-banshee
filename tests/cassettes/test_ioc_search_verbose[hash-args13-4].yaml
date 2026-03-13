@@ -1,0 +1,121 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/search?limit=5&fields=entity%2ChashAlgorithm%2Crisk%2Ctimestamps
+  response:
+    body:
+      string: '{"data": {"results": [{"timestamps": {"lastSeen": "2026-04-21T17:48:21.531Z",
+        "firstSeen": "2026-10-12T14:03:44.905Z"}, "risk": {"criticalityLabel": "Do
+        you ha", "riskString": "The ", "rules": 1, "criticality": 3, "riskSummary":
+        "Atoms are used within a program to den", "score": 89, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Initially composing light-hearted
+        and irreverent works, he also wrote serious, sombre and religious pieces beginning
+        in the 1930s.", "rule": "Ports are used to commun", "criticality": 3, "timestamp":
+        "2026-02-11T11:28:29.867Z", "criticalityLabel": "Where are"}]}, "entity":
+        {"id": "hash:5eb864697566f1a8737a4ba4c653514d2340e864ee4db721bced208d1128bfc7",
+        "name": "Pulled pork", "type": "Hash"}, "hashAlgorithm": "Make me"}, {"timestamps":
+        {"lastSeen": "2026-03-26T14:33:11.633Z", "firstSeen": "2026-05-31T08:12:05.748Z"},
+        "risk": {"criticalityLabel": "He looked", "riskString": "The ", "rules": 2,
+        "criticality": 3, "riskSummary": "In 1989 the building was heavily damag",
+        "score": 89, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "Any element of a tuple can be accessed in constant time.", "rule": "Ports
+        are created", "criticality": 2, "timestamp": "2026-11-17T20:17:24.932Z", "criticalityLabel":
+        "Any elemen"}, {"mitigationString": "", "evidenceString": "Make me a sandwich.",
+        "rule": "Ports are created with t", "criticality": 3, "timestamp": "2026-01-02T12:35:59.903Z",
+        "criticalityLabel": "The argum"}]}, "entity": {"id": "hash:8190d36e4a0c06c05ede6919cd355a636e1ff0c86167764f24de088b1ef2a170",
+        "name": "Pop-Tarts", "type": "Hash"}, "hashAlgorithm": "Initial"}, {"timestamps":
+        {"lastSeen": "2026-02-11T23:19:18.194Z", "firstSeen": "2026-06-15T07:00:15.122Z"},
+        "risk": {"criticalityLabel": "I don''t e", "riskString": "They", "rules":
+        2, "criticality": 3, "riskSummary": "Ports are used to communicate with the",
+        "score": 89, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "Atoms are used within a program to denote distinguished values.", "rule":
+        "Ports are created", "criticality": 2, "timestamp": "2026-02-12T12:56:09.866Z",
+        "criticalityLabel": "Initially "}, {"mitigationString": "", "evidenceString":
+        "Atoms can contain any character if they are enclosed within single quotes
+        and an escape convention exists which allows any character to be used within
+        an atom.", "rule": "The syntax {D1,D2,...,Dn", "criticality": 3, "timestamp":
+        "2026-03-14T04:16:13.019Z", "criticalityLabel": "Tuples ar"}]}, "entity":
+        {"id": "hash:16ab474da4143bb93ed744e6e134d9d0076c20a711da8b44403365332cda41f6",
+        "name": "Baklava", "type": "Hash"}, "hashAlgorithm": "He look"}, {"timestamps":
+        {"lastSeen": "2026-06-24T10:06:31.324Z", "firstSeen": "2026-06-30T07:26:58.707Z"},
+        "risk": {"criticalityLabel": "He looked", "riskString": "I do", "rules": 2,
+        "criticality": 3, "riskSummary": "Haskell is a standardized, general-pur",
+        "score": 89, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "Make me a sandwich.", "rule": "Its main implemen", "criticality": 2, "timestamp":
+        "2026-09-03T10:25:48.824Z", "criticalityLabel": "Haskell is"}, {"mitigationString":
+        "", "evidenceString": "Atoms can contain any character if they are enclosed
+        within single quotes and an escape convention exists which allows any character
+        to be used within an atom.", "rule": "Messages can be sent to ", "criticality":
+        3, "timestamp": "2026-08-22T11:19:09.547Z", "criticalityLabel": "Type clas"}]},
+        "entity": {"id": "hash:149c085b26c9ee0559353b787b13fdb8d816118741a343d3c3b87ae55c21f757",
+        "name": "Root Beer Float", "type": "Hash"}, "hashAlgorithm": "Ports a"}, {"timestamps":
+        {"lastSeen": "2026-11-01T23:33:07.854Z", "firstSeen": "2026-07-05T12:11:04.104Z"},
+        "risk": {"criticalityLabel": "Atoms can", "riskString": "Type", "rules": 2,
+        "criticality": 3, "riskSummary": "Do you come here often?", "score": 89, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Messages can be sent to and received
+        from ports, but these messages must obey the so-called \"port protocol.\"",
+        "rule": "They are written ", "criticality": 2, "timestamp": "2026-04-21T00:27:23.414Z",
+        "criticalityLabel": "In 1989 th"}, {"mitigationString": "", "evidenceString":
+        "Initially composing light-hearted and irreverent works, he also wrote serious,
+        sombre and religious pieces beginning in the 1930s.", "rule": "Haskell features
+        a type ", "criticality": 3, "timestamp": "2026-09-19T23:08:07.754Z", "criticalityLabel":
+        "Atoms can"}]}, "entity": {"id": "hash:c25eecba8d72729abfb40ba9fac73b8851164cf03f8d13b2a0b8a628a4aeb3b3",
+        "name": "Tres Leches Cake", "type": "Hash"}, "hashAlgorithm": "The arg"}]},
+        "counts": {"returned": 5, "total": 3139081447}}'
+    headers:
+      CF-RAY:
+      - 9cd383fac98e3c7f-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:06:58 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node09j4jy3avx0qa18e3sbhd1zhaq2017533.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

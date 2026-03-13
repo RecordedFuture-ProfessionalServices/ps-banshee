@@ -1,0 +1,85 @@
+interactions:
+- request:
+    body: '{"hash": ["e3f236e4aeb73f8f8f0caebe46f53abbb2f71fa4b266a34ab50e01933709e877"]}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '78'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/soar/v3/enrichment
+  response:
+    body:
+      string: '{"data": {"results": [{"risk": {"context": {"phishing": {"summary":
+        [], "rule": {"maxCount": 0}, "score": 0.0, "mostCriticalRule": ""}, "malware":
+        {"summary": [], "rule": {"maxCount": 0}, "score": 89.0, "mostCriticalRule":
+        ""}, "public": {"summary": [], "rule": {"maxCount": 0}, "score": 89.0, "mostCriticalRule":
+        ""}, "c2": {"summary": [], "rule": {"maxCount": 0}, "score": 0.0, "mostCriticalRule":
+        ""}}, "rule": {"count": 4, "mostCritical": "Chicken Biryani", "maxCount":
+        17, "evidence": {"historicalThreatListMembership": {"count": 1, "timestamp":
+        "2025-07-18T03:56:21.581Z", "description": "Prawn Pizza", "rule": "Churrasco",
+        "sightings": -1, "mitigation": "", "level": 1}, "positiveMalwareVerdict":
+        {"count": 6, "timestamp": "2025-04-30T21:31:45.212Z", "description": "Shrimp
+        and Grits", "rule": "Fish Tacos", "sightings": 17, "mitigation": "", "level":
+        3}, "threatResearcher": {"count": 2, "timestamp": "2025-07-03T13:02:03.161Z",
+        "description": "Falafel", "rule": "Jalapeno Poppers", "sightings": 20, "mitigation":
+        "", "level": 1}, "linkedToMalware": {"count": 13, "timestamp": "2023-10-18T19:40:57.000Z",
+        "description": "Crab cake", "rule": "Drunken chicken", "sightings": 83, "mitigation":
+        "", "level": 2}}, "summary": [{"count": 2.0, "level": 1.0}, {"count": 1.0,
+        "level": 2.0}, {"count": 1.0, "level": 3.0}]}, "score": 89, "level": 3.0},
+        "entity": {"id": "hash:43693ec8e8af6ce4c26698cbc21200a621da5d9798825603048e9bb9e53ec039",
+        "name": "33192454ddcb1cf56fbc2f53b054431f4f904a4f1c6ea533968a394dc968d071",
+        "type": "Hash"}}]}, "counts": {"returned": 1, "total": 1}}'
+    headers:
+      CF-RAY:
+      - 9d702d8a6b38959c-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 04 Mar 2026 10:25:36 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01e9upcmw1572s1o5lfhi3xllpx1038897.node0; Path=/soar; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

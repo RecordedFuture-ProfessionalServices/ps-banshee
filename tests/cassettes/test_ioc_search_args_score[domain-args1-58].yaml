@@ -1,0 +1,87 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/domain/search?limit=1&riskScore=%2850%2C61%5D&fields=entity%2Crisk%2Ctimestamps
+  response:
+    body:
+      string: '{"data": {"results": [{"timestamps": {"lastSeen": "2026-12-09T08:08:28.909Z",
+        "firstSeen": "2026-04-08T04:12:30.408Z"}, "risk": {"criticalityLabel": "I
+        don''t ev", "riskString": "In 1", "rules": 6, "criticality": 2, "riskSummary":
+        "Messages can be sent to and received f", "score": 58, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "He looked inquisitively at his
+        keyboard and wrote another sentence.", "rule": "Its main implementation is
+        the Glasgow Haske", "criticality": 1, "timestamp": "2026-04-22T18:54:09.735Z",
+        "criticalityLabel": "The Gal"}, {"mitigationString": "", "evidenceString":
+        "Do you have any idea why this is not working?", "rule": "Haskell is a standardized,
+        general-purpo", "criticality": 1, "timestamp": "2026-09-13T11:46:01.345Z",
+        "criticalityLabel": "She spe"}, {"mitigationString": "", "evidenceString":
+        "Ports are used to communicate with the external world.", "rule": "Type classes
+        first appeared in the Hask", "criticality": 1, "timestamp": "2026-05-20T08:46:33.509Z",
+        "criticalityLabel": "Atoms c"}, {"mitigationString": "", "evidenceString":
+        "Do you have any idea why this is not working?", "rule": "Do you have any
+        idea why this is not", "criticality": 1, "timestamp": "2026-01-06T01:17:14.248Z",
+        "criticalityLabel": "Do you "}, {"mitigationString": "", "evidenceString":
+        "Where are my pants?", "rule": "The arguments can be pri", "criticality":
+        2, "timestamp": "2026-09-27T02:27:02.732Z", "criticalityLabel": "She spent
+        "}, {"mitigationString": "", "evidenceString": "Haskell features a type system
+        with type inference and lazy evaluation.", "rule": "Atoms are used within
+        a progr", "criticality": 2, "timestamp": "2026-09-29T10:35:25.551Z", "criticalityLabel":
+        "Do you hav"}]}, "entity": {"id": "idn:folder.biz", "name": "Fried Green ",
+        "type": "InternetDomainName"}}]}, "counts": {"returned": 1, "total": 6}}'
+    headers:
+      CF-RAY:
+      - 9cd3be83de559b16-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:46:52 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01h9204xb6m4ew89drqqx2132z2030988.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

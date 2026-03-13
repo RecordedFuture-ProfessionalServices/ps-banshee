@@ -1,0 +1,43 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: HEAD
+    uri: https://api.recordedfuture.com/fusion/v3/files/%2Fpublic%2Fprevent%2Fbad-list4040404.csv
+  response:
+    body:
+      string: ''
+    headers:
+      CF-RAY:
+      - 9cd390be0c8b79b7-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:15:35 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      cf-cache-status:
+      - DYNAMIC
+    status:
+      code: 404
+      message: Not Found
+version: 1

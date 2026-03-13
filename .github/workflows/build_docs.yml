@@ -1,0 +1,46 @@
+name: Documentation Build 
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Fetch gh-pages and git config
+        run: |
+          git fetch origin gh-pages:gh-pages || true
+          git branch --set-upstream-to=origin/gh-pages gh-pages || true
+          git config user.name docs-bot[bot]
+          git config user.email docs-bot@users.noreply.github.com
+
+      - name: Extract version
+        id: get_version
+        run: |
+          VERSION=$(grep -m1 '^version' pyproject.toml | cut -d '"' -f2 | cut -d '.' -f 1,2)
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - uses: astral-sh/setup-uv@v6
+
+      - name: Set up Python
+        run: uv python install ${{ vars.PYTHON_VERSION }} 
+    
+      - name: Set up venv
+        run: |
+          uv venv -p ${{ vars.PYTHON_VERSION }} 
+          uv pip install '.[docs]'
+
+      - name: Run Mike build
+        run: |
+          uv run mike deploy -b gh-pages "${{ env.VERSION }}" latest --update-aliases --alias-type=copy --push
+          uv run mike set-default -b gh-pages latest --push

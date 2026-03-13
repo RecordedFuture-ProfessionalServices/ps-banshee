@@ -1,0 +1,311 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/ip/riskrules
+  response:
+    body:
+      string: '{"data": {"results": [{"criticalityLabel": "The Gal", "description":
+        "Haskell is a standardized, gene", "categories": [{"name": "Calas", "framework":
+        "Ports"}], "criticality": 1, "relatedEntities": [], "name": "Po''Boy", "count":
+        24080}, {"criticalityLabel": "Atoms a", "description": "Haskell is a standardized,
+        general-pur", "categories": [{"name": "Chick", "framework": "Type "}], "criticality":
+        1, "relatedEntities": [], "name": "Cheese stuffed c", "count": 345931}, {"criticalityLabel":
+        "Its mai", "description": "Tuples are containers for a fixed nu", "categories":
+        [{"name": "Matzo ", "framework": "Initi"}], "criticality": 1, "relatedEntities":
+        [], "name": "City chicken", "count": 111054767}, {"criticalityLabel": "Where
+        a", "description": "Initially composing light", "categories": [], "criticality":
+        1, "relatedEntities": [], "name": "Cordon bleu", "count": 6672}, {"criticalityLabel":
+        "Where a", "description": "Its main implementation is the Glasgow Haskell
+        Compiler.", "categories": [], "criticality": 1, "relatedEntities": [], "name":
+        "Paella", "count": 10050}, {"criticalityLabel": "Do you hav", "description":
+        "He looked inquisitively", "categories": [{"name": "Fattoush ", "framework":
+        "He lo"}], "criticality": 2, "relatedEntities": [], "name": "Falafel", "count":
+        0}, {"criticalityLabel": "The seq", "description": "It is also a garbage-collected
+        run", "categories": [{"name": "Oreo", "framework": "He lo"}], "criticality":
+        1, "relatedEntities": [], "name": "Pepperoni Pizz", "count": 557}, {"criticalityLabel":
+        "Atoms a", "description": "Ports are cre", "categories": [{"name": "Huevos",
+        "framework": "Erlan"}, {"name": "Potato", "framework": "Initi"}], "criticality":
+        1, "relatedEntities": [], "name": "Chicken Sala", "count": 999690}, {"criticalityLabel":
+        "It is a", "description": "Haskell is a standardi", "categories": [{"name":
+        "Bread", "framework": "Type "}, {"name": "Haggis", "framework": "The s"}],
+        "criticality": 1, "relatedEntities": [], "name": "Corn", "count": 13900313},
+        {"criticalityLabel": "Do you com", "description": "Atoms are used w", "categories":
+        [{"name": "Root Beer", "framework": "Messa"}, {"name": "Maple bac", "framework":
+        "I don"}], "criticality": 2, "relatedEntities": [], "name": "Eggs Benedict",
+        "count": 1925}, {"criticalityLabel": "Ports a", "description": "Its main implementation
+        is the Glasgow Haskell Co", "categories": [], "criticality": 1, "relatedEntities":
+        [], "name": "Chicken sandwich", "count": 82877}, {"criticalityLabel": "Ports
+        a", "description": "I don''t even care.", "categories": [{"name": "Banh M",
+        "framework": "Atoms"}], "criticality": 1, "relatedEntities": [], "name": "Carne
+        pizzaiola", "count": 299247}, {"criticalityLabel": "Tuples ", "description":
+        "Where are my pants?", "categories": [], "criticality": 1, "relatedEntities":
+        [], "name": "Elote", "count": 248992}, {"criticalityLabel": "Atoms can ",
+        "description": "Atoms can contain any character if ", "categories": [{"name":
+        "Fish T", "framework": "They "}], "criticality": 2, "relatedEntities": [],
+        "name": "Cinnamon Roll", "count": 81950}, {"criticalityLabel": "Atoms a",
+        "description": "Atoms are used within a program to denote dis", "categories":
+        [], "criticality": 1, "relatedEntities": [], "name": "City chick", "count":
+        0}, {"criticalityLabel": "Do you ", "description": "Tuples are containers
+        for a ", "categories": [{"name": "Curryw", "framework": "They "}, {"name":
+        "Montre", "framework": "Any e"}], "criticality": 1, "relatedEntities": [],
+        "name": "Alice Sp", "count": 458778}, {"criticalityLabel": "The Gal", "description":
+        "She spent her earliest years reading", "categories": [{"name": "Bear c",
+        "framework": "Erlan"}], "criticality": 1, "relatedEntities": [], "name": "Tres
+        Lec", "count": 2300}, {"criticalityLabel": "Haskell fe", "description": "Ports
+        are created with ", "categories": [{"name": "Frybre", "framework": "I don"}],
+        "criticality": 2, "relatedEntities": [], "name": "Currywurst", "count": 45777},
+        {"criticalityLabel": "Type class", "description": "Make me a sandwich.", "categories":
+        [{"name": "Turduc", "framework": "They "}, {"name": "Beigne", "framework":
+        "Atoms"}], "criticality": 2, "relatedEntities": [], "name": "Pastrami on Rye",
+        "count": 648}, {"criticalityLabel": "In 1989", "description": "The syntax
+        {D1,D2,...,Dn} deno", "categories": [{"name": "Jell-", "framework": "Any e"}],
+        "criticality": 1, "relatedEntities": [], "name": "Caviar", "count": 6000},
+        {"criticalityLabel": "Ports are ", "description": "Any element of a tuple
+        can be a", "categories": [{"name": "Sloppy", "framework": "The a"}], "criticality":
+        2, "relatedEntities": [], "name": "Black Pudding", "count": 20159}, {"criticalityLabel":
+        "He look", "description": "Ports are used to communicate with th", "categories":
+        [{"name": "Chicke", "framework": "Initi"}], "criticality": 1, "relatedEntities":
+        [], "name": "Turducken", "count": 20695}, {"criticalityLabel": "Make me a
+        ", "description": "They are written as strings of ", "categories": [{"name":
+        "Shucke", "framework": "Tuple"}], "criticality": 2, "relatedEntities": [],
+        "name": "Poke", "count": 94038}, {"criticalityLabel": "Ports a", "description":
+        "Haskell features a type system with type infere", "categories": [{"name":
+        "Jalape", "framework": "Type "}], "criticality": 1, "relatedEntities": [],
+        "name": "Charleston red rice", "count": 42463}, {"criticalityLabel": "Initial",
+        "description": "Erlang is known for its designs ", "categories": [{"name":
+        "Bi Bim Ba", "framework": "In 19"}], "criticality": 1, "relatedEntities":
+        [], "name": "Peanut butter", "count": 42485}, {"criticalityLabel": "Atoms
+        a", "description": "Any element of a tuple can be ac", "categories": [{"name":
+        "Jell-O", "framework": "Make "}], "criticality": 1, "relatedEntities": [],
+        "name": "Milksh", "count": 131792}, {"criticalityLabel": "Ports a", "description":
+        "Haskell is a standardized, g", "categories": [{"name": "Caroli", "framework":
+        "The s"}], "criticality": 1, "relatedEntities": [], "name": "Cheesecake",
+        "count": 45276}, {"criticalityLabel": "Type class", "description": "They are
+        written ", "categories": [], "criticality": 2, "relatedEntities": [], "name":
+        "Chimichanga", "count": 188737}, {"criticalityLabel": "Erlang ", "description":
+        "Ports ar", "categories": [{"name": "Parma Ham", "framework": "They "}], "criticality":
+        1, "relatedEntities": [], "name": "Pem", "count": 30588}, {"criticalityLabel":
+        "Any ele", "description": "Erlang is a general-purpose, c", "categories":
+        [{"name": "Protei", "framework": "Where"}], "criticality": 1, "relatedEntities":
+        [], "name": "Hog fry", "count": 0}, {"criticalityLabel": "Do you com", "description":
+        "In 1989 the building was heavily ", "categories": [{"name": "Chicke", "framework":
+        "Atoms"}], "criticality": 2, "relatedEntities": [], "name": "Chicken Tikka
+        Masala", "count": 16371}, {"criticalityLabel": "Do you have an", "description":
+        "Atoms are used within a program to denote d", "categories": [{"name": "Roaste",
+        "framework": "Atoms"}], "criticality": 4, "relatedEntities": ["Atoms "], "name":
+        "Russian tea cak", "count": 494}, {"criticalityLabel": "It is also", "description":
+        "They are written as s", "categories": [{"name": "Quesad", "framework": "Messa"}],
+        "criticality": 2, "relatedEntities": [], "name": "Rabbit pie", "count": 849788},
+        {"criticalityLabel": "He look", "description": "Where are my pants?", "categories":
+        [{"name": "Cinna", "framework": "Do yo"}], "criticality": 1, "relatedEntities":
+        [], "name": "Abalone", "count": 582}, {"criticalityLabel": "Initial", "description":
+        "The sequential subset of Erlang suppor", "categories": [{"name": "Pickle",
+        "framework": "Atoms"}], "criticality": 1, "relatedEntities": [], "name": "Domestic",
+        "count": 176420}, {"criticalityLabel": "Any ele", "description": "He looked
+        inquisitively at his keyboard and wrote", "categories": [{"name": "Strog",
+        "framework": "Ports"}], "criticality": 1, "relatedEntities": [], "name": "Root
+        Beer Float", "count": 23600}, {"criticalityLabel": "Atoms c", "description":
+        "The syntax {D1,D2,...,D", "categories": [{"name": "Lobst", "framework": "The
+        a"}], "criticality": 1, "relatedEntities": [], "name": "Eggo", "count": 2014273},
+        {"criticalityLabel": "Ports are ", "description": "Messages can be sen", "categories":
+        [{"name": "Hawai", "framework": "The s"}], "criticality": 2, "relatedEntities":
+        [], "name": "Crab cake", "count": 58522}, {"criticalityLabel": "In 1989",
+        "description": "Do you come here often?", "categories": [{"name": "Poke",
+        "framework": "She s"}], "criticality": 1, "relatedEntities": [], "name": "Roasted
+        Chi", "count": 24824}, {"criticalityLabel": "Ports are ", "description": "Where
+        are my pants?", "categories": [{"name": "Gyoza", "framework": "I don"}], "criticality":
+        2, "relatedEntities": [], "name": "Satay", "count": 3414}, {"criticalityLabel":
+        "Type class", "description": "I don''t even care.", "categories": [], "criticality":
+        2, "relatedEntities": [], "name": "Dirty rice", "count": 847}, {"criticalityLabel":
+        "Ports a", "description": "Any element of a tuple can be acce", "categories":
+        [{"name": "Macaro", "framework": "Haske"}], "criticality": 1, "relatedEntities":
+        [], "name": "Salmon pasta b", "count": 7356827}, {"criticalityLabel": "Atoms
+        a", "description": "In 1989 the bui", "categories": [{"name": "Alpha", "framework":
+        "Ports"}, {"name": "Eggs ", "framework": "They "}], "criticality": 1, "relatedEntities":
+        [], "name": "Fajitas", "count": 312190}, {"criticalityLabel": "Ports are ",
+        "description": "Do you come here often?", "categories": [{"name": "Deep F",
+        "framework": "Any e"}, {"name": "Suckl", "framework": "Erlan"}, {"name": "Chimichan",
+        "framework": "It is"}], "criticality": 2, "relatedEntities": [], "name": "Low
+        Country B", "count": 113}, {"criticalityLabel": "Where are ", "description":
+        "Messages can be sent to and", "categories": [], "criticality": 2, "relatedEntities":
+        [], "name": "Liver and onions", "count": 5955}, {"criticalityLabel": "Messages
+        ", "description": "Atoms are used within a program to denote dis", "categories":
+        [{"name": "Vichy", "framework": "Do yo"}], "criticality": 3, "relatedEntities":
+        [], "name": "Deviled crab", "count": 4856}, {"criticalityLabel": "Tuples ",
+        "description": "Atoms can conta", "categories": [{"name": "Choco", "framework":
+        "I don"}], "criticality": 1, "relatedEntities": [], "name": "Bisc", "count":
+        78620}, {"criticalityLabel": "Make me a", "description": "Atoms can contain
+        any character i", "categories": [{"name": "London", "framework": "The a"}],
+        "criticality": 3, "relatedEntities": [], "name": "Bird''s Nest Soup", "count":
+        385}, {"criticalityLabel": "The seque", "description": "Haskell features a
+        type system with type inference and ", "categories": [], "criticality": 3,
+        "relatedEntities": [], "name": "Escargot", "count": 3505}, {"criticalityLabel":
+        "It is also", "description": "It is also a garbage-", "categories": [], "criticality":
+        2, "relatedEntities": [], "name": "Pepperoni", "count": 891}, {"criticalityLabel":
+        "Do you hav", "description": "Tuples are containers for a fixed number of",
+        "categories": [{"name": "Fried ", "framework": "The G"}], "criticality": 2,
+        "relatedEntities": ["The sy"], "name": "Rolled oyster", "count": 849}, {"criticalityLabel":
+        "Ports a", "description": "Atoms are used within a pr", "categories": [{"name":
+        "Glorif", "framework": "The s"}, {"name": "Seafoo", "framework": "Do yo"}],
+        "criticality": 1, "relatedEntities": [], "name": "Eggo", "count": 12231},
+        {"criticalityLabel": "Haskell fe", "description": "Ports are used to ", "categories":
+        [{"name": "Sweet Pot", "framework": "Where"}, {"name": "Ribs", "framework":
+        "The s"}], "criticality": 2, "relatedEntities": [], "name": "Baked pota",
+        "count": 1200059}, {"criticalityLabel": "Its main ", "description": "Messages
+        can be sent to and receiv", "categories": [{"name": "Chowd", "framework":
+        "Its m"}], "criticality": 3, "relatedEntities": [], "name": "Schnitzel", "count":
+        13141}, {"criticalityLabel": "Tuples are", "description": "I don''t even care.",
+        "categories": [{"name": "Hawaiian ", "framework": "They "}, {"name": "Slinge",
+        "framework": "I don"}], "criticality": 2, "relatedEntities": [], "name": "Stroganoff",
+        "count": 179647}, {"criticalityLabel": "Initially ", "description": "Atoms
+        can contain any ch", "categories": [{"name": "Fish T", "framework": "It is"},
+        {"name": "Pulled", "framework": "In 19"}], "criticality": 2, "relatedEntities":
+        [], "name": "Fried Catfish", "count": 1441}, {"criticalityLabel": "Initially
+        ", "description": "Atoms can c", "categories": [{"name": "Apple", "framework":
+        "The s"}], "criticality": 2, "relatedEntities": [], "name": "Fajita", "count":
+        4782}, {"criticalityLabel": "Haskell f", "description": "The sequential subset
+        of Erl", "categories": [], "criticality": 3, "relatedEntities": [], "name":
+        "Beef Lo Mein", "count": 7258}, {"criticalityLabel": "Where a", "description":
+        "Haskell is a standardi", "categories": [], "criticality": 1, "relatedEntities":
+        [], "name": "Muffuletta", "count": 1394424}, {"criticalityLabel": "It is also",
+        "description": "They are written as strings of c", "categories": [{"name":
+        "Breakf", "framework": "Erlan"}], "criticality": 2, "relatedEntities": [],
+        "name": "Empanada", "count": 4374162}, {"criticalityLabel": "Tuples ", "description":
+        "Ports are created with the bui", "categories": [{"name": "Chees", "framework":
+        "Atoms"}], "criticality": 1, "relatedEntities": [], "name": "Shu", "count":
+        3645}, {"criticalityLabel": "Initial", "description": "In 1989 the building",
+        "categories": [{"name": "Russian t", "framework": "The s"}, {"name": "Cheesecak",
+        "framework": "The G"}], "criticality": 1, "relatedEntities": [], "name": "Tomato
+        c", "count": 4769}, {"criticalityLabel": "Where a", "description": "Erlang
+        is a general-purpo", "categories": [{"name": "Chile ", "framework": "The a"}],
+        "criticality": 1, "relatedEntities": [], "name": "Mullig", "count": 3690058},
+        {"criticalityLabel": "Initially ", "description": "Type classes first appeared
+        in", "categories": [{"name": "Jell-", "framework": "Initi"}], "criticality":
+        2, "relatedEntities": [], "name": "Jell-O", "count": 29140}, {"criticalityLabel":
+        "Tuples ", "description": "Where are my pants?", "categories": [{"name": "Macaro",
+        "framework": "Do yo"}, {"name": "Potato", "framework": "Haske"}], "criticality":
+        1, "relatedEntities": [], "name": "Mulligan stew", "count": 30865}, {"criticalityLabel":
+        "The arg", "description": "They are written as strings of con", "categories":
+        [{"name": "Funne", "framework": "Erlan"}], "criticality": 1, "relatedEntities":
+        [], "name": "Smelt", "count": 13825}, {"criticalityLabel": "The Galac", "description":
+        "Messages can be sent to and received fr", "categories": [{"name": "Liver
+        and", "framework": "It is"}], "criticality": 3, "relatedEntities": [], "name":
+        "Sour cream", "count": 4818}, {"criticalityLabel": "It is also", "description":
+        "They are written as strings of consecutive alpha", "categories": [{"name":
+        "Pocky", "framework": "Erlan"}], "criticality": 2, "relatedEntities": [],
+        "name": "Pumpkin pie", "count": 0}, {"criticalityLabel": "Make me", "description":
+        "Do you come here often?", "categories": [], "criticality": 1, "relatedEntities":
+        [], "name": "Milk Steak", "count": 0}, {"criticalityLabel": "Tuples ", "description":
+        "Initially ", "categories": [], "criticality": 1, "relatedEntities": [], "name":
+        "Shish Kab", "count": 1257367}, {"criticalityLabel": "The seq", "description":
+        "Type classes first appeared in the ", "categories": [{"name": "Senate", "framework":
+        "He lo"}], "criticality": 1, "relatedEntities": [], "name": "Vegemite on Toast",
+        "count": 504767}, {"criticalityLabel": "The syntax", "description": "Type
+        classes first appeared in the ", "categories": [{"name": "Schni", "framework":
+        "The G"}], "criticality": 2, "relatedEntities": [], "name": "Energy bar",
+        "count": 30}, {"criticalityLabel": "Atoms can ", "description": "Do you have
+        any idea why this is n", "categories": [{"name": "Carol", "framework": "Ports"},
+        {"name": "Celer", "framework": "The s"}], "criticality": 2, "relatedEntities":
+        [], "name": "Piroshky", "count": 10415}, {"criticalityLabel": "Erlang is ",
+        "description": "Make me a sandw", "categories": [], "criticality": 2, "relatedEntities":
+        [], "name": "Onion rin", "count": 28427}, {"criticalityLabel": "Haskell is",
+        "description": "Make me a sandwich.", "categories": [{"name": "Dough", "framework":
+        "Do yo"}], "criticality": 2, "relatedEntities": [], "name": "Salad bar", "count":
+        1}, {"criticalityLabel": "Atoms c", "description": "Any element of a tuple
+        can be a", "categories": [], "criticality": 1, "relatedEntities": [], "name":
+        "Cheese balls", "count": 0}, {"criticalityLabel": "Erlang ", "description":
+        "Haskell is a standardized, gener", "categories": [], "criticality": 1, "relatedEntities":
+        [], "name": "Ribs", "count": 4}, {"criticalityLabel": "Message", "description":
+        "It is also a garbage-collected runtime ", "categories": [{"name": "Devile",
+        "framework": "Ports"}, {"name": "Clam c", "framework": "Atoms"}], "criticality":
+        1, "relatedEntities": [], "name": "Fish Tacos", "count": 1586802}, {"criticalityLabel":
+        "I don''t", "description": "Erlang is known for its designs that ", "categories":
+        [], "criticality": 1, "relatedEntities": [], "name": "Biscuit", "count": 23908054},
+        {"criticalityLabel": "Type class", "description": "The sequential subset of",
+        "categories": [{"name": "Prawn ", "framework": "Erlan"}], "criticality": 2,
+        "relatedEntities": [], "name": "Brisket", "count": 83}, {"criticalityLabel":
+        "Erlang is ", "description": "Erlang is known for its designs tha", "categories":
+        [{"name": "Sautee", "framework": "Atoms"}], "criticality": 2, "relatedEntities":
+        [], "name": "Soft Shell Crab", "count": 151}, {"criticalityLabel": "Any elemen",
+        "description": "The syntax {D1,D2,...", "categories": [{"name": "Bao", "framework":
+        "Tuple"}], "criticality": 2, "relatedEntities": [], "name": "Sandwich", "count":
+        467}, {"criticalityLabel": "I don''t even c", "description": "Make me a sandwich.",
+        "categories": [{"name": "Pistac", "framework": "The G"}], "criticality": 4,
+        "relatedEntities": [], "name": "Creamed corn", "count": 2203}, {"criticalityLabel":
+        "The Galact", "description": "Haskell is a stand", "categories": [{"name":
+        "Mulli", "framework": "Do yo"}], "criticality": 2, "relatedEntities": [],
+        "name": "Chicken \u00e0 la Kin", "count": 185947}, {"criticalityLabel": "It
+        is also", "description": "She spent her earliest years re", "categories":
+        [{"name": "Meat F", "framework": "Messa"}, {"name": "Bacon ", "framework":
+        "Atoms"}], "criticality": 2, "relatedEntities": [], "name": "Ice Cream Sundae",
+        "count": 23}, {"criticalityLabel": "Its mai", "description": "The Galactic
+        Empire is nearing completion of the Death Star", "categories": [], "criticality":
+        1, "relatedEntities": [], "name": "Pocky", "count": 25536}, {"criticalityLabel":
+        "Atoms a", "description": "Haskell is a standardized, general-purpose ", "categories":
+        [{"name": "Venison", "framework": "Erlan"}], "criticality": 1, "relatedEntities":
+        [], "name": "Pastrami", "count": 155624}, {"criticalityLabel": "Atoms are
+        ", "description": "Erlang is a general-purpose, c", "categories": [{"name":
+        "Ratato", "framework": "I don"}], "criticality": 2, "relatedEntities": [],
+        "name": "Flan", "count": 38288}, {"criticalityLabel": "Ports a", "description":
+        "Messages can be sent to ", "categories": [{"name": "Po''Boy", "framework":
+        "Haske"}, {"name": "Creme ", "framework": "They "}], "criticality": 1, "relatedEntities":
+        [], "name": "Turducken", "count": 1928874}, {"criticalityLabel": "Ports are
+        ", "description": "Erlang is known for its designs ", "categories": [], "criticality":
+        2, "relatedEntities": [], "name": "Smelt", "count": 247052}]}}'
+    headers:
+      CF-RAY:
+      - 9cecbeba3d6a6054-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 11:36:03 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01he3xtpyhpr05nth4kazjguh13653676.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

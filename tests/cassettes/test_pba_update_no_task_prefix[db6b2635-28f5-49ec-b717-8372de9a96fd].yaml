@@ -1,0 +1,49 @@
+interactions:
+- request:
+    body: '{"status": "Dismissed"}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '23'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: PUT
+    uri: https://api.recordedfuture.com/playbook-alert/common/task:db6b2635-28f5-49ec-b717-8372de9a96fd
+  response:
+    body:
+      string: '{"status": {"status_code": "Er", "status_message": "She spent her earliest
+        years rea"}}'
+    headers:
+      CF-RAY:
+      - 9cd389a2b8bafd82-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:10:46 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

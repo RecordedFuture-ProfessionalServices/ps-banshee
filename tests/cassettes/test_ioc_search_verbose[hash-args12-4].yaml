@@ -1,0 +1,117 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/search?limit=5&fields=entity%2ChashAlgorithm%2Crisk%2Ctimestamps
+  response:
+    body:
+      string: '{"data": {"results": [{"timestamps": {"lastSeen": "2026-08-06T21:15:40.554Z",
+        "firstSeen": "2026-03-13T15:55:57.511Z"}, "risk": {"criticalityLabel": "The
+        Galac", "riskString": "Type", "rules": 1, "criticality": 3, "riskSummary":
+        "I don''t even care.", "score": 89, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "I don''t even care.", "rule": "The Galactic Empire
+        is n", "criticality": 3, "timestamp": "2026-06-23T17:25:59.089Z", "criticalityLabel":
+        "Where are"}]}, "entity": {"id": "hash:47d40edc4434d212792cb84a68519c735f78ede0fa102b9addcc92097dec51b5",
+        "name": "Peanut butter", "type": "Hash"}, "hashAlgorithm": "Any ele"}, {"timestamps":
+        {"lastSeen": "2026-03-03T02:41:56.143Z", "firstSeen": "2026-09-11T03:28:36.713Z"},
+        "risk": {"criticalityLabel": "Haskell i", "riskString": "The ", "rules": 2,
+        "criticality": 3, "riskSummary": "Atoms are used within a program to den",
+        "score": 89, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "The arguments can be primitive data types or compound data types.", "rule":
+        "Ports are created", "criticality": 2, "timestamp": "2026-01-24T02:22:01.893Z",
+        "criticalityLabel": "Ports are "}, {"mitigationString": "", "evidenceString":
+        "Tuples are containers for a fixed number of Erlang data types.", "rule":
+        "I don''t even care.", "criticality": 3, "timestamp": "2026-03-02T16:18:09.112Z",
+        "criticalityLabel": "The seque"}]}, "entity": {"id": "hash:05d8e1db2ff8bd6e3e64e9d379f9333cffa891426bd167c9d5a023c7e0e5b773",
+        "name": "Hawaiian Pizza", "type": "Hash"}, "hashAlgorithm": "Message"}, {"timestamps":
+        {"lastSeen": "2026-10-27T12:55:35.869Z", "firstSeen": "2026-09-11T14:52:13.116Z"},
+        "risk": {"criticalityLabel": "The argum", "riskString": "Init", "rules": 2,
+        "criticality": 3, "riskSummary": "She spent her earliest years reading c",
+        "score": 89, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "Do you have any idea why this is not working?", "rule": "Make me a sandwic",
+        "criticality": 2, "timestamp": "2026-07-18T05:22:34.047Z", "criticalityLabel":
+        "Do you com"}, {"mitigationString": "", "evidenceString": "In 1989 the building
+        was heavily damaged by fire, but it has since been restored.", "rule": "Ports
+        are created with t", "criticality": 3, "timestamp": "2026-12-21T15:09:27.021Z",
+        "criticalityLabel": "They are "}]}, "entity": {"id": "hash:27ca0eb191007980e0cc68e71423d11b7175d13c4c0b0e8d64237f4b7c0d64db",
+        "name": "Mozzarella Sticks", "type": "Hash"}, "hashAlgorithm": "Atoms c"},
+        {"timestamps": {"lastSeen": "2026-05-28T16:12:37.758Z", "firstSeen": "2026-10-06T08:12:19.523Z"},
+        "risk": {"criticalityLabel": "They are ", "riskString": "The ", "rules": 2,
+        "criticality": 3, "riskSummary": "The Galactic Empire is nearing complet",
+        "score": 89, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "Messages can be sent to and received from ports, but these messages must
+        obey the so-called \"port protocol.\"", "rule": "She spent her ear", "criticality":
+        2, "timestamp": "2026-06-20T10:43:29.715Z", "criticalityLabel": "Ports are
+        "}, {"mitigationString": "", "evidenceString": "Do you have any idea why this
+        is not working?", "rule": "Haskell is a standardize", "criticality": 3, "timestamp":
+        "2026-12-23T03:15:59.013Z", "criticalityLabel": "Tuples ar"}]}, "entity":
+        {"id": "hash:1e1b9bc43d0cfa2445a4fb4f08da4cdde34ad8220ad073b61f56a8ac448cc6c3",
+        "name": "Surf and turf", "type": "Hash"}, "hashAlgorithm": "Do you "}, {"timestamps":
+        {"lastSeen": "2026-05-02T08:52:55.796Z", "firstSeen": "2026-08-06T04:14:50.154Z"},
+        "risk": {"criticalityLabel": "Any eleme", "riskString": "She ", "rules": 2,
+        "criticality": 3, "riskSummary": "It is also a garbage-collected runtime",
+        "score": 89, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "Type classes first appeared in the Haskell programming language.", "rule":
+        "The sequential su", "criticality": 2, "timestamp": "2026-01-16T12:31:32.552Z",
+        "criticalityLabel": "The argume"}, {"mitigationString": "", "evidenceString":
+        "Where are my pants?", "rule": "Its main implementation ", "criticality":
+        3, "timestamp": "2026-04-28T02:02:55.848Z", "criticalityLabel": "He looked"}]},
+        "entity": {"id": "hash:ad820b48ed455d9a175be5fd6f418219ff95f4ccb277efeb946371a88e391095",
+        "name": "Buffalo burger", "type": "Hash"}, "hashAlgorithm": "Message"}]},
+        "counts": {"returned": 5, "total": 3139081427}}'
+    headers:
+      CF-RAY:
+      - 9cd383bece264866-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:06:52 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0brdr3xj3tjcl1cxummxs79uax2012051.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

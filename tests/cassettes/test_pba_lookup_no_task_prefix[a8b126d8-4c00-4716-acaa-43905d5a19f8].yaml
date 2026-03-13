@@ -1,0 +1,183 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - banshee:tests_/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.3 platform_id
+        unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/playbook-alert/common/task:a8b126d8-4c00-4716-acaa-43905d5a19f8
+  response:
+    body:
+      string: '{"status": {"status_code": "Ro", "status_message": "Cheese Curds"},
+        "data": {"playbook_alert_id": "task:a8b126d8-4c00-4716-acaa-43905d5a19f8",
+        "rule_id": "Hot Ch", "alert_rule": {"id": "w41VFj", "label": "Spring Rolls",
+        "name": "Pepperoni"}, "status": "Resolved", "priority": "Mapl", "created":
+        "2026-02-10T06:53:03.906Z", "updated": "2026-02-10T18:54:56.953Z", "category":
+        "geopolitics_facility", "title": "Tuples are containe", "owner_id": "Thousand
+        Island ", "owner_name": "Baked potato", "organisation_id": "French Onion Sou",
+        "organisation_name": "Pasta salad", "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Maple Bacon Doug", "organisation_name": "Suckling Pig"}],
+        "enterprise_id": "Bookbinder Soup", "enterprise_name": "Cheese stuffed crust
+        pizza"}, "actions_taken": []}}'
+    headers:
+      CF-RAY:
+      - 9dbbc98dff26f662-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Mar 2026 14:39:18 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - banshee:tests_/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.3 platform_id
+        unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/playbook-alert/geopolitics_facility/task:a8b126d8-4c00-4716-acaa-43905d5a19f8
+  response:
+    body:
+      string: '{"status": {"status_code": "Tr", "status_message": "Fried Catfish"},
+        "data": {"playbook_alert_id": "task:a8b126d8-4c00-4716-acaa-43905d5a19f8",
+        "panel_status": {"status": "Resolved", "priority": "Texa", "created": "2026-02-10T06:53:03.906Z",
+        "updated": "2026-02-10T18:54:56.953Z", "case_rule_id": "Chicken Tikka", "case_rule_label":
+        "Geopolitics Facility", "alert_rule": {"id": "w41VFj", "label": "Parma Ham",
+        "name": "Chinese food"}, "owner_id": "Cheesecake", "owner_name": "Chicken
+        sandwich", "organisation_id": "Tin Roof Ice Cre", "organisation_name": "Shish
+        Kabob", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Liver and onions", "organisation_name": "Russian tea cake"}], "enterprise_id":
+        "New York-Style P", "enterprise_name": "Chicken and waffles"}, "entity_id":
+        "Chick", "entity_name": "Tagine", "targets": [{"name": "Tetrazzini"}], "actions_taken":
+        []}, "panel_evidence_summary": {"assessments": [{"name": "Potato skins", "criticality":
+        "Rice and"}, {"name": "Geoduck", "criticality": "New "}], "events": [{"text":
+        "Ports are used to communicate with the external world. The sequential subset
+        of Erlang supports eager evaluation, single assignment, and dynamic typing.
+        Do you have any idea why this is not working? The sequential subset of Erlang
+        supports eager evaluation, single assignment, and ", "source": "Goulash",
+        "url": "https://throat.berlin/", "assessments": [{"name": "Bull roast", "criticality":
+        "Porterho"}], "document_id": "Steamed", "time": "2026-02-10T06:29:05.000Z",
+        "images": ["City chicken"]}, {"text": "Ports are created with the built-in
+        function open_port. Its main implementation is the Glasgow Haskell Compiler.
+        Erlang is known for its designs that are well suited for systems. Its main
+        implementation is the Glasgow Haskell Compiler. Its main implementation is
+        the Glasgow Haskell Compiler.", "source": "Bulgogi", "url": "https://directed.jobs/",
+        "assessments": [{"name": "Grits", "criticality": "Potato s"}], "document_id":
+        "Flan", "time": "2026-02-10T06:29:05.000Z", "images": ["Carne pizzaiola"]},
+        {"text": "Any element of a tuple can be accessed in constant time. She spent
+        her earliest years reading classic literature, and writing poetry. The sequential
+        subset of Erlang supports eager evaluation, single assignment, and dynamic
+        typing. Make me a sandwich. Any element of a tuple can be", "source": "Biscuit",
+        "url": "https://commerce.tel/", "assessments": [{"name": "Sweetbreads", "criticality":
+        "Ranc"}], "document_id": "Meat Fe", "time": "2026-02-10T06:29:05.000Z", "images":
+        ["Glorified rice"]}, {"text": "The syntax {D1,D2,...,Dn} denotes a tuple whose
+        arguments are D1, D2, ... Dn. Messages can be sent to and received from ports,
+        but these messages must obey the so-called \"port protocol.\" He looked inquisitively
+        at his keyboard and wrote another sentence. Initially composing light-hearted
+        and irreverent works, h", "source": "Cordon bleu", "url": "https://conclusion.coop/",
+        "assessments": [{"name": "BBQ Chicken Pi", "criticality": "Sour"}], "document_id":
+        "Ploye", "time": "2026-02-10T06:29:05.000Z", "images": ["Pasta salad"]}]},
+        "panel_overview": {"event_type": "Squab", "location_distance": {"number":
+        612, "unit": "Pistac", "facility_name": "Smelt"}, "event_time": "2026-02-10T06:29:05.000Z",
+        "source": "Stroganoff", "ai_insights": "Breaded shrimp", "most_recent_event":
+        {"text": "Atoms can contain any character if they are enclosed within single
+        quotes and an escape convention exists which allows any character to be used
+        within an atom. Atoms are used within a program to denote distinguished values.
+        Atoms can contain any character if they are enclosed within single quotes
+        and an escape ", "source": "Kimchi", "url": "https://tank.report/", "assessments":
+        [{"name": "Potato salad", "criticality": "Frie"}], "document_id": "Pocky",
+        "time": "2026-02-10T06:29:05.000Z", "images": ["Philadelphia cheesesteak"]},
+        "facility_name": "Steak sauce", "facility_id": "Ratat", "location_data": {"latitude":
+        14.753, "longitude": 42.976299}, "event_document_id": "Chocola", "watchlist_comment":
+        "", "is_based_on_deleted_event": false}, "panel_log": [{"id": "gBcw5TOOwbKFAWXB0uS6Nih11qLs6JUu2j95wCiEy",
+        "created": "2026-02-10T06:53:07.320Z", "modified": "Milk toast", "action_priority":
+        "Chic", "context": {"type": "geopolitics_facility", "changes": [{"cluster_id":
+        "Gyoza", "main_event": {"event_id": "Philadelphi", "assessments": [{"id":
+        "7blf0j1xeR1lZvl5071iswsdHOHTs1T6xft6hJBOSsKuFm7YNLfNA9N4e5oB6QCuTk", "level":
+        3, "title": "Ports are crea"}], "type": "event_change_added"}, "other_event_ids":
+        ["Parma Ham"], "type": "cluster_change_added"}]}}, {"id": "RY1XyCzwi5yr6qGmUQZlyX31LEokg9g308utmwNLF",
+        "created": "2026-02-10T06:53:07.864Z", "modified": "Alphabet pasta", "action_priority":
+        "Sala", "changes": {"assessment_ids_change": {"added": ["alias:case.category.geopolitics_facility.assessment.military_maneuver"],
+        "type": "assessment_ids_change"}}, "context": {"type": "geopolitics_facility",
+        "changes": [{"added": ["alias:case.category.geopolitics_facility.assessment.military_maneuver"],
+        "type": "assessment_ids_change"}, {"cluster_id": "Gumbo", "main_event": {"event_id":
+        "Prawn Pizza", "assessments": [{"id": "PYF7S0iSbzChoZN0Oam6c2c2TQXtopAKoyRxf5AjloYuZGNf4nqq7qQIslMF8c2AcgJDM",
+        "level": 2, "title": "They are written "}], "type": "event_change_added"},
+        "other_event_ids": ["Montreal Sm"], "type": "cluster_change_added"}]}}, {"id":
+        "eGvc4usFZNWZxXKl6b9HWnAAOds1Vs9az6BCm5fnr", "created": "2026-02-10T18:54:56.953Z",
+        "modified": "Corn flakes", "action_priority": "Choco pie", "message": "French
+        Onion Soup", "changes": {"status_change": {"old": "Hag", "new": "Texas To",
+        "type": "status_change"}}}], "panel_log_v2": [{"id": "n8mvd4tBX66AlW3tklOt0fAi1rFAJKpX2HwGXHWAX",
+        "created": "2026-02-10T06:53:07.320Z", "changes": [{"cluster_id": "Satay",
+        "main_event": {"event_id": "Potato wedg", "assessments": [{"id": "3s5tB2elJe8ixwgOh8MkaTMEKjTzIxEOXDr2wyMJn2yWKI5mqCjaLO8M03n5uoZXv6",
+        "level": 3, "title": "They are writt"}], "type": "event_change_added"}, "other_event_ids":
+        ["Chicken Tik"], "type": "cluster_change_added"}]}, {"id": "cHDuPqGVzvEf6pBLefmSPszEcwnzylaLrYFahTp0Q",
+        "created": "2026-02-10T06:53:07.864Z", "changes": [{"added": ["alias:case.category.geopolitics_facility.assessment.military_maneuver"],
+        "type": "assessment_ids_change"}, {"cluster_id": "Russian dre", "main_event":
+        {"event_id": "Sauteed Mor", "assessments": [{"id": "2oaN86mBDf1mPt9CaSdjViZvv2HW9XpiCcwC1QEcMoOZmW8ju9nKJWO0nYUqMjODHEXTU",
+        "level": 2, "title": "Ports are created"}], "type": "event_change_added"},
+        "other_event_ids": ["Barbecue"], "type": "cluster_change_added"}]}, {"id":
+        "rQJXNJl52qfmgEL80HeLULNZokDBeRtST9g5aGtNs", "created": "2026-02-10T18:54:56.953Z",
+        "changes": [{"old": "Tur", "new": "Corn dog", "actions_taken": [], "type":
+        "status_change"}, {"comment": "Chicago Deep Dish Pizza", "type": "comment_change"}]}]}}'
+    headers:
+      CF-RAY:
+      - 9dbbc98f6d89bd80-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Mar 2026 14:39:20 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

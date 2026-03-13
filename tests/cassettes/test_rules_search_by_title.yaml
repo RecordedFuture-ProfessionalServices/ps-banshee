@@ -1,0 +1,325 @@
+interactions:
+- request:
+    body: '{"filter": {"created": {}, "updated": {}, "title": "ransomware"}, "limit":
+      10}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '78'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/detection-rule/search
+  response:
+    body:
+      string: '{"count": 10, "total_count": 314, "result": [{"id": "doc:oJeqDP", "type":
+        "yara", "title": "Do you come here often?", "description": "The syntax {D1,D2,...,Dn}
+        denotes a tuple whose arguments are D1, D2, ... Dn.", "created": "2022-09-27T15:27:18.379Z",
+        "updated": "2022-09-27T15:29:36.873Z", "rules": [{"entities": [{"id": "J0Nl-p",
+        "type": "MalwareCategory", "name": "Clam cake"}, {"id": "oJZAhV", "type":
+        "Malware", "name": "Beignets"}], "content": "Its main implementation is the
+        Glasgow Haskell Compiler.", "file_name": "The syntax {D1,D2,...,Dn} "}]},
+        {"id": "doc:hq7CrJ", "type": "yara", "title": "He looked inquisitively at
+        his keyboard and wrote another sentence.", "description": "Do you come here
+        often?", "created": "2021-03-19T00:00:00.000Z", "updated": "2021-03-19T21:54:30.309Z",
+        "rules": [{"entities": [{"id": "hash:36b756325485df7b72a7308c31486bd7029e70be5d0b6b2323765918e9cbc74d",
+        "type": "Hash", "name": "Beignets"}, {"id": "hash:7fb9d394393347b7660c4cd5887812eec7aacb7802f9d7c20d8951d6726d13a9",
+        "type": "Hash", "name": "Cordon bleu"}, {"id": "hash:dece3303a99899028add30027ecce5fbe04a1ddacf08adf7f11680b0113af00f",
+        "type": "Hash", "name": "Alphabet pasta"}, {"id": "hash:7206b2fa22a226c43df021d92861937b02a5341ba6a80cc05f69ab3d25400ff4",
+        "type": "Hash", "name": "Key Lime Pie"}, {"id": "hash:13c5802c2a84a0a3eb847ff626efada1f41f0aaad2301bf3e78f2e7737400330",
+        "type": "Hash", "name": "Lobster roll"}, {"id": "hash:28792df995f2bfe47f927c1ab3acc1bd7a3d21370ddf654a5d54c3f199525e8c",
+        "type": "Hash", "name": "Muffuletta"}, {"id": "hash:bed2e5da63d1d9260a4e64b8691a6d45bcaf3116df3effa89cf423417f3e6a95",
+        "type": "Hash", "name": "Drunken chicken"}, {"id": "hge_xY", "type": "Malware",
+        "name": "Meat Feast Piz"}, {"id": "hash:891c9f14347131f348f826f2175d59fb8c51bff868aa799a56fb417bf18df63a",
+        "type": "Hash", "name": "Crab cake"}, {"id": "hash:40fbde0a5e1c0285c5a27f7f4836b310235ec1403d929acb91eafc51f71cabda",
+        "type": "Hash", "name": "Poutine"}, {"id": "hash:c62299e3d8b8c01561b710d45eaafc5cd573fc74d21b48746fc81800a0c61787",
+        "type": "Hash", "name": "Mashed pumpkin"}, {"id": "hash:bc810e72ed37fd8d0de45b232e11dcd659085be1a7138498a7ef7f72bf963862",
+        "type": "Hash", "name": "Barbecue"}, {"id": "hash:5a75303f07f03c45c1264dd37c761ced7b61d92a6201970e333a78264f8c21d7",
+        "type": "Hash", "name": "Chicken and waffles"}, {"id": "hash:f5786acf371dcd7e5e41093c9e9a6c3e97da7b5d12b5d452492114cf40b0d041",
+        "type": "Hash", "name": "Maraca pie"}, {"id": "hash:90e1596d8ec87e4b833d93e984c03e313e5f6c28b03e41fa1310b5e299f86ee4",
+        "type": "Hash", "name": "Clam chowder"}, {"id": "hash:79b29cf4a1b9f7c9648c89fc3a425f5593e7fc10f9d2397a3582cb2600a6dfa8",
+        "type": "Hash", "name": "Falafel"}, {"id": "KLjPFP", "type": "FileName", "name":
+        "Corn chowd"}, {"id": "ip:26.222.32.131", "type": "IpAddress", "name": "Prawn
+        Pizza"}, {"id": "Y0PNLt6jc7z", "type": "MitreAttackIdentifier", "name": "Sprin",
+        "display_name": "The sequential subset of Erlang supports eag"}, {"id": "S6VWU3mnVZJWIZ8",
+        "type": "MitreAttackIdentifier", "name": "Salisbury", "display_name": "Haskell
+        features a type system with type inf"}, {"id": "pW0jEFaU4dy", "type": "MitreAttackIdentifier",
+        "name": "Venis", "display_name": "The arguments can be primitive da"}, {"id":
+        "SmCnYD", "type": "Product", "name": "Flan"}, {"id": "oRcIdWwqkBn", "type":
+        "MitreAttackIdentifier", "name": "Frenc", "display_name": "Haskell is a standardized,
+        gener"}, {"id": "JmVyxFZC6cv7cah", "type": "MitreAttackIdentifier", "name":
+        "Stuffed h", "display_name": "Atoms can contain any character if they are
+        enclosed within single q"}, {"id": "hEtFJJ", "type": "Username", "name": "Cheese
+        stu"}, {"id": "ip:113.113.200.22", "type": "IpAddress", "name": "Russian tea
+        cak"}, {"id": "K_Rbz_", "type": "Technology", "name": "French Onion Soup"},
+        {"id": "JTl-GN", "type": "Product", "name": "Buffalo wing"}, {"id": "J0Nl-p",
+        "type": "MalwareCategory", "name": "Hokkien fr"}, {"id": "xpRcripWQY6vV",
+        "type": "Source", "name": "Curryw"}], "content": "The sequential subset of
+        Erlang supports eager evaluation, single assignment, and dynamic typing.",
+        "file_name": "In 1989 the building w"}]}, {"id": "doc:jInvIp", "type": "yara",
+        "title": "Do you come here often?", "description": "The arguments can be primitive
+        data types or compound data types.", "created": "2021-07-14T00:00:00.000Z",
+        "updated": "2021-07-16T17:26:29.737Z", "rules": [{"entities": [{"id": "hash:2c49884325c6304aec881a36055dfa85d4712d4140ccd1864049db7e096b5492",
+        "type": "Hash", "name": "Mashed potato"}, {"id": "yrs8ZaZxFq4kkf9QTBWjA0sy791",
+        "type": "EmailAddress", "name": "Veggie Pizza"}, {"id": "R0eW95", "type":
+        "Malware", "name": "Potato skins"}, {"id": "hash:97acf70760f7706ed3f7c3552a8d43b80484a21ff5c4d95cd447d26ca14fc469",
+        "type": "Hash", "name": "Shawarma"}, {"id": "url:https://editor.name/", "type":
+        "URL", "name": "Haggis"}, {"id": "hash:5ec5cac33e1a48e4521f07794b6579a97fca4e443083e0f3ea950786c8efd996",
+        "type": "Hash", "name": "Black Pudding"}, {"id": "hash:af8d0c34b86aeb50ab34ba05e39f25129ce0ffc2a2953a750e8cbe5ada89c9f0",
+        "type": "Hash", "name": "Chinese food"}, {"id": "tatzkzbavZdsdj5QgUkkJZsM",
+        "type": "EmailAddress", "name": "Tagine"}, {"id": "url:https://style.moscow/",
+        "type": "URL", "name": "Baba Ghanoush"}, {"id": "JX46ZyhuQI6yCzQ4RMR8bAls",
+        "type": "EmailAddress", "name": "Calamari"}, {"id": "hash:bafa8f93e90b8dd964f87a936b9ddd52c9368df0b8b0f0374494e36d7aa3bd2c",
+        "type": "Hash", "name": "Breaded shrimp"}, {"id": "url:https://reporting.travel/",
+        "type": "URL", "name": "Churrasco"}, {"id": "url:https://postposted.directory/",
+        "type": "URL", "name": "Bruschetta"}, {"id": "hash:b135d86f99195711b9d7dba534af3d4fa0a812629a7bf051cf5952b9c7049429",
+        "type": "Hash", "name": "Barbecue"}, {"id": "kfLydIhsj74358F", "type": "MitreAttackIdentifier",
+        "name": "Onion Rin", "display_name": "She spent her earliest years reading
+        classic literature, and writing"}, {"id": "i1Eg3i", "type": "Malware", "name":
+        "St. Paul Sandwich"}, {"id": "FmE8zv1iBJCqFTt", "type": "MitreAttackIdentifier",
+        "name": "Peanut bu", "display_name": "He looked inquisitively at his keyboard
+        and wrote another sen"}, {"id": "88VtnEyIDUAceaR", "type": "MitreAttackIdentifier",
+        "name": "Veggie Pi", "display_name": "Erlang is a general-purpose, concurrent,
+        fun"}, {"id": "hnxUkr8ZFJqxhd2", "type": "MitreAttackIdentifier", "name":
+        "Mission b", "display_name": "Do you have any idea why this is not work"},
+        {"id": "J7JFb2E88Xj", "type": "MitreAttackIdentifier", "name": "Missi", "display_name":
+        "Haskell is a standardized, genera"}, {"id": "hvjvrq", "type": "Malware",
+        "name": "Macaroni salad"}, {"id": "J0Nl-p", "type": "MalwareCategory", "name":
+        "Coq Au Vin"}], "content": "The sequential subset of Erlang supports eager
+        evaluation, single assignment, and dynamic typing.", "file_name": "They are
+        written as stri"}]}, {"id": "doc:xoHNrd", "type": "yara", "title": "Initially
+        composing light-hearted and irreverent works, he also wrote serious, sombre",
+        "description": "Ports are created with the built-in function open_port.",
+        "created": "2024-08-09T21:14:41.325Z", "updated": "2024-08-09T21:14:41.325Z",
+        "rules": [{"entities": [{"id": "hash:581cd5f99c61053c7dd3126332ada9b5aa3593f81840c02a32c3b5847a6c72a3",
+        "type": "Hash", "name": "Pickled cucumber"}, {"id": "hash:4bb63eb0f960e5462a86d01a100a9d1e1959089aef03df859db2a086d6adfd2c",
+        "type": "Hash", "name": "Haystack"}, {"id": "hash:d9a229ce5880e3e0a46229ed50976c9b4022dcbc3f1ad590b4267bbe12642caf",
+        "type": "Hash", "name": "Ice Cream"}, {"id": "hash:4f8b635e8b266146f9b6ffa1a1e9fc583be049de68118d03f437b97300eb0a6a",
+        "type": "Hash", "name": "Bacon Cheeseburger"}, {"id": "aUBDtX0idHt", "type":
+        "MitreAttackIdentifier", "name": "Tuna ", "display_name": "Do you come here
+        oft"}, {"id": "hash:4861cae9450e5a86cfa58a0cbb95129e385c5a5095b5e12e65b007e51a790ca1",
+        "type": "Hash", "name": "Churrasco"}, {"id": "hash:7f9d5110e0277ebb23af4217489ce601e8eeb619a5b19321a5642c402582768f",
+        "type": "Hash", "name": "Creamed eggs on toast"}, {"id": "hash:980caaa27ef454312e2a0d25b7bdd130e7e495c9b5a03874f717e735f92cb701",
+        "type": "Hash", "name": "Vichyssoise"}, {"id": "hash:40b618c9a8733edaf62a73f4e2dc0a88bdbb567a3122eb9b9ea5afdded4c2213",
+        "type": "Hash", "name": "Spaghetti and Meatballs"}, {"id": "elpGYSCmJaI",
+        "type": "MitreAttackIdentifier", "name": "Sour ", "display_name": "In 1989
+        the building was heavily "}, {"id": "bFQK1s6hIp3", "type": "MitreAttackIdentifier",
+        "name": "Juba", "display_name": "Do you come here often?"}, {"id": "nuDqc",
+        "type": "Product", "name": "Mango and Sticky "}, {"id": "rGIF_F", "type":
+        "Organization", "name": "Clam cake"}, {"id": "hash:1de913ea71d1dc66c724377b8945fb77f672847f219b60afe5cf2ac8a714d8ec",
+        "type": "Hash", "name": "Suckling Pig"}, {"id": "bV_j3K", "type": "AttackVector",
+        "name": "Protein bar"}, {"id": "XEe4fNpZHy60M79", "type": "MitreAttackIdentifier",
+        "name": "Tetrazzin", "display_name": "Erlang is known for its designs that
+        are well suited"}, {"id": "fM4sZc", "type": "AttackVector", "name": "Tomato
+        compote"}, {"id": "se3t1u", "type": "Malware", "name": "Meatcake"}, {"id":
+        "J0Nl-p", "type": "MalwareCategory", "name": "Chile Rell"}, {"id": "P0K-pc",
+        "type": "Technology", "name": "Chili dog"}, {"id": "6ozX0", "type": "Product",
+        "name": "Black Pudding"}, {"id": "GGe3R", "type": "Product", "name": "Chowder"},
+        {"id": "DaFUQd", "type": "Product", "name": "Pop-Tarts"}, {"id": "JQ1aL-",
+        "type": "Product", "name": "Mozzarella St"}, {"id": "eIsVc", "type": "Product",
+        "name": "Alice Springs Chicken"}, {"id": "rGIF_D", "type": "Malware", "name":
+        "Pemmican"}, {"id": "jjJHK", "type": "Country", "name": "Lasagna"}, {"id":
+        "92MPF", "type": "Company", "name": "Domestica"}, {"id": "Tt9BLf", "type":
+        "Organization", "name": "Squab"}, {"id": "msl0G", "type": "Person", "name":
+        "Drunk"}], "content": "The syntax {D1,D2,...,Dn} denotes a tuple whose arguments
+        are D1, D2, ... Dn.", "file_name": "Messages can be "}]}, {"id": "doc:2j6qNq",
+        "type": "sigma", "title": "She spent her earliest years reading classic lite",
+        "description": "The arguments can be primitive data types or compound data
+        types.", "created": "2025-01-17T20:24:11.354Z", "updated": "2025-01-17T20:24:11.354Z",
+        "rules": [{"entities": [{"id": "Jh9wEnjQ8jjxUx5", "type": "MitreAttackIdentifier",
+        "name": "Elote", "display_name": "Ports are created with the built-in function
+        open_port."}, {"id": "0AOkGd", "type": "Organization", "name": "Sweetbreads"},
+        {"id": "1OM8bt", "type": "Malware", "name": "Cinnamon Roll"}, {"id": "4GgWA",
+        "type": "Product", "name": "Chili dog"}], "content": "Erlang is a general-purpose,
+        concurrent, functional programming language.", "file_name": "Atoms can contain
+        any chara"}]}, {"id": "doc:qH7FF_", "type": "yara", "title": "Messages can
+        be sent to and received from ports,", "description": "Any element of a tuple
+        can be accessed in constant time.", "created": "2023-02-23T18:07:03.622Z",
+        "updated": "2023-02-23T18:07:03.622Z", "rules": [{"entities": [{"id": "hash:239c4961df36d7c36198642b1e994a5d9c5b9441689bf4fa633971c821e1e1a4",
+        "type": "Hash", "name": "Patty"}, {"id": "hash:b455aaf4f882f9fd7b53e3f3a5d159e9975a7434e1f8ed7753f069691f27b400",
+        "type": "Hash", "name": "Steak sandwich"}, {"id": "hash:a20b79efd2e2e8a5cf907689e919d9afeb0e472e54e34572aa9bb0adcfe3d5c9",
+        "type": "Hash", "name": "Flan"}, {"id": "hash:dcf4509b54072ed27652f05307242261515859f94c1311347337cce9d8446044",
+        "type": "Hash", "name": "Rabbit pie"}, {"id": "GDRfqPWtBICbaK8", "type": "MitreAttackIdentifier",
+        "name": "Peanut bu", "display_name": "The syntax {D1,D2,...,Dn} denotes a
+        tuple whose arguments are D1, D2, ... Dn."}, {"id": "hash:2538261157c92c96aa407ef2489d89d2ea3f72849b1f94e497a83ca7e73ddf52",
+        "type": "Hash", "name": "Cheese stuffed crust pizza"}, {"id": "hash:16e4b22b872cc71b3258e53f8a419b7414c3090ecdd4cc33d3acab7a3cde373c",
+        "type": "Hash", "name": "Burnt ends"}, {"id": "hash:5d9572ef33cf3cfdef44609655bfb93a0c74b602012e498a053988a451edf6a2",
+        "type": "Hash", "name": "Poke"}, {"id": "J0Nl-p", "type": "MalwareCategory",
+        "name": "Apple sauc"}, {"id": "hash:d75acd5493ce145edee74672250862a281c3a00ff6627c5170294ba575de6872",
+        "type": "Hash", "name": "Pistachio Ice Cream"}, {"id": "hash:2f9e9263af40c30991cff47cba06092e7057c77bd1f8cf286791c553cda157fa",
+        "type": "Hash", "name": "Hangtown fry"}, {"id": "pu8hHn", "type": "Malware",
+        "name": "Milkshake"}, {"id": "hash:91c0b5ea52e6d8417323772db91ab909f80c0ad91d819c2e2abbf38cd2aefe5f",
+        "type": "Hash", "name": "Stuffed peppers"}, {"id": "hash:bd4b6ee5bebbb7e908ff3826e57f8c8fb1a2be487e51a378a677923b6393eac7",
+        "type": "Hash", "name": "Sweetbreads"}, {"id": "hash:46cb6395d3f29c17343789c64d8a74e0ade5227abcf8aa3c982fcffd6622f67c",
+        "type": "Hash", "name": "Chinese food"}, {"id": "hash:71b9370fcc75e5d1a561c6348f6d4c29e3e1155776a81a844941cbad247f9b0c",
+        "type": "Hash", "name": "Muffuletta"}, {"id": "hash:d072c8c9e8182ee4f1ec9023520b4c0c3ee0a5a06f0b1851191e240b75991aff",
+        "type": "Hash", "name": "Chili con carne"}, {"id": "FEKQeEBM1Ayd6vJ", "type":
+        "MitreAttackIdentifier", "name": "Shucked O", "display_name": "Do you have
+        any idea why this is not working?"}, {"id": "IVcNNNLhciU", "type": "MitreAttackIdentifier",
+        "name": "Pemmi", "display_name": "Erlang is a general-pur"}, {"id": "hash:90d65707c77a14e918459672b49999f6d753ffb8ff7ca6385b28c8cb33c5a273",
+        "type": "Hash", "name": "Baba Ghanoush"}, {"id": "hash:6fdff0512fd9af8a92ee0a0f864e59558133dfadc95bc2d9468312cbf3a58d19",
+        "type": "Hash", "name": "Creme Brulee"}, {"id": "hash:9a8631cede5ba9193d29ca91351d76f43d7e63cd4ea9b3b6ae6f898dd4b99e60",
+        "type": "Hash", "name": "Calas"}, {"id": "hash:13e49b0b2b23c90e6aea36aa1e47c497a04516e1a3a9be66f3ce15b76a75acb0",
+        "type": "Hash", "name": "Tamales"}, {"id": "hash:8753418c0ac9e823ad02ddbba9336770307ac240209add6e0f8997d96feb8b8f",
+        "type": "Hash", "name": "Chocolate cheesecake"}, {"id": "iQBZD8sdqWg6hmj",
+        "type": "MitreAttackIdentifier", "name": "Cornish g", "display_name": "Initially
+        composing light-hearted and irreverent wor"}, {"id": "hash:fe81b19d1edd6e0958ca3e2d84bb1831b60f24831bdbae18888f85388d1e8c76",
+        "type": "Hash", "name": "Pizza strips"}, {"id": "hash:43a2ac6e679fe537839631b1700b1ac91afb2a1903c392f0e8954e8e8540fbbc",
+        "type": "Hash", "name": "Scampi"}, {"id": "hash:27cc53d345309025b3dcb3630e4dd2f227a6a6a8fd935dd3dd12757ed3c839f4",
+        "type": "Hash", "name": "Scrapple"}, {"id": "hash:dda21f51e0442b7c26ac04189bceb7a7c4d93d1e522e3c251dd6b6958e770fb9",
+        "type": "Hash", "name": "Chicken Manchurian"}, {"id": "QSZCgJHhEhu5Evx", "type":
+        "MitreAttackIdentifier", "name": "Stuffed p", "display_name": "They are written
+        as strings of consecutive alphanumeric characters, the first cha"}, {"id":
+        "hash:b564d17930e90a7ac3536eab8dec75f3a6c5330c8d8b1c7387826d394091318f", "type":
+        "Hash", "name": "Breakfast burrito"}, {"id": "2cEMLqoJTe4", "type": "MitreAttackIdentifier",
+        "name": "Garli", "display_name": "Erlang is known for "}, {"id": "hash:d483d09b317ba5bc0d9989ee36803ab960fef2cdf166b94fd4ae357601e3e7dc",
+        "type": "Hash", "name": "Phaal"}, {"id": "hash:8f88270e583bc619a59ce61df9d2db20aa7c774c5924770a38cdefdd66392ac1",
+        "type": "Hash", "name": "Grilled Snake"}, {"id": "hash:e2d295936b1b6e31d3462cf36859d56a6162d4a09fd312ca5143f3f25dc6c8bd",
+        "type": "Hash", "name": "Jell-O"}, {"id": "F9abjfHWKvR", "type": "MitreAttackIdentifier",
+        "name": "Eggs ", "display_name": "Messages can be sent to and recei"}, {"id":
+        "tBEhi7zwPzK", "type": "MitreAttackIdentifier", "name": "Poppy", "display_name":
+        "I don''t even care."}, {"id": "dnY55oEK7NY", "type": "MitreAttackIdentifier",
+        "name": "Albac", "display_name": "Tuples are containers for a fixed"}, {"id":
+        "hash:611ab54bebd4c8bdc669f82ed7c7476f55108aa0a1709fcaa2f025d82e697d1c", "type":
+        "Hash", "name": "Energy bar"}, {"id": "F21Qu6OlzWc", "type": "MitreAttackIdentifier",
+        "name": "Bull ", "display_name": "Its main implementation is the "}, {"id":
+        "SrLW4X8wZIKMdeb", "type": "MitreAttackIdentifier", "name": "Macaroni ", "display_name":
+        "They are written as strings of consecutive"}, {"id": "hash:346635a5e420432998af7df9fde3c5da31f602b75d2cae0121c2470278573874",
+        "type": "Hash", "name": "Salmon pasta bake"}, {"id": "hash:0ddb5f025af6b0f5e72c48ce90a1b0d46aeff091d06ec54b78545b5487abfa96",
+        "type": "Hash", "name": "Steak sauce"}, {"id": "hash:a68e89dd41d88814f03d722f0865758e65311347b890a2b5686dab30dd1ab25e",
+        "type": "Hash", "name": "Margherita Pizza"}, {"id": "hash:26835d102d30d496bef914bf89cce83ae5e2c3d7a673626dcb5351a1cca4726b",
+        "type": "Hash", "name": "Chimichanga"}, {"id": "hash:c0303ada60ab18f5eae85676c1a461e9bd60a00ef634627fbeeb0f1e6fae2ea6",
+        "type": "Hash", "name": "Caviar"}, {"id": "hash:c281c1f867556bda990d740278e0a312251bcc755290dbbc8f2619717d97bba3",
+        "type": "Hash", "name": "Chicken and waffles"}, {"id": "hash:31fcbe7decbc7598285d62e4591fa72451237b2fd8f07fd513f0d23ef020c429",
+        "type": "Hash", "name": "Hawaiian Pizza"}, {"id": "9mxqplgdWqVfUo3", "type":
+        "MitreAttackIdentifier", "name": "Oreo", "display_name": "It is also a garbage-collected
+        runtime system."}, {"id": "hash:209035b047ae42f1e830d8c1b6470ea0099d6e434c9a45b61433b7212b340925",
+        "type": "Hash", "name": "Garlic bread"}, {"id": "Jkq4rB", "type": "Product",
+        "name": "Turkish Delight"}, {"id": "hash:2cc71d07d5d31674c949fdc2981c8396e63cbfba1dfba073ac7ace6da4df30c5",
+        "type": "Hash", "name": "Abalone"}, {"id": "hqdJl", "type": "Product", "name":
+        "Fried chicken"}, {"id": "hash:17400beef5e5b73c56c68f01ef5a8b149dd8b58092eb376334cdbc3cae51e46d",
+        "type": "Hash", "name": "Grilled Snake"}, {"id": "hash:1cdded0dbcd1c9ae5a03a0a1de76ebedd63367b598a36e5a7471bbe7890bc6a3",
+        "type": "Hash", "name": "Corn chowder"}, {"id": "wMecI", "type": "AttackVector",
+        "name": "Rabbit p"}, {"id": "hash:1f8cfdf948adc577dbe4046d4b5d1c39afee849573f2aa1075979e82bd473d08",
+        "type": "Hash", "name": "Breaded shrimp"}, {"id": "b2u98", "type": "Company",
+        "name": "Shrimp Creo"}, {"id": "edx6ij", "type": "Malware", "name": "Bird''s
+        Nest Soup"}, {"id": "RZpghB", "type": "MalwareCategory", "name": "Empanada"},
+        {"id": "Kkow4U", "type": "Product", "name": "Bagels"}, {"id": "qs1x8", "type":
+        "Company", "name": "Cheesecake"}, {"id": "CoL9zI", "type": "Product", "name":
+        "Maraca pie"}, {"id": "KLaVJ1", "type": "WinRegKey", "name": "Blue-plate special"}],
+        "content": "In 1989 the building was heavily damaged by fire, but it has since
+        been restored.", "file_name": "Make me a sandwich."}]}, {"id": "doc:6vM7As",
+        "type": "sigma", "title": "Tuples are containers for a fixed number of Erlang
+        data types.", "description": "Make me a sandwich.", "created": "2025-06-05T21:35:07.981Z",
+        "updated": "2025-06-05T21:35:07.981Z", "rules": [{"entities": [{"id": "6uZ5Q7",
+        "type": "Malware", "name": "Calas"}, {"id": "aNUse", "type": "Product", "name":
+        "Senate bean soup"}, {"id": "sJ3HngCMNx1", "type": "MitreAttackIdentifier",
+        "name": "Choco", "display_name": "Type classes first appeared in th"}], "content":
+        "Make me a sandwich.", "file_name": "She spent her earliest years readin"}]},
+        {"id": "doc:pTqtVS", "type": "yara", "title": "Messages can be sent to and
+        received from ports, but these messages must obey the so-called \"port protocol.\"",
+        "description": "Atoms can contain any character if they are enclosed within
+        single quotes and an escape convention exists which allows any character to
+        be used within an atom.", "created": "2022-12-23T22:53:57.096Z", "updated":
+        "2022-12-23T22:53:57.649Z", "rules": [{"entities": [{"id": "B5sXyrrmZOPvV5pBCxMLkv8RySbe1Df8qeToFSRYyCmn5p4SyC",
+        "type": "BitcoinAddress", "name": "Tin Roof Ice Cream"}, {"id": "Z2YbvNsif3v",
+        "type": "MitreAttackIdentifier", "name": "Macar", "display_name": "Atoms can
+        contain any character if t"}, {"id": "LmBx7", "type": "AttackVector", "name":
+        "Potato skin"}, {"id": "q02KQyqgV2A", "type": "MitreAttackIdentifier", "name":
+        "Hokki", "display_name": "The sequential subset of Erlang support"}, {"id":
+        "MX3sY7JPwEi", "type": "MitreAttackIdentifier", "name": "Sour ", "display_name":
+        "The arguments can be pri"}, {"id": "hash:617180aa0232a6261033a3c91cb749b59ed5d30b41400f171f6338d18a09f560",
+        "type": "Hash", "name": "Steamed clams"}, {"id": "h8c8YGixGZb", "type": "MitreAttackIdentifier",
+        "name": "City ", "display_name": "Its main implementation is the Gl"}, {"id":
+        "inewwa5AQAH", "type": "MitreAttackIdentifier", "name": "Corne", "display_name":
+        "Atoms can contain any character if the"}, {"id": "pJ1XKD", "type": "Malware",
+        "name": "Surf and t"}, {"id": "IH6pHd", "type": "Technology", "name": "Matzo
+        Ball So"}, {"id": "Lgz3YmQbaX", "type": "Source", "name": "Milkshake"}, {"id":
+        "KKwlx6", "type": "Username", "name": "Rice and ", "display_name": "Atoms
+        can contai"}, {"id": "ZrgG6e75gqqnQ", "type": "Source", "name": "Cheesy "},
+        {"id": "J0Nl-p", "type": "MalwareCategory", "name": "Maraca pie"}, {"id":
+        "dtdUGM", "type": "FileNameExtension", "name": "Garden "}, {"id": "JS79VS",
+        "type": "Technology", "name": "Fried "}], "content": "They are written as
+        strings of consecutive alphanumeric characters, the first character being
+        lowercase.", "file_name": "They are written a"}]}, {"id": "doc:jUYUmI", "type":
+        "yara", "title": "Its main implementation is the Glasgow Haskell Compiler.",
+        "description": "Haskell is a standardized, general-purpose purely functional
+        programming language, with non-strict semantics and strong static typing.",
+        "created": "2021-07-30T00:00:00.000Z", "updated": "2021-07-30T17:29:33.298Z",
+        "rules": [{"entities": [{"id": "hash:55ce0ebfbd6e1310146c53b57511a4767a2d4980f2a3c0c359112f1f279cd5a0",
+        "type": "Hash", "name": "Grilled Snake"}, {"id": "hash:477c974e091913b7f7a9a353e059b5faefb1888053c4f9356b27c1138337059d",
+        "type": "Hash", "name": "Bread"}, {"id": "hash:e29f4f8b1f78e30cee3f50f68aa5869242c5e59bc92b857e1fc763e6212d74ee",
+        "type": "Hash", "name": "Sushi"}, {"id": "hash:3f025768c316a30a22d55156330cc31f29af8f5501ece0f05a0bc796fa3f7b6e",
+        "type": "Hash", "name": "Mozzarella sticks"}, {"id": "hash:73107ffcdc4e3010daa81ab15ce1122d1014c68c5a2961d0f960285fde34e311",
+        "type": "Hash", "name": "Pemmican"}, {"id": "ck-73W", "type": "Malware", "name":
+        "Meatloaf"}, {"id": "hash:698dfe541b41c49b2650334033c9350009a3bb55afa45cb4c9f74e0b4acd3c5b",
+        "type": "Hash", "name": "Cheesy Garlic Bread"}, {"id": "hash:cc7b06199db047c332a0691dfef83ec754387b08b4cdfc274e5e6400d1084dfc",
+        "type": "Hash", "name": "Fries"}, {"id": "hash:57d841c9ca1809a0ff0bd036bb8ac1b56faf4f621e48c1d3d5579a6d8d72a8c1",
+        "type": "Hash", "name": "Chicken and waffles"}, {"id": "hash:d9bc8933e398dae35a714e4af39c12b6e3fe606ee1a5c085afece9e960d20851",
+        "type": "Hash", "name": "Eggs Neptune"}, {"id": "hash:8d170e491ccbd5b25cf4fc32804b742c5ed9b310791706f75834fead3e4d3506",
+        "type": "Hash", "name": "Fried chicken"}, {"id": "J0Nl-p", "type": "MalwareCategory",
+        "name": "Fried Gree"}, {"id": "hash:3c6034a78451006056553537179afa6afcb90a1ef076ff2d90ae66a6bd709c85",
+        "type": "Hash", "name": "Hot chicken"}, {"id": "f2YVRdwDpXfqWFDlLQBJpYqu6zvu3B7e",
+        "type": "EmailAddress", "name": "Grits"}, {"id": "gVeIIJ0XIrf", "type": "MitreAttackIdentifier",
+        "name": "Stuff", "display_name": "Type classes first appeared in the Haskell
+        pro"}, {"id": "pZ2AQ46ZKbW", "type": "MitreAttackIdentifier", "name": "Mozza",
+        "display_name": "Atoms can contain any character i"}, {"id": "BZBoEOYi6sxYO4nrHqQjoUP37UxoLID",
+        "type": "EmailAddress", "name": "Poutine"}, {"id": "Zg8V5QtREXv", "type":
+        "MitreAttackIdentifier", "name": "Ameri", "display_name": "Tuples are containers
+        for a fix"}, {"id": "yMM65QXTykb", "type": "MitreAttackIdentifier", "name":
+        "Russi", "display_name": "The Galactic Empire is nearing compl"}, {"id": "lCPmWUt4hY286R6",
+        "type": "MitreAttackIdentifier", "name": "Laksa", "display_name": "Haskell
+        is a standardized, general-purpose purely fu"}, {"id": "K_Rbz_", "type": "Technology",
+        "name": "Ice Cream"}, {"id": "azJoja", "type": "Username", "name": "Chocolate
+        ", "display_name": "I don''t even care."}, {"id": "NlztDBMHEms", "type": "MitreAttackIdentifier",
+        "name": "Panca", "display_name": "He looked inquisitively at his"}, {"id":
+        "url:https://nightmare.quebec/", "type": "URL", "name": "Breaded shrimp"},
+        {"id": "I_dTto", "type": "Product", "name": "Gyros"}, {"id": "ip:76.73.182.125",
+        "type": "IpAddress", "name": "Steak Tartar"}], "content": "The Galactic Empire
+        is nearing completion of the Death Star, a space station with the power to
+        destroy entire planets.", "file_name": "Where are my pants?"}]}, {"id": "doc:73TpOz",
+        "type": "yara", "title": "Its main implementation is the Glasgow Haskell C",
+        "description": "Do you have any idea why this is not working?", "created":
+        "2025-07-11T16:39:43.704Z", "updated": "2025-07-11T16:39:43.704Z", "rules":
+        [{"entities": [{"id": "xs1eLo", "type": "Product", "name": "Russian"}, {"id":
+        "LsZ0CMWfS8h", "type": "MitreAttackIdentifier", "name": "Steak", "display_name":
+        "Do you have any idea why this is "}, {"id": "t2y1nE", "type": "Malware",
+        "name": "Surf and turf"}, {"id": "i5Cnz", "type": "Product", "name": "Missi"},
+        {"id": "CfP6TB", "type": "Product", "name": "Senate bean soup"}, {"id": "t2y12f",
+        "type": "Organization", "name": "Protein bar"}], "content": "Type classes
+        first appeared in the Haskell programming language.", "file_name": "It is
+        also a garbage-collected runt"}]}], "next_offset": "eyJvZmZzZXQiOlsxMjA4OSwiSEZCd3dBRGQ1VHkiXX0="}'
+    headers:
+      CF-RAY:
+      - 9cd39a89cd9f6431-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:22:17 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

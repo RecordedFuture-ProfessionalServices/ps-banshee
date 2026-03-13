@@ -1,0 +1,934 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/?triggered=-1d&fields=title%2Clog%2Creview%2Cowner_organisation_details%2Crule%2Cid&limit=50
+  response:
+    body:
+      string: '{"data": [{"review": {"note": null, "status_in_portal": "New", "assignee":
+        null, "status": "no-action"}, "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Its main impleme", "organisation_name": "The arguments
+        can be primitive da"}], "enterprise_id": "The arguments ca", "enterprise_name":
+        "The sequential subset of Erlang s"}, "rule": {"use_case_deprecation": null,
+        "name": "Shrimp Creole", "id": "n4mLnY", "url": {"portal": "https://course.aero/"}},
+        "id": "IT6Vt2F", "title": "Where are my pants?", "log": {"note_author": null,
+        "note_date": null, "status_date": null, "triggered": "2026-02-13T06:03:19.958Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "They are written", "organisation_name":
+        "Ports are created with the built-"}], "enterprise_id": "They are written",
+        "enterprise_name": "Where are my pants?"}, "rule": {"use_case_deprecation":
+        null, "name": "Senate bean soup", "id": "owPoUd", "url": {"portal": "https://daddy.net/"}},
+        "id": "yjs7aKM", "title": "The syntax {D1,D2,...,Dn} denotes a tuple whose
+        arguments are D1, D2, ... Dn", "log": {"note_author": null, "note_date": null,
+        "status_date": null, "triggered": "2026-02-13T06:03:21.796Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Any element of a", "organisation_name": "Ports are used to communicate wit"}],
+        "enterprise_id": "Ports are used t", "enterprise_name": "I don''t even care."},
+        "rule": {"use_case_deprecation": null, "name": "Paella", "id": "nZW3KE", "url":
+        {"portal": "https://nbc.net/"}}, "id": "ZxghnnL", "title": "Ports are created
+        with the built-in function o", "log": {"note_author": null, "note_date": null,
+        "status_date": null, "triggered": "2026-02-13T06:03:22.932Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Its main impleme", "organisation_name": "The syntax {D1,D2,...,Dn} denotes"}],
+        "enterprise_id": "It is also a gar", "enterprise_name": "The syntax {D1,D2,...,Dn}
+        denotes"}, "rule": {"use_case_deprecation": null, "name": "Chicken Manchurian",
+        "id": "nZW3KN", "url": {"portal": "https://solely.menu/"}}, "id": "LIi5yNO",
+        "title": "Make me a sandwich.", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-13T06:03:23.035Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Ports are used t", "organisation_name": "Do you have any idea why this is
+        "}], "enterprise_id": "It is also a gar", "enterprise_name": "The sequential
+        subset of Erlang s"}, "rule": {"use_case_deprecation": null, "name": "Bruschetta",
+        "id": "owPoVp", "url": {"portal": "https://aluminum.int/"}}, "id": "W3BGNyr",
+        "title": "Atoms are used within a program to denote distinguished values.",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T06:03:23.604Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "He looked
+        inquis", "organisation_name": "The sequential subset of Erlang s"}], "enterprise_id":
+        "The sequential s", "enterprise_name": "Erlang is a general-purpose, conc"},
+        "rule": {"use_case_deprecation": null, "name": "Coq Au Vin", "id": "nZW3KI",
+        "url": {"portal": "https://lingerie.top/"}}, "id": "r5zOA1p", "title": "Its
+        main implementation is the Glasgow", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-13T06:03:25.448Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Messages can be ", "organisation_name": "The Galactic Empire is nearing co"}],
+        "enterprise_id": "The sequential s", "enterprise_name": "Its main implementation
+        is the Gl"}, "rule": {"use_case_deprecation": null, "name": "Parma Ham", "id":
+        "n4mLnV", "url": {"portal": "https://released.abudhabi/"}}, "id": "m97XqzH",
+        "title": "I don''t even care.", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-13T06:03:26.521Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "In 1989 the buil", "organisation_name": "Type classes first appeared in th"}],
+        "enterprise_id": "Ports are create", "enterprise_name": "I don''t even care."},
+        "rule": {"use_case_deprecation": null, "name": "Baked potato", "id": "nZW3KM",
+        "url": {"portal": "https://fair.nagoya/"}}, "id": "ltGVlue", "title": "She
+        spent her earliest years reading classic literature, and writing poetry.",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T06:03:27.489Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Erlang
+        is a gene", "organisation_name": "Do you have any idea why this is "}], "enterprise_id":
+        "Initially compos", "enterprise_name": "Do you come here often?"}, "rule":
+        {"use_case_deprecation": null, "name": "Eggs Benedict", "id": "n4mLnX", "url":
+        {"portal": "https://roger.video/"}}, "id": "i6nKXAN", "title": "Erlang is
+        known for its designs that are well su", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-13T06:03:29.431Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Make me a sandwi", "organisation_name": "It is also a garbage-collected ru"}],
+        "enterprise_id": "Atoms can contai", "enterprise_name": "Type classes first
+        appeared in th"}, "rule": {"use_case_deprecation": null, "name": "Tetrazzini",
+        "id": "nZVTy2", "url": {"portal": "https://anything.travel/"}}, "id": "OcdWX3H",
+        "title": "Erlang is known for its designs that are", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-13T06:03:31.405Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "I don''t even car", "organisation_name":
+        "Atoms are used within a program t"}], "enterprise_id": "Messages can be ",
+        "enterprise_name": "Haskell is a standardized, genera"}, "rule": {"use_case_deprecation":
+        null, "name": "Fajita", "id": "nZW3KK", "url": {"portal": "https://suited.management/"}},
+        "id": "88Gm9gp", "title": "The syntax {D1,D2,...,Dn} denotes a tupl", "log":
+        {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T06:03:32.544Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Its
+        main impleme", "organisation_name": "Where are my pants?"}], "enterprise_id":
+        "I don''t even car", "enterprise_name": "Ports are used to communicate wit"},
+        "rule": {"use_case_deprecation": null, "name": "Pastrami on Rye", "id": "qCaKN7",
+        "url": {"portal": "https://giants.mil/"}}, "id": "H3cQTTQ", "title": "In 1989
+        the building was heavily damaged by fire, but it has since been restored.",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T06:03:35.440Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "I don''t
+        even car", "organisation_name": "Ports are used to communicate wit"}], "enterprise_id":
+        "The syntax {D1,D", "enterprise_name": "The Galactic Empire is nearing co"},
+        "rule": {"use_case_deprecation": null, "name": "Naan", "id": "nZVTy5", "url":
+        {"portal": "https://forward.mr/"}}, "id": "5WIx9Z3", "title": "Do you come
+        here often?", "log": {"note_author": null, "note_date": null, "status_date":
+        null, "triggered": "2026-02-13T06:03:35.788Z", "status_change_by": null}},
+        {"review": {"note": null, "status_in_portal": "New", "assignee": null, "status":
+        "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Any element of a", "organisation_name": "Messages can be sent to and recei"}],
+        "enterprise_id": "Make me a sandwi", "enterprise_name": "He looked inquisitively
+        at his ke"}, "rule": {"use_case_deprecation": null, "name": "Pickled cucumber",
+        "id": "nZVTy4", "url": {"portal": "https://impacts.kn/"}}, "id": "TSXrd6d",
+        "title": "Ports are created with the built-in function open_port.", "log":
+        {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T06:03:37.157Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Ports
+        are used t", "organisation_name": "Any element of a tuple can be acc"}], "enterprise_id":
+        "The Galactic Emp", "enterprise_name": "Tuples are containers for a fixed"},
+        "rule": {"use_case_deprecation": null, "name": "Chicharones", "id": "qCZ8yf",
+        "url": {"portal": "https://mens.abudhabi/"}}, "id": "52sDLzZ", "title": "Erlang
+        is known for its designs that ar", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-13T06:03:37.547Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "He looked inquis", "organisation_name": "Atoms are used within a program
+        t"}], "enterprise_id": "Tuples are conta", "enterprise_name": "They are written
+        as strings of co"}, "rule": {"use_case_deprecation": null, "name": "Parma
+        Ham", "id": "qCRzD6", "url": {"portal": "https://idea.world/"}}, "id": "tYpP1Ey",
+        "title": "Atoms are used within a program to denote distinguished va", "log":
+        {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T06:03:37.851Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "He looked
+        inquis", "organisation_name": "Erlang is known for its designs t"}], "enterprise_id":
+        "Any element of a", "enterprise_name": "It is also a garbage-collected ru"},
+        "rule": {"use_case_deprecation": null, "name": "Sweetbreads", "id": "qCZ8yp",
+        "url": {"portal": "https://outputs.zulu/"}}, "id": "ArdZPzP", "title": "In
+        1989 the building was heavily damaged by fire, but it has since", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-13T06:03:39.071Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Tuples are conta", "organisation_name":
+        "Erlang is a general-purpose, conc"}], "enterprise_id": "Its main impleme",
+        "enterprise_name": "The arguments can be primitive da"}, "rule": {"use_case_deprecation":
+        null, "name": "White chocolate cookie", "id": "qBWgKo", "url": {"portal":
+        "https://avenue.aero/"}}, "id": "xcVR5Ml", "title": "Messages can be sent
+        to and received from ports, but these messages must obey the so-called \"port
+        protoco", "log": {"note_author": null, "note_date": null, "status_date": null,
+        "triggered": "2026-02-13T06:03:40.800Z", "status_change_by": null}}, {"review":
+        {"note": null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Do you
+        come here", "organisation_name": "Type classes first appeared in th"}], "enterprise_id":
+        "Ports are create", "enterprise_name": "She spent her earliest years read"},
+        "rule": {"use_case_deprecation": null, "name": "Calamari", "id": "qCaKN3",
+        "url": {"portal": "https://prerequisite.tel/"}}, "id": "gJiBDcr", "title":
+        "Messages can be sent to and received from ports", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-13T06:03:40.868Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "It is also a gar", "organisation_name":
+        "Atoms can contain any character i"}], "enterprise_id": "It is also a gar",
+        "enterprise_name": "It is also a garbage-collected ru"}, "rule": {"use_case_deprecation":
+        null, "name": "Creamed corn", "id": "qBWgKt", "url": {"portal": "https://lawrence.cz/"}},
+        "id": "XxkXyxo", "title": "Initially composing light-hearted and irreverent
+        works,", "log": {"note_author": null, "note_date": null, "status_date": null,
+        "triggered": "2026-02-13T06:03:45.344Z", "status_change_by": null}}, {"review":
+        {"note": null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "It is
+        also a gar", "organisation_name": "The syntax {D1,D2,...,Dn} denotes"}], "enterprise_id":
+        "Haskell is a sta", "enterprise_name": "In 1989 the building was heavily "},
+        "rule": {"use_case_deprecation": null, "name": "Baklava", "id": "qBWgKq",
+        "url": {"portal": "https://volleyball.republican/"}}, "id": "aU9aWGy", "title":
+        "Ports are used to communicate with the external world.", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-13T06:03:47.962Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Messages can be ", "organisation_name":
+        "Messages can be sent to and recei"}], "enterprise_id": "Initially compos",
+        "enterprise_name": "The Galactic Empire is nearing co"}, "rule": {"use_case_deprecation":
+        null, "name": "Chicken nugget", "id": "qCaTAW", "url": {"portal": "https://grad.org/"}},
+        "id": "BbLnfSF", "title": "Where are my pants?", "log": {"note_author": null,
+        "note_date": null, "status_date": null, "triggered": "2026-02-13T06:03:48.443Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Do you come here", "organisation_name":
+        "Initially composing light-hearted"}], "enterprise_id": "They are written",
+        "enterprise_name": "Atoms are used within a program t"}, "rule": {"use_case_deprecation":
+        null, "name": "Quesadilla", "id": "qBWgKe", "url": {"portal": "https://distributed.va/"}},
+        "id": "616IeSH", "title": "The Galactic Empire is nearing completion of the",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T06:03:49.105Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Erlang
+        is known ", "organisation_name": "Its main implementation is the Gl"}], "enterprise_id":
+        "Any element of a", "enterprise_name": "Ports are used to communicate wit"},
+        "rule": {"use_case_deprecation": null, "name": "Laksa", "id": "qCaKN8", "url":
+        {"portal": "https://techrepublic.tv/"}}, "id": "wCgWBzz", "title": "Erlang
+        is known for its designs that are well suited for systems.", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-13T06:03:49.559Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "The Galactic Emp", "organisation_name":
+        "The Galactic Empire is nearing co"}], "enterprise_id": "Where are my pan",
+        "enterprise_name": "Do you have any idea why this is "}, "rule": {"use_case_deprecation":
+        null, "name": "Calamari", "id": "qCZ8ye", "url": {"portal": "https://fetish.name/"}},
+        "id": "sB6S3kz", "title": "The Galactic Empire is nearing completion of the
+        Death St", "log": {"note_author": null, "note_date": null, "status_date":
+        null, "triggered": "2026-02-13T06:03:49.592Z", "status_change_by": null}},
+        {"review": {"note": null, "status_in_portal": "New", "assignee": null, "status":
+        "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Tuples are conta", "organisation_name": "Haskell is a standardized, genera"}],
+        "enterprise_id": "Atoms can contai", "enterprise_name": "Any element of a
+        tuple can be acc"}, "rule": {"use_case_deprecation": null, "name": "Corned
+        beef", "id": "qCaKN_", "url": {"portal": "https://info.cat/"}}, "id": "V1ByV8C",
+        "title": "Ports are created with the built-in function open_port.", "log":
+        {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T06:03:49.660Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Initially
+        compos", "organisation_name": "Erlang is a general-purpose, conc"}], "enterprise_id":
+        "Type classes fir", "enterprise_name": "Make me a sandwich."}, "rule": {"use_case_deprecation":
+        null, "name": "Steak sandwich", "id": "qCaKN9", "url": {"portal": "https://gzip.carinsurance/"}},
+        "id": "JpeHM6V", "title": "The Galactic Empire is nearing completion of the
+        Death Star, a space station", "log": {"note_author": null, "note_date": null,
+        "status_date": null, "triggered": "2026-02-13T06:03:50.869Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Make me a sandwi", "organisation_name": "Initially composing light-hearted"}],
+        "enterprise_id": "Do you come here", "enterprise_name": "Messages can be sent
+        to and recei"}, "rule": {"use_case_deprecation": null, "name": "Ammonia cookie",
+        "id": "qBWgKr", "url": {"portal": "https://rolled.org/"}}, "id": "iT2c1FA",
+        "title": "In 1989 the building was heavily damaged by fire, but it has since
+        bee", "log": {"note_author": null, "note_date": null, "status_date": null,
+        "triggered": "2026-02-13T06:03:51.181Z", "status_change_by": null}}, {"review":
+        {"note": null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "It is
+        also a gar", "organisation_name": "Messages can be sent to and recei"}], "enterprise_id":
+        "Erlang is a gene", "enterprise_name": "Messages can be sent to and recei"},
+        "rule": {"use_case_deprecation": null, "name": "New York-Style Pizza", "id":
+        "qCaKN-", "url": {"portal": "https://mercury.ax/"}}, "id": "8ozrYah", "title":
+        "Any element of a tuple can be accessed in constant time.", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-13T06:03:52.528Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Erlang is a gene", "organisation_name":
+        "Atoms can contain any character i"}], "enterprise_id": "Atoms are used w",
+        "enterprise_name": "Any element of a tuple can be acc"}, "rule": {"use_case_deprecation":
+        null, "name": "Laksa", "id": "qBWgKf", "url": {"portal": "https://broader.asia/"}},
+        "id": "Pnz6JCU", "title": "Ports are used to communicate with the external
+        world.", "log": {"note_author": null, "note_date": null, "status_date": null,
+        "triggered": "2026-02-13T06:04:12.674Z", "status_change_by": null}}, {"review":
+        {"note": null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Atoms
+        can contai", "organisation_name": "Make me a sandwich."}], "enterprise_id":
+        "Tuples are conta", "enterprise_name": "Do you come here often?"}, "rule":
+        {"use_case_deprecation": null, "name": "Bao", "id": "qCZ8yo", "url": {"portal":
+        "https://dawn.museum.post/"}}, "id": "BEDBRZ3", "title": "Messages can be
+        sent to and received from ports, but th", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-13T06:04:14.912Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Type classes fir", "organisation_name": "Erlang is a general-purpose, conc"}],
+        "enterprise_id": "They are written", "enterprise_name": "Haskell is a standardized,
+        genera"}, "rule": {"use_case_deprecation": null, "name": "Fish and Chips!",
+        "id": "sQl1Xn", "url": {"portal": "https://creations.cg/"}}, "id": "fq2bM84",
+        "title": "Ports are used to communicate with the external", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-13T06:04:23.862Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Do you have any ", "organisation_name":
+        "Erlang is known for its designs t"}], "enterprise_id": "He looked inquis",
+        "enterprise_name": "The syntax {D1,D2,...,Dn} denotes"}, "rule": {"use_case_deprecation":
+        null, "name": "Satay", "id": "nZVTy3", "url": {"portal": "https://blend.courses/"}},
+        "id": "Ofsj7Rw", "title": "Haskell is a standardized, general-purpose purely
+        functional programming language, with non-strict", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-13T06:05:41.846Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "The Galactic Emp", "organisation_name":
+        "Its main implementation is the Gl"}], "enterprise_id": "Where are my pan",
+        "enterprise_name": "She spent her earliest years read"}, "rule": {"use_case_deprecation":
+        null, "name": "Mashed pumpkin", "id": "u2AbW_", "url": {"portal": "https://lincoln.joburg/"}},
+        "id": "UzeMOkr", "title": "Haskell features a type system with type inference
+        ", "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T06:05:45.766Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "I don''t
+        even car", "organisation_name": "Erlang is known fo"}], "enterprise_id": "The
+        syntax {D1,D", "enterprise_name": "The Galactic Empire is nearing co"}, "rule":
+        {"use_case_deprecation": null, "name": "Succotash", "id": "oT8Yak", "url":
+        {"portal": "https://instrumental.xxx/"}}, "id": "tqBdnOV", "title": "Ports
+        are used to communicate with the external wor", "log": {"note_author": null,
+        "note_date": null, "status_date": null, "triggered": "2026-02-13T06:06:09.796Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Haskell is a sta", "organisation_name":
+        "Type classes first"}], "enterprise_id": "Atoms can contai", "enterprise_name":
+        "The Galactic Empire is nearing co"}, "rule": {"use_case_deprecation": null,
+        "name": "Eggs Benedict", "id": "oT8Yaq", "url": {"portal": "https://bathroom.financialaid/"}},
+        "id": "4nbNVsn", "title": "Make me a sandwich.", "log": {"note_author": null,
+        "note_date": null, "status_date": null, "triggered": "2026-02-13T06:06:10.121Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Do you have any ", "organisation_name":
+        "Any element of a tuple can be acc"}], "enterprise_id": "Make me a sandwi",
+        "enterprise_name": "Ports are used to communicate wit"}, "rule": {"use_case_deprecation":
+        null, "name": "Peanut butter", "id": "mf0rAW", "url": {"portal": "https://compaq.university/"}},
+        "id": "LrM4F8M", "title": "Do you have any idea why this is not working?",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T06:06:37.955Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "It is
+        also a gar", "organisation_name": "Do you come here often?"}], "enterprise_id":
+        "Do you have any ", "enterprise_name": "She spent her earliest years read"},
+        "rule": {"use_case_deprecation": null, "name": "Bird''s Nest Soup", "id":
+        "oGK3rB", "url": {"portal": "https://gale.tel/"}}, "id": "Av3RcrJ", "title":
+        "Erlang is known for its designs that ar", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-13T06:11:51.578Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Make me a sandwi", "organisation_name": "Its main implementation is the Gl"}],
+        "enterprise_id": "Erlang is known ", "enterprise_name": "It is also a garbage-collected
+        ru"}, "rule": {"use_case_deprecation": null, "name": "Pancakes", "id": "vvfym1",
+        "url": {"portal": "https://bargain.mil/"}}, "id": "0ZCt9Kk", "title": "The
+        Galactic Empire is nearing completion of the Death Star, a spa", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-13T06:11:55.191Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Make me a sandwi", "organisation_name":
+        "Atoms can contain any character i"}], "enterprise_id": "Do you have any ",
+        "enterprise_name": "Atoms are used within a program t"}, "rule": {"use_case_deprecation":
+        null, "name": "Tuna Pizza", "id": "mf0rAV", "url": {"portal": "https://vegas.org/"}},
+        "id": "ZUQcQZB", "title": "They are written as strings of consecutive alphanum",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T06:11:57.570Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Messages
+        can be ", "organisation_name": "Haskell features a type system wi"}], "enterprise_id":
+        "Ports are create", "enterprise_name": "The Galactic Empire is nearing co"},
+        "rule": {"use_case_deprecation": null, "name": "Roasted Chickpeas", "id":
+        "mf0rAX", "url": {"portal": "https://ugly.su/"}}, "id": "NCJp1Yu", "title":
+        "The arguments can be primitive data", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-13T06:12:00.500Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Any element of a", "organisation_name": "Type classes first appeared in th"}],
+        "enterprise_id": "Atoms can contai", "enterprise_name": "I don''t even care."},
+        "rule": {"use_case_deprecation": null, "name": "Ice Cream Sundae", "id": "mf0rAY",
+        "url": {"portal": "https://computers.yoga/"}}, "id": "YkX3pBZ", "title": "Erlang
+        is known for its designs that are well suited for systems.", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-13T06:13:41.327Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "It is also a gar", "organisation_name":
+        "It is also a garbage-collected ru"}], "enterprise_id": "Haskell features",
+        "enterprise_name": "Initially composing light-hearted"}, "rule": {"use_case_deprecation":
+        null, "name": "Satay", "id": "nZVTyt", "url": {"portal": "https://coating.mm/"}},
+        "id": "A9X7Q2F", "title": "Its main implementation is the Glasgow Haskel",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T06:14:01.542Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "It is
+        also a gar", "organisation_name": "Haskell features a type system wi"}], "enterprise_id":
+        "Erlang is a gene", "enterprise_name": "It is also a garbage-collected ru"},
+        "rule": {"use_case_deprecation": null, "name": "Pickled Okra", "id": "mf0rAa",
+        "url": {"portal": "https://divide.food/"}}, "id": "KVbKeYF", "title": "Do
+        you come here often?", "log": {"note_author": null, "note_date": null, "status_date":
+        null, "triggered": "2026-02-13T06:34:28.868Z", "status_change_by": null}},
+        {"review": {"note": null, "status_in_portal": "New", "assignee": null, "status":
+        "no-action"}, "owner_organisation_details": {"owner_id": "They are written",
+        "enterprise_id": "The syntax {D1,D", "owner_name": "Where ar", "organisations":
+        [], "enterprise_name": "The arguments can be primitive da"}, "rule": {"use_case_deprecation":
+        null, "name": "Sushi", "id": "6jP3mQd", "url": {"portal": "https://prime.info/"}},
+        "id": "JN8B4H6", "title": "Messages can be sent to and received from ports,
+        but ", "log": {"note_author": null, "note_date": null, "status_date": null,
+        "triggered": "2026-02-13T07:33:11.413Z", "status_change_by": null}}, {"review":
+        {"note": null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Do you
+        come here", "organisation_name": "Its main implementation is the Gl"}], "enterprise_id":
+        "The syntax {D1,D", "enterprise_name": "Atoms are used within a program t"},
+        "rule": {"use_case_deprecation": null, "name": "Poke", "id": "mf0rAa", "url":
+        {"portal": "https://algorithms.cologne/"}}, "id": "Yxlqtgs", "title": "Ports
+        are created with the built-in function", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-13T07:35:01.183Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Erlang is a gene", "organisation_name": "Atoms can contain any character
+        i"}], "enterprise_id": "Messages can be ", "enterprise_name": "The sequential
+        subset of Erlang s"}, "rule": {"use_case_deprecation": null, "name": "Maine
+        Lobster", "id": "mf0rAa", "url": {"portal": "https://implementing.cr/"}},
+        "id": "fWd1Uzd", "title": "Do you have any idea why this is not working",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T08:35:39.265Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Its
+        main impleme", "organisation_name": "Erlang is known for its designs t"}],
+        "enterprise_id": "Its main impleme", "enterprise_name": "In 1989 the building
+        was heavily "}, "rule": {"use_case_deprecation": null, "name": "Italian Beef
+        Sandwich", "id": "mf0rAa", "url": {"portal": "https://rochester.analytics/"}},
+        "id": "iIJHBll", "title": "Ports are used to communicate with the exter",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T09:36:10.712Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Type
+        classes fir", "organisation_name": "He looked inquisitively at his ke"}],
+        "enterprise_id": "She spent her ea", "enterprise_name": "It is also a garbage-collected
+        ru"}, "rule": {"use_case_deprecation": null, "name": "Deviled crab", "id":
+        "mf0rAZ", "url": {"portal": "https://challenging.org/"}}, "id": "2QlkYBY",
+        "title": "Do you have any idea why this is not working?", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-13T09:40:25.087Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Where are my pan", "organisation_name":
+        "Where are my pants?"}], "enterprise_id": "Haskell is a sta", "enterprise_name":
+        "Erlang is known for its designs t"}, "rule": {"use_case_deprecation": null,
+        "name": "Tomato compote", "id": "mf0rAZ", "url": {"portal": "https://copyrights.xxx/"}},
+        "id": "MJt1r2Y", "title": "The sequential subset of Erlang supports eager
+        evaluation", "log": {"note_author": null, "note_date": null, "status_date":
+        null, "triggered": "2026-02-13T09:45:54.320Z", "status_change_by": null}}],
+        "counts": {"returned": 50, "total": 95}}'
+    headers:
+      CF-RAY:
+      - 9cd37c485ec176c9-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:01:37 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0jxj2t2qxwrt9179iljsieliqj5403211.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/?triggered=-1d&fields=title%2Clog%2Creview%2Cowner_organisation_details%2Crule%2Cid&limit=50&from=50
+  response:
+    body:
+      string: '{"data": [{"review": {"note": null, "status_in_portal": "New", "assignee":
+        null, "status": "no-action"}, "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Ports are create", "organisation_name": "Do you come
+        here often?"}], "enterprise_id": "He looked inquis", "enterprise_name": "The
+        syntax {D1,D2,...,Dn} denotes"}, "rule": {"use_case_deprecation": null, "name":
+        "Scampi", "id": "mf0rAa", "url": {"portal": "https://transfers.kp/"}}, "id":
+        "UXXFojN", "title": "Any element of a tuple can be accessed in co", "log":
+        {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-12T10:22:25.683Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Do you
+        come here", "organisation_name": "Initially composing light-hearted"}], "enterprise_id":
+        "The arguments ca", "enterprise_name": "Do you have any idea why this is "},
+        "rule": {"use_case_deprecation": null, "name": "Pop-Tarts", "id": "_YIltw",
+        "url": {"portal": "https://loc.cat/"}}, "id": "cu0a7me", "title": "She spent
+        her earliest years reading classic literature, an", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-12T11:00:00.771Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Atoms can contai", "organisation_name":
+        "Haskell is a standardized, genera"}], "enterprise_id": "They are written",
+        "enterprise_name": "Haskell features a type system wi"}, "rule": {"use_case_deprecation":
+        null, "name": "Bruschetta", "id": "qCaKN2", "url": {"portal": "https://medal.biz/"}},
+        "id": "Gr6jcPk", "title": "Where are my pants?", "log": {"note_author": null,
+        "note_date": null, "status_date": null, "triggered": "2026-02-12T11:06:00.399Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Make me a sandwi", "organisation_name":
+        "Messages can be sent to and recei"}], "enterprise_id": "Ports are used t",
+        "enterprise_name": "Its main implementation is the Gl"}, "rule": {"use_case_deprecation":
+        null, "name": "Sweet Potato Fries", "id": "mf0rAa", "url": {"portal": "https://walking.antivirus/"}},
+        "id": "1eAuPMd", "title": "Atoms can contain any character if they are ",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-12T11:23:27.366Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Any
+        element of a", "organisation_name": "Haskell is a standardized, genera"}],
+        "enterprise_id": "Do you come here", "enterprise_name": "She spent her earliest
+        years read"}, "rule": {"use_case_deprecation": null, "name": "Chimichanga",
+        "id": "mf0rAa", "url": {"portal": "https://worldcat.nr/"}}, "id": "RkHG7Xp",
+        "title": "It is also a garbage-collected runtime syste", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-12T12:24:13.975Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Erlang is known ", "organisation_name":
+        "Messages can be sent to and recei"}], "enterprise_id": "Initially compos",
+        "enterprise_name": "Where are my pants?"}, "rule": {"use_case_deprecation":
+        null, "name": "Alphabet pasta", "id": "mofZNS", "url": {"portal": "https://produced.antivirus/"}},
+        "id": "aJdWYPS", "title": "He looked inquisitively at his keyboard and ",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-12T13:02:45.015Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "He looked
+        inquis", "organisation_name": "The arguments can be primitive da"}], "enterprise_id":
+        "Type classes fir", "enterprise_name": "Where are my pants?"}, "rule": {"use_case_deprecation":
+        null, "name": "Chowder", "id": "mofZNQ", "url": {"portal": "https://betty.tel/"}},
+        "id": "RkM470r", "title": "Atoms are used within a program to denote distinguished
+        values.", "log": {"note_author": null, "note_date": null, "status_date": null,
+        "triggered": "2026-02-12T13:02:51.574Z", "status_change_by": null}}, {"review":
+        {"note": null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Atoms
+        can contai", "organisation_name": "The arguments can be primitive da"}], "enterprise_id":
+        "Erlang is a gene", "enterprise_name": "Type classes first appeared in th"},
+        "rule": {"use_case_deprecation": null, "name": "Porterhouse Steak", "id":
+        "mohGF-", "url": {"portal": "https://comment.ba/"}}, "id": "CG8sgsM", "title":
+        "The syntax {D1,D2,...,Dn} denotes a tuple whose arguments are D1, D2, ...
+        Dn.", "log": {"note_author": null, "note_date": null, "status_date": null,
+        "triggered": "2026-02-12T13:03:06.804Z", "status_change_by": null}}, {"review":
+        {"note": null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Tuples
+        are conta", "organisation_name": "Make me a sandwich."}], "enterprise_id":
+        "The syntax {D1,D", "enterprise_name": "Erlang is known for its designs t"},
+        "rule": {"use_case_deprecation": null, "name": "Tuna Pizza", "id": "mf0rAa",
+        "url": {"portal": "https://installation.edu/"}}, "id": "OMZf91O", "title":
+        "The arguments can be primitive data types or", "log": {"note_author": null,
+        "note_date": null, "status_date": null, "triggered": "2026-02-12T13:24:50.031Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "The Galactic Emp", "organisation_name":
+        "Do you come here often?"}], "enterprise_id": "Make me a sandwi", "enterprise_name":
+        "Haskell features a type system wi"}, "rule": {"use_case_deprecation": null,
+        "name": "Shucked Oysters", "id": "mf0rAa", "url": {"portal": "https://rank.asia/"}},
+        "id": "lghg7iu", "title": "Make me a sandwich.", "log": {"note_author": null,
+        "note_date": null, "status_date": null, "triggered": "2026-02-12T14:25:23.704Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "The Galactic Emp", "organisation_name":
+        "Any element of a tuple can be acc"}], "enterprise_id": "Do you come here",
+        "enterprise_name": "Initially composing light-hearted"}, "rule": {"use_case_deprecation":
+        null, "name": "Mini pizzas", "id": "mf0rAa", "url": {"portal": "https://oval.mil/"}},
+        "id": "DATLkKA", "title": "The arguments can be primitive data types or",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-12T15:26:20.672Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "The
+        arguments ca", "organisation_name": "I don''t even care."}], "enterprise_id":
+        "Ports are create", "enterprise_name": "The syntax {D1,D2,...,Dn} denotes"},
+        "rule": {"use_case_deprecation": null, "name": "Apple butter", "id": "nZW3KP",
+        "url": {"portal": "https://mailman.biz/"}}, "id": "UXbtegW", "title": "It
+        is also a garbage-collected runtime system.", "log": {"note_author": null,
+        "note_date": null, "status_date": null, "triggered": "2026-02-12T15:35:57.575Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "The sequential s", "organisation_name":
+        "Do you have any idea why this is "}], "enterprise_id": "I don''t even car",
+        "enterprise_name": "The arguments can be primitive da"}, "rule": {"use_case_deprecation":
+        null, "name": "Maine Lobster", "id": "nZW3KP", "url": {"portal": "https://latina.madrid/"}},
+        "id": "yrgjkE2", "title": "Atoms are used within a program to denote distinguished
+        values.", "log": {"note_author": null, "note_date": null, "status_date": null,
+        "triggered": "2026-02-12T15:51:26.129Z", "status_change_by": null}}, {"review":
+        {"note": null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Do you
+        have any ", "organisation_name": "Erlang is a general-purpose, conc"}], "enterprise_id":
+        "She spent her ea", "enterprise_name": "The Galactic Empire is nearing co"},
+        "rule": {"use_case_deprecation": null, "name": "Chicago Hot Dog", "id": "mf0rAa",
+        "url": {"portal": "https://sonic.co/"}}, "id": "OLgRaZz", "title": "The arguments
+        can be primitive data types or", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-12T16:26:41.499Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Atoms are used w", "organisation_name": "Type classes first appeared in th"}],
+        "enterprise_id": "Atoms are used w", "enterprise_name": "I don''t even care."},
+        "rule": {"use_case_deprecation": null, "name": "Ratatouille", "id": "nZW3KP",
+        "url": {"portal": "https://kingston.radio/"}}, "id": "aqXfE91", "title": "Atoms
+        can contain any character if they are enclosed within single quotes and an
+        escape conve", "log": {"note_author": null, "note_date": null, "status_date":
+        null, "triggered": "2026-02-12T16:35:31.620Z", "status_change_by": null}},
+        {"review": {"note": null, "status_in_portal": "New", "assignee": null, "status":
+        "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Any element of a", "organisation_name": "Erlang is known for its designs
+        t"}], "enterprise_id": "Make me a sandwi", "enterprise_name": "Initially composing
+        light-hearted"}, "rule": {"use_case_deprecation": null, "name": "Maraca pie",
+        "id": "nZW3KP", "url": {"portal": "https://priced.int/"}}, "id": "MzkIkrH",
+        "title": "She spent her earliest years reading classic literature, and writing
+        poetry.", "log": {"note_author": null, "note_date": null, "status_date": null,
+        "triggered": "2026-02-12T16:50:55.747Z", "status_change_by": null}}, {"review":
+        {"note": null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Ports
+        are create", "organisation_name": "Where are my pants?"}], "enterprise_id":
+        "Atoms can contai", "enterprise_name": "Ports are used to communicate wit"},
+        "rule": {"use_case_deprecation": null, "name": "Smelt", "id": "mf0rAZ", "url":
+        {"portal": "https://contents.beer/"}}, "id": "rcugHnK", "title": "Haskell
+        features a type system with type inference and lazy", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-12T17:04:26.456Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "The syntax {D1,D", "organisation_name":
+        "Do you come here often?"}], "enterprise_id": "Its main impleme", "enterprise_name":
+        "The arguments can be primitive da"}, "rule": {"use_case_deprecation": null,
+        "name": "American fried rice", "id": "mf0rAa", "url": {"portal": "https://intake.asia/"}},
+        "id": "XBuhLTZ", "title": "He looked inquisitively at his keyboard and ",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-12T17:27:34.665Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Atoms
+        can contai", "organisation_name": "The syntax {D1,D2,...,Dn} denotes"}], "enterprise_id":
+        "In 1989 the buil", "enterprise_name": "Atoms are used within a program t"},
+        "rule": {"use_case_deprecation": null, "name": "Mashed potato", "id": "mf0rAa",
+        "url": {"portal": "https://static.coop/"}}, "id": "clcZD7A", "title": "Haskell
+        features a type system with type inf", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-12T18:27:57.466Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "The Galactic Emp", "organisation_name": "Erlang is known for its designs
+        t"}], "enterprise_id": "Do you come here", "enterprise_name": "Where are my
+        pants?"}, "rule": {"use_case_deprecation": null, "name": "Banh Mi Vi\u00eat",
+        "id": "nZW3KP", "url": {"portal": "https://reporting.net/"}}, "id": "n6Iq8u4",
+        "title": "The syntax {D1,D2,...,Dn} denotes a tuple whose arguments are D1,
+        D2, ... Dn.", "log": {"note_author": null, "note_date": null, "status_date":
+        null, "triggered": "2026-02-12T18:43:18.938Z", "status_change_by": null}},
+        {"review": {"note": null, "status_in_portal": "New", "assignee": null, "status":
+        "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "The sequential s", "organisation_name": "Its main implementation is the Gl"}],
+        "enterprise_id": "Any element of a", "enterprise_name": "The syntax {D1,D2,...,Dn}
+        denotes"}, "rule": {"use_case_deprecation": null, "name": "Meat Feast Pizza",
+        "id": "nZW3KP", "url": {"portal": "https://evaluate.money/"}}, "id": "dZbD0Cb",
+        "title": "The arguments can be primitive data types or compound data types.",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-12T18:58:43.637Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "The
+        syntax {D1,D", "organisation_name": "Haskell features a type system wi"}],
+        "enterprise_id": "Where are my pan", "enterprise_name": "Do you come here
+        often?"}, "rule": {"use_case_deprecation": null, "name": "Crab Rangoon", "id":
+        "_YIltw", "url": {"portal": "https://soc.bg/"}}, "id": "VQXq8Jd", "title":
+        "She spent her earliest years reading classic literature, and", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-12T19:07:30.156Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "He looked inquis", "organisation_name":
+        "Erlang is a general-purpose, conc"}], "enterprise_id": "It is also a gar",
+        "enterprise_name": "They are written as strings of co"}, "rule": {"use_case_deprecation":
+        null, "name": "Jalapeno Poppers", "id": "_YIltw", "url": {"portal": "https://phentermine.travel/"}},
+        "id": "KW3bdW6", "title": "Any element of a tuple can be accessed in constant
+        time.", "log": {"note_author": null, "note_date": null, "status_date": null,
+        "triggered": "2026-02-12T19:13:04.653Z", "status_change_by": null}}, {"review":
+        {"note": null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Type
+        classes fir", "organisation_name": "Erlang is a general-purpose, conc"}],
+        "enterprise_id": "Do you come here", "enterprise_name": "Atoms are used within
+        a program t"}, "rule": {"use_case_deprecation": null, "name": "Gumbo", "id":
+        "nZW3KP", "url": {"portal": "https://wanting.asia/"}}, "id": "kglYpLZ", "title":
+        "The sequential subset of Erlang supports eager evaluation, single assignment,
+        and dynamic typ", "log": {"note_author": null, "note_date": null, "status_date":
+        null, "triggered": "2026-02-12T19:14:17.256Z", "status_change_by": null}},
+        {"review": {"note": null, "status_in_portal": "New", "assignee": null, "status":
+        "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Initially compos", "organisation_name": "I don''t even care."}], "enterprise_id":
+        "Erlang is a gene", "enterprise_name": "Erlang is a general-purpose, conc"},
+        "rule": {"use_case_deprecation": null, "name": "Phaal", "id": "mf0rAa", "url":
+        {"portal": "https://nike.dubai/"}}, "id": "dOs3rkT", "title": "He looked inquisitively
+        at his keyboard and ", "log": {"note_author": null, "note_date": null, "status_date":
+        null, "triggered": "2026-02-12T19:28:39.191Z", "status_change_by": null}},
+        {"review": {"note": null, "status_in_portal": "New", "assignee": null, "status":
+        "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "In 1989 the buil", "organisation_name": "Atoms are used within a program
+        t"}], "enterprise_id": "Haskell is a sta", "enterprise_name": "Atoms are used
+        within a program t"}, "rule": {"use_case_deprecation": null, "name": "Funnel
+        Cake", "id": "nZW3KP", "url": {"portal": "https://coordinates.mobi/"}}, "id":
+        "TOIIENC", "title": "The sequential subset of Erlang supports eager evaluation,
+        single assignment, and dynamic typing.", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-12T19:38:32.412Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Haskell is a sta", "organisation_name": "They are written as strings of co"}],
+        "enterprise_id": "Its main impleme", "enterprise_name": "Type classes first
+        appeared in th"}, "rule": {"use_case_deprecation": null, "name": "Lobster
+        roll", "id": "nZW3KP", "url": {"portal": "https://furnishings.africa/"}},
+        "id": "joT9oKh", "title": "In 1989 the building was heavily damaged by fire,
+        but it has since been restored.", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-12T19:55:54.582Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Initially compos", "organisation_name": "Atoms can contain any character
+        i"}], "enterprise_id": "She spent her ea", "enterprise_name": "The arguments
+        can be primitive da"}, "rule": {"use_case_deprecation": null, "name": "Crab
+        Rangoon", "id": "mf0rAa", "url": {"portal": "https://citizens.org/"}}, "id":
+        "ZUmts2L", "title": "The syntax {D1,D2,...,Dn} denotes a tuple wh", "log":
+        {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-12T20:28:54.921Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Where
+        are my pan", "organisation_name": "The syntax {D1,D2,...,Dn} denotes"}], "enterprise_id":
+        "Where are my pan", "enterprise_name": "The syntax {D1,D2,...,Dn} denotes"},
+        "rule": {"use_case_deprecation": null, "name": "Steak sandwich", "id": "nZW3KP",
+        "url": {"portal": "https://graduation.name/"}}, "id": "bfPSZem", "title":
+        "Atoms can contain any character if they are enclosed within single quotes
+        and an escape convention exi", "log": {"note_author": null, "note_date": null,
+        "status_date": null, "triggered": "2026-02-12T21:10:49.973Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "In 1989 the buil", "organisation_name": "It is also a garbage-collected ru"}],
+        "enterprise_id": "Make me a sandwi", "enterprise_name": "Haskell is a standardized,
+        genera"}, "rule": {"use_case_deprecation": null, "name": "Dirty rice", "id":
+        "mf0rAa", "url": {"portal": "https://writings.feedback/"}}, "id": "PQ4epvy",
+        "title": "Messages can be sent to and received from po", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-12T21:29:28.999Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"owner_id": "I don''t even car", "enterprise_id": "Atoms are used w", "owner_name":
+        "Atoms ca", "organisations": [{"organisation_id": "I don''t even car", "organisation_name":
+        "The Galactic Empire is nearing co"}], "enterprise_name": "I don''t even care."},
+        "rule": {"use_case_deprecation": null, "name": "Rabbit pie", "id": "AkyxujY",
+        "url": {"portal": "https://famous.yt/"}}, "id": "J60PXDM", "title": "Ports
+        are used to communicate wi", "log": {"note_author": null, "note_date": null,
+        "status_date": null, "triggered": "2026-02-12T22:05:10.746Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "They are written", "organisation_name": "Ports are used to communicate wit"}],
+        "enterprise_id": "Type classes fir", "enterprise_name": "In 1989 the building
+        was heavily "}, "rule": {"use_case_deprecation": null, "name": "Osso Buco",
+        "id": "mf0rAa", "url": {"portal": "https://applicable.tv/"}}, "id": "DwLUUNa",
+        "title": "The sequential subset of Erlang supports eag", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-12T22:30:10.239Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Erlang is known ", "organisation_name":
+        "Ports are used to communicate wit"}], "enterprise_id": "Do you have any ",
+        "enterprise_name": "He looked inquisitively at his ke"}, "rule": {"use_case_deprecation":
+        null, "name": "Hangtown fry", "id": "mf0rAa", "url": {"portal": "https://petition.mn/"}},
+        "id": "nSuSaYw", "title": "Atoms are used within a program to denote di",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-12T23:30:35.394Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"owner_id": "Its main impleme", "enterprise_id":
+        "Initially compos", "owner_name": "The argument", "organisations": [{"organisation_id":
+        "Do you come here", "organisation_name": "Do you come here often?"}], "enterprise_name":
+        "Where are my pants?"}, "rule": {"use_case_deprecation": null, "name": "Bacon
+        Cheeseburger", "id": "uZenVK", "url": {"portal": "https://causes.com/"}},
+        "id": "iAa58Yr", "title": "Erlang is a general-purpose, concurrent, functional
+        programming language.", "log": {"note_author": null, "note_date": null, "status_date":
+        null, "triggered": "2026-02-13T00:03:15.194Z", "status_change_by": null}},
+        {"review": {"note": null, "status_in_portal": "New", "assignee": null, "status":
+        "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Its main impleme", "organisation_name": "Where are my pants?"}], "enterprise_id":
+        "The sequential s", "enterprise_name": "Haskell features a type system wi"},
+        "rule": {"use_case_deprecation": null, "name": "Vichyssoise", "id": "mf0rAa",
+        "url": {"portal": "https://quit.digital/"}}, "id": "Sh1F3oa", "title": "Make
+        me a sandwich.", "log": {"note_author": null, "note_date": null, "status_date":
+        null, "triggered": "2026-02-13T00:31:23.727Z", "status_change_by": null}},
+        {"review": {"note": null, "status_in_portal": "New", "assignee": null, "status":
+        "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "The sequential s", "organisation_name": "Initially composing light-hearted"}],
+        "enterprise_id": "Make me a sandwi", "enterprise_name": "In 1989 the building
+        was heavily "}, "rule": {"use_case_deprecation": null, "name": "French Dip",
+        "id": "mf0rAa", "url": {"portal": "https://friends.hosting/"}}, "id": "pHN8w59",
+        "title": "The sequential subset of Erlang supports eag", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-13T01:31:59.577Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "The sequential s", "organisation_name":
+        "The sequential subset of Erlang s"}], "enterprise_id": "She spent her ea",
+        "enterprise_name": "Ports are created with the built-"}, "rule": {"use_case_deprecation":
+        null, "name": "Apple butter", "id": "mf0rAa", "url": {"portal": "https://because.helsinki/"}},
+        "id": "KpRUk8A", "title": "Atoms are used within a program to denote di",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T02:32:23.347Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Do you
+        come here", "organisation_name": "Where are my pants?"}], "enterprise_id":
+        "Do you come here", "enterprise_name": "I don''t even care."}, "rule": {"use_case_deprecation":
+        null, "name": "Cheese balls", "id": "mf0rAa", "url": {"portal": "https://playing.name/"}},
+        "id": "EHiuj2t", "title": "Tuples are containers for a fixed number of ",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T03:32:42.589Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "She
+        spent her ea", "organisation_name": "Erlang is known for its designs t"}],
+        "enterprise_id": "Atoms are used w", "enterprise_name": "Tuples are containers
+        for a fixed"}, "rule": {"use_case_deprecation": null, "name": "London broil",
+        "id": "o7x4o3", "url": {"portal": "https://mild.org/"}}, "id": "5y6Wfx5",
+        "title": "Erlang is a general-purpose, concurren", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-13T04:02:13.256Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Tuples are conta", "organisation_name":
+        "Erlang is known for its designs t"}], "enterprise_id": "Any element of a",
+        "enterprise_name": "Its main implementation is the Gl"}, "rule": {"use_case_deprecation":
+        null, "name": "Roasted Bone Marrow", "id": "pAHftK", "url": {"portal": "https://toilet.zulu/"}},
+        "id": "1nCUMHa", "title": "It is also a garbage-collected runtime system.",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T04:02:13.342Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "The
+        syntax {D1,D", "organisation_name": "They are written as strings of co"}],
+        "enterprise_id": "Ports are used t", "enterprise_name": "Any element of a
+        tuple can be acc"}, "rule": {"use_case_deprecation": null, "name": "Chicago
+        Deep Dish Pizza", "id": "mf0rAa", "url": {"portal": "https://qualify.biz/"}},
+        "id": "ZJAxc6y", "title": "Erlang is a general-purpose, concurrent, fun",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T04:33:01.273Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Ports
+        are create", "organisation_name": "Where are my pants?"}], "enterprise_id":
+        "Tuples are conta", "enterprise_name": "Initially composing light-hearted"},
+        "rule": {"use_case_deprecation": null, "name": "Muffuletta", "id": "_YIltw",
+        "url": {"portal": "https://abc.net/"}}, "id": "7cMrYZu", "title": "Atoms are
+        used within a program to denote distinguished valu", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-13T05:18:15.659Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "They are written", "organisation_name":
+        "Atoms can contain any character i"}], "enterprise_id": "The Galactic Emp",
+        "enterprise_name": "Where are my pants?"}, "rule": {"use_case_deprecation":
+        null, "name": "Spring Rolls", "id": "mf0rAa", "url": {"portal": "https://sig.sydney/"}},
+        "id": "oPc0fiz", "title": "The sequential subset of Erlang supports eag",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T05:33:53.521Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Do you
+        have any ", "organisation_name": "In 1989 the building was heavily "}], "enterprise_id":
+        "The syntax {D1,D", "enterprise_name": "Messages can be sent to and recei"},
+        "rule": {"use_case_deprecation": null, "name": "St. Paul Sandwich", "id":
+        "owOTmi", "url": {"portal": "https://appointment.plumbing/"}}, "id": "SSiMhe0",
+        "title": "Atoms are used within a program to denote distingui", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-13T06:03:10.106Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "The sequential s", "organisation_name":
+        "Do you come here often?"}], "enterprise_id": "The sequential s", "enterprise_name":
+        "The Galactic Empire is nearing co"}, "rule": {"use_case_deprecation": null,
+        "name": "Mashed potato", "id": "owPoVr", "url": {"portal": "https://collect.koeln/"}},
+        "id": "Mk40skW", "title": "The Galactic Empire is nearing completion of the
+        Death Star, a space station with ", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-13T06:03:11.562Z", "status_change_by":
+        null}}], "counts": {"returned": 45, "total": 95}}'
+    headers:
+      CF-RAY:
+      - 9cd37c4eca40947c-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:01:38 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0kjimpgeuapbh1gou81a29gnaq5401991.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

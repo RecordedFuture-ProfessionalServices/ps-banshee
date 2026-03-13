@@ -1,0 +1,176 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/url/search?limit=5&fields=entity%2Crisk%2Ctimestamps
+  response:
+    body:
+      string: '{"data": {"results": [{"timestamps": {"lastSeen": "2026-07-13T20:29:36.798Z",
+        "firstSeen": "2026-10-02T22:29:56.012Z"}, "risk": {"criticalityLabel": "Atoms
+        are", "riskString": "Mess", "rules": 4, "criticality": 3, "riskSummary": "Ports
+        are created with the built-in fu", "score": 89, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "It is also a garbage-collected runtime system.", "rule":
+        "Erlang is known for its designs that ar", "criticality": 1, "timestamp":
+        "2026-12-05T14:52:55.776Z", "criticalityLabel": "Where a"}, {"mitigationString":
+        "", "evidenceString": "The syntax {D1,D2,...,Dn} denotes a tuple whose arguments
+        are D1, D2, ... Dn.", "rule": "I don''t even care.", "criticality": 1, "timestamp":
+        "2026-07-09T13:07:06.998Z", "criticalityLabel": "Erlang "}, {"mitigationString":
+        "", "evidenceString": "In 1989 the building was heavily damaged by fire, but
+        it has since been restored.", "rule": "The sequential subset of Erlang supp",
+        "criticality": 1, "timestamp": "2026-11-08T03:20:19.952Z", "criticalityLabel":
+        "Tuples "}, {"mitigationString": "", "evidenceString": "Tuples are containers
+        for a fixed number of Erlang data types.", "rule": "Its main implementation
+        is the Gl", "criticality": 3, "timestamp": "2026-02-25T23:44:56.418Z", "criticalityLabel":
+        "It is als"}]}, "entity": {"id": "url:https://approximate.xxx/", "name": "Chicken
+        Manchurian", "type": "URL"}}, {"timestamps": {"lastSeen": "2026-07-02T14:13:58.421Z",
+        "firstSeen": "2026-09-26T20:05:35.045Z"}, "risk": {"criticalityLabel": "They
+        are ", "riskString": "Do yo", "rules": 13, "criticality": 3, "riskSummary":
+        "In 1989 the building was heavily damage", "score": 83, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Where are my pants?", "rule":
+        "Ports are created with the built-in fun", "criticality": 1, "timestamp":
+        "2026-06-07T05:02:00.511Z", "criticalityLabel": "Message"}, {"mitigationString":
+        "", "evidenceString": "Make me a sandwich.", "rule": "Erlang is a general-purpose,
+        concurrent, f", "criticality": 1, "timestamp": "2026-10-04T12:24:01.364Z",
+        "criticalityLabel": "Where a"}, {"mitigationString": "", "evidenceString":
+        "The syntax {D1,D2,...,Dn} denotes a tuple whose arguments are D1, D2, ...
+        Dn.", "rule": "Initially composing light-hearted and irr", "criticality":
+        1, "timestamp": "2026-03-08T17:03:20.105Z", "criticalityLabel": "Message"},
+        {"mitigationString": "", "evidenceString": "Tuples are containers for a fixed
+        number of Erlang data types.", "rule": "He looked inquisitively at his keyboard
+        an", "criticality": 1, "timestamp": "2026-02-03T06:40:28.484Z", "criticalityLabel":
+        "Tuples "}, {"mitigationString": "", "evidenceString": "It is also a garbage-collected
+        runtime system.", "rule": "Atoms can contain any character ", "criticality":
+        1, "timestamp": "2026-07-18T04:07:08.887Z", "criticalityLabel": "In 1989"},
+        {"mitigationString": "", "evidenceString": "Messages can be sent to and received
+        from ports, but these messages must obey the so-called \"port protocol.\"",
+        "rule": "Messages can be sent to and rece", "criticality": 1, "timestamp":
+        "2026-07-28T07:22:18.362Z", "criticalityLabel": "Where a"}, {"mitigationString":
+        "", "evidenceString": "Do you come here often?", "rule": "Make me a sandwich.",
+        "criticality": 1, "timestamp": "2026-04-28T00:47:00.964Z", "criticalityLabel":
+        "Erlang "}, {"mitigationString": "", "evidenceString": "Ports are created
+        with the built-in function open_port.", "rule": "Its main implementation is
+        ", "criticality": 1, "timestamp": "2026-06-28T10:54:58.567Z", "criticalityLabel":
+        "Atoms a"}, {"mitigationString": "", "evidenceString": "The Galactic Empire
+        is nearing completion of the Death Star, a space station with the power to
+        destroy entire planets.", "rule": "I don''t even care.", "criticality": 1,
+        "timestamp": "2026-08-11T10:09:43.136Z", "criticalityLabel": "Do you "}, {"mitigationString":
+        "", "evidenceString": "The sequential subset of Erlang supports eager evaluation,
+        single assignment, and dynamic typing.", "rule": "Atoms can contain any character
+        if they", "criticality": 1, "timestamp": "2026-06-13T09:41:29.004Z", "criticalityLabel":
+        "It is a"}, {"mitigationString": "", "evidenceString": "Its main implementation
+        is the Glasgow Haskell Compiler.", "rule": "Ports are used to communicate
+        with the exte", "criticality": 1, "timestamp": "2026-02-27T11:11:16.042Z",
+        "criticalityLabel": "Atoms c"}, {"mitigationString": "", "evidenceString":
+        "In 1989 the building was heavily damaged by fire, but it has since been restored.",
+        "rule": "He looked inquisitively at his keyboa", "criticality": 3, "timestamp":
+        "2026-02-12T07:59:03.421Z", "criticalityLabel": "Ports are"}, {"mitigationString":
+        "", "evidenceString": "Atoms are used within a program to denote distinguished
+        values.", "rule": "Messages can be sent to and ", "criticality": 3, "timestamp":
+        "2026-06-21T22:48:52.819Z", "criticalityLabel": "Erlang is"}]}, "entity":
+        {"id": "url:https://tennessee.info/", "name": "Corn relish", "type": "URL"}},
+        {"timestamps": {"lastSeen": "2026-01-09T10:31:57.118Z", "firstSeen": "2026-11-22T03:06:16.559Z"},
+        "risk": {"criticalityLabel": "The synta", "riskString": "Atom", "rules": 2,
+        "criticality": 3, "riskSummary": "I don''t even care.", "score": 82, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "He looked inquisitively at his
+        keyboard and wrote another sentence.", "rule": "He looked inquisitively at
+        his keyboard", "criticality": 1, "timestamp": "2026-08-16T23:34:59.243Z",
+        "criticalityLabel": "He look"}, {"mitigationString": "", "evidenceString":
+        "Tuples are containers for a fixed number of Erlang data types.", "rule":
+        "The arguments can be primitive da", "criticality": 3, "timestamp": "2026-02-18T03:10:18.544Z",
+        "criticalityLabel": "Messages "}]}, "entity": {"id": "url:https://regards.tickets/",
+        "name": "Apple butter", "type": "URL"}}, {"timestamps": {"lastSeen": "2026-09-27T10:37:41.270Z",
+        "firstSeen": "2026-06-10T03:44:47.603Z"}, "risk": {"criticalityLabel": "Any
+        eleme", "riskString": "It i", "rules": 5, "criticality": 3, "riskSummary":
+        "Do you come here often?", "score": 79, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "Its main implementation is the Glasgow Haskell Compiler.",
+        "rule": "Ports are created with the built-in fun", "criticality": 1, "timestamp":
+        "2026-05-10T07:56:01.238Z", "criticalityLabel": "The syn"}, {"mitigationString":
+        "", "evidenceString": "Its main implementation is the Glasgow Haskell Compiler.",
+        "rule": "Initially composing light-hearted and irr", "criticality": 1, "timestamp":
+        "2026-10-19T11:09:50.864Z", "criticalityLabel": "Atoms c"}, {"mitigationString":
+        "", "evidenceString": "Its main implementation is the Glasgow Haskell Compiler.",
+        "rule": "Type classes first appeared in the Haskell", "criticality": 1, "timestamp":
+        "2026-01-17T03:26:06.183Z", "criticalityLabel": "Where a"}, {"mitigationString":
+        "", "evidenceString": "Its main implementation is the Glasgow Haskell Compiler.",
+        "rule": "Initially composing light-hearted an", "criticality": 1, "timestamp":
+        "2026-04-10T14:59:28.626Z", "criticalityLabel": "Haskell"}, {"mitigationString":
+        "", "evidenceString": "The Galactic Empire is nearing completion of the Death
+        Star, a space station with the power to destroy entire planets.", "rule":
+        "In 1989 the building was heavily dama", "criticality": 3, "timestamp": "2026-11-29T20:36:26.706Z",
+        "criticalityLabel": "Make me a"}]}, "entity": {"id": "url:https://dream.asia/",
+        "name": "Lobster Newberg", "type": "URL"}}, {"timestamps": {"lastSeen": "2026-08-19T11:00:59.987Z",
+        "firstSeen": "2026-05-10T18:09:32.482Z"}, "risk": {"criticalityLabel": "The
+        argum", "riskString": "Do y", "rules": 4, "criticality": 3, "riskSummary":
+        "The sequential subset of Erlang suppor", "score": 78, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "The sequential subset of Erlang
+        supports eager evaluation, single assignment, and dynamic typing.", "rule":
+        "Atoms are used within a program to denote", "criticality": 1, "timestamp":
+        "2026-01-14T14:44:12.782Z", "criticalityLabel": "The seq"}, {"mitigationString":
+        "", "evidenceString": "The sequential subset of Erlang supports eager evaluation,
+        single assignment, and dynamic typing.", "rule": "The arguments can be primitive
+        data types ", "criticality": 1, "timestamp": "2026-01-29T23:26:31.566Z", "criticalityLabel":
+        "The Gal"}, {"mitigationString": "", "evidenceString": "In 1989 the building
+        was heavily damaged by fire, but it has since been restored.", "rule": "Do
+        you come here often?", "criticality": 1, "timestamp": "2026-05-29T02:46:54.428Z",
+        "criticalityLabel": "The syn"}, {"mitigationString": "", "evidenceString":
+        "Haskell features a type system with type inference and lazy evaluation.",
+        "rule": "Type classes first appeared in the Ha", "criticality": 3, "timestamp":
+        "2026-05-23T06:13:31.268Z", "criticalityLabel": "She spent"}]}, "entity":
+        {"id": "url:https://flashing.hiv/", "name": "Philly Cheese Steak", "type":
+        "URL"}}]}, "counts": {"returned": 5, "total": 1062222271}}'
+    headers:
+      CF-RAY:
+      - 9cd3880b588b4f42-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:09:45 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0jgtz28qbwow8176kgarabd35s2019927.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -1,0 +1,189 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/domain/aewrhprres.com?fields=timestamps%2Centity%2Crisk
+  response:
+    body:
+      string: '{"data": {"timestamps": {"lastSeen": "2026-02-12T00:04:57.651Z", "firstSeen":
+        "2026-10-16T18:43:31.387Z"}, "risk": {"criticalityLabel": "Do you come he",
+        "riskString": "It i", "rules": 9, "criticality": 4, "riskSummary": "Erlang
+        is known for its designs that a", "score": 96, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "The syntax {D1,D2,...,Dn} denotes a tuple whose arguments
+        are D1, D2, ... Dn.", "rule": "Erlang is known for its designs tha", "criticality":
+        1, "timestamp": "2026-05-12T19:07:17.034Z", "criticalityLabel": "Haskell"},
+        {"mitigationString": "", "evidenceString": "Haskell features a type system
+        with type inference and lazy evaluation.", "rule": "Ports are used to communicate
+        with the ", "criticality": 1, "timestamp": "2026-04-19T22:37:10.160Z", "criticalityLabel":
+        "I don''t"}, {"mitigationString": "", "evidenceString": "Do you come here
+        often?", "rule": "He looked inquisitively at his keyboard a", "criticality":
+        1, "timestamp": "2026-09-01T16:20:59.021Z", "criticalityLabel": "Atoms c"},
+        {"mitigationString": "", "evidenceString": "The sequential subset of Erlang
+        supports eager evaluation, single assignment, and dynamic typing.", "rule":
+        "Any element of a tuple can be accessed in ", "criticality": 1, "timestamp":
+        "2026-04-07T19:42:32.815Z", "criticalityLabel": "It is a"}, {"mitigationString":
+        "", "evidenceString": "He looked inquisitively at his keyboard and wrote another
+        sentence.", "rule": "Ports are created with the built-in function", "criticality":
+        1, "timestamp": "2026-08-13T18:05:23.951Z", "criticalityLabel": "Erlang "},
+        {"mitigationString": "", "evidenceString": "The sequential subset of Erlang
+        supports eager evaluation, single assignment, and dynamic typing.", "rule":
+        "Where are my pants?", "criticality": 1, "timestamp": "2026-09-11T18:57:06.688Z",
+        "criticalityLabel": "She spe"}, {"mitigationString": "", "evidenceString":
+        "Atoms are used within a program to denote distinguished values.", "rule":
+        "Make me a sandwich.", "criticality": 1, "timestamp": "2026-04-13T13:08:59.637Z",
+        "criticalityLabel": "Tuples "}, {"mitigationString": "", "evidenceString":
+        "Type classes first appeared in the Haskell programming language.", "rule":
+        "Any element of a tuple can be", "criticality": 2, "timestamp": "2026-04-22T18:46:17.073Z",
+        "criticalityLabel": "Erlang is "}, {"mitigationString": "", "evidenceString":
+        "Atoms can contain any character if they are enclosed withi", "rule": "The
+        sequential subs", "criticality": 4, "timestamp": "2026-09-26T21:48:11.192Z",
+        "criticalityLabel": "Where are my p"}]}, "entity": {"id": "idn:landscape.vodka",
+        "name": "Moules Frites", "type": "InternetDomainName"}}}'
+    headers:
+      CF-RAY:
+      - 9cecfc014e622059-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 12:17:53 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node018iqxzcxty0e51wjpp93vxprev3661021.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/domain/avsvmcloud.com?fields=timestamps%2Centity%2Crisk
+  response:
+    body:
+      string: '{"data": {"timestamps": {"lastSeen": "2026-08-23T02:22:29.352Z", "firstSeen":
+        "2026-01-06T01:15:44.239Z"}, "risk": {"criticalityLabel": "The sequential",
+        "riskString": "The ", "rules": 8, "criticality": 4, "riskSummary": "The sequential
+        subset of Erlang suppor", "score": 99, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "The sequential subset of Erlang supports eager evaluation,
+        single assignment, and dynamic typing.", "rule": "Any element of a tuple can
+        be ac", "criticality": 1, "timestamp": "2026-08-16T10:44:19.661Z", "criticalityLabel":
+        "Atoms a"}, {"mitigationString": "", "evidenceString": "Ports are used to
+        communicate with the external world.", "rule": "In 1989 the building was heavily
+        damaged by ", "criticality": 1, "timestamp": "2026-05-15T01:43:23.131Z", "criticalityLabel":
+        "Haskell"}, {"mitigationString": "", "evidenceString": "He looked inquisitively
+        at his keyboard and wrote another sentence.", "rule": "Ports are used to communicate
+        with th", "criticality": 1, "timestamp": "2026-06-06T20:04:43.438Z", "criticalityLabel":
+        "Ports a"}, {"mitigationString": "", "evidenceString": "Haskell features a
+        type system with type inference and lazy evaluation.", "rule": "She spent
+        her earliest years reading cl", "criticality": 1, "timestamp": "2026-10-14T01:12:46.976Z",
+        "criticalityLabel": "Where a"}, {"mitigationString": "", "evidenceString":
+        "Any element of a tuple can be accessed in constant time.", "rule": "Ports
+        are used to communicate with the external w", "criticality": 1, "timestamp":
+        "2026-04-29T08:11:16.347Z", "criticalityLabel": "I don''t"}, {"mitigationString":
+        "", "evidenceString": "The syntax {D1,D2,...,Dn} denotes a tuple whose arguments
+        are D1, D2, ... Dn.", "rule": "The Galactic Empire is nearing compl", "criticality":
+        1, "timestamp": "2026-08-15T07:11:21.430Z", "criticalityLabel": "Haskell"},
+        {"mitigationString": "", "evidenceString": "Haskell is a standardized, general-purpose
+        purely functional programming language, with non-strict semantics and strong
+        static typing.", "rule": "Where are my pants?", "criticality": 2, "timestamp":
+        "2026-12-26T23:16:33.101Z", "criticalityLabel": "Do you hav"}, {"mitigationString":
+        "", "evidenceString": "Any element of a tuple can be accessed in constant
+        time.", "rule": "Ports are created w", "criticality": 4, "timestamp": "2026-10-07T07:20:17.767Z",
+        "criticalityLabel": "In 1989 the bu"}]}, "entity": {"id": "idn:diagram.nagoya",
+        "name": "Naan", "type": "InternetDomainName"}}}'
+    headers:
+      CF-RAY:
+      - 9cecfc08795e50d5-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 12:17:57 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01iwm5lidb2tpffmetoxu8m1yn3662881.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

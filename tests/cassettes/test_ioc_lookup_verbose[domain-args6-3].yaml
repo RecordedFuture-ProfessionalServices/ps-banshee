@@ -1,0 +1,83 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/domain/digitalcollege.org?fields=timestamps%2Crisk%2Centity
+  response:
+    body:
+      string: '{"data": {"timestamps": {"lastSeen": "2026-02-15T03:51:04.993Z", "firstSeen":
+        "2020-12-14T08:46:12.085Z"}, "risk": {"criticalityLabel": "Potatoes O''Bri",
+        "riskString": "Corn", "rules": 7, "criticality": 4, "riskSummary": "Succotash",
+        "score": 99, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "Chicken Biryani", "rule": "Garden salad", "criticality": 1, "timestamp":
+        "2022-02-01T21:22:56.588Z", "criticalityLabel": "Spring "}, {"mitigationString":
+        "", "evidenceString": "Rabbit pie", "rule": "Laksa", "criticality": 1, "timestamp":
+        "2021-02-03T21:32:08.000Z", "criticalityLabel": "Alphabe"}, {"mitigationString":
+        "", "evidenceString": "Spaghetti and Meatballs", "rule": "Poutine", "criticality":
+        1, "timestamp": "2025-12-22T01:08:51.106Z", "criticalityLabel": "Burnt e"},
+        {"mitigationString": "", "evidenceString": "Glorified rice", "rule": "Fish
+        and Chips!", "criticality": 1, "timestamp": "2020-12-18T00:00:00.000Z", "criticalityLabel":
+        "Doughnu"}, {"mitigationString": "", "evidenceString": "Mission burrito",
+        "rule": "Souvlaki", "criticality": 1, "timestamp": "2020-12-15T00:00:00.000Z",
+        "criticalityLabel": "Cheesec"}, {"mitigationString": "", "evidenceString":
+        "Rabbit pie", "rule": "Tomato compote", "criticality": 1, "timestamp": "2026-02-16T04:05:29.847Z",
+        "criticalityLabel": "Grits"}, {"mitigationString": "", "evidenceString": "Chicken
+        nugget", "rule": "Blue-plate special", "criticality": 4, "timestamp": "2026-02-16T04:05:29.846Z",
+        "criticalityLabel": "Deep Fried Ore"}]}, "entity": {"id": "idn:dir.accountants",
+        "name": "emperor.page", "type": "InternetDomainName"}}}'
+    headers:
+      CF-RAY:
+      - 9cee1c9a0fd478f2-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 15:34:53 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0gpeuholp2f5j19mw21h3bwudj3756558.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

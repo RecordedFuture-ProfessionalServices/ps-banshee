@@ -1,0 +1,74 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/search?limit=1&fields=entity%2ChashAlgorithm%2Crisk%2Ctimestamps
+  response:
+    body:
+      string: '{"data": {"results": [{"timestamps": {"lastSeen": "2026-06-29T06:42:08.311Z",
+        "firstSeen": "2026-04-23T17:19:17.525Z"}, "risk": {"criticalityLabel": "Make
+        me a", "riskString": "Init", "rules": 1, "criticality": 3, "riskSummary":
+        "In 1989 the building was heavily damag", "score": 89, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "The Galactic Empire is nearing
+        completion of the Death Star, a space station with the power to destroy entire
+        planets.", "rule": "Messages can be sent to ", "criticality": 3, "timestamp":
+        "2026-09-11T13:12:15.001Z", "criticalityLabel": "She spent"}]}, "entity":
+        {"id": "hash:eff41cccbd247112173fa858d9b435555b77d0f77ac84d8c73d170c4200765d3",
+        "name": "Pan Seared Scallops", "type": "Hash"}, "hashAlgorithm": "Message"}]},
+        "counts": {"returned": 1, "total": 3139076839}}'
+    headers:
+      CF-RAY:
+      - 9cd3802a1aa447cf-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:04:23 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01gme47hv899sh1d12xof60v1hg2009968.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

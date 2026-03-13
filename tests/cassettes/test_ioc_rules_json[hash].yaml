@@ -1,0 +1,115 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/riskrules
+  response:
+    body:
+      string: '{"data": {"results": [{"criticalityLabel": "Do you co", "description":
+        "He looked inquisiti", "categories": [{"name": "Chicke", "framework": "Tuple"}],
+        "criticality": 3, "relatedEntities": [], "name": "Italia", "count": 761785},
+        {"criticalityLabel": "The synta", "description": "Where are my pants?", "categories":
+        [{"name": "Turkis", "framework": "It is"}], "criticality": 3, "relatedEntities":
+        [], "name": "Hummus", "count": 9728}, {"criticalityLabel": "Its mai", "description":
+        "Ports are created with the built-in ", "categories": [{"name": "Calas", "framework":
+        "I don"}], "criticality": 1, "relatedEntities": [], "name": "Banh Mi Vi\u00eat",
+        "count": 75375}, {"criticalityLabel": "In 1989 th", "description": "Ports
+        are created with ", "categories": [{"name": "Chicag", "framework": "Its m"}],
+        "criticality": 2, "relatedEntities": [], "name": "Gyoza", "count": 3177847},
+        {"criticalityLabel": "Where a", "description": "I don''t even care", "categories":
+        [{"name": "Shrimp", "framework": "The G"}], "criticality": 1, "relatedEntities":
+        [], "name": "Chocolate Browni", "count": 139033}, {"criticalityLabel": "Its
+        main i", "description": "Atoms are used within a", "categories": [{"name":
+        "Hummus", "framework": "They "}, {"name": "Shrimp an", "framework": "Any e"},
+        {"name": "Matzo ", "framework": "In 19"}], "criticality": 2, "relatedEntities":
+        [], "name": "Domesticated", "count": 588902}, {"criticalityLabel": "I don''t
+        ev", "description": "Where are my pants?", "categories": [{"name": "Parma
+        ", "framework": "Atoms"}], "criticality": 2, "relatedEntities": [], "name":
+        "Seafood cocktail", "count": 462317}, {"criticalityLabel": "Do you ", "description":
+        "In 1989 the building was heavily damaged by f", "categories": [{"name": "Chicha",
+        "framework": "Do yo"}], "criticality": 1, "relatedEntities": [], "name": "Chimichang",
+        "count": 0}, {"criticalityLabel": "Tuples ar", "description": "Make me a sandwich.",
+        "categories": [{"name": "Mullig", "framework": "Erlan"}], "criticality": 3,
+        "relatedEntities": [], "name": "Pemmican", "count": 42313}, {"criticalityLabel":
+        "In 1989 t", "description": "Erlang is a general-purp", "categories": [{"name":
+        "Blue c", "framework": "It is"}], "criticality": 3, "relatedEntities": [],
+        "name": "Chicken fried bacon", "count": 470441787}, {"criticalityLabel": "Atoms
+        are ", "description": "In 1989 the build", "categories": [{"name": "Onion
+        ", "framework": "Messa"}], "criticality": 2, "relatedEntities": [], "name":
+        "Doughnut", "count": 248474359}, {"criticalityLabel": "Do you hav", "description":
+        "They are written as strings ", "categories": [{"name": "Domest", "framework":
+        "It is"}], "criticality": 2, "relatedEntities": [], "name": "Chicago Deep
+        Dish Pizza", "count": 63457830}, {"criticalityLabel": "Ports a", "description":
+        "Type classes first appeared in the Haskell progra", "categories": [], "criticality":
+        1, "relatedEntities": [], "name": "Meat Feast Pizza", "count": 3945}, {"criticalityLabel":
+        "Make me a", "description": "The sequential subset of Erlang supports ea",
+        "categories": [{"name": "Eggs ", "framework": "The s"}, {"name": "Eggo", "framework":
+        "Make "}], "criticality": 3, "relatedEntities": [], "name": "Mashed potato",
+        "count": 17780}, {"criticalityLabel": "Erlang is ", "description": "Messages
+        can be sent to an", "categories": [{"name": "Cheese", "framework": "I don"}],
+        "criticality": 2, "relatedEntities": [], "name": "Doughnut", "count": 33824},
+        {"criticalityLabel": "H", "description": "Initially compos", "categories":
+        [], "criticality": 0, "relatedEntities": [], "name": "Chili dog", "count":
+        29513488}, {"criticalityLabel": "Where are", "description": "In 1989 the building
+        was heavily da", "categories": [{"name": "Jambalaya", "framework": "Tuple"}],
+        "criticality": 3, "relatedEntities": [], "name": "Chips and ", "count": 8962},
+        {"criticalityLabel": "The Galac", "description": "The syntax {D1,D2,...,Dn}
+        denotes a tuple whose argum", "categories": [{"name": "Sour c", "framework":
+        "In 19"}, {"name": "Phaal", "framework": "Its m"}], "criticality": 3, "relatedEntities":
+        ["It is "], "name": "Creamed corn", "count": 317199}]}}'
+    headers:
+      CF-RAY:
+      - 9cd37f798cfc9849-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:03:48 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0y5yxe0tx44k9hdo7agyaskca2015705.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

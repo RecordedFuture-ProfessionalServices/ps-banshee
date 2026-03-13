@@ -1,0 +1,89 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/ip/117.72.35.30?fields=timestamps%2Centity%2Crisk
+  response:
+    body:
+      string: '{"data": {"timestamps": {"lastSeen": "2026-07-22T19:06:33.912Z", "firstSeen":
+        "2026-03-21T18:41:14.240Z"}, "risk": {"criticalityLabel": "Its main i", "riskString":
+        "The ", "rules": 8, "criticality": 2, "riskSummary": "Initially composing
+        light-hearted and ", "score": 46, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "I don''t even care.", "rule": "Erlang is a general-purpose,
+        concurrent", "criticality": 1, "timestamp": "2026-01-25T13:02:30.408Z", "criticalityLabel":
+        "Erlang "}, {"mitigationString": "", "evidenceString": "Make me a sandwich.",
+        "rule": "Where are my pants?", "criticality": 1, "timestamp": "2026-10-16T02:08:13.203Z",
+        "criticalityLabel": "Haskell"}, {"mitigationString": "", "evidenceString":
+        "Make me a sandwich.", "rule": "It is also a garbage-collected r", "criticality":
+        1, "timestamp": "2026-07-24T20:20:08.897Z", "criticalityLabel": "Any ele"},
+        {"mitigationString": "", "evidenceString": "Where are my pants?", "rule":
+        "Erlang is a general-purpose, concurren", "criticality": 1, "timestamp": "2026-10-15T12:26:26.046Z",
+        "criticalityLabel": "In 1989"}, {"mitigationString": "", "evidenceString":
+        "I don''t even care.", "rule": "Any element of a tuple ca", "criticality":
+        1, "timestamp": "2026-08-06T16:44:01.982Z", "criticalityLabel": "Ports a"},
+        {"mitigationString": "", "evidenceString": "Erlang is known for its designs
+        that are well suited for systems.", "rule": "The syntax {D1,D2,...,Dn} denotes
+        a ", "criticality": 1, "timestamp": "2026-05-21T13:27:42.194Z", "criticalityLabel":
+        "Any ele"}, {"mitigationString": "", "evidenceString": "Ports are used to
+        communicate with the external world.", "rule": "Type classes first appeared
+        in t", "criticality": 2, "timestamp": "2026-10-24T20:19:58.744Z", "criticalityLabel":
+        "Its main i"}, {"mitigationString": "", "evidenceString": "I don''t even care.",
+        "rule": "Make me a sandwich.", "criticality": 2, "timestamp": "2026-05-29T21:09:49.550Z",
+        "criticalityLabel": "Haskell fe"}]}, "entity": {"id": "ip:14.75.93.126", "name":
+        "Kobe Beef", "type": "IpAddress"}}}'
+    headers:
+      CF-RAY:
+      - 9cd37d118e7f9461-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:02:09 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01biw272v8mpst1lhmf7aqkc862016716.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -1,0 +1,272 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/ip/search?limit=5&fields=entity%2Crisk%2Ctimestamps
+  response:
+    body:
+      string: '{"data": {"results": [{"timestamps": {"lastSeen": "2026-03-31T14:37:37.110Z",
+        "firstSeen": "2026-12-30T04:51:52.796Z"}, "risk": {"criticalityLabel": "Messages
+        can b", "riskString": "It is", "rules": 10, "criticality": 4, "riskSummary":
+        "Messages can be sent to and received fr", "score": 99, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Atoms are used within a program
+        to denote distinguished values.", "rule": "In 1989 the building was hea",
+        "criticality": 1, "timestamp": "2026-12-23T16:01:05.608Z", "criticalityLabel":
+        "Erlang "}, {"mitigationString": "", "evidenceString": "Where are my pants?",
+        "rule": "They are written as strings of consecut", "criticality": 1, "timestamp":
+        "2026-04-17T16:17:49.905Z", "criticalityLabel": "Atoms c"}, {"mitigationString":
+        "", "evidenceString": "Tuples are containers for a fixed number of Erlang
+        data types.", "rule": "The syntax {D1,D2,...,", "criticality": 1, "timestamp":
+        "2026-05-10T07:46:38.289Z", "criticalityLabel": "Type cl"}, {"mitigationString":
+        "", "evidenceString": "The syntax {D1,D2,...,Dn} denotes a tuple whose arguments
+        are D1, D2, ... Dn.", "rule": "Make me a sandwich.", "criticality": 1, "timestamp":
+        "2026-01-27T18:18:32.940Z", "criticalityLabel": "She spe"}, {"mitigationString":
+        "", "evidenceString": "Type classes first appeared in the Haskell programming
+        language.", "rule": "Initially ", "criticality": 1, "timestamp": "2026-06-18T04:41:26.224Z",
+        "criticalityLabel": "The seq"}, {"mitigationString": "", "evidenceString":
+        "Initially composing light-hearted and irreverent works, he also wrote serious,
+        sombre and religious pieces beginning in the 1930s.", "rule": "Any element
+        of a tuple can be access", "criticality": 1, "timestamp": "2026-11-16T12:12:35.470Z",
+        "criticalityLabel": "She spe"}, {"mitigationString": "", "evidenceString":
+        "Initially composing light-hearted and irreverent works, he also wrote serious,
+        sombre and religious pieces beginning in the 1930s.", "rule": "Tuples are
+        containers for a fixed number of", "criticality": 2, "timestamp": "2026-08-29T08:25:26.762Z",
+        "criticalityLabel": "It is also"}, {"mitigationString": "", "evidenceString":
+        "Do you have any idea why this is not working?", "rule": "Do you come here
+        often?", "criticality": 2, "timestamp": "2026-08-25T18:05:50.992Z", "criticalityLabel":
+        "Initially "}, {"mitigationString": "", "evidenceString": "Do you come here
+        often?", "rule": "Messages can be sent to and ", "criticality": 3, "timestamp":
+        "2026-03-28T12:24:04.463Z", "criticalityLabel": "In 1989 t"}, {"mitigationString":
+        "", "evidenceString": "Do you come here often?", "rule": "Initially composing
+        light-hearted and irrev", "criticality": 4, "timestamp": "2026-01-02T19:50:54.765Z",
+        "criticalityLabel": "Messages can b"}]}, "entity": {"id": "ip:110.207.243.148",
+        "name": "Porterhouse St", "type": "IpAddress"}}, {"timestamps": {"lastSeen":
+        "2026-08-29T20:19:09.973Z", "firstSeen": "2026-05-29T15:59:45.133Z"}, "risk":
+        {"criticalityLabel": "The syntax {D1", "riskString": "Haske", "rules": 12,
+        "criticality": 4, "riskSummary": "The Galactic Empire is nearing completi",
+        "score": 99, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "Erlang is a general-purpose, concurrent, functional programming language.",
+        "rule": "The sequential subset of Erlang support", "criticality": 1, "timestamp":
+        "2026-03-09T10:52:47.950Z", "criticalityLabel": "She spe"}, {"mitigationString":
+        "", "evidenceString": "He looked inquisitively at his keyboard and wrote another
+        sentence.", "rule": "Ports are created with the buil", "criticality": 1, "timestamp":
+        "2026-05-02T09:33:46.092Z", "criticalityLabel": "Haskell"}, {"mitigationString":
+        "", "evidenceString": "Erlang is a general-purpose, concurrent, functional
+        programming language.", "rule": "He looked inquisitively at his k", "criticality":
+        1, "timestamp": "2026-06-02T20:27:46.209Z", "criticalityLabel": "Any ele"},
+        {"mitigationString": "", "evidenceString": "Messages can be sent to and received
+        from ports, but these messages must obey the so-called \"port protocol.\"",
+        "rule": "In 1989 the building was heavily damag", "criticality": 1, "timestamp":
+        "2026-09-08T12:19:38.792Z", "criticalityLabel": "The syn"}, {"mitigationString":
+        "", "evidenceString": "Erlang is known for its designs that are well suited
+        for systems.", "rule": "The arguments can be primitive data types or compound
+        data t", "criticality": 1, "timestamp": "2026-08-09T18:18:06.379Z", "criticalityLabel":
+        "Do you "}, {"mitigationString": "", "evidenceString": "The sequential subset
+        of Erlang supports eager evaluation, single assignment, and dynamic typing.",
+        "rule": "Atoms are used within a program to d", "criticality": 1, "timestamp":
+        "2026-05-31T19:51:14.227Z", "criticalityLabel": "Initial"}, {"mitigationString":
+        "", "evidenceString": "Do you have any idea why this is not working?", "rule":
+        "Messages can be sent to and rece", "criticality": 2, "timestamp": "2026-01-24T22:57:11.433Z",
+        "criticalityLabel": "The Galact"}, {"mitigationString": "", "evidenceString":
+        "Do you come here often?", "rule": "Atoms can contain any character if ",
+        "criticality": 2, "timestamp": "2026-04-05T02:01:45.122Z", "criticalityLabel":
+        "They are w"}, {"mitigationString": "", "evidenceString": "Atoms are used
+        within a program to denote distinguished values.", "rule": "The sequential
+        subset of Erl", "criticality": 2, "timestamp": "2026-09-18T06:13:01.606Z",
+        "criticalityLabel": "I don''t ev"}, {"mitigationString": "", "evidenceString":
+        "The sequential subset of Erlang supports eager evaluation, single assignment,
+        and dynamic typing.", "rule": "It is also a garbage-collected ", "criticality":
+        2, "timestamp": "2026-10-14T12:32:48.200Z", "criticalityLabel": "Haskell is"},
+        {"mitigationString": "", "evidenceString": "Atoms are used within a program
+        to denote distinguished values.", "rule": "She spent her earliest years",
+        "criticality": 3, "timestamp": "2026-01-23T10:46:11.632Z", "criticalityLabel":
+        "Its main "}, {"mitigationString": "", "evidenceString": "Do you have any
+        idea why this is not working?", "rule": "Type classes first a", "criticality":
+        4, "timestamp": "2026-05-07T04:35:44.172Z", "criticalityLabel": "The syntax
+        {D1"}]}, "entity": {"id": "ip:250.186.24.110", "name": "Sweet Potato ", "type":
+        "IpAddress"}}, {"timestamps": {"lastSeen": "2026-04-22T01:14:07.008Z", "firstSeen":
+        "2026-04-30T05:34:10.243Z"}, "risk": {"criticalityLabel": "Where are my p",
+        "riskString": "Any e", "rules": 11, "criticality": 4, "riskSummary": "Make
+        me a sandwich.", "score": 99, "evidenceDetails": [{"mitigationString": "",
+        "evidenceString": "They are written as strings of consecutive alphanumeric
+        characters, the first character being lowercase.", "rule": "Atoms can contain
+        any character if they", "criticality": 1, "timestamp": "2026-03-12T00:34:14.664Z",
+        "criticalityLabel": "Atoms a"}, {"mitigationString": "", "evidenceString":
+        "Do you have any idea why this is not working?", "rule": "Type classes first
+        appeared in ", "criticality": 1, "timestamp": "2026-03-01T08:58:34.690Z",
+        "criticalityLabel": "Ports a"}, {"mitigationString": "", "evidenceString":
+        "Atoms are used within a program to denote distinguished values.", "rule":
+        "Haskell is a standardized, general-purpose purely functiona", "criticality":
+        1, "timestamp": "2026-09-22T21:58:09.836Z", "criticalityLabel": "He look"},
+        {"mitigationString": "", "evidenceString": "The sequential subset of Erlang
+        supports eager evaluation, single assignment, and dynamic typing.", "rule":
+        "He looked inquisitively at his keyboar", "criticality": 1, "timestamp": "2026-04-05T07:20:35.387Z",
+        "criticalityLabel": "The Gal"}, {"mitigationString": "", "evidenceString":
+        "I don''t even care.", "rule": "Haskell is a standardized, general-purpose
+        purely functional", "criticality": 1, "timestamp": "2026-02-06T15:01:42.638Z",
+        "criticalityLabel": "They ar"}, {"mitigationString": "", "evidenceString":
+        "Haskell features a type system with type inference and lazy evaluation.",
+        "rule": "They are written as strin", "criticality": 1, "timestamp": "2026-03-21T17:35:02.089Z",
+        "criticalityLabel": "The arg"}, {"mitigationString": "", "evidenceString":
+        "Ports are created with the built-in function open_port.", "rule": "The syntax
+        {D1,D2,...,Dn} denotes a ", "criticality": 1, "timestamp": "2026-06-09T05:38:58.138Z",
+        "criticalityLabel": "Initial"}, {"mitigationString": "", "evidenceString":
+        "I don''t even care.", "rule": "I don''t even care.", "criticality": 2, "timestamp":
+        "2026-10-28T08:15:50.749Z", "criticalityLabel": "The argume"}, {"mitigationString":
+        "", "evidenceString": "Do you come here often?", "rule": "Do you come here
+        often?", "criticality": 2, "timestamp": "2026-08-28T13:35:58.271Z", "criticalityLabel":
+        "It is also"}, {"mitigationString": "", "evidenceString": "It is also a garbage-collected
+        runtime system.", "rule": "Make me a sandwich.", "criticality": 3, "timestamp":
+        "2026-07-28T15:53:01.101Z", "criticalityLabel": "Ports are"}, {"mitigationString":
+        "", "evidenceString": "The syntax {D1,D2,...,Dn} denotes a tuple whose arguments
+        are D1, D2, ... Dn.", "rule": "The sequential subse", "criticality": 4, "timestamp":
+        "2026-12-14T23:27:31.684Z", "criticalityLabel": "In 1989 the bu"}]}, "entity":
+        {"id": "ip:22.27.178.119", "name": "Chicken Frenc", "type": "IpAddress"}},
+        {"timestamps": {"lastSeen": "2026-10-15T14:52:58.438Z", "firstSeen": "2026-04-10T13:15:32.599Z"},
+        "risk": {"criticalityLabel": "Haskell is a s", "riskString": "The s", "rules":
+        15, "criticality": 4, "riskSummary": "In 1989 the building was heavily damage",
+        "score": 99, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "The Galactic Empire is nearing completion of the Death Star, a space station
+        with the power to destroy entire planets.", "rule": "He looked inquisitively
+        at his keyboard", "criticality": 1, "timestamp": "2026-03-10T02:48:52.117Z",
+        "criticalityLabel": "Make me"}, {"mitigationString": "", "evidenceString":
+        "Do you have any idea why this is not working?", "rule": "Type classes first
+        appeared in ", "criticality": 1, "timestamp": "2026-06-15T02:58:36.711Z",
+        "criticalityLabel": "It is a"}, {"mitigationString": "", "evidenceString":
+        "In 1989 the building was heavily damaged by fire, but it has since been restored.",
+        "rule": "The Galactic Empire is nearing c", "criticality": 1, "timestamp":
+        "2026-12-16T16:54:14.070Z", "criticalityLabel": "Tuples "}, {"mitigationString":
+        "", "evidenceString": "The arguments can be primitive data types or compound
+        data types.", "rule": "Any element of a tuple can be accessed", "criticality":
+        1, "timestamp": "2026-05-26T04:59:06.292Z", "criticalityLabel": "It is a"},
+        {"mitigationString": "", "evidenceString": "The Galactic Empire is nearing
+        completion of the Death Star, a space station with the power to destroy entire
+        planets.", "rule": "Where are my pants?", "criticality": 1, "timestamp": "2026-09-03T14:24:01.620Z",
+        "criticalityLabel": "Type cl"}, {"mitigationString": "", "evidenceString":
+        "Haskell is a standardized, general-purpose purely functional programming
+        language, with non-strict semantics and strong static typing.", "rule": "The
+        sequential subset of ", "criticality": 1, "timestamp": "2026-10-17T21:19:01.163Z",
+        "criticalityLabel": "They ar"}, {"mitigationString": "", "evidenceString":
+        "Erlang is known for its designs that are well suited for systems.", "rule":
+        "She spent her earliest years reading", "criticality": 1, "timestamp": "2026-04-14T02:20:38.186Z",
+        "criticalityLabel": "Ports a"}, {"mitigationString": "", "evidenceString":
+        "Where are my pants?", "rule": "Any element of a tuple can be ac", "criticality":
+        2, "timestamp": "2026-08-22T03:35:15.778Z", "criticalityLabel": "Erlang is
+        "}, {"mitigationString": "", "evidenceString": "Atoms are used within a program
+        to denote distinguished values.", "rule": "Erlang is known for its designs
+        tha", "criticality": 2, "timestamp": "2026-02-10T00:08:20.847Z", "criticalityLabel":
+        "Erlang is "}, {"mitigationString": "", "evidenceString": "Haskell is a standardized,
+        general-purpose purely functional programming language, with non-strict semantics
+        and strong static typing.", "rule": "The arguments can be primiti", "criticality":
+        2, "timestamp": "2026-10-29T04:42:38.347Z", "criticalityLabel": "The argume"},
+        {"mitigationString": "", "evidenceString": "Haskell is a standardized, general-purpose
+        purely functional programming language, with non-strict semantics and strong
+        static typing.", "rule": "Ports are used to communicate with the exte", "criticality":
+        2, "timestamp": "2026-11-29T01:05:28.715Z", "criticalityLabel": "Haskell is"},
+        {"mitigationString": "", "evidenceString": "It is also a garbage-collected
+        runtime system.", "rule": "The Galactic Empire is nearing ", "criticality":
+        2, "timestamp": "2026-08-07T00:17:23.250Z", "criticalityLabel": "Erlang is
+        "}, {"mitigationString": "", "evidenceString": "Haskell features a type system
+        with type inference and lazy evaluation.", "rule": "I don''t even care.",
+        "criticality": 3, "timestamp": "2026-11-24T19:22:58.974Z", "criticalityLabel":
+        "Its main "}, {"mitigationString": "", "evidenceString": "Haskell features
+        a type system with type inference and lazy evaluation.", "rule": "In 1989
+        the building was heavily damaged by f", "criticality": 3, "timestamp": "2026-08-19T12:29:18.148Z",
+        "criticalityLabel": "Ports are"}, {"mitigationString": "", "evidenceString":
+        "It is also a garbage-collected runtime system.", "rule": "Atoms can contain
+        an", "criticality": 4, "timestamp": "2026-09-05T14:18:31.310Z", "criticalityLabel":
+        "The Galactic E"}]}, "entity": {"id": "ip:60.160.127.252", "name": "Chicken
+        Divan", "type": "IpAddress"}}, {"timestamps": {"lastSeen": "2026-04-12T00:21:13.916Z",
+        "firstSeen": "2026-06-27T00:11:26.235Z"}, "risk": {"criticalityLabel": "In
+        1989 the bu", "riskString": "The s", "rules": 10, "criticality": 4, "riskSummary":
+        "Ports are created with the built-in fun", "score": 99, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Atoms are used within a program
+        to denote distinguished values.", "rule": "The arguments can be primitive
+        data typ", "criticality": 1, "timestamp": "2026-01-28T09:25:03.758Z", "criticalityLabel":
+        "Do you "}, {"mitigationString": "", "evidenceString": "Haskell is a standardized,
+        general-purpose purely functional programming language, with non-strict semantics
+        and strong static typing.", "rule": "Haskell is a standardized, gene", "criticality":
+        1, "timestamp": "2026-07-30T23:48:08.098Z", "criticalityLabel": "She spe"},
+        {"mitigationString": "", "evidenceString": "It is also a garbage-collected
+        runtime system.", "rule": "She spent her earliest years reading c", "criticality":
+        1, "timestamp": "2026-09-28T05:46:18.302Z", "criticalityLabel": "Haskell"},
+        {"mitigationString": "", "evidenceString": "Ports are used to communicate
+        with the external world.", "rule": "Haskell features a type system with type
+        inference and lazy ", "criticality": 1, "timestamp": "2026-06-17T23:35:29.630Z",
+        "criticalityLabel": "The arg"}, {"mitigationString": "", "evidenceString":
+        "The arguments can be primitive data types or compound data types.", "rule":
+        "The syntax {D1,D2,...,Dn}", "criticality": 1, "timestamp": "2026-08-10T15:30:55.430Z",
+        "criticalityLabel": "Message"}, {"mitigationString": "", "evidenceString":
+        "Tuples are containers for a fixed number of Erlang data types.", "rule":
+        "Ports are used to communicate with t", "criticality": 1, "timestamp": "2026-12-22T10:11:09.703Z",
+        "criticalityLabel": "They ar"}, {"mitigationString": "", "evidenceString":
+        "In 1989 the building was heavily damaged by fire, but it has since been restored.",
+        "rule": "I don''t even care.", "criticality": 2, "timestamp": "2026-09-27T23:23:58.868Z",
+        "criticalityLabel": "Tuples are"}, {"mitigationString": "", "evidenceString":
+        "The sequential subset of Erlang supports eager evaluation, single assignment,
+        and dynamic typing.", "rule": "Its main implementation is the ", "criticality":
+        2, "timestamp": "2026-01-24T22:58:54.620Z", "criticalityLabel": "Make me a
+        "}, {"mitigationString": "", "evidenceString": "Do you come here often?",
+        "rule": "Haskell features a type syst", "criticality": 3, "timestamp": "2026-09-16T15:43:51.831Z",
+        "criticalityLabel": "It is als"}, {"mitigationString": "", "evidenceString":
+        "Erlang is known for its designs that are well suited for systems.", "rule":
+        "Do you come here oft", "criticality": 4, "timestamp": "2026-09-25T05:23:01.736Z",
+        "criticalityLabel": "Atoms can cont"}]}, "entity": {"id": "ip:16.148.82.88",
+        "name": "Chicken Tikka ", "type": "IpAddress"}}]}, "counts": {"returned":
+        5, "total": 285326947}}'
+    headers:
+      CF-RAY:
+      - 9cd387a4fc8cfcfd-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:09:24 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0ya19dk4145ds1qyqzerepxgvs2019613.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

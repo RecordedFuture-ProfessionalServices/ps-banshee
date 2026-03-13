@@ -1,0 +1,125 @@
+interactions:
+- request:
+    body: '{"filter": {"entities": ["lzQ5GL"], "created": {}, "updated": {}}, "limit":
+      10}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '79'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/detection-rule/search
+  response:
+    body:
+      string: '{"count": 2, "total_count": 2, "result": [{"id": "doc:l9GVme", "type":
+        "yara", "title": "The sequential subset of Erlang supports eager evaluation,
+        single assignment, and dynamic typing.", "description": "Tuples are containers
+        for a fixed number of Erlang data types.", "created": "2022-03-15T16:58:17.478Z",
+        "updated": "2023-07-31T21:33:55.482Z", "rules": [{"entities": [{"id": "l8vku2",
+        "type": "Malware", "name": "Domesticat"}, {"id": "hash:f56f58820310ad9948b350b3d6c161564b7aeddccfcc4de3e164bb93a03c0db7",
+        "type": "Hash", "name": "Protein bar"}, {"id": "ipKTh7BpCB15ixN", "type":
+        "MitreAttackIdentifier", "name": "Salisbury", "display_name": "She spent her
+        earliest years reading cla"}, {"id": "DhccW", "type": "Country", "name": "Apple
+        s"}, {"id": "wkJLptfeFPM", "type": "MitreAttackIdentifier", "name": "Macar",
+        "display_name": "Do you have any idea why this is "}, {"id": "vRwP1t2HEZ8gOww",
+        "type": "MitreAttackIdentifier", "name": "Patty", "display_name": "The syntax
+        {D1,D2,...,Dn} denotes a tuple "}, {"id": "Lwv8pC", "type": "Organization",
+        "name": "Senate bean s", "display_name": "Where are my pants?"}, {"id": "6aGbYi7pUAKx9",
+        "type": "Source", "name": "Crepes"}, {"id": "lzQ5GL", "type": "Malware", "name":
+        "Apple sauc"}, {"id": "REh_Qh", "type": "Username", "name": "Maine Lobster",
+        "display_name": "The sequential subset of Erla"}, {"id": "lStsKc", "type":
+        "Malware", "name": "Schnitzel"}, {"id": "KYwaWm", "type": "Product", "name":
+        "Bulgogi"}, {"id": "gmsL3eUrWS", "type": "Source", "name": "Bird''s Nest"},
+        {"id": "JDBLoh", "type": "Technology", "name": "Carolina style"}, {"id": "JQPzDk",
+        "type": "AttackVector", "name": "Shawarma"}, {"id": "I2X6in", "type": "Company",
+        "name": "Humm"}, {"id": "lvKjV5", "type": "Malware", "name": "Geoduck", "display_name":
+        "In 1989 the building was"}, {"id": "C6WWx1", "type": "Technology", "name":
+        "Bread"}], "content": "Erlang is known for its designs that are well suited
+        for systems.", "file_name": "Tuples are containers"}]}, {"id": "doc:l4ZhVd",
+        "type": "yara", "title": "In 1989 the building was hea", "description": "I
+        don''t even care.", "created": "2022-03-08T14:45:38.452Z", "updated": "2023-07-25T20:29:01.851Z",
+        "rules": [{"entities": [{"id": "lzQ5GL", "type": "Malware", "name": "Texas
+        Toas"}, {"id": "PzmSRI", "type": "CyberThreatActorCategory", "name": "Chocolate
+        cheesecake"}], "content": "He looked inquisitively at his keyboard and wrote
+        another sentence.", "file_name": "Any element of a tupl"}]}], "next_offset":
+        "eyJvZmZzZXQiOls5MjkzLCJHaDZheVNDS2VOZCJdfQ=="}'
+    headers:
+      CF-RAY:
+      - 9cd39a6bdade94c1-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:22:12 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"filter": {"entities": ["lzQ5GL"], "created": {}, "updated": {}}, "limit":
+      8, "offset": "eyJvZmZzZXQiOls5MjkzLCJHaDZheVNDS2VOZCJdfQ=="}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '136'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/detection-rule/search
+  response:
+    body:
+      string: '{"count": 0, "total_count": 2, "result": []}'
+    headers:
+      CF-RAY:
+      - 9cd39a6f6b94edeb-LHR
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:22:12 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -1,0 +1,265 @@
+interactions:
+- request:
+    body: '{"filter": {"entities": ["lzQ5GL"], "created": {}, "updated": {}}, "limit":
+      10}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '79'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/detection-rule/search
+  response:
+    body:
+      string: '{"count": 2, "total_count": 2, "result": [{"id": "doc:l9GVme", "type":
+        "yara", "title": "The arguments can be primitive data types or compound data
+        types.", "description": "Make me a sandwich.", "created": "2022-03-15T16:58:17.478Z",
+        "updated": "2023-07-31T21:33:55.482Z", "rules": [{"entities": [{"id": "l8vku2",
+        "type": "Malware", "name": "Chicken nu"}, {"id": "hash:25a8347361be05e994417c0fb0daf8f34a882d7b9b0df13ed8090f2037766dfa",
+        "type": "Hash", "name": "Bangers and mash"}, {"id": "YCjj6fHv8eOuMae", "type":
+        "MitreAttackIdentifier", "name": "Beef Manh", "display_name": "Type classes
+        first appeared in the Haske"}, {"id": "SbJlB", "type": "Country", "name":
+        "Bear cl"}, {"id": "stGdGUobCDz", "type": "MitreAttackIdentifier", "name":
+        "Macar", "display_name": "Ports are used to communicate wit"}, {"id": "s9CsLe5zzzDpc7n",
+        "type": "MitreAttackIdentifier", "name": "Chicken f", "display_name": "Where
+        are my pants?"}, {"id": "Lwv8pC", "type": "Organization", "name": "Matzo Ball
+        So", "display_name": "She spent her earliest years reading classic literature,
+        and writing"}, {"id": "tmMerd5dpyy5O", "type": "Source", "name": "Hoppin''
+        J"}, {"id": "lzQ5GL", "type": "Malware", "name": "Celery Vic"}, {"id": "REh_Qh",
+        "type": "Username", "name": "Hog fry", "display_name": "Where are my pants?"},
+        {"id": "lStsKc", "type": "Malware", "name": "Bangers and"}, {"id": "KYwaWm",
+        "type": "Product", "name": "Sloppy joe"}, {"id": "xnlscRu5O1", "type": "Source",
+        "name": "Poke"}, {"id": "JDBLoh", "type": "Technology", "name": "Bulgogi"},
+        {"id": "JQPzDk", "type": "AttackVector", "name": "Lobster roll"}, {"id": "I2X6in",
+        "type": "Company", "name": "Ploy"}, {"id": "lvKjV5", "type": "Malware", "name":
+        "Cheesy Garlic", "display_name": "They are written as stri"}, {"id": "C6WWx1",
+        "type": "Technology", "name": "Pepperoni"}], "content": "Messages can be sent
+        to and received from ports, but these messages must obey the so-called \"port
+        protocol.\"", "file_name": "Messages can be sent "}]}, {"id": "doc:l4ZhVd",
+        "type": "yara", "title": "Make me a sandwich.", "description": "Do you come
+        here often?", "created": "2022-03-08T14:45:38.452Z", "updated": "2023-07-25T20:29:01.851Z",
+        "rules": [{"entities": [{"id": "lzQ5GL", "type": "Malware", "name": "Meat
+        Feast"}, {"id": "PzmSRI", "type": "CyberThreatActorCategory", "name": "Blue-plate
+        special"}], "content": "Messages can be sent to and received from ports, but
+        these messages must obey the so-called \"port protocol.\"", "file_name": "It
+        is also a garbage-"}]}], "next_offset": "eyJvZmZzZXQiOls5MjkzLCJHaDZheVNDS2VOZCJdfQ=="}'
+    headers:
+      CF-RAY:
+      - 9cd39a70daf37735-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:22:13 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"filter": {"entities": ["lzQ5GL"], "created": {}, "updated": {}}, "limit":
+      8, "offset": "eyJvZmZzZXQiOls5MjkzLCJHaDZheVNDS2VOZCJdfQ=="}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '136'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/detection-rule/search
+  response:
+    body:
+      string: '{"count": 0, "total_count": 2, "result": []}'
+    headers:
+      CF-RAY:
+      - 9cd39a74f83bef52-LHR
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:22:13 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"filter": {"entities": ["kK5UbE"], "created": {}, "updated": {}}, "limit":
+      8}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '78'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/detection-rule/search
+  response:
+    body:
+      string: '{"count": 2, "total_count": 2, "result": [{"id": "doc:lmRPGB", "type":
+        "yara", "title": "They are written as strings of ", "description": "I don''t
+        even care.", "created": "2022-02-10T21:19:49.575Z", "updated": "2023-09-02T17:23:22.108Z",
+        "rules": [{"entities": [{"id": "hQiXrnxLvoV", "type": "MitreAttackIdentifier",
+        "name": "Barbe", "display_name": "Where are my pants?"}, {"id": "7GH3TVM1rgY",
+        "type": "MitreAttackIdentifier", "name": "Maple", "display_name": "In 1989
+        the building"}, {"id": "kK5UbE", "type": "Malware", "name": "Key Lime P"},
+        {"id": "CjJH9Amdu23", "type": "MitreAttackIdentifier", "name": "Phila", "display_name":
+        "Where are my pants?"}, {"id": "hash:b2d8492e7bc885b74362acdc367732497a85f5a93f03996da330ee1da893b31f",
+        "type": "Hash", "name": "Turducken"}, {"id": "hash:3e6999824fbbbd89882b1d9598e3b75815edcf5cb2bb13eed0ed790ec42faa51",
+        "type": "Hash", "name": "Seafood cocktail"}, {"id": "LHGP0WwGdXo", "type":
+        "MitreAttackIdentifier", "name": "Pastr", "display_name": "They are written
+        as strings of co"}, {"id": "kVkwOYN9sat", "type": "MitreAttackIdentifier",
+        "name": "Quesa", "display_name": "Ports are created with the built-in functi"},
+        {"id": "q9u2XmesIam", "type": "MitreAttackIdentifier", "name": "Barbe", "display_name":
+        "Make me a sandwich."}, {"id": "JQu3v9", "type": "Technology", "name": "Coq
+        Au Vin"}, {"id": "J0Nl-p", "type": "MalwareCategory", "name": "Turducken"},
+        {"id": "fwSdFY", "type": "Malware", "name": "Sweet "}], "content": "Atoms
+        are used within a program to denote distinguished values.", "file_name": "She
+        spent her earliest years "}]}, {"id": "doc:xHsvIm", "type": "yara", "title":
+        "Make me a sandwich.", "description": "Any element of a tuple can be accessed
+        in constant time.", "created": "2024-07-19T20:19:00.702Z", "updated": "2024-07-19T20:19:00.702Z",
+        "rules": [{"entities": [{"id": "VCcmZ7y4JJ4", "type": "MitreAttackIdentifier",
+        "name": "Coles", "display_name": "It is also a garbage"}, {"id": "tGy5dn",
+        "type": "Malware", "name": "Hog fry"}, {"id": "du9cg4bXAkK", "type": "MitreAttackIdentifier",
+        "name": "Carol", "display_name": "Erlang is known for it"}, {"id": "fDwSY2HknNc",
+        "type": "MitreAttackIdentifier", "name": "Burnt", "display_name": "Do you
+        have any idea why this is "}, {"id": "7FgTkk173zu", "type": "MitreAttackIdentifier",
+        "name": "Sonof", "display_name": "Atoms are used within a prog"}, {"id": "PCrOe",
+        "type": "Product", "name": "Milkshake"}, {"id": "kPaEzU0EJqA", "type": "MitreAttackIdentifier",
+        "name": "Chick", "display_name": "They are written as strings of "}, {"id":
+        "bV_j3K", "type": "AttackVector", "name": "Porterhouse Steak"}, {"id": "Pz5Dj5WTCfsbQTy",
+        "type": "MitreAttackIdentifier", "name": "Clam cake", "display_name": "It
+        is also a garbage-collected runtime system."}, {"id": "TzxCDV", "type": "AttackVector",
+        "name": "Kimchi"}, {"id": "CS_WZE", "type": "Organization", "name": "Chili
+        con carne"}, {"id": "hash:2c611f48ccb8d4c1dd88b93bdc2eb6206e132d386c32473b5a2f02d18bf36866",
+        "type": "Hash", "name": "Chicken French"}, {"id": "cNYxzf", "type": "AttackVector",
+        "name": "Bangers and mash"}, {"id": "HUAAyz7QppIBmGZ", "type": "MitreAttackIdentifier",
+        "name": "Beef Manh", "display_name": "Ports are created with the built-in
+        function open_port."}, {"id": "J0Nl-p", "type": "MalwareCategory", "name":
+        "Bear claw"}, {"id": "I2XRUN", "type": "Company", "name": "Quesadi"}, {"id":
+        "i7OPIi", "type": "Organization", "name": "Bear claw"}, {"id": "P0K-pc", "type":
+        "Technology", "name": "Tres Leches Cake"}, {"id": "a4kNBO", "type": "Person",
+        "name": "Pepperoni"}, {"id": "kK5UbE", "type": "Malware", "name": "Stuffed
+        ha"}, {"id": "3CieP", "type": "Organization", "name": "Pae"}, {"id": "i8PHuP",
+        "type": "Malware", "name": "Soft Shell Crab"}, {"id": "JKJa07", "type": "Technology",
+        "name": "Roasted Bone Marrow"}], "content": "Atoms are used within a program
+        to denote distinguished values.", "file_name": "Ports are created with the
+        built-in fun"}]}], "next_offset": "eyJvZmZzZXQiOlsxMTczOCwiSEZBWGdBRDlUcWUiXX0="}'
+    headers:
+      CF-RAY:
+      - 9cd39a768d5f631c-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:22:13 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"filter": {"entities": ["kK5UbE"], "created": {}, "updated": {}}, "limit":
+      6, "offset": "eyJvZmZzZXQiOlsxMTczOCwiSEZBWGdBRDlUcWUiXX0="}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '136'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/detection-rule/search
+  response:
+    body:
+      string: '{"count": 0, "total_count": 2, "result": []}'
+    headers:
+      CF-RAY:
+      - 9cd39a7add06ef3e-LHR
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:22:14 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

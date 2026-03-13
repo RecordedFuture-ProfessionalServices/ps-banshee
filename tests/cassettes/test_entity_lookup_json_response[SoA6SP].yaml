@@ -1,0 +1,52 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/entity-match/entity/SoA6SP
+  response:
+    body:
+      string: '{"data": {"id": "SoA6SP", "type": "Malware", "attributes": {"name":
+        "Tetr", "common_names": ["She spent he", "They are wr", "Make me a ", "Haskell
+        is ", "Any element of ", "Type classes", "Ports ar"], "alias": ["The argu",
+        "Haskell feature", "In 1989 the", "They", "The syntax ", "The argum", "I don''t
+        even car", "Its main i", "She spent her e", "Atoms are us", "They are writte",
+        "Erlang is ", "I don''", "Type classes ", "They are wr", "Tuples are container",
+        "Any "], "is_threat_actor": false}}}'
+    headers:
+      CF-RAY:
+      - 9cd37cf3cb2137aa-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:02:04 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

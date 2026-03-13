@@ -1,0 +1,335 @@
+interactions:
+- request:
+    body: '{"filter": {"types": ["yara"], "created": {"after": "2026-01-14T10:22:00"},
+      "updated": {}}, "limit": 15}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '104'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/detection-rule/search
+  response:
+    body:
+      string: '{"count": 11, "total_count": 11, "result": [{"id": "doc:BD0L4b5", "type":
+        "yara", "title": "Where are my pants?", "description": "Type classes first
+        appeared in the Haskell programmi", "created": "2026-02-06T03:06:52.683Z",
+        "updated": "2026-02-06T03:06:52.683Z", "rules": [{"entities": [{"id": "si5vSziURFB",
+        "type": "MitreAttackIdentifier", "name": "Alpha", "display_name": "The sequential
+        subset of"}, {"id": "TyWTvGD", "type": "Malware", "name": "Chicken f"}, {"id":
+        "PbO0c", "type": "Product", "name": "Vichyssoise"}], "content": "It is also
+        a garbage-collected runtime system.", "file_name": "Tuples are container"}]},
+        {"id": "doc:BDrXKES", "type": "yara", "title": "Atoms are used within a program
+        to denote dist", "description": "They are written as strings of consecutive
+        alphanumeric char", "created": "2026-01-29T15:32:57.321Z", "updated": "2026-01-29T15:32:57.321Z",
+        "rules": [{"entities": [{"id": "0B_A4x", "type": "Malware", "name": "Fried
+        fi"}], "content": "Make me a sandwich.", "file_name": "Any element of a"}]},
+        {"id": "doc:BDtifrg", "type": "yara", "title": "Type classes first appeared
+        in the Ha", "description": "Make me a sandwich.", "created": "2026-01-30T11:38:52.529Z",
+        "updated": "2026-01-30T11:38:52.528Z", "rules": [{"entities": [{"id": "fkP1yPC",
+        "type": "Malware", "name": "Sauteed M"}], "content": "Tuples are containers
+        for a fixed number of Erlang data types.", "file_name": "Initially composing
+        ligh"}]}, {"id": "doc:BD1Nz5R", "type": "yara", "title": "Its main implementatio",
+        "description": "Ports are created with the built-in function open_port.",
+        "created": "2026-02-02T15:37:15.738Z", "updated": "2026-02-02T15:37:15.738Z",
+        "rules": [{"entities": [{"id": "i0d1UFt", "type": "Malware", "name": "Creme
+        Brule"}, {"id": "hash:1d5d2ec8744f083fab33d71b799bc7190a3a259d9b734ef8cb0e66b1eb10fc41",
+        "type": "Hash", "name": "Pasta salad"}, {"id": "B56PMu", "type": "Technology",
+        "name": "Smelt"}, {"id": "DDrrCp", "type": "AttackVector", "name": "Ploye"},
+        {"id": "QCqLhE", "type": "MalwareCategory", "name": "Chimicha"}, {"id": "YbD6MgNEMLv",
+        "type": "MitreAttackIdentifier", "name": "Jamba", "display_name": "Ports are
+        used to communi"}, {"id": "HOU0vb", "type": "Company", "name": "Coq A", "display_name":
+        "Where are my pants?"}, {"id": "JQJ0Eu", "type": "Technology", "name": "Empanada"},
+        {"id": "JGOorb1kYVb", "type": "MitreAttackIdentifier", "name": "Schni", "display_name":
+        "The Galactic Empire is n"}, {"id": "JxAmYN", "type": "AttackVector", "name":
+        "Grilled Snake"}, {"id": "mLyvtu", "type": "AttackVector", "name": "Poutine"},
+        {"id": "LPc838", "type": "AttackVector", "name": "Glorified "}, {"id": "MEFHeY",
+        "type": "Product", "name": "Spring Rolls"}, {"id": "EVlb_n", "type": "Product",
+        "name": "Ranc"}, {"id": "JQz05-", "type": "Product", "name": "Kimchi"}, {"id":
+        "NCQaUx", "type": "Technology", "name": "Baklava"}, {"id": "NCfiVL", "type":
+        "AttackVector", "name": "Bruschetta"}, {"id": "r8IruV", "type": "AttackVector",
+        "name": "Bird''s Nest Sou"}, {"id": "LRu_RG", "type": "Product", "name": "BBQ
+        "}], "content": "They are written as strings of consecutive alphanumeric characters,
+        the first character being lowercase.", "file_name": "Initially composing li"}]},
+        {"id": "doc:BDTYJgQ", "type": "yara", "title": "Atoms are used within a pr",
+        "description": "Haskell features a type system with type inference and lazy",
+        "created": "2026-01-21T16:25:26.847Z", "updated": "2026-01-21T16:25:26.847Z",
+        "rules": [{"entities": [{"id": "YuDlEm", "type": "Malware", "name": "Lorna"}],
+        "content": "They are written as strings of consecutive alphanumeric characters,
+        the first character being lowercase.", "file_name": "Do you have any "}]},
+        {"id": "doc:BEMBrtW", "type": "yara", "title": "Do you come here ", "description":
+        "The Galactic Empire is nearing completion of the Death Star, a space station
+        with the power to destroy entire planets.", "created": "2026-02-10T13:03:55.718Z",
+        "updated": "2026-02-10T13:03:55.718Z", "rules": [{"entities": [{"id": "U04RDKG",
+        "type": "Malware", "name": "Philad"}, {"id": "KBwQKT", "type": "Technology",
+        "name": "Cevi"}, {"id": "zKYn7", "type": "Technology", "name": "Pop-Tarts"},
+        {"id": "QYgRH0", "type": "Person", "name": "Osso B"}, {"id": "mpTaI", "type":
+        "Company", "name": "Quesadilla"}, {"id": "THAdv", "type": "Country", "name":
+        "Buffa"}, {"id": "NCfiVL", "type": "AttackVector", "name": "Corned beef"},
+        {"id": "XvU7K8gYJeP", "type": "MitreAttackIdentifier", "name": "Po''Bo", "display_name":
+        "Erlang is known for its designs"}, {"id": "nQIIVu", "type": "AttackVector",
+        "name": "Mission burrito"}, {"id": "cYefQVpGfDC", "type": "MitreAttackIdentifier",
+        "name": "Turdu", "display_name": "Tuples are co"}, {"id": "JhZjpN", "type":
+        "Technology", "name": "Meatcake"}, {"id": "6fJjx8UdUYM", "type": "MitreAttackIdentifier",
+        "name": "Gumbo", "display_name": "Ports are used to commun"}, {"id": "TJUEwK",
+        "type": "Organization", "name": "Chicken and "}], "content": "Atoms are used
+        within a program to denote distinguished values.", "file_name": "Ports are
+        used to"}]}, {"id": "doc:BD59NnI", "type": "yara", "title": "Its main implementati",
+        "description": "Type classes first appeared in the Haskell programming language.",
+        "created": "2026-02-04T14:18:29.783Z", "updated": "2026-02-04T14:18:29.783Z",
+        "rules": [{"entities": [{"id": "wk2Omp", "type": "Malware", "name": "London
+        bro"}, {"id": "Lndwa", "type": "Technology", "name": "Veggie Piz"}, {"id":
+        "Siwxo0iDcSH", "type": "MitreAttackIdentifier", "name": "Potat", "display_name":
+        "Tuples are containers for a fixed number "}, {"id": "ybxamckZZSS", "type":
+        "MitreAttackIdentifier", "name": "Chile", "display_name": "He looked inquisitively
+        at his key"}, {"id": "JQz05-", "type": "Product", "name": "Seafood cocktail"},
+        {"id": "7PYmw", "type": "Product", "name": "Turk"}, {"id": "do3N4S", "type":
+        "AttackVector", "name": "Schnitzel"}, {"id": "JQJ0Eu", "type": "Technology",
+        "name": "Spaghetti "}, {"id": "YOSR5SLAR2o", "type": "MitreAttackIdentifier",
+        "name": "Dirty", "display_name": "Its main implementat"}, {"id": "r8IruV",
+        "type": "AttackVector", "name": "Spaghetti Bolog"}, {"id": "AJeaC", "type":
+        "Product", "name": "Lobster Newberg"}], "content": "Messages can be sent to
+        and received from ports, but these messages must obey the so-called \"port
+        protocol.\"", "file_name": "Ports are created wit"}]}, {"id": "doc:BEMCQW3",
+        "type": "yara", "title": "The sequential subset ", "description": "The Galactic
+        Empire is nearing completion of the Death Star, a space station with the power
+        to destroy entire planets.", "created": "2026-02-10T13:08:31.076Z", "updated":
+        "2026-02-10T13:08:31.076Z", "rules": [{"entities": [{"id": "-PVxJ2", "type":
+        "Malware", "name": "Eggs Bened"}, {"id": "t1RASMout2e", "type": "MitreAttackIdentifier",
+        "name": "Phaal", "display_name": "Do you have any idea why this is not work"},
+        {"id": "QCqLhE", "type": "MalwareCategory", "name": "Chicken "}, {"id": "HOU0vb",
+        "type": "Company", "name": "Chile", "display_name": "Any element of a tuple
+        can be"}, {"id": "do3N4S", "type": "AttackVector", "name": "Beignets"}, {"id":
+        "LPc838", "type": "AttackVector", "name": "Creamed co"}, {"id": "VhqAj", "type":
+        "Product", "name": "Chicken Biryani"}, {"id": "YhBVN", "type": "Company",
+        "name": "BBQ Ribs"}, {"id": "SMav3B", "type": "AttackVector", "name": "Tres
+        Leches Cake"}, {"id": "KBwQKT", "type": "Technology", "name": "Chic"}, {"id":
+        "o5Abb4", "type": "Malware", "name": "Corn fl"}, {"id": "JQz05-", "type":
+        "Product", "name": "Energy bar"}, {"id": "NCQaUx", "type": "Technology", "name":
+        "Juba"}, {"id": "hsHLtN", "type": "Product", "name": "Potato wedges"}, {"id":
+        "r8IruV", "type": "AttackVector", "name": "Porterhouse Ste"}, {"id": "X_NR5P",
+        "type": "AttackVector", "name": "Cheese stuffed crust pizza"}], "content":
+        "Ports are created with the built-in function open_port.", "file_name": "Atoms
+        are used within a progr"}]}, {"id": "doc:BD528VE", "type": "yara", "title":
+        "In 1989 the building", "description": "They are written as strings of consecutive
+        alphanumeric characters, the first character being lowercase.", "created":
+        "2026-02-04T13:28:48.622Z", "updated": "2026-02-04T13:44:12.920Z", "rules":
+        [{"entities": [{"id": "DMU2SJ9", "type": "Malware", "name": "Pancakes"}, {"id":
+        "7Jcj3y4IMNd", "type": "MitreAttackIdentifier", "name": "Shawa", "display_name":
+        "Its main implementation is the Glasgow Ha"}, {"id": "I4yKmp9JZBL", "type":
+        "MitreAttackIdentifier", "name": "Tres ", "display_name": "Ports are created
+        with the built-i"}, {"id": "L8WAYG", "type": "Organization", "name": "Mashed
+        pump", "display_name": "Messages can be sent to and received from ports, but
+        these messages must obey the so-called \"port pr"}, {"id": "t5BfxP", "type":
+        "AttackVector", "name": "Moules Frites"}, {"id": "JQz05-", "type": "Product",
+        "name": "Butter cookie"}, {"id": "nAtwI", "type": "Country", "name": "Peppe"},
+        {"id": "QCqLhE", "type": "MalwareCategory", "name": "Shish Ka"}, {"id": "do3N4S",
+        "type": "AttackVector", "name": "Chicken bog"}, {"id": "fq_OKg", "type": "AttackVector",
+        "name": "Poke"}, {"id": "LPc838", "type": "AttackVector", "name": "Escargot"},
+        {"id": "r8IruV", "type": "AttackVector", "name": "Spaghetti Bolog"}, {"id":
+        "Kt5me7", "type": "AttackVector", "name": "Chicken f"}, {"id": "X_NR5P", "type":
+        "AttackVector", "name": "Wasabi Peas"}], "content": "Tuples are containers
+        for a fixed number of Erlang data types.", "file_name": "Atoms are used within
+        a program"}]}, {"id": "doc:BD1mFYU", "type": "yara", "title": "Do you have
+        any idea why this is not working?", "description": "She spent her earliest
+        years reading classic literature, and writing poetry.", "created": "2026-02-02T18:58:27.812Z",
+        "updated": "2026-02-02T18:58:27.811Z", "rules": [{"entities": [{"id": "n4b33Pl6tAo",
+        "type": "MitreAttackIdentifier", "name": "Beign", "display_name": "Tuples
+        are containers for a fix"}, {"id": "QNRX85wwOGCZTW0", "type": "MitreAttackIdentifier",
+        "name": "Cobb Sala", "display_name": "Do you come here often?"}, {"id": "cLXheJmJPTK",
+        "type": "MitreAttackIdentifier", "name": "Crepe", "display_name": "Atoms are
+        used within a "}, {"id": "AZVF0Sno7INv", "type": "MitreAttackIdentifier",
+        "name": "Charle", "display_name": "She spent her earlie"}, {"id": "nxc50DcdyVnd",
+        "type": "MitreAttackIdentifier", "name": "Tagine", "display_name": "In 1989
+        the buildi"}, {"id": "Q6p9th1HRY7dHqt", "type": "MitreAttackIdentifier", "name":
+        "Chimichan", "display_name": "Erlang is a general-purpose, concurrent, functional
+        program"}, {"id": "6fMtYT0Yg0yHhhW", "type": "MitreAttackIdentifier", "name":
+        "White cho", "display_name": "I don''t even care."}, {"id": "eYLlFDAh9hBY4fY",
+        "type": "MitreAttackIdentifier", "name": "Chicken f", "display_name": "Do
+        you come here often?"}, {"id": "HbMZRBULYQWwKcS", "type": "MitreAttackIdentifier",
+        "name": "Albacore ", "display_name": "Do you have any idea why this is"},
+        {"id": "x4ye3MAwQign0H7", "type": "MitreAttackIdentifier", "name": "Hoppin''
+        J", "display_name": "I don''t even care."}, {"id": "hash:2545baa24b9777477cabd5bb99c45fcf33101ac09f13e119f2614fab8d9e2123",
+        "type": "Hash", "name": "Chicken fried steak"}, {"id": "tantnsr1IBA3uOd",
+        "type": "MitreAttackIdentifier", "name": "Funnel Ca", "display_name": "The
+        arguments can be primitive data types or compound data types."}, {"id": "hs95UMOFGAI",
+        "type": "MitreAttackIdentifier", "name": "Cordo", "display_name": "The syntax
+        {D1,D2,...,D"}, {"id": "ZKuW0ObVqqtLS7C", "type": "MitreAttackIdentifier",
+        "name": "American ", "display_name": "Atoms can contain any character if they
+        are enclosed"}, {"id": "9quQQRA9VJW", "type": "MitreAttackIdentifier", "name":
+        "Samos", "display_name": "In 1989 the building was heavily da"}, {"id": "jNYaWBz97wtznO0",
+        "type": "MitreAttackIdentifier", "name": "Turkish D", "display_name": "Ports
+        are used to communicate with the exter"}, {"id": "nsYFeNI4usA", "type": "MitreAttackIdentifier",
+        "name": "Baked", "display_name": "Haskell features a type syste"}, {"id":
+        "sWb2HFtMld0GTOd", "type": "MitreAttackIdentifier", "name": "Fry sauce", "display_name":
+        "The arguments can be primitive data types or compound data ty"}, {"id": "TTSKILD",
+        "type": "Malware", "name": "Pan Sear"}, {"id": "Hrq3xazBdKjEOLi", "type":
+        "MitreAttackIdentifier", "name": "Chinese f", "display_name": "Make me a sandwich."},
+        {"id": "hash:e946b1caa3bc8d96259f791a2b2ee735fba2d9d73137e6b344a03c10e3f5768a",
+        "type": "Hash", "name": "Bellini"}, {"id": "2vwjEipMza8c61i", "type": "MitreAttackIdentifier",
+        "name": "Reuben", "display_name": "Atoms are used within a program to denot"},
+        {"id": "4HVoKhWz1Oz3tsF", "type": "MitreAttackIdentifier", "name": "Turducken",
+        "display_name": "Haskell features a type system with type inference and lazy"},
+        {"id": "GyZpPb6D3Mk", "type": "MitreAttackIdentifier", "name": "New Y", "display_name":
+        "Any element of a tuple can be access"}, {"id": "xQ4mi9KKued", "type": "MitreAttackIdentifier",
+        "name": "Chick", "display_name": "Any element of a tuple can be access"},
+        {"id": "mnLiiqGrJ41Yaao", "type": "MitreAttackIdentifier", "name": "Cobb Sala",
+        "display_name": "Erlang is known for its designs that are well suited "},
+        {"id": "DwEuHEQ4ZoMNwLV", "type": "MitreAttackIdentifier", "name": "Eggo",
+        "display_name": "Atoms can contain any character if they are enclosed within"},
+        {"id": "hash:06b4dc36c939dedd08b918abd21953ea4c9775d54fc895ab12f558140a735fae",
+        "type": "Hash", "name": "Barbecue"}, {"id": "TRtlW", "type": "Product", "name":
+        "Salmo"}, {"id": "4oSX7J9eXDA", "type": "MitreAttackIdentifier", "name": "Break",
+        "display_name": "Initially composing light-hear"}, {"id": "bxHF4Ku25RC", "type":
+        "MitreAttackIdentifier", "name": "Muffu", "display_name": "They are written
+        as strings of c"}, {"id": "gwDEOfq88otSj7U", "type": "MitreAttackIdentifier",
+        "name": "Charlesto", "display_name": "Where are my pants?"}, {"id": "4llUn0bBSIk9Bjk",
+        "type": "MitreAttackIdentifier", "name": "Rabbit pi", "display_name": "The
+        arguments can be primitive data types or compound data types."}, {"id": "bsJRW3YKg36",
+        "type": "MitreAttackIdentifier", "name": "Baked", "display_name": "She spent
+        her earliest years read"}, {"id": "LnEE8xOyFnL", "type": "MitreAttackIdentifier",
+        "name": "Chica", "display_name": "I don''t even care."}, {"id": "VgD3grWhOYX",
+        "type": "MitreAttackIdentifier", "name": "Chick", "display_name": "I don''t
+        even care."}, {"id": "0nm1vKBZVaFyrKM", "type": "MitreAttackIdentifier", "name":
+        "Parma Ham", "display_name": "Make me a sandwich."}, {"id": "xZdNVWgjLFSIrHA",
+        "type": "MitreAttackIdentifier", "name": "Lobster r", "display_name": "Atoms
+        can contain any character if they are enclosed "}, {"id": "nY1tEXhqfDG", "type":
+        "MitreAttackIdentifier", "name": "Chick", "display_name": "They are written
+        as strings of consecuti"}, {"id": "zgDqrvqhH4i", "type": "MitreAttackIdentifier",
+        "name": "Po''Bo", "display_name": "I don''t even care."}, {"id": "hash:4cf02d9ebe4a6c2261178a6ad805a2dd9680c52095a209cbde871da9eee69acc",
+        "type": "Hash", "name": "Smelt"}, {"id": "UEwEHfWA0yp", "type": "MitreAttackIdentifier",
+        "name": "Tomat", "display_name": "Its main implementation is the Glasgow Haskell"},
+        {"id": "OayaUwKrq2o", "type": "MitreAttackIdentifier", "name": "Swiss", "display_name":
+        "It is also a garbage-c"}, {"id": "UXhJEBWwpc7", "type": "MitreAttackIdentifier",
+        "name": "Pop-T", "display_name": "Ports are created with the"}, {"id": "SxMw91VIzRs",
+        "type": "MitreAttackIdentifier", "name": "Pizza", "display_name": "The Galactic
+        Empire is ne"}, {"id": "FjmABR3eJxR6", "type": "MitreAttackIdentifier", "name":
+        "Dirty ", "display_name": "They are written as strings "}, {"id": "tptxH27UABkd",
+        "type": "MitreAttackIdentifier", "name": "Pop-Ta", "display_name": "Atoms
+        can contain "}, {"id": "W0B89ybnhna5m6m", "type": "MitreAttackIdentifier",
+        "name": "Escargot", "display_name": "She spent her earliest years reading
+        classic literature, "}, {"id": "uEEnJm8u52TC", "type": "MitreAttackIdentifier",
+        "name": "Hummus", "display_name": "I don''t even care."}, {"id": "5J2zlJuInX9M",
+        "type": "MitreAttackIdentifier", "name": "Russia", "display_name": "Type classes
+        first appea"}, {"id": "FOSNxyUdLp36", "type": "MitreAttackIdentifier", "name":
+        "Fry sa", "display_name": "Erlang is known for its desig"}, {"id": "hash:850f6ef090385530e3db4e10a50b5d11694f06bd801e14973057fbb74bac1aee",
+        "type": "Hash", "name": "Chocolate Brownie"}, {"id": "t2Mot9bFMsk2", "type":
+        "MitreAttackIdentifier", "name": "BBQ Ri", "display_name": "It is also a garbag"},
+        {"id": "feQT7mg42fCv", "type": "MitreAttackIdentifier", "name": "Milk S",
+        "display_name": "Tuples are containers for"}, {"id": "hash:62c7660633f7c874f43c2c51e9d2e88cc76be35113479872e8b4024d7680fa2b",
+        "type": "Hash", "name": "Pumpkin pie"}, {"id": "t5BfxP", "type": "AttackVector",
+        "name": "Pepperoni Pizza"}, {"id": "MiCdmJ", "type": "AttackVector", "name":
+        "Ribs"}, {"id": "NTA8j", "type": "Product", "name": "Spanish ri"}, {"id":
+        "fs6-jl", "type": "AttackVector", "name": "Clam chowder"}, {"id": "b4ymBH",
+        "type": "AttackVector", "name": "Chicken Alfredo"}, {"id": "JxAmYN", "type":
+        "AttackVector", "name": "Potato wedges"}, {"id": "LPc838", "type": "AttackVector",
+        "name": "Stuffed pe"}, {"id": "CPeiHq", "type": "Technology", "name": "Gard"},
+        {"id": "fIFRSD", "type": "Technology", "name": "Tamales"}, {"id": "X_NR6o",
+        "type": "AttackVector", "name": "Macaroni salad"}, {"id": "Omzj-U", "type":
+        "AttackVector", "name": "Potato salad"}, {"id": "Xt2hhF", "type": "AttackVector",
+        "name": "Ammonia cookie"}, {"id": "r5pX91", "type": "AttackVector", "name":
+        "Energy bar"}, {"id": "WHnOR5", "type": "AttackVector", "name": "Domesticated
+        turkey"}, {"id": "WHnOR7", "type": "AttackVector", "name": "Carolina style"},
+        {"id": "Vc36Z", "type": "MalwareCategory", "name": "Montrea"}, {"id": "hHp1bI",
+        "type": "AttackVector", "name": "Steak sandwich"}, {"id": "JhZjpN", "type":
+        "Technology", "name": "Celery Vic"}, {"id": "EEGAA", "type": "Product", "name":
+        "Hot"}, {"id": "awQ99u", "type": "AttackVector", "name": "Frito Pie"}, {"id":
+        "mLyvtu", "type": "AttackVector", "name": "Montreal Smoked Meat"}, {"id":
+        "YNXWQ", "type": "Technology", "name": "Buffalo burg"}, {"id": "JPv_5Q", "type":
+        "AttackVector", "name": "Meatloaf"}, {"id": "gMgi2n", "type": "Product", "name":
+        "Veggie Pizza"}, {"id": "lTL9bW", "type": "AttackVector", "name": "American
+        fried"}, {"id": "uvAi6", "type": "Technology", "name": "Pastrami"}, {"id":
+        "jjCY_w", "type": "Product", "name": "Greek salad"}, {"id": "LJgb07", "type":
+        "Product", "name": "Chicken Bi"}, {"id": "QZ8jD", "type": "Technology", "name":
+        "Chicken n"}, {"id": "fM4sZc", "type": "AttackVector", "name": "Clam cake"},
+        {"id": "r8IruV", "type": "AttackVector", "name": "Vegemite on Toa"}, {"id":
+        "r8JE1T", "type": "AttackVector", "name": "Rolled oyster"}, {"id": "X_NR5P",
+        "type": "AttackVector", "name": "Chili con carne"}, {"id": "q8OeoM", "type":
+        "AttackVector", "name": "Sushi"}], "content": "I don''t even care.", "file_name":
+        "I don''t even car"}]}, {"id": "doc:BDrXPJx", "type": "yara", "title": "She
+        spent her earliest years reading classic", "description": "Its main implementation
+        is the Glasgow Haskell Compiler.", "created": "2026-01-29T15:33:28.396Z",
+        "updated": "2026-01-29T15:33:28.396Z", "rules": [{"entities": [{"id": "ZOGJLO",
+        "type": "Malware", "name": "Hot ch"}], "content": "The arguments can be primitive
+        data types or compound data types.", "file_name": "The Galactic E"}]}], "next_offset":
+        "eyJvZmZzZXQiOls4Nzg1LCJIRkNqUUFEVm1PXyJdfQ=="}'
+    headers:
+      CF-RAY:
+      - 9cd39a9ace53ce7b-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:22:20 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"filter": {"types": ["yara"], "created": {"after": "2026-01-14T10:22:00"},
+      "updated": {}}, "limit": 4, "offset": "eyJvZmZzZXQiOls4Nzg1LCJIRkNqUUFEVm1PXyJdfQ=="}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '161'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/detection-rule/search
+  response:
+    body:
+      string: '{"count": 0, "total_count": 11, "result": []}'
+    headers:
+      CF-RAY:
+      - 9cd39aa5f82ff65b-LHR
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '40'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:22:21 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

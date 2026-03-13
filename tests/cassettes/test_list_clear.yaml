@@ -1,0 +1,279 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/list/report:wpHivJ/info
+  response:
+    body:
+      string: '{"id": "report:wpHivJ", "name": "Hot chicke", "type": "entity", "created":
+        "2024-07-01T12:51:38.804Z", "updated": "2026-02-06T16:43:16.287Z", "owner_id":
+        "Erlang is a gene", "owner_name": "Haskell features a type", "organisation_id":
+        "Where are my pan", "organisation_name": "Tuples are containers for a fixed",
+        "owner_organisation_details": {"owner_id": "Its main impleme", "owner_name":
+        "Erlang is known for its", "organisations": [], "enterprise_id": "Do you have
+        any ", "enterprise_name": "She spent her earliest years read"}}'
+    headers:
+      CF-RAY:
+      - 9cd388458f28beb3-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:09:48 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/list/report:wpHivJ/entities
+  response:
+    body:
+      string: '[{"entity": {"id": "ip:61.11.55.24", "type": "IpAddress", "name": "Sweet
+        P"}, "status": "ready", "added": "2026-06-15T04:33:56.711Z"}, {"entity": {"id":
+        "ip:144.157.63.42", "type": "IpAddress", "name": "Bao"}, "status": "ready",
+        "added": "2026-05-08T18:20:37.658Z"}]'
+    headers:
+      CF-RAY:
+      - 9cd38846b838ef35-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:09:48 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"entity": {"id": "ip:8.8.8.8"}}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '32'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/list/report:wpHivJ/entity/remove
+  response:
+    body:
+      string: '{"result": "The syn"}'
+    headers:
+      CF-RAY:
+      - 9cd388482f3f63c1-LHR
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '20'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:09:52 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"entity": {"id": "ip:9.9.9.9"}}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '32'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/list/report:wpHivJ/entity/remove
+  response:
+    body:
+      string: '{"result": "Do you "}'
+    headers:
+      CF-RAY:
+      - 9cd388607c34fd92-LHR
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '20'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:09:53 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/list/report:wpHivJ/info
+  response:
+    body:
+      string: '{"id": "report:wpHivJ", "name": "Cowboy bea", "type": "entity", "created":
+        "2024-07-01T12:51:38.804Z", "updated": "2026-02-06T16:43:16.287Z", "owner_id":
+        "Ports are create", "owner_name": "Initially composing lig", "organisation_id":
+        "The arguments ca", "organisation_name": "Do you come here often?", "owner_organisation_details":
+        {"owner_id": "Erlang is a gene", "owner_name": "They are written as str",
+        "organisations": [], "enterprise_id": "Ports are create", "enterprise_name":
+        "Do you come here often?"}}'
+    headers:
+      CF-RAY:
+      - 9cd388681ed045b6-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:09:54 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/list/report:wpHivJ/entities
+  response:
+    body:
+      string: '[]'
+    headers:
+      CF-RAY:
+      - 9cd388697bfb1520-LHR
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:09:54 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

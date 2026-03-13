@@ -1,0 +1,54 @@
+interactions:
+- request:
+    body: '{"name": "meow", "type": "entity"}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '34'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/list/create
+  response:
+    body:
+      string: '{"id": "report:BERgaN8", "name": "Book", "type": "entity", "created":
+        "2026-02-13T10:09:55.914Z", "updated": "2026-02-13T10:09:55.914Z", "owner_id":
+        "Initially compos", "owner_name": "Haskell is a standardiz", "organisation_id":
+        "It is also a gar", "organisation_name": "Where are my pants?", "owner_organisation_details":
+        {"owner_id": "The syntax {D1,D", "owner_name": "Erlang is a general-pur",
+        "organisations": [], "enterprise_id": "Initially compos", "enterprise_name":
+        "Erlang is known for its designs t"}}'
+    headers:
+      CF-RAY:
+      - 9cd388741fcef40e-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:09:56 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

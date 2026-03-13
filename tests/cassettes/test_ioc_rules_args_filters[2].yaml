@@ -1,0 +1,116 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/riskrules
+  response:
+    body:
+      string: '{"data": {"results": [{"criticalityLabel": "Type clas", "description":
+        "Erlang is a general", "categories": [{"name": "Roaste", "framework": "Haske"}],
+        "criticality": 3, "relatedEntities": [], "name": "Escarg", "count": 762170},
+        {"criticalityLabel": "The synta", "description": "Do you have any idea why
+        this is not working?", "categories": [{"name": "Cheese", "framework": "The
+        a"}], "criticality": 3, "relatedEntities": [], "name": "Shucked Oysters",
+        "count": 9728}, {"criticalityLabel": "The seq", "description": "Do you have
+        any idea why this is not", "categories": [{"name": "Clam c", "framework":
+        "I don"}], "criticality": 1, "relatedEntities": [], "name": "Parma Ham", "count":
+        76405}, {"criticalityLabel": "Do you com", "description": "They are written
+        as str", "categories": [{"name": "Souvla", "framework": "She s"}], "criticality":
+        2, "relatedEntities": [], "name": "Banh Mi Vi\u00eat", "count": 3160055},
+        {"criticalityLabel": "In 1989", "description": "Tuples are contai", "categories":
+        [{"name": "Clam c", "framework": "Make "}], "criticality": 1, "relatedEntities":
+        [], "name": "Venison", "count": 138679}, {"criticalityLabel": "I don''t ev",
+        "description": "Erlang is a general-pur", "categories": [{"name": "Chimic",
+        "framework": "Erlan"}, {"name": "Lorna Doo", "framework": "I don"}, {"name":
+        "Quesad", "framework": "Type "}], "criticality": 2, "relatedEntities": [],
+        "name": "Slinger", "count": 588620}, {"criticalityLabel": "The syntax", "description":
+        "In 1989 the building w", "categories": [{"name": "Elote", "framework": "Its
+        m"}], "criticality": 2, "relatedEntities": [], "name": "Pemmican", "count":
+        462352}, {"criticalityLabel": "I don''t", "description": "Atoms are used within
+        a program to denote dis", "categories": [{"name": "Steak ", "framework": "In
+        19"}], "criticality": 1, "relatedEntities": [], "name": "Buffalo wi", "count":
+        0}, {"criticalityLabel": "Do you co", "description": "The arguments can be
+        pri", "categories": [{"name": "Senate", "framework": "Do yo"}], "criticality":
+        3, "relatedEntities": [], "name": "Chicago Dee", "count": 42309}, {"criticalityLabel":
+        "The synta", "description": "It is also a garbage-col", "categories": [{"name":
+        "Hummus", "framework": "Haske"}], "criticality": 3, "relatedEntities": [],
+        "name": "Glorified rice", "count": 472007386}, {"criticalityLabel": "Haskell
+        is", "description": "Type classes firs", "categories": [{"name": "Crepes",
+        "framework": "I don"}], "criticality": 2, "relatedEntities": [], "name": "Maple
+        Bacon Dou", "count": 248250459}, {"criticalityLabel": "Messages c", "description":
+        "Haskell is a standardized, g", "categories": [{"name": "Massam", "framework":
+        "Where"}], "criticality": 2, "relatedEntities": [], "name": "Deep Fried Oreos",
+        "count": 63600699}, {"criticalityLabel": "Ports a", "description": "Erlang
+        is a general-purpose, concurrent, function", "categories": [], "criticality":
+        1, "relatedEntities": [], "name": "Cowboy beans", "count": 3907}, {"criticalityLabel":
+        "Ports are", "description": "Atoms are used within a program to denote d",
+        "categories": [{"name": "Saute", "framework": "Do yo"}, {"name": "Macar",
+        "framework": "Messa"}], "criticality": 3, "relatedEntities": [], "name": "Sonofabitch
+        stew", "count": 17779}, {"criticalityLabel": "Ports are ", "description":
+        "The syntax {D1,D2,...,Dn} ", "categories": [{"name": "Steak ", "framework":
+        "Type "}], "criticality": 2, "relatedEntities": [], "name": "Poutine", "count":
+        33826}, {"criticalityLabel": "I", "description": "Ports are used t", "categories":
+        [], "criticality": 0, "relatedEntities": [], "name": "Roasted Bon", "count":
+        29513462}, {"criticalityLabel": "Messages ", "description": "Haskell features
+        a type system with", "categories": [{"name": "Waffle", "framework": "The a"}],
+        "criticality": 3, "relatedEntities": [], "name": "Pork and b", "count": 8962},
+        {"criticalityLabel": "She spent", "description": "Messages can be sent to
+        and received from ports, but ", "categories": [{"name": "Pemmic", "framework":
+        "Its m"}, {"name": "Pirosh", "framework": "Make "}], "criticality": 3, "relatedEntities":
+        ["Do you"], "name": "Peanut butter", "count": 318732}]}}'
+    headers:
+      CF-RAY:
+      - 9cecbebe79073052-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 11:36:03 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node08dumaadlmvr21xhnq6lhr0x5w3646800.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -1,0 +1,98 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - banshee:tests_/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1 platform_id
+        unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/list/report:21YKUC/info
+  response:
+    body:
+      string: '{"id": "report:21YKUC", "name": "Pickled cucu", "type": "entity", "created":
+        "2025-01-28T00:24:08.686Z", "updated": "2026-02-13T10:10:11.291Z", "owner_id":
+        "Chocolate Chip C", "owner_name": "Spaghetti Bolognese", "organisation_id":
+        "French Onion Sou", "organisation_name": "Pan Seared Scallops", "owner_organisation_details":
+        {"owner_id": "Steak sauce", "owner_name": "Veggie Pizza", "organisations":
+        [], "enterprise_id": "Queso Fresco", "enterprise_name": "Chocolate Brownie"}}'
+    headers:
+      CF-RAY:
+      - 9dbb3093ff3863e9-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Mar 2026 12:54:52 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"entity": {"id": "123456"}}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '28'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - banshee:tests_/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1 platform_id
+        unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/list/report:21YKUC/entity/remove
+  response:
+    body:
+      string: '{"message": "Spaghetti Bolognese", "status_code": 404, "trace_id":
+        "100d47ff-1927-4c00-8212-ac4f9a0ca785"}'
+    headers:
+      CF-RAY:
+      - 9dbb3095ad6a0014-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Mar 2026 12:54:53 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 404
+      message: Not Found
+version: 1

@@ -1,0 +1,103 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/ip/45.134.26.41?fields=timestamps%2Crisk%2Centity
+  response:
+    body:
+      string: '{"data": {"timestamps": {"lastSeen": "2025-12-15T23:39:10.064Z", "firstSeen":
+        "2021-05-15T12:36:45.484Z"}, "risk": {"criticalityLabel": "Steamed cl", "riskString":
+        "Chees", "rules": 17, "criticality": 2, "riskSummary": "Deviled egg", "score":
+        43, "evidenceDetails": [{"mitigationString": "", "evidenceString": "Churrasco",
+        "rule": "Stuffed ham", "criticality": 1, "timestamp": "2021-07-27T22:15:01.000Z",
+        "criticalityLabel": "America"}, {"mitigationString": "", "evidenceString":
+        "Butter cookie", "rule": "Bao", "criticality": 1, "timestamp": "2025-06-06T10:41:12.940Z",
+        "criticalityLabel": "Ice cre"}, {"mitigationString": "", "evidenceString":
+        "Kimchi", "rule": "Bellini", "criticality": 1, "timestamp": "2025-12-23T08:55:01.625Z",
+        "criticalityLabel": "Bird''s "}, {"mitigationString": "", "evidenceString":
+        "Blue-plate special", "rule": "Boulliabaise", "criticality": 1, "timestamp":
+        "2021-10-14T11:12:39.000Z", "criticalityLabel": "Jalapen"}, {"mitigationString":
+        "", "evidenceString": "Paella", "rule": "Tres Leches Cake", "criticality":
+        1, "timestamp": "2025-12-09T00:00:00.000Z", "criticalityLabel": "Milk to"},
+        {"mitigationString": "", "evidenceString": "French Dip", "rule": "Chicken
+        nugget", "criticality": 1, "timestamp": "2021-08-12T07:20:39.112Z", "criticalityLabel":
+        "Italian"}, {"mitigationString": "", "evidenceString": "Kung Pao Chicken",
+        "rule": "Sloppy joe", "criticality": 1, "timestamp": "2025-12-04T16:38:33.432Z",
+        "criticalityLabel": "Texas T"}, {"mitigationString": "", "evidenceString":
+        "Potatoes O''Brien", "rule": "Meatcake", "criticality": 1, "timestamp": "2025-06-14T17:45:13.116Z",
+        "criticalityLabel": "Dirty r"}, {"mitigationString": "", "evidenceString":
+        "Black Pudding", "rule": "Steak Tartare", "criticality": 1, "timestamp": "2025-06-06T10:41:13.023Z",
+        "criticalityLabel": "Spaghet"}, {"mitigationString": "", "evidenceString":
+        "Chicken Biryani", "rule": "Naan", "criticality": 1, "timestamp": "2021-10-15T04:09:45.489Z",
+        "criticalityLabel": "Pumpkin"}, {"mitigationString": "", "evidenceString":
+        "Dirty rice", "rule": "Kimchi", "criticality": 1, "timestamp": "2025-12-23T21:18:46.238Z",
+        "criticalityLabel": "Charles"}, {"mitigationString": "", "evidenceString":
+        "Toaster Strudel", "rule": "Corn chowd", "criticality": 1, "timestamp": "2025-06-06T10:41:12.856Z",
+        "criticalityLabel": "Apple s"}, {"mitigationString": "", "evidenceString":
+        "Chicken Salad Wrap", "rule": "Sandwich", "criticality": 1, "timestamp": "2025-12-04T00:00:00.000Z",
+        "criticalityLabel": "Macaron"}, {"mitigationString": "", "evidenceString":
+        "Pulled pork", "rule": "Chowder", "criticality": 1, "timestamp": "2026-02-10T07:12:29.307Z",
+        "criticalityLabel": "Cordon "}, {"mitigationString": "", "evidenceString":
+        "Satay", "rule": "Potato skins", "criticality": 1, "timestamp": "2026-02-10T07:12:29.311Z",
+        "criticalityLabel": "French "}, {"mitigationString": "", "evidenceString":
+        "Stuffed zucchini", "rule": "Queso Fresco", "criticality": 2, "timestamp":
+        "2025-11-19T08:20:16.856Z", "criticalityLabel": "Sichuan Ho"}, {"mitigationString":
+        "", "evidenceString": "Jambalaya", "rule": "Stuffed ham", "criticality": 2,
+        "timestamp": "2025-12-30T05:20:20.000Z", "criticalityLabel": "Sichuan Ho"}]},
+        "entity": {"id": "ip:12.46.178.254", "name": "53.127.139.100", "type": "IpAddress"}}}'
+    headers:
+      CF-RAY:
+      - 9cee1c403bb30876-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 15:34:39 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01253f9m48l9km1f94133k7a5h13751671.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -1,0 +1,622 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/alert/rule?freetext=leaked&limit=1000
+  response:
+    body:
+      string: '{"data": {"results": [{"intelligence_goals": [{"name": "Chicken and
+        waff", "id": "report:_intelligence_goal_ig-46"}], "priority": true, "tags":
+        [], "use_case_id": "He looked inquisitively at his ", "id": "mf0rAa", "owner":
+        {"name": "Creme Brulee", "id": "UKDnR9LwJtp1pbTE"}, "title": "Erlang is a
+        general-purpose,", "created": "2022-05-06T08:19:38.652Z", "notification_settings":
+        {"email_subscribers": [{"name": "French Dip", "id": "xc6pkVM87Ny6EaQ3"}],
+        "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Philly Cheese Steak", "id": "report:_intelligence_goal_ig-70"}], "priority":
+        true, "tags": [], "use_case_id": "Erlang is a general-purpose, con", "id":
+        "oGK3rB", "owner": {"name": "Breakfast burrito", "id": "ZaMdVLMjckK41eER"},
+        "title": "She spent her earliest ", "created": "2022-09-27T07:46:07.163Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Home fries", "id": "report:_intelligence_goal_ig-46"}],
+        "priority": false, "tags": [], "use_case_id": "Erlang is known for its designs",
+        "id": "oT8Yaq", "owner": {"name": "Creamed corn", "id": "xt6F0bJMq1VNO8Gb"},
+        "title": "Atoms are used within a prog", "created": "2022-10-10T15:02:52.891Z",
+        "notification_settings": {"email_subscribers": [{"name": "Suckling Pig", "id":
+        "lwOLCDPjL0ARfxhm"}], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Ice cream cake", "id": "report:_intelligence_goal_ig-46"}], "priority":
+        false, "tags": [], "use_case_id": "Initially composing light-heart", "id":
+        "oT8YbE", "owner": {"name": "Vichyssoise", "id": "OlSvi3fnhxitWy51"}, "title":
+        "In 1989 the building was hea", "created": "2022-10-10T15:03:10.538Z", "notification_settings":
+        {"email_subscribers": [{"name": "Texas Toast", "id": "U1Gncmvorm4s7euw"}],
+        "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Yeung Chow fried", "id": "report:_intelligence_goal_ig-46"}], "priority":
+        false, "tags": [], "use_case_id": "Ports are used to communicate w", "id":
+        "oT8Ybe", "owner": {"name": "Maple Bacon Dough", "id": "8nrY8mFYn2AD3ibd"},
+        "title": "Haskell is a standardized, g", "created": "2022-10-10T15:03:51.357Z",
+        "notification_settings": {"email_subscribers": [{"name": "Sushi", "id": "wECkoPdPt6Ibea6O"}],
+        "mobile_subscribers": []}, "enabled": true}]}, "counts": {"returned": 5, "total":
+        5}}'
+    headers:
+      CF-RAY:
+      - 9cd37caad9c7955f-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:01:53 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01l0nar2ucwfjeiexq1h7gv8zv5392053.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/?triggered=-1d&alertRule=mf0rAa&fields=title%2Clog%2Creview%2Cowner_organisation_details%2Crule%2Cid&limit=50
+  response:
+    body:
+      string: '{"data": [{"review": {"note": null, "status_in_portal": "New", "assignee":
+        null, "status": "no-action"}, "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Ports are used t", "organisation_name": "Initially composing
+        light-hearted"}], "enterprise_id": "The syntax {D1,D", "enterprise_name":
+        "Its main implementation is the Gl"}, "rule": {"use_case_deprecation": null,
+        "name": "Chicken \u00e0 la King", "id": "mf0rAa", "url": {"portal": "https://shopping.esq/"}},
+        "id": "4TXP7LL", "title": "Erlang is known for its designs that are wel",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-12T10:22:25.683Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Any
+        element of a", "organisation_name": "Initially composing light-hearted"}],
+        "enterprise_id": "Ports are used t", "enterprise_name": "The sequential subset
+        of Erlang s"}, "rule": {"use_case_deprecation": null, "name": "Poppyseed muffin",
+        "id": "mf0rAa", "url": {"portal": "https://phase.frl/"}}, "id": "Fq66Erv",
+        "title": "It is also a garbage-collected runtime syste", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-12T11:23:27.366Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "He looked inquis", "organisation_name":
+        "Initially composing light-hearted"}], "enterprise_id": "It is also a gar",
+        "enterprise_name": "He looked inquisitively at his ke"}, "rule": {"use_case_deprecation":
+        null, "name": "Currywurst", "id": "mf0rAa", "url": {"portal": "https://factors.car/"}},
+        "id": "lZMbFha", "title": "Do you have any idea why this is not working",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-12T12:24:13.975Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "I don''t
+        even car", "organisation_name": "In 1989 the building was heavily "}], "enterprise_id":
+        "Do you have any ", "enterprise_name": "Any element of a tuple can be acc"},
+        "rule": {"use_case_deprecation": null, "name": "Pickled Okra", "id": "mf0rAa",
+        "url": {"portal": "https://biodiversity.stockholm/"}}, "id": "mFyNI01", "title":
+        "Initially composing light-hearted and irreve", "log": {"note_author": null,
+        "note_date": null, "status_date": null, "triggered": "2026-02-12T13:24:50.031Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Ports are used t", "organisation_name":
+        "Haskell features a type system wi"}], "enterprise_id": "Its main impleme",
+        "enterprise_name": "Make me a sandwich."}, "rule": {"use_case_deprecation":
+        null, "name": "Pickled Okra", "id": "mf0rAa", "url": {"portal": "https://insulation.org/"}},
+        "id": "tRK8uYj", "title": "Haskell is a standardized, general-purpose p",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-12T14:25:23.704Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "The
+        arguments ca", "organisation_name": "Ports are used to communicate wit"}],
+        "enterprise_id": "The arguments ca", "enterprise_name": "Erlang is known for
+        its designs t"}, "rule": {"use_case_deprecation": null, "name": "Mashed potato",
+        "id": "mf0rAa", "url": {"portal": "https://hostels.biz/"}}, "id": "on5V4X4",
+        "title": "Do you come here often?", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-12T15:26:20.672Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Do you come here", "organisation_name": "Any element of a tuple can be acc"}],
+        "enterprise_id": "It is also a gar", "enterprise_name": "Haskell is a standardized,
+        genera"}, "rule": {"use_case_deprecation": null, "name": "Poppyseed muffin",
+        "id": "mf0rAa", "url": {"portal": "https://photos.name/"}}, "id": "9avE65G",
+        "title": "The Galactic Empire is nearing completion of", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-12T16:26:41.499Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Atoms can contai", "organisation_name":
+        "Messages can be sent to and recei"}], "enterprise_id": "Where are my pan",
+        "enterprise_name": "I don''t even care."}, "rule": {"use_case_deprecation":
+        null, "name": "Calamari", "id": "mf0rAa", "url": {"portal": "https://park.hn/"}},
+        "id": "sSYop8V", "title": "The arguments can be primitive data types or",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-12T17:27:34.665Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Ports
+        are create", "organisation_name": "Its main implementation is the Gl"}], "enterprise_id":
+        "Ports are used t", "enterprise_name": "Any element of a tuple can be acc"},
+        "rule": {"use_case_deprecation": null, "name": "Matzo Ball Soup", "id": "mf0rAa",
+        "url": {"portal": "https://destination.beer/"}}, "id": "spD6m5j", "title":
+        "Do you have any idea why this is not working", "log": {"note_author": null,
+        "note_date": null, "status_date": null, "triggered": "2026-02-12T18:27:57.466Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Ports are create", "organisation_name":
+        "Do you come here often?"}], "enterprise_id": "Any element of a", "enterprise_name":
+        "Messages can be sent to and recei"}, "rule": {"use_case_deprecation": null,
+        "name": "Prawn Pizza", "id": "mf0rAa", "url": {"portal": "https://adjustment.net/"}},
+        "id": "Gzpte2W", "title": "Atoms can contain any character if they are ",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-12T19:28:39.191Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Its
+        main impleme", "organisation_name": "Erlang is a general-purpose, conc"}],
+        "enterprise_id": "Do you come here", "enterprise_name": "The syntax {D1,D2,...,Dn}
+        denotes"}, "rule": {"use_case_deprecation": null, "name": "White chocolate
+        cookie", "id": "mf0rAa", "url": {"portal": "https://bytes.biz/"}}, "id": "ugTQaj0",
+        "title": "Type classes first appeared in the Haskell p", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-12T20:28:54.921Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Ports are used t", "organisation_name":
+        "Haskell is a standardized, genera"}], "enterprise_id": "Do you have any ",
+        "enterprise_name": "Initially composing light-hearted"}, "rule": {"use_case_deprecation":
+        null, "name": "Peanut butter", "id": "mf0rAa", "url": {"portal": "https://combinations.quebec/"}},
+        "id": "TA7hHzS", "title": "Atoms can contain any character if they are ",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-12T21:29:28.999Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Do you
+        have any ", "organisation_name": "She spent her earliest years read"}], "enterprise_id":
+        "Erlang is known ", "enterprise_name": "Erlang is known for its designs t"},
+        "rule": {"use_case_deprecation": null, "name": "Burnt ends", "id": "mf0rAa",
+        "url": {"portal": "https://instructions.host/"}}, "id": "4fUG2Ca", "title":
+        "Erlang is a general-purpose, concurrent, fun", "log": {"note_author": null,
+        "note_date": null, "status_date": null, "triggered": "2026-02-12T22:30:10.239Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Do you come here", "organisation_name":
+        "The sequential subset of Erlang s"}], "enterprise_id": "Do you have any ",
+        "enterprise_name": "Any element of a tuple can be acc"}, "rule": {"use_case_deprecation":
+        null, "name": "Chile Relleno", "id": "mf0rAa", "url": {"portal": "https://hat.boston/"}},
+        "id": "ezq5cnr", "title": "I don''t even care.", "log": {"note_author": null,
+        "note_date": null, "status_date": null, "triggered": "2026-02-12T23:30:35.394Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "It is also a gar", "organisation_name":
+        "Tuples are containers for a fixed"}], "enterprise_id": "Messages can be ",
+        "enterprise_name": "Do you have any idea why this is "}, "rule": {"use_case_deprecation":
+        null, "name": "Russian dressing", "id": "mf0rAa", "url": {"portal": "https://checks.digital/"}},
+        "id": "ZsdeEfN", "title": "Atoms can contain any character if they are ",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T00:31:23.727Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Atoms
+        are used w", "organisation_name": "I don''t even care."}], "enterprise_id":
+        "Haskell is a sta", "enterprise_name": "Initially composing light-hearted"},
+        "rule": {"use_case_deprecation": null, "name": "Po''Boy", "id": "mf0rAa",
+        "url": {"portal": "https://max.brussels/"}}, "id": "CGmZ7i3", "title": "It
+        is also a garbage-collected runtime syste", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-13T01:31:59.577Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "I don''t even car", "organisation_name": "I don''t even care."}], "enterprise_id":
+        "Do you come here", "enterprise_name": "I don''t even care."}, "rule": {"use_case_deprecation":
+        null, "name": "Potato Wedges", "id": "mf0rAa", "url": {"portal": "https://secretariat.gm/"}},
+        "id": "PacUMML", "title": "Haskell features a type system with type inf",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T02:32:23.347Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Do you
+        have any ", "organisation_name": "Make me a sandwich."}], "enterprise_id":
+        "Erlang is a gene", "enterprise_name": "Do you come here often?"}, "rule":
+        {"use_case_deprecation": null, "name": "Mulligan stew", "id": "mf0rAa", "url":
+        {"portal": "https://radios.pe/"}}, "id": "L3qPE5j", "title": "Erlang is a
+        general-purpose, concurrent, fun", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-13T03:32:42.589Z", "status_change_by":
+        null}}, {"review": {"note": null, "status_in_portal": "New", "assignee": null,
+        "status": "no-action"}, "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Do you come here", "organisation_name": "Its main implementation is the Gl"}],
+        "enterprise_id": "Haskell is a sta", "enterprise_name": "The syntax {D1,D2,...,Dn}
+        denotes"}, "rule": {"use_case_deprecation": null, "name": "Hoppin'' John",
+        "id": "mf0rAa", "url": {"portal": "https://hack.gw/"}}, "id": "yzbxton", "title":
+        "Messages can be sent to and received from po", "log": {"note_author": null,
+        "note_date": null, "status_date": null, "triggered": "2026-02-13T04:33:01.273Z",
+        "status_change_by": null}}, {"review": {"note": null, "status_in_portal":
+        "New", "assignee": null, "status": "no-action"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Ports are create", "organisation_name":
+        "Ports are created with the built-"}], "enterprise_id": "Haskell is a sta",
+        "enterprise_name": "Ports are used to communicate wit"}, "rule": {"use_case_deprecation":
+        null, "name": "Osso Buco", "id": "mf0rAa", "url": {"portal": "https://becoming.name/"}},
+        "id": "9LznZiI", "title": "Its main implementation is the Glasgow Haske",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T05:33:53.521Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "They
+        are written", "organisation_name": "Messages can be sent to and recei"}],
+        "enterprise_id": "He looked inquis", "enterprise_name": "The arguments can
+        be primitive da"}, "rule": {"use_case_deprecation": null, "name": "Hangtown
+        fry", "id": "mf0rAa", "url": {"portal": "https://controller.biz/"}}, "id":
+        "RGV9fhv", "title": "Initially composing light-hearted and irreve", "log":
+        {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T06:34:28.868Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "In 1989
+        the buil", "organisation_name": "Make me a sandwich."}], "enterprise_id":
+        "The sequential s", "enterprise_name": "I don''t even care."}, "rule": {"use_case_deprecation":
+        null, "name": "Chicken Biryani", "id": "mf0rAa", "url": {"portal": "https://once.helsinki/"}},
+        "id": "6dRtOq3", "title": "Messages can be sent to and received from po",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T07:35:01.183Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Atoms
+        are used w", "organisation_name": "Atoms are used within a program t"}], "enterprise_id":
+        "Tuples are conta", "enterprise_name": "I don''t even care."}, "rule": {"use_case_deprecation":
+        null, "name": "Sloppy joe", "id": "mf0rAa", "url": {"portal": "https://elvis.ro/"}},
+        "id": "YAwKWtW", "title": "Ports are created with the built-in function",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T08:35:39.265Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Erlang
+        is a gene", "organisation_name": "Haskell features a type system wi"}], "enterprise_id":
+        "Haskell is a sta", "enterprise_name": "Erlang is known for its designs t"},
+        "rule": {"use_case_deprecation": null, "name": "Baba Ghanoush", "id": "mf0rAa",
+        "url": {"portal": "https://nebraska.name/"}}, "id": "mNVSIJn", "title": "The
+        syntax {D1,D2,...,Dn} denotes a tuple wh", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-13T09:36:10.712Z", "status_change_by":
+        null}}], "counts": {"returned": 24, "total": 24}}'
+    headers:
+      CF-RAY:
+      - 9cd37cacbd2f79af-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:01:53 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0o0yolagdeveh1kmar05sm3tz5403595.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/?triggered=-1d&alertRule=oGK3rB&fields=title%2Clog%2Creview%2Cowner_organisation_details%2Crule%2Cid&limit=50
+  response:
+    body:
+      string: '{"data": [{"review": {"note": null, "status_in_portal": "New", "assignee":
+        null, "status": "no-action"}, "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Make me a sandwi", "organisation_name": "The sequential
+        subset of Erlang s"}], "enterprise_id": "Atoms can contai", "enterprise_name":
+        "Haskell features a type system wi"}, "rule": {"use_case_deprecation": null,
+        "name": "Meat Feast Pizza", "id": "oGK3rB", "url": {"portal": "https://lovers.mg/"}},
+        "id": "gxTNGbZ", "title": "Haskell features a type system with typ", "log":
+        {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-13T06:11:51.578Z", "status_change_by": null}}], "counts": {"returned":
+        1, "total": 1}}'
+    headers:
+      CF-RAY:
+      - 9cd37cb1d983a387-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:01:54 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01ckell86a968m1f976ygn6xf0s5403611.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/?triggered=-1d&alertRule=oT8Yaq&fields=title%2Clog%2Creview%2Cowner_organisation_details%2Crule%2Cid&limit=50
+  response:
+    body:
+      string: '{"data": [{"review": {"note": null, "status_in_portal": "New", "assignee":
+        null, "status": "no-action"}, "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Erlang is a gene", "organisation_name": "Atoms can contain
+        "}], "enterprise_id": "Haskell features", "enterprise_name": "Atoms can contain
+        any character i"}, "rule": {"use_case_deprecation": null, "name": "Tagine",
+        "id": "oT8Yaq", "url": {"portal": "https://panic.bz/"}}, "id": "LwATXiK",
+        "title": "The Galactic Empire is nearing completion of", "log": {"note_author":
+        null, "note_date": null, "status_date": null, "triggered": "2026-02-13T06:06:10.121Z",
+        "status_change_by": null}}], "counts": {"returned": 1, "total": 1}}'
+    headers:
+      CF-RAY:
+      - 9cd37cb32a293771-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:01:54 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01fo8gyaic78uk1spxchlxydeqt5402336.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/?triggered=-1d&alertRule=oT8YbE&fields=title%2Clog%2Creview%2Cowner_organisation_details%2Crule%2Cid&limit=50
+  response:
+    body:
+      string: '{"data": [], "counts": {"returned": 0, "total": 0}}'
+    headers:
+      CF-RAY:
+      - 9cd37cb49a451655-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:01:54 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0fronrv8h6p6tjsgswtyyducf5402338.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/?triggered=-1d&alertRule=oT8Ybe&fields=title%2Clog%2Creview%2Cowner_organisation_details%2Crule%2Cid&limit=50
+  response:
+    body:
+      string: '{"data": [], "counts": {"returned": 0, "total": 0}}'
+    headers:
+      CF-RAY:
+      - 9cd37cb5da11fea9-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:01:54 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01c9yhp51i56tj1gwenijbdtg2v5402340.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -1,0 +1,74 @@
+interactions:
+- request:
+    body: '{"limit": 10, "type": "attacker"}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '33'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/list/search
+  response:
+    body:
+      string: '[{"id": "report:mfVhIp", "name": "Bull roast", "type": "attacker",
+        "created": "2022-05-06T08:19:31.421Z", "updated": "2025-10-09T03:15:00.273Z",
+        "owner_id": "Make me a sandwi", "owner_name": "Tuples are containers for a
+        fixed", "organisation_id": "They are written", "organisation_name": "She spent
+        her earliest years read", "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Haskell features", "organisation_name": "The arguments
+        can be primitive da"}], "enterprise_id": "Ports are used t", "enterprise_name":
+        "Ports are created with the built-"}}, {"id": "report:oT-s10", "name": "Tuna
+        Pizza", "type": "attacker", "created": "2022-10-10T15:02:45.869Z", "updated":
+        "2022-12-20T11:34:51.652Z", "owner_id": "Erlang is a gene", "owner_name":
+        "Messages can be se", "organisation_id": "The arguments ca", "organisation_name":
+        "Its main implementation is the Gl", "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Ports are used t", "organisation_name": "Messages can
+        be se"}], "enterprise_id": "Its main impleme", "enterprise_name": "It is also
+        a garbage-collected ru"}}, {"id": "report:oT-s15", "name": "Sandwich", "type":
+        "attacker", "created": "2022-10-10T15:03:03.886Z", "updated": "2022-12-20T11:34:51.660Z",
+        "owner_id": "It is also a gar", "owner_name": "Make me a sandwich.", "organisation_id":
+        "Haskell is a sta", "organisation_name": "Do you come here often?", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Haskell is a sta", "organisation_name":
+        "I don''t even care."}], "enterprise_id": "She spent her ea", "enterprise_name":
+        "They are written as strings of co"}}, {"id": "report:oT-s18", "name": "Gazpacho",
+        "type": "attacker", "created": "2022-10-10T15:03:44.607Z", "updated": "2022-12-20T11:34:51.664Z",
+        "owner_id": "The arguments ca", "owner_name": "Make me a sandwic", "organisation_id":
+        "Erlang is known ", "organisation_name": "I don''t even care.", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "In 1989 the buil", "organisation_name":
+        "Ports are created"}], "enterprise_id": "Atoms are used w", "enterprise_name":
+        "Where are my pants?"}}]'
+    headers:
+      CF-RAY:
+      - 9cd38895b97c4137-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:10:01 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

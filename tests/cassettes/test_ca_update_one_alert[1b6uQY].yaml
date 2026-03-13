@@ -1,0 +1,142 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/1b6uQY?fields=title%2Clog%2Creview%2Crule%2Cid
+  response:
+    body:
+      string: '{"data": {"review": {"note": "He looked inquisitively at his keyboard
+        and wrote another sentence.", "status_in_portal": "Pending", "assignee": "Atoms
+        are used within a program to denote d", "status": "pending"}, "rule": {"use_case_deprecation":
+        null, "name": "Bangers and mash", "id": "o7x4o3", "url": {"portal": "https://sleep.info/"}},
+        "id": "1b6uQY", "title": "In 1989 the building was heavily damag", "log":
+        {"note_author": "In 1989 the building was heavily damaged by fire, but it
+        has si", "note_date": "2026-02-01T05:14:19.047Z", "status_date": "2026-04-01T11:00:34.578Z",
+        "triggered": "2024-12-10T04:03:03.588Z", "status_change_by": "The Galactic
+        Empire is nearing completion of the Death Star, a "}}}'
+    headers:
+      CF-RAY:
+      - 9cd37cc68ee3949f-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:01:57 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0pg91qc1242xbqdnqr0b5qarq5402397.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '[{"id": "1b6uQY", "statusInPortal": "Pending", "note": "None. Test note.
+      Test note. Test note. Test note. Test note. Test note. Test note. Test note",
+      "assignee": "ernest.bartosevic+psdevm@recordedfuture.com"}]'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '210'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/v2/alert/update
+  response:
+    body:
+      string: '{"success": [{"id": "1b6uQY", "status": "pending", "statusInPortal":
+        "She spe", "assignee": "Its main i", "note": {"text": "I don''t even care.
+        Haskell is a standardized, general-purpose purely functional programming ",
+        "author": "Type class", "date": "2026-07-16T01:59:43.431Z"}, "statusDate":
+        "2026-12-09T07:01:09.215Z", "statusChangeBy": "Type class"}], "error": []}'
+    headers:
+      CF-RAY:
+      - 9cd37cc7e9051ef2-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:01:58 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node04rp9e3putngqld1h6leytggz5403685.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -1,0 +1,12 @@
+[run]
+source = banshee
+branch = True
+
+[report]
+skip_covered = True
+sort = Cover
+
+[html]
+directory = htmlcov
+
+[term]

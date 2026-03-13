@@ -1,0 +1,144 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/4e586d008dc06d3c77d590393b4e565273b30ef2b536a193976c9a82353878bf?fields=timestamps%2ChashAlgorithm%2Centity%2Crisk
+  response:
+    body:
+      string: '{"data": {"timestamps": {"lastSeen": "2026-03-13T00:48:36.671Z", "firstSeen":
+        "2026-07-14T10:48:46.710Z"}, "risk": {"criticalityLabel": "Atoms are", "riskString":
+        "It i", "rules": 1, "criticality": 3, "riskSummary": "Do you have any idea
+        why this is not w", "score": 89, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "In 1989 the building was heavily damaged by fire, but
+        it has since been restored.", "rule": "Where are my pants?", "criticality":
+        3, "timestamp": "2026-12-19T07:15:33.590Z", "criticalityLabel": "Atoms can"}]},
+        "entity": {"id": "hash:4ee6d01a8646c24482f5051ae43c89298496c84534ca6264e8deda4d84fa96c3",
+        "name": "Corn chowder", "type": "Hash"}, "hashAlgorithm": "Haskell"}}'
+    headers:
+      CF-RAY:
+      - 9cecfc4db82b555f-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 12:18:05 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node05lbz76juguhk1lz5nncu63m913662928.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/fa54c4e34732b611921820be56dd690a4de98285828e4be487b904679a855a92?fields=timestamps%2ChashAlgorithm%2Centity%2Crisk
+  response:
+    body:
+      string: '{"data": {"timestamps": {"lastSeen": "2026-06-15T12:43:38.129Z", "firstSeen":
+        "2026-08-28T19:31:57.145Z"}, "risk": {"criticalityLabel": "The synta", "riskString":
+        "I do", "rules": 2, "criticality": 3, "riskSummary": "I don''t even care.",
+        "score": 80, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "The arguments can be primitive data types or compound data types.", "rule":
+        "The sequential su", "criticality": 2, "timestamp": "2026-02-17T22:52:29.330Z",
+        "criticalityLabel": "Messages c"}, {"mitigationString": "", "evidenceString":
+        "The syntax {D1,D2,...,Dn} denotes a tuple whose arguments are D1, D2, ...
+        Dn.", "rule": "She spent her earliest y", "criticality": 3, "timestamp": "2026-11-20T03:26:23.075Z",
+        "criticalityLabel": "Type clas"}]}, "entity": {"id": "hash:05b8896856d1d26d62cebd4d4e6d85b5a75e1ceb0eeb94264b4351b6a1f8bf17",
+        "name": "Eggo", "type": "Hash"}, "hashAlgorithm": "Where a"}}'
+    headers:
+      CF-RAY:
+      - 9cecfc4f7caf8cce-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 12:18:06 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node019kfweawpjhnr14wpppiglruwa3661718.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

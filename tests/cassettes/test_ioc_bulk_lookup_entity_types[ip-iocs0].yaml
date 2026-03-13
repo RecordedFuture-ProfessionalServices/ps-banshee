@@ -1,0 +1,93 @@
+interactions:
+- request:
+    body: '{"ip": ["8.8.8.8", "203.0.113.17"]}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '35'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/soar/v3/enrichment
+  response:
+    body:
+      string: '{"data": {"results": [{"risk": {"context": {"phishing": {"summary":
+        [], "rule": {"maxCount": 0}, "score": 0.0, "mostCriticalRule": ""}, "malware":
+        {"summary": [], "rule": {"maxCount": 0}, "score": 0.0, "mostCriticalRule":
+        ""}, "public": {"summary": [], "rule": {"maxCount": 0}, "score": 28.0, "mostCriticalRule":
+        ""}, "c2": {"summary": [], "rule": {"maxCount": 0}, "score": 0.0, "mostCriticalRule":
+        ""}}, "rule": {"count": 5, "mostCritical": "Cornish game hen", "maxCount":
+        81, "evidence": {"linkedIntrusion": {"count": 2, "timestamp": "2026-02-13T17:12:34.754Z",
+        "description": "Thousand Island dressing", "rule": "Cheese dog", "sightings":
+        16, "mitigation": "", "level": 1}, "suspectedCnc": {"count": 1, "timestamp":
+        "2026-02-04T12:23:58.356Z", "description": "Tamales", "rule": "Milk Steak",
+        "sightings": 32, "mitigation": "", "level": 1}, "ddnsHost": {"count": 1, "timestamp":
+        "2024-11-07T06:52:46.342Z", "description": "Carne pizzaiola", "rule": "Fish
+        and Chips!", "sightings": 1, "mitigation": "", "level": 1}, "recentLinkedIntrusion":
+        {"count": 1, "timestamp": "2026-03-02T06:07:58.696Z", "description": "Tres
+        Leches Cake", "rule": "Soul food", "sightings": 1, "mitigation": "", "level":
+        2}, "historicalThreatListMembership": {"count": 2, "timestamp": "2025-05-26T06:28:25.707Z",
+        "description": "Cheese stuffed crust pizza", "rule": "Shish Kabob", "sightings":
+        -1, "mitigation": "", "level": 1}}, "summary": [{"count": 4.0, "level": 1.0},
+        {"count": 1.0, "level": 2.0}]}, "score": 28, "level": 2.0}, "entity": {"id":
+        "ip:182.207.58.70", "name": "9.189.232.137", "type": "IpAddress"}}, {"risk":
+        {"context": {"phishing": {"summary": [], "rule": {"maxCount": 0}, "score":
+        0.0, "mostCriticalRule": ""}, "malware": {"summary": [], "rule": {"maxCount":
+        0}, "score": 0.0, "mostCriticalRule": ""}, "public": {"summary": [], "rule":
+        {"maxCount": 0}, "score": 0.0, "mostCriticalRule": ""}, "c2": {"summary":
+        [], "rule": {"maxCount": 0}, "score": 0.0, "mostCriticalRule": ""}}, "rule":
+        {"summary": [], "count": 0, "mostCritical": "", "maxCount": 81}, "score":
+        0, "level": 0.0}, "entity": {"id": "ip:48.55.47.193", "name": "250.190.121.192",
+        "type": "IpAddress"}}]}, "counts": {"returned": 2, "total": 2}}'
+    headers:
+      CF-RAY:
+      - 9d7031fd9b59948a-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 04 Mar 2026 10:28:39 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node09m4ejn00af3rhtpjo80ofgim1066595.node0; Path=/soar; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

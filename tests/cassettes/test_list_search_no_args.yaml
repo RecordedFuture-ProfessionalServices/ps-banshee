@@ -1,0 +1,111 @@
+interactions:
+- request:
+    body: '{"limit": 10}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '13'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/list/search
+  response:
+    body:
+      string: '[{"id": "report:-12CY6", "name": "Abalone", "type": "entity", "created":
+        "2025-10-14T06:17:12.560Z", "updated": "2025-10-14T06:18:33.543Z", "owner_id":
+        "Messages can be ", "owner_name": "Type classes first appe", "organisation_id":
+        "Make me a sandwi", "organisation_name": "She spent her earliest years read",
+        "owner_organisation_details": {"owner_id": "Messages can be ", "owner_name":
+        "Type classes first appe", "organisations": [], "enterprise_id": "She spent
+        her ea", "enterprise_name": "Do you come here often?"}}, {"id": "report:-19oK4",
+        "name": "Fish Tacos", "type": "entity", "created": "2025-10-08T06:16:22.271Z",
+        "updated": "2025-10-08T06:18:29.528Z", "owner_id": "Do you come here", "owner_name":
+        "Type classes first appe", "organisation_id": "Initially compos", "organisation_name":
+        "Where are my pants?", "owner_organisation_details": {"owner_id": "It is also
+        a gar", "owner_name": "Tuples are containers f", "organisations": [], "enterprise_id":
+        "Tuples are conta", "enterprise_name": "Haskell features a type system wi"}},
+        {"id": "report:-19oNp", "name": "Ammonia cook", "type": "entity", "created":
+        "2025-10-12T06:16:18.836Z", "updated": "2025-10-12T06:17:43.520Z", "owner_id":
+        "She spent her ea", "owner_name": "Its main implementation", "organisation_id":
+        "Tuples are conta", "organisation_name": "In 1989 the building was heavily
+        ", "owner_organisation_details": {"owner_id": "Do you come here", "owner_name":
+        "He looked inquisitively", "organisations": [], "enterprise_id": "Where are
+        my pan", "enterprise_name": "Haskell features a type system wi"}}, {"id":
+        "report:-12CZm", "name": "Bread", "type": "entity", "created": "2025-10-15T06:16:31.711Z",
+        "updated": "2025-10-15T06:18:03.610Z", "owner_id": "It is also a gar", "owner_name":
+        "Erlang is a general-pur", "organisation_id": "Its main impleme", "organisation_name":
+        "The sequential subset of Erlang s", "owner_organisation_details": {"owner_id":
+        "The sequential s", "owner_name": "He looked inquisitively", "organisations":
+        [], "enterprise_id": "Haskell is a sta", "enterprise_name": "Erlang is a general-purpose,
+        conc"}}, {"id": "report:-19oM7", "name": "Piroshky", "type": "entity", "created":
+        "2025-10-10T13:49:54.617Z", "updated": "2025-10-10T18:41:38.036Z", "owner_id":
+        "He looked inquis", "owner_name": "Make me a sandwich.", "owner_organisation_details":
+        {"owner_id": "Atoms can contai", "owner_name": "Initially composing lig",
+        "organisations": [], "enterprise_id": "", "enterprise_name": ""}}, {"id":
+        "report:-19oJL", "name": "Vegemite on ", "type": "entity", "created": "2025-10-06T06:16:14.208Z",
+        "updated": "2025-10-06T06:18:26.792Z", "owner_id": "The arguments ca", "owner_name":
+        "Type classes first appe", "organisation_id": "Where are my pan", "organisation_name":
+        "Messages can be sent to and recei", "owner_organisation_details": {"owner_id":
+        "The sequential s", "owner_name": "Erlang is known for its", "organisations":
+        [], "enterprise_id": "Tuples are conta", "enterprise_name": "Do you have any
+        idea why this is "}}, {"id": "report:-12CTK", "name": "Breakfast bu", "type":
+        "entity", "created": "2025-10-04T06:16:26.379Z", "updated": "2025-10-04T06:18:02.024Z",
+        "owner_id": "Haskell features", "owner_name": "She spent her earliest ", "organisation_id":
+        "She spent her ea", "organisation_name": "Erlang is a general-purpose, conc",
+        "owner_organisation_details": {"owner_id": "Its main impleme", "owner_name":
+        "I don''t even care.", "organisations": [], "enterprise_id": "It is also a
+        gar", "enterprise_name": "They are written as strings of co"}}, {"id": "report:-19oN3",
+        "name": "Frybread", "type": "entity", "created": "2025-10-13T06:16:04.566Z",
+        "updated": "2025-10-13T06:17:48.115Z", "owner_id": "The sequential s", "owner_name":
+        "Erlang is a general-pur", "organisation_id": "Ports are create", "organisation_name":
+        "Haskell is a standardized, genera", "owner_organisation_details": {"owner_id":
+        "Where are my pan", "owner_name": "I don''t even care.", "organisations":
+        [], "enterprise_id": "The arguments ca", "enterprise_name": "Any element of
+        a tuple can be acc"}}, {"id": "report:-12CSX", "name": "Apple sauce", "type":
+        "entity", "created": "2025-10-03T06:16:21.480Z", "updated": "2025-10-03T06:18:41.818Z",
+        "owner_id": "The arguments ca", "owner_name": "The Galactic Empire is ", "organisation_id":
+        "Its main impleme", "organisation_name": "Any element of a tuple can be acc",
+        "owner_organisation_details": {"owner_id": "Messages can be ", "owner_name":
+        "Atoms are used within a", "organisations": [], "enterprise_id": "Its main
+        impleme", "enterprise_name": "Atoms can contain any character i"}}, {"id":
+        "report:-19oJ1", "name": "Stuffed ham", "type": "entity", "created": "2025-10-07T06:16:19.947Z",
+        "updated": "2025-10-07T06:18:04.105Z", "owner_id": "Messages can be ", "owner_name":
+        "She spent her earliest ", "organisation_id": "Make me a sandwi", "organisation_name":
+        "Do you come here often?", "owner_organisation_details": {"owner_id": "He
+        looked inquis", "owner_name": "Atoms are used within a", "organisations":
+        [], "enterprise_id": "Any element of a", "enterprise_name": "She spent her
+        earliest years read"}}]'
+    headers:
+      CF-RAY:
+      - 9cd3888e6deced02-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:10:00 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

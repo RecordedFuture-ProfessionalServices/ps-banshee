@@ -1,0 +1,114 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/search?limit=5&fields=entity%2ChashAlgorithm%2Crisk%2Ctimestamps
+  response:
+    body:
+      string: '{"data": {"results": [{"timestamps": {"lastSeen": "2026-11-23T12:18:35.347Z",
+        "firstSeen": "2026-08-31T22:32:43.142Z"}, "risk": {"criticalityLabel": "Initially",
+        "riskString": "Its ", "rules": 1, "criticality": 3, "riskSummary": "The Galactic
+        Empire is nearing complet", "score": 89, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "Type classes first appeared in the Haskell programming
+        language.", "rule": "They are written as stri", "criticality": 3, "timestamp":
+        "2026-06-17T18:09:53.834Z", "criticalityLabel": "Atoms can"}]}, "entity":
+        {"id": "hash:38e5a8bfb8ba69185775481a6eb4a870cf1f9dc022be81ac8395b888592a8759",
+        "name": "Fried Green Tomatoes", "type": "Hash"}, "hashAlgorithm": "It is a"},
+        {"timestamps": {"lastSeen": "2026-09-15T07:29:48.054Z", "firstSeen": "2026-09-29T13:40:17.308Z"},
+        "risk": {"criticalityLabel": "Tuples ar", "riskString": "The ", "rules": 2,
+        "criticality": 3, "riskSummary": "Erlang is a general-purpose, concurren",
+        "score": 89, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "Any element of a tuple can be accessed in constant time.", "rule": "Where
+        are my pant", "criticality": 2, "timestamp": "2026-08-30T11:52:14.724Z", "criticalityLabel":
+        "Any elemen"}, {"mitigationString": "", "evidenceString": "She spent her earliest
+        years reading classic literature, and writing poetry.", "rule": "Atoms can
+        contain any ch", "criticality": 3, "timestamp": "2026-02-25T04:17:16.441Z",
+        "criticalityLabel": "Where are"}]}, "entity": {"id": "hash:fcc761f1187612c37d3d972083a2d3ccd852ed0cbab0e231d5a86e636bf9378d",
+        "name": "Tetrazzini", "type": "Hash"}, "hashAlgorithm": "The arg"}, {"timestamps":
+        {"lastSeen": "2026-07-29T00:06:12.807Z", "firstSeen": "2026-05-01T10:49:55.503Z"},
+        "risk": {"criticalityLabel": "He looked", "riskString": "Hask", "rules": 2,
+        "criticality": 3, "riskSummary": "Haskell features a type system with ty",
+        "score": 89, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "Where are my pants?", "rule": "Tuples are contai", "criticality": 2, "timestamp":
+        "2026-03-01T19:38:57.502Z", "criticalityLabel": "It is also"}, {"mitigationString":
+        "", "evidenceString": "Make me a sandwich.", "rule": "Initially composing
+        ligh", "criticality": 3, "timestamp": "2026-05-29T12:42:23.660Z", "criticalityLabel":
+        "The synta"}]}, "entity": {"id": "hash:b6e5bd0e557fd29fd86e343ce06b98840963aa24573289028c9e2f4060ab72cb",
+        "name": "Mission burrito", "type": "Hash"}, "hashAlgorithm": "Any ele"}, {"timestamps":
+        {"lastSeen": "2026-07-28T19:30:18.975Z", "firstSeen": "2026-02-23T03:13:25.748Z"},
+        "risk": {"criticalityLabel": "Messages ", "riskString": "Init", "rules": 2,
+        "criticality": 3, "riskSummary": "Erlang is a general-purpose, concurren",
+        "score": 89, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "Do you have any idea why this is not working?", "rule": "Atoms can contain",
+        "criticality": 2, "timestamp": "2026-09-19T04:28:19.729Z", "criticalityLabel":
+        "Erlang is "}, {"mitigationString": "", "evidenceString": "I don''t even care.",
+        "rule": "Where are my pants?", "criticality": 3, "timestamp": "2026-01-24T20:32:27.979Z",
+        "criticalityLabel": "Atoms are"}]}, "entity": {"id": "hash:e9ca649bff9a6ee9dc0dc4b6e9875637889ca267afa97a76f8c8da336b4b4c10",
+        "name": "Cheese dog", "type": "Hash"}, "hashAlgorithm": "The arg"}, {"timestamps":
+        {"lastSeen": "2026-05-12T10:28:56.268Z", "firstSeen": "2026-09-26T14:25:31.240Z"},
+        "risk": {"criticalityLabel": "Erlang is", "riskString": "The ", "rules": 2,
+        "criticality": 3, "riskSummary": "Ports are used to communicate with the",
+        "score": 89, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "Do you come here often?", "rule": "She spent her ear", "criticality": 2,
+        "timestamp": "2026-04-12T01:36:36.885Z", "criticalityLabel": "She spent "},
+        {"mitigationString": "", "evidenceString": "Where are my pants?", "rule":
+        "Initially composing ligh", "criticality": 3, "timestamp": "2026-06-24T02:07:45.185Z",
+        "criticalityLabel": "Do you co"}]}, "entity": {"id": "hash:a727f64f9c4296f4fd298062a0ed2c6ea1fd68b0b0ed164c23bb0a9c4a5dfe41",
+        "name": "Lorna Doone", "type": "Hash"}, "hashAlgorithm": "They ar"}]}, "counts":
+        {"returned": 5, "total": 3139084088}}'
+    headers:
+      CF-RAY:
+      - 9cd387de797e253b-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:09:38 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node017vmbzccrikg2nd5ijh7e0xqd2019649.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

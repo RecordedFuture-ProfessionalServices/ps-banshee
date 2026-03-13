@@ -1,0 +1,157 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/ip/117.72.35.30?fields=timestamps%2Centity%2Crisk
+  response:
+    body:
+      string: '{"data": {"timestamps": {"lastSeen": "2026-02-11T19:27:58.403Z", "firstSeen":
+        "2026-02-21T05:41:01.840Z"}, "risk": {"criticalityLabel": "The sequen", "riskString":
+        "Erla", "rules": 8, "criticality": 2, "riskSummary": "They are written as
+        strings of consecu", "score": 46, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "They are written as strings of consecutive alphanumeric
+        characters, the first character being lowercase.", "rule": "Initially composing
+        light-hearted and i", "criticality": 1, "timestamp": "2026-08-29T09:43:20.600Z",
+        "criticalityLabel": "Do you "}, {"mitigationString": "", "evidenceString":
+        "Atoms can contain any character if they are enclosed within single quotes
+        and an escape convention exists which allows any character to be used within
+        an atom.", "rule": "Tuples are containers for a fix", "criticality": 1, "timestamp":
+        "2026-06-11T02:58:37.068Z", "criticalityLabel": "Haskell"}, {"mitigationString":
+        "", "evidenceString": "He looked inquisitively at his keyboard and wrote another
+        sentence.", "rule": "Where are my pants?", "criticality": 1, "timestamp":
+        "2026-11-12T19:45:08.190Z", "criticalityLabel": "Make me"}, {"mitigationString":
+        "", "evidenceString": "Do you come here often?", "rule": "The syntax {D1,D2,...,Dn}
+        denotes a tu", "criticality": 1, "timestamp": "2026-02-01T14:24:55.164Z",
+        "criticalityLabel": "It is a"}, {"mitigationString": "", "evidenceString":
+        "The sequential subset of Erlang supports eager evaluation, single assignment,
+        and dynamic typing.", "rule": "In 1989 the building was ", "criticality":
+        1, "timestamp": "2026-07-04T13:23:17.542Z", "criticalityLabel": "Its mai"},
+        {"mitigationString": "", "evidenceString": "Tuples are containers for a fixed
+        number of Erlang data types.", "rule": "He looked inquisitively at his keybo",
+        "criticality": 1, "timestamp": "2026-08-25T10:21:16.923Z", "criticalityLabel":
+        "Do you "}, {"mitigationString": "", "evidenceString": "Where are my pants?",
+        "rule": "They are written as strings of c", "criticality": 2, "timestamp":
+        "2026-06-04T18:05:01.602Z", "criticalityLabel": "Make me a "}, {"mitigationString":
+        "", "evidenceString": "Haskell features a type system with type inference
+        and lazy evaluation.", "rule": "Type classes first appeared in ", "criticality":
+        2, "timestamp": "2026-04-17T09:03:04.742Z", "criticalityLabel": "The sequen"}]},
+        "entity": {"id": "ip:184.255.18.58", "name": "Goulash", "type": "IpAddress"}}}'
+    headers:
+      CF-RAY:
+      - 9cd37d86d856eef6-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:02:28 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node016vl8cmzvb8dk1qz014m84tnsv2016150.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/ip/8.8.898753?fields=timestamps%2Centity%2Crisk
+  response:
+    body:
+      string: '{"error": {"message": "The argum", "status": 404}, "traceId": "Messages
+        can be sent to and received"}'
+    headers:
+      CF-RAY:
+      - 9cd37d896aaedf34-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:02:28 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node09sxcd3tw6r2q1dqh1l310m42y2016152.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+version: 1

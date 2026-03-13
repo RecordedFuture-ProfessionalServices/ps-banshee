@@ -1,0 +1,142 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/1ct-k8?fields=title%2Clog%2Creview%2Crule%2Cid
+  response:
+    body:
+      string: '{"data": {"review": {"note": "Its main implementation is the Glasgow
+        Haskell Compiler.", "status_in_portal": "Pending", "assignee": "She spent
+        her earliest years reading classi", "status": "pending"}, "rule": {"use_case_deprecation":
+        null, "name": "Fry sauce", "id": "mohGF-", "url": {"portal": "https://processing.mil/"}},
+        "id": "1ct-k8", "title": "Any element of a tuple can be accessed in constant
+        time.", "log": {"note_author": "Do you have any idea why this is not working?",
+        "note_date": "2026-07-25T21:24:32.389Z", "status_date": "2026-04-02T03:23:42.278Z",
+        "triggered": "2024-12-10T13:04:24.785Z", "status_change_by": "It is also a
+        garbage-collected runtime system."}}}'
+    headers:
+      CF-RAY:
+      - 9cd37cd54c81b235-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:01:59 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0162n2x9qoy20hct2og727dybp5402475.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '[{"id": "1ct-k8", "statusInPortal": "Pending", "note": "None. Test note.
+      Test note. Test note. Test note. Test note. Test note. Test note. Test note",
+      "assignee": "ernest.bartosevic+psdevm@recordedfuture.com"}]'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '210'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/v2/alert/update
+  response:
+    body:
+      string: '{"success": [{"id": "1ct-k8", "status": "pending", "statusInPortal":
+        "The arg", "assignee": "Erlang is ", "note": {"text": "Do you have any idea
+        why this is not working? Ports are used to communicate with the externa",
+        "author": "I don''t ev", "date": "2026-05-10T00:17:20.182Z"}, "statusDate":
+        "2026-10-05T21:16:10.280Z", "statusChangeBy": "Ports are "}], "error": []}'
+    headers:
+      CF-RAY:
+      - 9cd37cd6ae3941b8-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:02:00 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01t5lvawnqbwtk1j3hfa6e4rv565403762.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

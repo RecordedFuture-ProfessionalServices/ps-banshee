@@ -1,0 +1,76 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/fa54c4e34732b611921820be56dd690a4de98285828e4be487b904679a855a92?fields=fileHashes%2CintelCard%2Centity%2Ctimestamps%2Crisk%2ChashAlgorithm
+  response:
+    body:
+      string: '{"data": {"hashAlgorithm": "SHA-256", "timestamps": {"lastSeen": "2025-01-02T18:50:02.882Z",
+        "firstSeen": "2019-02-13T12:41:06.966Z"}, "intelCard": "https://welfare.abudhabi/",
+        "entity": {"id": "hash:4b9052716ea61b02325d7de2a177bc897f0f4044b87969d525f941db10dcb31b",
+        "name": "e01da7d4364b8088eb77574f1c5ce811a2db79c24082bcf637cc689558ef26a4",
+        "type": "Hash"}, "risk": {"criticalityLabel": "Butter co", "riskString": "Brea",
+        "rules": 2, "criticality": 3, "riskSummary": "Gazpacho", "score": 80, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "London broil", "rule": "Energy
+        bar", "criticality": 2, "timestamp": "2025-12-14T04:19:59.157Z", "criticalityLabel":
+        "Chicago De"}, {"mitigationString": "", "evidenceString": "Laksa", "rule":
+        "Crab Rangoon", "criticality": 3, "timestamp": "2019-02-13T12:28:42.000Z",
+        "criticalityLabel": "Phaal"}]}, "fileHashes": ["a75cdfcbdb54ebe184afeb7000cf49e6bcd389ffda9917d4055060aabaf5eb1e",
+        "ed43f9cff6a8fc7f18b6d2b1f01488eb1b71e5cda8207860f967d728ca292ce2", "1862657f9102a41988c5d5281f04676b4a93b8fcba9b384fe45acb4a4e5a1292",
+        "623e4bbd49f3ac92b64e84c374ca6db75d9792f7a345b238116387f71d1f7b99"]}}'
+    headers:
+      CF-RAY:
+      - 9cee13e42a05c046-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 15:28:57 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01xc1dzxcjsp8x1wxx0xzwvwico3756110.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

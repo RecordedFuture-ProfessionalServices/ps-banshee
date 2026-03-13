@@ -1,0 +1,133 @@
+interactions:
+- request:
+    body: '{"filter": {"types": ["snort"], "created": {}, "updated": {}}, "limit":
+      10}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '75'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/detection-rule/search
+  response:
+    body:
+      string: '{"count": 10, "total_count": 179, "result": [{"id": "doc:0yP8U9", "type":
+        "snort", "title": "He looked inquisitively at his key", "description": "Erlang
+        is a general-purpose, concurrent, functional programming language.", "created":
+        "2024-11-22T17:37:12.742Z", "updated": "2024-11-22T17:37:12.742Z", "rules":
+        [{"entities": [{"id": "WdhxjearzFRAdtg", "type": "MitreAttackIdentifier",
+        "name": "Cowboy be", "display_name": "The Galactic Empire is nearing completion
+        of the Deat"}, {"id": "nB0E6", "type": "Organization", "name": "Scampi", "display_name":
+        "Do you come here often?"}, {"id": "0vWZVX", "type": "Malware", "name": "Tagine"},
+        {"id": "pJ1XBS", "type": "Organization", "name": "Greek salad", "display_name":
+        "He looked inquisitively at his keyboard and wrote another sentence."}], "content":
+        "Do you have any idea why this is not working?", "file_name": "It is also
+        a garbage-co"}]}, {"id": "doc:cynQie", "type": "snort", "title": "Do you have
+        any idea ", "description": "It is also a garbage-collected runtime system.",
+        "created": "2020-02-04T05:00:00.000Z", "updated": "2022-03-25T18:00:30.553Z",
+        "rules": [{"entities": [{"id": "crMot_", "type": "Malware", "name": "Fried
+        fish"}], "content": "The sequential subset of Erlang supports eager evaluation,
+        single assignment, and dynamic typing.", "file_name": "Make me a sandwich."}]},
+        {"id": "doc:1Ugc8z", "type": "snort", "title": "Type classes first appeared
+        in the Haskell programming language.", "description": "It is also a garbage-collected
+        runtime system.", "created": "2024-12-06T17:21:46.346Z", "updated": "2024-12-06T17:21:46.346Z",
+        "rules": [{"entities": [{"id": "c078x8", "type": "Malware", "name": "Cheesecake"},
+        {"id": "lO59D4nkbVpi2te", "type": "MitreAttackIdentifier", "name": "Tomato
+        co", "display_name": "Its main implementation is the Glasgow Haskell Compil"},
+        {"id": "Pe734r", "type": "Malware", "name": "Veggie Pi"}, {"id": "LPc838",
+        "type": "AttackVector", "name": "Liver and "}], "content": "Do you have any
+        idea why this is not working?", "file_name": "She spent her earliest "}]},
+        {"id": "doc:2j65IB", "type": "snort", "title": "Haskell features a type system
+        with type inferenc", "description": "Initially composing light-hearted and
+        irreverent works, he also wrote serious, sombre and religious pieces beginning
+        in the ", "created": "2025-01-17T20:27:13.817Z", "updated": "2025-01-17T20:27:13.817Z",
+        "rules": [{"entities": [{"id": "1KeNsc", "type": "Malware", "name": "Chick"},
+        {"id": "v2tyezVxfEuKWyT", "type": "MitreAttackIdentifier", "name": "Soft Shel",
+        "display_name": "The arguments can be primitive data types or compound"}],
+        "content": "I don''t even care.", "file_name": "The syntax {D1,D2,."}]}, {"id":
+        "doc:BBybZSB", "type": "snort", "title": "Atoms are used within a program
+        to denote distingu", "description": "Messages can be sent to and received
+        from ports, but these messages must obey the so-called \"port protocol.\"",
+        "created": "2025-12-19T15:56:17.367Z", "updated": "2025-12-19T15:56:17.367Z",
+        "rules": [{"entities": [{"id": "qxiJcJp", "type": "Malware", "name": "Patty"},
+        {"id": "pNmoPaqySKqt1Qe", "type": "MitreAttackIdentifier", "name": "Yeung
+        Cho", "display_name": "It is also a garbage-collected runtime system."}, {"id":
+        "mvPaIZL", "type": "CyberVulnerability", "name": "Venison", "display_name":
+        "In 1989 the building was hea"}], "content": "Ports are created with the built-in
+        function open_port.", "file_name": "Ports are used to co"}]}, {"id": "doc:5hKrGB",
+        "type": "snort", "title": "Haskell is a standardized, general-purpose purely
+        functional progra", "description": "Ports are created with the built-in function
+        open_port.", "created": "2025-04-25T16:25:34.666Z", "updated": "2025-04-25T16:25:34.666Z",
+        "rules": [{"entities": [{"id": "gVmA9Tp5ufsRHct", "type": "MitreAttackIdentifier",
+        "name": "Slinger", "display_name": "I don''t even care."}, {"id": "40iQu8",
+        "type": "Malware", "name": "Greek s"}, {"id": "6kCCj", "type": "Product",
+        "name": "Frito P"}], "content": "Make me a sandwich.", "file_name": "Its main
+        implementati"}]}, {"id": "doc:lEWZlv", "type": "snort", "title": "The sequential
+        subset of Erlang supports eager evalu", "description": "Atoms can contain
+        any character if they are enclosed within single quotes and an escape convention
+        exists which allows any character to be used within an atom.", "created":
+        "2021-12-23T21:26:46.461Z", "updated": "2022-03-25T13:38:46.150Z", "rules":
+        [{"entities": [{"id": "CzXnMO", "type": "Technology", "name": "Baklava"},
+        {"id": "kvXvR5", "type": "CyberVulnerability", "name": "Bellini", "display_name":
+        "Any element of a tuple can"}, {"id": "TJUEwK", "type": "Organization", "name":
+        "Supreme pizz"}, {"id": "J1PKS5", "type": "Product", "name": "Margherita P"}],
+        "content": "It is also a garbage-collected runtime system.", "file_name":
+        "The arguments can be primitive "}]}, {"id": "doc:57Z1TD", "type": "snort",
+        "title": "Where are my pants?", "description": "Ports are used to communicate
+        with the external world.", "created": "2025-05-09T15:26:54.149Z", "updated":
+        "2025-05-09T15:26:54.149Z", "rules": [{"entities": [{"id": "baBZg8T4wSsGsrc",
+        "type": "MitreAttackIdentifier", "name": "Eggs Bene", "display_name": "I don''t
+        even care."}, {"id": "JG4Q05", "type": "Malware", "name": "Barbecue", "display_name":
+        "They are written as"}], "content": "Ports are used to communicate with the
+        external world.", "file_name": "Where are my pants?"}]}, {"id": "doc:wQ1Se-",
+        "type": "snort", "title": "The sequential subset of Erlang supp", "description":
+        "Ports are used to communicate with the external world.", "created": "2024-06-03T21:33:24.589Z",
+        "updated": "2024-06-05T18:23:08.167Z", "rules": [{"entities": [{"id": "scRSjM",
+        "type": "Malware", "name": "Buffalo b"}, {"id": "CzXnMO", "type": "Technology",
+        "name": "Buffalo Win"}, {"id": "D-47bZ", "type": "AttackVector", "name": "Hoppin''
+        John"}, {"id": "fUH6S", "type": "AttackVector", "name": "Fajitas"}], "content":
+        "He looked inquisitively at his keyboard and wrote another sentence.", "file_name":
+        "Do you have any idea wh"}]}, {"id": "doc:xO5ZUw", "type": "snort", "title":
+        "Initially composing light-hearted ", "description": "Its main implementation
+        is the Glasgow Haskell Compiler.", "created": "2024-07-25T15:56:23.181Z",
+        "updated": "2024-07-25T15:56:23.181Z", "rules": [{"entities": [{"id": "RLl-rH",
+        "type": "Malware", "name": "Fry sau"}, {"id": "CzXnMO", "type": "Technology",
+        "name": "Calas"}], "content": "Haskell is a standardized, general-purpose
+        purely functional programming language, with non-strict semantics and strong
+        static typing.", "file_name": "Initially composing l"}]}], "next_offset":
+        "eyJvZmZzZXQiOlsxMjA3NiwiSEZBWkFBQ3BIRC0iXX0="}'
+    headers:
+      CF-RAY:
+      - 9cd390f20be888a7-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:15:44 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

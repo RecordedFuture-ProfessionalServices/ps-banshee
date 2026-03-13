@@ -1,0 +1,250 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - banshee:tests_/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.3 platform_id
+        unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/playbook-alert/common/task:c89f8024-0462-4a50-88a9-f7e86056d485
+  response:
+    body:
+      string: '{"status": {"status_code": "Ra", "status_message": "Pigs in blankets"},
+        "data": {"playbook_alert_id": "task:c89f8024-0462-4a50-88a9-f7e86056d485",
+        "rule_id": "Liver ", "alert_rule": {"id": "sLn1j4", "label": "Hangtown fry",
+        "name": "Chicago Deep Dish Pizza"}, "status": "Resolved", "priority": "Ice
+        crea", "created": "2023-09-12T19:16:32.115Z", "updated": "2026-02-13T10:11:06.842Z",
+        "category": "third_party_risk", "title": "The a", "assignee_name": "Pocky",
+        "assignee_id": "Steak Tartare", "owner_id": "Pork and beans", "owner_name":
+        "Oysters Rockefeller", "organisation_id": "Deviled crab", "organisation_name":
+        "Garlic bread", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Massaman Curry", "organisation_name": "Breaded shrimp"}], "enterprise_id":
+        "Milk Steak", "enterprise_name": "Baked potato"}, "actions_taken": []}}'
+    headers:
+      CF-RAY:
+      - 9dbbc981cde0f83b-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Mar 2026 14:39:16 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - banshee:tests_/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.3 platform_id
+        unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/playbook-alert/third_party_risk/task:c89f8024-0462-4a50-88a9-f7e86056d485
+  response:
+    body:
+      string: '{"status": {"status_code": "Po", "status_message": "Supreme pizza"},
+        "data": {"playbook_alert_id": "task:c89f8024-0462-4a50-88a9-f7e86056d485",
+        "panel_status": {"status": "Resolved", "priority": "White ch", "assignee_name":
+        "Osso Buco", "assignee_id": "Fajita", "created": "2023-09-12T19:16:32.115Z",
+        "updated": "2026-02-13T10:11:06.842Z", "case_rule_id": "Sonofabitch s", "case_rule_label":
+        "Third Party Risk", "alert_rule": {"id": "sLn1j4", "label": "Hog fry", "name":
+        "Bao"}, "owner_id": "Suckling Pig", "owner_name": "Ammonia cookie", "organisation_id":
+        "Potato salad", "organisation_name": "French Onion Soup", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Pulled pork", "organisation_name":
+        "Fish and Chips!"}], "enterprise_id": "Potato wedges", "enterprise_name":
+        "Ratatouille"}, "entity_id": "Saute", "entity_name": "Corn ", "entity_criticality":
+        "Pop-Ta", "risk_score": 64, "targets": [], "actions_taken": [], "tags": []},
+        "panel_evidence_summary": {"assessments": []}, "panel_log": [{"id": "o2PgTGj7gxwn4jCbcAy61g4BB2gXxKVrYV7J3xOOP",
+        "created": "2023-09-12T19:16:32.129Z", "modified": "Squab", "action_priority":
+        "Maca", "context": {"type": "third_party_risk", "changes": [{"risk_attribute":
+        "Cheese dog", "assessment_name": "Mashed pumpk", "added": {"level": 3, "evidence_string":
+        "Meat Feast Pizza", "added": "2023-09-12T19:15:25.731Z", "removed": "2023-09-12T19:23:43.874Z"},
+        "type": "tpr_assessment_change"}]}}, {"id": "kEz1wxRiX3Jbf4pXQbaXc8RBQ8gHgsjlBjBZb5kFl",
+        "created": "2023-09-13T08:53:05.932Z", "modified": "Salisbury steak", "action_priority":
+        "Char", "context": {"type": "third_party_risk", "changes": [{"risk_attribute":
+        "Cordon bleu", "assessment_name": "Falafel", "removed": {"level": 3, "evidence_string":
+        "Mozzarella Sticks", "added": "2023-09-13T08:34:25.737Z", "removed": "2023-09-13T08:42:20.226Z"},
+        "added": {"level": 3, "evidence_string": "Steak sandwich", "added": "2023-09-13T08:42:20.226Z",
+        "removed": "2023-09-13T08:43:12.319Z"}, "type": "tpr_assessment_change"}]}},
+        {"id": "dfQrc07kHQLwZoKzMeQq7yKIjoOGOV4A8vJCiATZa", "created": "2023-09-13T18:17:14.774Z",
+        "modified": "Corn relish", "action_priority": "Chee", "context": {"type":
+        "third_party_risk", "changes": [{"risk_attribute": "Tuna casserole", "assessment_name":
+        "Oysters Rockefelle", "added": {"level": 3, "evidence_string": "Glorified
+        rice", "added": "2023-09-13T18:10:58.036Z", "removed": "2023-09-13T18:15:10.660Z"},
+        "type": "tpr_assessment_change"}]}}, {"id": "1VmKgpzYXf9KYpFD0VyBqHOc7TT2RxwssnAuFJEF2",
+        "created": "2023-09-13T18:18:24.429Z", "modified": "French Onion Soup", "context":
+        {"type": "third_party_risk", "changes": [{"risk_attribute": "Chili con carne",
+        "assessment_name": "Baklava", "removed": {"level": 3, "evidence_string": "Chocolate
+        Brownie", "added": "2023-09-13T18:10:58.036Z", "removed": "2023-09-13T18:15:10.660Z"},
+        "type": "tpr_assessment_change"}]}}, {"id": "RnhUj7IPRiOm7eBBqkrHwd919clFqUceWha3ju9MM",
+        "created": "2023-09-13T18:19:10.922Z", "modified": "Stuffed ham", "action_priority":
+        "Beef", "context": {"type": "third_party_risk", "changes": [{"risk_attribute":
+        "Turkish Delight", "assessment_name": "Ice cream cake", "added": {"level":
+        3, "evidence_string": "Oreo", "added": "2023-09-13T18:17:06.553Z", "removed":
+        "2023-10-01T03:01:11.047Z"}, "type": "tpr_assessment_change"}]}}, {"id": "FP7jEVBMefo7LYhhobQLRS5ojzR6pvXAsT8PPCJ6g",
+        "created": "2023-09-14T07:58:47.065Z", "modified": "Celery Victor", "context":
+        {"type": "third_party_risk", "changes": [{"risk_attribute": "Soul food", "assessment_name":
+        "Philadelphia", "removed": {"level": 3, "evidence_string": "Sushi", "added":
+        "2023-09-13T19:55:51.572Z", "removed": "2023-09-14T07:57:25.651Z"}, "type":
+        "tpr_assessment_change"}]}}, {"id": "NbFMs3xKGM2QwkgV3L1zdimN8Q4t6frAWEflA8cnR",
+        "actor_name": "Creme Brulee", "actor_id": "Corn relish", "created": "2023-09-18T19:39:46.768Z",
+        "modified": "Butter cookie", "message": "Kimchi", "changes": {"status_change":
+        {"old": "Sup", "new": "Chicken Sa", "type": "status_change"}}, "context":
+        {"type": "third_party_risk", "changes": [{"old": "Ice", "new": "Ceviche",
+        "type": "status_change"}]}}, {"id": "JGcSOuEuzZAsLPXCtXpxvJlF0vbxcyx6ABkmdLm2K",
+        "actor_name": "Patty", "actor_id": "Corned beef", "created": "2023-09-18T19:45:59.751Z",
+        "modified": "Greek salad", "message": "Souvlaki", "context": {"type": "third_party_risk",
+        "changes": []}}, {"id": "t5jQ5ThPtqjvlGALOWQ1gZ4kBcJJ5nAOudRxjzBDR", "actor_name":
+        "Chicago Hot Dog", "actor_id": "Falafel", "created": "2023-09-19T12:34:37.596Z",
+        "modified": "Hoppin'' John", "message": "Roasted Chickpeas", "context": {"type":
+        "third_party_risk", "changes": []}}, {"id": "rm6HJbFkE0XuR2TlRPLLCG8ACvB9HBW0PLZqn4Ram",
+        "actor_name": "Pork Belly", "actor_id": "Potatoes O''Brien", "created": "2023-09-19T12:38:16.342Z",
+        "modified": "Ribs", "message": "Biscuit", "context": {"type": "third_party_risk",
+        "changes": []}}, {"id": "f9m0pC7QM86Jc3ThZMxJRW6WEZnUWxeLoDTYaC99c", "actor_name":
+        "Kung Pao Chicken", "actor_id": "Oysters Rockefel", "created": "2023-09-19T12:39:52.459Z",
+        "modified": "Eggs Neptune", "message": "Venison", "context": {"type": "third_party_risk",
+        "changes": []}}, {"id": "54BJn2LTQbnvKX0WZC6huxuKQsu3tZ6VWCREBVVPH", "actor_name":
+        "Chicken fried bacon", "actor_id": "Chili dog", "created": "2023-09-19T12:41:32.744Z",
+        "modified": "Moules Frites", "message": "Cheesecake", "context": {"type":
+        "third_party_risk", "changes": []}}, {"id": "nCJFbzgagZOmYb6niJwLn5orhlVLMGgmJYx7yEgr9",
+        "actor_name": "Empanada", "actor_id": "Massaman Curry", "created": "2023-09-19T15:58:43.097Z",
+        "modified": "Bacon Cheeseburger", "message": "French Dip", "context": {"type":
+        "third_party_risk", "changes": []}}, {"id": "150NQSfiQEceQsLjzjn4Lz8TQITKh9F4YHy6CqY5O",
+        "actor_name": "Currywurst", "actor_id": "Milk Steak", "created": "2023-09-19T19:36:05.408Z",
+        "modified": "Vegemite on Toast", "message": "Steak sandwich", "context": {"type":
+        "third_party_risk", "changes": []}}, {"id": "GPzCoAuxd96iZWIVI3MT61sFQciNH5o4KiVvkk7jw",
+        "actor_name": "Caviar", "actor_id": "Fortune cookie", "created": "2023-09-19T19:45:21.322Z",
+        "modified": "Beef Lo Mein", "message": "Buffalo wing", "context": {"type":
+        "third_party_risk", "changes": []}}, {"id": "M5zGRvxVRzSsAZquHJR6cA88CNUKpnEZZGBQkyjd1",
+        "actor_name": "French Onion Soup", "actor_id": "Ribs", "created": "2023-09-19T19:54:38.214Z",
+        "modified": "Roasted Chickpeas", "message": "Hoppin'' John", "context": {"type":
+        "third_party_risk", "changes": []}}, {"id": "eTJImPoG2FffU40CwqeEFjnxF5b9koSUWiHC86xkx",
+        "actor_name": "Potato Wedges", "actor_id": "Chicken Manchuri", "created":
+        "2023-09-19T19:58:28.692Z", "modified": "Satay", "message": "Vegemite on Toast",
+        "context": {"type": "third_party_risk", "changes": []}}, {"id": "zLVTTrT2zQ80V6EHkAqt0wvcxzdUEpUmvcj4i3xKV",
+        "actor_name": "Shish Kabob", "actor_id": "Beef Lo Mein", "created": "2023-09-19T20:01:45.511Z",
+        "modified": "Peanut butter", "message": "Blue cheese dressing", "context":
+        {"type": "third_party_risk", "changes": []}}, {"id": "iTfytzaax33QxEcmHhg0FDiU2hDZQp6xTlQAxP3cg",
+        "actor_name": "Chili dog", "actor_id": "Coleslaw", "created": "2023-09-19T20:09:29.597Z",
+        "modified": "Churrasco", "message": "Haystack", "context": {"type": "third_party_risk",
+        "changes": []}}, {"id": "L2xrXGNLM1RkrwR02RHDGkeAKg11nHVjFRJfFP7Yt", "actor_name":
+        "Sweetbreads", "actor_id": "Piroshky", "created": "2023-09-19T20:18:27.030Z",
+        "modified": "American fried rice", "message": "Spaghetti and Meatballs", "context":
+        {"type": "third_party_risk", "changes": []}}], "panel_log_v2": [{"id": "idtSZXDlewRaaWXZzKMrgM2Y90fS2U1voZtwd9rQx",
+        "created": "2023-09-12T19:16:32.129Z", "changes": [{"risk_attribute": "St.
+        Paul Sandwich", "assessment_name": "Deep Fried O", "added": {"level": 3, "evidence_string":
+        "Flan", "timestamp": "2023-09-12T19:15:25.731Z"}, "type": "assessment_change"}]},
+        {"id": "mEySDhQoE3GHHj0UJVExZ7rwJuX60mgNRKaxNMwWq", "created": "2023-09-13T08:53:05.932Z",
+        "changes": [{"risk_attribute": "Meatcake", "assessment_name": "Cheese stuff",
+        "removed": {"level": 3, "evidence_string": "Churrasco", "timestamp": "2023-09-13T08:42:20.226Z"},
+        "added": {"level": 3, "evidence_string": "Chicago Hot Dog", "timestamp": "2023-09-13T08:42:20.226Z"},
+        "type": "assessment_change"}]}, {"id": "BeMFrfwqoIPFJGHZOkH7vH437ulLpvLNMhHJ9lHvg",
+        "created": "2023-09-13T18:17:14.774Z", "changes": [{"risk_attribute": "Cornish
+        game hen", "assessment_name": "Juba", "added": {"level": 3, "evidence_string":
+        "Coleslaw", "timestamp": "2023-09-13T18:10:58.036Z"}, "type": "assessment_change"}]},
+        {"id": "CVxzOIK4T05GqKVVsISf0F425rCDIDbgcB7Lhc2PK", "created": "2023-09-13T18:18:24.429Z",
+        "changes": [{"risk_attribute": "Smelt", "assessment_name": "Risotto", "removed":
+        {"level": 3, "evidence_string": "Cordon bleu", "timestamp": "2023-09-13T18:15:10.660Z"},
+        "type": "assessment_change"}]}, {"id": "uAFYzFNVuYz2CCfYiEwX3ICA0pZTPGhGeIjnm2fFP",
+        "created": "2023-09-13T18:19:10.922Z", "changes": [{"risk_attribute": "Oreo",
+        "assessment_name": "Bookbinder Soup", "added": {"level": 3, "evidence_string":
+        "Ratatouille", "timestamp": "2023-09-13T18:17:06.553Z"}, "type": "assessment_change"}]},
+        {"id": "B0v0geB2upalTBmlkIFDzGFeMAm8yaJMX21wuC5V1", "created": "2023-09-14T07:58:47.065Z",
+        "changes": [{"risk_attribute": "Quesadilla", "assessment_name": "Jalapeno
+        Pop", "removed": {"level": 3, "evidence_string": "Funnel Cake", "timestamp":
+        "2023-09-14T07:57:25.651Z"}, "type": "assessment_change"}]}, {"id": "UfGk8Qqz8UGt5EzEsOSWFHdv7ZaAniYypZcSwbqTa",
+        "author_id": "Schnitzel", "author_name": "Clam chowder", "created": "2023-09-18T19:39:46.768Z",
+        "changes": [{"old": "Naa", "new": "Sauteed Mo", "actions_taken": [], "type":
+        "status_change"}, {"comment": "Blue-plate special", "type": "comment_change"}]},
+        {"id": "jO9XAo8bq8wLh5MzKU4sqw9PWrqjFmjReiiRAckCn", "author_id": "Salted caramel
+        c", "author_name": "Liver and onions", "created": "2023-09-18T19:45:59.751Z",
+        "changes": [{"comment": "Spaghetti and Meatballs", "type": "comment_change"}]},
+        {"id": "4ZiO9ZF4EvtU5erWmHmnlvKTntZaSUoMxj1nF6FlG", "author_id": "Chicken
+        sandwich", "author_name": "BBQ Chicken Pizza", "created": "2023-09-19T12:34:37.596Z",
+        "changes": [{"comment": "Domesticated turkey", "type": "comment_change"}]},
+        {"id": "NAaxh74TKAZrUiEstVRpDvQ8Q1H9AcXnExLFpFAAQ", "author_id": "Shrimp and
+        Grits", "author_name": "Dirty rice", "created": "2023-09-19T12:38:16.342Z",
+        "changes": [{"comment": "Toaster Strudel", "type": "comment_change"}]}, {"id":
+        "HEJFF7yq8joPdnLZ1AVmNwXw4ELGOzYkfzVEBkV6r", "author_id": "Chicken fingers",
+        "author_name": "Philly Cheese Steak", "created": "2023-09-19T12:39:52.459Z",
+        "changes": [{"comment": "Russian dressing", "type": "comment_change"}]}, {"id":
+        "s2sL9ZkBVxNOlZFU9aMGq4Vmb2w5LhQ04k3TSMOIT", "author_id": "Tetrazzini", "author_name":
+        "Russian dressing", "created": "2023-09-19T12:41:32.744Z", "changes": [{"comment":
+        "Ratatouille", "type": "comment_change"}]}, {"id": "1QwRH5WCFwZgp0mipLmUxtX1KwRZX4BN1Lp31Pk7f",
+        "author_id": "Prawn Pizza", "author_name": "Macaroni and Cheese", "created":
+        "2023-09-19T15:58:43.097Z", "changes": [{"comment": "Waffle", "type": "comment_change"}]},
+        {"id": "ljaAamifSCn2VxKRwt3fr9C6sI7wqjNw5zrN0EuUD", "author_id": "Meat Feast
+        Pizza", "author_name": "Fried chicken", "created": "2023-09-19T19:36:05.408Z",
+        "changes": [{"comment": "Chicken Divan", "type": "comment_change"}]}, {"id":
+        "aACBrZDzRzGqRE51be1IDSCjWzFmOXh7AtSuZPfl9", "author_id": "Schnitzel", "author_name":
+        "Cheese balls", "created": "2023-09-19T19:45:21.322Z", "changes": [{"comment":
+        "Spaghetti Bolognese", "type": "comment_change"}]}, {"id": "mRpHCcl74oqL20wHZnalPM1aOLWXIA2BEqbYLWE5E",
+        "author_id": "Spaghetti Bologn", "author_name": "Thousand Island dressin",
+        "created": "2023-09-19T19:54:38.214Z", "changes": [{"comment": "Falafel",
+        "type": "comment_change"}]}, {"id": "JpX8bODkywQ455YR3LLsOVn0oKV25qIKmCAjoqGQB",
+        "author_id": "Huevos Rancheros", "author_name": "Scampi", "created": "2023-09-19T19:58:28.692Z",
+        "changes": [{"comment": "Pizza strips", "type": "comment_change"}]}, {"id":
+        "KbGIhf5wnLieOBw6st1NDmCZ4gcPfiKo9rO0hbsGm", "author_id": "Steak sandwich",
+        "author_name": "Potato salad", "created": "2023-09-19T20:01:45.511Z", "changes":
+        [{"comment": "Squab", "type": "comment_change"}]}, {"id": "CFtyaXIWY34KOUoDODWm7ApIHuLKxJar7OLgAN2w9",
+        "author_id": "Cheese dog", "author_name": "Elote", "created": "2023-09-19T20:09:29.597Z",
+        "changes": [{"comment": "Lasagna", "type": "comment_change"}]}, {"id": "sNX2A3pI8HpY5BhI1TTonXNvCxhlWbEf1ly5Q0XA5",
+        "author_id": "Chimichanga", "author_name": "Eggs Benedict", "created": "2023-09-19T20:18:27.030Z",
+        "changes": [{"comment": "Steak sandwich", "type": "comment_change"}]}]}}'
+    headers:
+      CF-RAY:
+      - 9dbbc9831b75cd7d-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Mar 2026 14:39:17 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

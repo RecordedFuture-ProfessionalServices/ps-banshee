@@ -1,0 +1,73 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/?triggered=%5B2025-09-15%2C+2025-09-16%5D&statusInPortal=Pending&fields=title%2Clog%2Creview%2Cowner_organisation_details%2Crule%2Cid&limit=50
+  response:
+    body:
+      string: '{"data": [{"review": {"note": null, "status_in_portal": "Pending",
+        "assignee": "I don''t even care.", "status": "pending"}, "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Any element of a", "organisation_name":
+        "They are written as strings of co"}], "enterprise_id": "Its main impleme",
+        "enterprise_name": "Ports are used to communicate wit"}, "rule": {"use_case_deprecation":
+        null, "name": "Chicken sandwich", "id": "mf0rAa", "url": {"portal": "https://sisters.mil/"}},
+        "id": "-NuONS", "title": "In 1989 the building was heavily damaged by ", "log":
+        {"note_author": null, "note_date": null, "status_date": "2026-02-21T17:36:57.781Z",
+        "triggered": "2025-09-15T14:20:55.718Z", "status_change_by": "Ports are used
+        to communicate with the exte"}}], "counts": {"returned": 1, "total": 1}}'
+    headers:
+      CF-RAY:
+      - 9cd37ca8ee0963e0-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:01:52 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01x3ykqzokppn51cd7lws06l0pw5403583.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

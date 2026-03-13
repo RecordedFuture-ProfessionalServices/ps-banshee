@@ -1,0 +1,296 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/1b6uQY?fields=title%2Clog%2Creview%2Crule%2Cid
+  response:
+    body:
+      string: '{"data": {"review": {"note": "The Galactic Empire is nearing completion
+        of the Death Star, a space station with the power ", "status_in_portal": "Pending",
+        "assignee": "He looked inquisitively at his keyboard and", "status": "pending"},
+        "rule": {"use_case_deprecation": null, "name": "Baba Ghanoush", "id": "o7x4o3",
+        "url": {"portal": "https://zshops.museum.post/"}}, "id": "1b6uQY", "title":
+        "They are written as strings of consecu", "log": {"note_author": "Ports are
+        used to communicate with the external world.", "note_date": "2026-07-28T21:45:12.530Z",
+        "status_date": "2026-12-12T04:37:21.824Z", "triggered": "2024-12-10T04:03:03.588Z",
+        "status_change_by": "Where are my pants?"}}}'
+    headers:
+      CF-RAY:
+      - 9cd37cda7c34bea6-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:02:00 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0lqtnxqr3yjbclhsnxd52uqpc5392237.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/xr8cqL?fields=title%2Clog%2Creview%2Crule%2Cid
+  response:
+    body:
+      string: '{"data": {"review": {"note": "Its main implementation is the Glasgow
+        Haskell Compiler.", "status_in_portal": "Pending", "assignee": "Make me a
+        sandwich.", "status": "pending"}, "rule": {"use_case_deprecation": null, "name":
+        "Hokkien fried rice", "id": "mf0rAX", "url": {"portal": "https://blog.ltd/"}},
+        "id": "xr8cqL", "title": "Do you have any idea why this is no", "log": {"note_author":
+        "Haskell is a standardized, general-purpose purely functional pr", "note_date":
+        "2026-05-20T09:19:46.974Z", "status_date": "2026-02-13T13:32:10.102Z", "triggered":
+        "2024-08-12T06:06:24.301Z", "status_change_by": "They are written as strings
+        of consecutive alphanumeric charact"}}}'
+    headers:
+      CF-RAY:
+      - 9cd37cdbfbff9880-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:02:01 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01a6fxstx1q8sn1stpxg87rhphg5392239.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/1ct-k8?fields=title%2Clog%2Creview%2Crule%2Cid
+  response:
+    body:
+      string: '{"data": {"review": {"note": "Type classes first appeared in the Haskell
+        programming language.", "status_in_portal": "Pending", "assignee": "The arguments
+        can be primitive data types o", "status": "pending"}, "rule": {"use_case_deprecation":
+        null, "name": "Slinger", "id": "mohGF-", "url": {"portal": "https://itunes.int/"}},
+        "id": "1ct-k8", "title": "Ports are created with the built-in function open_port.",
+        "log": {"note_author": "Tuples are containers for a fixed number of Erlang
+        data types.", "note_date": "2026-12-30T23:28:14.594Z", "status_date": "2026-05-03T03:17:39.304Z",
+        "triggered": "2024-12-10T13:04:24.785Z", "status_change_by": "He looked inquisitively
+        at his keyboard and wrote another sente"}}}'
+    headers:
+      CF-RAY:
+      - 9cd37cdd495426a4-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:02:01 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0z5v7iq7n9o91xiu8h1e5o4dk5402497.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '[{"id": "1b6uQY", "statusInPortal": "Pending", "note": "None. Test note.
+      Test note. Test note. Test note. Test note. Test note. Test note. Test note.
+      Test note", "assignee": "ernest.bartosevic+psdevm@recordedfuture.com"}, {"id":
+      "xr8cqL", "statusInPortal": "Pending", "note": "None. Test note. Test note.
+      Test note. Test note. Test note. Test note. Test note. Test note. Test note",
+      "assignee": "ernest.bartosevic+psdevm@recordedfuture.com"}, {"id": "1ct-k8",
+      "statusInPortal": "Pending", "note": "None. Test note. Test note. Test note.
+      Test note. Test note. Test note. Test note. Test note", "assignee": "ernest.bartosevic+psdevm@recordedfuture.com"}]'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '652'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/v2/alert/update
+  response:
+    body:
+      string: '{"success": [{"id": "1b6uQY", "status": "pending", "statusInPortal":
+        "Atoms a", "assignee": "Its main i", "note": {"text": "The syntax {D1,D2,...,Dn}
+        denotes a tuple whose arguments are D1, D2, ... Dn. Do you come here often?
+        T", "author": "Erlang is ", "date": "2026-10-25T20:15:25.540Z"}, "statusDate":
+        "2026-11-19T23:23:07.709Z", "statusChangeBy": "He looked "}, {"id": "xr8cqL",
+        "status": "pending", "statusInPortal": "Type cl", "assignee": "Ports are ",
+        "note": {"text": "Ports are created with the built-in function open_port.
+        Ports are created with the built-in function op", "author": "Do you hav",
+        "date": "2026-04-08T10:01:21.828Z"}, "statusDate": "2026-08-05T05:18:28.233Z",
+        "statusChangeBy": "Haskell is"}, {"id": "1ct-k8", "status": "pending", "statusInPortal":
+        "Where a", "assignee": "Make me a ", "note": {"text": "Make me a sandwich.
+        Atoms are used within a program to denote distinguished values. Initiall",
+        "author": "Its main i", "date": "2026-09-01T17:05:02.412Z"}, "statusDate":
+        "2026-03-13T13:43:32.756Z", "statusChangeBy": "Do you com"}], "error": []}'
+    headers:
+      CF-RAY:
+      - 9cd37cded99263c7-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:02:03 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01o8vih3omtmss1j5yz7jot6jpr5403781.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

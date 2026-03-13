@@ -1,0 +1,97 @@
+Microsoft,Company
+Amazon Web Services,Company
+Google,Company
+Google Cloud,Company
+Oracle,Company
+IBM,Company
+Cisco,Company
+Cloudflare,Company
+Akamai Technologies,Company
+Fastly,Company
+CrowdStrike,Company
+Palo Alto Networks,Company
+Fortinet,Company
+Check Point Software Technologies,Company
+Zscaler,Company
+Okta,Company
+Duo Security,Company
+Ping Identity,Company
+Salesforce,Company
+GitHub,Company
+GitLab,Company
+Atlassian,Company
+Datadog,Company
+Splunk,Company
+Elastic,Company
+ServiceNow,Company
+Snowflake,Company
+Workday,Company
+SAP,Company
+Adobe,Company
+Slack,Company
+Zoom Video Communications,Company
+Dropbox,Company
+Box,Company
+Tanium,Company
+SentinelOne,Company
+Trellix,Company
+Sophos,Company
+Trend Micro,Company
+Rapid7,Company
+Tenable,Company
+Qualys,Company
+Netskope,Company
+Cohesity,Company
+Rubrik,Company
+Veeam Software,Company
+VMware,Company
+Red Hat,Company
+F5 Networks,Company
+Arista Networks,Company
+Juniper Networks,Company
+Equinix,Company
+DigitalOcean,Company
+Linode,Company
+Heroku,Company
+Stripe,Company
+PayPal,Company
+Adyen,Company
+Square,Company
+Plaid,Company
+Visa,Company
+Mastercard,Company
+SWIFT,Company
+Fiserv,Company
+FIS Global,Company
+NCR Corporation,Company
+Bloomberg,Company
+Thomson Reuters,Company
+Experian,Company
+Equifax,Company
+TransUnion,Company
+Verizon,Company
+AT&T,Company
+T-Mobile,Company
+Comcast Business,Company
+BT Group,Company
+Orange Business Services,Company
+Vodafone,Company
+Kaspersky Lab,Company
+Bitdefender,Company
+ESET,Company
+KnowBe4,Company
+Proofpoint,Company
+Mimecast,Company
+Iron Mountain,Company
+Dell Technologies,Company
+Hewlett Packard Enterprise,Company
+Lenovo,Company
+Canonical,Company
+SUSE,Company
+Intuit,Company
+HubSpot,Company
+Mailchimp,Company
+SendGrid,Company
+Twilio,Company
+Auth0,Company
+Has,Company

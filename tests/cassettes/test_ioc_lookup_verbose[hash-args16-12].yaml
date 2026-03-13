@@ -1,0 +1,126 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/fa54c4e34732b611921820be56dd690a4de98285828e4be487b904679a855a92?fields=fileHashes%2CenterpriseLists%2CanalystNotes%2CintelCard%2CriskMapping%2Centity%2Ctimestamps%2Clinks%2Crisk%2ChashAlgorithm%2CthreatLists%2Csightings
+  response:
+    body:
+      string: '{"data": {"enterpriseLists": [], "sightings": [{"source": "Sloppy j",
+        "url": "https://charity.sz/", "published": "2019-08-04T22:17:30.000Z", "fragment":
+        "Bulgogi", "title": "They are writ", "type": "recentPaste"}, {"source": "Sushi",
+        "url": "https://funded.hotel/", "published": "2022-05-19T14:40:08.210Z", "fragment":
+        "Creamed eggs on toast", "title": "Erlang is known for its designs that are
+        well suited for systems.", "type": "mostRecent"}, {"source": "Mashed potato",
+        "url": "Macaroni salad", "published": "2019-02-13T00:00:00.000Z", "fragment":
+        "Tamales", "title": "Its main implementation is the Gla", "type": "first"},
+        {"source": "Potato wedges", "url": "https://establish.boston/", "published":
+        "2019-02-13T12:28:42.000Z", "fragment": "Chicken \u00e0 la King", "title":
+        "He looked inquisitively at his keyboard and wrote another sentence.", "type":
+        "recentInfoSec"}], "riskMapping": [{"rule": "Jalapeno Poppers", "categories":
+        [{"framework": "Pork ", "name": "Massam"}]}, {"rule": "Meatcake", "categories":
+        [{"framework": "Chile", "name": "Fish T"}]}], "entity": {"id": "hash:c5c2453386afa82b822b2d2f8cff2bfa85380bf6133d0f4f9e717308b8ec35e3",
+        "name": "813fcb3c808de6e06c890839848ecab1e2bdcaccf7bbf6f24b3174ed7b1d2aad",
+        "type": "Hash"}, "analystNotes": [{"external_id": "Flan", "attributes": {"published":
+        "2025-10-08T22:22:14.531Z", "text": "The sequential subset of Erlang supports
+        eager evaluation, single assignment, and dynamic typing. Where are my pants?
+        They are written as strings of consecutive alphanumeric characters, the first
+        character being lowercase. The Galactic Empi", "authors": [{"id": "9cwGnR5WcY0cwYav",
+        "name": "Glorified rice", "type": "IntegrationUser"}], "title": "Haskell is
+        a stand", "context_entities": [{"id": "FCAWY90tVO08WKzR1uN7FpwXd2eThPZ", "name":
+        "Baked potato", "type": "EmailAddress"}, {"id": "url:https://wayne.finance/",
+        "name": "https://baseline.tui/", "type": "URL"}, {"id": "5BaTR4", "name":
+        "Gazpacho", "type": "Company"}, {"id": "idn:owned.ng", "name": "estates.tokyo",
+        "type": "InternetDomainName"}, {"id": "ip:5.46.87.105", "name": "3.240.223.253",
+        "type": "IpAddress"}, {"id": "hash:6966be1a0b0238a4bfa1c12178c07e901220c536412fa43d607f8bff288803d4",
+        "name": "751dd68eaf020e4463a6d2a006f06eb2e68eb62ae5d3a1034104f949fbfd6737",
+        "type": "Hash"}]}, "source": {"id": "erTSQmGwYz2ot", "name": "Bull roast",
+        "type": "Source"}, "id": "_AI5Iq"}, {"external_id": "Crab R", "attributes":
+        {"published": "2025-10-08T22:20:09.143Z", "text": "Ports are created with
+        the built-in function open_port. The syntax {D1,D2,...,Dn} denotes a tuple
+        whose arguments are D1, D2, ... Dn. The syntax {D1,D2,...,Dn} denotes a tuple
+        whose arguments are D1, D2, ... Dn. Do you come here often? In", "authors":
+        [{"id": "ZcY5GtnJhUK91Hqj", "name": "Abalone", "type": "IntegrationUser"}],
+        "title": "In 1989 the buildi", "context_entities": [{"id": "KtaukP78xV6Swm9ybMh3RdX8PjL125v",
+        "name": "Home fries", "type": "EmailAddress"}, {"id": "url:https://glenn.aero/",
+        "name": "https://glass.edu/", "type": "URL"}, {"id": "5BaTR4", "name": "Bull
+        roas", "type": "Company"}, {"id": "idn:excessive.tokyo", "name": "falls.museum.post",
+        "type": "InternetDomainName"}, {"id": "ip:110.250.218.163", "name": "26.71.137.228",
+        "type": "IpAddress"}, {"id": "hash:c0259952194d58a508c081dbeb4e69a9ff70cb2b0ccc31288c3ac3240edd78db",
+        "name": "92bab925e69716288e706328fdc6fa32eec1e1abc6773aa3b46a304fdcbbd008",
+        "type": "Hash"}]}, "source": {"id": "4wFGq7bSeuui1", "name": "Tetrazzini",
+        "type": "Source"}, "id": "_AI5Io"}, {"external_id": "Buffal", "attributes":
+        {"published": "2025-04-30T17:08:02.778Z", "text": "The Galac", "authors":
+        [{"id": "JidifN9wInbr7Ltc", "name": "Gyros", "type": "User"}], "title": "I
+        don''t even ", "note_entities": [{"id": "hash:93bfc362b52b106c17da178ee2b9eae0617bd60878322236d23db7b6e81f125f",
+        "name": "8a0af86bf5991d1aaaa654acbc8355d5a66789a69b53a8039b52535fc3bdb924",
+        "type": "Hash"}]}, "source": {"id": "E7YGbSeqb2KQh", "name": "Chicago Deep
+        Dish Pizza", "type": "Source"}, "id": "5p-v41"}], "hashAlgorithm": "SHA-256",
+        "timestamps": {"lastSeen": "2025-01-02T18:50:02.882Z", "firstSeen": "2019-02-13T12:41:06.966Z"},
+        "threatLists": [], "risk": {"criticalityLabel": "Deviled c", "riskString":
+        "Ribs", "rules": 2, "criticality": 3, "riskSummary": "Lasagna", "score": 80,
+        "evidenceDetails": [{"mitigationString": "", "evidenceString": "Russian tea
+        cake", "rule": "Bear claw", "criticality": 2, "timestamp": "2025-12-14T04:19:59.157Z",
+        "criticalityLabel": "Falafel"}, {"mitigationString": "", "evidenceString":
+        "Pickled Okra", "rule": "Hangtown fry", "criticality": 3, "timestamp": "2019-02-13T12:28:42.000Z",
+        "criticalityLabel": "Poutine"}]}, "fileHashes": ["0671e434c6655445b16fb0b0de580d5aceca22571b58ed407ab66e30e310a434",
+        "0e680c8b20bf79a83788b947de3f1367fc114f7fa86d86d0c9accb1bbe2e760a", "772c0e51be1b2590e715247b019f0c479c500d54d01aa4b3988550b1f8451e98",
+        "0ee96579db708f62d8f3df5b67bd62e155359adc7544f69bac73191e239e1f91"], "intelCard":
+        "https://killed.tel/", "links": {"hits": [], "method_aggregates": [{"count":
+        0, "type": "hHQyM6"}, {"count": 0, "type": "hHQyM7"}, {"count": 0, "type":
+        "gTB8y2"}], "counts": []}}}'
+    headers:
+      CF-RAY:
+      - 9cee13e8ae5a6418-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 15:28:58 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01jvsr2fbgeufetwsoypapwmuv3755814.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

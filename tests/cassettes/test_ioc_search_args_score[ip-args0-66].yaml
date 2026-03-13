@@ -1,0 +1,76 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/ip/search?limit=1&riskScore=%5B66%2C66%5D&fields=entity%2Crisk%2Ctimestamps
+  response:
+    body:
+      string: '{"data": {"results": [{"timestamps": {"lastSeen": "2026-08-18T05:03:17.452Z",
+        "firstSeen": "2026-03-26T15:28:49.040Z"}, "risk": {"criticalityLabel": "Its
+        main ", "riskString": "I do", "rules": 2, "criticality": 3, "riskSummary":
+        "Type classes first appeared in the Has", "score": 66, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Haskell is a standardized, general-purpose
+        purely functional programming language, with non-strict semantics and st",
+        "rule": "They are written as strings of consecutive alphan", "criticality":
+        1, "timestamp": "2026-10-12T06:00:13.472Z", "criticalityLabel": "Atoms a"},
+        {"mitigationString": "", "evidenceString": "Any element of a tuple can be
+        accessed in constant time.", "rule": "Messages can be sent to and receiv",
+        "criticality": 3, "timestamp": "2026-05-24T18:36:49.926Z", "criticalityLabel":
+        "Tuples ar"}]}, "entity": {"id": "ip:50.71.122.235", "name": "Sour cream",
+        "type": "IpAddress"}}]}, "counts": {"returned": 1, "total": 7648}}'
+    headers:
+      CF-RAY:
+      - 9cd380d28c3488ad-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:04:43 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node018np8rvj6nlgn1jt1ynn9h2v2r2016997.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

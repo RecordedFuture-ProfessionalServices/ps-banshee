@@ -1,0 +1,489 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/domain/digitalcollege.org?fields=riskMapping%2CintelCard%2Crisk%2Csightings%2Ctimestamps%2CthreatLists%2CanalystNotes%2Clinks%2CenterpriseLists%2Centity
+  response:
+    body:
+      string: '{"data": {"analystNotes": [{"external_id": "Soft S", "attributes":
+        {"published": "2025-10-08T22:22:14.531Z", "text": "Ports are used to communicate
+        with the external world. They are written as strings of consecutive alphanumeric
+        characters, the first character being lowercase. She spent her earliest years
+        reading classic literature, and writing poetry. Do ", "authors": [{"id": "AREsn3t317S4UFma",
+        "name": "Fries", "type": "IntegrationUser"}], "title": "Do you come here o",
+        "context_entities": [{"id": "3mXkRfQ3WlVOcsfXZhTahTM3zSGf87F", "name": "Salted
+        caramel cookie", "type": "EmailAddress"}, {"id": "url:https://fur.com/", "name":
+        "https://sigma.builders/", "type": "URL"}, {"id": "5BaTR4", "name": "French
+        On", "type": "Company"}, {"id": "idn:vids.lc", "name": "modem.org", "type":
+        "InternetDomainName"}, {"id": "ip:4.65.221.220", "name": "5.43.140.119", "type":
+        "IpAddress"}, {"id": "hash:cd77c999b1692640b34855e464937b5f4ec053ccfde8e15a3fd7cde86c4c1ed5",
+        "name": "d53d566f7c361a6d16b530c76e88b0625b284fa4a103b87b0b80669df032f682",
+        "type": "Hash"}]}, "source": {"id": "esXeFOcvBgzcV", "name": "Scampi", "type":
+        "Source"}, "id": "_AI5Iq"}, {"external_id": "Cheese", "attributes": {"published":
+        "2025-10-08T22:20:09.143Z", "text": "Ports are created with the built-in function
+        open_port. Where are my pants? Messages can be sent to and received from ports,
+        but these messages must obey the so-called \"port protocol.\" Ports are used
+        to communicate with the external world", "authors": [{"id": "CaAnnfsT2Fua97h7",
+        "name": "Quesadilla", "type": "IntegrationUser"}], "title": "The sequential
+        sub", "context_entities": [{"id": "Qtl441Rn1ulRkWFPpmd3KOn0BlQGa2t", "name":
+        "Brisket", "type": "EmailAddress"}, {"id": "url:https://niger.name/", "name":
+        "https://ellis.case/", "type": "URL"}, {"id": "5BaTR4", "name": "Turkish D",
+        "type": "Company"}, {"id": "idn:dame.cool", "name": "establishing.bi", "type":
+        "InternetDomainName"}, {"id": "ip:126.95.77.66", "name": "47.172.3.109", "type":
+        "IpAddress"}, {"id": "hash:469c6e8c08cf0b03d7fa48b90573857d640d80460384319c20c6643abdd5f7c7",
+        "name": "5de8cf44e63a15dbfc89ac688c8b219a4b98face9ba0230b2f04615c21ac2e11",
+        "type": "Hash"}]}, "source": {"id": "jgr5LO0MpgBpl", "name": "Barbecue", "type":
+        "Source"}, "id": "_AI5Io"}, {"attributes": {"validated_on": "2020-12-18T05:01:44.437Z",
+        "published": "2020-12-18T05:01:44.437Z", "text": "Where are my pants? Atoms
+        are used within a program to denote distinguished values. Messages can be
+        sent to and received from ports, but these messages must obey the so-called
+        \"port protocol.\" Haskell features a type system with type inference and
+        lazy evaluation. They are written as strings of consecutive alphanumeric characters,
+        the first character being lowercase.", "topic": {"id": "TXSFt0", "name": "Patty",
+        "type": "Topic", "description": "Baba Ghanoush"}, "context_entities": [{"id":
+        "LScuD", "name": "Maraca pie", "type": "Company"}, {"id": "LPc838", "name":
+        "Potato Wed", "type": "AttackVector"}, {"id": "CtkwWu", "name": "Deep Fried
+        Oreos", "type": "Technology"}, {"id": "Tt9BLf", "name": "Corned beef", "type":
+        "Organization"}, {"id": "CEXAi", "name": "Waffle", "type": "Product"}, {"id":
+        "CTYAbt", "name": "Gumbo", "type": "Product"}, {"id": "JFWqep", "name": "Onion
+        ring", "type": "Product"}, {"id": "idn:china.islam", "name": "sells.biz",
+        "type": "InternetDomainName"}, {"id": "oZ1m7", "name": "Cobb Salad", "type":
+        "Country"}], "validation_urls": [{"id": "url:https://animal.museum.post/",
+        "name": "https://preferences.travel/", "type": "URL"}, {"id": "url:https://ada.guru/",
+        "name": "https://stamps.mobi/", "type": "URL"}], "title": "Atoms can contain
+        any character if they are enclosed within single quotes and an escape convention
+        exists which allows a", "note_entities": [{"id": "ip:234.150.181.220", "name":
+        "43.254.69.171", "type": "IpAddress"}, {"id": "ip:113.12.69.205", "name":
+        "84.22.81.36", "type": "IpAddress"}, {"id": "ip:64.208.245.68", "name": "58.68.30.255",
+        "type": "IpAddress"}, {"id": "idn:recorders.quebec", "name": "medal.name",
+        "type": "InternetDomainName"}, {"id": "ip:213.220.27.251", "name": "216.193.69.22",
+        "type": "IpAddress"}, {"id": "ip:242.232.208.194", "name": "5.22.14.56", "type":
+        "IpAddress"}, {"id": "ip:128.48.62.248", "name": "48.248.103.62", "type":
+        "IpAddress"}, {"id": "ip:108.192.119.14", "name": "194.187.190.42", "type":
+        "IpAddress"}, {"id": "ip:70.45.167.196", "name": "119.208.178.48", "type":
+        "IpAddress"}, {"id": "ip:52.109.186.92", "name": "143.92.24.178", "type":
+        "IpAddress"}, {"id": "idn:event.sm", "name": "speakers.dot", "type": "InternetDomainName"},
+        {"id": "idn:sphere.rent", "name": "reveals.scot", "type": "InternetDomainName"},
+        {"id": "idn:shaft.id", "name": "weight.ma", "type": "InternetDomainName"},
+        {"id": "hash:27b6f5da7d0c1493f9b8927dfda3a98cd9d47feb2383203686ccf44a3c7a9621",
+        "name": "03dbe0f45a5b1931df3aa2556f515e2fb71820838303885d57261f72839e2b29",
+        "type": "Hash"}, {"id": "ip:158.58.176.116", "name": "56.176.45.231", "type":
+        "IpAddress"}, {"id": "ip:89.125.201.23", "name": "219.237.124.170", "type":
+        "IpAddress"}, {"id": "ip:105.55.133.108", "name": "90.68.248.171", "type":
+        "IpAddress"}, {"id": "hash:c4944fc6cb26e430d61f720d73c38f7ac7217320b4cfad3cf2f2128e05bb8151",
+        "name": "fdd0908f887463faee5cc8fa5a50cfa988fcff851897f64079453740233c595c",
+        "type": "Hash"}, {"id": "ip:198.7.109.33", "name": "12.242.89.111", "type":
+        "IpAddress"}, {"id": "ip:61.18.7.174", "name": "116.217.165.7", "type": "IpAddress"},
+        {"id": "ip:129.255.252.111", "name": "219.57.213.14", "type": "IpAddress"},
+        {"id": "ip:154.236.162.77", "name": "209.202.80.193", "type": "IpAddress"},
+        {"id": "ip:97.187.70.29", "name": "234.183.254.160", "type": "IpAddress"},
+        {"id": "hash:b4d3423b53d2701b18068ee0230f864b9085ba297275ed43e7c405542a72e6e1",
+        "name": "185fdc1be2d1bc37f24e5f234626c30a765c24bc637a9312baf26f472e9cd73c",
+        "type": "Hash"}, {"id": "ip:249.10.130.124", "name": "21.185.237.247", "type":
+        "IpAddress"}, {"id": "ip:115.253.215.31", "name": "23.220.211.67", "type":
+        "IpAddress"}, {"id": "hash:6711b8fb3b2027c8fb9c47001fbe55f6dcfcf1bfa5d8fff8016ada6971d6e04b",
+        "name": "88e29e2277290dc542f2f9efa837d99eb02770de19797e09b8fd7d964e98208b",
+        "type": "Hash"}, {"id": "hash:7360cfa17db20cd172db72bca33cba89533502d23eede99db145b47dedde9f45",
+        "name": "37bb933d072bc72be2c832bbf44de55a1ec3afa009fc7e2a1658ca39e8aa0e53",
+        "type": "Hash"}, {"id": "ip:213.19.95.207", "name": "247.110.145.188", "type":
+        "IpAddress"}, {"id": "ip:174.144.223.44", "name": "208.90.42.61", "type":
+        "IpAddress"}, {"id": "ip:184.176.247.238", "name": "229.26.226.112", "type":
+        "IpAddress"}, {"id": "hash:b511e501f402a2a7269582983ff696269dd953130c93dd310c1819d62859244f",
+        "name": "535d3dafdbd030796dcd6a6678ce9570df8f242a293bc1ece8c999fce0c58905",
+        "type": "Hash"}, {"id": "hash:65c8bc4dc15f8aa6a786ee52bd1b41e600d55d32c635ea83129efaedd942e4b0",
+        "name": "cd721d2883eb631925b8cfa8f88bd131c3be2328c75cad2aceb545ea30eb98e3",
+        "type": "Hash"}, {"id": "ip:3.196.148.179", "name": "170.229.94.192", "type":
+        "IpAddress"}, {"id": "hash:3301bc5b88f4a7237757e2338f87b32923437fc8e54b2253760821678b98da63",
+        "name": "0ad6822895baf7ffd81f79a6551e41870496edb4056fde72418694c2f21f356b",
+        "type": "Hash"}, {"id": "ip:17.0.8.202", "name": "59.54.43.79", "type": "IpAddress"},
+        {"id": "ip:76.119.208.195", "name": "253.212.63.192", "type": "IpAddress"},
+        {"id": "ip:179.217.89.248", "name": "90.251.7.186", "type": "IpAddress"},
+        {"id": "ip:114.217.228.70", "name": "198.123.242.181", "type": "IpAddress"},
+        {"id": "idn:deemed.tokyo", "name": "stand.ug", "type": "InternetDomainName"},
+        {"id": "ip:27.199.46.225", "name": "192.113.105.193", "type": "IpAddress"},
+        {"id": "idn:font.com", "name": "skirts.tata", "type": "InternetDomainName"},
+        {"id": "idn:sublime.biz", "name": "adapter.hangout", "type": "InternetDomainName"},
+        {"id": "ip:33.138.186.151", "name": "230.8.52.64", "type": "IpAddress"}, {"id":
+        "ip:192.192.224.208", "name": "127.40.241.129", "type": "IpAddress"}, {"id":
+        "ip:39.75.27.204", "name": "53.200.214.204", "type": "IpAddress"}, {"id":
+        "hash:1937c639ec02b41bdab6b4dfd0b6f7c6f84ee09503b8472874b132569f54a615", "name":
+        "ea32886b32bd0473e5b96311628d15d9015ec62977b3868f165af79c52c3b42c", "type":
+        "Hash"}, {"id": "ip:196.249.93.158", "name": "206.165.207.199", "type": "IpAddress"},
+        {"id": "ip:30.185.41.72", "name": "27.79.72.8", "type": "IpAddress"}, {"id":
+        "ip:222.157.21.55", "name": "154.92.13.99", "type": "IpAddress"}, {"id": "ip:90.61.74.249",
+        "name": "254.12.132.38", "type": "IpAddress"}, {"id": "ip:184.77.212.56",
+        "name": "11.75.62.112", "type": "IpAddress"}, {"id": "hash:c5bb52537370bff9a27b5c12f5f0afc9b985786e4201467daa3d630c0ddb7119",
+        "name": "1d20deb9416cd151a9cea02797c662a90add5ec54acc5ec0f805e5e6ff7d0a3f",
+        "type": "Hash"}, {"id": "hash:7d00b0332d713c306b98c5ac914b726ddf3f322f6a217d37125ff40d6ea1d898",
+        "name": "22853927595774bdd464230a055f6a38fd612b71ef1104ee538711a2c894679d",
+        "type": "Hash"}, {"id": "ip:130.74.218.166", "name": "165.245.19.246", "type":
+        "IpAddress"}, {"id": "ip:122.210.163.181", "name": "112.114.70.192", "type":
+        "IpAddress"}, {"id": "hash:6ce467ca0d2528e70ddcff53871985e4687e097f4f7eb8100b9d3d91a0b81118",
+        "name": "8e56e8c2e5ae2a9ece559d63d56214c794492bd33566a5847196404c3de4578e",
+        "type": "Hash"}, {"id": "ip:173.145.170.2", "name": "113.245.36.190", "type":
+        "IpAddress"}, {"id": "ip:113.193.41.101", "name": "166.40.169.94", "type":
+        "IpAddress"}, {"id": "ip:134.79.188.168", "name": "157.163.245.6", "type":
+        "IpAddress"}, {"id": "hash:019e31ec93457429f82b75eb3433a18f1cc21e4fef5f9d8521bd3347e09e3729",
+        "name": "231f7010aaf37b13efa07b92818338f7e7d63a064eb27a1ddb4ee2182192ded0",
+        "type": "Hash"}, {"id": "hash:b5d8e54fd7ddd585f855bfb41dd53f7a8c9aef5b4fa29faebc8e0aff8c5c23b6",
+        "name": "374bdb1ba18e10a35f0010d29fda799939fd6a595e6d71e7731f8d87fea721d5",
+        "type": "Hash"}, {"id": "ip:251.118.126.63", "name": "18.168.58.186", "type":
+        "IpAddress"}, {"id": "ip:89.175.238.18", "name": "233.207.104.203", "type":
+        "IpAddress"}, {"id": "hash:c9d61705073c11bbd249f164e9903cce0c3f1e783abd1a7cb222ed090867221d",
+        "name": "1466dcca6158f33466705075bfa19a06b83f2093c0a035990fac1eca85c50192",
+        "type": "Hash"}, {"id": "hash:44602777aa89c73b18447dc7d1675c58b64f7c11b3f3d64494d7a22f30c4019b",
+        "name": "995e52d7f24f984f04b2d1d1035e9087f137bd4b14fa0819ee7bf013f8c11047",
+        "type": "Hash"}, {"id": "ip:58.232.44.0", "name": "177.91.239.16", "type":
+        "IpAddress"}, {"id": "hash:9d123b8e28495c76bffbe9a8eafd914f01b6803b5d107b1d7f368ce3fac5fb91",
+        "name": "2ae0fb3eecd328a98276441fc425d425b2e2f47fcec2dd2ea9651a19d62c249a",
+        "type": "Hash"}, {"id": "ip:206.114.56.43", "name": "192.154.95.131", "type":
+        "IpAddress"}, {"id": "ip:52.243.88.241", "name": "29.203.148.126", "type":
+        "IpAddress"}, {"id": "idn:dead.mw", "name": "emirates.capetown", "type": "InternetDomainName"},
+        {"id": "ip:244.99.111.105", "name": "153.251.196.44", "type": "IpAddress"},
+        {"id": "idn:virtually.builders", "name": "custody.dev", "type": "InternetDomainName"},
+        {"id": "ip:216.3.205.87", "name": "17.121.138.89", "type": "IpAddress"}, {"id":
+        "hash:5c92d22ee5b1c30825d28838ca41373e6d50871535677a3405b1f912420e7105", "name":
+        "3babdac8c4440574544484d21c111e083077222267b2f44825f937a0c035d5b6", "type":
+        "Hash"}, {"id": "idn:periodic.islam", "name": "alternatively.museum.post",
+        "type": "InternetDomainName"}, {"id": "ip:129.120.246.141", "name": "61.214.209.11",
+        "type": "IpAddress"}, {"id": "ip:37.135.183.149", "name": "17.6.107.37", "type":
+        "IpAddress"}, {"id": "ip:111.44.80.209", "name": "35.53.181.47", "type": "IpAddress"},
+        {"id": "ip:77.96.108.143", "name": "157.48.134.59", "type": "IpAddress"},
+        {"id": "ip:158.146.247.70", "name": "76.243.183.81", "type": "IpAddress"},
+        {"id": "idn:promising.taipei", "name": "relatively.com", "type": "InternetDomainName"},
+        {"id": "idn:duplicate.gov", "name": "static.fi", "type": "InternetDomainName"}]},
+        "source": {"id": "oYNOlfKLm2VwS", "name": "Ploye", "type": "Source"}, "id":
+        "gfT_OG"}, {"attributes": {"validated_on": "2020-12-15T04:25:56.188Z", "published":
+        "2020-12-15T04:25:56.188Z", "text": "The arguments can be primitive data types
+        or compound data types. Type classes first appeared in the Haskell programming
+        language. Its main implementation is the Glasgow Haskell Compiler. It is also
+        a garbage-collected runtime system. The arguments can be primitive data types
+        or compound data types.", "topic": {"id": "TXSFt5", "name": "City chicken",
+        "type": "Topic", "description": "Brisket"}, "context_entities": [{"id": "idn:informed.london",
+        "name": "gifts.biz", "type": "InternetDomainName"}, {"id": "idn:hungry.dm",
+        "name": "catherine.frl", "type": "InternetDomainName"}, {"id": "idn:knock.berlin",
+        "name": "tony.ws", "type": "InternetDomainName"}, {"id": "WqrLo2", "name":
+        "Cheese stuffed crus", "type": "AttackVector"}, {"id": "hash:22258cdfc7194b3b4eb8bc7b2c384f177a6ff366036b25e4f2400b69a5743a4f",
+        "name": "6b92cc8383605ceea5f4a81c1f457cf6e372a3bcde88c64db3f094ea9d975e06",
+        "type": "Hash"}, {"id": "idn:sake.bz", "name": "announcement.gives", "type":
+        "InternetDomainName"}, {"id": "gbo257", "name": "Juba", "type": "Malware"},
+        {"id": "LPc838", "name": "Massaman C", "type": "AttackVector"}, {"id": "idn:rca.info",
+        "name": "kong.xxx", "type": "InternetDomainName"}, {"id": "NCQaUx", "name":
+        "Tuna casserole", "type": "Technology"}, {"id": "CTYAbt", "name": "Fajita",
+        "type": "Product"}, {"id": "idn:harvard.credit", "name": "update.tel", "type":
+        "InternetDomainName"}, {"id": "QCqLhE", "name": "Peanut b", "type": "MalwareCategory"},
+        {"id": "idn:placement.net", "name": "satisfactory.my", "type": "InternetDomainName"},
+        {"id": "idn:lack.org", "name": "advert.net", "type": "InternetDomainName"},
+        {"id": "idn:systems.info", "name": "glenn.mobi", "type": "InternetDomainName"},
+        {"id": "O7NRMb", "name": "Carolina ", "type": "Organization"}], "validation_urls":
+        [{"id": "url:https://replies.cruise/", "name": "https://reform.zone/", "type":
+        "URL"}, {"id": "url:https://accompanying.ms/", "name": "https://specialty.marketing/",
+        "type": "URL"}, {"id": "url:https://hourly.int/", "name": "https://gzip.com/",
+        "type": "URL"}, {"id": "url:https://frank.biz/", "name": "https://cuisine.gov/",
+        "type": "URL"}, {"id": "url:https://jail.review/", "name": "https://lenders.net/",
+        "type": "URL"}], "title": "Haskell is a standardized, general-purpose purely
+        functional", "note_entities": [{"id": "ip:113.200.254.153", "name": "237.220.93.71",
+        "type": "IpAddress"}, {"id": "ip:112.179.52.210", "name": "112.8.134.26",
+        "type": "IpAddress"}, {"id": "ip:62.193.220.252", "name": "253.131.128.20",
+        "type": "IpAddress"}, {"id": "ip:100.118.63.26", "name": "28.235.174.110",
+        "type": "IpAddress"}, {"id": "ip:217.161.174.40", "name": "10.12.79.204",
+        "type": "IpAddress"}, {"id": "ip:156.199.242.136", "name": "141.82.86.233",
+        "type": "IpAddress"}]}, "source": {"id": "1CvoOvluQ2CIq", "name": "Gazpacho",
+        "type": "Source"}, "id": "gca1SJ"}, {"attributes": {"validated_on": "2020-12-15T01:02:07.693Z",
+        "published": "2020-12-15T01:02:07.693Z", "text": "I don''t even care. Where
+        are my pants? The Galactic Empire is nearing completion of the Death Star,
+        a space station with the power to destroy entire planets. The Galactic Empire
+        is nearing completion of the Death Star, a space sta", "topic": {"id": "TXSFt4",
+        "name": "Key Lime ", "type": "Topic", "description": "Haystack"}, "context_entities":
+        [{"id": "JvO9QZ", "name": "Blue-pl", "type": "Company"}, {"id": "K9vQzJ",
+        "name": "Wasabi Peas", "type": "Company"}, {"id": "ERmUR", "name": "Mashed
+        po", "type": "Company"}, {"id": "tKneM", "name": "Sloppy joe", "type": "Company"}],
+        "validation_urls": [{"id": "url:https://spaces.com/", "name": "https://industry.lk/",
+        "type": "URL"}, {"id": "url:https://word.name/", "name": "https://positioning.kp/",
+        "type": "URL"}, {"id": "url:https://starting.tk/", "name": "https://concentrations.osaka/",
+        "type": "URL"}, {"id": "url:https://likely.md/", "name": "https://virtual.rio/",
+        "type": "URL"}, {"id": "url:https://military.win/", "name": "https://sorts.zr/",
+        "type": "URL"}], "title": "The sequential subset of Erlang supports eager
+        evaluation, single ass", "note_entities": [{"id": "gbo257", "name": "Slinger",
+        "type": "Malware"}, {"id": "O7NRMb", "name": "Key Lime ", "type": "Organization"},
+        {"id": "idn:automatic.nu", "name": "successfully.org", "type": "InternetDomainName"},
+        {"id": "idn:organize.org", "name": "wendy.net", "type": "InternetDomainName"},
+        {"id": "idn:something.cat", "name": "pasta.berlin", "type": "InternetDomainName"},
+        {"id": "idn:its.ax", "name": "larry.kyoto", "type": "InternetDomainName"},
+        {"id": "idn:wives.dubai", "name": "drag.aquitaine", "type": "InternetDomainName"},
+        {"id": "idn:voted.uy", "name": "thou.lol", "type": "InternetDomainName"},
+        {"id": "idn:bone.tc", "name": "counted.istanbul", "type": "InternetDomainName"},
+        {"id": "idn:meta.aero", "name": "perception.coop", "type": "InternetDomainName"},
+        {"id": "idn:drive.gb", "name": "information.asia", "type": "InternetDomainName"},
+        {"id": "idn:raleigh.frl", "name": "belong.org", "type": "InternetDomainName"},
+        {"id": "idn:licensed.tokyo", "name": "banking.org", "type": "InternetDomainName"},
+        {"id": "hash:080274fd4b1e701743d2df3e5259616579a3c5000c2b8c81312aec3025633133",
+        "name": "2fa2f1402ff43fe5f3d63ccfad27ac14e6945bf6244562bc8ca509372cffe9ad",
+        "type": "Hash"}, {"id": "hash:ae9ca066b559ffe14682ea4079232c59101fa38bc29275a1ac14b33ae9aa63c3",
+        "name": "d7e32ad18ea5b57ca506d87d9f79267e31b5a091178bcab84c84cf1dfa68505b",
+        "type": "Hash"}, {"id": "hash:c8f1154c5f87f5030a5cf0531832a7ed848fb550ab066adcf0ad66eddbaa2f3a",
+        "name": "17ef167ea3ce9d225f60fee34ca5a226f34b5b60a46799f4fa6657dd1e98d3b6",
+        "type": "Hash"}, {"id": "hash:7c525614021318602a55adc44d73b3532d281836e86479a6740939d8d6be9a51",
+        "name": "adade5dc22b97e7bf472b9125729da75c9f627361d2ac461b95639134fcc97ee",
+        "type": "Hash"}, {"id": "hash:08fa01c50707a5a42d595f1edbe501e4afe2c70c5f3d68372e3099ae517e11c5",
+        "name": "2bb21f037735303b3c8c824b7bc7785b0593b1f38b466ac6a2936106d0fa74de",
+        "type": "Hash"}, {"id": "hash:06f9bcf818a269e4db4a74d46d456ad5ff6887e28aba520635b1f53fe3f38ccf",
+        "name": "623cdf01560e7f2e4bcb06fbd6652f0c82184c15655804167bf538d67b640da5",
+        "type": "Hash"}, {"id": "hash:671fa9a307b1762e20365119635c3dc83e909227afd27f6d948f89503d7b551e",
+        "name": "3abe59a6afb6a48eba70b397929d8f4e8354384b833dded66a612234ca774340",
+        "type": "Hash"}, {"id": "hash:5aedda05c4f39c94c2254dc30f0374cbecd5d3150f0b9e8a6188820d84e7dbcb",
+        "name": "ce627516491906d725a9b496ebd1f33b56ebe1969c62dff0a6d0fce8a12b583a",
+        "type": "Hash"}, {"id": "hash:ec6d5319f8204435057239abfa0d7e1c0f08df37d78c3db7728cd49f350f3c1e",
+        "name": "c30aa57fe67ea22970fcb81070c85c1f43524b56c0252ae10c3d25b8298513fd",
+        "type": "Hash"}, {"id": "hash:e26240b907cf2f083834c8bb093c9ff03fbfa79dd88d5d2f9c074e20a17e6ca6",
+        "name": "8cc0b76a79598b27b0573155f1468a9c7971c4113917813820711d59795e2393",
+        "type": "Hash"}, {"id": "hash:8b1c5113f13760e60bb31fb4f21ca5d0929f3919b37d36fb9313c91b37054a1f",
+        "name": "47fcc1ceb4bad7e9dc4560fe7f9c5b78eb5dcb7b5be71480421cbb99daeb05fb",
+        "type": "Hash"}, {"id": "hash:2b28f7da8c704d856cfd16cf693f641b74c1c2f194c6b2d1708c52762a50f8f9",
+        "name": "544ee68de9984192fbd54d8689e062f680c4b23b15127672fe9a6e2c09d7f0bc",
+        "type": "Hash"}, {"id": "hash:917c18d3f6b751a50d1b9027cbfbd2aa6bc451230912306fda6e0ac8e3a7d8f7",
+        "name": "20e123a7b508616d39634977ad8e702cc459c736ccc4d93940f9cf2c560f01d4",
+        "type": "Hash"}, {"id": "hash:d908f81ff975eebf375e8d3ec319ac6162893e4180bfe34d49f10a1d4cce98a4",
+        "name": "e81238b70a99d36940a71595b039acd2e8d8896cb315f03d22af375fe67c3026",
+        "type": "Hash"}, {"id": "hash:a8bf0e6e6a8c0a6fb9974e752b8d4e56b0b12efa442c36da2ab39f5526972652",
+        "name": "7e4dc8d6375976fd2b10fdf2881d6eaf3784b92b9927b0a9a637c66e25e5be7c",
+        "type": "Hash"}, {"id": "hash:f274b3d4483c3a94d563a434929e580dd0f7f4180049afa2a4d130fee1f62c55",
+        "name": "6db95b4f7e9253a338951a86d013a27d8bafb96b5d0a25b3ad701ad93715a220",
+        "type": "Hash"}, {"id": "hash:14c5a3f720f427951c89eb96ad4e7aca70c5e63266c2dbd365b702a2c8d271fe",
+        "name": "997dfe0ea40a6ffc710748cc3686a7da4f345c8428adfc410821b793484fc72f",
+        "type": "Hash"}, {"id": "hash:ddfc5f363bf2f0e0f8bfdbf736130c4b6f88a47ddac6a1eb2811e5ba8c35deec",
+        "name": "8da3adc3aff66f0f9f4cb1d252214111d3cdd3ef635e72e4b670858f0e559ac9",
+        "type": "Hash"}, {"id": "hash:620881762fabf1e415c0250ffa69073d1a07b18b28f3924058aacc5522cb2b20",
+        "name": "151502fa9b654615a93a6710b7f30a9a7c96815d373f7b33c84b6122c1857fea",
+        "type": "Hash"}, {"id": "hash:a9f5b4f3793972a85bd4844ef101226fc9c1f55792c30ee41ec223adfa3a19db",
+        "name": "b9766788989eabe8d932cb0c25414e641046ae3c6dea36643a7ed3deaf98afcc",
+        "type": "Hash"}, {"id": "hash:b7b601bbb093caf11639f452aa1e1d24c1c1b22011deb4a4b2fcdf22cd7de021",
+        "name": "aee259adaf829feffcf1382e0e1d03528b50849ec4e9bd36afdedb15d3becdfe",
+        "type": "Hash"}, {"id": "hash:c3f05b35b85ef40648586bbbaa1c6b5fd3b39ffa45f6f04bb12b35063f6edcaf",
+        "name": "b37a1a56815f4bd888964c00d884222046beffcaef70e692e54d56cf05c5cb48",
+        "type": "Hash"}, {"id": "hash:4276ec4b2c80e3a76d35a3d0f494429a9707d6f16997c1abf9e6748b51127a89",
+        "name": "b3d422ecdf5447b6940e4fa74896deeb37528c86615f36acbf6b6e3d3cadee93",
+        "type": "Hash"}, {"id": "hash:4430348cfb9482c10f3c38885ff04a6fb7e0740f4d69d37c28eacebb96163dd1",
+        "name": "d60e710c1b53e5ee99a96627c75199a545ab8b7bed6b1f9796a5c3b952da07a8",
+        "type": "Hash"}, {"id": "hash:162ed1f2914675ef7fed8f552d517411cf63adc7534d3e965fd6a4171db4a0aa",
+        "name": "feed9ac7b9eff8d04df754f43a5ae32aaefdbc68e0facdf372daad5d01eb439f",
+        "type": "Hash"}, {"id": "hash:1b3a02e97e1844cfcc53f91a2192dc34cce965db04a41aab69066fc69b7a943e",
+        "name": "e873d935f7137e850c87cbe5bb847daa7ed077d131f0305b9d6affef874718c5",
+        "type": "Hash"}, {"id": "hash:b82f2128f7f32877ea2def8c206841323f486f857f5f74a5f1fd1807c8f3df91",
+        "name": "0a62d3a771ac96ffe238f5e80cded986fd848a2507bc0716dfca487245175356",
+        "type": "Hash"}, {"id": "idn:tutorials.sex", "name": "runs.ar", "type": "InternetDomainName"},
+        {"id": "idn:desperate.info", "name": "angeles.ml", "type": "InternetDomainName"},
+        {"id": "idn:dynamic.aero", "name": "intelligent.storage", "type": "InternetDomainName"},
+        {"id": "idn:myself.xxx", "name": "seat.accountants", "type": "InternetDomainName"},
+        {"id": "idn:vacancies.fish", "name": "reno.za", "type": "InternetDomainName"},
+        {"id": "idn:biotechnology.pid", "name": "chart.at", "type": "InternetDomainName"},
+        {"id": "idn:drives.frl", "name": "punishment.il", "type": "InternetDomainName"},
+        {"id": "idn:packed.com", "name": "automatically.xxx", "type": "InternetDomainName"},
+        {"id": "idn:strange.com", "name": "mobiles.mobi", "type": "InternetDomainName"},
+        {"id": "idn:manga.tj", "name": "blogging.ua", "type": "InternetDomainName"},
+        {"id": "idn:sur.net", "name": "upgrade.ma", "type": "InternetDomainName"},
+        {"id": "idn:mai.pe", "name": "compute.tirol", "type": "InternetDomainName"},
+        {"id": "hash:74342f44339f1eb8ca2c646ebd7fa7a465b379e6daf0e9b5a1af056ecc802220",
+        "name": "08aa167a5b9f8ddfaae734e2c17f0e8ad4b60b254a01bccdf07618b66596e7c9",
+        "type": "Hash"}, {"id": "hash:d197ddf26eb8e8a3cf62000dfe6ce79bb96eb1b9dbb622cf1ee30f8c5d0a2f44",
+        "name": "390bda1aafcc49f8ba726afc0b8072197aafd12a9ca73bfc5b15ed99abadd6a3",
+        "type": "Hash"}, {"id": "hash:ca155c818ee758b95860fabcd265d262b697d33301858e08005f2d58b59a7d5c",
+        "name": "10b9b6956c4d5afaf57acb13fc0f59191867585ba6d5a0b777677928f2a4aa65",
+        "type": "Hash"}, {"id": "hash:b2d5bfbed278e1d109c3dbeda79f65b95bc400095edece53ea41ffa69baf144f",
+        "name": "40ecf9bdddb90f17895e5042793f93a91a64008e635c5d4ec322d24763a4a37b",
+        "type": "Hash"}, {"id": "hash:cd58f4a5c47efe43d2c37e0b39de871bcd2f54ad2666a5589c704e9d2764ec6f",
+        "name": "588fa142eab92e2138c2d12b57b5f9f0767ca75860b62748875cc2791f1cc039",
+        "type": "Hash"}, {"id": "hash:08e80fe0a22e725a63152f27076f705fc465c0dc4be08593e8e8369b3afb72e1",
+        "name": "6e81b968cc38e6db616d34f76c42a800a07b12dbf8a92cbf4145766f6d5de006",
+        "type": "Hash"}, {"id": "hash:73e99dcc49d0648b08be1c155a9db4a5c28f61d70dbc77aced9872ccc0ae0ee1",
+        "name": "a596c430586bf69856eadf0b06fd39e1bacf5f7436eb0754975d5f67548fb7fe",
+        "type": "Hash"}, {"id": "hash:749025753aa56dce018256355e8a83d913817a78b930193e9e678d67306e348b",
+        "name": "fed045ddb857e80742a468995db22ecc91e6067f0b82acd2d7ab939d2f13c5c1",
+        "type": "Hash"}, {"id": "hash:d7ef28f7043145c05fe4266b2483bb9380a8198dca4ead976581c6e0ddc17733",
+        "name": "36152e243dd36ca529bb98e1fa00d3b4ce254dc51057a0dbab49f805acbf9be9",
+        "type": "Hash"}, {"id": "hash:ab2c6c7fc18d41c66b11fed5a098d8ecc75a267ed3d8187844e06a2a5e60bab7",
+        "name": "e7910d85eb31f9d39a9fb9940a83954a9d880e26228e1eee611b27a32053679d",
+        "type": "Hash"}, {"id": "hash:bcb0c8f1d1fb882ddf293759a702199815338f16986bafa3c359e6dbc34b2b77",
+        "name": "bc34ff9b7ef96b69ce5dcc2d9829ad19969b5b94e4d2c5db214a67eb85791ee8",
+        "type": "Hash"}, {"id": "hash:136520662a4b0106c39191b65ab43aad6449f57e5775944c5fc73ec4328fe89e",
+        "name": "ba8a62d4fec17728e2560f96c5fc974bf64fa5f5ed16cbb752bae7962e8fb1d9",
+        "type": "Hash"}, {"id": "hash:65aa80cee89f96db880c517eabbaf4561b346af8485958b81af30ad08e979e8b",
+        "name": "298c60e3a6c57d4caeda8e57c90f0ec618b7fcd3c96fe92d78d398147b9ea9f0",
+        "type": "Hash"}, {"id": "hash:ae09aafcc00b0ebc4db4f868648e05f50bee2952f0177a344e6a72ce56c2fe38",
+        "name": "44a0b01dadacc3b4ee96d638cecc42fc35dd61a641f4cf7804c732db514d22fa",
+        "type": "Hash"}, {"id": "hash:18daff1ddf8fb0f233e257f1ab6aa8706f2d6b933233673364376a74e463a5ab",
+        "name": "406a599e5a4ac96dbc8a68f74c7ea2d98a113b6b4874ac3b68a224ebdac95f1b",
+        "type": "Hash"}, {"id": "hash:dc5a812f314d5eb6c7ba9ef88fe80c452fd94ab98cfeef4bf12de12a3d27dc98",
+        "name": "7ae74efbd91e1dc21cdb22194add5b766ce4b2a3b6474a86d600a4d1dc7fc54f",
+        "type": "Hash"}, {"id": "hash:525e2c81fe75fb9e02ff77ad86ff51086202d3f59cbb7f4a1289eaaffa479f13",
+        "name": "95eeedb7b344d1c204b65476fdd717cd3b38f7b985e7ebbd7ecc8c8f22bd6c2a",
+        "type": "Hash"}, {"id": "hash:ebb555e555fd544156ad3c753f6664ec8086e4c2b74cbae71ad0d2bb456c0a6f",
+        "name": "48822f9b17bf8e83c6c07f18c983cb3947ccb10571e155e4845ff626ed543ff3",
+        "type": "Hash"}, {"id": "hash:c521ff5d39c014d2e144418265ab58ef13083a57a5b9c35442ed6e364e3bd18b",
+        "name": "8c0c61c8e9f2b4cb91d5b80f4ece8d8d20253fede3a37763072ce47f16e8c217",
+        "type": "Hash"}, {"id": "hash:c6a750cba20a3036622084b0f8c50584d8effaf0a92022ff3c286452692e4dab",
+        "name": "6dcb28d42fd6cfac1b0363f62c43e031ca41fcc639ca4633e256237ae603bc1f",
+        "type": "Hash"}, {"id": "hash:5201763df052415880cf082d9146ffd86f85476aece0ea47f7465b828aca27de",
+        "name": "d80481f1b7e7547649b14f6a45ad0905859253295c96f7113e358aa5b9ebdfc4",
+        "type": "Hash"}, {"id": "hash:239b913e3f85e8043b674be6c76992c2ae16ad15607f6be263f4d3f89857b00d",
+        "name": "fbe00518b110cf655256f53d06ef7f50346d3bb72f7a26aac8a2fd7f7a49972f",
+        "type": "Hash"}, {"id": "hash:1b14127876866cc6f815234be8bb2cd5e0fb56648a1f974ee36b9c7968a1b479",
+        "name": "90618f56189c6c06c4e68fa5b45657526fe1f394cba3e334835df4952a9f4090",
+        "type": "Hash"}, {"id": "hash:f454f50f2a02b6c4beb30991a7a758b1adac206c4b14cda58515c6a5c9bf35db",
+        "name": "b42182659bbb6c92b527e9fd5e898e6b77d27610684b366eaf0dbc7bd95c0ba5",
+        "type": "Hash"}, {"id": "hash:e3ef06d81005b1f79b8275fc6ead1d9da8a42a963be8fb90384ef38e474d9054",
+        "name": "83e6d94270d1eb48c0479ab3f7d490c132d8ed90478a6ba61a4c39d1b5f0d4d1",
+        "type": "Hash"}, {"id": "hash:5a73e2f03b5587ec14b3a92f6e1067727c65b701249cad44ec60769d16c157fe",
+        "name": "d694a0c83a899d7b9ed4bb0817b4250eefd8502b6b95024b57db714157eb8543",
+        "type": "Hash"}, {"id": "hash:686e5e412cb7070497d5b17d72dad684457f097d378011dcc74e247c8125387b",
+        "name": "c5744975d38f0501a2c78d5fe3e7b56447b7a6f5674425c44f6f5b65bc7e076f",
+        "type": "Hash"}, {"id": "hash:b3acfd82efea3e1adb94f9b4f22082b95f545de5d25ae3d180934d4e25714d0a",
+        "name": "b9a9cee7a4f5d48a39b5cc156e05b8cbd2909662fd5ed7d2c204ac9462b29f9c",
+        "type": "Hash"}, {"id": "hash:1edbb1451ca3ad225b7f148072c4d4d65045df575036a183236840a0e626c7fd",
+        "name": "8cb333ed250eb9f0ea6da20fea45def1bc73b47d38222adcdbab3ebfe8fca4b9",
+        "type": "Hash"}, {"id": "hash:f6eabdeeb0efb93b82b673d40fdf326e7c30c351e1f9c711afcb7847d9e50ec6",
+        "name": "ef2d943bed1bbfb7ac79528604b8e372e277149839ccbe311f62ade8c2ccdcc5",
+        "type": "Hash"}, {"id": "hash:2861e4ac992cf40eb2d56f343c36d335a58b870c8ec7524bf6650b70e1a952c9",
+        "name": "7f8066b707c378aedcde2625ed5d4a52386f610ed5d8e737330fd2553a2143be",
+        "type": "Hash"}, {"id": "idn:sponsor.org", "name": "lake.jobs", "type": "InternetDomainName"},
+        {"id": "7Cm8jDyN6Soot6Ek1taUQxmiGr90gXAPXD0dy0ho", "name": "c8097554d97dd5ae34ea83c9ee506593ae7483bebfa60b10f2f16027e8125a74",
+        "type": "BitcoinAddress"}, {"id": "idn:looking.name", "name": "current.info",
+        "type": "InternetDomainName"}, {"id": "hash:761e4787bb21ad9f76c7426b08b7ca022c977c9cc1644777a8e1fbd253943489",
+        "name": "15952fbbede9e19cebea1b559c41ca1c3751c0cba23089e2032a598d8dc13c57",
+        "type": "Hash"}, {"id": "hash:eee88dadf94fc39856972599b31d9a31a59a76e7ecf9f88295cc19fa457adc20",
+        "name": "8d8e733cb4f1f037634c16bbd2df906a5663c175364dcd21b5bc6fcd7b3642d7",
+        "type": "Hash"}, {"id": "hash:6dd4cc65993acf65a0d1bc4c2833550356f5952afd0fab4220da1421e6986a23",
+        "name": "096eef1220d4a2d469aa7b76066e9a1fe000f4ce70a87385d9cf715e23841d7f",
+        "type": "Hash"}, {"id": "hash:9156d5bc165b7bebf8807a058dd3731a6801e57fd90dde323cbe10fe98055fd1",
+        "name": "80e3c713ce83a7bb59caa6a4854aaff511829e6402354f0aa8a1a5856d09fc35",
+        "type": "Hash"}, {"id": "hash:bcee9b841c7f5d053e75f6474e2edffe2bd74c83f7b08bdae6d759c3e6d03844",
+        "name": "7223846c7be1dafdc597a349d1116fd0c6e7b1dc6ed19667cc6fb3197d0f2bbc",
+        "type": "Hash"}, {"id": "hash:88d66625bedab276f799adf2491d184eb38cee34406e5526ff133bdc35d1da79",
+        "name": "2c9077fd43eef27a4797c7b038f699315072439929571434a1076c98ff9bc5a6",
+        "type": "Hash"}, {"id": "hash:a2fbedb5d8a52289a8230a532456678f888d385e601f65ab75b675334119d629",
+        "name": "951e4948a460295156b36283ba24dfa8781a3db565d543dd9e6cdff3a6e02e71",
+        "type": "Hash"}, {"id": "hash:d5b43636c37c91ab6c68687bfe1dfb87eb63f3d4c381c629ede4e4a459bd8f82",
+        "name": "afc551b214f9f48fd834c0b3d4d1ac83ec492c17412b0485f674de20e2b107fd",
+        "type": "Hash"}, {"id": "hash:87a990cc54dc2c56623eeb9e77983c10645164bed852e6c288304864a79bf72d",
+        "name": "f44d6096f816ec80c9c2cc765827de16f0cb17471b15199373029cbbee9c015a",
+        "type": "Hash"}, {"id": "hash:bef4e4a024ee8ab79964dbd6439e1ea67c0072bac52cb700e46240bfe9507458",
+        "name": "2d5e26749d20664f792f8ccd257c737b2b474fa12294e2e5e81eaa0024072272",
+        "type": "Hash"}, {"id": "idn:transmitted.org", "name": "produce.cologne",
+        "type": "InternetDomainName"}, {"id": "ip:180.218.23.75", "name": "112.14.119.58",
+        "type": "IpAddress"}, {"id": "ip:77.153.54.247", "name": "120.142.202.86",
+        "type": "IpAddress"}, {"id": "ip:121.158.43.213", "name": "250.116.177.56",
+        "type": "IpAddress"}]}, "source": {"id": "jYpbq0YujGjaR", "name": "Calamari",
+        "type": "Source"}, "id": "gcSJpz"}], "enterpriseLists": [], "risk": {"criticalityLabel":
+        "Veggie Pizza", "riskString": "Shaw", "rules": 7, "criticality": 4, "riskSummary":
+        "French Onion Soup", "score": 99, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "Mozzarella Sticks", "rule": "Chicken herby pasta bake",
+        "criticality": 1, "timestamp": "2022-02-01T21:22:56.588Z", "criticalityLabel":
+        "Doughnu"}, {"mitigationString": "", "evidenceString": "Fortune cookie", "rule":
+        "Tomato compote", "criticality": 1, "timestamp": "2021-02-03T21:32:08.000Z",
+        "criticalityLabel": "Ranch d"}, {"mitigationString": "", "evidenceString":
+        "Sichuan Hot Pot", "rule": "Pepperoni Pizza", "criticality": 1, "timestamp":
+        "2025-12-22T01:08:51.106Z", "criticalityLabel": "Pastram"}, {"mitigationString":
+        "", "evidenceString": "Chicago Hot Dog", "rule": "Soft Shell Crab", "criticality":
+        1, "timestamp": "2020-12-18T00:00:00.000Z", "criticalityLabel": "Peppero"},
+        {"mitigationString": "", "evidenceString": "Milk toast", "rule": "Pulled pork",
+        "criticality": 1, "timestamp": "2020-12-15T00:00:00.000Z", "criticalityLabel":
+        "Squab"}, {"mitigationString": "", "evidenceString": "Grilled Snake", "rule":
+        "Osso Buco", "criticality": 1, "timestamp": "2026-02-16T04:05:29.847Z", "criticalityLabel":
+        "Corn re"}, {"mitigationString": "", "evidenceString": "Massaman Curry", "rule":
+        "Mozzarella sticks", "criticality": 4, "timestamp": "2026-02-16T04:05:29.846Z",
+        "criticalityLabel": "Crab cake"}]}, "sightings": [{"source": "Salted", "url":
+        "https://neighborhood.gp/", "published": "2026-02-15T03:50:47.565Z", "fragment":
+        "Onion ring", "title": "Erlang is known for its designs that are well suited
+        for s", "type": "recentInfoSec"}, {"source": "Supreme pizza", "url": "https://gabriel.foo/",
+        "published": "2020-12-14T08:14:23.000Z", "fragment": "Succotash", "title":
+        "Initially c", "type": "first"}, {"source": "Naan", "url": "https://chem.info/",
+        "published": "2026-02-15T03:50:47.565Z", "fragment": "Pasta salad", "title":
+        "Haskell is a standardized, general-purpose purely function", "type": "mostRecent"},
+        {"source": "Pepperon", "url": "https://stones.kh/", "published": "2020-12-20T21:56:53.000Z",
+        "fragment": "Ice Cream Sundae", "title": "The syntax {D1,D2,...,Dn} ", "type":
+        "recentPaste"}], "riskMapping": [{"rule": "Steak sandwich", "categories":
+        [{"framework": "Creme", "name": "Gyoza"}, {"framework": "Tamal", "name": "Creame"}]},
+        {"rule": "Souvlaki", "categories": [{"framework": "Butte", "name": "Pastra"},
+        {"framework": "Gyoza", "name": "Huevos"}, {"framework": "Albac", "name": "Peanut"}]},
+        {"rule": "Chicken French", "categories": [{"framework": "Chine", "name": "Chicke"},
+        {"framework": "Pork ", "name": "Sweetb"}, {"framework": "Cream", "name": "Texas
+        "}]}, {"rule": "Key Lime Pie", "categories": [{"framework": "Milks", "name":
+        "Mufful"}, {"framework": "Fry s", "name": "Fish T"}, {"framework": "Break",
+        "name": "Bi Bim"}]}, {"rule": "Tres Leches Cake", "categories": [{"framework":
+        "Bao", "name": "Escarg"}, {"framework": "Turki", "name": "French"}, {"framework":
+        "Sausa", "name": "Sautee"}]}, {"rule": "Falafel", "categories": []}, {"rule":
+        "Cheese Curds", "categories": []}], "entity": {"id": "idn:meaningful.voyage",
+        "name": "platform.edu", "type": "InternetDomainName"}, "timestamps": {"lastSeen":
+        "2026-02-15T03:51:04.993Z", "firstSeen": "2020-12-14T08:46:12.085Z"}, "threatLists":
+        [{"id": "report:QhR8Qs", "name": "Sandwich", "type": "EntityList", "description":
+        "Ice cream cake"}, {"id": "report:oJewMx", "name": "Souvlaki", "type": "EntityList",
+        "description": "Risotto"}], "intelCard": "https://anytime.name/", "links":
+        {"hits": [{"sections": [{"section_id": {"id": "iU_ZsE", "name": "Bi Bim Bap",
+        "type": "Category"}, "total_count": 2, "lists": [{"entities": [{"id": "O7NRMb",
+        "name": "Creamed c", "type": "Organization"}], "total_count": 1, "type": {"id":
+        "JW2OHE", "name": "Key Lime Pie", "type": "Position"}}, {"entities": [{"id":
+        "gbo257", "name": "Tuna cas", "type": "Malware"}], "total_count": 1, "type":
+        {"id": "o8w9f3BX4IEW", "name": "Succota", "type": "MetaType", "description":
+        "Garlic br"}}]}], "start_date": "2020-12-15", "stop_date": "2020-12-18", "total_count":
+        2, "sample_reference_ids": ["Gyros", "Jalapeno Po"], "counts": [{"count":
+        2, "type": {"id": "ZCoHklmEMLusb", "name": "Milk Steak", "type": "Source"}}],
+        "event_count": 2}], "method_aggregates": [{"count": 0, "type": "hHQyM6"},
+        {"count": 2, "type": "hHQyM7"}, {"count": 0, "type": "gTB8y2"}], "counts":
+        [{"count": 2, "type": {"id": "h88YN76UvstEY", "name": "Banh Mi Vi\u00eat",
+        "type": "Source"}}]}}}'
+    headers:
+      CF-RAY:
+      - 9cee1cae5b5386b2-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 15:34:58 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01v6pqg6mnrsfx1go81pgubxb9c3758880.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

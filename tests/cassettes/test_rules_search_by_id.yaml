@@ -1,0 +1,112 @@
+interactions:
+- request:
+    body: '{"filter": {"created": {}, "updated": {}, "doc_id": "doc:l0e9UB"}, "limit":
+      10}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '79'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/detection-rule/search
+  response:
+    body:
+      string: '{"count": 1, "total_count": 1, "result": [{"id": "doc:l0e9UB", "type":
+        "yara", "title": "Tuples are containers for a fi", "description": "In 1989
+        the building was heavily damaged by fire, but it has since been restored.",
+        "created": "2022-03-02T20:56:39.494Z", "updated": "2023-10-11T19:11:33.930Z",
+        "rules": [{"entities": [{"id": "hash:5967abd13ae164451e2b5577f0320f6e999fc037217abcd38ab9ba72580f1f3d",
+        "type": "Hash", "name": "Goulash"}, {"id": "hash:504fd01110c0927e7a07d1e10d7eabae56bdd15a6136e3ab30dc726b283abb78",
+        "type": "Hash", "name": "Salted caramel cookie"}, {"id": "hash:c18ce05a522e9ac64e204d7d1b1a06606f4bf52e366304cf9602da33e16428d0",
+        "type": "Hash", "name": "Spaghetti Bolognese"}, {"id": "lzEojI", "type": "Malware",
+        "name": "Tamal"}, {"id": "hash:bcaba6f6423454821e7173d9fc498d24baf8b0d994b7c30b0ac7e5879e78a57d",
+        "type": "Hash", "name": "Lorna Doone"}, {"id": "hash:1d524a038aa601de7535ae3b4aba17e90683ee9268877fcd605ed487a6708a99",
+        "type": "Hash", "name": "Cordon bleu"}, {"id": "hash:9342e5edd90390d128229f325617be0601264774f99eec3a4334af1ad0e9dc99",
+        "type": "Hash", "name": "Supreme pizza"}, {"id": "Ps4Y01", "type": "CyberThreatActorCategory",
+        "name": "Maraca pie"}, {"id": "hash:3533845c60740973cb9e0ca75b2465c1d0c0035d208e59b0ed733a2f7b634282",
+        "type": "Hash", "name": "Samosa"}, {"id": "hash:6efa66e3a190bb8b58fcbe508f4c2bea634b26d474b58f5abecfa111753b30a1",
+        "type": "Hash", "name": "Roasted Chickpeas"}, {"id": "hash:5ad221559cde41d99200b6355b2017c86f692519c6cef17564dde563a6d73088",
+        "type": "Hash", "name": "St. Paul Sandwich"}, {"id": "hash:fa24c42e0a60ef75fcce6c85f2d170c640ca9873b837ddf73f3b36ae217bb802",
+        "type": "Hash", "name": "Shucked Oysters"}], "content": "Ports are used to
+        communicate with the external world.", "file_name": "Atoms can contai"}]}],
+        "next_offset": "eyJvZmZzZXQiOlsxMjI2MiwiR2g0aHFIRENtT24iXX0="}'
+    headers:
+      CF-RAY:
+      - 9cd39a67af72bedc-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:22:11 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"filter": {"created": {}, "updated": {}, "doc_id": "doc:l0e9UB"}, "limit":
+      9, "offset": "eyJvZmZzZXQiOlsxMjI2MiwiR2g0aHFIRENtT24iXX0="}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '136'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/detection-rule/search
+  response:
+    body:
+      string: '{"count": 0, "total_count": 1, "result": []}'
+    headers:
+      CF-RAY:
+      - 9cd39a6a79501217-LHR
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '39'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:22:11 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

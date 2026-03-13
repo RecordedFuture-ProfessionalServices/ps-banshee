@@ -1,0 +1,96 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/list/report:21YKUC/info
+  response:
+    body:
+      string: '{"id": "report:21YKUC", "name": "Fajitas", "type": "entity", "created":
+        "2025-01-28T00:24:08.686Z", "updated": "2026-02-13T10:09:58.988Z", "owner_id":
+        "Type classes fir", "owner_name": "Tuples are containers f", "organisation_id":
+        "The sequential s", "organisation_name": "Messages can be sent to and recei",
+        "owner_organisation_details": {"owner_id": "Tuples are conta", "owner_name":
+        "Haskell is a standardiz", "organisations": [], "enterprise_id": "In 1989
+        the buil", "enterprise_name": "I don''t even care."}}'
+    headers:
+      CF-RAY:
+      - 9cd388886843ecdb-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:09:59 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"entity": {"id": "ip:10.10.10.10"}}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '36'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/list/report:21YKUC/entity/remove
+  response:
+    body:
+      string: '{"result": "Atoms are"}'
+    headers:
+      CF-RAY:
+      - 9cd3888a19b93dae-LHR
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '22'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:09:59 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

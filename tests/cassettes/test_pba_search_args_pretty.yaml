@@ -1,0 +1,986 @@
+interactions:
+- request:
+    body: '{"limit": 50, "category": ["domain_abuse", "cyber_vulnerability", "third_party_risk",
+      "code_repo_leakage", "identity_novel_exposures", "geopolitics_facility", "malware_report"]}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '177'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - banshee:tests_/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.3 platform_id
+        unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/playbook-alert/search
+  response:
+    body:
+      string: '{"status": {"status_code": "Gr", "status_message": "Sonofabitch stew"},
+        "data": [{"playbook_alert_id": "task:f446a8af-94fc-4536-8848-c1fad75713cf",
+        "rule_id": "Hot ch", "alert_rule": {"id": "qS_wmm", "label": "Pork Belly",
+        "name": "Pickled cucumber"}, "status": "New", "priority": "Apple sa", "created":
+        "2026-03-13T14:40:32.281Z", "updated": "2026-03-13T14:40:36.572Z", "category":
+        "code_repo_leakage", "title": "Erlang is a general-purpose, concurrent, functional",
+        "owner_id": "Apple sauce", "owner_name": "Pocky", "organisation_id": "Garlic
+        bread", "organisation_name": "Margherita Pizza", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Apple butter", "organisation_name":
+        "Macaroni and Cheese"}], "enterprise_id": "Salmon pasta bak", "enterprise_name":
+        "Ammonia cookie"}, "actions_taken": []}, {"playbook_alert_id": "task:e1f21f25-f300-4874-b95d-f8fef1534f1f",
+        "rule_id": "Gyoza", "alert_rule": {"id": "qS_wmm", "label": "Gyros", "name":
+        "Carolina style"}, "status": "New", "priority": "Ratatoui", "created": "2026-03-13T14:40:31.796Z",
+        "updated": "2026-03-13T14:40:36.386Z", "category": "code_repo_leakage", "title":
+        "Any element of a tuple can be accessed in con", "owner_id": "Shucked Oysters",
+        "owner_name": "Juba", "organisation_id": "Chicken Biryani", "organisation_name":
+        "Jambalaya", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Fish Tacos", "organisation_name": "Shrimp and Grits"}], "enterprise_id":
+        "Sausage gravy", "enterprise_name": "Popover"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:0d37094f-cc38-45e9-a343-9c760561b933", "rule_id": "Potato", "alert_rule":
+        {"id": "qS_wmm", "label": "Haystack", "name": "Reuben"}, "status": "New",
+        "priority": "Cowboy b", "created": "2026-03-13T14:40:30.263Z", "updated":
+        "2026-03-13T14:40:30.563Z", "category": "code_repo_leakage", "title": "Where
+        are my pants?", "owner_id": "Mission burrito", "owner_name": "Baklava", "organisation_id":
+        "Fajitas", "organisation_name": "Sausage gravy", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Hawaiian Pizza", "organisation_name":
+        "Chicharones"}], "enterprise_id": "Chimichanga", "enterprise_name": "BBQ Ribs"},
+        "actions_taken": []}, {"playbook_alert_id": "task:42b99848-dec9-460f-894c-93c284987dc4",
+        "rule_id": "Parma ", "alert_rule": {"id": "qS_wmm", "label": "Breakfast burrito",
+        "name": "Pickled cucumber"}, "status": "New", "priority": "Sloppy j", "created":
+        "2026-03-13T14:40:27.403Z", "updated": "2026-03-13T14:40:40.280Z", "category":
+        "code_repo_leakage", "title": "Messages can be sent to and received from por",
+        "owner_id": "Veggie Pizza", "owner_name": "Salmon pasta bake", "organisation_id":
+        "Turkish Delight", "organisation_name": "Laksa", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Chicken \u00e0 la Kin", "organisation_name":
+        "Patty"}], "enterprise_id": "Bagels and Lox", "enterprise_name": "Beef Lo
+        Mein"}, "actions_taken": []}, {"playbook_alert_id": "task:07df5ce3-9276-4bfc-994a-522646ee9eaf",
+        "rule_id": "Grille", "alert_rule": {"id": "qS_wmm", "label": "Toaster Strudel",
+        "name": "Piroshky"}, "status": "New", "priority": "Chicken ", "created": "2026-03-13T14:40:27.366Z",
+        "updated": "2026-03-13T14:40:27.366Z", "category": "code_repo_leakage", "title":
+        "I don''t even care.", "owner_id": "Steak Tartare", "owner_name": "Hog fry",
+        "organisation_id": "Kung Pao Chicken", "organisation_name": "Banh Mi Vi\u00eat",
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Crepes",
+        "organisation_name": "Mozzarella sticks"}], "enterprise_id": "Juba", "enterprise_name":
+        "Frybread"}, "actions_taken": []}, {"playbook_alert_id": "task:f08f1c6d-086c-4e98-917c-aa394d477e5c",
+        "rule_id": "Missio", "alert_rule": {"id": "qS_wmm", "label": "Sloppy joe",
+        "name": "Grilled Snake"}, "status": "New", "priority": "Spring R", "created":
+        "2026-03-13T14:40:22.792Z", "updated": "2026-03-13T14:40:25.680Z", "category":
+        "code_repo_leakage", "title": "In 1989 the building was heavily damaged by
+        fire, but", "owner_id": "Roasted Bone Mar", "owner_name": "Potato skins",
+        "organisation_id": "Blue-plate speci", "organisation_name": "Rolled oyster",
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Shawarma",
+        "organisation_name": "Blue cheese dressing"}], "enterprise_id": "Mozzarella
+        Stick", "enterprise_name": "Breaded shrimp"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:592f0029-2ebb-4c62-b04a-d3c0005dc915", "rule_id": "Biscui", "alert_rule":
+        {"id": "qS_wmm", "label": "Reuben", "name": "Tetrazzini"}, "status": "New",
+        "priority": "Senate b", "created": "2026-03-13T14:40:22.683Z", "updated":
+        "2026-03-13T14:40:25.292Z", "category": "code_repo_leakage", "title": "They
+        are written as strings of consecu", "owner_id": "Pumpkin pie", "owner_name":
+        "Creamed corn", "organisation_id": "Bulgogi", "organisation_name": "Geoduck",
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Pemmican",
+        "organisation_name": "Tetrazzini"}], "enterprise_id": "Pickled cucumber",
+        "enterprise_name": "Hangtown fry"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:55527fa4-0949-42cc-bb49-8371c971c6ec", "rule_id": "Toaste", "alert_rule":
+        {"id": "qS_wmm", "label": "Low Country Boil", "name": "Chocolate Brownie"},
+        "status": "New", "priority": "Burnt en", "created": "2026-03-13T14:40:18.886Z",
+        "updated": "2026-03-13T14:40:36.872Z", "category": "code_repo_leakage", "title":
+        "It is also a garbage-collected runtime system.", "owner_id": "Stuffed zucchini",
+        "owner_name": "Stuffed ham", "organisation_id": "Pistachio Ice Cr", "organisation_name":
+        "Scrapple", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Milk toast", "organisation_name": "Tuna Pizza"}], "enterprise_id": "Stuffed
+        peppers", "enterprise_name": "Hokkien fried rice"}, "actions_taken": []},
+        {"playbook_alert_id": "task:fe120cc3-0674-4680-a6a7-7de7302d94c4", "rule_id":
+        "New Yo", "alert_rule": {"id": "qS_wmm", "label": "Apple butter", "name":
+        "Beef Manhattan"}, "status": "New", "priority": "Home fri", "created": "2026-03-13T14:40:18.880Z",
+        "updated": "2026-03-13T14:40:19.167Z", "category": "code_repo_leakage", "title":
+        "Type classes first appeared in the Haskell", "owner_id": "Veggie Pizza",
+        "owner_name": "Chicken fingers", "organisation_id": "Apple butter", "organisation_name":
+        "Matzo Ball Soup", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Jell-O", "organisation_name": "Tagine"}], "enterprise_id": "Fried chicken",
+        "enterprise_name": "Mango and Sticky Rice"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:c40ba74d-72df-4ef4-95ce-37f6fb91859c", "rule_id": "Chicha", "alert_rule":
+        {"id": "qS_wmm", "label": "Peanut butter", "name": "Rice and gravy"}, "status":
+        "New", "priority": "Potato s", "created": "2026-03-13T14:40:18.557Z", "updated":
+        "2026-03-13T14:40:18.557Z", "category": "code_repo_leakage", "title": "Tuples
+        are containers for a fixed number o", "owner_id": "Chicago Hot Dog", "owner_name":
+        "Glorified rice", "organisation_id": "Fried Catfish", "organisation_name":
+        "Spanish rice", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Vegemite on Toas", "organisation_name": "Senate bean soup"}], "enterprise_id":
+        "Pancakes", "enterprise_name": "Gazpacho"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:98dd9293-ed8c-433c-b61b-3fbf530f5019", "rule_id": "Alice ", "alert_rule":
+        {"id": "qS_wmm", "label": "Clam chowder", "name": "Oreo"}, "status": "New",
+        "priority": "Deep Fri", "created": "2026-03-13T14:40:17.029Z", "updated":
+        "2026-03-13T14:40:17.029Z", "category": "code_repo_leakage", "title": "Atoms
+        are used within a program to denote distinguished", "owner_id": "Shish Kabob",
+        "owner_name": "Chicken bog", "organisation_id": "Pepperoni Pizza", "organisation_name":
+        "Osso Buco", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Stuffed peppers", "organisation_name": "Choco pie"}], "enterprise_id": "Chicken
+        fried st", "enterprise_name": "Corn chowder"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:6c79c6d4-88be-40d0-aa49-0a9fb4af2756", "rule_id": "Huevos", "alert_rule":
+        {"id": "qS_wmm", "label": "Breaded shrimp", "name": "American fried rice"},
+        "status": "New", "priority": "Suckling", "created": "2026-03-13T14:40:16.767Z",
+        "updated": "2026-03-13T14:40:26.886Z", "category": "code_repo_leakage", "title":
+        "Type classes first appeared in the", "owner_id": "Low Country Boil", "owner_name":
+        "Baked potato", "organisation_id": "Chowder", "organisation_name": "Chocolate
+        cheesecake", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Chicken fried ba", "organisation_name": "Corn flakes"}], "enterprise_id":
+        "Cowboy beans", "enterprise_name": "Alice Springs Chicken"}, "actions_taken":
+        []}, {"playbook_alert_id": "task:4f880421-4797-4b8f-abe3-1968116218f3", "rule_id":
+        "Surf a", "alert_rule": {"id": "qS_wmm", "label": "Matzo Ball Soup", "name":
+        "Tamales"}, "status": "New", "priority": "Sour cre", "created": "2026-03-13T14:40:16.310Z",
+        "updated": "2026-03-13T14:40:23.508Z", "category": "code_repo_leakage", "title":
+        "Do you come here often?", "owner_id": "Deep Fried Oreos", "owner_name": "Ceviche",
+        "organisation_id": "Pickled cucumber", "organisation_name": "Chocolate cheesecake",
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Chocolate
+        Browni", "organisation_name": "Bangers and mash"}], "enterprise_id": "Mashed
+        potato", "enterprise_name": "Salted caramel cookie"}, "actions_taken": []},
+        {"playbook_alert_id": "task:bb1d7b9d-eaaa-4404-b030-f61e68c088de", "rule_id":
+        "Briske", "alert_rule": {"id": "qS_wmm", "label": "Garlic bread", "name":
+        "American fried rice"}, "status": "New", "priority": "Yeung Ch", "created":
+        "2026-03-13T14:40:10.918Z", "updated": "2026-03-13T14:40:18.575Z", "category":
+        "code_repo_leakage", "title": "The syntax {D1,D2,...,Dn} denotes ", "owner_id":
+        "French Dip", "owner_name": "Moules Frites", "organisation_id": "Roasted Chickpea",
+        "organisation_name": "Baba Ghanoush", "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Chicken Salad Wr", "organisation_name": "Smelt"}], "enterprise_id":
+        "Spaghetti and Me", "enterprise_name": "Ceviche"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:591a369d-2d46-4e17-8ac1-dd72db2c94c6", "rule_id": "Doughn", "alert_rule":
+        {"id": "qS_wmm", "label": "Key Lime Pie", "name": "Pork Belly"}, "status":
+        "New", "priority": "Garden s", "created": "2026-03-13T14:40:09.893Z", "updated":
+        "2026-03-13T14:40:30.681Z", "category": "code_repo_leakage", "title": "Do
+        you come here often?", "owner_id": "Caviar", "owner_name": "Maraca pie", "organisation_id":
+        "Smelt", "organisation_name": "Cordon bleu", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Roasted Chickpea", "organisation_name":
+        "Cheese Curds"}], "enterprise_id": "Cheese fries", "enterprise_name": "Burnt
+        ends"}, "actions_taken": []}, {"playbook_alert_id": "task:2e276ef7-b434-4c21-88ce-8f1bf4741877",
+        "rule_id": "Shrimp", "alert_rule": {"id": "qS_wmm", "label": "Fattoush Salad",
+        "name": "Grilled Snake"}, "status": "New", "priority": "Ice Crea", "created":
+        "2026-03-13T14:40:00.788Z", "updated": "2026-03-13T14:40:00.788Z", "category":
+        "code_repo_leakage", "title": "The syntax {D1,D2,...,Dn} denotes a tup", "owner_id":
+        "Mini pizzas", "owner_name": "Thousand Island dressing", "organisation_id":
+        "Shish Kabob", "organisation_name": "London broil", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Stuffed zucchini", "organisation_name":
+        "Smelt"}], "enterprise_id": "Queso Fresco", "enterprise_name": "Elote"}, "actions_taken":
+        []}, {"playbook_alert_id": "task:88c33140-90cf-4eaf-9ac8-12c4fba3a84f", "rule_id":
+        "Devile", "alert_rule": {"id": "qS_wmm", "label": "Hawaiian Pizza", "name":
+        "Falafel"}, "status": "New", "priority": "Chimicha", "created": "2026-03-13T14:39:56.894Z",
+        "updated": "2026-03-13T14:39:56.894Z", "category": "code_repo_leakage", "title":
+        "They are written as strings of consecutive alphanumeric character", "owner_id":
+        "Popover", "owner_name": "Fried fish", "organisation_id": "Souvlaki", "organisation_name":
+        "Baba Ghanoush", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Thousand Island ", "organisation_name": "Gyoza"}], "enterprise_id": "Calamari",
+        "enterprise_name": "Buffalo Wings"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:cd6957b5-831a-4f6b-9194-9eabe2c4dcb7", "rule_id": "Crab R", "alert_rule":
+        {"id": "qS_wmm", "label": "Ammonia cookie", "name": "Charleston red rice"},
+        "status": "New", "priority": "Philly C", "created": "2026-03-13T14:39:55.953Z",
+        "updated": "2026-03-13T14:40:20.172Z", "category": "code_repo_leakage", "title":
+        "I don''t even care.", "owner_id": "Tamales", "owner_name": "Oysters Rockefeller",
+        "organisation_id": "Shrimp Creole", "organisation_name": "Garden salad", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Milk Steak", "organisation_name":
+        "Corned beef"}], "enterprise_id": "Blue cheese dres", "enterprise_name": "Bi
+        Bim Bap"}, "actions_taken": []}, {"playbook_alert_id": "task:6a7b8750-334e-4a51-9c63-725917e0e140",
+        "rule_id": "St. Pa", "alert_rule": {"id": "qS_wmm", "label": "Bull roast",
+        "name": "Mango and Sticky Rice"}, "status": "New", "priority": "Hot Chic",
+        "created": "2026-03-13T14:39:55.769Z", "updated": "2026-03-13T14:40:08.528Z",
+        "category": "code_repo_leakage", "title": "Ports are used to communicate with
+        the", "owner_id": "Deviled crab", "owner_name": "Banh Mi Vi\u00eat", "organisation_id":
+        "Slinger", "organisation_name": "Margherita Pizza", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Maraca pie", "organisation_name":
+        "Russian dressing"}], "enterprise_id": "Glorified rice", "enterprise_name":
+        "Chinese food"}, "actions_taken": []}, {"playbook_alert_id": "task:d2fec9f4-bf1d-4db4-89c2-ed866c5feff4",
+        "rule_id": "Churra", "alert_rule": {"id": "qS_wmm", "label": "Matzo Ball Soup",
+        "name": "Pumpkin pie"}, "status": "New", "priority": "Succotas", "created":
+        "2026-03-13T14:39:54.837Z", "updated": "2026-03-13T14:40:21.733Z", "category":
+        "code_repo_leakage", "title": "The sequential subset of Erlang supports e",
+        "owner_id": "Soul food", "owner_name": "Peanut butter", "organisation_id":
+        "Breakfast burrit", "organisation_name": "Osso Buco", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Eggs Neptune", "organisation_name":
+        "Coleslaw"}], "enterprise_id": "Chicago Hot Dog", "enterprise_name": "Brunswick
+        stew"}, "actions_taken": []}, {"playbook_alert_id": "task:0f619e4c-fa7f-42c1-a4d5-f1501cb36c6c",
+        "rule_id": "Black ", "alert_rule": {"id": "qS_wmm", "label": "Beignets", "name":
+        "Bread"}, "status": "New", "priority": "Matzo Ba", "created": "2026-03-13T14:39:53.368Z",
+        "updated": "2026-03-13T14:40:10.602Z", "category": "code_repo_leakage", "title":
+        "Erlang is a general-purpose, concurrent,", "owner_id": "Chicken Liver Pa",
+        "owner_name": "Milk toast", "organisation_id": "Alphabet pasta", "organisation_name":
+        "Milk toast", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Celery Victor", "organisation_name": "Shrimp Creole"}], "enterprise_id":
+        "Soul food", "enterprise_name": "Haggis"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:d4711a88-06ff-4b37-b4ab-81193650d6c9", "rule_id": "Chicke", "alert_rule":
+        {"id": "qS_wmm", "label": "Corn relish", "name": "Calamari"}, "status": "New",
+        "priority": "Pastrami", "created": "2026-03-13T14:39:53.211Z", "updated":
+        "2026-03-13T14:40:07.690Z", "category": "code_repo_leakage", "title": "Atoms
+        can contain any character if they ar", "owner_id": "Shucked Oysters", "owner_name":
+        "Meatloaf", "organisation_id": "Rolled oyster", "organisation_name": "Corn
+        chowder", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "American fried r", "organisation_name": "Deviled egg"}], "enterprise_id":
+        "Butter cookie", "enterprise_name": "Maple bacon donut"}, "actions_taken":
+        []}, {"playbook_alert_id": "task:2917146f-9248-40fe-825b-72eb2fcbfea1", "rule_id":
+        "Marghe", "alert_rule": {"id": "qS_wmm", "label": "Sonofabitch stew", "name":
+        "Pulled pork"}, "status": "New", "priority": "Macaroni", "created": "2026-03-13T14:39:52.788Z",
+        "updated": "2026-03-13T14:40:14.248Z", "category": "code_repo_leakage", "title":
+        "Erlang is a general-purpose, concurrent", "owner_id": "Black Pudding", "owner_name":
+        "Squab", "organisation_id": "Poppyseed muffin", "organisation_name": "Mulligan
+        stew", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Cowboy beans", "organisation_name": "Phaal"}], "enterprise_id": "Protein
+        bar", "enterprise_name": "Porterhouse Steak"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:0a82b07c-330c-4b56-b548-c3031f9fd0a6", "rule_id": "Steak ", "alert_rule":
+        {"id": "qS_wmm", "label": "Seafood cocktail", "name": "Chicken herby pasta
+        bake"}, "status": "New", "priority": "Shucked ", "created": "2026-03-13T14:39:51.804Z",
+        "updated": "2026-03-13T14:39:52.533Z", "category": "code_repo_leakage", "title":
+        "Do you come here often?", "owner_id": "Vichyssoise", "owner_name": "Greek
+        salad", "organisation_id": "Chocolate Chip C", "organisation_name": "Currywurst",
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Cordon
+        bleu", "organisation_name": "Onion ring"}], "enterprise_id": "Pocky", "enterprise_name":
+        "Meat Feast Pizza"}, "actions_taken": []}, {"playbook_alert_id": "task:297874d4-3560-499a-826a-586bcf253906",
+        "rule_id": "Hog fr", "alert_rule": {"id": "qS_wmm", "label": "Tuna Pizza",
+        "name": "Ranch dressing"}, "status": "New", "priority": "Pepperon", "created":
+        "2026-03-13T14:39:48.277Z", "updated": "2026-03-13T14:39:48.277Z", "category":
+        "code_repo_leakage", "title": "Make me a sandwich.", "owner_id": "Matzo Ball
+        Soup", "owner_name": "Mulligan stew", "organisation_id": "Suckling Pig", "organisation_name":
+        "Meat Feast Pizza", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "White chocolate ", "organisation_name": "Chili dog"}], "enterprise_id": "Greek
+        salad", "enterprise_name": "Drunken chicken"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:0dcfd080-b707-474d-b3af-b99449af537c", "rule_id": "Chicke", "alert_rule":
+        {"id": "qS_wmm", "label": "Domesticated turkey", "name": "Eggo"}, "status":
+        "New", "priority": "Corned b", "created": "2026-03-13T14:39:47.353Z", "updated":
+        "2026-03-13T14:40:24.668Z", "category": "code_repo_leakage", "title": "Its
+        main implementation is the Glasgow Haskell ", "owner_id": "Spaghetti Bologn",
+        "owner_name": "Hawaiian haystack", "organisation_id": "Potato Wedges", "organisation_name":
+        "Salad bar", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Chocolate cheese", "organisation_name": "Alphabet pasta"}], "enterprise_id":
+        "Fried chicken", "enterprise_name": "Grits"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:be3fc579-1ad9-4c53-b09a-8e910c1991cc", "rule_id": "Rice a", "alert_rule":
+        {"id": "qS_wmm", "label": "Bagels and Lox", "name": "Escargot"}, "status":
+        "New", "priority": "Chicken ", "created": "2026-03-13T14:39:44.992Z", "updated":
+        "2026-03-13T14:39:46.770Z", "category": "code_repo_leakage", "title": "Make
+        me a sandwich.", "owner_id": "Fortune cookie", "owner_name": "Chile Relleno",
+        "organisation_id": "St. Paul Sandwic", "organisation_name": "Buffalo burger",
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Tuna
+        casserole", "organisation_name": "Potatoes O''Brien"}], "enterprise_id": "Kung
+        Pao Chicken", "enterprise_name": "Po''Boy"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:3ea67644-66cf-4aa9-be0e-0fd0767886c4", "rule_id": "Milk S", "alert_rule":
+        {"id": "qS_wmm", "label": "Deep Fried Oreos", "name": "Chimichanga"}, "status":
+        "New", "priority": "Pemmican", "created": "2026-03-13T14:39:42.119Z", "updated":
+        "2026-03-13T14:39:53.253Z", "category": "code_repo_leakage", "title": "I don''t
+        even care.", "owner_id": "Pork Belly", "owner_name": "Choco pie", "organisation_id":
+        "Bi Bim Bap", "organisation_name": "Jalapeno Poppers", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Cowboy beans", "organisation_name":
+        "Cheesecake"}], "enterprise_id": "Hot chicken", "enterprise_name": "Shish
+        Kabob"}, "actions_taken": []}, {"playbook_alert_id": "task:cfd1077f-1ff4-4a0f-a841-39c48b7b72b7",
+        "rule_id": "French", "alert_rule": {"id": "qS_wmm", "label": "Shawarma", "name":
+        "London broil"}, "status": "New", "priority": "Ceviche", "created": "2026-03-13T14:39:41.739Z",
+        "updated": "2026-03-13T14:39:46.408Z", "category": "code_repo_leakage", "title":
+        "Type classes first appeared in the ", "owner_id": "Souvlaki", "owner_name":
+        "Crab Rangoon", "organisation_id": "Tuna Pizza", "organisation_name": "Chicken
+        French", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Popover", "organisation_name": "Chicken fried bacon"}], "enterprise_id":
+        "Cheese Curds", "enterprise_name": "Fish Tacos"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:f1585bc7-2afd-4f42-97b1-7217169ccfaf", "rule_id": "French", "alert_rule":
+        {"id": "qS_wmm", "label": "Frybread", "name": "Juba"}, "status": "New", "priority":
+        "Potatoes", "created": "2026-03-13T14:39:38.943Z", "updated": "2026-03-13T14:39:43.290Z",
+        "category": "code_repo_leakage", "title": "Haskell features a type system
+        with type in", "owner_id": "Venison", "owner_name": "Hangtown fry", "organisation_id":
+        "Brisket", "organisation_name": "Geoduck", "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Sweet Potato Fri", "organisation_name": "Poke"}], "enterprise_id":
+        "Peanut butter", "enterprise_name": "Sausage gravy"}, "actions_taken": []},
+        {"playbook_alert_id": "task:e6101521-2b76-4422-b4fc-22d0f38a4728", "rule_id":
+        "Montre", "alert_rule": {"id": "qS_wmm", "label": "Sloppy joe", "name": "Tuna
+        Pizza"}, "status": "New", "priority": "Cheese b", "created": "2026-03-13T14:39:37.616Z",
+        "updated": "2026-03-13T14:39:37.616Z", "category": "code_repo_leakage", "title":
+        "It is also a garbage-collected runtime system.", "owner_id": "Cheesy Garlic
+        Br", "owner_name": "Potato wedges", "organisation_id": "Pancakes", "organisation_name":
+        "Chimichanga", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Greek salad", "organisation_name": "Salad bar"}], "enterprise_id": "Ice Cream
+        Sundae", "enterprise_name": "Fries"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:85f7e355-263a-46e7-a972-97c050f67155", "rule_id": "Chimic", "alert_rule":
+        {"id": "qS_wmm", "label": "Bi Bim Bap", "name": "Russian tea cake"}, "status":
+        "New", "priority": "Scrapple", "created": "2026-03-13T14:39:35.743Z", "updated":
+        "2026-03-13T14:39:35.743Z", "category": "code_repo_leakage", "title": "Atoms
+        are used within a program to denote distin", "owner_id": "Tres Leches Cake",
+        "owner_name": "Sandwich", "organisation_id": "Peanut butter", "organisation_name":
+        "Prawn Pizza", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Eggs Neptune", "organisation_name": "Creamed eggs on toast"}], "enterprise_id":
+        "Wasabi Peas", "enterprise_name": "Moules Frites"}, "actions_taken": []},
+        {"playbook_alert_id": "task:54e1b01d-23ff-4650-8f18-b42ec3dfe7f4", "rule_id":
+        "Phaal", "alert_rule": {"id": "qS_wmm", "label": "Ploye", "name": "Bi Bim
+        Bap"}, "status": "New", "priority": "Corn rel", "created": "2026-03-13T14:39:35.225Z",
+        "updated": "2026-03-13T14:39:43.000Z", "category": "code_repo_leakage", "title":
+        "Ports are created with the built-in function open_port", "owner_id": "Chicken
+        fingers", "owner_name": "Haystack", "organisation_id": "Muffuletta", "organisation_name":
+        "Chicken Salad Wrap", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Mini pizzas", "organisation_name": "Chicharones"}], "enterprise_id": "Potato
+        skins", "enterprise_name": "Bull roast"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:ca95c4a5-edc4-4b13-af41-35efac6f333d", "rule_id": "Waffle", "alert_rule":
+        {"id": "qS_wmm", "label": "Risotto", "name": "Satay"}, "status": "New", "priority":
+        "Popover", "created": "2026-03-13T14:39:32.929Z", "updated": "2026-03-13T14:39:35.489Z",
+        "category": "code_repo_leakage", "title": "Its main implementation is the
+        Glasgow Haskell Co", "owner_id": "Lorna Doone", "owner_name": "Goulash", "organisation_id":
+        "Kung Pao Chicken", "organisation_name": "Alphabet pasta", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "BBQ Chicken Pizz", "organisation_name":
+        "Mashed potato"}], "enterprise_id": "Parma Ham", "enterprise_name": "Greek
+        salad"}, "actions_taken": []}, {"playbook_alert_id": "task:6376250a-2c90-4463-a944-f7158a8117f2",
+        "rule_id": "Marghe", "alert_rule": {"id": "qS_wmm", "label": "Rice and gravy",
+        "name": "Spaghetti Bolognese"}, "status": "New", "priority": "Rabbit p", "created":
+        "2026-03-13T14:39:32.244Z", "updated": "2026-03-13T14:40:06.020Z", "category":
+        "code_repo_leakage", "title": "Erlang is known for its designs that are well
+        ", "owner_id": "Kung Pao Chicken", "owner_name": "Reuben", "organisation_id":
+        "Baba Ghanoush", "organisation_name": "Bookbinder Soup", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Hot Chicken sand", "organisation_name":
+        "Calas"}], "enterprise_id": "Pepperoni Pizza", "enterprise_name": "Caviar"},
+        "actions_taken": []}, {"playbook_alert_id": "task:10a83577-e0b2-4924-9f0c-29651046eb4b",
+        "rule_id": "Thousa", "alert_rule": {"id": "qS_wmm", "label": "Huevos Rancheros",
+        "name": "Pickled Okra"}, "status": "New", "priority": "Beignets", "created":
+        "2026-03-13T14:39:32.171Z", "updated": "2026-03-13T14:39:41.838Z", "category":
+        "code_repo_leakage", "title": "Make me a sandwich.", "owner_id": "Ranch dressing",
+        "owner_name": "Beef Manhattan", "organisation_id": "Deviled crab", "organisation_name":
+        "Spaghetti and Meatballs", "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Margherita Pizza", "organisation_name": "Clam chowder"}],
+        "enterprise_id": "Samosa", "enterprise_name": "Creme Brulee"}, "actions_taken":
+        []}, {"playbook_alert_id": "task:b8ba09e7-42a3-4f9b-85a4-998d8007ae9e", "rule_id":
+        "Potato", "alert_rule": {"id": "qS_wmm", "label": "Chicken Divan", "name":
+        "Mashed pumpkin"}, "status": "New", "priority": "Bruschet", "created": "2026-03-13T14:39:31.839Z",
+        "updated": "2026-03-13T14:39:33.240Z", "category": "code_repo_leakage", "title":
+        "Do you come here often?", "owner_id": "Maple bacon donu", "owner_name": "Rice
+        and gravy", "organisation_id": "Cheese balls", "organisation_name": "Pizza
+        strips", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Rolled oyster", "organisation_name": "Macaroni and Cheese"}], "enterprise_id":
+        "Bruschetta", "enterprise_name": "Meat Feast Pizza"}, "actions_taken": []},
+        {"playbook_alert_id": "task:425258e0-6dc7-4f76-a81a-4c0742ef03a6", "rule_id":
+        "Spaghe", "alert_rule": {"id": "qS_wmm", "label": "Supreme pizza", "name":
+        "Montreal Smoked Meat"}, "status": "New", "priority": "Ice Crea", "created":
+        "2026-03-13T14:39:30.973Z", "updated": "2026-03-13T14:39:30.973Z", "category":
+        "code_repo_leakage", "title": "Ports are used to communicate with the external",
+        "owner_id": "Abalone", "owner_name": "Chicago Deep Dish Pizza", "organisation_id":
+        "Buffalo wing", "organisation_name": "Escargot", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Falafel", "organisation_name": "Chicken
+        herby pasta bake"}], "enterprise_id": "Ammonia cookie", "enterprise_name":
+        "French Onion Soup"}, "actions_taken": []}, {"playbook_alert_id": "task:49b6813c-8070-4640-8d62-540f08230460",
+        "rule_id": "BBQ Ri", "alert_rule": {"id": "qS_wmm", "label": "Naan", "name":
+        "Bird''s Nest Soup"}, "status": "New", "priority": "Dirty ri", "created":
+        "2026-03-13T14:39:27.644Z", "updated": "2026-03-13T14:39:42.704Z", "category":
+        "code_repo_leakage", "title": "Ports are used to communicate with the external
+        wor", "owner_id": "Rabbit pie", "owner_name": "Scampi", "organisation_id":
+        "Slinger", "organisation_name": "Cheese dog", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Pastrami on Rye", "organisation_name":
+        "Chocolate Brownie"}], "enterprise_id": "Schnitzel", "enterprise_name": "Biscuit"},
+        "actions_taken": []}, {"playbook_alert_id": "task:939d49fc-99e6-4172-9a6b-95498bba3ae2",
+        "rule_id": "Fajita", "alert_rule": {"id": "qS_wmm", "label": "Beef Manhattan",
+        "name": "Salisbury steak"}, "status": "New", "priority": "Veggie P", "created":
+        "2026-03-13T14:39:23.245Z", "updated": "2026-03-13T14:39:23.245Z", "category":
+        "code_repo_leakage", "title": "Ports are created with the built-in function
+        op", "owner_id": "Smelt", "owner_name": "Jerky", "organisation_id": "Pocky",
+        "organisation_name": "Pistachio Ice Cream", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Fry sauce", "organisation_name": "Fried
+        Green Tomatoes"}], "enterprise_id": "Naan", "enterprise_name": "Carne pizzaiola"},
+        "actions_taken": []}, {"playbook_alert_id": "task:b212bffc-2b5c-4577-8e03-ab2eb7093426",
+        "rule_id": "Soft S", "alert_rule": {"id": "qS_wmm", "label": "Beef Lo Mein",
+        "name": "Russian tea cake"}, "status": "New", "priority": "Cheesy G", "created":
+        "2026-03-13T14:39:23.171Z", "updated": "2026-03-13T14:39:30.747Z", "category":
+        "code_repo_leakage", "title": "Messages can be sent to and received from por",
+        "owner_id": "Salmon pasta bak", "owner_name": "Creamed eggs on toast", "organisation_id":
+        "Matzo Ball Soup", "organisation_name": "Ribs", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Parma Ham", "organisation_name": "Haystack"}],
+        "enterprise_id": "Fish and Chips!", "enterprise_name": "Shish Kabob"}, "actions_taken":
+        []}, {"playbook_alert_id": "task:fcfe71e8-adee-468c-be3e-b91988d8b6b1", "rule_id":
+        "Rolled", "alert_rule": {"id": "qS_wmm", "label": "Chicken Alfredo", "name":
+        "Shrimp and Grits"}, "status": "New", "priority": "Corn dog", "created": "2026-03-13T14:39:23.139Z",
+        "updated": "2026-03-13T14:39:23.139Z", "category": "code_repo_leakage", "title":
+        "Atoms can contain any character if th", "owner_id": "Vichyssoise", "owner_name":
+        "Pizza strips", "organisation_id": "Bird''s Nest Soup", "organisation_name":
+        "Sauteed Morel Mushrooms", "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Funnel Cake", "organisation_name": "Margherita Pizza"}],
+        "enterprise_id": "Beef Lo Mein", "enterprise_name": "Lasagna"}, "actions_taken":
+        []}, {"playbook_alert_id": "task:44fd936a-eb3b-4c22-9300-e7394ee13ae1", "rule_id":
+        "Pork a", "alert_rule": {"id": "qS_wmm", "label": "Senate bean soup", "name":
+        "Root Beer Float"}, "status": "New", "priority": "Sausage ", "created": "2026-03-13T14:39:22.355Z",
+        "updated": "2026-03-13T14:39:22.355Z", "category": "code_repo_leakage", "title":
+        "In 1989 the building was heavily damaged by f", "owner_id": "Flan", "owner_name":
+        "Slinger", "organisation_id": "Pizza strips", "organisation_name": "Chicken
+        Salad Wrap", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Hot chicken", "organisation_name": "Risotto"}], "enterprise_id": "Potato
+        Wedges", "enterprise_name": "Gazpacho"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:43519899-b326-40e1-95f4-4fd8ea66a9cd", "rule_id": "Chicke", "alert_rule":
+        {"id": "qS_wmm", "label": "Pizza strips", "name": "Pickled Okra"}, "status":
+        "New", "priority": "Poke", "created": "2026-03-13T14:39:21.843Z", "updated":
+        "2026-03-13T14:39:43.332Z", "category": "code_repo_leakage", "title": "She
+        spent her earliest years reading classic lite", "owner_id": "Smelt", "owner_name":
+        "Stroganoff", "organisation_id": "Fortune cookie", "organisation_name": "Bull
+        roast", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Chicken Biryani", "organisation_name": "Sloppy joe"}], "enterprise_id": "Eggs
+        Benedict", "enterprise_name": "Bear claw"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:66d692b0-70f6-499d-b610-b2da98c479bd", "rule_id": "Surf a", "alert_rule":
+        {"id": "qS_wmm", "label": "Breaded shrimp", "name": "Breakfast burrito"},
+        "status": "New", "priority": "Patty", "created": "2026-03-13T14:39:19.158Z",
+        "updated": "2026-03-13T14:39:19.158Z", "category": "code_repo_leakage", "title":
+        "Haskell features a type system with typ", "owner_id": "Hog fry", "owner_name":
+        "Macaroni salad", "organisation_id": "Rolled oyster", "organisation_name":
+        "Crab cake", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Mozzarella stick", "organisation_name": "Schnitzel"}], "enterprise_id": "Onion
+        ring", "enterprise_name": "Laksa"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:266e9db6-5fde-4f9c-b5ae-1d8f59c961a0", "rule_id": "Spring", "alert_rule":
+        {"id": "qS_wmm", "label": "Mashed pumpkin", "name": "Gumbo"}, "status": "New",
+        "priority": "Mulligan", "created": "2026-03-13T14:39:18.068Z", "updated":
+        "2026-03-13T14:39:18.068Z", "category": "code_repo_leakage", "title": "Initially
+        composing light-hearted and irreverent works,", "owner_id": "Smelt", "owner_name":
+        "Margherita Pizza", "organisation_id": "Sausage gravy", "organisation_name":
+        "Beef Lo Mein", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Scampi", "organisation_name": "Corn chowder"}], "enterprise_id": "Sushi",
+        "enterprise_name": "Chicken fingers"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:cfe555bd-853c-443f-bf99-3078f04196b4", "rule_id": "Churra", "alert_rule":
+        {"id": "qS_wmm", "label": "Sushi", "name": "Crepes"}, "status": "New", "priority":
+        "Garden s", "created": "2026-03-13T14:39:17.940Z", "updated": "2026-03-13T14:40:19.251Z",
+        "category": "code_repo_leakage", "title": "The Galactic Empire is nearing
+        completion of the", "owner_id": "Caviar", "owner_name": "Burnt ends", "organisation_id":
+        "Grits", "organisation_name": "Salted caramel cookie", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Maple bacon donu", "organisation_name":
+        "Clam cake"}], "enterprise_id": "Suckling Pig", "enterprise_name": "Soft Shell
+        Crab"}, "actions_taken": []}, {"playbook_alert_id": "task:8f0f8870-351c-401d-b38b-e5a356ccad36",
+        "rule_id": "Chicke", "alert_rule": {"id": "qS_wmm", "label": "Beef Lo Mein",
+        "name": "Calamari"}, "status": "New", "priority": "Wasabi P", "created": "2026-03-13T14:39:17.507Z",
+        "updated": "2026-03-13T14:39:27.892Z", "category": "code_repo_leakage", "title":
+        "The Galactic Empire is nearing completio", "owner_id": "Toaster Strudel",
+        "owner_name": "Chicago Deep Dish Pizza", "organisation_id": "Sauteed Morel
+        Mu", "organisation_name": "BBQ Chicken Pizza", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Salad bar", "organisation_name": "Fried
+        Green Tomatoes"}], "enterprise_id": "Fajita", "enterprise_name": "Macaroni
+        salad"}, "actions_taken": []}, {"playbook_alert_id": "task:ecf6674b-f4be-4839-9303-da86a40a5519",
+        "rule_id": "French", "alert_rule": {"id": "qS_wmm", "label": "Burnt ends",
+        "name": "Milk Steak"}, "status": "New", "priority": "Shrimp a", "created":
+        "2026-03-13T14:39:16.864Z", "updated": "2026-03-13T14:39:20.722Z", "category":
+        "code_repo_leakage", "title": "She spent her earliest years reading classic",
+        "owner_id": "Pasta salad", "owner_name": "Albacore Tuna Melt", "organisation_id":
+        "Bi Bim Bap", "organisation_name": "Venison", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Patty", "organisation_name": "Osso
+        Buco"}], "enterprise_id": "Beignets", "enterprise_name": "Pigs in blankets"},
+        "actions_taken": []}, {"playbook_alert_id": "task:5f75443c-972a-4656-8079-49b8205805af",
+        "rule_id": "Pastra", "alert_rule": {"id": "qS_wmm", "label": "Shawarma", "name":
+        "Rabbit pie"}, "status": "New", "priority": "Chowder", "created": "2026-03-13T14:39:13.836Z",
+        "updated": "2026-03-13T14:39:13.836Z", "category": "code_repo_leakage", "title":
+        "Where are my pants?", "owner_id": "Juba", "owner_name": "Bruschetta", "organisation_id":
+        "Baba Ghanoush", "organisation_name": "Chicharones", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Shucked Oysters", "organisation_name":
+        "Jerky"}], "enterprise_id": "Mashed potato", "enterprise_name": "Chowder"},
+        "actions_taken": []}], "counts": {"returned": 50, "total": 3409449}, "next_offset":
+        "eyJvZmZzZXQiOlsxNzczNDEyNzUzODM2LCJ0YXNrOjVmNzU0NDNjLTk3MmEtNDY1Ni04MDc5LTQ5YjgyMDU4MDVhZiJdfQ=="}'
+    headers:
+      CF-RAY:
+      - 9dbbcb924b74dc2c-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Mar 2026 14:40:45 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"limit": 50, "category": ["domain_abuse", "cyber_vulnerability", "third_party_risk",
+      "code_repo_leakage", "identity_novel_exposures", "geopolitics_facility", "malware_report"],
+      "offset": "eyJvZmZzZXQiOlsxNzczNDEyNzUzODM2LCJ0YXNrOjVmNzU0NDNjLTk3MmEtNDY1Ni04MDc5LTQ5YjgyMDU4MDVhZiJdfQ=="}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '287'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - banshee:tests_/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.3 platform_id
+        unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/playbook-alert/search
+  response:
+    body:
+      string: '{"status": {"status_code": "To", "status_message": "Falafel"}, "data":
+        [{"playbook_alert_id": "task:6125f5b6-757a-48f5-826e-3eb77883733b", "rule_id":
+        "Jell-O", "alert_rule": {"id": "qS_wmm", "label": "Creme Brulee", "name":
+        "BBQ Chicken Pizza"}, "status": "New", "priority": "Hokkien ", "created":
+        "2026-03-13T14:39:10.996Z", "updated": "2026-03-13T14:39:16.862Z", "category":
+        "code_repo_leakage", "title": "Erlang is known for its designs that are w",
+        "owner_id": "Currywurst", "owner_name": "Schnitzel", "organisation_id": "Fajitas",
+        "organisation_name": "Pepperoni Pizza", "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Geoduck", "organisation_name": "Eggs Neptune"}], "enterprise_id":
+        "Chocolate Chip C", "enterprise_name": "Hangtown fry"}, "actions_taken": []},
+        {"playbook_alert_id": "task:1b6632e3-ef47-41a1-bb38-0684fbe26ee8", "rule_id":
+        "White ", "alert_rule": {"id": "qS_wmm", "label": "Home fries", "name": "Risotto"},
+        "status": "New", "priority": "Escargot", "created": "2026-03-13T14:39:10.076Z",
+        "updated": "2026-03-13T14:39:14.845Z", "category": "code_repo_leakage", "title":
+        "Haskell features a type system with t", "owner_id": "Frybread", "owner_name":
+        "Reuben sandwich", "organisation_id": "Jerky", "organisation_name": "Russian
+        tea cake", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Meatloaf", "organisation_name": "Blue cheese dressing"}], "enterprise_id":
+        "Biscuit", "enterprise_name": "Phaal"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:a5c8739b-2550-4083-8b24-22186ca638b3", "rule_id": "Calf''s", "alert_rule":
+        {"id": "qS_wmm", "label": "Poutine", "name": "Spaghetti Bolognese"}, "status":
+        "New", "priority": "Turducke", "created": "2026-03-13T14:39:08.328Z", "updated":
+        "2026-03-13T14:39:18.237Z", "category": "code_repo_leakage", "title": "He
+        looked inquisitively at his keyboard and wrote another sentence.", "owner_id":
+        "Corned beef", "owner_name": "Elote", "organisation_id": "Boulliabaise", "organisation_name":
+        "Baklava", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Bagels and Lox", "organisation_name": "Matzo Ball Soup"}], "enterprise_id":
+        "Low Country Boil", "enterprise_name": "Salisbury steak"}, "actions_taken":
+        []}, {"playbook_alert_id": "task:5ba0f40c-e26a-4ad7-a631-64d06d054c1a", "rule_id":
+        "Suckli", "alert_rule": {"id": "qS_wmm", "label": "Bulgogi", "name": "Albacore
+        Tuna Melt"}, "status": "New", "priority": "Macaroni", "created": "2026-03-13T14:39:06.682Z",
+        "updated": "2026-03-13T14:39:06.682Z", "category": "code_repo_leakage", "title":
+        "It is also a garbage-collected runtime syst", "owner_id": "Tuna casserole",
+        "owner_name": "Chili con carne", "organisation_id": "Gazpacho", "organisation_name":
+        "Home fries", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Prawn Pizza", "organisation_name": "Carne pizzaiola"}], "enterprise_id":
+        "Hawaiian haystac", "enterprise_name": "Apple butter"}, "actions_taken": []},
+        {"playbook_alert_id": "task:938da1ff-8377-4fa3-b542-97abebaf6722", "rule_id":
+        "Italia", "alert_rule": {"id": "qS_wmm", "label": "Hog fry", "name": "Churrasco"},
+        "status": "New", "priority": "Pizza st", "created": "2026-03-13T14:39:06.087Z",
+        "updated": "2026-03-13T14:39:06.087Z", "category": "code_repo_leakage", "title":
+        "The arguments can be primitive data types or compound data ty", "owner_id":
+        "Corn chowder", "owner_name": "Squab", "organisation_id": "Montreal Smoked
+        ", "organisation_name": "Currywurst", "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Bacon Cheeseburg", "organisation_name": "Chile Relleno"}],
+        "enterprise_id": "Elote", "enterprise_name": "Venison"}, "actions_taken":
+        []}, {"playbook_alert_id": "task:4a29dde4-a29d-4107-a030-3e01e92f072c", "rule_id":
+        "Russia", "alert_rule": {"id": "qS_wmm", "label": "Sweet Potato Fries", "name":
+        "Buffalo burger"}, "status": "New", "priority": "Bruschet", "created": "2026-03-13T14:39:05.423Z",
+        "updated": "2026-03-13T14:39:21.002Z", "category": "code_repo_leakage", "title":
+        "The Galactic Empire is nearing completion of the Deat", "owner_id": "Bao",
+        "owner_name": "Venison", "organisation_id": "Italian Beef San", "organisation_name":
+        "Pizza strips", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Jambalaya", "organisation_name": "Texas Toast"}], "enterprise_id": "Tin Roof
+        Ice Cre", "enterprise_name": "Potato skins"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:b04fa1da-4a26-44f4-b44b-4cd9c4bdf4ce", "rule_id": "Cheese", "alert_rule":
+        {"id": "qS_wmm", "label": "Chicken herby pasta bake", "name": "Alice Springs
+        Chicken"}, "status": "New", "priority": "Pepperon", "created": "2026-03-13T14:39:04.448Z",
+        "updated": "2026-03-13T14:39:04.448Z", "category": "code_repo_leakage", "title":
+        "It is also a garbage-collected runtime system.", "owner_id": "Jerky", "owner_name":
+        "Philly Cheese Steak", "organisation_id": "Souvlaki", "organisation_name":
+        "Shucked Oysters", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Root Beer Float", "organisation_name": "Jambalaya"}], "enterprise_id": "Creme
+        Brulee", "enterprise_name": "Polenta"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:da273f08-b955-44b4-957b-01587283d672", "rule_id": "Buffal", "alert_rule":
+        {"id": "qS_wmm", "label": "Kimchi", "name": "Mashed pumpkin"}, "status": "New",
+        "priority": "Calamari", "created": "2026-03-13T14:39:04.304Z", "updated":
+        "2026-03-13T14:39:04.484Z", "category": "code_repo_leakage", "title": "Haskell
+        features a type system with type in", "owner_id": "Sandwich", "owner_name":
+        "Milk toast", "organisation_id": "Jambalaya", "organisation_name": "Shrimp
+        Creole", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Massaman Curry", "organisation_name": "Creamed eggs on toast"}], "enterprise_id":
+        "Hummus", "enterprise_name": "Shrimp and Grits"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:f237a7fc-7332-439d-8156-e015a70debbd", "rule_id": "Carne ", "alert_rule":
+        {"id": "qS_wmm", "label": "Sushi", "name": "Albacore Tuna Melt"}, "status":
+        "New", "priority": "Breakfas", "created": "2026-03-13T14:38:57.469Z", "updated":
+        "2026-03-13T14:38:57.864Z", "category": "code_repo_leakage", "title": "I don''t
+        even care.", "owner_id": "Souvlaki", "owner_name": "Roasted Chickpeas", "organisation_id":
+        "Gumbo", "organisation_name": "Roasted Bone Marrow", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Fried chicken", "organisation_name":
+        "Beignets"}], "enterprise_id": "Pickled cucumber", "enterprise_name": "Chili
+        con carne"}, "actions_taken": []}, {"playbook_alert_id": "task:a811a4f7-3d71-411d-8849-82549095d670",
+        "rule_id": "New Yo", "alert_rule": {"id": "qS_wmm", "label": "Po''Boy", "name":
+        "Sauteed Morel Mushrooms"}, "status": "New", "priority": "Pasta sa", "created":
+        "2026-03-13T14:38:56.815Z", "updated": "2026-03-13T14:39:09.605Z", "category":
+        "code_repo_leakage", "title": "Do you have any idea why this is not wor",
+        "owner_id": "Hoppin'' John", "owner_name": "Risotto", "organisation_id": "Deviled
+        crab", "organisation_name": "Bookbinder Soup", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Chicago Deep Dis", "organisation_name":
+        "Flan"}], "enterprise_id": "Boulliabaise", "enterprise_name": "Bellini"},
+        "actions_taken": []}, {"playbook_alert_id": "task:cd289bef-02ac-4740-bfdd-a75e13aeadc5",
+        "rule_id": "Pistac", "alert_rule": {"id": "qS_wmm", "label": "Fajitas", "name":
+        "Oreo"}, "status": "New", "priority": "French D", "created": "2026-03-13T14:38:53.613Z",
+        "updated": "2026-03-13T14:38:53.613Z", "category": "code_repo_leakage", "title":
+        "Erlang is a general-purpose, con", "owner_id": "Clam chowder", "owner_name":
+        "Fries", "organisation_id": "Seafood cocktail", "organisation_name": "Brisket",
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Deep
+        Fried Oreos", "organisation_name": "Chicken Divan"}], "enterprise_id": "American
+        fried r", "enterprise_name": "Squab"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:6d2d3632-ec78-4af3-aceb-f56fe4e56c63", "rule_id": "Fajita", "alert_rule":
+        {"id": "qS_wmm", "label": "Poutine", "name": "Banh Mi Vi\u00eat"}, "status":
+        "New", "priority": "Maple Ba", "created": "2026-03-13T14:38:52.161Z", "updated":
+        "2026-03-13T14:38:52.161Z", "category": "code_repo_leakage", "title": "They
+        are written as strings of consecut", "owner_id": "Kimchi", "owner_name": "Popover",
+        "organisation_id": "Cobb Salad", "organisation_name": "Corn chowder", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Vegemite on Toas", "organisation_name":
+        "Bacon Cheeseburger"}], "enterprise_id": "Stuffed ham", "enterprise_name":
+        "Potato wedges"}, "actions_taken": []}, {"playbook_alert_id": "task:6db21d2b-85cc-486e-a5f8-4bee5f3226e9",
+        "rule_id": "Rolled", "alert_rule": {"id": "qS_wmm", "label": "Onion ring",
+        "name": "Pepperoni"}, "status": "New", "priority": "Hoppin'' ", "created":
+        "2026-03-13T14:38:50.729Z", "updated": "2026-03-13T14:38:50.729Z", "category":
+        "code_repo_leakage", "title": "I don''t even care.", "owner_id": "New York-Style
+        P", "owner_name": "Satay", "organisation_id": "Shucked Oysters", "organisation_name":
+        "Pastrami on Rye", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Ammonia cookie", "organisation_name": "Paella"}], "enterprise_id": "Cheese
+        stuffed c", "enterprise_name": "Greek salad"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:7fa997da-043b-49e1-b909-9954d5867c5d", "rule_id": "Pizza ", "alert_rule":
+        {"id": "qS_wmm", "label": "Shrimp Creole", "name": "Empanada"}, "status":
+        "New", "priority": "Seafood ", "created": "2026-03-13T14:38:50.059Z", "updated":
+        "2026-03-13T14:38:57.902Z", "category": "code_repo_leakage", "title": "Erlang
+        is a general-purpose, concurrent, functional programmi", "owner_id": "Hawaiian
+        haystac", "owner_name": "French Dip", "organisation_id": "Reuben", "organisation_name":
+        "Apple butter", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Gyros", "organisation_name": "Bellini"}], "enterprise_id": "Blue cheese dres",
+        "enterprise_name": "Lasagna"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:67338985-27a4-4c10-ae9e-660d020df934", "rule_id": "French", "alert_rule":
+        {"id": "qS_wmm", "label": "Pan Seared Scallops", "name": "Hokkien fried rice"},
+        "status": "New", "priority": "Scampi", "created": "2026-03-13T14:38:49.162Z",
+        "updated": "2026-03-13T14:38:58.671Z", "category": "code_repo_leakage", "title":
+        "Haskell features a type system with type in", "owner_id": "Protein bar",
+        "owner_name": "Buffalo burger", "organisation_id": "Phaal", "organisation_name":
+        "Choco pie", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Cinnamon Roll", "organisation_name": "Jalapeno Poppers"}], "enterprise_id":
+        "Hot chicken", "enterprise_name": "Cheese stuffed crust pizza"}, "actions_taken":
+        []}, {"playbook_alert_id": "task:41d83af6-4320-4f16-a77d-7a8aedff28f5", "rule_id":
+        "Haggis", "alert_rule": {"id": "qS_wmm", "label": "Sushi", "name": "Pork Belly"},
+        "status": "New", "priority": "Milkshak", "created": "2026-03-13T14:38:49.001Z",
+        "updated": "2026-03-13T14:38:56.543Z", "category": "code_repo_leakage", "title":
+        "Atoms are used within a program to denot", "owner_id": "Oreo", "owner_name":
+        "Potato Wedges", "organisation_id": "Montreal Smoked ", "organisation_name":
+        "Gazpacho", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Chocolate Browni", "organisation_name": "Shepherd''s Pie"}], "enterprise_id":
+        "Kung Pao Chicken", "enterprise_name": "Garlic bread"}, "actions_taken": []},
+        {"playbook_alert_id": "task:e4302749-bbe9-456f-a7b3-72b2fbd54c40", "rule_id":
+        "Polent", "alert_rule": {"id": "qS_wmm", "label": "Onion ring", "name": "Ploye"},
+        "status": "New", "priority": "Deviled ", "created": "2026-03-13T14:38:47.859Z",
+        "updated": "2026-03-13T14:38:47.859Z", "category": "code_repo_leakage", "title":
+        "He looked inquisitively at his keyboard and wrot", "owner_id": "Ice Cream
+        Sundae", "owner_name": "Calf''s liver and bacon", "organisation_id": "Hawaiian
+        Pizza", "organisation_name": "Chili con carne", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Cheese balls", "organisation_name":
+        "Buffalo Wings"}], "enterprise_id": "New York-Style P", "enterprise_name":
+        "Pepperoni"}, "actions_taken": []}, {"playbook_alert_id": "task:76f5b414-98d3-4e25-82cd-36e2d300b7b2",
+        "rule_id": "Stuffe", "alert_rule": {"id": "qS_wmm", "label": "Chicken Alfredo",
+        "name": "Baba Ghanoush"}, "status": "New", "priority": "Satay", "created":
+        "2026-03-13T14:38:34.714Z", "updated": "2026-03-13T14:39:00.545Z", "category":
+        "code_repo_leakage", "title": "Type classes first appeared in the Haskell
+        ", "owner_id": "Potato Wedges", "owner_name": "Shucked Oysters", "organisation_id":
+        "Ice Cream Sundae", "organisation_name": "Pancakes", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Mozzarella stick", "organisation_name":
+        "Hawaiian Pizza"}], "enterprise_id": "Creamed corn", "enterprise_name": "Chicago
+        Hot Dog"}, "actions_taken": []}, {"playbook_alert_id": "task:641a486c-5b49-461f-9859-714691105b40",
+        "rule_id": "Chicag", "alert_rule": {"id": "qS_wmm", "label": "Russian dressing",
+        "name": "Phaal"}, "status": "New", "priority": "Ribs", "created": "2026-03-13T14:38:31.409Z",
+        "updated": "2026-03-13T14:38:51.580Z", "category": "code_repo_leakage", "title":
+        "In 1989 the building was heavily damaged by fi", "owner_id": "Deviled egg",
+        "owner_name": "Chicken and waffles", "organisation_id": "Bird''s Nest Soup",
+        "organisation_name": "Toaster Strudel", "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Bruschetta", "organisation_name": "Calas"}], "enterprise_id":
+        "Energy bar", "enterprise_name": "Chicken sandwich"}, "actions_taken": []},
+        {"playbook_alert_id": "task:3080c9b4-75f6-4f71-b6ed-dbb297c856e2", "rule_id":
+        "Steak ", "alert_rule": {"id": "qS_wmm", "label": "Alice Springs Chicken",
+        "name": "Glorified rice"}, "status": "New", "priority": "Chowder", "created":
+        "2026-03-13T14:38:29.843Z", "updated": "2026-03-13T14:38:58.373Z", "category":
+        "code_repo_leakage", "title": "They are written as strings of consecu", "owner_id":
+        "Potato skins", "owner_name": "Creamed corn", "organisation_id": "Blue-plate
+        speci", "organisation_name": "Corned beef", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Bulgogi", "organisation_name": "Chicken
+        Manchurian"}], "enterprise_id": "Pastrami on Rye", "enterprise_name": "Lasagna"},
+        "actions_taken": []}, {"playbook_alert_id": "task:0220a37c-23a0-4605-8929-83953c41e369",
+        "rule_id": "Eggs B", "alert_rule": {"id": "qS_wmm", "label": "Tamales", "name":
+        "Chips and dip"}, "status": "New", "priority": "Eggs Ben", "created": "2026-03-13T14:38:29.787Z",
+        "updated": "2026-03-13T14:38:57.656Z", "category": "code_repo_leakage", "title":
+        "The Galactic Empire is nearing comple", "owner_id": "Queso Fresco", "owner_name":
+        "Surf and turf", "organisation_id": "Chicken Divan", "organisation_name":
+        "American fried rice", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Shawarma", "organisation_name": "Ice cream cake"}], "enterprise_id": "Tres
+        Leches Cake", "enterprise_name": "Pastrami"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:925d6de3-7dfb-4696-93cb-90cda959c9fa", "rule_id": "Wasabi", "alert_rule":
+        {"id": "qS_wmm", "label": "Funnel Cake", "name": "Corn relish"}, "status":
+        "New", "priority": "Maine Lo", "created": "2026-03-13T14:38:26.770Z", "updated":
+        "2026-03-13T14:38:26.770Z", "category": "code_repo_leakage", "title": "Its
+        main implementation is the Glasgow Has", "owner_id": "Risotto", "owner_name":
+        "Clam cake", "organisation_id": "Jell-O", "organisation_name": "Matzo Ball
+        Soup", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Haystack", "organisation_name": "Shrimp Creole"}], "enterprise_id": "Rabbit
+        pie", "enterprise_name": "Maple Bacon Doughnut"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:00d9d6f5-6b95-4bb4-837c-05b93adf428e", "rule_id": "Onion ", "alert_rule":
+        {"id": "qS_wmm", "label": "Blue-plate special", "name": "Choco pie"}, "status":
+        "New", "priority": "Ammonia ", "created": "2026-03-13T14:38:26.392Z", "updated":
+        "2026-03-13T14:38:37.469Z", "category": "code_repo_leakage", "title": "It
+        is also a garbage-collected runti", "owner_id": "Steamed clams", "owner_name":
+        "Empanada", "organisation_id": "Baklava", "organisation_name": "Slinger",
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Kobe
+        Beef", "organisation_name": "Vegemite on Toast"}], "enterprise_id": "Domesticated
+        tur", "enterprise_name": "Laksa"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:d46e91a6-0866-44f0-b66b-1e909b7bd5c5", "rule_id": "Cheese", "alert_rule":
+        {"id": "qS_wmm", "label": "Frito Pie", "name": "Roasted Chickpeas"}, "status":
+        "New", "priority": "Chicken ", "created": "2026-03-13T14:38:24.133Z", "updated":
+        "2026-03-13T14:38:24.133Z", "category": "code_repo_leakage", "title": "Erlang
+        is known for its designs that are well", "owner_id": "Chili dog", "owner_name":
+        "Salmon pasta bake", "organisation_id": "Chocolate cheese", "organisation_name":
+        "Chicken nuggets", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Cinnamon Roll", "organisation_name": "Stuffed peppers"}], "enterprise_id":
+        "Macaroni salad", "enterprise_name": "Steak sauce"}, "actions_taken": []},
+        {"playbook_alert_id": "task:1d4a46dc-a8bc-4ecf-974c-1854161ae703", "rule_id":
+        "Potato", "alert_rule": {"id": "qS_wmm", "label": "Cordon bleu", "name": "Choco
+        pie"}, "status": "New", "priority": "Breakfas", "created": "2026-03-13T14:38:23.504Z",
+        "updated": "2026-03-13T14:38:26.676Z", "category": "code_repo_leakage", "title":
+        "I don''t even care.", "owner_id": "Waffle", "owner_name": "Blue cheese dressing",
+        "organisation_id": "Squab", "organisation_name": "Moules Frites", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Sandwich", "organisation_name": "Cheese
+        stuffed crust pizza"}], "enterprise_id": "Eggs Neptune", "enterprise_name":
+        "BBQ Ribs"}, "actions_taken": []}, {"playbook_alert_id": "task:ac6c1fec-2d8a-413e-9a85-c6e5dd5491df",
+        "rule_id": "Cordon", "alert_rule": {"id": "qS_wmm", "label": "Bao", "name":
+        "Lorna Doone"}, "status": "New", "priority": "Schnitze", "created": "2026-03-13T14:38:22.411Z",
+        "updated": "2026-03-13T14:38:37.828Z", "category": "code_repo_leakage", "title":
+        "It is also a garbage-collected runtime system.", "owner_id": "Fajitas", "owner_name":
+        "Hot Chicken sandwich", "organisation_id": "Corn chowder", "organisation_name":
+        "Greek salad", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Souvlaki", "organisation_name": "Currywurst"}], "enterprise_id": "Cinnamon
+        Roll", "enterprise_name": "Bookbinder Soup"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:2618810f-1954-408d-84f5-e3e45befd2c9", "rule_id": "Haggis", "alert_rule":
+        {"id": "qS_wmm", "label": "Creamed corn", "name": "Ratatouille"}, "status":
+        "New", "priority": "Chicken ", "created": "2026-03-13T14:38:21.855Z", "updated":
+        "2026-03-13T14:38:21.855Z", "category": "code_repo_leakage", "title": "Make
+        me a sandwich.", "owner_id": "Haggis", "owner_name": "Matzo Ball Soup", "organisation_id":
+        "Macaroni salad", "organisation_name": "Shrimp and Grits", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Blue-plate speci", "organisation_name":
+        "Patty"}], "enterprise_id": "Chocolate Browni", "enterprise_name": "Baked
+        potato"}, "actions_taken": []}, {"playbook_alert_id": "task:140445c7-eaf2-4261-a3d6-4320cfe340cb",
+        "rule_id": "Fortun", "alert_rule": {"id": "qS_wmm", "label": "Drunken chicken",
+        "name": "Blue-plate special"}, "status": "New", "priority": "Philly C", "created":
+        "2026-03-13T14:38:20.322Z", "updated": "2026-03-13T14:38:26.728Z", "category":
+        "code_repo_leakage", "title": "Tuples are containers for a fixed number of
+        Erlang data types", "owner_id": "Pemmican", "owner_name": "Turkish Delight",
+        "organisation_id": "Stuffed peppers", "organisation_name": "Biscuit", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Escargot", "organisation_name": "Chile
+        Relleno"}], "enterprise_id": "Thousand Island ", "enterprise_name": "Toaster
+        Strudel"}, "actions_taken": []}, {"playbook_alert_id": "task:4068ae09-c044-4238-a8d8-688ac2cdfced",
+        "rule_id": "Chocol", "alert_rule": {"id": "qS_wmm", "label": "Chimichanga",
+        "name": "Charleston red rice"}, "status": "New", "priority": "Coleslaw", "created":
+        "2026-03-13T14:38:19.793Z", "updated": "2026-03-13T14:38:27.738Z", "category":
+        "code_repo_leakage", "title": "Type classes first appeared in the Hask", "owner_id":
+        "Low Country Boil", "owner_name": "Tomato compote", "organisation_id": "Cordon
+        bleu", "organisation_name": "Calas", "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Geoduck", "organisation_name": "Fish and Chips!"}],
+        "enterprise_id": "Caviar", "enterprise_name": "Cheese fries"}, "actions_taken":
+        []}, {"playbook_alert_id": "task:749030d2-a297-4e5f-b818-c425f6a323de", "rule_id":
+        "Jalape", "alert_rule": {"id": "qS_wmm", "label": "Tuna Pizza", "name": "Sonofabitch
+        stew"}, "status": "New", "priority": "Tres Lec", "created": "2026-03-13T14:38:18.077Z",
+        "updated": "2026-03-13T14:38:18.077Z", "category": "code_repo_leakage", "title":
+        "I don''t even care.", "owner_id": "Cobb Salad", "owner_name": "Calamari",
+        "organisation_id": "Spaghetti and Me", "organisation_name": "Chicken Alfredo",
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Chicken
+        nuggets", "organisation_name": "Lasagna"}], "enterprise_id": "Cinnamon Roll",
+        "enterprise_name": "Cobb Salad"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:2d5806ae-bfe3-44c7-aa78-bca3d62a6f7b", "rule_id": "Salted", "alert_rule":
+        {"id": "qS_wmm", "label": "Risotto", "name": "Risotto"}, "status": "New",
+        "priority": "Frito Pi", "created": "2026-03-13T14:38:16.421Z", "updated":
+        "2026-03-13T14:38:40.319Z", "category": "code_repo_leakage", "title": "Erlang
+        is a general-purpose, concurrent, fun", "owner_id": "Hangtown fry", "owner_name":
+        "Philly Cheese Steak", "organisation_id": "Pancakes", "organisation_name":
+        "Corn chowder", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Energy bar", "organisation_name": "Cheese stuffed crust pizza"}], "enterprise_id":
+        "Tin Roof Ice Cre", "enterprise_name": "Mission burrito"}, "actions_taken":
+        []}, {"playbook_alert_id": "task:11c15ecf-75d1-497e-bcd8-a44a0fb566b8", "rule_id":
+        "Mashed", "alert_rule": {"id": "qS_wmm", "label": "Salad bar", "name": "Bellini"},
+        "status": "New", "priority": "Baklava", "created": "2026-03-13T14:38:12.953Z",
+        "updated": "2026-03-13T14:38:23.212Z", "category": "code_repo_leakage", "title":
+        "Atoms are used within a program to denote disti", "owner_id": "Waffle", "owner_name":
+        "Hot Chicken sandwich", "organisation_id": "Sweetbreads", "organisation_name":
+        "Phaal", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Potatoes O''Brien", "organisation_name": "Prawn Pizza"}], "enterprise_id":
+        "Corn dog", "enterprise_name": "Macaroni and cheese"}, "actions_taken": []},
+        {"playbook_alert_id": "task:1bb583ba-fc3a-4e25-838c-ddc0ec955721", "rule_id":
+        "Potato", "alert_rule": {"id": "qS_wmm", "label": "Texas Toast", "name": "Buffalo
+        Wings"}, "status": "New", "priority": "Piroshky", "created": "2026-03-13T14:38:11.903Z",
+        "updated": "2026-03-13T14:38:11.903Z", "category": "code_repo_leakage", "title":
+        "He looked inquisitively at his keyboard and ", "owner_id": "Stuffed zucchini",
+        "owner_name": "Pork and beans", "organisation_id": "Steak Tartare", "organisation_name":
+        "Kung Pao Chicken", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Apple butter", "organisation_name": "Po''Boy"}], "enterprise_id": "Poppyseed
+        muffin", "enterprise_name": "Baba Ghanoush"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:c5125f8b-f737-481a-8cce-479f7403174d", "rule_id": "Chocol", "alert_rule":
+        {"id": "qS_wmm", "label": "Seafood cocktail", "name": "Brisket"}, "status":
+        "New", "priority": "Beef Man", "created": "2026-03-13T14:38:10.436Z", "updated":
+        "2026-03-13T14:38:22.947Z", "category": "code_repo_leakage", "title": "The
+        syntax {D1,D2,...,Dn} denotes a tuple whose arg", "owner_id": "Matzo Ball
+        Soup", "owner_name": "Corn relish", "organisation_id": "Chicken \u00e0 la
+        Kin", "organisation_name": "Turducken", "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Reuben", "organisation_name": "Chile Relleno"}], "enterprise_id":
+        "Frito Pie", "enterprise_name": "Fish and Chips!"}, "actions_taken": []},
+        {"playbook_alert_id": "task:48de56cc-3ac6-4b06-8ce9-4a423c3ce4f5", "rule_id":
+        "Cinnam", "alert_rule": {"id": "qS_wmm", "label": "Cobb Salad", "name": "Chili
+        dog"}, "status": "New", "priority": "Eggs Ben", "created": "2026-03-13T14:38:09.357Z",
+        "updated": "2026-03-13T14:38:12.535Z", "category": "code_repo_leakage", "title":
+        "Initially composing light-hearted and irreverent works, he also ", "owner_id":
+        "Pop-Tarts", "owner_name": "Scampi", "organisation_id": "New York-Style P",
+        "organisation_name": "Mozzarella Sticks", "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Mozzarella Stick", "organisation_name": "Glorified rice"}],
+        "enterprise_id": "Hawaiian haystac", "enterprise_name": "Falafel"}, "actions_taken":
+        []}, {"playbook_alert_id": "task:42b1ef91-e12b-4c39-9679-5270112b8b1a", "rule_id":
+        "Chimic", "alert_rule": {"id": "qS_wmm", "label": "Ribs", "name": "Huevos
+        Rancheros"}, "status": "New", "priority": "Home fri", "created": "2026-03-13T14:38:07.700Z",
+        "updated": "2026-03-13T14:38:14.028Z", "category": "code_repo_leakage", "title":
+        "Ports are used to communicate with the external ", "owner_id": "Pigs in blankets",
+        "owner_name": "Tres Leches Cake", "organisation_id": "Tomato compote", "organisation_name":
+        "Bangers and mash", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Sushi", "organisation_name": "Russian tea cake"}], "enterprise_id": "Chinese
+        food", "enterprise_name": "Buffalo wing"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:2757b6d2-0780-4e41-87c1-1ec33ac2ac8c", "rule_id": "Meatca", "alert_rule":
+        {"id": "qS_wmm", "label": "Philly Cheese Steak", "name": "Chicken French"},
+        "status": "New", "priority": "Chicharo", "created": "2026-03-13T14:38:07.322Z",
+        "updated": "2026-03-13T14:38:22.274Z", "category": "code_repo_leakage", "title":
+        "Haskell is a standardized, general-purpose purely ", "owner_id": "Low Country
+        Boil", "owner_name": "Shepherd''s Pie", "organisation_id": "Paella", "organisation_name":
+        "Chicken Biryani", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Phaal", "organisation_name": "Shrimp Creole"}], "enterprise_id": "Tuna Pizza",
+        "enterprise_name": "Beef Manhattan"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:90558f99-c144-4ab1-8210-e8cb45ce59bb", "rule_id": "Funnel", "alert_rule":
+        {"id": "qS_wmm", "label": "Salted caramel cookie", "name": "Pulled pork"},
+        "status": "New", "priority": "Sonofabi", "created": "2026-03-13T14:38:07.128Z",
+        "updated": "2026-03-13T14:38:07.128Z", "category": "code_repo_leakage", "title":
+        "Messages can be sent to and received from ports, but th", "owner_id": "Buffalo
+        burger", "owner_name": "Wasabi Peas", "organisation_id": "Haystack", "organisation_name":
+        "Lobster Newberg", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Hot chicken", "organisation_name": "Fajita"}], "enterprise_id": "Empanada",
+        "enterprise_name": "Queso Fresco"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:1e6cecba-43b2-4dc3-9b10-931ecf212a0d", "rule_id": "Matzo ", "alert_rule":
+        {"id": "qS_wmm", "label": "Pulled pork", "name": "Jambalaya"}, "status": "New",
+        "priority": "Mini piz", "created": "2026-03-13T14:38:07.088Z", "updated":
+        "2026-03-13T14:38:11.328Z", "category": "code_repo_leakage", "title": "The
+        Galactic Empire is nearing completion of the Death", "owner_id": "Hummus",
+        "owner_name": "Turkish Delight", "organisation_id": "Poke", "organisation_name":
+        "Juba", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Chicken fried st", "organisation_name": "Deviled crab"}], "enterprise_id":
+        "Fried fish", "enterprise_name": "Hoppin'' John"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:2f09ff82-cf48-4dca-86aa-0833a3fae3aa", "rule_id": "Key Li", "alert_rule":
+        {"id": "qS_wmm", "label": "Chicken bog", "name": "Brisket"}, "status": "New",
+        "priority": "Steak Ta", "created": "2026-03-13T14:38:05.648Z", "updated":
+        "2026-03-13T14:38:15.310Z", "category": "code_repo_leakage", "title": "In
+        1989 the building was heavily damage", "owner_id": "Pork and beans", "owner_name":
+        "Macaroni and cheese", "organisation_id": "Potato wedges", "organisation_name":
+        "Lobster roll", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Cheese fries", "organisation_name": "Elote"}], "enterprise_id": "Chicken
+        \u00e0 la Kin", "enterprise_name": "Hummus"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:0d5fdf67-26c2-4dfd-bdb8-93a5a2b25776", "rule_id": "Ice cr", "alert_rule":
+        {"id": "qS_wmm", "label": "Chowder", "name": "Chicken fried bacon"}, "status":
+        "New", "priority": "Goulash", "created": "2026-03-13T14:38:03.374Z", "updated":
+        "2026-03-13T14:38:11.700Z", "category": "code_repo_leakage", "title": "Type
+        classes first appeared in the Haskell pr", "owner_id": "Patty", "owner_name":
+        "Chicken Tikka Masala", "organisation_id": "Sonofabitch stew", "organisation_name":
+        "Satay", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Shucked Oysters", "organisation_name": "Fried Catfish"}], "enterprise_id":
+        "Ice cream cake", "enterprise_name": "Reuben sandwich"}, "actions_taken":
+        []}, {"playbook_alert_id": "task:29aab4e5-f73d-4cf6-a53f-ca22c0f07c9e", "rule_id":
+        "Chicke", "alert_rule": {"id": "qS_wmm", "label": "Patty", "name": "Pemmican"},
+        "status": "New", "priority": "Matzo Ba", "created": "2026-03-13T14:38:01.207Z",
+        "updated": "2026-03-13T14:38:06.344Z", "category": "code_repo_leakage", "title":
+        "Do you come here often?", "owner_id": "Salisbury steak", "owner_name": "Charleston
+        red rice", "organisation_id": "Bruschetta", "organisation_name": "Ceviche",
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Reuben
+        sandwich", "organisation_name": "Clam cake"}], "enterprise_id": "London broil",
+        "enterprise_name": "Biscuit"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:155f7211-8ed2-40bb-8a30-537b1f9ead9d", "rule_id": "Jerky", "alert_rule":
+        {"id": "qS_wmm", "label": "Fish and Chips!", "name": "Caviar"}, "status":
+        "New", "priority": "Veggie P", "created": "2026-03-13T14:37:59.800Z", "updated":
+        "2026-03-13T14:38:18.060Z", "category": "code_repo_leakage", "title": "Erlang
+        is a general-purpose, concurrent, f", "owner_id": "Scrapple", "owner_name":
+        "Steak sandwich", "organisation_id": "Chicago Hot Dog", "organisation_name":
+        "Eggo", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Breakfast burrit", "organisation_name": "Muffuletta"}], "enterprise_id":
+        "Souvlaki", "enterprise_name": "Ribs"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:21c6ced5-9c4e-4bb4-adce-0ff2b7f6fe17", "rule_id": "Pork a", "alert_rule":
+        {"id": "qS_wmm", "label": "Shrimp and Grits", "name": "Samosa"}, "status":
+        "New", "priority": "Grilled ", "created": "2026-03-13T14:37:57.816Z", "updated":
+        "2026-03-13T14:37:57.816Z", "category": "code_repo_leakage", "title": "They
+        are written as strings of con", "owner_id": "Cheese fries", "owner_name":
+        "Brisket", "organisation_id": "Chicken nuggets", "organisation_name": "Hawaiian
+        Pizza", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Tres Leches Cake", "organisation_name": "Reuben"}], "enterprise_id": "Chocolate
+        Chip C", "enterprise_name": "Cheese stuffed crust pizza"}, "actions_taken":
+        []}, {"playbook_alert_id": "task:8d9ea4f3-df60-4fe6-9738-8201039bb77b", "rule_id":
+        "Chicke", "alert_rule": {"id": "qS_wmm", "label": "Drunken chicken", "name":
+        "Risotto"}, "status": "New", "priority": "Elote", "created": "2026-03-13T14:37:57.758Z",
+        "updated": "2026-03-13T14:38:21.445Z", "category": "code_repo_leakage", "title":
+        "Ports are created with the built-in f", "owner_id": "Parma Ham", "owner_name":
+        "Boulliabaise", "organisation_id": "Mission burrito", "organisation_name":
+        "Garlic bread", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Bear claw", "organisation_name": "Smelt"}], "enterprise_id": "Ploye", "enterprise_name":
+        "Surf and turf"}, "actions_taken": []}, {"playbook_alert_id": "task:1d866335-c437-4c78-8ec6-4668a549b3a7",
+        "rule_id": "Jell-O", "alert_rule": {"id": "qS_wmm", "label": "Scampi", "name":
+        "Mango and Sticky Rice"}, "status": "New", "priority": "Montreal", "created":
+        "2026-03-13T14:37:54.458Z", "updated": "2026-03-13T14:38:44.665Z", "category":
+        "code_repo_leakage", "title": "She spent her earliest years readi", "owner_id":
+        "Potato wedges", "owner_name": "Shepherd''s Pie", "organisation_id": "Senate
+        bean soup", "organisation_name": "Bi Bim Bap", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Milk toast", "organisation_name":
+        "Mashed pumpkin"}], "enterprise_id": "Poke", "enterprise_name": "Eggo"}, "actions_taken":
+        []}, {"playbook_alert_id": "task:ac3b025a-80f3-412d-82bb-a257454aeae2", "rule_id":
+        "Scrapp", "alert_rule": {"id": "qS_wmm", "label": "Stuffed peppers", "name":
+        "Ploye"}, "status": "New", "priority": "Chili co", "created": "2026-03-13T14:37:49.891Z",
+        "updated": "2026-03-13T14:38:11.723Z", "category": "code_repo_leakage", "title":
+        "Do you come here often?", "owner_id": "Steak sandwich", "owner_name": "Beef
+        Manhattan", "organisation_id": "Muffuletta", "organisation_name": "Russian
+        tea cake", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Pepperoni", "organisation_name": "Grilled Snake"}], "enterprise_id": "Clam
+        chowder", "enterprise_name": "Chicken French"}, "actions_taken": []}, {"playbook_alert_id":
+        "task:e943c507-500c-4f19-9f24-5f3556260d4a", "rule_id": "Rice a", "alert_rule":
+        {"id": "qS_wmm", "label": "Potato wedges", "name": "Montreal Smoked Meat"},
+        "status": "New", "priority": "Matzo Ba", "created": "2026-03-13T14:37:48.073Z",
+        "updated": "2026-03-13T14:37:48.073Z", "category": "code_repo_leakage", "title":
+        "The sequential subset of Erlang su", "owner_id": "Chicken Liver Pa", "owner_name":
+        "Escargot", "organisation_id": "Mango and Sticky", "organisation_name": "Veggie
+        Pizza", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Bacon Cheeseburg", "organisation_name": "Pulled pork"}], "enterprise_id":
+        "Macaroni and Che", "enterprise_name": "Queso Fresco"}, "actions_taken": []},
+        {"playbook_alert_id": "task:637244d9-86ac-44ce-846c-21a7c0c145e0", "rule_id":
+        "White ", "alert_rule": {"id": "qS_wmm", "label": "Cheese fries", "name":
+        "Shrimp Creole"}, "status": "New", "priority": "Osso Buc", "created": "2026-03-13T14:37:44.846Z",
+        "updated": "2026-03-13T14:37:44.846Z", "category": "code_repo_leakage", "title":
+        "Its main implementation is the Glasgow Haskell ", "owner_id": "Chocolate
+        Chip C", "owner_name": "Wasabi Peas", "organisation_id": "Maple Bacon Doug",
+        "organisation_name": "Chicken herby pasta bake", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Pepperoni Pizza", "organisation_name":
+        "Yeung Chow fried rice"}], "enterprise_id": "Charleston red r", "enterprise_name":
+        "Pastrami on Rye"}, "actions_taken": []}, {"playbook_alert_id": "task:4832ad87-b824-4d2f-a837-7435cff8a7e0",
+        "rule_id": "Bacon ", "alert_rule": {"id": "qS_wmm", "label": "Grits", "name":
+        "Brunswick stew"}, "status": "New", "priority": "Eggs Nep", "created": "2026-03-13T14:37:44.799Z",
+        "updated": "2026-03-13T14:37:44.799Z", "category": "code_repo_leakage", "title":
+        "Atoms are used within a program to denote distingui", "owner_id": "Chicken
+        Divan", "owner_name": "Meatloaf", "organisation_id": "Crab cake", "organisation_name":
+        "Maple bacon donut", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Chicken Tikka Ma", "organisation_name": "Waffle"}], "enterprise_id": "Cheese
+        balls", "enterprise_name": "Domesticated turkey"}, "actions_taken": []}],
+        "counts": {"returned": 50, "total": 3409453}, "next_offset": "eyJvZmZzZXQiOlsxNzczNDEyNjY0Nzk5LCJ0YXNrOjQ4MzJhZDg3LWI4MjQtNGQyZi1hODM3LTc0MzVjZmY4YTdlMCJdfQ=="}'
+    headers:
+      CF-RAY:
+      - 9dbbcbb6c9e09849-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Mar 2026 14:40:48 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

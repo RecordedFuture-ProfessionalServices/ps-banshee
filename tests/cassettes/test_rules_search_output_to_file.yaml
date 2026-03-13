@@ -1,0 +1,77 @@
+interactions:
+- request:
+    body: '{"filter": {"created": {}, "updated": {}}, "limit": 2}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '54'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/detection-rule/search
+  response:
+    body:
+      string: '{"count": 2, "total_count": 1663, "result": [{"id": "doc:oJeqDP", "type":
+        "yara", "title": "Where are my pants?", "description": "I don''t even care.",
+        "created": "2022-09-27T15:27:18.379Z", "updated": "2022-09-27T15:29:36.873Z",
+        "rules": [{"entities": [{"id": "J0Nl-p", "type": "MalwareCategory", "name":
+        "Poke"}, {"id": "oJZAhV", "type": "Malware", "name": "Spaghetti Bolognes"}],
+        "content": "The sequential subset of Erlang supports eager evaluation, single
+        assignment, and dynamic typing.", "file_name": "He looked inquisitively at"}]},
+        {"id": "doc:jNHLEU", "type": "yara", "title": "Its main implementation is
+        the ", "description": "Any element of a tuple can be accessed in constant
+        time.", "created": "2020-01-06T00:00:00.000Z", "updated": "2021-07-20T19:38:52.120Z",
+        "rules": [{"entities": [{"id": "hash:7c6c24bae3df525e15d6b3787cc090fae9b586a220513972f66e5bceb5eaf30a",
+        "type": "Hash", "name": "Pancakes"}, {"id": "hash:3012278820c42c5bb29df3959c1cc051e172db873fd71dd450f79e78282b0abd",
+        "type": "Hash", "name": "Buffalo wing"}, {"id": "hash:4aece913cb976d6a015978ce340d314c51551b94b0e8ee0ed52990639d4cd7dc",
+        "type": "Hash", "name": "Reuben sandwich"}, {"id": "hash:9881ac14a761a4d6eb0b00965cbde2fe9ec0231512186aca7e3d4ad83c436dae",
+        "type": "Hash", "name": "Spaghetti Bolognese"}, {"id": "hash:20b7fa8789f94449ff9338f5e343ac63edffbec45383f723c6b3386858235459",
+        "type": "Hash", "name": "Pulled pork"}, {"id": "bnZI5p", "type": "Malware",
+        "name": "Cheese "}, {"id": "hash:363c2e4339204c183d77760c72b791cf8e47a54ea21c143a620073fdf3675c8a",
+        "type": "Hash", "name": "Pistachio Ice Cream"}, {"id": "KeKua6", "type": "Malware",
+        "name": "Pigs in ", "display_name": "He looked inquisitiv"}, {"id": "hash:a83e74158ca2112e612914386b12a99a691643b43ebf067f4a0380758f9fcc85",
+        "type": "Hash", "name": "Sweetbreads"}, {"id": "hash:0dc7efef4de68447f54b389349a40924eb4670680a6761d404adba1b9a63dcfe",
+        "type": "Hash", "name": "Wasabi Peas"}, {"id": "SD8ZVN", "type": "Malware",
+        "name": "Chicken D"}, {"id": "hash:4402827890752d2cb0571ded3896cbb42d78370fe14949a022a2c20546d7680c",
+        "type": "Hash", "name": "Steak Tartare"}, {"id": "hash:a4a04c3b9712c36e5426b7c41adb3bfbd084d634076f8303295f94e95bbe28fd",
+        "type": "Hash", "name": "Italian Beef Sandwich"}, {"id": "hash:955b66c91fbdc13de3eb65ab370b3f3eec376e36504912abb8cdfb5badbe0c15",
+        "type": "Hash", "name": "Greek salad"}, {"id": "hash:8187dd4fcefa62ef9b97b276867b6d2ceda5a6f09be8610282704988e31e70c5",
+        "type": "Hash", "name": "Ceviche"}, {"id": "hash:75bae55dcd3f5bf2a2f87e27050c19041b82475ee5b7a01ddf1a3d8b870876ae",
+        "type": "Hash", "name": "Chicken sandwich"}, {"id": "hash:01c03fc2cd7fd4c2c4ab8ab97fee7575c0e8d46d808f044949c79752886c8c34",
+        "type": "Hash", "name": "Low Country Boil"}], "content": "The sequential subset
+        of Erlang supports eager evaluation, single assignment, and dynamic typing.",
+        "file_name": "Its main implementatio"}]}], "next_offset": "eyJvZmZzZXQiOlsxMjI4NSwiR2QxTGtBSEpaXy0iXX0="}'
+    headers:
+      CF-RAY:
+      - 9cd39aaa3b9bed01-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:22:22 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

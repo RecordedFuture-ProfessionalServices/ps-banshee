@@ -1,0 +1,558 @@
+interactions:
+- request:
+    body: '{"filter": {"created": {}, "updated": {}}, "limit": 10}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '55'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/detection-rule/search
+  response:
+    body:
+      string: '{"count": 10, "total_count": 1663, "result": [{"id": "doc:oJeqDP",
+        "type": "yara", "title": "The sequential subset of E", "description": "The
+        Galactic Empire is nearing completion of the Death Star, a space station with
+        the power to destroy entire planets.", "created": "2022-09-27T15:27:18.379Z",
+        "updated": "2022-09-27T15:29:36.873Z", "rules": [{"entities": [{"id": "J0Nl-p",
+        "type": "MalwareCategory", "name": "New York-S"}, {"id": "oJZAhV", "type":
+        "Malware", "name": "Alphabet pasta"}], "content": "Atoms can contain any character
+        if they are enclosed within single quotes and an escape convention exists
+        which allows any character to be used within an atom.", "file_name": "Erlang
+        is known for its de"}]}, {"id": "doc:jNHLEU", "type": "yara", "title": "I
+        don''t even care.", "description": "Ports are created with the built-in function
+        open_port.", "created": "2020-01-06T00:00:00.000Z", "updated": "2021-07-20T19:38:52.120Z",
+        "rules": [{"entities": [{"id": "hash:7c9d4496b63362c44a96bb8fe4d617c9a549ded295b89756ef0573de47ebbfdd",
+        "type": "Hash", "name": "Churrasco"}, {"id": "hash:2d031e304c72e916e6d2e4993141f558361eaa2587ba861a5855240795ffac9c",
+        "type": "Hash", "name": "Yeung Chow fried rice"}, {"id": "hash:c549d8acc3af24142a3f31261cda734bd32a575fc4cf7a6c6061dba821a030e9",
+        "type": "Hash", "name": "Black Pudding"}, {"id": "hash:81a7e87588ce6497aef49f295493783d631e029d96acb3f68448df98bc073ca6",
+        "type": "Hash", "name": "Risotto"}, {"id": "hash:50d07618847a0a45a9677dd80f70d2257d94b616c7177eacd5aeca511d76ee98",
+        "type": "Hash", "name": "Beef Manhattan"}, {"id": "bnZI5p", "type": "Malware",
+        "name": "White c"}, {"id": "hash:a26e33add23cf4dfd8c17f7d9dfe8e3dfea50f5b6a0bf9014f4a079d14332171",
+        "type": "Hash", "name": "Alice Springs Chicken"}, {"id": "KeKua6", "type":
+        "Malware", "name": "Kimchi", "display_name": "Messages can be sent"}, {"id":
+        "hash:a4212ad4996c38be69fa4980b27c21af205480eb67cceddf756ddee3b930d40a", "type":
+        "Hash", "name": "Fish and Chips!"}, {"id": "hash:a5899d18a1141b34766e2a2044ee1710d4cbd6f9a4fab53dc97ed1d4ad4aec0b",
+        "type": "Hash", "name": "Drunken chicken"}, {"id": "SD8ZVN", "type": "Malware",
+        "name": "Fish Taco"}, {"id": "hash:346f7606b6d3072e65250a0b06091e7689361c44256bfc216b03aa4f94f51da7",
+        "type": "Hash", "name": "Hokkien fried rice"}, {"id": "hash:942621082cb6e6f3610c570fd65d7f802fcdb092e9480c194dbfb3fe50245eac",
+        "type": "Hash", "name": "Albacore Tuna Melt"}, {"id": "hash:9b12118af329fd0d59e3460f2a88e4a05c5b10b6525fdb76f6c6fe9f4957e983",
+        "type": "Hash", "name": "Lobster Newberg"}, {"id": "hash:0dc3bf774aa0b8ef792692ad75b40e6097950f021239831672b5e7ce4bdd00de",
+        "type": "Hash", "name": "Chicken Liver Pate"}, {"id": "hash:1d8a84dd88bddd792a305cfa45a4c1f4418f1d56294e31c516fec86db6e36bcb",
+        "type": "Hash", "name": "Breakfast burrito"}, {"id": "hash:b896838c2a698e8b41bcfe6ce0d37a9180bfd43cf9e76695b2f9110eaa91c673",
+        "type": "Hash", "name": "Chicken French"}], "content": "In 1989 the building
+        was heavily damaged by fire, but it has since been restored.", "file_name":
+        "Do you come here often"}]}, {"id": "doc:hq7CrJ", "type": "yara", "title":
+        "Its main implementation is the Glasgow Haskell Compiler.", "description":
+        "The Galactic Empire is nearing completion of the Death Star, a space station
+        with the power to destroy entire planets.", "created": "2021-03-19T00:00:00.000Z",
+        "updated": "2021-03-19T21:54:30.309Z", "rules": [{"entities": [{"id": "hash:c45d58b17434e2554ae18021160a14baa75d5ac60078a3953fc4eaf8dfe7ad7a",
+        "type": "Hash", "name": "Grilled Snake"}, {"id": "hash:2aba11f0fdca23a96fce102b78fc7a38b9e231657feca32f71e97354128d6adf",
+        "type": "Hash", "name": "Vegemite on Toast"}, {"id": "hash:b41fc163531b0639aaae3c374d14c41eac47d8da0da1010b30fec65633437752",
+        "type": "Hash", "name": "Creme Brulee"}, {"id": "hash:b28c0894f8dff4a2a9b52a6a8a8bc62bfbe27e407f278ad5fb24a1258dc545c8",
+        "type": "Hash", "name": "Chicken Divan"}, {"id": "hash:9d5196e5ed408d304c9b149b8cf0d1067213431aabe4622efe43ad1e1c3d9bfd",
+        "type": "Hash", "name": "Moules Frites"}, {"id": "hash:263c643f5cfa5884f67df382616427fb663f34a9757914a8f5e357d8189a9fcb",
+        "type": "Hash", "name": "Tamales"}, {"id": "hash:ff9eb0da13d2e1f759f859685c719366b61b84e8f314ab0de0d705c0e2da6d50",
+        "type": "Hash", "name": "Fish Tacos"}, {"id": "hge_xY", "type": "Malware",
+        "name": "Soft Shell Cra"}, {"id": "hash:398de601fe26ff65bafb18870d91ba51ab9766527e99474e20f992e1261a2fb7",
+        "type": "Hash", "name": "Poke"}, {"id": "hash:bdde6727e6a35003966f2039d0e1e4b6c210e0190bec8a9981114c329571c53f",
+        "type": "Hash", "name": "Bull roast"}, {"id": "hash:74e46b6834283c32cac12199f9ece9ce81fa9df2a8dfd3aa028ed597c466b836",
+        "type": "Hash", "name": "Gyros"}, {"id": "hash:78ea2842c655365227d943c4c861a03e6356027be745021b48782597bd015146",
+        "type": "Hash", "name": "Chicken fried steak"}, {"id": "hash:0253a8ad879ccb23106a80d71eb5a5ab952f58f29b3a5be543ca31db480cabc2",
+        "type": "Hash", "name": "Greek salad"}, {"id": "hash:ca9a1734eb32dc44218a4df835607ae7b0e256710fec5328647a3b92d843e5f8",
+        "type": "Hash", "name": "Chowder"}, {"id": "hash:b5b128aec1f08859f592ed01b37cde9e1f2e95be823eb1d1664fd6cdf1df0c65",
+        "type": "Hash", "name": "Creme Brulee"}, {"id": "hash:0a6580a58617d0f336964a24b1789e3d4b9e4b2f99b0107fffc57831eae703d7",
+        "type": "Hash", "name": "Fish and Chips!"}, {"id": "KLjPFP", "type": "FileName",
+        "name": "City chick"}, {"id": "ip:36.213.209.32", "type": "IpAddress", "name":
+        "Alphabet pasta"}, {"id": "K4g6XynDppP", "type": "MitreAttackIdentifier",
+        "name": "Chick", "display_name": "Any element of a tuple can be accessed in
+        co"}, {"id": "9o5rlDKt2tilfNJ", "type": "MitreAttackIdentifier", "name": "Lobster
+        N", "display_name": "Haskell is a standardized, general-purpose p"}, {"id":
+        "IVTtLy1KVm1", "type": "MitreAttackIdentifier", "name": "Ice C", "display_name":
+        "The Galactic Empire is nearing co"}, {"id": "SmCnYD", "type": "Product",
+        "name": "Meatcake"}, {"id": "tIIH24uA4f5", "type": "MitreAttackIdentifier",
+        "name": "Creme", "display_name": "They are written as strings of c"}, {"id":
+        "Nbu3ys5Na2t1RO5", "type": "MitreAttackIdentifier", "name": "Steak Tar", "display_name":
+        "Atoms are used within a program to denote distinguished values."}, {"id":
+        "hEtFJJ", "type": "Username", "name": "French Dip"}, {"id": "ip:166.163.168.85",
+        "type": "IpAddress", "name": "Italian Beef Sa"}, {"id": "K_Rbz_", "type":
+        "Technology", "name": "Flan"}, {"id": "JTl-GN", "type": "Product", "name":
+        "Clam cake"}, {"id": "J0Nl-p", "type": "MalwareCategory", "name": "Pemmican"},
+        {"id": "hUFaaf4wq5XEU", "type": "Source", "name": "Butter"}], "content": "She
+        spent her earliest years reading classic literature, and writing poetry.",
+        "file_name": "Ports are created with"}]}, {"id": "doc:bhGxq9", "type": "yara",
+        "title": "Ports are created with the built-in function ", "description": "Haskell
+        is a standardized, general-purpose purely functional programming language,
+        with non-strict semantics and strong static typing.", "created": "2019-10-07T16:09:28.785Z",
+        "updated": "2020-11-09T11:26:44.594Z", "rules": [{"entities": [{"id": "MD7rQg",
+        "type": "Malware", "name": "Dirty r"}, {"id": "bd8E1c", "type": "Malware",
+        "name": "Fortune c"}, {"id": "hash:9b5396fcef1a3781088ab612f2eb166010943095a2fef6275e1a68da6afd15c6",
+        "type": "Hash", "name": "Hangtown fry"}, {"id": "hash:cc629dc9879feba272be041c12dc19d6a0292864275a020a77a958775e342edb",
+        "type": "Hash", "name": "Salisbury steak"}, {"id": "hash:bb032001eacc510c38bbfe4b438bfe693ecdeb9e7c46a013cd451000dc56da01",
+        "type": "Hash", "name": "Tagine"}, {"id": "hash:7a8e0814b0ee9db5f022d63f98c0c245d9c1c1e4de9f34c4911b6757112dfae4",
+        "type": "Hash", "name": "Seafood cocktail"}, {"id": "hash:7b04849c2d00b09d89ed1f4694f377c616c70c48c4e33f4c535f1e981fb95436",
+        "type": "Hash", "name": "Corn dog"}, {"id": "hash:c4aa3b6c28fa0017bd3a0215dc7a56e23974f52c71a790eaf67e419ae3e8add0",
+        "type": "Hash", "name": "Chicago Hot Dog"}, {"id": "hash:5399873f12e9f5ce858b8d1f2e47e7d8201b4ef4caed5982e127f238012efd21",
+        "type": "Hash", "name": "Chicago Deep Dish Pizza"}, {"id": "hash:d769788a24948cff46db0a64e986570a944c6048eabaae296ff119df3cf3c9bb",
+        "type": "Hash", "name": "Spaghetti and Meatballs"}, {"id": "hash:2629fa95c5741bb0a361c9700382aca5f2fa939e66aea4f7ac95f07fae392aae",
+        "type": "Hash", "name": "Mini pizzas"}, {"id": "hash:80fe00f5757ef2a13cd58ce37354cf48ab5896156a321c71bbcbc146c38141e5",
+        "type": "Hash", "name": "Grits"}, {"id": "hash:dd409d5ce63627efea5104eb17a18e0fa42421ab037f17178faa2ca936bd5d76",
+        "type": "Hash", "name": "Falafel"}, {"id": "hash:2bd5c2f544c43239ada6874e662e00c788e14383ce438eeb0eea58397d313455",
+        "type": "Hash", "name": "Mango and Sticky Rice"}, {"id": "hash:bcaa3cfba5aee1eda707ae12526137cc62fb615b4b9246d30608008bcffa7b12",
+        "type": "Hash", "name": "Hog fry"}, {"id": "hash:dc911c3275b881a70e1864f8f6a57725214eff38f553c6065241f8a80680b0e3",
+        "type": "Hash", "name": "Jell-O"}], "content": "Erlang is a general-purpose,
+        concurrent, functional programming language.", "file_name": "Initially composing
+        ligh"}]}, {"id": "doc:qvMj1C", "type": "yara", "title": "Do you have any idea
+        why this is not worki", "description": "Atoms can contain any character if
+        they are enclosed within single quo", "created": "2023-04-07T19:19:45.897Z",
+        "updated": "2023-04-07T19:19:45.897Z", "rules": [{"entities": [{"id": "hash:435e4d822002271586d12429b3ddbf00c0cb209244485b24c5a21661cebc3d33",
+        "type": "Hash", "name": "Crab Rangoon"}, {"id": "hash:8e92a6f9cc321167bc9b2120ef8271fd36ce8795a9a2e062feb3ad1e6a747ad2",
+        "type": "Hash", "name": "Kobe Beef"}, {"id": "npSybB", "type": "Malware",
+        "name": "Blue-plat"}, {"id": "hash:812d90b668c6f99bea3fe104d03a0fd873fca5be4310dd9a6ce0407bff7c4629",
+        "type": "Hash", "name": "Sonofabitch stew"}, {"id": "hash:93567b9010f20912a3f7382ed6090d3f49df54a18834a1e80edb4278bf9d2dcd",
+        "type": "Hash", "name": "Polenta"}, {"id": "hash:117b4af63e13b6d2c7f96ee99c58f0ef2eabdaceedb20da117a8ff1d065636e9",
+        "type": "Hash", "name": "Beef Manhattan"}, {"id": "hash:98d798e2ec0a839495f26e3787d2e02a2fa0f22713367e6c18f15f0db3e19a3f",
+        "type": "Hash", "name": "Polenta"}, {"id": "hash:5a2203c40e9c3febe14e51f1c8bca559d72fa89d65da6d598c7e2bed7470efcf",
+        "type": "Hash", "name": "Jalapeno Poppers"}, {"id": "hash:3f870a48f5b7f277579ae31db5777d722fefd9fa73d68f146ae758b354500969",
+        "type": "Hash", "name": "Sonofabitch stew"}, {"id": "hash:c97a322f5e4447ad667bd693030eca76996612975b060b2e37cb3579a021c00c",
+        "type": "Hash", "name": "Fajitas"}, {"id": "hash:03b99ac555dce06b00779f7bd43aa8abb0b0e5b583d0b9ef3709cb5af1a5a610",
+        "type": "Hash", "name": "Drunken chicken"}, {"id": "hash:06d05b25446d80fb443c1ed6c0ba5674fe4f6bf4a8c05e6f2f76ac65a9e1f1a1",
+        "type": "Hash", "name": "Fish and Chips!"}, {"id": "hash:630b0341c5081b4b3e82dbf65202745dab5a49081f9b14c57ef68043ec69bfc8",
+        "type": "Hash", "name": "Margherita Pizza"}, {"id": "hash:306f7f11321a5aa3c318d06bfb01c1e41ea7586b06ea0b3cd1c61969a0c0f3ba",
+        "type": "Hash", "name": "Shawarma"}, {"id": "hash:aabc1e7518e1dc7f113d89c93d5c204096dc9b14bd8e96fa5a9d53fa2987e488",
+        "type": "Hash", "name": "Milk Steak"}, {"id": "hash:4015da3d08a15d3e5ecc046c79791b488eb5a8914cd1574383454b18890db129",
+        "type": "Hash", "name": "Pasta salad"}, {"id": "hash:67749c53a2a5ca3cec5d86539150d115869f4876840ba48021acfcc17a7a1a8e",
+        "type": "Hash", "name": "Poke"}, {"id": "hash:b398d6604edc8ee7d988bb846a747514ee799eebc8fbc46e5ab69c038d743997",
+        "type": "Hash", "name": "Creamed eggs on toast"}, {"id": "hash:ac6e5f7ec1018e56e96e202ae28add7086626f6819b44c42803510da54ecfed9",
+        "type": "Hash", "name": "Cowboy beans"}, {"id": "hash:74e7c26b1b243a84a0c78dea4a8d4a654342bbaad2ea7f37c57d307fd2902e45",
+        "type": "Hash", "name": "Tamales"}, {"id": "hash:f3933deafde9fd37bca577c00fc5f4599d050cfaf24bd98410698977319000a5",
+        "type": "Hash", "name": "Prawn Pizza"}, {"id": "hash:908863468be49867d31d6de33d88638e7b23e1d1d3c376af92fe496b287e3ec6",
+        "type": "Hash", "name": "Thousand Island dressing"}, {"id": "hash:078057a9a02a6982284778a515fcc52d9383ff55d4566ab3f8bc0e5f8201c4e8",
+        "type": "Hash", "name": "Apple sauce"}, {"id": "hash:8ecbe17af1faf5b32b96096678dd26fc5e4eaa5172ff26ebd5c4e6ccf9129ffa",
+        "type": "Hash", "name": "Mango and Sticky Rice"}, {"id": "dlIkCX", "type":
+        "MalwareCategory", "name": "Samosa"}], "content": "Atoms are used within a
+        program to denote distinguished values.", "file_name": "The sequential su"}]},
+        {"id": "doc:aqofps", "type": "yara", "title": "Erlang is known for its designs
+        that are well suited for system", "description": "Where are my pants?", "created":
+        "2019-07-15T14:49:12.215Z", "updated": "2020-12-03T22:54:36.380Z", "rules":
+        [{"entities": [{"id": "hash:b45269c3ae37ade87b20caf03f9227ae259bb2a509f5f2f91673dbffdff2d373",
+        "type": "Hash", "name": "Liver and onions"}, {"id": "hash:19e1f66ca8c7e01f2a7cd5b161743a7e4d2049c92857c15747ea887e437878e7",
+        "type": "Hash", "name": "Pasta salad"}, {"id": "hash:1c400844336eb46f093a774f1d2f0ade5164f11d9bfa0d7f68c16d4ed064694d",
+        "type": "Hash", "name": "Flan"}, {"id": "ip:33.175.21.246", "type": "IpAddress",
+        "name": "Sausage gravy"}, {"id": "hash:dc116a36a507e9f4675acc64e5cb25854a9184971cf7c1e11ff9314d0d757233",
+        "type": "Hash", "name": "Corn dog"}, {"id": "hash:2cc1c6867322e9cd1a6d80a2080be799d7859857a2c2f80eb7ffac4e71c7bdfb",
+        "type": "Hash", "name": "Ice Cream Sundae"}, {"id": "hash:9d5d3e37881637c16b4eec1f8dbaa3df4401a1a688b00dc761eb970925badcec",
+        "type": "Hash", "name": "Stuffed ham"}, {"id": "hash:fe1fcb92d97207b49b5324c10c6cae4736942891db1753000c421ce66978c9d0",
+        "type": "Hash", "name": "Roasted Chickpeas"}, {"id": "hash:51a92325ade6342a9f72659deb68672c2756eb86dcf19cedc43f68da57ab36be",
+        "type": "Hash", "name": "Chile Relleno"}, {"id": "hash:8179d9e96bb14accd789ad14b39b1df9ea4ad9f45afd4bd750f0388f7950ecca",
+        "type": "Hash", "name": "Hawaiian haystack"}, {"id": "hash:667396d394aea836b8816a5bbca5f85099f4161eaa69df13f20e2659cf0c9304",
+        "type": "Hash", "name": "Steak sandwich"}, {"id": "hash:bfbdf308b87c258c9e3ab01e119f884400597ca5ca1469977e57ac392b38f133",
+        "type": "Hash", "name": "Scrapple"}, {"id": "idn:produces.af", "type": "InternetDomainName",
+        "name": "Pepperoni"}, {"id": "idn:transcripts.africa", "type": "InternetDomainName",
+        "name": "Salmon past"}, {"id": "hash:3eb920be011449c4930ebaa2eb66a64e2a8b3942c65d00ac6b883eb01e0a39f7",
+        "type": "Hash", "name": "Cheese fries"}, {"id": "hash:f1837935f5b5c0de28651f3ca82c9f3f8500a18f9ccd09ecdaf3f0dc7cfcdf4d",
+        "type": "Hash", "name": "Shish Kabob"}, {"id": "hash:bc380c417ea2cb6b638d55fcb465b8ed6ce6203ad7732f419fe2662bab6de29f",
+        "type": "Hash", "name": "Fortune cookie"}, {"id": "hash:4ef50fe20624ae1ee3167af99b8c46f6eb2286be3235aa7b0e5c1a7618da5806",
+        "type": "Hash", "name": "Oysters Rockefeller"}, {"id": "hash:80ca1c9a35dc1dfeb75530850d528e4ce0dec5478260300454e3980eb10214cb",
+        "type": "Hash", "name": "Low Country Boil"}, {"id": "hash:61fdd7c8f159b8d6b9955ced14e424320a5c3a65d731f76e636f4083ae03a691",
+        "type": "Hash", "name": "Salisbury steak"}, {"id": "hash:5e7c0b2e599cdb1e5d0d08ce54167955561a2b036a46d62a28bc7e77dfe9856e",
+        "type": "Hash", "name": "Yeung Chow fried rice"}, {"id": "hash:84866ef2264694cc9ad7da3509f69fba71a3c1cc7e425b04a1ac3af7c9177a83",
+        "type": "Hash", "name": "Corned beef"}, {"id": "hash:1c544cdcd58491a3db812c9ec6d8f66ba9cb93b91a8a92d15143f98de88ec13d",
+        "type": "Hash", "name": "Milk Steak"}, {"id": "hash:c66b0402fa74b05cb319249d7b28f7e3de5bff308c75373d6dc63b3a8ad25909",
+        "type": "Hash", "name": "Brunswick stew"}, {"id": "hash:3aa3c3ee920f7f426b5d7b4934e4c1c227341f90b36cf0f313a8968dc66effbc",
+        "type": "Hash", "name": "Bagels and Lox"}, {"id": "hash:95437d8c5fa256bb74782961fb7ddd445fd49744137fe3d60c51f655ce698704",
+        "type": "Hash", "name": "Escargot"}, {"id": "hash:de838f1cd7d6f425d0f2d93208e7e95697328a518c8514d79d325ca7b5a23ef0",
+        "type": "Hash", "name": "Deep Fried Oreos"}, {"id": "hash:3e5030b97f04ab72808f3255337473f57f4f0f05c3bd1b6c9ad5ae09b07a3301",
+        "type": "Hash", "name": "Ammonia cookie"}, {"id": "hash:d6cb359c96c299b4c6eea1e0df69185d0a02e6407a32765daf8a99efc04efdaa",
+        "type": "Hash", "name": "Fajita"}, {"id": "hash:19446b9950d0f492da0241bf276c3a39e03a3a5667112495b7582e2cb57b222d",
+        "type": "Hash", "name": "Milk Steak"}, {"id": "hash:2fee149b8d3ce7e18fc5596078af46afc75636f3d73f910a15e418fa464f4276",
+        "type": "Hash", "name": "Funnel Cake"}, {"id": "hash:8bc5eb59205e5c3dad4c99a2fd9ee24decc0b4cf16774e8f56b12d7046a4d4e4",
+        "type": "Hash", "name": "Moules Frites"}, {"id": "hash:b56fd99cd69ed01c6c665e83a67c59d9b3be575b31b58fa3d72508166d706bdf",
+        "type": "Hash", "name": "Cowboy beans"}, {"id": "hash:fb4e46ab5cf8e481e6b675b48c3d2b366fdedadc180920b6d44afa39a3e50f02",
+        "type": "Hash", "name": "Fortune cookie"}, {"id": "hash:cdc05b4d6c737a0a0c2d1ec75b98110e81e2269dd636657abe39c0f9c4a17501",
+        "type": "Hash", "name": "Pickled Okra"}, {"id": "hash:58f0a78f3bbb1d3583e2d3334b85758a25544faf4ccb65e255ef3841ac0a1be7",
+        "type": "Hash", "name": "American fried rice"}, {"id": "hash:8e0597dcae469f0b5b07ccec57dae403efff9cf3501414b1eab69fbdaa1c60eb",
+        "type": "Hash", "name": "Cowboy beans"}, {"id": "hash:fcff392ab38cc273cc4b99b8ceaea33bfd74fe4d5eb4c9e8d66bfff4581f89a8",
+        "type": "Hash", "name": "Oreo"}, {"id": "hash:42060b0281b53fb26f9986abffbe67fcd93e2f229b37d992f00e465c46ba5087",
+        "type": "Hash", "name": "Gyros"}, {"id": "hash:890e6a253c5de3d1b4bafd0713614f7ed4dd609a4798a41ca5115341342069f5",
+        "type": "Hash", "name": "Steak sauce"}, {"id": "hash:94ec4af1a8d0bd777824deb4a24d8ecf8f5d58dd9f5e15327d3fd113e6521986",
+        "type": "Hash", "name": "Squab"}, {"id": "hash:aed72aa46bf1af9ae2aadb1b03b85bf75e463033703e7451353a1b2fa17fcfce",
+        "type": "Hash", "name": "Fried chicken"}, {"id": "hash:091a72a412ea22599a0fb41e398ab4f059370c7e23ebbe91b5e9939626a8e8aa",
+        "type": "Hash", "name": "Onion Rings"}, {"id": "hash:b92a15e2c89b8a50dacd05a05ad5594bbb05501c1c694c11f9ae79a200b917ad",
+        "type": "Hash", "name": "Russian tea cake"}, {"id": "hash:fce9428387d18fd67cc51ce043a020d6c6e1d1b3df882c2a12e396015397e6aa",
+        "type": "Hash", "name": "Hot chicken"}, {"id": "hash:da21524ca2126e2e1642bdbce7227d473f51f89f295fcb6de152d343cda6b255",
+        "type": "Hash", "name": "Poutine"}, {"id": "idn:displays.osaka", "type": "InternetDomainName",
+        "name": "Chicken Divan"}, {"id": "hash:9f4c4053f7dd87fb9eab914b7140d436fdb28ec8ba8cf6c1fbb8ad659ba0d3dd",
+        "type": "Hash", "name": "Abalone"}, {"id": "hash:8bb586d9d5488c038ffa9ac59092c90d19ac8ffc72e7222c3e93e90d0b846e4f",
+        "type": "Hash", "name": "Pemmican"}, {"id": "hash:8804e3a4a4f68b970747d3b8022e80e96864488d2d453f04819be83fdc252c85",
+        "type": "Hash", "name": "White chocolate cookie"}, {"id": "hash:78ec8eb0794ec7ce9ea015e1dfdcfa91ffc78a073ad6d14bd38a8e06f3db3592",
+        "type": "Hash", "name": "Fry sauce"}, {"id": "hash:1c18317b65d3d0d5ce67a086939ea22cb5c173d1fd3289493039254c28779749",
+        "type": "Hash", "name": "Frito Pie"}, {"id": "hash:fbbdb8b6fb2a934544e8ca2b22389e0c253de3cb0d4dc7ce0a24ea6c6d313914",
+        "type": "Hash", "name": "Funnel Cake"}, {"id": "amROYm", "type": "Malware",
+        "name": "Cornish"}, {"id": "hash:b6242e6eff58a1c3375db8d3767146266525aa3b9d648d99009079668042dfa1",
+        "type": "Hash", "name": "Steak sandwich"}, {"id": "hash:b1cc93ac0f4fb73774a97bb7474f8fa656a8039eed522747798d6f1790eaba6c",
+        "type": "Hash", "name": "Maple Bacon Doughnut"}, {"id": "hash:b645b3adab08273c319291850552b2d7c4b2984c36cac997a0769dffcf9e3523",
+        "type": "Hash", "name": "Cheese Curds"}, {"id": "hash:f188c623648d43de4c3432486cadc715f917bf8053e2443ea9739d46de62e8a0",
+        "type": "Hash", "name": "Hot chicken"}, {"id": "hash:da2e7e6dd5788773d4218d0c35db2ce4162a8b3309bcea60ddecd098d1d06522",
+        "type": "Hash", "name": "Sonofabitch stew"}, {"id": "hash:b3d2f9f822dae386f9ef785cd02094bc79428b1e4e09c30c09aa11f396f617bd",
+        "type": "Hash", "name": "Chowder"}, {"id": "idn:legislative.jobs", "type":
+        "InternetDomainName", "name": "Pemmican"}, {"id": "idn:carries.nrw", "type":
+        "InternetDomainName", "name": "Waffle"}, {"id": "hash:30e341a780d2b27c26063efac73bfa97b94ec1c689349f7197c2ed43a3345125",
+        "type": "Hash", "name": "Coq Au Vin"}, {"id": "hash:80250d9a553ec8bc29299979d1cbf349a748af8b730d3f4d6f6aea097fb5c1c1",
+        "type": "Hash", "name": "Texas Toast"}, {"id": "hash:9deef881f3e5667400a157d8769a81968c71d4952bfd77d06901f9f3fce5600b",
+        "type": "Hash", "name": "Chicago Deep Dish Pizza"}, {"id": "hash:027ce757fe1e169df5bef58a8caf0a32eb3d1ffcba48b4cfd1b2ea25af2a98c6",
+        "type": "Hash", "name": "Chicago Deep Dish Pizza"}, {"id": "hash:5fe1972ba4b45a49f3aac274a6231405cbebffd55c5342a76d11615975bbf065",
+        "type": "Hash", "name": "Glorified rice"}, {"id": "hash:157003580e440cd6f0e9af8daebe3cf23f246851e308f7ae374390fab01bedfb",
+        "type": "Hash", "name": "Queso Fresco"}, {"id": "hash:a1562356c31dd62fb19b130d3cb27bef984c53770db83367c0792686a74b930b",
+        "type": "Hash", "name": "Gazpacho"}, {"id": "hash:feeb55ad459bac9971e5a2963230999180fa0d7007c22724c1e97097b6616521",
+        "type": "Hash", "name": "Pan Seared Scallops"}, {"id": "ip:242.32.218.35",
+        "type": "IpAddress", "name": "Liver and onion"}, {"id": "ip:144.229.193.254",
+        "type": "IpAddress", "name": "Scampi"}, {"id": "hash:ebf62205104199f9993f5ede596a83a2788994f5787bf8765cbd399c343e9c67",
+        "type": "Hash", "name": "Ribs"}, {"id": "hash:670d94250d11f9f5bfaced144345adf932dd2fbc2d04d040e1c67f0d73fffa92",
+        "type": "Hash", "name": "Alphabet pasta"}, {"id": "hash:f164cc03c4cfbd37d88f9c7e538cb656ceed82573e5ff4830dddf9ad9448a96c",
+        "type": "Hash", "name": "Turducken"}, {"id": "hash:548310f16f735239a3399d9874f2bd705982024e9500d77ab5ac9480fcd8fba8",
+        "type": "Hash", "name": "Domesticated turkey"}, {"id": "hash:b81723396a4f38c6a4ec90870ceab68428a9acf8520dcd0510cb1f85fff90cad",
+        "type": "Hash", "name": "Cowboy beans"}, {"id": "hash:fde2d46115518e45def861076b56a86f944d3fc47aec7dd967ca7d89387c200d",
+        "type": "Hash", "name": "Corned beef"}, {"id": "hash:3018e0dc667903da3215b2b54aef5ede0b8107add5eada107e665fc23d190b80",
+        "type": "Hash", "name": "Bull roast"}, {"id": "hash:5f3aae0442aba2f6af4ef3f70bfd9e131126bc27aab47adf69675524aa06fca4",
+        "type": "Hash", "name": "Crepes"}, {"id": "hash:79a8c49b5d66f8d4c94d1dd85a0a82d81e2234586e972c4d3b8152490fda3a93",
+        "type": "Hash", "name": "Prawn Pizza"}, {"id": "hash:50c336d1d502cf3fda7564e61ec84a8f8d9d0fb296ee0606ad83de4a7bbfe799",
+        "type": "Hash", "name": "Stroganoff"}, {"id": "hash:0cd334ac8e2c1d440c8d5eb1d890d37a754d2a23b82c6198e7a0e33088601766",
+        "type": "Hash", "name": "Stuffed ham"}, {"id": "hash:41da7bbd6c022cebad0b8c28ce2a0931db851cce8685a0ec49d78d918727771c",
+        "type": "Hash", "name": "Alphabet pasta"}, {"id": "hash:5909b4e5e5c59abb7e88d1ce7d2dd22572802ffd2a3ded1216d7e7226e19fbc4",
+        "type": "Hash", "name": "Cheesecake"}, {"id": "hash:6ce456e53d9e5cef92cca23ee89b3837c0f71ff9734a859ac642094bf256c694",
+        "type": "Hash", "name": "Chicken fried bacon"}, {"id": "hash:d60cef37117a49d1fb847595fe6c3b0a03c6793034e7539b04e53ea070488a8c",
+        "type": "Hash", "name": "Kung Pao Chicken"}, {"id": "hash:d2dea622beb697ef7b49f50ef953aac1ef992257c91108b33ed74157396ef900",
+        "type": "Hash", "name": "Butter cookie"}, {"id": "idn:jackie.br", "type":
+        "InternetDomainName", "name": "Chicken fried s"}, {"id": "hash:7aade8d7a6f05da0defa8e7a7eaf4b052dd3f30aaa1e9d64582e1e4da7c07318",
+        "type": "Hash", "name": "Kung Pao Chicken"}, {"id": "hash:9bec902b9121bd3f73362642c360119d1d16bf2eddef0bc3ad6a3c065abd366c",
+        "type": "Hash", "name": "Potato Wedges"}, {"id": "hash:ee7bb3d7ff215c244a665ff7c2e4b24a391de782d018805ebdefaee398c6cd4c",
+        "type": "Hash", "name": "Osso Buco"}, {"id": "hash:0155eb1e42b161ae08e9b06bba7bd9818067a25d98e27eb648349973cff00d90",
+        "type": "Hash", "name": "Queso Fresco"}, {"id": "hash:a428c7085eb030075b49f590922acac73e2096e7b21663bbbfa16fdf16def122",
+        "type": "Hash", "name": "Tres Leches Cake"}, {"id": "hash:fd8815542f697c0e794ec0be62773c841aae0742839ba09931894533ddcaf576",
+        "type": "Hash", "name": "Corned beef"}, {"id": "hash:2745b950b16b5a3295ff2ded34f77b3ccafbe3ea0f6d44c37e6a91f42a81863c",
+        "type": "Hash", "name": "Russian dressing"}, {"id": "hash:50a69a761b87473bf32cfec492ab78784e5d7bac340b16742059dd9ade65c284",
+        "type": "Hash", "name": "Grits"}, {"id": "hash:f5c7b5d0e4d186a2ebbfc2936737dbd27d7c31c7fcc60bfc9522fec7c88cbbfe",
+        "type": "Hash", "name": "Shucked Oysters"}, {"id": "n8YVoQW1EWyPxgGMinUfz6j70",
+        "type": "EmailAddress", "name": "Vichyssoise"}, {"id": "hash:b579eb428eca1880dab62de45d2558e0a91390fd14c7a1cf08b8744fc5ac55cd",
+        "type": "Hash", "name": "Gumbo"}, {"id": "hash:0e4d3e9a916b8a45b8c4d8e6859220e81daae0266339a0441408c9e953e33961",
+        "type": "Hash", "name": "Shrimp and Grits"}, {"id": "hash:c930225eaf1a33915658456a684b881af436219ceadf7cb1a6feff0a198c3a61",
+        "type": "Hash", "name": "Huevos Rancheros"}, {"id": "hash:e3d837a7b3201b94fc32d2c9ad139a7d08737cc34f3a3a773287b44d79d853c0",
+        "type": "Hash", "name": "Schnitzel"}, {"id": "amZ55", "type": "Country", "name":
+        "Polenta"}, {"id": "hash:c516840ac50dac4806d1cdfe29b62807b20a5e190440c2bcea5c8590b108d3f9",
+        "type": "Hash", "name": "Milk Steak"}, {"id": "hash:ec615b6ffd28a87ff2c430c4f891a5beb5de322eb050e8f44c8e823ba134f61f",
+        "type": "Hash", "name": "Ammonia cookie"}, {"id": "hash:73df13d1223a2a3db3dd2016be6e1f12d1381cce007386529d5d2afd9a2d8c45",
+        "type": "Hash", "name": "Stuffed ham"}, {"id": "hash:23a45e4a8183d651bc3d85172573897bb202d3b56ed8aa6a8515bc77bcb6b295",
+        "type": "Hash", "name": "Milk toast"}, {"id": "hash:61245f8aa3a5a7a6890db974aeff86eb204aaeed1adebb5943ddaba4bf233eb2",
+        "type": "Hash", "name": "Protein bar"}, {"id": "hash:7f2c2b223359dab0a214e5bf453c66e7765bc99ab4f069d3391052a4e2312626",
+        "type": "Hash", "name": "Chicken \u00e0 la King"}, {"id": "hash:308c634eff01376fa4987539881fc911c76a6bcbd75c564a083a5186d9c98f0a",
+        "type": "Hash", "name": "Baked potato"}, {"id": "hash:56c3bee0cb9460e2b4d20301fe77f9c6526ff6a9f9b1844cce08c67d85e641c1",
+        "type": "Hash", "name": "Reuben sandwich"}, {"id": "hash:2aae02c45649f40e295513f2b45e76a6a8d7cd8d8bfa422393c3a4cb3c4b2371",
+        "type": "Hash", "name": "Fried chicken"}, {"id": "ip:151.95.176.53", "type":
+        "IpAddress", "name": "Ceviche"}, {"id": "hash:50ff6cf9cdbf60e3e9bbb7a7c4ec25e23b06fe1e9461aea829eb7ee7d2d75853",
+        "type": "Hash", "name": "Gazpacho"}, {"id": "hash:f7c5abc961c2ad926030fe13629146694df2726b3fab55106c657d306d97ca18",
+        "type": "Hash", "name": "Lorna Doone"}, {"id": "hash:ca7bb9ee3a36055bf19685dbe2552f95d8d0e892f7bf8497e04bef5cc7480095",
+        "type": "Hash", "name": "Roasted Chickpeas"}, {"id": "ip:128.194.94.212",
+        "type": "IpAddress", "name": "Doughnut"}, {"id": "hash:60ead834640a174da6669f50e526cd2b48014c6b7a4b55ab169d1854ab4db80e",
+        "type": "Hash", "name": "Italian Beef Sandwich"}, {"id": "hash:a01ad0b2a9b24b5dd5b87855b0ab3d02868bfa76f49c8b8509624570797cebe7",
+        "type": "Hash", "name": "Beignets"}, {"id": "hash:4fe727b1fc71c04f0d5a5e72217f9cee8940caf87820ae2913f1f37f0aca6be1",
+        "type": "Hash", "name": "Stuffed peppers"}, {"id": "hash:f6447680b4b45a135bed67ad5ab699bbcf1a9c10a89ac3fb2e09f13b59ffbec0",
+        "type": "Hash", "name": "Soft Shell Crab"}, {"id": "hash:6a4fd94166e280680638fdc18ab5c6839e6caaf34954d7b16bc0254ba15f22f9",
+        "type": "Hash", "name": "Clam chowder"}, {"id": "hash:3f167f88896415fece869af7b2b265cc5b00e4a6ea0191e55f29213d89bb5ec3",
+        "type": "Hash", "name": "Flan"}, {"id": "hash:6fb88d7116dff3ec8e51d70e274a35066d7137bdc96ff2aa8a0dd3d8c4037f39",
+        "type": "Hash", "name": "Blue cheese dressing"}, {"id": "hash:3e3bf319fadfcd660115865b878f1813042fd63300140610a7bf16186d20466c",
+        "type": "Hash", "name": "Fried fish"}, {"id": "hash:c83f78c3f7913278a1115499c06e3bf0e4ca9cb3fad346ac788961662a79a746",
+        "type": "Hash", "name": "Juba"}, {"id": "ip:89.138.3.99", "type": "IpAddress",
+        "name": "Chips and di"}, {"id": "idn:ensures.saarland", "type": "InternetDomainName",
+        "name": "Ammonia cookie"}, {"id": "hash:17cbc6bb98a0e28b779965513db964b4e48603445b521a3b452a91e843c7bf8a",
+        "type": "Hash", "name": "Calf''s liver and bacon"}, {"id": "idn:dame.doha",
+        "type": "InternetDomainName", "name": "Chicken Frenc"}, {"id": "hash:e439be7759e815893c755ae05f4c1ac0642afbdd7027648a4df80f1cb6b67d2f",
+        "type": "Hash", "name": "Fried chicken"}, {"id": "hash:7e651485953f4f48a6e272fdb4a33aea03ea42e6c97d117cfc41520ef5113cbd",
+        "type": "Hash", "name": "Choco pie"}, {"id": "hash:217cd2e4f2718016d367738e5292f17e20955184b19cf45d270ced90ce498bca",
+        "type": "Hash", "name": "Calas"}, {"id": "hash:20f00915d184820c959b3dc16647d94e669a8b527f4c075a194d1f097da93dc1",
+        "type": "Hash", "name": "Pancakes"}, {"id": "hash:eeff5a67eeb4aaa7fb86941d608aa0ceb12640340adfeddbd3eb0498e2708c69",
+        "type": "Hash", "name": "Haystack"}, {"id": "hash:37b0b2e940163727acf30985f50e51f8bc54ac07517c24eab95213520a85f73a",
+        "type": "Hash", "name": "Turkish Delight"}, {"id": "hash:b20757818c264100303bd51298aadd390fd07f26ce073157e9eac28eb96c6156",
+        "type": "Hash", "name": "Mozzarella sticks"}, {"id": "hash:2d2e14277af654f60c22b854c59933fdbe19b4f40354f9f57f3f2f44b8baa737",
+        "type": "Hash", "name": "Beignets"}, {"id": "hash:4009dbb7ad5c9f752864ae1357e973a8c08f0e3ae0d500bffad7f0ca5beebe51",
+        "type": "Hash", "name": "Coq Au Vin"}, {"id": "hash:4d02cbbb50d07b3e93758e282c29e313f1d273d3fd3497809a7ec425fd1c7318",
+        "type": "Hash", "name": "Jambalaya"}, {"id": "hash:f75f7a1b5b7af65a018846be45f765d63b34173df70acfb50e0a9edab0900147",
+        "type": "Hash", "name": "Hawaiian haystack"}, {"id": "hash:ff0e7afdc5276d16fae365f5408332e5049258244fc40c508f712e4015619c1a",
+        "type": "Hash", "name": "Pumpkin pie"}, {"id": "hash:84170f7cb917de824121f7f4212bab94c280e060c5a94c4089a41682af8b35dd",
+        "type": "Hash", "name": "Maine Lobster"}, {"id": "hash:02c692d56cb3ce7229c243fa42372cbf6798535981197f5d5375d663ebbecfb7",
+        "type": "Hash", "name": "Sausage gravy"}, {"id": "hash:d65a84b0c8ee139aab05ce4e9342ac67a181323549057ea5be613a974f4e8dfd",
+        "type": "Hash", "name": "Suckling Pig"}, {"id": "hash:b4d5ae31531a38a7cfac233240d48f2b917a91cac0449448f1125132b17d483a",
+        "type": "Hash", "name": "Fajitas"}, {"id": "hash:3cc89d5b8cd0b7e0183d096733b28b6e5806c7f5ddf8f66a8fdefe3fc55e720c",
+        "type": "Hash", "name": "Sonofabitch stew"}, {"id": "hash:3a422125cfbf3798af98e8c7d1b2f5996bf78b331dc638f4360146473a884896",
+        "type": "Hash", "name": "Paella"}, {"id": "hash:f17a8f7031bac3d40a21ace3257bdbe76b2917cf146bf233ea7bb8308374b8ed",
+        "type": "Hash", "name": "Creamed eggs on toast"}, {"id": "hash:2132bdd49f8f7bc21f74dd882dfde61a2e2a820705a96ee2b9ece5d0bb6fe810",
+        "type": "Hash", "name": "Maraca pie"}, {"id": "hash:b14555a3aff8f6a5cf48f50af98dc2cba292943a586dd594c5c9ee01cbf3c421",
+        "type": "Hash", "name": "Meatcake"}, {"id": "hash:f88b14dde1c1af6116be904fcd26646686b93c1fe78ad4c8228cf92e38ec67e1",
+        "type": "Hash", "name": "Seafood cocktail"}, {"id": "hash:afde5cf0fe28a8424ce70eb8390c483ad34ca9028237a8cb78454fac37756bec",
+        "type": "Hash", "name": "Texas Toast"}, {"id": "idn:instruments.hk", "type":
+        "InternetDomainName", "name": "Schnitzel"}, {"id": "hash:53e92befd514ece25537451a6cc163f6ff6e6631fce7a6b265149c4c8fc17765",
+        "type": "Hash", "name": "Corn chowder"}, {"id": "hash:9c9900329a419dc0febe8bb3a5184d5ea693d5d1a2b82bf08bc070f2b4c5584a",
+        "type": "Hash", "name": "Maple Bacon Doughnut"}, {"id": "idn:joe.com", "type":
+        "InternetDomainName", "name": "London broil"}, {"id": "hash:d5d58041f40888e0e9ab38e51ec85241985a720375354dfa0da6323bad6621bf",
+        "type": "Hash", "name": "Eggo"}, {"id": "hash:ccee6e4b022f017dca9fb6120711ba86b0994a6cfbc6d1070d3a5c8a7a7da0f3",
+        "type": "Hash", "name": "Peanut butter"}, {"id": "hash:b79a6f25f9395559c5ecfcfad36c9de21113f9c607d365b1337f72899526f5ba",
+        "type": "Hash", "name": "Churrasco"}, {"id": "ip:133.124.172.62", "type":
+        "IpAddress", "name": "Lorna Doone"}, {"id": "hash:385c83f71d04217f4feace481d817c33fb4a108c920b79c6f92540702139dcea",
+        "type": "Hash", "name": "Supreme pizza"}, {"id": "hash:d4b8eb7a16c0ad025e16990063b4442446f5f77944f671e2ab344e63c491e7df",
+        "type": "Hash", "name": "Sweetbreads"}, {"id": "wY2ZT8Gk0lW", "type": "MitreAttackIdentifier",
+        "name": "Bread", "display_name": "I don''t even care."}, {"id": "bQg4F1T04Ps",
+        "type": "MitreAttackIdentifier", "name": "Cavia", "display_name": "Messages
+        can be sent to and received fr"}, {"id": "5WWDmroVtfK", "type": "MitreAttackIdentifier",
+        "name": "Bread", "display_name": "He looked inquisitively at hi"}, {"id":
+        "xeG5k8KdHuQ", "type": "MitreAttackIdentifier", "name": "Yeung", "display_name":
+        "Messages can be sent t"}, {"id": "tXiOBFp8ME4", "type": "MitreAttackIdentifier",
+        "name": "Scamp", "display_name": "Erlang is a general-purpose, concur"}, {"id":
+        "VQSsrOVhkJa", "type": "MitreAttackIdentifier", "name": "Huevo", "display_name":
+        "Where are my pants?"}, {"id": "L1Kprtc6Hiy", "type": "MitreAttackIdentifier",
+        "name": "Chees", "display_name": "Tuples are containers for a"}, {"id": "VVp7pwkDMD2",
+        "type": "MitreAttackIdentifier", "name": "Dirty", "display_name": "Ports are
+        used to communicate"}, {"id": "Mxxj4XvW0os", "type": "MitreAttackIdentifier",
+        "name": "White", "display_name": "Erlang is a general-purpose, concur"}, {"id":
+        "L1HuVpYppy0", "type": "MitreAttackIdentifier", "name": "Blue ", "display_name":
+        "Do you have any idea why this is not working?"}, {"id": "HPxFU3ZCJQp", "type":
+        "MitreAttackIdentifier", "name": "BBQ R", "display_name": "The syntax {D1,D2"},
+        {"id": "D3ifVzrWPYn", "type": "MitreAttackIdentifier", "name": "Sheph", "display_name":
+        "The Galactic Empire is neari"}, {"id": "ptnPpCYdFsy", "type": "MitreAttackIdentifier",
+        "name": "Cowbo", "display_name": "It is also a garbage-collected runtime syst"},
+        {"id": "6D6kXAkybn2", "type": "MitreAttackIdentifier", "name": "Senat", "display_name":
+        "Type classes first appear"}, {"id": "ehLDYv9xTNM", "type": "MitreAttackIdentifier",
+        "name": "Gumbo", "display_name": "In 1989 the building was heavily d"}, {"id":
+        "rfRQhlg7kZ2", "type": "MitreAttackIdentifier", "name": "Spani", "display_name":
+        "I don''t even "}, {"id": "0mJPT88rwk2", "type": "MitreAttackIdentifier",
+        "name": "Soul ", "display_name": "Do you have any idea why this is not work"},
+        {"id": "41CudGDCVkY", "type": "MitreAttackIdentifier", "name": "Pigs ", "display_name":
+        "Erlang is a general-purpose, concurr"}, {"id": "2wrl6yUsbBl", "type": "MitreAttackIdentifier",
+        "name": "Pasta", "display_name": "The syntax {D1,D2,...,Dn} denotes "}, {"id":
+        "2ijNZFWmbyQ", "type": "MitreAttackIdentifier", "name": "Hog f", "display_name":
+        "Erlang is known for its designs that are well "}, {"id": "amROYl", "type":
+        "Malware", "name": "Chicke"}, {"id": "nDsosJjAI3W", "type": "MitreAttackIdentifier",
+        "name": "Corne", "display_name": "In 1989 the building was heavily da"}, {"id":
+        "g2FwFyAFhbp", "type": "MitreAttackIdentifier", "name": "Potat", "display_name":
+        "In 1989 the building "}, {"id": "EmhzCFDlFhR", "type": "MitreAttackIdentifier",
+        "name": "Kobe ", "display_name": "I don''t even care."}, {"id": "dp05cYYtJ47",
+        "type": "MitreAttackIdentifier", "name": "Devil", "display_name": "Haskell
+        features a type"}, {"id": "SkE6D8R6Y8Q", "type": "MitreAttackIdentifier",
+        "name": "Smelt", "display_name": "She spent her earliest years reading c"},
+        {"id": "SR5C5", "type": "Company", "name": "Brun"}, {"id": "2befd39KxAw",
+        "type": "MitreAttackIdentifier", "name": "Elote", "display_name": "It is also
+        a garbage-c"}, {"id": "kXWSY9B43FR", "type": "MitreAttackIdentifier", "name":
+        "Jamba", "display_name": "Its main implementat"}, {"id": "OiOlqf8bR0W", "type":
+        "MitreAttackIdentifier", "name": "Cobb ", "display_name": "Tuples are containers
+        for "}, {"id": "1Lq2wwxVp2x", "type": "MitreAttackIdentifier", "name": "Shrim",
+        "display_name": "Erlang is known for its designs that"}, {"id": "hs7CL5bwrRf",
+        "type": "MitreAttackIdentifier", "name": "Choco", "display_name": "Atoms are
+        used within a program to denote "}, {"id": "uE2tN", "type": "Company", "name":
+        "Oyste", "display_name": "I don''t even car"}], "content": "She spent her
+        earliest years reading classic literature, and writing poetry.", "file_name":
+        "Haskell feature"}]}, {"id": "doc:s0uzpu", "type": "yara", "title": "Messages
+        can be sent to and received from ports, but these ", "description": "Do you
+        have any idea why this is not working?", "created": "2023-09-28T17:55:08.978Z",
+        "updated": "2023-09-28T17:55:08.978Z", "rules": [{"entities": [{"id": "IzHeAwtjPbW",
+        "type": "MitreAttackIdentifier", "name": "Burnt", "display_name": "Atoms are
+        used withi"}, {"id": "fgwtqEBVADmVtef", "type": "MitreAttackIdentifier", "name":
+        "Macaroni ", "display_name": "Haskell is a standardized, general-purpose purely
+        functional "}, {"id": "z23WFPhPty8", "type": "MitreAttackIdentifier", "name":
+        "Liver", "display_name": "The sequential subset of Erlang supports eager"},
+        {"id": "qRZBPr", "type": "Malware", "name": "Chicken Alfredo"}, {"id": "4qEMjRxYunw",
+        "type": "MitreAttackIdentifier", "name": "Shawa", "display_name": "The arguments
+        can be primitive "}, {"id": "I3OV5pdQptW", "type": "MitreAttackIdentifier",
+        "name": "Marac", "display_name": "Atoms are used within a progr"}, {"id":
+        "yOtaO9rPB3l5cIX", "type": "MitreAttackIdentifier", "name": "Alphabet ", "display_name":
+        "Do you have any idea why this is not working?"}, {"id": "FAp69xX2PHy", "type":
+        "MitreAttackIdentifier", "name": "Chick", "display_name": "The arguments can
+        be pri"}, {"id": "HQGVCXeXTXWULCG", "type": "MitreAttackIdentifier", "name":
+        "Deviled c", "display_name": "Make me a sandwich."}, {"id": "hash:550a4ba48e3cd27b277e974c9dca9ef0efd7bcdd2c5a51f3a1bd3e9ccc7a23d1",
+        "type": "Hash", "name": "Sonofabitch stew"}, {"id": "8p64acfs9jn", "type":
+        "MitreAttackIdentifier", "name": "Buffa", "display_name": "Haskell is a standardized,
+        gen"}, {"id": "ZnRGHnKkVaETrj0", "type": "MitreAttackIdentifier", "name":
+        "Creme Bru", "display_name": "Ports are used to communicate with the external
+        worl"}, {"id": "Jv5KYy", "type": "Product", "name": "Maine Lobster"}, {"id":
+        "3jWj1", "type": "Product", "name": "Senate bean s"}, {"id": "hash:ea4114420e627edf9ea07f2417a37e1afd81d36856fa541e1f0b3b78546c44ec",
+        "type": "Hash", "name": "Po''Boy"}, {"id": "hash:1d2473d6975000b11fd3df329fdf24532b94a5a3b8552a2f45c14160be57154a",
+        "type": "Hash", "name": "City chicken"}, {"id": "59no1HEUsJKEaGQ", "type":
+        "MitreAttackIdentifier", "name": "Bird''s Ne", "display_name": "Atoms can
+        contain any character if th"}, {"id": "url:https://photographs.ug/", "type":
+        "URL", "name": "Mission burrito"}, {"id": "SrAVgunuEj4", "type": "MitreAttackIdentifier",
+        "name": "Rabbi", "display_name": "It is also a garbage-collected runtim"},
+        {"id": "HywdDPIr48r", "type": "MitreAttackIdentifier", "name": "Pasta", "display_name":
+        "Tuples are containers for"}, {"id": "x9B7bcSHFxk", "type": "MitreAttackIdentifier",
+        "name": "Bread", "display_name": "Erlang is a general-purpose, conc"}, {"id":
+        "1OnOq2Gk9aR", "type": "MitreAttackIdentifier", "name": "Mini ", "display_name":
+        "Where are my pants?"}, {"id": "hAsrk", "type": "Product", "name": "Venison"},
+        {"id": "aEMXA", "type": "Product", "name": "Sandwich"}, {"id": "hash:4001a5174a28322bba21fcf1c13f1ed3a866863a53fda6c1e9ef8f0fe5ab8606",
+        "type": "Hash", "name": "Pork and beans"}, {"id": "hash:80f3b8a05f5fdee2978a4adfc8e161d6f9107d82e23fa98eec250b48de2bf61f",
+        "type": "Hash", "name": "Shucked Oysters"}, {"id": "gIg1xUmMpcf", "type":
+        "MitreAttackIdentifier", "name": "Chich", "display_name": "Messages can be
+        sent to and received"}, {"id": "vbpuC5gmKfU", "type": "MitreAttackIdentifier",
+        "name": "Blue-", "display_name": "Erlang is a general-purpose, concurr"},
+        {"id": "SMlvRl", "type": "MalwareCategory", "name": "Breaded s"}, {"id": "hash:bf2ec15b4c166094b5a6b0c629ac5f3d1cb68205f05fb0259d7ca46b5e72d3e0",
+        "type": "Hash", "name": "Chicken nuggets"}, {"id": "hash:47dc4199643d7ec3634d39695a4f23a4e684fae54279f3b54dd1dc2681f1e557",
+        "type": "Hash", "name": "Succotash"}, {"id": "url:https://formats.zuerich/",
+        "type": "URL", "name": "Fish Tacos"}, {"id": "PTKaba", "type": "Malware",
+        "name": "Lorna Doon"}, {"id": "JROnIp", "type": "Product", "name": "Chile
+        Relle"}, {"id": "eGdnL4", "type": "Malware", "name": "Fries"}, {"id": "JSLFIT",
+        "type": "Technology", "name": "Chicken and waffles"}, {"id": "hCbLgp", "type":
+        "Technology", "name": "Bruschetta"}], "content": "Initially composing light-hearted
+        and irreverent works, he also wrote serious, sombre and religious pieces beginning
+        in the 1930s.", "file_name": "The arguments can be pri"}]}, {"id": "doc:l0e9UB",
+        "type": "yara", "title": "In 1989 the building was heavi", "description":
+        "Ports are created with the built-in function open_port.", "created": "2022-03-02T20:56:39.494Z",
+        "updated": "2023-10-11T19:11:33.930Z", "rules": [{"entities": [{"id": "hash:e1968ca554600bc831fd776ee3c3243e59df2cbdba53723099a247d7f97fb33b",
+        "type": "Hash", "name": "Scampi"}, {"id": "hash:f4f90b6d7a1be5bc8ceda3294a5c27e8f6fc5809253e8abbdbedaa41fc58ffdd",
+        "type": "Hash", "name": "Cinnamon Roll"}, {"id": "hash:e277e998b19db543b0422c6f795eff0b8407f425216c99f3f047667fe34efc99",
+        "type": "Hash", "name": "Tagine"}, {"id": "lzEojI", "type": "Malware", "name":
+        "Chees"}, {"id": "hash:7b3610fe069ab5de706e47d621108d110b7441db4c1dd96daf6749cd5f893657",
+        "type": "Hash", "name": "Juba"}, {"id": "hash:e454f810c9314c47d8ce72f295f19144f4335dc2f556a6ce27fd9248d0014712",
+        "type": "Hash", "name": "Fajitas"}, {"id": "hash:1d41374f5485ee24c9590df2e18f406bd951d208e910c16bcdc42ab0d264670b",
+        "type": "Hash", "name": "Tres Leches Cake"}, {"id": "Ps4Y01", "type": "CyberThreatActorCategory",
+        "name": "Mission burrito"}, {"id": "hash:763f4927bb0b1d28e30b1c516eadfe8af0e2de7eb8213f6c42a2b3a7fa900555",
+        "type": "Hash", "name": "Liver and onions"}, {"id": "hash:877a0e8e6f4d070f06a059adc9c5dc6904d8c0781bf6b1f68413a64714fb6518",
+        "type": "Hash", "name": "Chocolate Chip Cookie"}, {"id": "hash:1bda68cadab8b7e027e21778b5c5695b225435f1d66b517af0f200ebb1efdf87",
+        "type": "Hash", "name": "Stuffed zucchini"}, {"id": "hash:4f42d3349a4b2b0364c8323fb627b88ed0b280a1c2bef901610deacfb4e758bc",
+        "type": "Hash", "name": "Pastrami on Rye"}], "content": "Do you come here
+        often?", "file_name": "The arguments ca"}]}, {"id": "doc:jhm_3d", "type":
+        "yara", "title": "Haskell featu", "description": "Haskell features a type
+        system with type inference and lazy evaluation.", "created": "2021-08-17T17:49:58.800Z",
+        "updated": "2021-08-17T20:50:28.128Z", "rules": [{"entities": [{"id": "JSdpGV",
+        "type": "Malware", "name": "American "}, {"id": "hash:bde511a9c1a2b80ec6b41f0a9343cb4cf4f788b29e130276d62ff8566a175692",
+        "type": "Hash", "name": "City chicken"}, {"id": "hash:6f38ce66c320966492603d2a45153a19baccb74123190372cd4cf6217a484b0e",
+        "type": "Hash", "name": "Charleston red rice"}, {"id": "hMrtqNmIpHO", "type":
+        "MitreAttackIdentifier", "name": "Buffa", "display_name": "Erlang is known
+        for its desig"}, {"id": "hash:0b27818547ddb7f97982d76b94d298feff95f4775d6163a6ba0b49449307f9d3",
+        "type": "Hash", "name": "Fajitas"}, {"id": "hash:b781ea9cf3a4f207dd6a3f8f782581bf6f4008d252739250fc1e4711d89aa126",
+        "type": "Hash", "name": "Seafood cocktail"}, {"id": "hash:1726f3db0fe7cc44f5d4e3ac9aa6e3519ef77cc882be4680804f4e51c99c5eac",
+        "type": "Hash", "name": "Maple Bacon Doughnut"}, {"id": "bqVxA", "type": "MalwareCategory",
+        "name": "Caviar", "display_name": "She spent her earliest yea"}, {"id": "hash:918eae236e8552a0acb0447be74c21c6fdec2d26cc346407b07d88fa3633a80d",
+        "type": "Hash", "name": "Ice Cream Sundae"}, {"id": "hash:dbe807eed2082847fb6189d96a0f739743ca691824b8c83d845ae05660bbd2c5",
+        "type": "Hash", "name": "Stroganoff"}, {"id": "hash:405c35797453889418a429f7b66a70caa29f540ccc32f783b2f07fda1dfafa6e",
+        "type": "Hash", "name": "Potato Wedges"}, {"id": "S8s2kU", "type": "Organization",
+        "name": "Schni", "display_name": "The Galactic Empire is nearing completion
+        of the Death Star, a space sta"}, {"id": "hash:020226003262ec08e9196ba78eb473f003061c2b73ab1969bc9c17814ae1c09b",
+        "type": "Hash", "name": "Rolled oyster"}, {"id": "hash:91ba5f59013927f05da9e8041cfac76003506fd4d1d50e4b2ed4e81acba443d9",
+        "type": "Hash", "name": "Sandwich"}, {"id": "HOCYpvp20ci", "type": "MitreAttackIdentifier",
+        "name": "Bookb", "display_name": "Do you have any idea w"}, {"id": "rR4kKRhoQRmOpnB",
+        "type": "MitreAttackIdentifier", "name": "Sandwich", "display_name": "The
+        syntax {D1,D2,...,Dn} denotes a tuple whose arguments are D1, D2"}, {"id":
+        "aEpD7Ua3aJZ", "type": "MitreAttackIdentifier", "name": "Beef ", "display_name":
+        "Do you have any idea why this is no"}, {"id": "RHFFB", "type": "Company",
+        "name": "Souvla"}, {"id": "hash:6989aae161dc7ad5e1f87afeb39cb053154958a2ade747115b8604908bf2783e",
+        "type": "Hash", "name": "Barbecue"}, {"id": "3iT36gKuprK", "type": "MitreAttackIdentifier",
+        "name": "Chick", "display_name": "Where are my pants?"}, {"id": "hash:13df607f45469df26fcdf2f2a1642480fa1f21dce75545d04ce2ea0316eb66a8",
+        "type": "Hash", "name": "Boulliabaise"}, {"id": "T8IJiR", "type": "Organization",
+        "name": "Turkish Deligh"}, {"id": "jRVOVzlwfWahWn4", "type": "MitreAttackIdentifier",
+        "name": "Smelt", "display_name": "Where are my pants?"}, {"id": "wNllc6Jy9qovGYe",
+        "type": "MitreAttackIdentifier", "name": "Crab cake", "display_name": "Atoms
+        can contain any character if they are enclosed "}, {"id": "hash:60ae51dd5dc859f68b2971df54b935ed3eb8b5202c2b206edc10e39bf062d9f0",
+        "type": "Hash", "name": "Stroganoff"}, {"id": "hash:1f594322f8e79b2004654d0c81e95ff5f71af86bba9c8efcbb0172854c9f085b",
+        "type": "Hash", "name": "Ranch dressing"}, {"id": "bzfGdo32Gtq6sjJ", "type":
+        "MitreAttackIdentifier", "name": "Mozzarell", "display_name": "Ports are used
+        to communicate with the external world."}, {"id": "hash:2ee7aa8ed57857d338081d4161f0ebe051d796675dbeeecb778cf9beaf6cfad0",
+        "type": "Hash", "name": "Jalapeno Poppers"}, {"id": "6WuehtVAz9YsGA8", "type":
+        "MitreAttackIdentifier", "name": "Baked pot", "display_name": "He looked inquisitively
+        at his keyboard and wrote another sentence."}, {"id": "hash:315f087e21df3b1bbac74297445e0cb2de6487391f35ab94d84a96779853705e",
+        "type": "Hash", "name": "Root Beer Float"}, {"id": "B9Fe0j2bvfO", "type":
+        "MitreAttackIdentifier", "name": "Apple", "display_name": "They are written
+        as s"}, {"id": "hash:511aee10b36efcfdb86daed8a1a67198bbbddd31b0b5f0db9dc96d927fa69c02",
+        "type": "Hash", "name": "Alphabet pasta"}, {"id": "xuqy34l8FSh", "type": "MitreAttackIdentifier",
+        "name": "Jalap", "display_name": "Haskell features a ty"}, {"id": "QrYTmu",
+        "type": "AttackVector", "name": "French Onion Soup"}, {"id": "hash:f04a2dc00199b836865d86d69a5fbb9dee625db3c1fadf6ddc15df921e4f20d4",
+        "type": "Hash", "name": "Bao"}, {"id": "JMyJQG", "type": "Person", "name":
+        "Creamed corn"}, {"id": "hash:b4709f555ffb98a74d7434624f31173a3dd9231f7f9887cfd67e30faa3e64923",
+        "type": "Hash", "name": "Kung Pao Chicken"}, {"id": "hash:43c30518ba75a43ea4d65fe4a82a279f3b6aad2b91786ead7d91f7ee895796dc",
+        "type": "Hash", "name": "Steak sauce"}, {"id": "hash:c1eadfa160ea32216171536b4ace20ad4eebd92508449b7e2808d07c91f8f44b",
+        "type": "Hash", "name": "Goulash"}, {"id": "hash:bd0149d9a24521928ac52c70fbc902764989db37b59bc2b30f28f904b33ec1b5",
+        "type": "Hash", "name": "Pepperoni"}, {"id": "I3RuWi", "type": "AttackVector",
+        "name": "Tin Roof Ice "}, {"id": "CLJ82YfigFAiadh", "type": "MitreAttackIdentifier",
+        "name": "Ribs", "display_name": "Where are my pants?"}, {"id": "pFa5261QMHS",
+        "type": "MitreAttackIdentifier", "name": "Pork ", "display_name": "I don''t
+        even care."}, {"id": "J31vQ6", "type": "MalwareCategory", "name": "Crab cake"},
+        {"id": "hash:abe25cfd9291ca45749becb17915ba8f8b1f6c6eda28908d93f9d345d6b2566f",
+        "type": "Hash", "name": "Banh Mi Vi\u00eat"}, {"id": "80X35wTdcKKlRwN", "type":
+        "MitreAttackIdentifier", "name": "Mini pizz", "display_name": "They are written
+        as strings of consecutive alphanumeric characters, "}, {"id": "hash:ce4fffb8638c1543c7ebd8f8f574d4a02dae9417b3bfda1b02e95dc2eaa3cb94",
+        "type": "Hash", "name": "Apple sauce"}, {"id": "hash:261c3877a2db9dc3b3071b1ab7a367d60fc81ce33b20e70b0f4f77d2762481b3",
+        "type": "Hash", "name": "Pickled cucumber"}, {"id": "KeKude", "type": "AttackVector",
+        "name": "Drunken c"}, {"id": "hash:f9f2d0190595835dc3b9150e75f551aada71b066eaee92aa891d2ea895ee9af0",
+        "type": "Hash", "name": "Cheesecake"}, {"id": "KlGJJk", "type": "WinRegKey",
+        "name": "Reuben"}, {"id": "hash:da1a70385a6051b343e2f99693f234b6b4bdecde88cc01420e92767f84c62f55",
+        "type": "Hash", "name": "Surf and turf"}], "content": "Tuples are containers
+        for a fixed number of Erlang data types.", "file_name": "They are written
+        "}]}, {"id": "doc:lN9gbG", "type": "yara", "title": "Haskell features ", "description":
+        "Do you have any idea why this is not working?", "created": "2022-01-07T19:57:16.496Z",
+        "updated": "2022-01-07T19:57:16.496Z", "rules": [{"entities": [{"id": "hash:254de30f124f64319c940a0fe5f7f18bc97fbd935fb60b808e9512744d923f52",
+        "type": "Hash", "name": "Burnt ends"}, {"id": "hash:c1e4a76b70093b809265fc4008d812aa869b216fd1c1b579ce7a3476c54c62de",
+        "type": "Hash", "name": "Sweetbreads"}, {"id": "X7hSd", "type": "Malware",
+        "name": "Charlest"}, {"id": "hash:5a228c90a1b510b6b8211603a6d92b96e5356d4b98bc619b02e493664e9648ad",
+        "type": "Hash", "name": "Montreal Smoked Meat"}, {"id": "hash:b4f7998a18929c09f61ec2e90e2a658f36fc9fe5355af8e9f64c2647ef7a6176",
+        "type": "Hash", "name": "Chicken French"}, {"id": "hash:a56e30252b3ebbbf37c8a768c827471f361614cd2ba714c6c5acceb37db666e3",
+        "type": "Hash", "name": "Stroganoff"}, {"id": "hash:e6220b7d374c833fb75768d2d38b8c414cc2cd6871e2d5d6ec374afaff31790f",
+        "type": "Hash", "name": "Blue-plate special"}, {"id": "hash:0197a90752ff7bc2559124a00f62734fabb0821e8542a9bf5d3ccc89ab1a8d3f",
+        "type": "Hash", "name": "Mission burrito"}, {"id": "lMJujd", "type": "Malware",
+        "name": "Senate be"}, {"id": "hash:dba58b60fd89941d4ceb4d1c6c2d9da47dd3e03f07ddbf5a1d6e3332e47406c4",
+        "type": "Hash", "name": "Shrimp and Grits"}, {"id": "hash:b371fafd74dafb8bbbcf7dc4bb674a17133413d2def88dacd57e264f464cb985",
+        "type": "Hash", "name": "Spring Rolls"}, {"id": "hash:c091859c13dea64ebd9da9c803431053e01073419b3686b305b5f493813c9af9",
+        "type": "Hash", "name": "Pork and beans"}, {"id": "hash:624244e3bd9f807381e3b01144654dc62cdaa9f4cd7d6a5844a97c138323e45f",
+        "type": "Hash", "name": "Charleston red rice"}, {"id": "idn:portugal.free",
+        "type": "InternetDomainName", "name": "Crepes"}, {"id": "bgH95AjKgr44FVM",
+        "type": "MitreAttackIdentifier", "name": "Laksa", "display_name": "Atoms can
+        contain any character if they are en"}, {"id": "66wULikUSSb", "type": "MitreAttackIdentifier",
+        "name": "Jell-", "display_name": "Type classes first appeared in the Hask"},
+        {"id": "P298R8kQNOQ", "type": "MitreAttackIdentifier", "name": "Roast", "display_name":
+        "Ports are created with th"}, {"id": "idn:pricing.org", "type": "InternetDomainName",
+        "name": "Vegemite on Toast"}, {"id": "e2COog3rDOI", "type": "MitreAttackIdentifier",
+        "name": "Baked", "display_name": "He looked inquisitively at"}, {"id": "PbJa1hMkNufuwRG",
+        "type": "MitreAttackIdentifier", "name": "Chicago H", "display_name": "He
+        looked inquisitively at his keyboard and wrote a"}, {"id": "bvzxvqUy5Qf",
+        "type": "MitreAttackIdentifier", "name": "Phila", "display_name": "Ports are
+        used to communicate with the external"}, {"id": "ip:253.72.196.88", "type":
+        "IpAddress", "name": "Smelt"}, {"id": "ip:102.117.156.57", "type": "IpAddress",
+        "name": "Pizza strips"}, {"id": "b0yNd8", "type": "Technology", "name": "Chica"},
+        {"id": "NCQaUx", "type": "Technology", "name": "Mashed potato"}, {"id": "14tygzuRglYlMjC",
+        "type": "MitreAttackIdentifier", "name": "Mulligan ", "display_name": "I don''t
+        even care."}, {"id": "x06Tz", "type": "AttackVector", "name": "Spaghett"},
+        {"id": "url:https://yarn.jewelry/", "type": "URL", "name": "Corn chowder"},
+        {"id": "cR8GM4Bing7Kf6D", "type": "MitreAttackIdentifier", "name": "Soft Shel",
+        "display_name": "The arguments can be primitive data types or compound"},
+        {"id": "Kt5me7", "type": "AttackVector", "name": "Popover"}], "content": "Do
+        you have any idea why this is not working?", "file_name": "Haskell is a standardized,
+        general"}]}], "next_offset": "eyJvZmZzZXQiOlsxMjI1NiwiR2htdHVjQ29ERFciXX0="}'
+    headers:
+      CF-RAY:
+      - 9cd390bf793541b8-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:15:36 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

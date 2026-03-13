@@ -1,0 +1,73 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/fa54c4e34732b611921820be56dd690a4de98285828e4be487b904679a855a92?fields=entity%2Ctimestamps%2Crisk%2ChashAlgorithm
+  response:
+    body:
+      string: '{"data": {"timestamps": {"lastSeen": "2025-01-02T18:50:02.882Z", "firstSeen":
+        "2019-02-13T12:41:06.966Z"}, "risk": {"criticalityLabel": "Chocolate", "riskString":
+        "Sand", "rules": 2, "criticality": 3, "riskSummary": "Chicharones", "score":
+        80, "evidenceDetails": [{"mitigationString": "", "evidenceString": "Slinger",
+        "rule": "Pigs in blankets", "criticality": 2, "timestamp": "2025-12-14T04:19:59.157Z",
+        "criticalityLabel": "Lobster Ne"}, {"mitigationString": "", "evidenceString":
+        "Ammonia cookie", "rule": "Onion Rings", "criticality": 3, "timestamp": "2019-02-13T12:28:42.000Z",
+        "criticalityLabel": "Macaroni "}]}, "entity": {"id": "hash:e6ffa0d80c68c5ba8287e14036d5781f823c12437dff1e348b762330f3d5e87c",
+        "name": "a23034d4b28fcd993c9a9a284391cc800fcbbed21c9f3494c0d0c14a861b30a7",
+        "type": "Hash"}, "hashAlgorithm": "SHA-256"}}'
+    headers:
+      CF-RAY:
+      - 9cee13df9a8d4915-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 15:28:56 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01rkcaev5llswph5modza8cf7k3747657.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

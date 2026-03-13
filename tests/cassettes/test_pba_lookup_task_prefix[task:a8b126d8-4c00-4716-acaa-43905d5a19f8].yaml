@@ -1,0 +1,183 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - banshee:tests_/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.3 platform_id
+        unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/playbook-alert/common/task:a8b126d8-4c00-4716-acaa-43905d5a19f8
+  response:
+    body:
+      string: '{"status": {"status_code": "Co", "status_message": "BBQ Ribs"}, "data":
+        {"playbook_alert_id": "task:a8b126d8-4c00-4716-acaa-43905d5a19f8", "rule_id":
+        "Sushi", "alert_rule": {"id": "w41VFj", "label": "Chicken Salad Wrap", "name":
+        "Creamed corn"}, "status": "Resolved", "priority": "Sush", "created": "2026-02-10T06:53:03.906Z",
+        "updated": "2026-02-10T18:54:56.953Z", "category": "geopolitics_facility",
+        "title": "Messages can be sen", "owner_id": "Lobster Newberg", "owner_name":
+        "Deviled crab", "organisation_id": "Albacore Tuna Me", "organisation_name":
+        "Steak sandwich", "owner_organisation_details": {"organisations": [{"organisation_id":
+        "Spaghetti Bologn", "organisation_name": "Baba Ghanoush"}], "enterprise_id":
+        "Pizza strips", "enterprise_name": "Poppyseed muffin"}, "actions_taken": []}}'
+    headers:
+      CF-RAY:
+      - 9dbbc9db79b4ef39-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Mar 2026 14:39:31 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - banshee:tests_/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.3 platform_id
+        unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/playbook-alert/geopolitics_facility/task:a8b126d8-4c00-4716-acaa-43905d5a19f8
+  response:
+    body:
+      string: '{"status": {"status_code": "Gy", "status_message": "Funnel Cake"},
+        "data": {"playbook_alert_id": "task:a8b126d8-4c00-4716-acaa-43905d5a19f8",
+        "panel_status": {"status": "Resolved", "priority": "Chic", "created": "2026-02-10T06:53:03.906Z",
+        "updated": "2026-02-10T18:54:56.953Z", "case_rule_id": "Lasagna", "case_rule_label":
+        "Geopolitics Facility", "alert_rule": {"id": "w41VFj", "label": "Churrasco",
+        "name": "Thousand Island dre"}, "owner_id": "Jerky", "owner_name": "Geoduck",
+        "organisation_id": "Jell-O", "organisation_name": "Stroganoff", "owner_organisation_details":
+        {"organisations": [{"organisation_id": "Oreo", "organisation_name": "Satay"}],
+        "enterprise_id": "Shrimp and Grits", "enterprise_name": "Frybread"}, "entity_id":
+        "Steam", "entity_name": "Fried Green Tomatoe", "targets": [{"name": "Succotash"}],
+        "actions_taken": []}, "panel_evidence_summary": {"assessments": [{"name":
+        "Bruschetta", "criticality": "Peanut b"}, {"name": "Stroganoff", "criticality":
+        "Scra"}], "events": [{"text": "Haskell features a type system with type inference
+        and lazy evaluation. Erlang is a general-purpose, concurrent, functional programming
+        language. Do you have any idea why this is not working? Its main implementation
+        is the Glasgow Haskell Compiler. The arguments can be primitive d", "source":
+        "Tuna casserole", "url": "https://assumes.cat/", "assessments": [{"name":
+        "Apple butter", "criticality": "Shrimp a"}], "document_id": "Rice an", "time":
+        "2026-02-10T06:29:05.000Z", "images": ["Biscuit"]}, {"text": "Erlang is known
+        for its designs that are well suited for systems. Haskell features a type
+        system with type inference and lazy evaluation. The Galactic Empire is nearing
+        completion of the Death Star, a space station with the power to destroy entire
+        planets. The sequential subset of Erlang supports eager evaluati", "source":
+        "Hot Chicken sandwich", "url": "https://use.coop/", "assessments": [{"name":
+        "Butter cookie", "criticality": "Sour cre"}], "document_id": "Naan", "time":
+        "2026-02-10T06:29:05.000Z", "images": ["Gyros"]}, {"text": "The syntax {D1,D2,...,Dn}
+        denotes a tuple whose arguments are D1, D2, ... Dn. They are written as strings
+        of consecutive alphanumeric characters, the first character being lowercase.
+        The syntax {D1,D2,...,Dn} denotes a tuple whose arguments are D1, D2, ...
+        Dn. The arguments can be", "source": "Sandwich", "url": "https://congressional.vegas/",
+        "assessments": [{"name": "Abalone", "criticality": "Muff"}], "document_id":
+        "Chicken", "time": "2026-02-10T06:29:05.000Z", "images": ["Meatloaf"]}, {"text":
+        "Erlang is known for its designs that are well suited for systems. Atoms are
+        used within a program to denote distinguished values. Messages can be sent
+        to and received from ports, but these messages must obey the so-called \"port
+        protocol.\" Make me a sandwich. Do you have any idea why this is not working?",
+        "source": "Sauteed Morel Mushrooms", "url": "https://hired.bayern/", "assessments":
+        [{"name": "Sichuan Hot Po", "criticality": "Surf"}], "document_id": "Maple
+        B", "time": "2026-02-10T06:29:05.000Z", "images": ["Butter cookie"]}]}, "panel_overview":
+        {"event_type": "Poppyseed muff", "location_distance": {"number": 612, "unit":
+        "Cinnam", "facility_name": "Chicago Deep Dish P"}, "event_time": "2026-02-10T06:29:05.000Z",
+        "source": "Poke", "ai_insights": "Chicago Deep Dish Pizza", "most_recent_event":
+        {"text": "The arguments can be primitive data types or compound data types.
+        Type classes first appeared in the Haskell programming language. Ports are
+        created with the built-in function open_port. Erlang is a general-purpose,
+        concurrent, functional programming language. Ports are created with the built-in
+        function open_p", "source": "Pan Seared Scallops", "url": "https://cubic.tui/",
+        "assessments": [{"name": "Milk Steak", "criticality": "Low "}], "document_id":
+        "Jalapen", "time": "2026-02-10T06:29:05.000Z", "images": ["Corn dog"]}, "facility_name":
+        "Ice Cream", "facility_id": "Chick", "location_data": {"latitude": 14.753,
+        "longitude": 42.976299}, "event_document_id": "Barbecu", "watchlist_comment":
+        "", "is_based_on_deleted_event": false}, "panel_log": [{"id": "E6K3VyC8UBpzt3nHsS7ac99qCILoF48panJTWMtKW",
+        "created": "2026-02-10T06:53:07.320Z", "modified": "Gumbo", "action_priority":
+        "Buff", "context": {"type": "geopolitics_facility", "changes": [{"cluster_id":
+        "Hog fry", "main_event": {"event_id": "Sausage gra", "assessments": [{"id":
+        "XYADM4BrQR7M7tAg1dzOlzbWUIKG9caAOVY5IsqLt9FCLH7nrWjwGJbGzIwx6rPZuM", "level":
+        3, "title": "She spent her "}], "type": "event_change_added"}, "other_event_ids":
+        ["Peanut butt"], "type": "cluster_change_added"}]}}, {"id": "ZKi3tXnJ2ZTJtDt1cjeQqAgHFFhsSwzNVYXKR16yf",
+        "created": "2026-02-10T06:53:07.864Z", "modified": "Maple Bacon Doughnut",
+        "action_priority": "Jala", "changes": {"assessment_ids_change": {"added":
+        ["alias:case.category.geopolitics_facility.assessment.military_maneuver"],
+        "type": "assessment_ids_change"}}, "context": {"type": "geopolitics_facility",
+        "changes": [{"added": ["alias:case.category.geopolitics_facility.assessment.military_maneuver"],
+        "type": "assessment_ids_change"}, {"cluster_id": "Pizza strip", "main_event":
+        {"event_id": "Porterhouse", "assessments": [{"id": "FF57w9wTh1i4YdkRum7nohB6Us71lGPCQeOfDAGuXmJ3NQJKySVvchO5cOaPhF6VXqNmZ",
+        "level": 2, "title": "The Galactic Empi"}], "type": "event_change_added"},
+        "other_event_ids": ["Brisket"], "type": "cluster_change_added"}]}}, {"id":
+        "PSnLgSYNHiaA5n3ZtU3Ro59TTuhc7ZRq8trwbjgZs", "created": "2026-02-10T18:54:56.953Z",
+        "modified": "Squab", "action_priority": "Cinnamon Roll", "message": "Roasted
+        Bone Marrow", "changes": {"status_change": {"old": "Che", "new": "Tagine",
+        "type": "status_change"}}}], "panel_log_v2": [{"id": "ZZvJgkn7z12ZJfogE96Weww6azGf2KQuRaXkf9uCg",
+        "created": "2026-02-10T06:53:07.320Z", "changes": [{"cluster_id": "French
+        Dip", "main_event": {"event_id": "Ammonia coo", "assessments": [{"id": "3Evo3nregmojHr7VeSKmJDmLkuotWLsLsPWI4fKxXlN1fUyIndniE7FAPJoMU8IPQ5",
+        "level": 3, "title": "The sequential"}], "type": "event_change_added"}, "other_event_ids":
+        ["Flan"], "type": "cluster_change_added"}]}, {"id": "ITMUvfWE7zKVyIDuj1FwBbDsCkFkVz9l0EP5eSuG0",
+        "created": "2026-02-10T06:53:07.864Z", "changes": [{"added": ["alias:case.category.geopolitics_facility.assessment.military_maneuver"],
+        "type": "assessment_ids_change"}, {"cluster_id": "Reuben sand", "main_event":
+        {"event_id": "Italian Bee", "assessments": [{"id": "WcKkAHLUlDXOnqFgaiB1aQUQ8xCAENMYrYscLmS2QUGFp60FNIG0BGvwl2GKOGvWd7NcJ",
+        "level": 2, "title": "Make me a sandwic"}], "type": "event_change_added"},
+        "other_event_ids": ["Pistachio I"], "type": "cluster_change_added"}]}, {"id":
+        "1e5LsivYAX8PuvmUIN7wpt687tzJNB22O6hyn5YW7", "created": "2026-02-10T18:54:56.953Z",
+        "changes": [{"old": "Roa", "new": "Funnel C", "actions_taken": [], "type":
+        "status_change"}, {"comment": "Soul food", "type": "comment_change"}]}]}}'
+    headers:
+      CF-RAY:
+      - 9dbbc9dcc862ecdb-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Mar 2026 14:39:32 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

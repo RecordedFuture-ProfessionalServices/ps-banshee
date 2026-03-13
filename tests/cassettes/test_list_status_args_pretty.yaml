@@ -1,0 +1,93 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.3
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/list/report:wpHivJ/info
+  response:
+    body:
+      string: '{"id": "report:wpHivJ", "name": "Garlic bre", "type": "entity", "created":
+        "2024-07-01T12:51:38.804Z", "updated": "2026-02-13T10:59:40.887Z", "owner_id":
+        "Buffalo wing", "owner_name": "Doughnut", "organisation_id": "Pizza strips",
+        "organisation_name": "Bird''s Nest Soup", "owner_organisation_details": {"owner_id":
+        "Corn chowder", "owner_name": "BBQ Chicken Pizza", "organisations": [], "enterprise_id":
+        "Kobe Beef", "enterprise_name": "Eggs Benedict"}}'
+    headers:
+      CF-RAY:
+      - 9d69cdd01c4c63c1-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 03 Mar 2026 15:51:40 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.3
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/list/report:wpHivJ/status
+  response:
+    body:
+      string: '{"size": 2, "status": "ready"}'
+    headers:
+      CF-RAY:
+      - 9d69cdd20db8129d-LHR
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '27'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 03 Mar 2026 15:51:41 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+version: 1

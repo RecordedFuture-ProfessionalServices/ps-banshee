@@ -1,0 +1,174 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/url/search?limit=5&fields=entity%2Crisk%2Ctimestamps
+  response:
+    body:
+      string: '{"data": {"results": [{"timestamps": {"lastSeen": "2026-08-29T20:51:51.763Z",
+        "firstSeen": "2026-10-10T22:56:56.421Z"}, "risk": {"criticalityLabel": "The
+        Galac", "riskString": "The ", "rules": 4, "criticality": 3, "riskSummary":
+        "The arguments can be primitive data ty", "score": 89, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Any element of a tuple can be
+        accessed in constant time.", "rule": "She spent her earliest years reading
+        cl", "criticality": 1, "timestamp": "2026-11-15T01:23:35.306Z", "criticalityLabel":
+        "Its mai"}, {"mitigationString": "", "evidenceString": "Make me a sandwich.",
+        "rule": "It is also a garbage-collect", "criticality": 1, "timestamp": "2026-02-28T05:30:01.632Z",
+        "criticalityLabel": "It is a"}, {"mitigationString": "", "evidenceString":
+        "He looked inquisitively at his keyboard and wrote another sentence.", "rule":
+        "Do you come here often?", "criticality": 1, "timestamp": "2026-06-19T15:55:31.538Z",
+        "criticalityLabel": "He look"}, {"mitigationString": "", "evidenceString":
+        "She spent her earliest years reading classic literature, and writing poetry.",
+        "rule": "I don''t even care.", "criticality": 3, "timestamp": "2026-12-23T02:21:44.938Z",
+        "criticalityLabel": "He looked"}]}, "entity": {"id": "url:https://achievements.tokyo/",
+        "name": "Fried Catfish", "type": "URL"}}, {"timestamps": {"lastSeen": "2026-03-20T12:17:47.041Z",
+        "firstSeen": "2026-04-30T22:28:57.474Z"}, "risk": {"criticalityLabel": "Haskell
+        i", "riskString": "Erlan", "rules": 13, "criticality": 3, "riskSummary": "The
+        sequential subset of Erlang support", "score": 83, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "The syntax {D1,D2,...,Dn} denotes a tuple whose arguments
+        are D1, D2, ... Dn.", "rule": "He looked inquisitively at his keyboard", "criticality":
+        1, "timestamp": "2026-04-11T04:23:15.327Z", "criticalityLabel": "Where a"},
+        {"mitigationString": "", "evidenceString": "Ports are used to communicate
+        with the external world.", "rule": "Atoms can contain any character if they
+        ar", "criticality": 1, "timestamp": "2026-03-07T15:50:52.741Z", "criticalityLabel":
+        "Make me"}, {"mitigationString": "", "evidenceString": "Initially composing
+        light-hearted and irreverent works, he also wrote serious, sombre and religious
+        pieces beginning in the 1930s.", "rule": "Initially composing light-hearted
+        and irr", "criticality": 1, "timestamp": "2026-04-05T13:56:58.864Z", "criticalityLabel":
+        "Tuples "}, {"mitigationString": "", "evidenceString": "Ports are created
+        with the built-in function open_port.", "rule": "It is also a garbage-collected
+        runtime sys", "criticality": 1, "timestamp": "2026-02-06T13:15:17.794Z", "criticalityLabel":
+        "Ports a"}, {"mitigationString": "", "evidenceString": "Do you have any idea
+        why this is not working?", "rule": "The syntax {D1,D2,...,Dn} denote", "criticality":
+        1, "timestamp": "2026-06-08T08:26:22.848Z", "criticalityLabel": "He look"},
+        {"mitigationString": "", "evidenceString": "She spent her earliest years reading
+        classic literature, and writing poetry.", "rule": "Its main implementation
+        is the G", "criticality": 1, "timestamp": "2026-10-06T15:08:17.722Z", "criticalityLabel":
+        "Its mai"}, {"mitigationString": "", "evidenceString": "She spent her earliest
+        years reading classic literature, and writing poetry.", "rule": "Atoms are
+        used within a prog", "criticality": 1, "timestamp": "2026-06-25T15:45:01.025Z",
+        "criticalityLabel": "It is a"}, {"mitigationString": "", "evidenceString":
+        "Erlang is a general-purpose, concurrent, functional programming language.",
+        "rule": "The syntax {D1,D2,...,Dn} d", "criticality": 1, "timestamp": "2026-10-20T23:21:53.015Z",
+        "criticalityLabel": "Any ele"}, {"mitigationString": "", "evidenceString":
+        "Its main implementation is the Glasgow Haskell Compiler.", "rule": "In 1989
+        the building was heavily dama", "criticality": 1, "timestamp": "2026-05-12T11:52:44.699Z",
+        "criticalityLabel": "Haskell"}, {"mitigationString": "", "evidenceString":
+        "In 1989 the building was heavily damaged by fire, but it has since been restored.",
+        "rule": "The arguments can be primitive data typ", "criticality": 1, "timestamp":
+        "2026-07-15T13:42:05.897Z", "criticalityLabel": "Ports a"}, {"mitigationString":
+        "", "evidenceString": "Type classes first appeared in the Haskell programming
+        language.", "rule": "Atoms are used within a program to denote d", "criticality":
+        1, "timestamp": "2026-06-23T09:58:18.512Z", "criticalityLabel": "The arg"},
+        {"mitigationString": "", "evidenceString": "Haskell features a type system
+        with type inference and lazy evaluation.", "rule": "Erlang is known for its
+        designs that ", "criticality": 3, "timestamp": "2026-05-16T17:36:54.091Z",
+        "criticalityLabel": "Where are"}, {"mitigationString": "", "evidenceString":
+        "Make me a sandwich.", "rule": "Its main implementation is t", "criticality":
+        3, "timestamp": "2026-06-29T01:15:27.552Z", "criticalityLabel": "Erlang is"}]},
+        "entity": {"id": "url:https://stomach.name/", "name": "Fried fish", "type":
+        "URL"}}, {"timestamps": {"lastSeen": "2026-08-17T11:30:48.110Z", "firstSeen":
+        "2026-11-14T21:14:57.861Z"}, "risk": {"criticalityLabel": "Do you ha", "riskString":
+        "Atom", "rules": 2, "criticality": 3, "riskSummary": "Do you have any idea
+        why this is not w", "score": 82, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "The arguments can be primitive data types or compound
+        data types.", "rule": "Its main implementation is the Glasgow ", "criticality":
+        1, "timestamp": "2026-06-30T03:53:52.969Z", "criticalityLabel": "Its mai"},
+        {"mitigationString": "", "evidenceString": "Ports are used to communicate
+        with the external world.", "rule": "Ports are created with the built-", "criticality":
+        3, "timestamp": "2026-04-05T05:11:45.753Z", "criticalityLabel": "Make me a"}]},
+        "entity": {"id": "url:https://duck.cz/", "name": "Queso Fresco", "type": "URL"}},
+        {"timestamps": {"lastSeen": "2026-09-29T20:55:32.093Z", "firstSeen": "2026-07-05T15:58:05.799Z"},
+        "risk": {"criticalityLabel": "Make me a", "riskString": "Make", "rules": 5,
+        "criticality": 3, "riskSummary": "Where are my pants?", "score": 79, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Haskell features a type system
+        with type inference and lazy evaluation.", "rule": "The arguments can be primitive
+        data typ", "criticality": 1, "timestamp": "2026-03-13T05:47:14.457Z", "criticalityLabel":
+        "In 1989"}, {"mitigationString": "", "evidenceString": "It is also a garbage-collected
+        runtime system.", "rule": "Where are my pants?", "criticality": 1, "timestamp":
+        "2026-11-25T17:11:50.358Z", "criticalityLabel": "He look"}, {"mitigationString":
+        "", "evidenceString": "Where are my pants?", "rule": "I don''t even care.",
+        "criticality": 1, "timestamp": "2026-09-23T00:59:12.409Z", "criticalityLabel":
+        "Initial"}, {"mitigationString": "", "evidenceString": "Messages can be sent
+        to and received from ports, but these messages must obey the so-called \"port
+        protocol.\"", "rule": "They are written as strings of conse", "criticality":
+        1, "timestamp": "2026-05-18T08:11:13.623Z", "criticalityLabel": "Initial"},
+        {"mitigationString": "", "evidenceString": "In 1989 the building was heavily
+        damaged by fire, but it has since been restored.", "rule": "Its main implementation
+        is the Glasgo", "criticality": 3, "timestamp": "2026-08-28T00:33:14.171Z",
+        "criticalityLabel": "Erlang is"}]}, "entity": {"id": "url:https://pilot.name/",
+        "name": "Milk toast", "type": "URL"}}, {"timestamps": {"lastSeen": "2026-07-01T07:08:11.321Z",
+        "firstSeen": "2026-03-02T18:02:43.888Z"}, "risk": {"criticalityLabel": "They
+        are ", "riskString": "Mess", "rules": 4, "criticality": 3, "riskSummary":
+        "Haskell is a standardized, general-pur", "score": 78, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "In 1989 the building was heavily
+        damaged by fire, but it has since been restored.", "rule": "Atoms are used
+        within a program to denote", "criticality": 1, "timestamp": "2026-10-31T14:16:51.141Z",
+        "criticalityLabel": "Do you "}, {"mitigationString": "", "evidenceString":
+        "In 1989 the building was heavily damaged by fire, but it has since been restored.",
+        "rule": "Do you have any idea why this is not worki", "criticality": 1, "timestamp":
+        "2026-10-29T01:15:56.709Z", "criticalityLabel": "The syn"}, {"mitigationString":
+        "", "evidenceString": "Its main implementation is the Glasgow Haskell Compiler.",
+        "rule": "Do you come here often?", "criticality": 1, "timestamp": "2026-04-30T22:54:24.751Z",
+        "criticalityLabel": "In 1989"}, {"mitigationString": "", "evidenceString":
+        "It is also a garbage-collected runtime system.", "rule": "Atoms are used
+        within a program to de", "criticality": 3, "timestamp": "2026-06-20T05:16:35.989Z",
+        "criticalityLabel": "Do you co"}]}, "entity": {"id": "url:https://llc.saarland/",
+        "name": "Corn relish", "type": "URL"}}]}, "counts": {"returned": 5, "total":
+        1062222057}}'
+    headers:
+      CF-RAY:
+      - 9cd384ef3b2438a1-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:07:42 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01tbkc4cd4gkhettpeczugpg3p2011734.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

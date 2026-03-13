@@ -1,0 +1,73 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/fa54c4e34732b611921820be56dd690a4de98285828e4be487b904679a855a92?fields=entity%2Ctimestamps%2Crisk%2ChashAlgorithm
+  response:
+    body:
+      string: '{"data": {"timestamps": {"lastSeen": "2025-01-02T18:50:02.882Z", "firstSeen":
+        "2019-02-13T12:41:06.966Z"}, "risk": {"criticalityLabel": "Gyoza", "riskString":
+        "Gumb", "rules": 2, "criticality": 3, "riskSummary": "Garden salad", "score":
+        80, "evidenceDetails": [{"mitigationString": "", "evidenceString": "Elote",
+        "rule": "Venison", "criticality": 2, "timestamp": "2025-12-14T04:19:59.157Z",
+        "criticalityLabel": "Onion ring"}, {"mitigationString": "", "evidenceString":
+        "Veggie Pizza", "rule": "Energy bar", "criticality": 3, "timestamp": "2019-02-13T12:28:42.000Z",
+        "criticalityLabel": "Cowboy be"}]}, "entity": {"id": "hash:8fe33a5db2ef2f7d2b53f22e04bbfca3df44b9926d7718302f53975ad1ce45f8",
+        "name": "4ffdfe2962003d503faf8904da64c5149225df3ced29f24c812a184dd98bd5c2",
+        "type": "Hash"}, "hashAlgorithm": "SHA-256"}}'
+    headers:
+      CF-RAY:
+      - 9cee13e16e1e218d-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 15:28:56 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0n20tk80urwsh1die1v3gjbdii3756104.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

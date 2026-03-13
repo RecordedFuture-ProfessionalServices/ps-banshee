@@ -1,0 +1,107 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/ip/45.134.26.41?fields=location%2Ctimestamps%2CintelCard%2Crisk%2Centity
+  response:
+    body:
+      string: '{"data": {"location": {"organization": null, "cidr": {"id": "ip:171.142.119.105",
+        "name": "101.150.23.193", "type": "IpAddress"}, "location": {"continent":
+        "Polent", "country": "Chicha", "city": "Cornis"}, "asn": null}, "timestamps":
+        {"lastSeen": "2025-12-15T23:39:10.064Z", "firstSeen": "2021-05-15T12:36:45.484Z"},
+        "risk": {"criticalityLabel": "Pulled por", "riskString": "Roast", "rules":
+        17, "criticality": 2, "riskSummary": "Deep Fried Oreos", "score": 43, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Thousand Island dressing", "rule":
+        "Crepes", "criticality": 1, "timestamp": "2021-07-27T22:15:01.000Z", "criticalityLabel":
+        "Corn fl"}, {"mitigationString": "", "evidenceString": "Black Pudding", "rule":
+        "Bulgogi", "criticality": 1, "timestamp": "2025-06-06T10:41:12.940Z", "criticalityLabel":
+        "Chicken"}, {"mitigationString": "", "evidenceString": "Macaroni and cheese",
+        "rule": "Porterhouse Steak", "criticality": 1, "timestamp": "2025-12-23T08:55:01.625Z",
+        "criticalityLabel": "Toaster"}, {"mitigationString": "", "evidenceString":
+        "Geoduck", "rule": "Calf''s liver and bacon", "criticality": 1, "timestamp":
+        "2021-10-14T11:12:39.000Z", "criticalityLabel": "Swiss s"}, {"mitigationString":
+        "", "evidenceString": "Turkish Delight", "rule": "Patty", "criticality": 1,
+        "timestamp": "2025-12-09T00:00:00.000Z", "criticalityLabel": "Calf''s "},
+        {"mitigationString": "", "evidenceString": "Fried chicken", "rule": "Milk
+        Steak", "criticality": 1, "timestamp": "2021-08-12T07:20:39.112Z", "criticalityLabel":
+        "Kung Pa"}, {"mitigationString": "", "evidenceString": "Beef Lo Mein", "rule":
+        "Steak sauce", "criticality": 1, "timestamp": "2025-12-04T16:38:33.432Z",
+        "criticalityLabel": "Energy "}, {"mitigationString": "", "evidenceString":
+        "Albacore Tuna Melt", "rule": "Cheese Curds", "criticality": 1, "timestamp":
+        "2025-06-14T17:45:13.116Z", "criticalityLabel": "Bellini"}, {"mitigationString":
+        "", "evidenceString": "Schnitzel", "rule": "Fried Catfish", "criticality":
+        1, "timestamp": "2025-06-06T10:41:13.023Z", "criticalityLabel": "Mashed "},
+        {"mitigationString": "", "evidenceString": "Pancakes", "rule": "Popover",
+        "criticality": 1, "timestamp": "2021-10-15T04:09:45.489Z", "criticalityLabel":
+        "Fish Ta"}, {"mitigationString": "", "evidenceString": "Osso Buco", "rule":
+        "Lasagna", "criticality": 1, "timestamp": "2025-12-23T21:18:46.238Z", "criticalityLabel":
+        "Souvlak"}, {"mitigationString": "", "evidenceString": "Key Lime Pie", "rule":
+        "Risotto", "criticality": 1, "timestamp": "2025-06-06T10:41:12.856Z", "criticalityLabel":
+        "Fortune"}, {"mitigationString": "", "evidenceString": "Garlic bread", "rule":
+        "Tomato compote", "criticality": 1, "timestamp": "2025-12-04T00:00:00.000Z",
+        "criticalityLabel": "Steak T"}, {"mitigationString": "", "evidenceString":
+        "Chimichanga", "rule": "Gazpacho", "criticality": 1, "timestamp": "2026-02-10T07:12:29.307Z",
+        "criticalityLabel": "Peanut "}, {"mitigationString": "", "evidenceString":
+        "Tamales", "rule": "Hoppin'' John", "criticality": 1, "timestamp": "2026-02-10T07:12:29.311Z",
+        "criticalityLabel": "Prawn P"}, {"mitigationString": "", "evidenceString":
+        "Falafel", "rule": "Chinese food", "criticality": 2, "timestamp": "2025-11-19T08:20:16.856Z",
+        "criticalityLabel": "Chicken \u00e0 "}, {"mitigationString": "", "evidenceString":
+        "Calas", "rule": "Beef Manhattan", "criticality": 2, "timestamp": "2025-12-30T05:20:20.000Z",
+        "criticalityLabel": "Goulash"}]}, "intelCard": "https://gap.sydney/", "entity":
+        {"id": "ip:73.146.209.102", "name": "206.234.231.143", "type": "IpAddress"}}}'
+    headers:
+      CF-RAY:
+      - 9cee1c425b0a9383-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 15:34:39 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node012s9cabatcbpc14xepupnzl15b3752075.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

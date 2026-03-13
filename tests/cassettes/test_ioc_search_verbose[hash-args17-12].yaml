@@ -1,0 +1,208 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/search?limit=5&fields=analystNotes%2CenterpriseLists%2Centity%2CfileHashes%2ChashAlgorithm%2CintelCard%2Clinks%2Crisk%2CriskMapping%2Csightings%2CthreatLists%2Ctimestamps
+  response:
+    body:
+      string: '{"data": {"results": [{"enterpriseLists": [], "sightings": [{"source":
+        "Ports are", "url": "https://randy.food/", "published": "2026-12-31T16:41:28.614Z",
+        "fragment": "The syntax {D1,D2,...,Dn} denotes a tuple whose arguments are
+        D1, D2, ... Dn.", "title": "Do you have any idea why this is not working?",
+        "type": "mostRecent"}, {"source": "Initially", "url": "https://fluid.forsale/",
+        "published": "2026-09-18T21:28:54.491Z", "fragment": "Haskell is a standardized,
+        general-purpose purely functional programming language, wi", "title": "Haskell
+        is a standardized, general-purpose purely functional programming language,
+        wi", "type": "first"}, {"source": "Any element of a tuple can be acce", "url":
+        "https://series.hangout/", "published": "2026-02-18T19:07:07.739Z", "fragment":
+        "Atoms can contain any character if they are enclosed within single quotes
+        and an escape convention e", "title": "I don''t even care.", "type": "recentInfoSec"}],
+        "riskMapping": [{"rule": "In 1989 the building was", "categories": [{"framework":
+        "Erlan", "name": "Eggs N"}]}], "entity": {"id": "hash:c99056bd6560ce604bf955599290957e17803d399af4eeb4dd914e457b01fc95",
+        "name": "Pepperoni", "type": "Hash"}, "analystNotes": [], "hashAlgorithm":
+        "I don''t", "timestamps": {"lastSeen": "2026-03-14T22:27:29.421Z", "firstSeen":
+        "2026-05-04T09:08:45.719Z"}, "threatLists": [], "risk": {"criticalityLabel":
+        "Make me a", "riskString": "Its ", "rules": 1, "criticality": 3, "riskSummary":
+        "Erlang is known for its designs that a", "score": 89, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Atoms can contain any character
+        if they are enclosed within single quotes and an escape convention exists
+        which allows any character to be used within an atom.", "rule": "It is also
+        a garbage-col", "criticality": 3, "timestamp": "2026-03-05T19:20:04.156Z",
+        "criticalityLabel": "It is als"}]}, "fileHashes": ["Initially composing light-hearte",
+        "The syntax {D1,D2,...,Dn} denotes a tuple whose arguments are D1", "Initially
+        composing light-hearted and ir"], "intelCard": "https://remote.com/", "links":
+        {"hits": [], "method_aggregates": [{"count": 0, "type": "hHQyM6"}, {"count":
+        0, "type": "hHQyM7"}, {"count": 0, "type": "gTB8y2"}], "counts": []}}, {"enterpriseLists":
+        [], "sightings": [{"source": "Haskell is a standardized, general", "url":
+        "https://transsexual.ci/", "published": "2026-09-11T00:07:45.574Z", "fragment":
+        "I don''t even care.", "title": "Any element of a tuple can be accessed in",
+        "type": "recentInfoSec"}, {"source": "Type classes first appeared in the",
+        "url": "https://picks.kyoto/", "published": "2026-09-23T23:14:12.059Z", "fragment":
+        "Haskell features a type system with type inference and lazy evaluation.",
+        "title": "Its main implementation is the Glasgow Haskell Com", "type": "first"},
+        {"source": "Type clas", "url": "https://skirts.bar/", "published": "2026-01-06T18:25:29.740Z",
+        "fragment": "I don''t even care.", "title": "Messages can be sent to and received
+        from ports, but these messages must obey the so-", "type": "mostRecent"}],
+        "riskMapping": [{"rule": "Erlang is known f", "categories": [{"framework":
+        "Make ", "name": "Meatlo"}]}, {"rule": "The sequential subset of", "categories":
+        [{"framework": "Do yo", "name": "Cheese"}]}], "entity": {"id": "hash:71765c8f63eed184a82d8e4eb244067f35f2effa3c943b024e9f2ff679f82857",
+        "name": "Paella", "type": "Hash"}, "analystNotes": [], "hashAlgorithm": "Do
+        you ", "timestamps": {"lastSeen": "2026-11-18T10:39:29.327Z", "firstSeen":
+        "2026-10-05T22:28:47.339Z"}, "threatLists": [], "risk": {"criticalityLabel":
+        "Erlang is", "riskString": "Erla", "rules": 2, "criticality": 3, "riskSummary":
+        "Messages can be sent to and received f", "score": 89, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Atoms are used within a program
+        to denote distinguished values.", "rule": "Type classes firs", "criticality":
+        2, "timestamp": "2026-08-03T22:16:55.874Z", "criticalityLabel": "Where are
+        "}, {"mitigationString": "", "evidenceString": "It is also a garbage-collected
+        runtime system.", "rule": "Atoms can contain any ch", "criticality": 3, "timestamp":
+        "2026-11-12T20:22:05.434Z", "criticalityLabel": "Its main "}]}, "fileHashes":
+        ["Erlang is a general-purpose, con", "Messages can be sent to and received
+        from ports, but these messa", "The arguments can be primitive data type"],
+        "intelCard": "https://participant.org/", "links": {"hits": [], "method_aggregates":
+        [{"count": 0, "type": "hHQyM6"}, {"count": 0, "type": "hHQyM7"}, {"count":
+        0, "type": "gTB8y2"}], "counts": []}}, {"enterpriseLists": [], "sightings":
+        [{"source": "Ports are crea", "url": "https://passengers.mobi/", "published":
+        "2026-12-12T01:18:04.173Z", "fragment": "Atoms can contain any character if
+        they are enclosed within single quotes and an escape convention exists which
+        allows any character to be used within an atom.", "title": "Do you come here
+        often?", "type": "recentInfoSec"}, {"source": "Atoms are", "url": "https://gel.webcam/",
+        "published": "2026-08-03T09:11:44.744Z", "fragment": "Where are my pants?",
+        "title": "It is also a garbage-collected runtime system.", "type": "mostRecent"},
+        {"source": "Any element of", "url": "https://cat.paris/", "published": "2026-12-19T09:06:42.137Z",
+        "fragment": "Erlang is known for its designs that are well suited for systems.",
+        "title": "Atoms can contain any character if they are enclose", "type": "first"}],
+        "riskMapping": [{"rule": "Where are my pant", "categories": [{"framework":
+        "Tuple", "name": "Shrimp"}]}, {"rule": "Type classes first appea", "categories":
+        [{"framework": "It is", "name": "Jerky"}]}], "entity": {"id": "hash:daecf67f31a61091597b6eb38ca35ca91843191318ca8521ff66b495fcc67404",
+        "name": "Chicken nuggets", "type": "Hash"}, "analystNotes": [], "hashAlgorithm":
+        "Message", "timestamps": {"lastSeen": "2026-08-03T12:50:24.993Z", "firstSeen":
+        "2026-05-01T23:21:31.229Z"}, "threatLists": [], "risk": {"criticalityLabel":
+        "They are ", "riskString": "Wher", "rules": 2, "criticality": 3, "riskSummary":
+        "Ports are created with the built-in fu", "score": 89, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Erlang is known for its designs
+        that are well suited for systems.", "rule": "Haskell is a stan", "criticality":
+        2, "timestamp": "2026-01-28T12:01:39.145Z", "criticalityLabel": "Ports are
+        "}, {"mitigationString": "", "evidenceString": "Atoms are used within a program
+        to denote distinguished values.", "rule": "They are written as stri", "criticality":
+        3, "timestamp": "2026-02-05T04:45:15.499Z", "criticalityLabel": "It is als"}]},
+        "fileHashes": ["The syntax {D1,D2,...,Dn} denotes a tuple whose arguments
+        are D1, D2, ... Dn.", "Its main implementation is the Glasgow Haskell Compiler.",
+        "Do you come here often?", "He looked inquisitively at his k", "Type classes
+        first appeared in the Haske"], "intelCard": "https://couples.gg/", "links":
+        {"hits": [], "method_aggregates": [{"count": 0, "type": "hHQyM6"}, {"count":
+        0, "type": "hHQyM7"}, {"count": 0, "type": "gTB8y2"}], "counts": []}}, {"enterpriseLists":
+        [], "sightings": [{"source": "The argu", "url": "https://contest.okinawa/",
+        "published": "2026-05-27T21:23:44.273Z", "fragment": "Any element of a tuple
+        can be ac", "title": "Haskell features a type ", "type": "recentPaste"}, {"source":
+        "Ports are", "url": "https://frankfurt.cat/", "published": "2026-12-21T20:47:24.714Z",
+        "fragment": "Do you have any idea why this is not working?", "title": "Where
+        are my pants?", "type": "mostRecent"}], "riskMapping": [{"rule": "Erlang is
+        known f", "categories": [{"framework": "It is", "name": "Pancak"}]}, {"rule":
+        "The sequential subset of", "categories": [{"framework": "It is", "name":
+        "Succot"}]}], "entity": {"id": "hash:def9abe74ed35715a4ec650a102e677b1968c229d25a48bbee7022a238a2db22",
+        "name": "Hawaiian haystack", "type": "Hash"}, "analystNotes": [], "hashAlgorithm":
+        "Initial", "timestamps": {"lastSeen": "2026-02-03T13:54:12.004Z", "firstSeen":
+        "2026-08-17T18:53:16.567Z"}, "threatLists": [], "risk": {"criticalityLabel":
+        "Make me a", "riskString": "Hask", "rules": 2, "criticality": 3, "riskSummary":
+        "Messages can be sent to and received f", "score": 89, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Do you come here often?", "rule":
+        "Tuples are contai", "criticality": 2, "timestamp": "2026-01-01T15:22:09.467Z",
+        "criticalityLabel": "Tuples are"}, {"mitigationString": "", "evidenceString":
+        "Atoms are used within a program to denote distinguished values.", "rule":
+        "Haskell is a standardize", "criticality": 3, "timestamp": "2026-06-04T01:57:19.978Z",
+        "criticalityLabel": "Do you co"}]}, "fileHashes": ["He looked inquisitively
+        at his k", "The sequential subset of Erlang supports eager evaluation, singl",
+        "The Galactic Empire is nearing completio"], "intelCard": "https://infant.amsterdam/",
+        "links": {"hits": [], "method_aggregates": [{"count": 0, "type": "hHQyM6"},
+        {"count": 0, "type": "hHQyM7"}, {"count": 0, "type": "gTB8y2"}], "counts":
+        []}}, {"enterpriseLists": [], "sightings": [{"source": "Atoms can con", "url":
+        "https://stations.taipei/", "published": "2026-02-02T07:00:54.645Z", "fragment":
+        "Where are my pants?", "title": "Messages can be sent to and received from
+        ports, but these messages must obey the so-called \"po", "type": "recentInfoSec"},
+        {"source": "Where are", "url": "https://weights.lk/", "published": "2026-10-28T21:57:26.401Z",
+        "fragment": "Haskell features a type system with type inference and lazy evaluation.",
+        "title": "Erlang is a general-purpose, concurrent, functional programming
+        language.", "type": "mostRecent"}, {"source": "Messages can ", "url": "https://device.asia/",
+        "published": "2026-07-25T20:01:58.936Z", "fragment": "Haskell features a type
+        system with type inference and lazy evaluation.", "title": "Haskell is a standardized,
+        general-purpose purely functional programming language, with non-str", "type":
+        "first"}], "riskMapping": [{"rule": "Atoms are used wi", "categories": [{"framework":
+        "Do yo", "name": "Sweet "}]}, {"rule": "They are written as stri", "categories":
+        [{"framework": "Erlan", "name": "Celery"}]}], "entity": {"id": "hash:921670978e50275418d1a98bed92157fac009debb3527d1cfab4e4fa376c1dfc",
+        "name": "Cowboy beans", "type": "Hash"}, "analystNotes": [], "hashAlgorithm":
+        "Its mai", "timestamps": {"lastSeen": "2026-03-06T12:33:17.081Z", "firstSeen":
+        "2026-03-11T16:51:28.765Z"}, "threatLists": [], "risk": {"criticalityLabel":
+        "Erlang is", "riskString": "Wher", "rules": 2, "criticality": 3, "riskSummary":
+        "Type classes first appeared in the Has", "score": 89, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Messages can be sent to and received
+        from ports, but these messages must obey the so-called \"port protocol.\"",
+        "rule": "Make me a sandwic", "criticality": 2, "timestamp": "2026-05-24T09:03:39.308Z",
+        "criticalityLabel": "Ports are "}, {"mitigationString": "", "evidenceString":
+        "Atoms can contain any character if they are enclosed within single quotes
+        and an escape convention exists which allows any character to be used within
+        an atom.", "rule": "Where are my pants?", "criticality": 3, "timestamp": "2026-07-07T15:21:50.226Z",
+        "criticalityLabel": "Any eleme"}]}, "fileHashes": ["It is also a garbage-collected
+        runtime s", "The arguments can be primitive data types or compound data types.",
+        "Type classes first appeared in the Haske", "Where are my pants?", "The syntax
+        {D1,D2,...,Dn} denotes a tuple whose arguments are D1", "Atoms are used within
+        a program to denote distinguished values."], "intelCard": "https://thehun.wales/",
+        "links": {"hits": [], "method_aggregates": [{"count": 0, "type": "hHQyM6"},
+        {"count": 0, "type": "hHQyM7"}, {"count": 0, "type": "gTB8y2"}], "counts":
+        []}}]}, "counts": {"returned": 5, "total": 3139082239}}'
+    headers:
+      CF-RAY:
+      - 9cd384c42a2d35dd-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:07:31 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01n0f6ou0v25i21dnr4ks9yn82e2012158.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

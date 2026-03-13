@@ -1,0 +1,857 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/alert/rule?limit=1000
+  response:
+    body:
+      string: '{"data": {"results": [{"intelligence_goals": [{"name": "Bookbinder
+        Soup", "id": "report:_intelligence_goal_ig-70"}], "priority": true, "tags":
+        [], "use_case_id": "Haskell features a type system w", "id": "mf0rAV", "owner":
+        {"name": "Margherita Pizza", "id": "ezGJFODej1qTZkB2"}, "title": "Atoms can
+        contain any character ", "created": "2022-05-06T08:19:33.423Z", "notification_settings":
+        {"email_subscribers": [{"name": "Key Lime Pie", "id": "lG9El7d7MG6raXqj"}],
+        "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Pasta salad", "id": "report:_intelligence_goal_ig-70"}], "priority": false,
+        "tags": [], "use_case_id": "Where are my pants?", "id": "mf0rAW", "owner":
+        {"name": "Parma Ham", "id": "2MeLyfy7su08laMs"}, "title": "Ports are created
+        with the b", "created": "2022-05-06T08:19:34.867Z", "notification_settings":
+        {"email_subscribers": [{"name": "Deviled crab", "id": "GTPxLt1fA7Xfdye3"}],
+        "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Muffuletta", "id": "report:_intelligence_goal_ig-32"}], "priority": true,
+        "tags": [], "use_case_id": "The syntax {D1,D2,...,Dn} denot", "id": "mf0rAX",
+        "owner": {"name": "Chicken Biryani", "id": "hL5NSwlAlpaWDieP"}, "title": "Haskell
+        features a ", "created": "2022-05-06T08:19:35.690Z", "notification_settings":
+        {"email_subscribers": [{"name": "Pop-Tarts", "id": "5gjOg1aapSiOtWNZ"}], "mobile_subscribers":
+        []}, "enabled": true}, {"intelligence_goals": [{"name": "Baked potato", "id":
+        "report:_intelligence_goal_ig-32"}], "priority": false, "tags": [], "use_case_id":
+        "Ports are used to communicate w", "id": "mf0rAY", "owner": {"name": "Cheese
+        dog", "id": "eRgZpT6BqseWunt9"}, "title": "She spent her earliest year", "created":
+        "2022-05-06T08:19:36.771Z", "notification_settings": {"email_subscribers":
+        [{"name": "Tuna casserole", "id": "KWkoYuY6f4GXEYMW"}], "mobile_subscribers":
+        []}, "enabled": true}, {"intelligence_goals": [{"name": "Polenta", "id": "report:_intelligence_goal_ig-32"}],
+        "priority": true, "tags": [], "use_case_id": "He looked inquisitively at his
+        ", "id": "mf0rAZ", "owner": {"name": "Home fries", "id": "sEWJBnhA4xpe8nLe"},
+        "title": "Make me a sandwich.", "created": "2022-05-06T08:19:37.765Z", "notification_settings":
+        {"email_subscribers": [{"name": "Kung Pao Chicken", "id": "s8WLQFwDhvtWWUQx"}],
+        "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Swiss steak", "id": "report:_intelligence_goal_ig-46"}], "priority": true,
+        "tags": [], "use_case_id": "The Galactic Empire is nearing ", "id": "mf0rAa",
+        "owner": {"name": "Black Pudding", "id": "MUMsVkQatvTw0KVp"}, "title": "Atoms
+        can contain any charac", "created": "2022-05-06T08:19:38.652Z", "notification_settings":
+        {"email_subscribers": [{"name": "Low Country Boil", "id": "iQsHHusNIKAlXtjm"}],
+        "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "American fried rice", "id": "report:_intelligence_goal_ig-70"}], "priority":
+        false, "tags": [], "use_case_id": "Initially composing light-heart", "id":
+        "mf0rAc", "owner": {"name": "Shrimp and Grits", "id": "EgEHJvC0sEm0rdZF"},
+        "title": "She spent her earliest years reading cla", "created": "2022-05-06T08:19:40.320Z",
+        "notification_settings": {"email_subscribers": [{"name": "Sloppy joe", "id":
+        "1wIGA26uz1XFYvKZ"}], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals":
+        [{"name": "Pasta salad", "id": "report:_intelligence_goal_ig-70"}], "priority":
+        false, "tags": [], "use_case_id": "Erlang is a general-purpose, co", "id":
+        "mf0rAd", "owner": {"name": "Choco pie", "id": "sO0U3S8KA06cFdQd"}, "title":
+        "Messages can be sent to and received from", "created": "2022-05-06T08:19:41.148Z",
+        "notification_settings": {"email_subscribers": [{"name": "Chicago Hot Dog",
+        "id": "dR1IX85XPlA1yTw4"}], "mobile_subscribers": []}, "enabled": false},
+        {"intelligence_goals": [{"name": "Samosa", "id": "report:_intelligence_goal_ig-49"}],
+        "priority": false, "tags": [], "use_case_id": "Type classes first appeared
+        in t", "id": "mohGF-", "owner": {"name": "Baked potato", "id": "oMBLwwSZZBgPOcGH"},
+        "title": "Initially composing light-hearted and irreverent works, he als",
+        "created": "2022-05-20T00:31:45.187Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Tomato compote", "id": "report:_intelligence_goal_ig-70"}], "priority": false,
+        "tags": [], "use_case_id": "Ports are created with the built", "id": "mofZNQ",
+        "owner": {"name": "Fried fish", "id": "mth98ErrPpeMa5S4"}, "title": "Tuples
+        are containers for a fixed number of Erlang data types.", "created": "2022-05-20T00:35:07.678Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Meatcake", "id": "report:_intelligence_goal_ig-70"}],
+        "priority": false, "tags": [], "use_case_id": "Its main implementation is
+        the ", "id": "mofZNR", "owner": {"name": "Chicken fingers", "id": "IgX6rz0xUpSerpAi"},
+        "title": "Atoms are used within a program to denote distinguished values.",
+        "created": "2022-05-20T00:35:46.056Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Hoppin'' John", "id": "report:_intelligence_goal_ig-59"}], "priority": false,
+        "tags": [], "use_case_id": "In 1989 the building was heavil", "id": "mohGF_",
+        "owner": {"name": "Stuffed peppers", "id": "kzBKzgdfD7jHUJiV"}, "title": "Ports
+        are used to communicate with the external wor", "created": "2022-05-20T00:41:52.380Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "Cheese Curds", "id":
+        "report:_intelligence_goal_ig-59"}], "priority": false, "tags": [], "use_case_id":
+        "Tuples are containers for a fix", "id": "mohGGA", "owner": {"name": "Bacon
+        Cheeseburger", "id": "4qyYS43547ivEVRr"}, "title": "Erlang is a general-purpose,
+        concurrent, function", "created": "2022-05-20T00:42:29.522Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals":
+        [{"name": "Pepperoni", "id": "report:_intelligence_goal_ig-66"}], "priority":
+        false, "tags": [], "use_case_id": "Make me a sandwich.", "id": "mofZNS", "owner":
+        {"name": "Popover", "id": "xSPWxbkZfxUPVrXK"}, "title": "Erlang is a general-purpose,",
+        "created": "2022-05-20T00:44:15.410Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Chicken fried bacon", "id": "report:_intelligence_goal_ig-66"}], "priority":
+        false, "tags": [], "use_case_id": "Where are my pants?", "id": "nZVTyt", "owner":
+        {"name": "Pancakes", "id": "qgFNgyiAFsMhCgjJ"}, "title": "The syntax {D1,D2,...,Dn}
+        den", "created": "2022-07-27T12:29:34.655Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Pocky", "id": "report:_intelligence_goal_ig-70"}], "priority": false, "tags":
+        [], "use_case_id": "The Galactic Empire is nearing ", "id": "nZW3KE", "owner":
+        {"name": "Onion Rings", "id": "ax7Ya9Wci8Skv4WE"}, "title": "Any element of
+        a tuple can be a", "created": "2022-07-27T12:33:21.504Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Abalone", "id": "report:_intelligence_goal_ig-70"}], "priority":
+        false, "tags": [], "use_case_id": "Atoms can contain any character", "id":
+        "nZW3KI", "owner": {"name": "Mozzarella sticks", "id": "EMSdYWbJQ2tBNaJE"},
+        "title": "In 1989 the building w", "created": "2022-07-27T12:45:28.994Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Macaroni salad", "id":
+        "report:_intelligence_goal_ig-70"}], "priority": false, "tags": [], "use_case_id":
+        "The Galactic Empire is nearing ", "id": "nZW3KJ", "owner": {"name": "Buffalo
+        Wings", "id": "iasNjFrO64rEHiHt"}, "title": "The arguments can be", "created":
+        "2022-07-27T12:54:09.490Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Chicken fried bacon", "id": "report:_intelligence_goal_ig-70"}], "priority":
+        false, "tags": [], "use_case_id": "It is also a garbage-collected ", "id":
+        "nZW3KK", "owner": {"name": "Biscuit", "id": "96T0yKZt3KkLq2FC"}, "title":
+        "Its main implementation ", "created": "2022-07-27T12:57:45.484Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Beignets", "id": "report:_intelligence_goal_ig-70"}], "priority":
+        false, "tags": [], "use_case_id": "Atoms can contain any character", "id":
+        "nZVTy0", "owner": {"name": "Glorified rice", "id": "KuqhXoMHDZed2nN4"}, "title":
+        "Any element of a tuple can be accessed in constant time.", "created": "2022-07-27T12:58:27.052Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Chicken Alfredo", "id":
+        "report:_intelligence_goal_ig-68"}], "priority": false, "tags": [], "use_case_id":
+        "Erlang is known for its designs ", "id": "nZW3KL", "owner": {"name": "Liver
+        and onions", "id": "gWVl9jEDowr0HeL9"}, "title": "Erlang is known for its
+        ", "created": "2022-07-27T13:02:12.143Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Corn dog", "id": "report:_intelligence_goal_ig-68"}], "priority": false,
+        "tags": [], "use_case_id": "Initially composing light-hearte", "id": "nZVTy1",
+        "owner": {"name": "Reuben sandwich", "id": "oPO6Pnqka20Y51WW"}, "title": "Haskell
+        is a standardize", "created": "2022-07-27T13:02:36.054Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Charleston red rice", "id": "report:_intelligence_goal_ig-68"}],
+        "priority": false, "tags": [], "use_case_id": "Tuples are containers for a
+        fixe", "id": "nZVTy2", "owner": {"name": "Bird''s Nest Soup", "id": "Dl70XcJwJXk5DbFW"},
+        "title": "In 1989 the building was h", "created": "2022-07-27T13:03:40.099Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Prawn Pizza", "id": "report:_intelligence_goal_ig-54"}],
+        "priority": false, "tags": [], "use_case_id": "Haskell features a type system
+        w", "id": "nZVTy3", "owner": {"name": "Frito Pie", "id": "sqnXL2cAJUa4tIN2"},
+        "title": "The arguments can be primitive data types or compound data types.",
+        "created": "2022-07-27T13:18:18.661Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Hangtown fry", "id": "report:_intelligence_goal_ig-54"}], "priority": false,
+        "tags": [], "use_case_id": "Erlang is a general-purpose, con", "id": "nZVTy4",
+        "owner": {"name": "Chicago Hot Dog", "id": "5AYmACqp23miJX1f"}, "title": "The
+        arguments can be primitive data types or compound data type", "created": "2022-07-27T13:18:35.803Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "St. Paul Sandwich", "id":
+        "report:_intelligence_goal_ig-54"}], "priority": false, "tags": [], "use_case_id":
+        "The arguments can be primitive d", "id": "nZVTy5", "owner": {"name": "Albacore
+        Tuna Melt", "id": "OGTkxtYMq3jp918l"}, "title": "Atoms are used within a program
+        to denote distinguished values.", "created": "2022-07-27T13:18:50.116Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Ceviche", "id": "report:_intelligence_goal_ig-54"}], "priority":
+        false, "tags": [], "use_case_id": "Haskell is a standardized, gener", "id":
+        "nZW3KM", "owner": {"name": "Reuben sandwich", "id": "mIvYYGwfulvsFpSa"},
+        "title": "They are written as strings of consecutive alphanumeric characters,
+        the fir", "created": "2022-07-27T13:19:08.992Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Cheese Curds", "id": "report:_intelligence_goal_ig-54"}], "priority":
+        false, "tags": [], "use_case_id": "Do you come here often?", "id": "nZW3KN",
+        "owner": {"name": "Ratatouille", "id": "D3c6YLdYBpIkKDtz"}, "title": "The
+        Galactic Empire is nearing completion of the Death Star, a space station w",
+        "created": "2022-07-27T13:19:21.146Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Ice cream cake", "id": "report:_intelligence_goal_ig-70"}], "priority": false,
+        "tags": [], "use_case_id": "Do you have any idea why this is", "id": "nZVTy6",
+        "owner": {"name": "Eggo", "id": "3pLH3ODScSoXFykf"}, "title": "Any element
+        of a tuple", "created": "2022-07-27T13:20:40.588Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Carne pizzaiola", "id": "report:_intelligence_goal_ig-70"}], "priority":
+        false, "tags": [], "use_case_id": "Tuples are containers for a fixe", "id":
+        "nZW3KO", "owner": {"name": "Fajita", "id": "NTFN4KodD8QnaD6c"}, "title":
+        "Type classes first appe", "created": "2022-07-27T13:20:55.445Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Butter cookie", "id": "report:_intelligence_goal_ig-70"}], "priority":
+        false, "tags": [], "use_case_id": "They are written as strings of c", "id":
+        "nZVTy7", "owner": {"name": "Charleston red rice", "id": "BQT68lVWhVWH9cT2"},
+        "title": "Make me a sandwich.", "created": "2022-07-27T13:21:20.054Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Chicken Liver Pate", "id": "report:_intelligence_goal_ig-70"}],
+        "priority": false, "tags": [], "use_case_id": "Atoms are used within a program",
+        "id": "nZW3KP", "owner": {"name": "Buffalo Wings", "id": "XuVKoB5BF3lCjeEr"},
+        "title": "I don''t even care.", "created": "2022-07-27T13:35:13.751Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Moules Frites", "id": "report:_intelligence_goal_ig-68"}], "priority":
+        false, "tags": [], "use_case_id": "Atoms can contain any character ", "id":
+        "n4mLnV", "owner": {"name": "Milk toast", "id": "Hdhqu3rOTX5qXfEU"}, "title":
+        "The syntax {D1,D2,...,Dn} denotes a tuple w", "created": "2022-09-07T14:47:26.035Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Oreo", "id": "report:_intelligence_goal_ig-68"}],
+        "priority": false, "tags": [], "use_case_id": "I don''t even care.", "id":
+        "n4mLnW", "owner": {"name": "Shrimp and Grits", "id": "YwCpsVm89QLnFEa8"},
+        "title": "Any element of a tuple can be accessed", "created": "2022-09-07T14:47:26.906Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Celery Victor", "id":
+        "report:_intelligence_goal_ig-68"}], "priority": false, "tags": [], "use_case_id":
+        "The sequential subset of Erlang ", "id": "n4mLnX", "owner": {"name": "Jerky",
+        "id": "8LdM2rSkyPPEEO1N"}, "title": "The sequential subset of Erlang ", "created":
+        "2022-09-07T14:47:27.775Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Bear claw", "id": "report:_intelligence_goal_ig-68"}], "priority": false,
+        "tags": [], "use_case_id": "Atoms can contain any character ", "id": "n4mLnY",
+        "owner": {"name": "Sichuan Hot Pot", "id": "x7LNdlADEUA83cfU"}, "title": "They
+        are written as strings of consecutive a", "created": "2022-09-07T14:47:28.650Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Bangers and mash", "id":
+        "report:_intelligence_goal_ig-70"}], "priority": true, "tags": [], "use_case_id":
+        "Haskell is a standardized, gener", "id": "oGK3rB", "owner": {"name": "Cheesecake",
+        "id": "GWEFf26VZ7CmhEtM"}, "title": "The syntax {D1,D2,...,D", "created":
+        "2022-09-27T07:46:07.163Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Thousand Island dressing", "id": "report:_intelligence_goal_ig-55"}], "priority":
+        false, "tags": [], "use_case_id": "Atoms are used within a program ", "id":
+        "oJYx32", "owner": {"name": "Banh Mi Vi\u00eat", "id": "r97wEcUypSvtC56r"},
+        "title": "Where are my pants?", "created": "2022-09-27T15:18:37.079Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals":
+        [{"name": "Wasabi Peas", "id": "report:_intelligence_goal_ig-70"}], "priority":
+        false, "tags": [], "use_case_id": "He looked inquisitively at his k", "id":
+        "oT8Yak", "owner": {"name": "Blue-plate special", "id": "z0lPOY9dTgnukRJJ"},
+        "title": "Make me a sandwich.", "created": "2022-10-10T15:02:47.386Z", "notification_settings":
+        {"email_subscribers": [{"name": "Waffle", "id": "U6tPyFrtE4JmoZz5"}], "mobile_subscribers":
+        []}, "enabled": true}, {"intelligence_goals": [{"name": "Scampi", "id": "report:_intelligence_goal_ig-70"}],
+        "priority": false, "tags": [], "use_case_id": "The sequential subset of Erlang",
+        "id": "oT8Yam", "owner": {"name": "Osso Buco", "id": "hyG1b5Ryxi7nNEmh"},
+        "title": "Do you have any idea why thi", "created": "2022-10-10T15:02:49.271Z",
+        "notification_settings": {"email_subscribers": [{"name": "Crab Rangoon", "id":
+        "IW7zMf8S3QgrmqGt"}], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals":
+        [{"name": "Meat Feast Pizza", "id": "report:_intelligence_goal_ig-32"}], "priority":
+        false, "tags": [], "use_case_id": "He looked inquisitively at his ", "id":
+        "oT8Yan", "owner": {"name": "Sandwich", "id": "f4IWirAXRCKGtmyN"}, "title":
+        "Messages can be sen", "created": "2022-10-10T15:02:50.142Z", "notification_settings":
+        {"email_subscribers": [{"name": "Caviar", "id": "gO6EbXp1q7KIQ4D8"}], "mobile_subscribers":
+        []}, "enabled": false}, {"intelligence_goals": [{"name": "Pop-Tarts", "id":
+        "report:_intelligence_goal_ig-32"}], "priority": false, "tags": [], "use_case_id":
+        "Ports are used to communicate w", "id": "oT8Yao", "owner": {"name": "Chocolate
+        Chip Coo", "id": "gGLERkzLsbgHsHbm"}, "title": "The syntax {D1,D2,...,Dn}
+        d", "created": "2022-10-10T15:02:51.069Z", "notification_settings": {"email_subscribers":
+        [{"name": "Elote", "id": "qVkuXDaStIiNs2gw"}], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Hot Chicken sandwic",
+        "id": "report:_intelligence_goal_ig-32"}], "priority": false, "tags": [],
+        "use_case_id": "Messages can be sent to and rec", "id": "oT8Yap", "owner":
+        {"name": "Funnel Cake", "id": "g0cwuDtoS0SSwoWX"}, "title": "Haskell features
+        a type system ", "created": "2022-10-10T15:02:52.024Z", "notification_settings":
+        {"email_subscribers": [{"name": "Charleston red ric", "id": "PKDKoUNJAcmThV4j"}],
+        "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Pickled Okra", "id": "report:_intelligence_goal_ig-46"}], "priority": false,
+        "tags": [], "use_case_id": "Erlang is a general-purpose, co", "id": "oT8Yaq",
+        "owner": {"name": "Tomato compote", "id": "7e7y4myk9GGEByEt"}, "title": "Ports
+        are used to communicat", "created": "2022-10-10T15:02:52.891Z", "notification_settings":
+        {"email_subscribers": [{"name": "Ribs", "id": "z2cxMu3E9w8RvTUc"}], "mobile_subscribers":
+        []}, "enabled": true}, {"intelligence_goals": [{"name": "Russian dressing",
+        "id": "report:_intelligence_goal_ig-70"}], "priority": false, "tags": [],
+        "use_case_id": "She spent her earliest years re", "id": "oT8Yas", "owner":
+        {"name": "Maraca pie", "id": "Nq99zG3AVTf9JOVR"}, "title": "Haskell features
+        a type system with type", "created": "2022-10-10T15:02:54.625Z", "notification_settings":
+        {"email_subscribers": [{"name": "Massaman Curry", "id": "vUiHE9LAN2V5l5qy"}],
+        "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals": [{"name":
+        "Pork Belly", "id": "report:_intelligence_goal_ig-70"}], "priority": false,
+        "tags": [], "use_case_id": "Tuples are containers for a fix", "id": "oT8Yat",
+        "owner": {"name": "Pistachio Ice Crea", "id": "gJxe2cbjH5YVa8DF"}, "title":
+        "Where are my pants?", "created": "2022-10-10T15:02:55.450Z", "notification_settings":
+        {"email_subscribers": [{"name": "Macaroni and Chees", "id": "W1QbxmNHHrXXNtpb"}],
+        "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals": [{"name":
+        "Vichyssoise", "id": "report:_intelligence_goal_ig-70"}], "priority": false,
+        "tags": [], "use_case_id": "Erlang is a general-purpose, con", "id": "oT8Ya-",
+        "owner": {"name": "Massaman Curry", "id": "LsZq5o2OjhBVM4yO"}, "title": "I
+        don''t even care.", "created": "2022-10-10T15:03:05.241Z", "notification_settings":
+        {"email_subscribers": [{"name": "Corned beef", "id": "kBgP7l35KUCPdr1j"}],
+        "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Chocolate cheesecake", "id": "report:_intelligence_goal_ig-70"}], "priority":
+        false, "tags": [], "use_case_id": "Do you come here often?", "id": "oT8YbA",
+        "owner": {"name": "Yeung Chow fried ri", "id": "NVSS0D3YwVj9idEz"}, "title":
+        "Erlang is known for its desi", "created": "2022-10-10T15:03:06.956Z", "notification_settings":
+        {"email_subscribers": [{"name": "Stuffed peppers", "id": "UYrsefKJ5PncjKrO"}],
+        "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Soul food", "id": "report:_intelligence_goal_ig-32"}], "priority": false,
+        "tags": [], "use_case_id": "I don''t even care.", "id": "oT8YbB", "owner":
+        {"name": "Tin Roof Ice Cream", "id": "TDQLRbvXDAWxBKdD"}, "title": "Erlang
+        is known for", "created": "2022-10-10T15:03:07.817Z", "notification_settings":
+        {"email_subscribers": [{"name": "Pork Belly", "id": "LzgfL8crcYckVclD"}],
+        "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Maple Bacon Doughnu", "id": "report:_intelligence_goal_ig-32"}], "priority":
+        false, "tags": [], "use_case_id": "Do you have any idea why this i", "id":
+        "oT8YbC", "owner": {"name": "Mission burrito", "id": "WQ90CznIRebJf8q8"},
+        "title": "Ports are used to communica", "created": "2022-10-10T15:03:08.770Z",
+        "notification_settings": {"email_subscribers": [{"name": "Matzo Ball Soup",
+        "id": "RDwdNazRgLys9LqI"}], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Swiss steak", "id": "report:_intelligence_goal_ig-32"}], "priority":
+        false, "tags": [], "use_case_id": "The Galactic Empire is nearing ", "id":
+        "oT8YbD", "owner": {"name": "Bellini", "id": "0Sebbjpy5naa3Cbb"}, "title":
+        "Atoms are used within a program", "created": "2022-10-10T15:03:09.697Z",
+        "notification_settings": {"email_subscribers": [{"name": "Soul food", "id":
+        "HkVPrFllwkPP0S5N"}], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Ice Cream Sundae", "id": "report:_intelligence_goal_ig-46"}], "priority":
+        false, "tags": [], "use_case_id": "Ports are created with the buil", "id":
+        "oT8YbE", "owner": {"name": "Kimchi", "id": "Ag59WO92G93rwhQw"}, "title":
+        "Any element of a tuple can b", "created": "2022-10-10T15:03:10.538Z", "notification_settings":
+        {"email_subscribers": [{"name": "Gyoza", "id": "JIfrQU3Zzjw9VDUT"}], "mobile_subscribers":
+        []}, "enabled": true}, {"intelligence_goals": [{"name": "Hokkien fried rice",
+        "id": "report:_intelligence_goal_ig-70"}], "priority": false, "tags": [],
+        "use_case_id": "Its main implementation is the ", "id": "oT8YbG", "owner":
+        {"name": "Squab", "id": "gHXHU0kogDMINM5L"}, "title": "She spent her earliest
+        years reading cla", "created": "2022-10-10T15:03:12.251Z", "notification_settings":
+        {"email_subscribers": [{"name": "Drunken chicken", "id": "R5x11ahbld5KpKbq"}],
+        "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals": [{"name":
+        "Stuffed peppers", "id": "report:_intelligence_goal_ig-70"}], "priority":
+        false, "tags": [], "use_case_id": "Any element of a tuple can be a", "id":
+        "oT8YbH", "owner": {"name": "Pork Belly", "id": "IYcPEQKmrAy6Jd5E"}, "title":
+        "I don''t even care.", "created": "2022-10-10T15:03:13.133Z", "notification_settings":
+        {"email_subscribers": [{"name": "Pork Belly", "id": "PIY9CXvtMV2Je82s"}],
+        "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals": [{"name":
+        "Pepperoni Pizza", "id": "report:_intelligence_goal_ig-70"}], "priority":
+        false, "tags": [], "use_case_id": "Ports are created with the built", "id":
+        "oT8YbY", "owner": {"name": "Gazpacho", "id": "EoyiTU0IDM8Isgau"}, "title":
+        "They are written as strings of c", "created": "2022-10-10T15:03:45.854Z",
+        "notification_settings": {"email_subscribers": [{"name": "White chocolate
+        co", "id": "UECFw4pxjP51M3z8"}], "mobile_subscribers": []}, "enabled": true},
+        {"intelligence_goals": [{"name": "Texas Toast", "id": "report:_intelligence_goal_ig-70"}],
+        "priority": false, "tags": [], "use_case_id": "The syntax {D1,D2,...,Dn} denot",
+        "id": "oT8Yba", "owner": {"name": "Hawaiian haystack", "id": "p8ma7Pk3S8H4OCnx"},
+        "title": "Initially composing light-he", "created": "2022-10-10T15:03:47.640Z",
+        "notification_settings": {"email_subscribers": [{"name": "Chicken Salad Wrap",
+        "id": "mAvF8SjkSjmpWBBY"}], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Peanut butter", "id": "report:_intelligence_goal_ig-32"}], "priority":
+        false, "tags": [], "use_case_id": "The syntax {D1,D2,...,Dn} denot", "id":
+        "oT8Ybb", "owner": {"name": "Steamed clams", "id": "4cdtasTRfj2UmmBn"}, "title":
+        "Erlang is a general", "created": "2022-10-10T15:03:48.488Z", "notification_settings":
+        {"email_subscribers": [{"name": "City chicken", "id": "MVSeLypbaXcT9C3m"}],
+        "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Tomato compote", "id": "report:_intelligence_goal_ig-32"}], "priority": false,
+        "tags": [], "use_case_id": "The Galactic Empire is nearing ", "id": "oT8Ybc",
+        "owner": {"name": "Sour cream", "id": "hdmuD4VHtHKnq6pX"}, "title": "In 1989
+        the building was he", "created": "2022-10-10T15:03:49.433Z", "notification_settings":
+        {"email_subscribers": [{"name": "Chocolate Chip Coo", "id": "eyD5ECR0afgwEAhm"}],
+        "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Creme Brulee", "id": "report:_intelligence_goal_ig-32"}], "priority": false,
+        "tags": [], "use_case_id": "Its main implementation is the ", "id": "oT8Ybd",
+        "owner": {"name": "Tres Leches Cake", "id": "uO2TQVN5J8lzuHS8"}, "title":
+        "The sequential subset of Erlang", "created": "2022-10-10T15:03:50.466Z",
+        "notification_settings": {"email_subscribers": [{"name": "Lasagna", "id":
+        "isZK9n99AjcYUVuk"}], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Sauteed Morel Mu", "id": "report:_intelligence_goal_ig-46"}], "priority":
+        false, "tags": [], "use_case_id": "Ports are used to communicate w", "id":
+        "oT8Ybe", "owner": {"name": "Brunswick stew", "id": "Fgntq1bUZ7I58zNY"}, "title":
+        "Haskell is a standardized, g", "created": "2022-10-10T15:03:51.357Z", "notification_settings":
+        {"email_subscribers": [{"name": "Clam cake", "id": "glFlLOeQj5R8vlGu"}], "mobile_subscribers":
+        []}, "enabled": true}, {"intelligence_goals": [{"name": "Apple sauce", "id":
+        "report:_intelligence_goal_ig-70"}], "priority": false, "tags": [], "use_case_id":
+        "The sequential subset of Erlang", "id": "oT8Ybg", "owner": {"name": "Rabbit
+        pie", "id": "kolLvICkfQGYXC17"}, "title": "Any element of a tuple can be accessed
+        i", "created": "2022-10-10T15:03:53.122Z", "notification_settings": {"email_subscribers":
+        [{"name": "Lobster Newberg", "id": "8yOKWK88MbGyWVw0"}], "mobile_subscribers":
+        []}, "enabled": false}, {"intelligence_goals": [{"name": "Crab cake", "id":
+        "report:_intelligence_goal_ig-70"}], "priority": false, "tags": [], "use_case_id":
+        "Initially composing light-heart", "id": "oT8Ybh", "owner": {"name": "Hot
+        Chicken sandw", "id": "hfgWfwuRBhB070oW"}, "title": "Erlang is a general-purpose,
+        concurrent, ", "created": "2022-10-10T15:03:53.961Z", "notification_settings":
+        {"email_subscribers": [{"name": "Laksa", "id": "6nkVBI50rdATQzxt"}], "mobile_subscribers":
+        []}, "enabled": false}, {"intelligence_goals": [{"name": "Cowboy beans", "id":
+        "report:_intelligence_goal_ig-53"}], "priority": false, "tags": [], "use_case_id":
+        "Atoms are used within a program ", "id": "owOTmi", "owner": {"name": "Fried
+        chicken", "id": "UCyM6Matrm6fWtCu"}, "title": "The syntax {D1,D2,...,Dn} denotes",
+        "created": "2022-11-11T15:28:59.761Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Carne pizzaiola", "id": "report:_intelligence_goal_ig-70"}], "priority":
+        false, "tags": [], "use_case_id": "Any element of a tuple can be a", "id":
+        "owPoUd", "owner": {"name": "Prawn Pizza", "id": "ECeI59AsRaXUgrWI"}, "title":
+        "Erlang is known for its designs that are well suited for sy", "created":
+        "2022-11-11T15:32:40.593Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Key Lime Pie", "id": "report:_intelligence_goal_ig-50"}], "priority": false,
+        "tags": [], "use_case_id": "Messages can be sent to and rece", "id": "owPoVo",
+        "owner": {"name": "Hot chicken", "id": "R41FpVBVdTOIs4W5"}, "title": "They
+        are written as strings of consecutive alphanumeric characters,", "created":
+        "2022-11-13T10:48:03.639Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals": [{"name":
+        "Garden salad", "id": "report:_intelligence_goal_ig-63"}], "priority": false,
+        "tags": [], "use_case_id": "Tuples are containers for a fixe", "id": "owPoVp",
+        "owner": {"name": "City chicken", "id": "ZhvQiLeBsK5qHCNV"}, "title": "Atoms
+        can contain any character if they are en", "created": "2022-11-13T10:49:08.782Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Senate bean soup", "id":
+        "report:_intelligence_goal_ig-51"}], "priority": false, "tags": [], "use_case_id":
+        "Where are my pants?", "id": "owPoVq", "owner": {"name": "Carolina style",
+        "id": "gE5moaut15KsT74T"}, "title": "I don''t even care.", "created": "2022-11-13T10:49:44.579Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "Funnel Cake", "id": "report:_intelligence_goal_ig-53"}],
+        "priority": false, "tags": [], "use_case_id": "Atoms can contain any character
+        ", "id": "owPoVr", "owner": {"name": "Bruschetta", "id": "DusAtf4ge19xODyo"},
+        "title": "The Galactic Empire is nearing completi", "created": "2022-11-13T10:50:28.942Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "BBQ Ribs", "id": "report:_intelligence_goal_ig-57"}],
+        "priority": false, "tags": [], "use_case_id": "Ports are created with the
+        built", "id": "oxwzT8", "owner": {"name": "Chicago Deep Dish Pizza", "id":
+        "sbqmxV8Iy3brW543"}, "title": "She spent her earliest", "created": "2022-11-13T10:51:24.783Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Bi Bim Bap", "id": "report:_intelligence_goal_ig-42"}],
+        "priority": false, "tags": [], "use_case_id": "Ports are created with the
+        built", "id": "o7x4o2", "owner": {"name": "Grilled Snake", "id": "BnMtMPPYMDoZ2iAA"},
+        "title": "Tuples are containers for a fixed ", "created": "2022-11-29T08:53:04.146Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "Fish Tacos", "id": "report:_intelligence_goal_ig-42"}],
+        "priority": false, "tags": [], "use_case_id": "Atoms are used within a program
+        ", "id": "o71JYS", "owner": {"name": "Philly Cheese Steak", "id": "BOi5WtJPUKkJrnlF"},
+        "title": "Erlang is known for its designs t", "created": "2022-11-29T08:53:27.001Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "Baba Ghanoush", "id":
+        "report:_intelligence_goal_ig-42"}], "priority": false, "tags": [], "use_case_id":
+        "Messages can be sent to and rece", "id": "o71JYT", "owner": {"name": "Chicago
+        Hot Dog", "id": "TNlXjQU5Ei2JRtqA"}, "title": "Haskell features a type system
+        with ty", "created": "2022-11-29T08:53:50.490Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals":
+        [{"name": "Bird''s Nest Soup", "id": "report:_intelligence_goal_ig-70"}],
+        "priority": false, "tags": [], "use_case_id": "In 1989 the building was heavily",
+        "id": "o7x4o3", "owner": {"name": "Bellini", "id": "M1swpbr4lraTAf2C"}, "title":
+        "Tuples are containers ", "created": "2022-11-29T08:54:39.341Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Chicken bog", "id": "report:_intelligence_goal_ig-50"}], "priority":
+        false, "tags": [], "use_case_id": "Type classes first appeared in t", "id":
+        "pAHftJ", "owner": {"name": "Chicken Manchurian", "id": "8ddZOa1CQ1dPmZr6"},
+        "title": "The arguments can be primitive data types or compound data types.",
+        "created": "2022-11-30T15:49:27.150Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals": [{"name":
+        "City chicken", "id": "report:_intelligence_goal_ig-45"}], "priority": false,
+        "tags": [], "use_case_id": "I don''t even care.", "id": "pAHftK", "owner":
+        {"name": "Soul food", "id": "2bqItH6Nj2CH7eg4"}, "title": "Tuples are containers
+        for a fixed ", "created": "2022-11-30T15:49:45.172Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Crab Rangoon", "id": "report:_intelligence_goal_ig-51"}], "priority":
+        false, "tags": [], "use_case_id": "Do you have any idea why this is", "id":
+        "pAHftL", "owner": {"name": "Mashed potato", "id": "9d8Qfr6tEzONhbHy"}, "title":
+        "Erlang is known for its designs that are", "created": "2022-11-30T15:49:53.324Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "Pepperoni", "id": "report:_intelligence_goal_ig-70"}],
+        "priority": false, "tags": [], "use_case_id": "Erlang is known for its designs",
+        "id": "pL1E3P", "owner": {"name": "Sichuan Hot Pot", "id": "Q65NeB4ciaGGYxhZ"},
+        "title": "I don''t even care.", "created": "2022-12-15T12:19:24.245Z", "notification_settings":
+        {"email_subscribers": [{"name": "Fish and Chi", "id": "OzKpQYV9K6CepMhp"}],
+        "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals": [], "priority":
+        true, "tags": [], "use_case_id": null, "id": "piSlno", "owner": {"name": "Chicago
+        Hot Dog", "id": "Y80U7g9hZmYGjNiQ"}, "title": "Any element of a tuple can
+        be accesse", "created": "2023-01-16T11:36:14.188Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals":
+        [], "priority": false, "tags": [], "use_case_id": null, "id": "p5jNy0", "owner":
+        {"name": "Eggo", "id": "z50MQd8kyuKELbSS"}, "title": "In 1989 the buildi",
+        "created": "2023-02-07T11:54:47.195Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Pistachio Ice Cream", "id": "report:_intelligence_goal_ig-50"}], "priority":
+        false, "tags": [], "use_case_id": "Erlang is known for its designs ", "id":
+        "qCaKN0", "owner": {"name": "Osso Buco", "id": "zdk1MAHHRgdCKzpm"}, "title":
+        "Atoms are used within a program to denote distinguished values.", "created":
+        "2023-02-17T11:41:39.871Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals": [{"name":
+        "Tin Roof Ice Cream", "id": "report:_intelligence_goal_ig-50"}], "priority":
+        false, "tags": [], "use_case_id": "Ports are used to communicate wi", "id":
+        "qCRzD4", "owner": {"name": "Milkshake", "id": "uwCIIs3L3wsWeaaK"}, "title":
+        "Atoms are used within a program to denote distinguished values.", "created":
+        "2023-02-17T11:41:52.477Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals": [{"name":
+        "Vegemite on Toast", "id": "report:_intelligence_goal_ig-50"}], "priority":
+        false, "tags": [], "use_case_id": "Erlang is a general-purpose, con", "id":
+        "qCZ8yd", "owner": {"name": "London broil", "id": "9YUegRSoNW2HhrrS"}, "title":
+        "She spent her earliest years reading classic literature, and", "created":
+        "2023-02-17T11:42:04.173Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals": [{"name":
+        "Mulligan stew", "id": "report:_intelligence_goal_ig-66"}], "priority": false,
+        "tags": [], "use_case_id": "It is also a garbage-collected r", "id": "qCaKN1",
+        "owner": {"name": "Wasabi Peas", "id": "XaHfWcU4OYAcCqix"}, "title": "The
+        Galactic Empire is nearing completi", "created": "2023-02-17T11:42:29.922Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Porterhouse Steak", "id":
+        "report:_intelligence_goal_ig-66"}], "priority": false, "tags": [], "use_case_id":
+        "It is also a garbage-collected r", "id": "qCRzD5", "owner": {"name": "Tres
+        Leches Cake", "id": "6DKfvfYqDRRDJEAQ"}, "title": "Haskell features a type
+        system with type inference and lazy eva", "created": "2023-02-17T11:42:47.392Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Hot Chicken sa", "id":
+        "report:_intelligence_goal_ig-45"}], "priority": false, "tags": [], "use_case_id":
+        "Initially composing light-hearte", "id": "qCRzD6", "owner": {"name": "Cheesy
+        Garlic Bread", "id": "Dz8p7HvQKooQJayY"}, "title": "Erlang is known for its
+        designs that are w", "created": "2023-02-17T11:43:02.822Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Blue-plate spe", "id": "report:_intelligence_goal_ig-45"}], "priority":
+        false, "tags": [], "use_case_id": "Do you come here often?", "id": "qBWgKd",
+        "owner": {"name": "Piroshky", "id": "fMrruz0d1oYHSO3r"}, "title": "I don''t
+        even care.", "created": "2023-02-17T11:43:14.992Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Bao", "id": "report:_intelligence_goal_ig-53"}], "priority": false,
+        "tags": [], "use_case_id": "The syntax {D1,D2,...,Dn} denote", "id": "qBWgKe",
+        "owner": {"name": "Chicken Salad Wrap", "id": "yT0Ues8PSOd7d72o"}, "title":
+        "The syntax {D1,D2,...,Dn} denot", "created": "2023-02-17T11:43:38.072Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Poppyseed muffin", "id":
+        "report:_intelligence_goal_ig-53"}], "priority": false, "tags": [], "use_case_id":
+        "Erlang is known for its designs ", "id": "qCRzD7", "owner": {"name": "Succotash",
+        "id": "3Jc4Bhy2QnT5FlNh"}, "title": "Ports are created with the built-i",
+        "created": "2023-02-17T11:43:43.434Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals": [{"name":
+        "Barbecue", "id": "report:_intelligence_goal_ig-53"}], "priority": false,
+        "tags": [], "use_case_id": "Ports are created with the built", "id": "qBWgKf",
+        "owner": {"name": "Bagels and Lox", "id": "gMVhYhVEMA3eXc8i"}, "title": "They
+        are written as strings of ", "created": "2023-02-17T11:43:55.100Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Fried chicken", "id": "report:_intelligence_goal_ig-45"}], "priority":
+        false, "tags": [], "use_case_id": "The sequential subset of Erlang ", "id":
+        "qCaKN2", "owner": {"name": "Chicken fried bacon", "id": "DQSmTHMfRyA9r5TN"},
+        "title": "She spent her earliest years reading classic li", "created": "2023-02-17T11:44:20.791Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Sour cream", "id": "report:_intelligence_goal_ig-45"}],
+        "priority": false, "tags": [], "use_case_id": "Atoms can contain any character
+        ", "id": "qCZ8ye", "owner": {"name": "Fish and Chips!", "id": "f9vJAebWWG84fnOR"},
+        "title": "Messages can be sent to and received from", "created": "2023-02-17T11:44:29.695Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Po''Boy", "id": "report:_intelligence_goal_ig-45"}],
+        "priority": false, "tags": [], "use_case_id": "I don''t even care.", "id":
+        "qCaKN3", "owner": {"name": "Churrasco", "id": "GARnSF2ici5ZRHbc"}, "title":
+        "He looked inquisitively at his k", "created": "2023-02-17T11:44:39.761Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Juba", "id": "report:_intelligence_goal_ig-51"}],
+        "priority": false, "tags": [], "use_case_id": "Make me a sandwich.", "id":
+        "qCRzD8", "owner": {"name": "Banh Mi Vi\u00eat", "id": "bvC1bQKOuGHnO0y8"},
+        "title": "Atoms can contain any character ", "created": "2023-02-17T11:44:55.355Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "Currywurst", "id": "report:_intelligence_goal_ig-51"}],
+        "priority": false, "tags": [], "use_case_id": "Make me a sandwich.", "id":
+        "qBWgKg", "owner": {"name": "Potato skins", "id": "0F5j2xA8ztO2CxZG"}, "title":
+        "Initially composing light-hearted ", "created": "2023-02-17T11:45:02.864Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "Garden salad", "id":
+        "report:_intelligence_goal_ig-51"}], "priority": false, "tags": [], "use_case_id":
+        "Ports are used to communicate wi", "id": "qBWgKh", "owner": {"name": "Pumpkin
+        pie", "id": "53lZ6K4o4YFpHX3K"}, "title": "The sequential subset of Erlang
+        su", "created": "2023-02-17T11:45:02.912Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals": [{"name":
+        "Liver and onions", "id": "report:_intelligence_goal_ig-70"}], "priority":
+        false, "tags": [], "use_case_id": "Initially composing light-hear", "id":
+        "qCZ8yf", "owner": {"name": "Vichyssoise", "id": "Ath83NKcNYrvVDxL"}, "title":
+        "Its main implementation ", "created": "2023-02-17T11:45:17.491Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Meatloaf", "id": "report:_intelligence_goal_ig-55"}], "priority":
+        false, "tags": [], "use_case_id": "Atoms can contain any character ", "id":
+        "qCZ8yg", "owner": {"name": "Bulgogi", "id": "JCoRjSC0wlQ1smOz"}, "title":
+        "Do you come here often?", "created": "2023-02-17T11:45:39.308Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals":
+        [{"name": "Cheesy Garlic Bread", "id": "report:_intelligence_goal_ig-55"}],
+        "priority": false, "tags": [], "use_case_id": "Erlang is a general-purpose,
+        con", "id": "qBWgKi", "owner": {"name": "Reuben sandwich", "id": "TZJ1djdknwDCthvl"},
+        "title": "They are written as strings ", "created": "2023-02-17T11:45:50.097Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "Cheese fries", "id":
+        "report:_intelligence_goal_ig-55"}], "priority": false, "tags": [], "use_case_id":
+        "The syntax {D1,D2,...,Dn} denote", "id": "qBWgKk", "owner": {"name": "Fajitas",
+        "id": "FW60GZAKJMLOtzKR"}, "title": "In 1989 the building was heavily damaged",
+        "created": "2023-02-17T11:45:59.103Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals": [{"name":
+        "Chicken bog", "id": "report:_intelligence_goal_ig-55"}], "priority": false,
+        "tags": [], "use_case_id": "Where are my pants?", "id": "qBWgKj", "owner":
+        {"name": "Deep Fried Oreos", "id": "2m01hUYCE38LEGm6"}, "title": "Atoms can
+        contain any character if they ", "created": "2023-02-17T11:45:59.144Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals":
+        [{"name": "St. Paul Sandwich", "id": "report:_intelligence_goal_ig-55"}],
+        "priority": false, "tags": [], "use_case_id": "Do you have any idea why this
+        is", "id": "qBWgKl", "owner": {"name": "Wasabi Peas", "id": "D7JwVv1mgRmvdKKi"},
+        "title": "Make me a sandwich.", "created": "2023-02-17T11:46:09.400Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals":
+        [{"name": "Pickled cucumber", "id": "report:_intelligence_goal_ig-55"}], "priority":
+        false, "tags": [], "use_case_id": "They are written as strings of c", "id":
+        "qCZ8yi", "owner": {"name": "Rolled oyster", "id": "uafX5C4Ny5XJkGza"}, "title":
+        "It is also a garbage-collected runtime system.", "created": "2023-02-17T11:46:09.452Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "Chicken \u00e0 la King",
+        "id": "report:_intelligence_goal_ig-55"}], "priority": false, "tags": [],
+        "use_case_id": "Atoms can contain any character ", "id": "qCZ8yh", "owner":
+        {"name": "Roasted Bone Marrow", "id": "JpuwOwNsyC4kmfRG"}, "title": "Haskell
+        is a standardized, general-purpose purely functional ", "created": "2023-02-17T11:46:09.482Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "French Dip", "id": "report:_intelligence_goal_ig-57"}],
+        "priority": false, "tags": [], "use_case_id": "Type classes first appeared
+        in t", "id": "qCaTAU", "owner": {"name": "Russian tea cake", "id": "BMO4LUj1Y6GrUzcM"},
+        "title": "In 1989 the building was heavily damaged by fire, but it ", "created":
+        "2023-02-17T11:46:35.779Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Moules Frites", "id": "report:_intelligence_goal_ig-57"}], "priority": false,
+        "tags": [], "use_case_id": "Tuples are containers for a fixe", "id": "qBWgKm",
+        "owner": {"name": "Chocolate Brownie", "id": "KKo7krwzeAwNA1SM"}, "title":
+        "Do you come here often?", "created": "2023-02-17T11:46:43.499Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals":
+        [{"name": "Cowboy beans", "id": "report:_intelligence_goal_ig-57"}], "priority":
+        false, "tags": [], "use_case_id": "Any element of a tuple can be ac", "id":
+        "qCaKN4", "owner": {"name": "Bao", "id": "yMTKIcirYTmWdOJ1"}, "title": "The
+        sequential subset of Erlang supports eager eva", "created": "2023-02-17T11:46:43.533Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "Turducken", "id": "report:_intelligence_goal_ig-57"}],
+        "priority": false, "tags": [], "use_case_id": "I don''t even care.", "id":
+        "qCZ8yj", "owner": {"name": "Turkish Delight", "id": "mW1e2m8HRmR1VBnf"},
+        "title": "She spent her earliest y", "created": "2023-02-17T11:46:53.219Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "Popover", "id": "report:_intelligence_goal_ig-57"}],
+        "priority": false, "tags": [], "use_case_id": "Messages can be sent to and
+        rece", "id": "qCaTAV", "owner": {"name": "Eggs Benedict", "id": "v0GnRMM6IiiGkUAe"},
+        "title": "Type classes first appea", "created": "2023-02-17T11:46:53.252Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "Burnt ends", "id": "report:_intelligence_goal_ig-57"}],
+        "priority": false, "tags": [], "use_case_id": "He looked inquisitively at
+        his k", "id": "qCaKN5", "owner": {"name": "Pepperoni Pizza", "id": "tc7fH4HqVZfHXT68"},
+        "title": "In 1989 the building was", "created": "2023-02-17T11:46:53.279Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "Suckling Pig", "id":
+        "report:_intelligence_goal_ig-58"}], "priority": false, "tags": [], "use_case_id":
+        "The Galactic Empire is nearing ", "id": "qCaTAW", "owner": {"name": "Fried
+        fish", "id": "PplxsD1dNNFz9k7c"}, "title": "Tuples are containers f", "created":
+        "2023-02-17T11:47:40.908Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Abalone", "id": "report:_intelligence_goal_ig-59"}], "priority": false, "tags":
+        [], "use_case_id": "Erlang is a general-purpose, co", "id": "qBWgKn", "owner":
+        {"name": "Haystack", "id": "XBWpoIaY2QxtHKM2"}, "title": "In 1989 the building
+        was heavily damaged by fire, bu", "created": "2023-02-17T11:47:52.675Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals":
+        [{"name": "Churrasco", "id": "report:_intelligence_goal_ig-59"}], "priority":
+        false, "tags": [], "use_case_id": "Where are my pants?", "id": "qCaKN6", "owner":
+        {"name": "Sonofabitch stew", "id": "FDRIq6v2PVRp2MoL"}, "title": "Erlang is
+        known for its designs that are well", "created": "2023-02-17T11:48:03.714Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "Elote", "id": "report:_intelligence_goal_ig-70"}],
+        "priority": false, "tags": [], "use_case_id": "I don''t even care.", "id":
+        "qBWgKo", "owner": {"name": "Milk toast", "id": "lXUtr6xgbQlnNjOA"}, "title":
+        "Erlang is a general-purpose, concurrent, functional programming language.",
+        "created": "2023-02-17T11:48:25.004Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "French Onion Soup", "id": "report:_intelligence_goal_ig-70"}], "priority":
+        false, "tags": [], "use_case_id": "Do you have any idea why this i", "id":
+        "qCaKN8", "owner": {"name": "Potato wedges", "id": "eUmtDCnjP5A5jeiD"}, "title":
+        "The syntax {D1,D2,...,Dn} denotes a tuple whose arguments are D1, D2, ",
+        "created": "2023-02-17T11:50:04.862Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Calas", "id": "report:_intelligence_goal_ig-70"}], "priority": false, "tags":
+        [], "use_case_id": "The Galactic Empire is nearing ", "id": "qCaKN7", "owner":
+        {"name": "Schnitzel", "id": "13bAZSjnou6fNOTQ"}, "title": "The arguments can
+        be primitive data types or compound data types.", "created": "2023-02-17T11:50:04.940Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Potato wedges", "id":
+        "report:_intelligence_goal_ig-70"}], "priority": false, "tags": [], "use_case_id":
+        "Type classes first appeared in ", "id": "qBWgKq", "owner": {"name": "Chicken
+        French", "id": "QYXwsGRY6t5COXJb"}, "title": "He looked inquisitively at his
+        keyboard and wrote another sentence.", "created": "2023-02-17T11:50:18.084Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Chicago Deep Dish Pizz",
+        "id": "report:_intelligence_goal_ig-47"}], "priority": false, "tags": [],
+        "use_case_id": "Initially composing light-heart", "id": "qCaKN9", "owner":
+        {"name": "Cheese dog", "id": "6pSKZk8KxsFxpu5i"}, "title": "Erlang is known
+        for its designs that are well", "created": "2023-02-17T11:52:36.555Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Shucked Oysters", "id": "report:_intelligence_goal_ig-47"}], "priority":
+        false, "tags": [], "use_case_id": "Type classes first appeared in ", "id":
+        "qBWgKr", "owner": {"name": "Muffuletta", "id": "zHiRx8j8HUf09aXi"}, "title":
+        "The arguments can be primitive data types or compoun", "created": "2023-02-17T11:52:45.476Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Crepes", "id": "report:_intelligence_goal_ig-47"}],
+        "priority": false, "tags": [], "use_case_id": "Haskell features a type system
+        ", "id": "qCaTAX", "owner": {"name": "Gyoza", "id": "wVSrmNHeYLABdijZ"}, "title":
+        "Do you come here often?", "created": "2023-02-17T11:52:45.514Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Bear claw", "id": "report:_intelligence_goal_ig-47"}], "priority":
+        false, "tags": [], "use_case_id": "Atoms can contain any character ", "id":
+        "qCaKN-", "owner": {"name": "Polenta", "id": "Z6vDJDlFaxGi58vy"}, "title":
+        "Make me a sandwich.", "created": "2023-02-17T11:52:55.422Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Albacore Tuna Melt", "id": "report:_intelligence_goal_ig-47"}],
+        "priority": false, "tags": [], "use_case_id": "Do you come here often?", "id":
+        "qBWgKs", "owner": {"name": "Doughnut", "id": "x2OTtr89DxwvCyLK"}, "title":
+        "Tuples are containers for a fixed number of", "created": "2023-02-17T11:52:55.457Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Turkish Delight", "id":
+        "report:_intelligence_goal_ig-41"}], "priority": false, "tags": [], "use_case_id":
+        "Where are my pants?", "id": "qCZ8yl", "owner": {"name": "Shish Kabob", "id":
+        "KbTBOnBNxXcYh2Sc"}, "title": "Do you come here often?", "created": "2023-02-17T11:54:35.003Z",
+        "notification_settings": {"email_subscribers": [{"name": "Samosa", "id": "Oq8BTHa7fLR6IsDS"}],
+        "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals": [{"name":
+        "Sweetbreads", "id": "report:_intelligence_goal_ig-41"}], "priority": false,
+        "tags": [], "use_case_id": "They are written as strings of c", "id": "qCZ8ym",
+        "owner": {"name": "French Dip", "id": "LEjy6kCkON0LUqz4"}, "title": "Ports
+        are created with the bui", "created": "2023-02-17T11:54:40.215Z", "notification_settings":
+        {"email_subscribers": [{"name": "Glorified ri", "id": "7Neg1OmQZsx2oaUl"}],
+        "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals": [{"name":
+        "Crab Rangoon", "id": "report:_intelligence_goal_ig-60"}], "priority": false,
+        "tags": [], "use_case_id": "Ports are created with the built", "id": "qCaKN_",
+        "owner": {"name": "Cordon bleu", "id": "YTqHOBfYd2LQQrya"}, "title": "The
+        arguments can be primitive data types or ", "created": "2023-02-17T11:54:52.348Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Breakfast burrit", "id":
+        "report:_intelligence_goal_ig-62"}], "priority": false, "tags": [], "use_case_id":
+        "She spent her earliest years re", "id": "qBWgKt", "owner": {"name": "Crepes",
+        "id": "QtRq7a6iYkkESiUw"}, "title": "The Galactic Empire is nearing comple",
+        "created": "2023-02-17T11:54:56.961Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Italian Beef San", "id": "report:_intelligence_goal_ig-62"}], "priority":
+        false, "tags": [], "use_case_id": "They are written as strings of ", "id":
+        "qCaKOA", "owner": {"name": "Crab cake", "id": "sDfvB4Zh1gx9CbiE"}, "title":
+        "In 1989 the building was heavily da", "created": "2023-02-17T11:55:05.696Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Pizza strips", "id": "report:_intelligence_goal_ig-62"}],
+        "priority": false, "tags": [], "use_case_id": "The arguments can be primitive
+        ", "id": "qCaKOB", "owner": {"name": "Russian tea cake", "id": "ZwXPJffHehLs2eoh"},
+        "title": "Any element of a tuple can be accessed", "created": "2023-02-17T11:55:13.973Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "Italian Beef San", "id":
+        "report:_intelligence_goal_ig-62"}], "priority": false, "tags": [], "use_case_id":
+        "Make me a sandwich.", "id": "qBWgKu", "owner": {"name": "Rabbit pie", "id":
+        "7yXLYzj2BnTdvNaL"}, "title": "Its main implementation is the Glasgow", "created":
+        "2023-02-17T11:55:14.032Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": false}, {"intelligence_goals": [{"name":
+        "Chile Relleno", "id": "report:_intelligence_goal_ig-62"}], "priority": false,
+        "tags": [], "use_case_id": "Do you have any idea why this i", "id": "qCZ8yo",
+        "owner": {"name": "Cheese dog", "id": "OnVRjm5wvQwweifR"}, "title": "She spent
+        her earliest years readin", "created": "2023-02-17T11:55:23.629Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Deviled crab", "id": "report:_intelligence_goal_ig-62"}], "priority":
+        false, "tags": [], "use_case_id": "Where are my pants?", "id": "qCZ8yn", "owner":
+        {"name": "Cobb Salad", "id": "lEHzdD6afj9LwjXO"}, "title": "In 1989 the building
+        was heavily da", "created": "2023-02-17T11:55:23.676Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Chicken and waff", "id": "report:_intelligence_goal_ig-62"}], "priority":
+        false, "tags": [], "use_case_id": "Tuples are containers for a fix", "id":
+        "qCZ8yp", "owner": {"name": "Pasta salad", "id": "6tyv8tDPGIWJhrez"}, "title":
+        "Tuples are containers for a fixed number of", "created": "2023-02-17T11:55:29.258Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Baba Ghanoush", "id":
+        "report:_intelligence_goal_ig-70"}], "priority": false, "tags": [], "use_case_id":
+        "Atoms can contain any character ", "id": "sQl1Xn", "owner": {"name": "Chili
+        dog", "id": "1pH4RCsMOU6um2B6"}, "title": "Type classes first appeared in
+        ", "created": "2023-08-08T09:14:44.015Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Parma Ham", "id": "report:_intelligence_goal_ig-68"}], "priority": false,
+        "tags": [], "use_case_id": null, "id": "uZenVK", "owner": {"name": "Bookbinder
+        S", "id": "t6tICejK8WcyFc5h"}, "title": "It is also a garbage-collected runtime
+        system.", "created": "2024-02-06T05:08:11.543Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [{"name": "Polenta", "id": "report:_intelligence_goal_ig-69"}], "priority":
+        false, "tags": [], "use_case_id": "Tuples are containers for a fixe", "id":
+        "u2AbW_", "owner": {"name": "Banh Mi Vi\u00eat", "id": "HDzAO9EX5MnQrVwv"},
+        "title": "He looked inquisitively at his keyb", "created": "2024-03-11T15:08:57.977Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [{"name": "Sour cream", "id": "report:_intelligence_goal_ti_ig-1"}],
+        "priority": true, "tags": [], "use_case_id": "The Galactic Empire is nearing
+        co", "id": "vvfym1", "owner": {"name": "Mango and Sticky Rice", "id": "HnqrXByDcC5nJYW9"},
+        "title": "Its main implementation is the Glasgow Haskell Com", "created":
+        "2024-05-03T10:18:28.848Z", "notification_settings": {"email_subscribers":
+        [{"name": "Shrimp Creol", "id": "JhRY7U4E9by4ZkY7"}], "mobile_subscribers":
+        []}, "enabled": true}, {"intelligence_goals": [{"name": "Blue-plate special",
+        "id": "report:_intelligence_goal_ti_ig-1"}], "priority": false, "tags": [],
+        "use_case_id": "In 1989 the building was heavily ", "id": "vvhRFs", "owner":
+        {"name": "Corn relish", "id": "Aq1WTXvj3ZZlZ4qo"}, "title": "Ports are created
+        with the built-in function", "created": "2024-05-03T10:20:51.345Z", "notification_settings":
+        {"email_subscribers": [{"name": "Succotash", "id": "uCu78pq6q2uABWLb"}], "mobile_subscribers":
+        []}, "enabled": true}, {"intelligence_goals": [{"name": "Parma Ham", "id":
+        "report:_intelligence_goal_ti_ig-1"}], "priority": false, "tags": [], "use_case_id":
+        "It is also a garbage-collected ru", "id": "vve5em", "owner": {"name": "Charleston
+        red rice", "id": "kt7fViX8Gh2GbwzZ"}, "title": "In 1989 the building was heavily",
+        "created": "2024-05-03T10:20:57.981Z", "notification_settings": {"email_subscribers":
+        [{"name": "Pan Seared S", "id": "hXZv2U81xFonLklF"}], "mobile_subscribers":
+        []}, "enabled": true}, {"intelligence_goals": [{"name": "Beignets", "id":
+        "report:_intelligence_goal_ti_ig-1"}], "priority": false, "tags": [], "use_case_id":
+        "The sequential subset of Erlang s", "id": "vuTl7J", "owner": {"name": "Corn
+        dog", "id": "R0vQGEtaqgjXCUeg"}, "title": "Where are my pants?", "created":
+        "2024-05-03T10:21:09.196Z", "notification_settings": {"email_subscribers":
+        [{"name": "Chicken nugg", "id": "Z2SIiiGSziyStJro"}], "mobile_subscribers":
+        []}, "enabled": true}, {"intelligence_goals": [{"name": "Pizza strips", "id":
+        "report:_intelligence_goal_ti_ig-1"}], "priority": false, "tags": [], "use_case_id":
+        "Any element of a tuple can be acc", "id": "vvfym2", "owner": {"name": "Massaman
+        Curry", "id": "MCa4yOU5qNzYPUXL"}, "title": "She spent her earliest years
+        reading c", "created": "2024-05-03T10:21:17.292Z", "notification_settings":
+        {"email_subscribers": [{"name": "Hangtown fry", "id": "WRjTSdWpKb1KfTHR"}],
+        "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Moules Frites", "id": "report:_intelligence_goal_ig-59"}], "priority": false,
+        "tags": [], "use_case_id": null, "id": "wah6l9", "owner": {"name": "Cordon
+        b", "id": "LIZk7d3YYqR3Zy3T"}, "title": "Tuples are containers for a fixed
+        numbe", "created": "2024-06-17T22:38:27.814Z", "notification_settings": {"email_subscribers":
+        [{"name": "Meatcake", "id": "NJHrDDCTz949VNWW"}], "mobile_subscribers": []},
+        "enabled": true}, {"intelligence_goals": [], "priority": false, "tags": [],
+        "use_case_id": null, "id": "2osjNA", "owner": {"name": "Poutine", "id": "jLSuZ3qsJlDV2q1d"},
+        "title": "In 1989 the building wa", "created": "2025-01-21T15:03:45.918Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": false}, {"intelligence_goals": [{"name": "Tomato compote", "id":
+        "report:_intelligence_goal_ig-69"}], "priority": false, "tags": [], "use_case_id":
+        "Erlang is a general-purpose, con", "id": "_YIltw", "owner": {"name": "Bulgogi",
+        "id": "envPzPA3Z4nA0ugK"}, "title": "Haskell features a type system with type
+        infe", "created": "2025-10-16T14:12:43.215Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [],
+        "priority": true, "tags": [], "use_case_id": null, "id": "PoAAP6T", "owner":
+        {"name": "Chicken ", "id": "YU0xE1wwZmIHxPvY"}, "title": "In 1989 the building
+        was heavily dam", "created": "2025-11-10T07:51:19.449Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals":
+        [], "priority": true, "tags": [], "use_case_id": null, "id": "jVICawp", "owner":
+        {"name": "Wasabi P", "id": "wOEkht02U4noypmI"}, "title": "Tuples are co",
+        "created": "2025-11-11T06:46:14.595Z", "notification_settings": {"email_subscribers":
+        [], "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [],
+        "priority": false, "tags": [], "use_case_id": null, "id": "efcyH4E", "owner":
+        {"name": "Banh Mi ", "id": "2hbIzL63EOyDgPKw"}, "title": "The arguments can
+        be primitive data types or compound d", "created": "2026-02-09T11:59:33.416Z",
+        "notification_settings": {"email_subscribers": [], "mobile_subscribers": []},
+        "enabled": true}]}, "counts": {"returned": 145, "total": 145}}'
+    headers:
+      CF-RAY:
+      - 9cd37c3d9a18940d-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:01:35 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01onvyjepxxs07bkuilo6h2p835401896.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

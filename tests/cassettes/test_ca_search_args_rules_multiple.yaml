@@ -1,0 +1,492 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/alert/rule?freetext=Leaked+Credential+Monitoring&limit=1000
+  response:
+    body:
+      string: '{"data": {"results": [{"intelligence_goals": [{"name": "Osso Buco",
+        "id": "report:_intelligence_goal_ig-46"}], "priority": true, "tags": [], "use_case_id":
+        "Ports are used to communicate w", "id": "mf0rAa", "owner": {"name": "Roasted
+        Bone Marrow", "id": "wR5GeD66MIevxrgH"}, "title": "Any element of a tuple
+        can b", "created": "2022-05-06T08:19:38.652Z", "notification_settings": {"email_subscribers":
+        [{"name": "Cordon bleu", "id": "uoFVzN2lJR6U7DQo"}], "mobile_subscribers":
+        []}, "enabled": true}, {"intelligence_goals": [{"name": "Pan Seared Scall",
+        "id": "report:_intelligence_goal_ig-46"}], "priority": false, "tags": [],
+        "use_case_id": "He looked inquisitively at his ", "id": "oT8Yaq", "owner":
+        {"name": "Onion Rings", "id": "kfDpzraROTvVWNMG"}, "title": "Erlang is a general-purpose,",
+        "created": "2022-10-10T15:02:52.891Z", "notification_settings": {"email_subscribers":
+        [{"name": "Spaghetti Bolognes", "id": "wSwy7XYb3vK0RCg0"}], "mobile_subscribers":
+        []}, "enabled": true}, {"intelligence_goals": [{"name": "Calf''s liver and",
+        "id": "report:_intelligence_goal_ig-46"}], "priority": false, "tags": [],
+        "use_case_id": "Type classes first appeared in ", "id": "oT8YbE", "owner":
+        {"name": "Seafood cocktail", "id": "dJLVkL4QBxo9DHNB"}, "title": "Ports are
+        used to communicat", "created": "2022-10-10T15:03:10.538Z", "notification_settings":
+        {"email_subscribers": [{"name": "Fried Catfish", "id": "tkfjeewjCz1yAakx"}],
+        "mobile_subscribers": []}, "enabled": true}, {"intelligence_goals": [{"name":
+        "Squab", "id": "report:_intelligence_goal_ig-46"}], "priority": false, "tags":
+        [], "use_case_id": "Make me a sandwich.", "id": "oT8Ybe", "owner": {"name":
+        "Polenta", "id": "Zu6Oa6r8K8XddBpP"}, "title": "Messages can be sent to and
+        ", "created": "2022-10-10T15:03:51.357Z", "notification_settings": {"email_subscribers":
+        [{"name": "Risotto", "id": "5crSzZ9MAaIgdDER"}], "mobile_subscribers": []},
+        "enabled": true}]}, "counts": {"returned": 4, "total": 4}}'
+    headers:
+      CF-RAY:
+      - 9cec8c89dc4a98f3-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 11:01:47 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0e9cqhr3z1mnubskt9l2fmhgx10879920.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/alert/rule?freetext=Brand+Mentions+with+Cyber+entities&limit=996
+  response:
+    body:
+      string: '{"data": {"results": [{"intelligence_goals": [{"name": "Surf and turf",
+        "id": "report:_intelligence_goal_ig-45"}], "priority": false, "tags": [],
+        "use_case_id": "She spent her earliest years re", "id": "pAHftK", "owner":
+        {"name": "Mozzarella Sticks", "id": "IOabN14c7Srnfv8p"}, "title": "Initially
+        composing light-hearted ", "created": "2022-11-30T15:49:45.172Z", "notification_settings":
+        {"email_subscribers": [], "mobile_subscribers": []}, "enabled": true}]}, "counts":
+        {"returned": 1, "total": 1}}'
+    headers:
+      CF-RAY:
+      - 9cec8c8b580b4866-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 11:01:47 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01wnfzoq5a1du91e09epujlv4p710892082.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/?triggered=-1d&alertRule=mf0rAa&fields=log%2Cid%2Creview%2Cowner_organisation_details%2Ctitle%2Crule&limit=50
+  response:
+    body:
+      string: '{"data": [{"review": {"note": null, "status_in_portal": "New", "assignee":
+        null, "status": "no-action"}, "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Ports are used t", "organisation_name": "He looked inquisitively
+        at his ke"}], "enterprise_id": "Erlang is known ", "enterprise_name": "It
+        is also a garbage-collected ru"}, "rule": {"use_case_deprecation": null, "name":
+        "Spaghetti Bolognese", "id": "mf0rAa", "url": {"portal": "https://proteins.fit/"}},
+        "id": "nHHXTvo", "title": "Initially composing light-hearted and irreve",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-15T17:53:36.742Z", "status_change_by": null}}, {"review": {"note":
+        null, "status_in_portal": "New", "assignee": null, "status": "no-action"},
+        "owner_organisation_details": {"organisations": [{"organisation_id": "Where
+        are my pan", "organisation_name": "Erlang is a general-purpose, conc"}], "enterprise_id":
+        "Initially compos", "enterprise_name": "Any element of a tuple can be acc"},
+        "rule": {"use_case_deprecation": null, "name": "Chicago Hot Dog", "id": "mf0rAa",
+        "url": {"portal": "https://tagged.org/"}}, "id": "MDaea89", "title": "Ports
+        are used to communicate with the exte", "log": {"note_author": null, "note_date":
+        null, "status_date": null, "triggered": "2026-02-15T18:53:47.055Z", "status_change_by":
+        null}}], "counts": {"returned": 2, "total": 2}}'
+    headers:
+      CF-RAY:
+      - 9cec8c8cbe1924be-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 11:01:47 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node03y1odjkmpna7ul2uyr8ws0x210889669.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/?triggered=-1d&alertRule=oT8Yaq&fields=log%2Cid%2Creview%2Cowner_organisation_details%2Ctitle%2Crule&limit=50
+  response:
+    body:
+      string: '{"data": [], "counts": {"returned": 0, "total": 0}}'
+    headers:
+      CF-RAY:
+      - 9cec8c8e6fc14a37-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 11:01:48 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0hfrl9f2tgjrjgj00sxn18d2510879932.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/?triggered=-1d&alertRule=oT8YbE&fields=log%2Cid%2Creview%2Cowner_organisation_details%2Ctitle%2Crule&limit=50
+  response:
+    body:
+      string: '{"data": [], "counts": {"returned": 0, "total": 0}}'
+    headers:
+      CF-RAY:
+      - 9cec8c8fac59edf3-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 11:01:48 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0xn1npm23o961ogyp0tkh69eq10892090.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/?triggered=-1d&alertRule=oT8Ybe&fields=log%2Cid%2Creview%2Cowner_organisation_details%2Ctitle%2Crule&limit=50
+  response:
+    body:
+      string: '{"data": [], "counts": {"returned": 0, "total": 0}}'
+    headers:
+      CF-RAY:
+      - 9cec8c90cf26001a-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 11:01:48 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0kr567bllqbdphtx2ta29a9yh10892094.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/?triggered=-1d&alertRule=pAHftK&fields=log%2Cid%2Creview%2Cowner_organisation_details%2Ctitle%2Crule&limit=50
+  response:
+    body:
+      string: '{"data": [{"review": {"note": null, "status_in_portal": "New", "assignee":
+        null, "status": "no-action"}, "owner_organisation_details": {"organisations":
+        [{"organisation_id": "Atoms can contai", "organisation_name": "Its main implementation
+        is the Gl"}], "enterprise_id": "Any element of a", "enterprise_name": "Any
+        element of a tuple can be acc"}, "rule": {"use_case_deprecation": null, "name":
+        "Vegemite on Toast", "id": "pAHftK", "url": {"portal": "https://und.xxx/"}},
+        "id": "lCUzLlw", "title": "They are written as strings of consecutive alphanum",
+        "log": {"note_author": null, "note_date": null, "status_date": null, "triggered":
+        "2026-02-16T04:02:37.524Z", "status_change_by": null}}], "counts": {"returned":
+        1, "total": 1}}'
+    headers:
+      CF-RAY:
+      - 9cec8c91ece81208-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 16 Feb 2026 11:01:48 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0pmlczq2g0i8b1pe0lc75ui0oc10879937.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

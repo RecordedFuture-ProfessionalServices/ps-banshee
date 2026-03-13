@@ -1,0 +1,204 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/search?limit=5&fields=analystNotes%2CenterpriseLists%2Centity%2CfileHashes%2ChashAlgorithm%2CintelCard%2Clinks%2Crisk%2CriskMapping%2Csightings%2CthreatLists%2Ctimestamps
+  response:
+    body:
+      string: '{"data": {"results": [{"enterpriseLists": [], "sightings": [{"source":
+        "Atoms can", "url": "https://lamp.doha/", "published": "2026-02-16T07:18:05.351Z",
+        "fragment": "It is also a garbage-collected runtime system.", "title": "They
+        are written as strings of consecutive alphanumeric characters, the first charact",
+        "type": "mostRecent"}, {"source": "They are ", "url": "https://derived.tn/",
+        "published": "2026-04-09T13:42:30.290Z", "fragment": "Messages can be sent
+        to and received from ports, but these messages must obey the so-", "title":
+        "Erlang is a general-purpose, concurrent, functional programming language.",
+        "type": "first"}, {"source": "Its main implementation is the Gla", "url":
+        "https://discretion.biz/", "published": "2026-01-30T02:07:31.692Z", "fragment":
+        "The sequential subset of Erlang supports eager evaluation, single assignment,
+        and dynamic typing.", "title": "Haskell is a standardized, general-pu", "type":
+        "recentInfoSec"}], "riskMapping": [{"rule": "Where are my pants?", "categories":
+        [{"framework": "He lo", "name": "Caroli"}]}], "entity": {"id": "hash:6a86942c016e60548acacbe2ff05edfab77ad0b2abe492038623873864e8eddc",
+        "name": "Chowder", "type": "Hash"}, "analystNotes": [], "hashAlgorithm": "Ports
+        a", "timestamps": {"lastSeen": "2026-02-13T08:14:16.758Z", "firstSeen": "2026-07-05T13:29:36.202Z"},
+        "threatLists": [], "risk": {"criticalityLabel": "The synta", "riskString":
+        "Make", "rules": 1, "criticality": 3, "riskSummary": "The arguments can be
+        primitive data ty", "score": 89, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "Its main implementation is the Glasgow Haskell Compiler.",
+        "rule": "Type classes first appea", "criticality": 3, "timestamp": "2026-03-30T01:30:43.442Z",
+        "criticalityLabel": "Do you ha"}]}, "fileHashes": ["Atoms can contain any
+        character ", "Type classes first appeared in the Haskell programming language.",
+        "He looked inquisitively at his keyboard "], "intelCard": "https://hits.so/",
+        "links": {"hits": [], "method_aggregates": [{"count": 0, "type": "hHQyM6"},
+        {"count": 0, "type": "hHQyM7"}, {"count": 0, "type": "gTB8y2"}], "counts":
+        []}}, {"enterpriseLists": [], "sightings": [{"source": "Ports are used to
+        communicate with", "url": "https://differential.do/", "published": "2026-04-16T00:51:41.415Z",
+        "fragment": "Any element of a tuple can be accessed in constant time.", "title":
+        "The Galactic Empire is nearing completion", "type": "recentInfoSec"}, {"source":
+        "They are written as strings of con", "url": "https://pulse.dubai/", "published":
+        "2026-09-14T04:28:36.434Z", "fragment": "He looked inquisitively at his keyboard
+        and wrote another sentence.", "title": "Ports are used to communicate with
+        the external wo", "type": "first"}, {"source": "In 1989 t", "url": "https://languages.tr/",
+        "published": "2026-12-05T07:02:47.020Z", "fragment": "It is also a garbage-collected
+        runtime system.", "title": "Haskell is a standardized, general-purpose purely
+        functional programming language, wi", "type": "mostRecent"}], "riskMapping":
+        [{"rule": "Make me a sandwic", "categories": [{"framework": "In 19", "name":
+        "Salad "}]}, {"rule": "He looked inquisitively ", "categories": [{"framework":
+        "The s", "name": "Souvla"}]}], "entity": {"id": "hash:daa0990911298bafd66e88be264611cef84f2d4c0fd323441927d4cbb01d59de",
+        "name": "Ranch dressing", "type": "Hash"}, "analystNotes": [], "hashAlgorithm":
+        "She spe", "timestamps": {"lastSeen": "2026-04-03T02:16:48.557Z", "firstSeen":
+        "2026-11-13T14:00:48.963Z"}, "threatLists": [], "risk": {"criticalityLabel":
+        "I don''t e", "riskString": "Atom", "rules": 2, "criticality": 3, "riskSummary":
+        "Ports are used to communicate with the", "score": 89, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Erlang is known for its designs
+        that are well suited for systems.", "rule": "Do you have any i", "criticality":
+        2, "timestamp": "2026-12-12T18:19:28.990Z", "criticalityLabel": "The sequen"},
+        {"mitigationString": "", "evidenceString": "It is also a garbage-collected
+        runtime system.", "rule": "They are written as stri", "criticality": 3, "timestamp":
+        "2026-08-23T14:59:25.586Z", "criticalityLabel": "Atoms are"}]}, "fileHashes":
+        ["In 1989 the building was heavily", "I don''t even care.", "Make me a sandwich."],
+        "intelCard": "https://slots.net/", "links": {"hits": [], "method_aggregates":
+        [{"count": 0, "type": "hHQyM6"}, {"count": 0, "type": "hHQyM7"}, {"count":
+        0, "type": "gTB8y2"}], "counts": []}}, {"enterpriseLists": [], "sightings":
+        [{"source": "Tuples are con", "url": "https://transit.rs/", "published": "2026-01-31T15:26:31.792Z",
+        "fragment": "Tuples are containers for a fixed number of Erlang data types.",
+        "title": "Erlang is known for its designs that are well suite", "type": "recentInfoSec"},
+        {"source": "Any eleme", "url": "https://check.mov/", "published": "2026-10-28T17:53:45.174Z",
+        "fragment": "Make me a sandwich.", "title": "Erlang is known for its designs
+        that are well suited for systems.", "type": "mostRecent"}, {"source": "Tuples
+        are con", "url": "https://increases.biz/", "published": "2026-11-12T23:59:15.627Z",
+        "fragment": "Where are my pants?", "title": "Ports are created with the built-in
+        function open_p", "type": "first"}], "riskMapping": [{"rule": "Type classes
+        firs", "categories": [{"framework": "Haske", "name": "Elote"}]}, {"rule":
+        "I don''t even care.", "categories": [{"framework": "Type ", "name": "Chicke"}]}],
+        "entity": {"id": "hash:dd00933a31043d2c235abb3e8be711fff7061865ed94fc26068b4eadfcd89c80",
+        "name": "Mashed potato", "type": "Hash"}, "analystNotes": [], "hashAlgorithm":
+        "The arg", "timestamps": {"lastSeen": "2026-03-08T03:40:15.897Z", "firstSeen":
+        "2026-01-19T03:25:42.110Z"}, "threatLists": [], "risk": {"criticalityLabel":
+        "Any eleme", "riskString": "He l", "rules": 2, "criticality": 3, "riskSummary":
+        "The Galactic Empire is nearing complet", "score": 89, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Its main implementation is the
+        Glasgow Haskell Compiler.", "rule": "I don''t even care", "criticality": 2,
+        "timestamp": "2026-02-21T06:04:47.195Z", "criticalityLabel": "Its main i"},
+        {"mitigationString": "", "evidenceString": "Make me a sandwich.", "rule":
+        "Ports are used to commun", "criticality": 3, "timestamp": "2026-03-22T14:46:15.807Z",
+        "criticalityLabel": "It is als"}]}, "fileHashes": ["They are written as strings
+        of consecutive alphanumeric characters, the first character being lowercase.",
+        "Ports are used to communicate with the external world.", "Haskell is a standardized,
+        general-purpo", "Do you come here often?", "Haskell is a standardized, general-purpo"],
+        "intelCard": "https://feelings.lc/", "links": {"hits": [], "method_aggregates":
+        [{"count": 0, "type": "hHQyM6"}, {"count": 0, "type": "hHQyM7"}, {"count":
+        0, "type": "gTB8y2"}], "counts": []}}, {"enterpriseLists": [], "sightings":
+        [{"source": "She spen", "url": "https://tube.cat/", "published": "2026-02-28T21:12:43.478Z",
+        "fragment": "In 1989 the building was heavily", "title": "The Galactic Empire
+        is n", "type": "recentPaste"}, {"source": "Its main ", "url": "https://paintball.review/",
+        "published": "2026-12-03T12:34:38.080Z", "fragment": "The sequential subset
+        of Erlang supports eager evaluation, single assignment, and dynamic typing.",
+        "title": "Any element of a tuple can be accessed in constant time.", "type":
+        "mostRecent"}], "riskMapping": [{"rule": "The syntax {D1,D2", "categories":
+        [{"framework": "In 19", "name": "Ribs"}]}, {"rule": "He looked inquisitively
+        ", "categories": [{"framework": "In 19", "name": "Clam c"}]}], "entity": {"id":
+        "hash:0983d8aff62397beb7a07cdf8d88c075d8ba6175d501cac5889958e1c3e4104d", "name":
+        "Elote", "type": "Hash"}, "analystNotes": [], "hashAlgorithm": "Erlang ",
+        "timestamps": {"lastSeen": "2026-12-27T23:49:21.841Z", "firstSeen": "2026-03-24T07:57:34.573Z"},
+        "threatLists": [], "risk": {"criticalityLabel": "The synta", "riskString":
+        "Erla", "rules": 2, "criticality": 3, "riskSummary": "Atoms can contain any
+        character if the", "score": 89, "evidenceDetails": [{"mitigationString": "",
+        "evidenceString": "It is also a garbage-collected runtime system.", "rule":
+        "Atoms are used wi", "criticality": 2, "timestamp": "2026-08-12T02:04:49.561Z",
+        "criticalityLabel": "Messages c"}, {"mitigationString": "", "evidenceString":
+        "Where are my pants?", "rule": "The syntax {D1,D2,...,Dn", "criticality":
+        3, "timestamp": "2026-02-03T20:49:55.950Z", "criticalityLabel": "The seque"}]},
+        "fileHashes": ["Do you come here often?", "Ports are used to communicate with
+        the external world.", "They are written as strings of consecuti"], "intelCard":
+        "https://rec.hosting/", "links": {"hits": [], "method_aggregates": [{"count":
+        0, "type": "hHQyM6"}, {"count": 0, "type": "hHQyM7"}, {"count": 0, "type":
+        "gTB8y2"}], "counts": []}}, {"enterpriseLists": [], "sightings": [{"source":
+        "It is also a ", "url": "https://acm.stockholm/", "published": "2026-05-20T17:24:12.997Z",
+        "fragment": "Type classes first appeared in the Haskell programming language.",
+        "title": "Atoms can contain any character if they are enclosed within single
+        quotes and an escape convent", "type": "recentInfoSec"}, {"source": "The synta",
+        "url": "https://sarah.aero/", "published": "2026-03-09T01:15:52.940Z", "fragment":
+        "It is also a garbage-collected runtime system.", "title": "The Galactic Empire
+        is nearing completion of the Death Star, a space station with the", "type":
+        "mostRecent"}, {"source": "Erlang is kno", "url": "https://repairs.loans/",
+        "published": "2026-01-17T22:44:30.822Z", "fragment": "Where are my pants?",
+        "title": "Type classes first appeared in the Haskell programming language.",
+        "type": "first"}], "riskMapping": [{"rule": "Haskell features ", "categories":
+        [{"framework": "Do yo", "name": "Pocky"}]}, {"rule": "They are written as
+        stri", "categories": [{"framework": "Any e", "name": "Hangto"}]}], "entity":
+        {"id": "hash:28e07239ce9ee1edc84d5f5c43d51c210d926ed106558f9e549c7a78647ebb2b",
+        "name": "Scrapple", "type": "Hash"}, "analystNotes": [], "hashAlgorithm":
+        "She spe", "timestamps": {"lastSeen": "2026-03-03T15:41:55.836Z", "firstSeen":
+        "2026-10-21T16:55:31.155Z"}, "threatLists": [], "risk": {"criticalityLabel":
+        "Haskell i", "riskString": "Hask", "rules": 2, "criticality": 3, "riskSummary":
+        "Tuples are containers for a fixed numb", "score": 89, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Where are my pants?", "rule":
+        "Haskell is a stan", "criticality": 2, "timestamp": "2026-06-21T03:58:43.907Z",
+        "criticalityLabel": "Where are "}, {"mitigationString": "", "evidenceString":
+        "Its main implementation is the Glasgow Haskell Compiler.", "rule": "Haskell
+        features a type ", "criticality": 3, "timestamp": "2026-01-20T21:19:33.037Z",
+        "criticalityLabel": "Do you ha"}]}, "fileHashes": ["In 1989 the building was
+        heavily damaged", "Do you have any idea why this is not working?", "Any element
+        of a tuple can be accessed i", "Where are my pants?", "The Galactic Empire
+        is nearing completion of the Death Star, a s", "He looked inquisitively at
+        his keyboard and wrote another sentence."], "intelCard": "https://cradle.madrid/",
+        "links": {"hits": [], "method_aggregates": [{"count": 0, "type": "hHQyM6"},
+        {"count": 0, "type": "hHQyM7"}, {"count": 0, "type": "gTB8y2"}], "counts":
+        []}}]}, "counts": {"returned": 5, "total": 3139082018}}'
+    headers:
+      CF-RAY:
+      - 9cd3848f1aebef40-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:07:24 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0ahr6fbp62t7t16bhj7ijpddcd2012482.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

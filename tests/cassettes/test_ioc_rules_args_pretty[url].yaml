@@ -1,0 +1,187 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/url/riskrules
+  response:
+    body:
+      string: '{"data": {"results": [{"criticalityLabel": "They are ", "description":
+        "Do you come here often?", "categories": [], "criticality": 3, "relatedEntities":
+        [], "name": "Chicken herb", "count": 2040}, {"criticalityLabel": "He look",
+        "description": "The Galactic Empire is nearing c", "categories": [], "criticality":
+        1, "relatedEntities": [], "name": "French", "count": 12005}, {"criticalityLabel":
+        "The argume", "description": "Make me a sandwich.", "categories": [{"name":
+        "Veggi", "framework": "Erlan"}], "criticality": 2, "relatedEntities": [],
+        "name": "Sour cream", "count": 1}, {"criticalityLabel": "The Gal", "description":
+        "Type classes first appeared in the Haskel", "categories": [{"name": "Lorna
+        Doo", "framework": "Where"}], "criticality": 1, "relatedEntities": [], "name":
+        "Pigs in blankets", "count": 278443}, {"criticalityLabel": "The sequential",
+        "description": "They are written as string", "categories": [{"name": "Coq
+        Au", "framework": "The s"}], "criticality": 4, "relatedEntities": [], "name":
+        "Chocolate cheeseca", "count": 0}, {"criticalityLabel": "She spe", "description":
+        "Any element of a tuple can be accessed in ", "categories": [{"name": "Rice
+        ", "framework": "The s"}], "criticality": 1, "relatedEntities": [], "name":
+        "Kimchi", "count": 160294576}, {"criticalityLabel": "Ports are", "description":
+        "Do you come here often?", "categories": [{"name": "Celery Vi", "framework":
+        "The s"}, {"name": "Chili", "framework": "The G"}, {"name": "Massaman ", "framework":
+        "Haske"}], "criticality": 3, "relatedEntities": [], "name": "Barbecue", "count":
+        260204}, {"criticalityLabel": "Message", "description": "The Galactic Empire
+        is nearing completio", "categories": [{"name": "Steak Tar", "framework": "Where"}],
+        "criticality": 1, "relatedEntities": [], "name": "Blue cheese dress", "count":
+        9654728}, {"criticalityLabel": "Do you hav", "description": "Atoms can contain
+        any charac", "categories": [{"name": "Milk Stea", "framework": "Do yo"}],
+        "criticality": 2, "relatedEntities": [], "name": "Schnitzel", "count": 106},
+        {"criticalityLabel": "Haskell f", "description": "Erlang is a general-pur",
+        "categories": [{"name": "Americ", "framework": "Do yo"}], "criticality": 3,
+        "relatedEntities": [], "name": "Hummus", "count": 0}, {"criticalityLabel":
+        "Tuples ar", "description": "It is also a garbage-collected runti", "categories":
+        [{"name": "Salisbury", "framework": "Do yo"}], "criticality": 3, "relatedEntities":
+        [], "name": "Mozzarella sticks", "count": 5139}, {"criticalityLabel": "Any
+        ele", "description": "Messages can be sent to and received from ports, but",
+        "categories": [], "criticality": 1, "relatedEntities": [], "name": "Huevos
+        R", "count": 1552530}, {"criticalityLabel": "Its main i", "description": "Ports
+        are used to communicate with ", "categories": [{"name": "Naan", "framework":
+        "Ports"}, {"name": "Protei", "framework": "Make "}, {"name": "Calama", "framework":
+        "Haske"}], "criticality": 2, "relatedEntities": [], "name": "Paella", "count":
+        685}, {"criticalityLabel": "Any eleme", "description": "Atoms are used within
+        a program to denot", "categories": [{"name": "Chicken n", "framework": "He
+        lo"}, {"name": "Gyros", "framework": "The s"}, {"name": "Corn dog", "framework":
+        "He lo"}], "criticality": 3, "relatedEntities": ["Type c"], "name": "Fried
+        Catfish", "count": 269909}, {"criticalityLabel": "The Gal", "description":
+        "Type classes first appeared in the Hask", "categories": [{"name": "Pancakes",
+        "framework": "The G"}, {"name": "White ", "framework": "Messa"}, {"name":
+        "Fajita", "framework": "Do yo"}], "criticality": 1, "relatedEntities": [],
+        "name": "Empanada", "count": 9825}, {"criticalityLabel": "The seque", "description":
+        "Haskell features a type system with ty", "categories": [{"name": "Haystack",
+        "framework": "Its m"}, {"name": "Bangers a", "framework": "Atoms"}], "criticality":
+        3, "relatedEntities": [], "name": "New York-Style Pizza", "count": 114336},
+        {"criticalityLabel": "Haskell is", "description": "In 1989 the building was
+        heavily dama", "categories": [{"name": "Succotash", "framework": "Make "}],
+        "criticality": 2, "relatedEntities": [], "name": "Fattoush Salad", "count":
+        10837}, {"criticalityLabel": "He look", "description": "It is also a garbage-collected
+        runt", "categories": [{"name": "Polenta", "framework": "In 19"}, {"name":
+        "Potato", "framework": "Do yo"}, {"name": "Chicke", "framework": "Make "}],
+        "criticality": 1, "relatedEntities": [], "name": "Tuna Pizza", "count": 2399},
+        {"criticalityLabel": "Messages c", "description": "Messages can be sent to
+        ", "categories": [{"name": "Veniso", "framework": "Ports"}], "criticality":
+        2, "relatedEntities": [], "name": "Fried chicken", "count": 2673}, {"criticalityLabel":
+        "Erlang ", "description": "Haskell is a standardized, general-purp", "categories":
+        [], "criticality": 1, "relatedEntities": [], "name": "Chicken fri", "count":
+        2345092}, {"criticalityLabel": "Tuples ", "description": "Ports are created
+        with the built-in f", "categories": [{"name": "Breakfast", "framework": "Ports"},
+        {"name": "Tagine", "framework": "Haske"}, {"name": "Shawar", "framework":
+        "I don"}], "criticality": 1, "relatedEntities": [], "name": "Juba", "count":
+        7453}, {"criticalityLabel": "Its main ", "description": "Messages can be sent
+        to and recei", "categories": [{"name": "Creamed c", "framework": "I don"},
+        {"name": "Patty", "framework": "Tuple"}, {"name": "Lobste", "framework": "She
+        s"}], "criticality": 3, "relatedEntities": [], "name": "Texas Toast", "count":
+        3844}, {"criticalityLabel": "Do you ", "description": "The arguments can be
+        primitive data types or comp", "categories": [], "criticality": 1, "relatedEntities":
+        [], "name": "Roasted Bone Marr", "count": 26}, {"criticalityLabel": "The Galact",
+        "description": "Haskell is a standardized, general-pur", "categories": [{"name":
+        "Apple", "framework": "She s"}], "criticality": 2, "relatedEntities": [],
+        "name": "Baba Ghanoush", "count": 2183514}, {"criticalityLabel": "Do you ",
+        "description": "Haskell is a standardized, g", "categories": [{"name": "Suprem",
+        "framework": "Any e"}], "criticality": 1, "relatedEntities": [], "name": "Seafood
+        cock", "count": 0}, {"criticalityLabel": "Make me", "description": "The sequential
+        subset of Erlang supports ", "categories": [], "criticality": 1, "relatedEntities":
+        [], "name": "Eggs Neptune", "count": 163572025}, {"criticalityLabel": "Ports
+        a", "description": "I don''t even care.", "categories": [{"name": "Fried",
+        "framework": "Do yo"}], "criticality": 1, "relatedEntities": [], "name": "Poppyseed
+        muffin", "count": 3659}, {"criticalityLabel": "Where a", "description": "The
+        arguments can be primitive data t", "categories": [], "criticality": 1, "relatedEntities":
+        [], "name": "Elote", "count": 1135}, {"criticalityLabel": "Its mai", "description":
+        "Type classes first appeared in the H", "categories": [{"name": "Caviar",
+        "framework": "Ports"}, {"name": "Pocky", "framework": "Atoms"}], "criticality":
+        1, "relatedEntities": [], "name": "Lasagna", "count": 11711322}, {"criticalityLabel":
+        "Ports a", "description": "Any element of a tuple can be accessed in ", "categories":
+        [{"name": "Root Beer", "framework": "Haske"}, {"name": "Vichyssoi", "framework":
+        "She s"}], "criticality": 1, "relatedEntities": [], "name": "Pulled pork",
+        "count": 211250570}, {"criticalityLabel": "He looked ", "description": "In
+        1989 the building was heavily damage", "categories": [{"name": "Potatoes ",
+        "framework": "Where"}, {"name": "Beignets", "framework": "The G"}], "criticality":
+        2, "relatedEntities": [], "name": "Onion ring", "count": 6628}, {"criticalityLabel":
+        "Ports are ", "description": "Tuples are containers for a fixed number o",
+        "categories": [{"name": "Souvlaki", "framework": "Any e"}, {"name": "Chick",
+        "framework": "Ports"}, {"name": "Tomato co", "framework": "Ports"}], "criticality":
+        2, "relatedEntities": [], "name": "Fortune cookie", "count": 29997}, {"criticalityLabel":
+        "Ports are crea", "description": "Type classes f", "categories": [{"name":
+        "French", "framework": "Erlan"}], "criticality": 4, "relatedEntities": [],
+        "name": "Cheese stuff", "count": 0}, {"criticalityLabel": "M", "description":
+        "Do you come here", "categories": [], "criticality": 0, "relatedEntities":
+        [], "name": "Macaroni an", "count": 154265369}, {"criticalityLabel": "Do you
+        ", "description": "Erlang is known for its designs ", "categories": [{"name":
+        "Chicken F", "framework": "Atoms"}], "criticality": 1, "relatedEntities":
+        [], "name": "Carne piz", "count": 411683}, {"criticalityLabel": "The syn",
+        "description": "He looked inquisitively at ", "categories": [{"name": "New
+        Yo", "framework": "Ports"}], "criticality": 1, "relatedEntities": [], "name":
+        "Geoduck", "count": 121717}, {"criticalityLabel": "Atoms are ", "description":
+        "Haskell is a stand", "categories": [{"name": "Veggie", "framework": "Erlan"}],
+        "criticality": 2, "relatedEntities": [], "name": "Seafoo", "count": 0}, {"criticalityLabel":
+        "Ports a", "description": "The Galactic Empire is nearing completion o", "categories":
+        [{"name": "Waffle", "framework": "Erlan"}, {"name": "Spring Ro", "framework":
+        "Haske"}], "criticality": 1, "relatedEntities": [], "name": "Ice Cream Sundae",
+        "count": 72995358}, {"criticalityLabel": "Do you ", "description": "It is
+        also a garbage-collect", "categories": [{"name": "Chicke", "framework": "Messa"}],
+        "criticality": 1, "relatedEntities": [], "name": "Chicken fingers", "count":
+        344935}, {"criticalityLabel": "Initial", "description": "Do you come here
+        often?", "categories": [{"name": "Haystack", "framework": "Tuple"}, {"name":
+        "Yeung", "framework": "Do yo"}, {"name": "Stuffed p", "framework": "Haske"}],
+        "criticality": 1, "relatedEntities": [], "name": "Oysters Rockefel", "count":
+        100302213}]}}'
+    headers:
+      CF-RAY:
+      - 9cd37f6afded696e-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:03:45 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01f9xb16z7nq971v5hj4jknhni92015692.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

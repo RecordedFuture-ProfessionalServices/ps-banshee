@@ -1,0 +1,131 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/search?limit=5&fields=entity%2CfileHashes%2ChashAlgorithm%2CintelCard%2Crisk%2Ctimestamps
+  response:
+    body:
+      string: '{"data": {"results": [{"hashAlgorithm": "They ar", "timestamps": {"lastSeen":
+        "2026-03-28T13:33:29.873Z", "firstSeen": "2026-09-27T09:57:16.816Z"}, "intelCard":
+        "https://amended.travel/", "entity": {"id": "hash:3ccd1e03f250ade2f3b0c1e7762f6069c66c8393749bc4e83f259301e64a82c4",
+        "name": "Baklava", "type": "Hash"}, "risk": {"criticalityLabel": "I don''t
+        e", "riskString": "Port", "rules": 1, "criticality": 3, "riskSummary": "Messages
+        can be sent to and received f", "score": 89, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "Any element of a tuple can be accessed in constant
+        time.", "rule": "Erlang is known for its ", "criticality": 3, "timestamp":
+        "2026-08-16T06:58:07.003Z", "criticalityLabel": "Initially"}]}, "fileHashes":
+        ["The Galactic Empire is nearing c", "The sequential subset of Erlang supports
+        eager evaluation, singl", "Type classes first appeared in the Haske"]}, {"hashAlgorithm":
+        "Do you ", "timestamps": {"lastSeen": "2026-08-07T07:23:07.680Z", "firstSeen":
+        "2026-01-31T16:43:25.918Z"}, "intelCard": "https://wolf.education/", "entity":
+        {"id": "hash:6ca7444c61f1ad6c9c20280784d0704d283abc9e6c7d15083423c991c012db63",
+        "name": "Drunken chicken", "type": "Hash"}, "risk": {"criticalityLabel": "Any
+        eleme", "riskString": "Do y", "rules": 2, "criticality": 3, "riskSummary":
+        "In 1989 the building was heavily damag", "score": 89, "evidenceDetails":
+        [{"mitigationString": "", "evidenceString": "Where are my pants?", "rule":
+        "Erlang is known f", "criticality": 2, "timestamp": "2026-10-06T07:54:57.666Z",
+        "criticalityLabel": "Erlang is "}, {"mitigationString": "", "evidenceString":
+        "Ports are created with the built-in function open_port.", "rule": "She spent
+        her earliest y", "criticality": 3, "timestamp": "2026-03-30T10:14:35.285Z",
+        "criticalityLabel": "Do you co"}]}, "fileHashes": ["Tuples are containers
+        for a fixe", "She spent her earliest years reading classic literature, and
+        wri", "Where are my pants?"]}, {"hashAlgorithm": "In 1989", "timestamps":
+        {"lastSeen": "2026-11-17T09:36:52.009Z", "firstSeen": "2026-09-23T17:25:33.497Z"},
+        "intelCard": "https://payroll.name/", "entity": {"id": "hash:03d46db0dbec7471d78808fbcd1c2c8e6e0d8e00aca0f1df9725a38996a5320a",
+        "name": "Frito Pie", "type": "Hash"}, "risk": {"criticalityLabel": "Its main
+        ", "riskString": "Init", "rules": 2, "criticality": 3, "riskSummary": "Ports
+        are used to communicate with the", "score": 89, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "Where are my pants?", "rule": "It is also a garb",
+        "criticality": 2, "timestamp": "2026-07-28T23:44:24.408Z", "criticalityLabel":
+        "He looked "}, {"mitigationString": "", "evidenceString": "Initially composing
+        light-hearted and irreverent works, he also wrote serious, sombre and religious
+        pieces beginning in the 1930s.", "rule": "The Galactic Empire is n", "criticality":
+        3, "timestamp": "2026-11-30T07:01:44.373Z", "criticalityLabel": "The seque"}]},
+        "fileHashes": ["She spent her earliest years reading classic literature, and
+        writing poetry.", "They are written as strings of consecutive alphanumeric
+        characte", "The sequential subset of Erlang supports", "Do you come here often?",
+        "Initially composing light-hearted and ir"]}, {"hashAlgorithm": "Its mai",
+        "timestamps": {"lastSeen": "2026-08-24T00:10:10.775Z", "firstSeen": "2026-10-30T12:05:11.160Z"},
+        "intelCard": "https://newer.jobs/", "entity": {"id": "hash:b85b64eb1d619c0980ab239dc532417efa7a4a8a5d856ccdd58be84b4b12910d",
+        "name": "Protein bar", "type": "Hash"}, "risk": {"criticalityLabel": "Initially",
+        "riskString": "The ", "rules": 2, "criticality": 3, "riskSummary": "Initially
+        composing light-hearted and ", "score": 89, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "He looked inquisitively at his keyboard and wrote another
+        sentence.", "rule": "Atoms can contain", "criticality": 2, "timestamp": "2026-10-07T09:49:29.793Z",
+        "criticalityLabel": "Initially "}, {"mitigationString": "", "evidenceString":
+        "Haskell features a type system with type inference and lazy evaluation.",
+        "rule": "Erlang is known for its ", "criticality": 3, "timestamp": "2026-05-05T08:54:57.384Z",
+        "criticalityLabel": "He looked"}]}, "fileHashes": ["Atoms can contain any
+        character ", "In 1989 the building was heavily damaged by fire, but it has
+        sin", "Atoms are used within a program to denot"]}, {"hashAlgorithm": "Its
+        mai", "timestamps": {"lastSeen": "2026-11-19T15:46:41.144Z", "firstSeen":
+        "2026-06-01T18:08:31.724Z"}, "intelCard": "https://ended.name/", "entity":
+        {"id": "hash:644f7cfbfaa5b44a6b1f28a7fc74b3e582b59dfc9cd498a7833946e8c993d080",
+        "name": "Carolina style", "type": "Hash"}, "risk": {"criticalityLabel": "Tuples
+        ar", "riskString": "Port", "rules": 2, "criticality": 3, "riskSummary": "Atoms
+        are used within a program to den", "score": 89, "evidenceDetails": [{"mitigationString":
+        "", "evidenceString": "Ports are used to communicate with the external world.",
+        "rule": "Haskell is a stan", "criticality": 2, "timestamp": "2026-09-12T09:36:25.507Z",
+        "criticalityLabel": "They are w"}, {"mitigationString": "", "evidenceString":
+        "Erlang is a general-purpose, concurrent, functional programming language.",
+        "rule": "Atoms can contain any ch", "criticality": 3, "timestamp": "2026-03-17T14:28:26.494Z",
+        "criticalityLabel": "The Galac"}]}, "fileHashes": ["The sequential subset
+        of Erlang supports", "Make me a sandwich.", "Messages can be sent to and received
+        fro", "Atoms can contain any character ", "Where are my pants?", "Make me
+        a sandwich."]}]}, "counts": {"returned": 5, "total": 3139081564}}'
+    headers:
+      CF-RAY:
+      - 9cd38421c86a944b-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:07:08 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0r8o0n4busmutyapn9eol4bjh2011063.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

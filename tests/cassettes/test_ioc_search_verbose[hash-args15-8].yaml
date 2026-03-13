@@ -1,0 +1,145 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v2/hash/search?limit=5&fields=analystNotes%2Centity%2CfileHashes%2ChashAlgorithm%2CintelCard%2Clinks%2Crisk%2Ctimestamps
+  response:
+    body:
+      string: '{"data": {"results": [{"timestamps": {"lastSeen": "2026-11-26T14:36:51.000Z",
+        "firstSeen": "2026-08-24T11:35:43.975Z"}, "entity": {"id": "hash:366f511f1f53c049c0a539471225923629fd7eb69e1820796b8a95ff6b814d35",
+        "name": "Pickled cucumber", "type": "Hash"}, "analystNotes": [], "hashAlgorithm":
+        "The Gal", "risk": {"criticalityLabel": "Atoms are", "riskString": "The ",
+        "rules": 1, "criticality": 3, "riskSummary": "The syntax {D1,D2,...,Dn} denotes
+        a tu", "score": 89, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "In 1989 the building was heavily damaged by fire, but it has since been restored.",
+        "rule": "Initially composing ligh", "criticality": 3, "timestamp": "2026-11-07T07:32:46.874Z",
+        "criticalityLabel": "Ports are"}]}, "fileHashes": ["Where are my pants?",
+        "Atoms are used within a program to denote distinguished values.", "Atoms
+        can contain any character if they "], "intelCard": "https://clip.miami/",
+        "links": {"hits": [], "method_aggregates": [{"count": 0, "type": "hHQyM6"},
+        {"count": 0, "type": "hHQyM7"}, {"count": 0, "type": "gTB8y2"}], "counts":
+        []}}, {"timestamps": {"lastSeen": "2026-09-12T04:49:15.340Z", "firstSeen":
+        "2026-04-15T15:56:34.972Z"}, "entity": {"id": "hash:5543e242980760e24de003d375f4dbdbd1c498239380ae79e18f14d1ced33bee",
+        "name": "Veggie Pizza", "type": "Hash"}, "analystNotes": [], "hashAlgorithm":
+        "The Gal", "risk": {"criticalityLabel": "The Galac", "riskString": "In 1",
+        "rules": 2, "criticality": 3, "riskSummary": "Any element of a tuple can be
+        accessed", "score": 89, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "Type classes first appeared in the Haskell programming language.", "rule":
+        "Tuples are contai", "criticality": 2, "timestamp": "2026-09-21T08:07:34.744Z",
+        "criticalityLabel": "Tuples are"}, {"mitigationString": "", "evidenceString":
+        "Messages can be sent to and received from ports, but these messages must
+        obey the so-called \"port protocol.\"", "rule": "He looked inquisitively ",
+        "criticality": 3, "timestamp": "2026-04-19T00:55:12.848Z", "criticalityLabel":
+        "Any eleme"}]}, "fileHashes": ["Initially composing light-hearte", "Atoms
+        can contain any character if they are enclosed within sing", "In 1989 the
+        building was heavily damaged"], "intelCard": "https://strategy.mil/", "links":
+        {"hits": [], "method_aggregates": [{"count": 0, "type": "hHQyM6"}, {"count":
+        0, "type": "hHQyM7"}, {"count": 0, "type": "gTB8y2"}], "counts": []}}, {"timestamps":
+        {"lastSeen": "2026-04-12T10:12:52.980Z", "firstSeen": "2026-12-24T23:39:49.910Z"},
+        "entity": {"id": "hash:829a78367774c4dde5ceb6eb86b64055db82cbd9d5040a31e7ba9867a492daf9",
+        "name": "Creamed eggs on toast", "type": "Hash"}, "analystNotes": [], "hashAlgorithm":
+        "The Gal", "risk": {"criticalityLabel": "Any eleme", "riskString": "Mess",
+        "rules": 2, "criticality": 3, "riskSummary": "Ports are created with the built-in
+        fu", "score": 89, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "Haskell features a type system with type inference and lazy evaluation.",
+        "rule": "Ports are created", "criticality": 2, "timestamp": "2026-05-23T11:04:32.830Z",
+        "criticalityLabel": "Messages c"}, {"mitigationString": "", "evidenceString":
+        "They are written as strings of consecutive alphanumeric characters, the first
+        character being lowercase.", "rule": "Erlang is a general-purp", "criticality":
+        3, "timestamp": "2026-05-08T23:25:37.708Z", "criticalityLabel": "Atoms are"}]},
+        "fileHashes": ["She spent her earliest years reading classic literature, and
+        writing poetry.", "Erlang is known for its designs that are well suited for
+        systems", "Erlang is a general-purpose, concurrent,", "Atoms are used within
+        a program ", "Do you come here often?"], "intelCard": "https://textbook.dot/",
+        "links": {"hits": [], "method_aggregates": [{"count": 0, "type": "hHQyM6"},
+        {"count": 0, "type": "hHQyM7"}, {"count": 0, "type": "gTB8y2"}], "counts":
+        []}}, {"timestamps": {"lastSeen": "2026-09-29T12:10:00.668Z", "firstSeen":
+        "2026-09-21T16:26:23.927Z"}, "entity": {"id": "hash:734f16a0b3e92f561fbf235c7c3b21cb763fa03f9961443c5287772ffa801cdf",
+        "name": "Crab Rangoon", "type": "Hash"}, "analystNotes": [], "hashAlgorithm":
+        "In 1989", "risk": {"criticalityLabel": "The Galac", "riskString": "They",
+        "rules": 2, "criticality": 3, "riskSummary": "Erlang is a general-purpose,
+        concurren", "score": 89, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "The arguments can be primitive data types or compound data types.", "rule":
+        "Tuples are contai", "criticality": 2, "timestamp": "2026-12-24T15:41:19.970Z",
+        "criticalityLabel": "Its main i"}, {"mitigationString": "", "evidenceString":
+        "Atoms are used within a program to denote distinguished values.", "rule":
+        "Tuples are containers fo", "criticality": 3, "timestamp": "2026-07-25T13:46:54.082Z",
+        "criticalityLabel": "The seque"}]}, "fileHashes": ["Atoms are used within
+        a program ", "It is also a garbage-collected runtime system.", "Ports are
+        created with the built-in func"], "intelCard": "https://stolen.frl/", "links":
+        {"hits": [], "method_aggregates": [{"count": 0, "type": "hHQyM6"}, {"count":
+        0, "type": "hHQyM7"}, {"count": 0, "type": "gTB8y2"}], "counts": []}}, {"timestamps":
+        {"lastSeen": "2026-08-09T15:57:05.579Z", "firstSeen": "2026-01-02T06:05:11.511Z"},
+        "entity": {"id": "hash:82e6b8438da3dae2e24c8d3a988fa2a3ea9723f6236997b06ab4eebe5eb837f9",
+        "name": "White chocolate cookie", "type": "Hash"}, "analystNotes": [], "hashAlgorithm":
+        "Initial", "risk": {"criticalityLabel": "She spent", "riskString": "The ",
+        "rules": 2, "criticality": 3, "riskSummary": "It is also a garbage-collected
+        runtime", "score": 89, "evidenceDetails": [{"mitigationString": "", "evidenceString":
+        "It is also a garbage-collected runtime system.", "rule": "Type classes firs",
+        "criticality": 2, "timestamp": "2026-08-12T00:41:24.736Z", "criticalityLabel":
+        "Atoms can "}, {"mitigationString": "", "evidenceString": "Do you come here
+        often?", "rule": "Type classes first appea", "criticality": 3, "timestamp":
+        "2026-11-22T10:18:00.096Z", "criticalityLabel": "Tuples ar"}]}, "fileHashes":
+        ["Atoms are used within a program to denot", "Haskell features a type system
+        with type inference and lazy evaluation.", "They are written as strings of
+        consecuti", "It is also a garbage-collected r", "It is also a garbage-collected
+        runtime system.", "Do you come here often?"], "intelCard": "https://victorian.mov/",
+        "links": {"hits": [], "method_aggregates": [{"count": 0, "type": "hHQyM6"},
+        {"count": 0, "type": "hHQyM7"}, {"count": 0, "type": "gTB8y2"}], "counts":
+        []}}]}, "counts": {"returned": 5, "total": 3139081820}}'
+    headers:
+      CF-RAY:
+      - 9cd3845edd10769d-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Feb 2026 10:07:16 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node01f5ii73d00iao7zajoo2c9czu2012861.node0; Path=/rfq; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

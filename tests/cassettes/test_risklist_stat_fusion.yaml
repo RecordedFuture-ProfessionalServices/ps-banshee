@@ -1,0 +1,47 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: HEAD
+    uri: https://api.recordedfuture.com/fusion/v3/files/%2Fpublic%2Fprevent%2Fc2_communicating_ips_list.csv
+  response:
+    body:
+      string: ''
+    headers:
+      CF-RAY:
+      - 9cd390b9abb9a49a-LHR
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Date:
+      - Fri, 13 Feb 2026 10:15:34 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      cf-cache-status:
+      - DYNAMIC
+      content-disposition:
+      - attachment; filename="c2_communicating_ips_list.csv"
+      etag:
+      - c1b3f0d7220a21fdada5c27d8070255f1dde8f4dbb69c07ee83470ccfafd6907
+      last-modified:
+      - Thu, 12 Feb 2026 17:15:01 GMT
+    status:
+      code: 200
+      message: OK
+version: 1

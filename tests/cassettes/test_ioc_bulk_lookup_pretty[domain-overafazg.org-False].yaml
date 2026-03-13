@@ -1,0 +1,86 @@
+interactions:
+- request:
+    body: '{"domain": ["overafazg.org"]}'
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '29'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
+        platform_id unknown
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: POST
+    uri: https://api.recordedfuture.com/soar/v3/enrichment
+  response:
+    body:
+      string: '{"data": {"results": [{"risk": {"context": {"phishing": {"summary":
+        [], "rule": {"maxCount": 0}, "score": 0.0, "mostCriticalRule": ""}, "malware":
+        {"summary": [], "rule": {"maxCount": 0}, "score": 0.0, "mostCriticalRule":
+        ""}, "public": {"summary": [], "rule": {"maxCount": 0}, "score": 24.0, "mostCriticalRule":
+        ""}, "c2": {"summary": [], "rule": {"maxCount": 0}, "score": 0.0, "mostCriticalRule":
+        ""}}, "rule": {"count": 5, "mostCritical": "Greek salad", "maxCount": 52,
+        "evidence": {"malwareSiteDetected": {"count": 2, "timestamp": "2021-01-27T00:00:00.000Z",
+        "description": "Coleslaw", "rule": "Hawaiian haystack", "sightings": 15, "mitigation":
+        "", "level": 1}, "phishingSiteSuspected": {"count": 1, "timestamp": "2025-06-02T04:06:11.235Z",
+        "description": "Key Lime Pie", "rule": "Steak sandwich", "sightings": 19,
+        "mitigation": "", "level": 1}, "historicalThreatListMembership": {"count":
+        2, "timestamp": "2023-03-08T18:19:54.441Z", "description": "Deviled egg",
+        "rule": "Pork and beans", "sightings": -1, "mitigation": "", "level": 1},
+        "malwareSiteSuspected": {"count": 1, "timestamp": "2021-01-27T00:00:00.000Z",
+        "description": "Pasta salad", "rule": "Salad bar", "sightings": 1, "mitigation":
+        "", "level": 1}, "defanged": {"count": 1, "timestamp": "2022-12-16T20:10:23.000Z",
+        "description": "Shish Kabob", "rule": "Creamed eggs on toast", "sightings":
+        1, "mitigation": "", "level": 1}}, "summary": [{"count": 5.0, "level": 1.0}]},
+        "score": 24, "level": 1.0}, "entity": {"id": "idn:composite.xxx", "name":
+        "request.wien", "type": "InternetDomainName"}}]}, "counts": {"returned": 1,
+        "total": 1}}'
+    headers:
+      CF-RAY:
+      - 9d702d85adf11205-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 04 Mar 2026 10:25:36 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node0sfac29g96w6kalmf74nmgbth1053591.node0; Path=/soar; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1
