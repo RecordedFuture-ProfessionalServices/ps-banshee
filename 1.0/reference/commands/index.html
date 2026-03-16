@@ -1,0 +1,3424 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../environment/">
+      
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>Commands - Banshee</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#command-line-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Banshee" class="md-header__button md-logo" aria-label="Banshee" data-md-component="logo">
+      
+  <img src="../../assets/favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Banshee
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Commands
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Banshee" class="md-nav__button md-logo" aria-label="Banshee" data-md-component="logo">
+      
+  <img src="../../assets/favicon.png" alt="logo">
+
+    </a>
+    Banshee
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+     
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../getting-started/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/first-steps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    First Steps
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting help
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Use cases
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Use cases
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/alerts/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Alert Management
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Alert Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/detection-rules/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Detection Rules
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Detection Rules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/entity/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Entity Matching
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Entity Matching
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/enrichment/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    IOC Enrichment
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            IOC Enrichment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/pcap/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Packet Capture Enrichment
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Packet Capture Enrichment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/risklists/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Risk Lists
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Risk Lists
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/watchlist/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Watchlist Management
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            Watchlist Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Commands
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Commands
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#banshee" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ca
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banshee ca">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banshee-ca-lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ca lookup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-ca-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ca search
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-ca-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ca rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-ca-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ca update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-entity" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee entity
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banshee entity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banshee-entity-lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee entity lookup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-entity-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee entity search
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-ioc" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ioc
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banshee ioc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banshee-ioc-lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ioc lookup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-ioc-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ioc search
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-ioc-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ioc rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banshee list">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-create" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list create
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list info
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list search
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list entities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list entries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-clear" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list clear
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list add
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-bulk-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list bulk-add
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-remove" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list remove
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-bulk-remove" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list bulk-remove
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-pba" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee pba
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banshee pba">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banshee-pba-lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee pba lookup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-pba-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee pba search
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-pba-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee pba update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-pcap" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee pcap
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banshee pcap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banshee-pcap-enrich" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee pcap enrich
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-risklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee risklist
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banshee risklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banshee-risklist-fetch" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee risklist fetch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-risklist-stat" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee risklist stat
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee rules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banshee rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banshee-rules-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee rules search
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Environment variables
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release History
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#banshee" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ca
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banshee ca">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banshee-ca-lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ca lookup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-ca-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ca search
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-ca-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ca rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-ca-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ca update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-entity" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee entity
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banshee entity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banshee-entity-lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee entity lookup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-entity-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee entity search
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-ioc" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ioc
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banshee ioc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banshee-ioc-lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ioc lookup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-ioc-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ioc search
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-ioc-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee ioc rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banshee list">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-create" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list create
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list info
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list search
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list entities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list entries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-clear" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list clear
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list add
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-bulk-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list bulk-add
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-remove" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list remove
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-list-bulk-remove" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee list bulk-remove
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-pba" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee pba
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banshee pba">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banshee-pba-lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee pba lookup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-pba-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee pba search
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-pba-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee pba update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-pcap" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee pcap
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banshee pcap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banshee-pcap-enrich" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee pcap enrich
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-risklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee risklist
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banshee risklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banshee-risklist-fetch" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee risklist fetch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#banshee-risklist-stat" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee risklist stat
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee rules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="banshee rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#banshee-rules-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      banshee rules search
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="command-line-reference">Command Line Reference<a class="headerlink" href="#command-line-reference" title="Permanent link">&para;</a></h1>
+<h2 id="banshee">banshee<a class="headerlink" href="#banshee" title="Permanent link">&para;</a></h2>
+<p>Banshee is a command-line tool for fast, efficient access to Recorded Future Intelligence, built for security professionals and SOC teams.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>banshee [OPTIONS] &lt;COMMAND&gt;
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Commands</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-ca"><code>banshee ca</code></a></dt><dd><p>Search, lookup and update Recorded Future Classic Alerts</p></dd>
+    <dt><a href="#banshee-entity"><code>banshee entity</code></a></dt><dd><p>Search and lookup Recorded Future entities</p></dd>
+    <dt><a href="#banshee-ioc"><code>banshee ioc</code></a></dt><dd><p>Search and lookup Indicators of Compromise (IOCs)</p></dd>
+    <dt><a href="#banshee-list"><code>banshee list</code></a></dt><dd><p>Manage Recorded Future lists and Watch lists</p></dd>
+    <dt><a href="#banshee-pba"><code>banshee pba</code></a></dt><dd><p>Search, lookup and update Recorded Future Playbook Alerts</p></dd>
+    <dt><a href="#banshee-pcap"><code>banshee pcap</code></a></dt><dd><p>Analyze packet capture (pcap) files by enriching them with Recorded Future Intelligence</p></dd>
+    <dt><a href="#banshee-risklist"><code>banshee risklist</code></a></dt><dd><p>Manage Risk Lists</p></dd>
+    <dt><a href="#banshee-rules"><code>banshee rules</code></a></dt><dd><p>Search for and download detection rules</p></dd>
+</dl>
+
+<h2 id="banshee-ca">banshee ca<a class="headerlink" href="#banshee-ca" title="Permanent link">&para;</a></h2>
+<p>Search, lookup and update Recorded Future Classic Alerts</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>banshee ca [OPTIONS] COMMAND [ARGS]...
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Commands</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-ca-lookup"><code>banshee ca lookup</code></a></dt><dd><p>Lookup a Classic Alert</p></dd>
+    <dt><a href="#banshee-ca-search"><code>banshee ca search</code></a></dt><dd><p>Search for Classic Alerts</p></dd>
+    <dt><a href="#banshee-ca-rules"><code>banshee ca rules</code></a></dt><dd><p>Search for Classic Alert rules</p></dd>
+    <dt><a href="#banshee-ca-update"><code>banshee ca update</code></a></dt><dd><p>Update one or more Classic Alert</p></dd>
+</dl>
+
+<h3 id="banshee-ca-lookup">banshee ca lookup<a class="headerlink" href="#banshee-ca-lookup" title="Permanent link">&para;</a></h3>
+<p>Lookup a Classic Alert.</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>banshee ca lookup [OPTIONS] ALERT_ID
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-ca-lookup--alert-id"><a href="#banshee-ca-lookup--alert-id"<code>ALER_ID</code></a></dt><dd><p>Alert ID to lookup</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-ca-lookup--pretty"><a href="#banshee-ca-lookup--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-ca-lookup--help"><a href="#banshee-ca-lookup--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-ca-search">banshee ca search<a class="headerlink" href="#banshee-ca-search" title="Permanent link">&para;</a></h3>
+<p>Search for Classic Alerts.</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>banshee ca search [OPTIONS]
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-ca-search--triggered"><a href="#banshee-ca-search--triggered"><code>--triggered</code>, <code>-t</code></a> <i>triggered</i></dt><dd>
+    <p>Filter on triggered time, for example: 1d; 12h; [2024-08-01, 2024-08-14]; [2024-09-23 12:03:58.000, 2024-09-23 12:03:58.567)</p>
+    <p>Defaults to 1d</p><dd></dd>
+    <dt id="banshee-ca-search--rule"><a href="#banshee-ca-search--rule"><code>--rule</code></a> <i>rule-name</i></dt><dd>
+    <p>Filter by an alert rule name (freetext)</p><dd></dd>
+    <dt id="banshee-ca-search--status"><a href="#banshee-ca-search--status"><code>--status</code></a>,  <code>-s</code> <i>alert-status</i></dt><dd>
+    <p>Filter by alert status</p>
+    <p>Possible values are: <code>New</code>, <code>Pending</code>, <code>Dismissed</code>, <code>Resolved</code></p><dd></dd>
+    <dt id="banshee-ca-search--pretty"><a href="#banshee-ca-search--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-ca-search--help"><a href="#banshee-ca-search--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-ca-rules">banshee ca rules<a class="headerlink" href="#banshee-ca-rules" title="Permanent link">&para;</a></h3>
+<p>Search for Classic Alert rules.</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>banshee ca rules [OPTIONS] [FREETEXT]
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-ca-rules--pretty"><a href="#banshee-ca-rules--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-ca-rules--help"><a href="#banshee-ca-rules--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-ca-update">banshee ca update<a class="headerlink" href="#banshee-ca-update" title="Permanent link">&para;</a></h3>
+<p>Update one or more Classic Alert</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>banshee ca update [OPTIONS] ALERT_IDS...
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-ca-update--alert-id"><a href="#banshee-ca-update--alert-id"<code>ALERT_IDS</code></a></dt><dd><p>One or more whitespace separated Alert ID</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-ca-update--status"><a href="#banshee-ca-update--status"><code>--status</code></a>,  <code>-s</code> <i>alert-status</i></dt><dd>
+    <p>Update the alert(s) to this alert status</p>
+    <p>Possible values are: <code>New</code>, <code>Pending</code>, <code>Dismissed</code>, <code>Resolved</code></p><dd></dd>
+    <dt id="banshee-ca-update--note"><a href="#banshee-ca-update--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p>Note text for the alert.</p><p>The length limit for the note is 1000 characters</p><dd></dd>
+    <dt id="banshee-ca-update--append"><a href="#banshee-ca-update--append"><code>--append</code></a>,  <code>-a</code></dt><dd>
+    <p>This flag will append the note text if the alert already has a note</p><dd></dd>
+    <dt id="banshee-ca-update--assignee"><a href="#banshee-ca-update--assignee"><code>--assignee</code></a>,  <code>-a</code> <i>assignee</i></dt><dd>
+    <p>New user to assign the alert(s) to. Accepts uhash or email address of the user, for example: uhash:3aXZxdkM12, analyst@acme.com</p><dd></dd>
+    <dt id="banshee-ca-update--help"><a href="#banshee-ca-update--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<p>Provide one or more Alert IDs (whitespace separated) and specify the desired update options:</p>
+
+<pre><code class="language-bash">
+banshee ca update <alert id> -s Dismissed
+banshee ca update <alert id> -s Dismissed -n "note text"
+banshee ca update <alert id1> <alert id2>-s Dismissed -n "note text" -a analyst@acme.com
+</code></pre>
+
+<h3 class="commands-reference">Supplying Alert IDs</h3>
+
+<h4>1. Directly as arguments (single or multiple):</h4>
+
+<pre><code class="language-bash">
+banshee ca update ALERT_ID -s Resolved
+banshee ca update ALERT_ID_1 ALERT_ID_2 -s Pending
+</code></pre>
+
+<h4>2. From a file or standard input:</h4>
+
+<p>If you have a file (e.g., <code>alerts.txt</code>) with one Alert ID per line:</p>
+
+<pre><code class="language-text">
+ALERT_ID_1
+ALERT_ID_2
+ALERT_ID_3
+</code></pre>
+
+<p>You can update all listed alerts using:</p>
+
+<pre><code class="language-bash">
+banshee ca update -s Dismissed &lt; alerts.txt
+cat alerts.txt | banshee ca update -s Dismissed
+</code></pre>
+
+<h4>3. By piping from a search command:</h4>
+
+<p>Use tools like <code>jq</code> to extract Alert IDs from search results and pipe them into the update command:</p>
+
+<pre><code class="language-bash">
+banshee ca search | jq -r '.[].id' | banshee ca update -n "Investigation started"
+</code></pre>
+
+<h3 class="commands-reference">Note Append</h3>
+
+<p>Classic Alerts support only a single note. By default, the <code>update</code> command will overwrite the existing note with the new one.
+If you wish to append a new note instead, use the <code>--append</code> (<code>-A</code>) option.</p>
+
+<h2 id="banshee-entity">banshee entity<a class="headerlink" href="#banshee-entity" title="Permanent link">&para;</a></h2>
+<p>Search and lookup Recorded Future entities</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>banshee entity [OPTIONS] COMMAND [ARGS]...
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Commands</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-entity-lookup"><code>banshee entity lookup</code></a></dt><dd><p>Lookup an entity by its ID</p></dd>
+    <dt><a href="#banshee-entity-search"><code>banshee entity search</code></a></dt><dd><p>Search entities by name and/or type</p></dd>
+</dl>
+
+<h3 id="banshee-entity-lookup">banshee entity lookup<a class="headerlink" href="#banshee-entity-lookup" title="Permanent link">&para;</a></h3>
+<p>Lookup an entity by its ID</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>banshee entity lookup [OPTIONS] ENTITY_ID
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-entity-lookup--entity-id"><a href="#banshee-entity-lookup--entity-id"<code>ENTITY_ID</code></a></dt><dd><p>Entity ID to lookup</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-entity-lookup--pretty"><a href="#banshee-entity-lookup--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-entity-lookup--help"><a href="#banshee-entity-lookup--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-entity-search">banshee entity search<a class="headerlink" href="#banshee-entity-search" title="Permanent link">&para;</a></h3>
+<p>Search for entities by name and/or type</p>
+<p>By default the command will print results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>banshee entity search [OPTIONS]
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-entity-search--type"><a href="#banshee-entity-search--type"><code>--type</code>, <code>-t</code></a> <i>entity-type</i></dt><dd>
+    <p>Entity type to search for</p>
+    <p>Can be supplied multiple times for different entity types</p>
+    <p>Supported values are:</p>
+    <ul>
+        <li><code>ASNumber</code></li>
+        <li><code>AWSAccessKey</code></li>
+        <li><code>Aircraft</code></li>
+        <li><code>Airport</code></li>
+        <li><code>AnalystNote</code></li>
+        <li><code>Anniversary</code></li>
+        <li><code>AttackVector</code></li>
+        <li><code>BankIdentificationNumber</code></li>
+        <li><code>BitcoinAddress</code></li>
+        <li><code>BusinessIdentifierCode</code></li>
+        <li><code>Case</code></li>
+        <li><code>Category</code></li>
+        <li><code>City</code></li>
+        <li><code>CodeIdentifier</code></li>
+        <li><code>Commodity</code></li>
+        <li><code>Company</code></li>
+        <li><code>ContentType</code></li>
+        <li><code>Continent</code></li>
+        <li><code>Country</code></li>
+        <li><code>Currency</code></li>
+        <li><code>CurrencyPair</code></li>
+        <li><code>CyberExploitTargetCategory</code></li>
+        <li><code>CyberSecurityCategory</code></li>
+        <li><code>CyberThreatActorCategory</code></li>
+        <li><code>CyberVulnerability</code></li>
+        <li><code>DEANumber</code></li>
+        <li><code>Dataset</code></li>
+        <li><code>DetectionRule</code></li>
+        <li><code>Document</code></li>
+        <li><code>EconomicIndicator</code></li>
+        <li><code>EmailAddress</code></li>
+        <li><code>Embassy</code></li>
+        <li><code>Emoji</code></li>
+        <li><code>EntertainmentAwardEvent</code></li>
+        <li><code>Entity</code></li>
+        <li><code>EntityAlias</code></li>
+        <li><code>EntityList</code></li>
+        <li><code>EntityRange</code></li>
+        <li><code>EntityRelation</code></li>
+        <li><code>ExternalIdentifier</code></li>
+        <li><code>Facility</code></li>
+        <li><code>FaxNumber</code></li>
+        <li><code>Feature</code></li>
+        <li><code>FileContent</code></li>
+        <li><code>FileName</code></li>
+        <li><code>FileNameExtension</code></li>
+        <li><code>FileType</code></li>
+        <li><code>GeoBoundingBox</code></li>
+        <li><code>GeoEntity</code></li>
+        <li><code>Hash</code></li>
+        <li><code>HashAlgorithm</code></li>
+        <li><code>Hashtag</code></li>
+        <li><code>Holiday</code></li>
+        <li><code>IRCNetwork</code></li>
+        <li><code>Identifier</code></li>
+        <li><code>Image</code></li>
+        <li><code>IncidentImpactCategory</code></li>
+        <li><code>Industry</code></li>
+        <li><code>IndustryTerm</code></li>
+        <li><code>IntegrationApplication</code></li>
+        <li><code>IntegrationUser</code></li>
+        <li><code>InternetDomainName</code></li>
+        <li><code>IpAddress</code></li>
+        <li><code>Keyword</code></li>
+        <li><code>Language</code></li>
+        <li><code>LinkReport</code></li>
+        <li><code>Logotype</code></li>
+        <li><code>MICR</code></li>
+        <li><code>Malware</code></li>
+        <li><code>MalwareCategory</code></li>
+        <li><code>MalwareMutex</code></li>
+        <li><code>MalwareSignature</code></li>
+        <li><code>MarketIndex</code></li>
+        <li><code>MedicalCondition</code></li>
+        <li><code>MedicalTreatment</code></li>
+        <li><code>MetaAttribute</code></li>
+        <li><code>MetaType</code></li>
+        <li><code>MilitaryBase</code></li>
+        <li><code>MilitaryExercise</code></li>
+        <li><code>MitreAttackIdentifier</code></li>
+        <li><code>Movie</code></li>
+        <li><code>MusicAlbum</code></li>
+        <li><code>MusicGroup</code></li>
+        <li><code>Nationality</code></li>
+        <li><code>NaturalFeature</code></li>
+        <li><code>Neighborhood</code></li>
+        <li><code>NetworkPort</code></li>
+        <li><code>NetworkProtocol</code></li>
+        <li><code>NumericIdentifier</code></li>
+        <li><code>OperatingSystem</code></li>
+        <li><code>Operation</code></li>
+        <li><code>OrgEntity</code></li>
+        <li><code>Organization</code></li>
+        <li><code>PaymentCardNumber</code></li>
+        <li><code>Person</code></li>
+        <li><code>PhoneNumber</code></li>
+        <li><code>Port</code></li>
+        <li><code>Position</code></li>
+        <li><code>ProductIdentifier</code></li>
+        <li><code>ProductModule</code></li>
+        <li><code>ProductModuleAddon</code></li>
+        <li><code>ProductVersion</code></li>
+        <li><code>Product</code></li>
+        <li><code>ProgrammingLanguage</code></li>
+        <li><code>ProvinceOrState</code></li>
+        <li><code>PublishedMedium</code></li>
+        <li><code>RadioProgram</code></li>
+        <li><code>RadioStation</code></li>
+        <li><code>Region</code></li>
+        <li><code>Religion</code></li>
+        <li><code>ReportEntity</code></li>
+        <li><code>ReportingEntity</code></li>
+        <li><code>RiskContext</code></li>
+        <li><code>RiskRule</code></li>
+        <li><code>Sector</code></li>
+        <li><code>SnortDetectionRule</code></li>
+        <li><code>SocialSecurityNumber</code></li>
+        <li><code>Source</code></li>
+        <li><code>SourceMediaType</code></li>
+        <li><code>SportsEvent</code></li>
+        <li><code>SportsGame</code></li>
+        <li><code>SportsLeague</code></li>
+        <li><code>TVShow</code></li>
+        <li><code>TVStation</code></li>
+        <li><code>Task</code></li>
+        <li><code>Technology</code></li>
+        <li><code>TechnologyArea</code></li>
+        <li><code>Thread</code></li>
+        <li><code>Topic</code></li>
+        <li><code>UPSTrackingNumber</code></li>
+        <li><code>URL</code></li>
+        <li><code>USPSTrackingNumber</code></li>
+        <li><code>UUID</code></li>
+        <li><code>UseCaseConfiguration</code></li>
+        <li><code>UseCaseReport</code></li>
+        <li><code>User</code></li>
+        <li><code>UserEnterprise</code></li>
+        <li><code>UserEntity</code></li>
+        <li><code>UserGroup</code></li>
+        <li><code>UserLabel</code></li>
+        <li><code>UserModuleGroup</code></li>
+        <li><code>UserModuleRoleGroup</code></li>
+        <li><code>UserOrganization</code></li>
+        <li><code>UserRole</code></li>
+        <li><code>Username</code></li>
+        <li><code>Vessel</code></li>
+        <li><code>WebMoneyID</code></li>
+        <li><code>WinRegKey</code></li>
+        <li><code>YaraDetectionRule</code></li>
+    </ul> <dd></dd>
+    <dt id="banshee-entity-search--limit"><a href="#banshee-entity-search--limit"><code>--limit</code>, <code>-l</code></a> <i>limit</i></dt><dd>
+    <p>Limit the number of results</p>
+    <p>Defaults to 5</p><dd></dd>
+    <dt id="banshee-entity-search--pretty"><a href="#banshee-entity-search--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-entity-search--help"><a href="#banshee-entity-search--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h2 id="banshee-ioc">banshee ioc<a class="headerlink" href="#banshee-ioc" title="Permanent link">&para;</a></h2>
+<p>Search and lookup Indicators of Compromise (IOCs)</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>banshee ioc [OPTIONS] COMMAND [ARGS]...
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Commands</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-ioc-lookup"><code>banshee ioc lookup</code></a></dt><dd><p>Lookup one or more IOCs</p></dd>
+    <dt><a href="#banshee-ioc-search"><code>banshee ioc search</code></a></dt><dd><p>Search for IOCs</p></dd>
+    <dt><a href="#banshee-ioc-rules"><code>banshee ioc rules</code></a></dt><dd><p>Search for IOC rules</p></dd>
+</dl>
+
+<h3 id="banshee-ioc-lookup">banshee ioc lookup<a class="headerlink" href="#banshee-ioc-lookup" title="Permanent link">&para;</a></h3>
+<p>Lookup one or more IOCs.</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>banshee ioc lookup [OPTIONS] ENTITY_TYPE IOC...
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-ioc-lookup--entity-type"><a href="#banshee-ioc-lookup--entity-type"><code>ENTITY_TYPE</code></a></dt><dd>
+    <p>Entity type to lookup</p>
+    <p>Supported values: <code>ip</code>, <code>domain</code>, <code>url</code>, <code>hash</code>, <code>vulnerability</code></p>
+    </dd>
+    <dt id="banshee-ioc-lookup--ioc"><a href="#banshee-ioc-lookup--ioc"><code>IOC</code></a></dt><dd><p>One or more whitespace separated IOC to lookup</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-ioc-lookup--ai-insights"><a href="#banshee-ioc-lookup--ai-insights"><code>--ai-insights</code></a>,  <code>-a</code></dt><dd>
+    <p>Enable AI-generated insights from Recorded Future that summarize relevant risk rules and key references.</p>
+    <p><strong>Note:</strong> Response times may be slightly longer due to AI processing.</p<dd></dd>
+    <dt id="banshee-ioc-lookup--verbosity"><a href="#banshee-ioc-lookup--verbosity"><code>--verbosity</code></a>,  <code>-v</code> <i>verbosity-level</i></dt><dd>
+    <p>Controls the amount of data returned in the response (1-5). Higher verbosity levels include additional fields and details in the JSON output.</p>
+    <p><strong>Note:</strong> Higher verbosity levels may result in slower response times due to increased data retrieval.</p>
+    <p>Defaults to 1</p>
+    <h4>Available Fields by Verbosity Level</h4>
+    <p><b>ip:</b></p>
+    <ul>
+        <li><b>1:</b> entity, risk, timestamps</li>
+        <li><b>2:</b> entity, intelCard, location, risk, timestamps</li>
+        <li><b>3:</b> analystNotes, entity, intelCard, links, location, risk, timestamps</li>
+        <li><b>4:</b> analystNotes, enterpriseLists, entity, intelCard, links, location, risk, riskMapping, sightings, threatLists, timestamps</li>
+        <li><b>5:</b> analystNotes, dnsPortCert, enterpriseLists, entity, intelCard, links, location, risk, riskMapping, scanner, sightings, threatLists, timestamps</li>
+    </ul>
+
+    <p><b>domain:</b></p>
+    <ul>
+        <li><b>1:</b> entity, risk, timestamps</li>
+        <li><b>2:</b> entity, intelCard, risk, timestamps</li>
+        <li><b>3:</b> analystNotes, entity, intelCard, links, risk, timestamps</li>
+        <li><b>4:</b> analystNotes, enterpriseLists, entity, intelCard, links, risk, riskMapping, sightings, threatLists, timestamps</li>
+        <li><b>5:</b> analystNotes, enterpriseLists, entity, intelCard, links, risk, riskMapping, sightings, threatLists, timestamps</li>
+    </ul>
+
+    <p><b>url:</b></p>
+    <ul>
+        <li><b>1:</b> entity, risk, timestamps</li>
+        <li><b>2:</b> entity, intelCard, risk, timestamps</li>
+        <li><b>3:</b> analystNotes, entity, intelCard, links, risk, timestamps</li>
+        <li><b>4:</b> analystNotes, enterpriseLists, entity, intelCard, links, risk, riskMapping, sightings, timestamps</li>
+        <li><b>5:</b> analystNotes, enterpriseLists, entity, intelCard, links, risk, riskMapping, sightings, timestamps</li>
+    </ul>
+
+    <p><b>hash:</b></p>
+    <ul>
+        <li><b>1:</b> entity, hashAlgorithm, risk, timestamps</li>
+        <li><b>2:</b> entity, fileHashes, hashAlgorithm, intelCard, risk, timestamps</li>
+        <li><b>3:</b> analystNotes, entity, fileHashes, hashAlgorithm, intelCard, links, risk, timestamps</li>
+        <li><b>4:</b> analystNotes, enterpriseLists, entity, fileHashes, hashAlgorithm, intelCard, links, risk, riskMapping, sightings, threatLists, timestamps</li>
+        <li><b>5:</b> analystNotes, enterpriseLists, entity, fileHashes, hashAlgorithm, intelCard, links, risk, riskMapping, sightings, threatLists, timestamps</li>
+    </ul>
+
+    <p><b>vulnerability:</b></p>
+    <ul>
+        <li><b>1:</b> entity, lifecycleStage, risk, timestamps</li>
+        <li><b>2:</b> entity, intelCard, lifecycleStage, risk, timestamps</li>
+        <li><b>3:</b> analystNotes, entity, intelCard, lifecycleStage, links, risk, timestamps</li>
+        <li><b>4:</b> analystNotes, cvss, cvssv3, cvssv4, enterpriseLists, entity, intelCard, lifecycleStage, links, risk, riskMapping, sightings, threatLists, timestamps</li>
+        <li><b>5:</b> analystNotes, cpe, cpe22uri, cvss, cvssv3, cvssv4, enterpriseLists, entity, intelCard, lifecycleStage, links, nvdDescription, nvdReferences, risk, riskMapping, sightings, threatLists, timestamps</li>
+    </ul>
+    </dd>
+    <dt id="banshee-ioc-lookup--pretty"><a href="#banshee-ioc-lookup--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-ioc-lookup--help"><a href="#banshee-ioc-lookup--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+<pre><code>
+banshee ioc lookup ip 139.224.189.177
+banshee ioc lookup domain overafazg.org
+banshee ioc lookup ip 8.140.135.23 -v 3
+banshee ioc lookup ip 8.140.135.23,139.224.189.177 -p
+</code></pre>
+
+<p>Pipe a comma or newline separated list of IOCs to lookup:</p>
+<pre><code>
+cat test_ips.csv| banshee ioc lookup ip -p
+</code></pre>
+
+<h3 id="banshee-ioc-search">banshee ioc search<a class="headerlink" href="#banshee-ioc-search" title="Permanent link">&para;</a></h3>
+<p>Search for Classic Alerts.</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>banshee ioc search [OPTIONS] ENTITY_TYPE
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-ioc-lookup--entity-type"><a href="#banshee-ioc-lookup--entity-type"><code>ENTITY_TYPE</code></a></dt><dd>
+    <p>Entity type to lookup</p>
+    <p>Supported values: <code>ip</code>, <code>domain</code>, <code>url</code>, <code>hash</code>, <code>vulnerability</code></p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-ioc-search--limit"><a href="#banshee-ioc-search--limit"><code>--limit</code>, <code>-l</code></a> <i>limit</i></dt><dd>
+    <p>Limit the number of results</p>
+    <p>The maximum limit is 1000</p>
+    <p>Defaults to 5</p><dd></dd>
+    <dt id="banshee-ioc-search--risk-score"><a href="#banshee-ioc-search--risk-score"><code>--risk-score</code>, <code>-r</code></a> <i>risk-score</i></dt><dd>
+    <p>Filter by risk score range, for example:</p>
+    <p>
+        <ul>
+            <li><code>--risk-score '[20,90]'</code> &rarr; same as <code>20 &lt;= riskScore &lt;= 90</code></li>
+            <li><code>--risk-score '(20,90)'</code> &rarr; same as <code>20 &lt; riskScore &lt; 90</code></li>
+            <li><code>--risk-score '[20,90)'</code> &rarr; same as <code>20 &lt;= riskScore &lt; 90</code></li>
+            <li><code>--risk-score '[20,)'</code> &rarr; same as <code>20 &lt;= riskScore</code></li>
+            <li><code>--risk-score '[,90)'</code> &rarr; same as <code>riskScore &lt; 90</code></li>
+        </ul>
+    </p>
+    <p>Surround the risk score range with quotes to ensure correct parsing</p>
+    <dd></dd>
+    <dt id="banshee-ioc-search--risk-rule"><a href="#banshee-ioc-search--risk-rule"><code>--risk-rule</code>, <code>-R</code></a> <i>rule-name</i></dt><dd>
+    <p>Filter by risk rule name</p>
+    <p>For available options refer to this <a href="https://support.recordedfuture.com/hc/en-us/articles/115000897208-Risk-Scoring-in-Recorded-Future" target="_blank">support article</a>, specifically the <b>Machine Name</b> column in the risk rules tables, or use the <a href="#banshee-ioc-rules"><code>banshee ioc rules</code></a> command</p><dd></dd>
+    <dt id="banshee-ioc-search--verbosity"><a href="#banshee-ioc-search--verbosity"><code>--verbosity</code></a>,  <code>-v</code> <i>verbosity-level</i></dt><dd>
+    <p>Controls the amount of data returned in the response (1-5). Higher verbosity levels include additional fields and details in the JSON output.</p>
+    <p><strong>Note:</strong> Higher verbosity levels may result in slower response times due to increased data retrieval.</p>
+    <p>Defaults to 1</p>
+    <h4>Available Fields by Verbosity Level</h4>
+    <p><b>ip:</b></p>
+    <ul>
+        <li><b>1:</b> entity, risk, timestamps</li>
+        <li><b>2:</b> entity, intelCard, location, risk, timestamps</li>
+        <li><b>3:</b> analystNotes, entity, intelCard, links, location, risk, timestamps</li>
+        <li><b>4:</b> analystNotes, enterpriseLists, entity, intelCard, links, location, risk, riskMapping, sightings, threatLists, timestamps</li>
+        <li><b>5:</b> analystNotes, dnsPortCert, enterpriseLists, entity, intelCard, links, location, risk, riskMapping, scanner, sightings, threatLists, timestamps</li>
+    </ul>
+
+    <p><b>domain:</b></p>
+    <ul>
+        <li><b>1:</b> entity, risk, timestamps</li>
+        <li><b>2:</b> entity, intelCard, risk, timestamps</li>
+        <li><b>3:</b> analystNotes, entity, intelCard, links, risk, timestamps</li>
+        <li><b>4:</b> analystNotes, enterpriseLists, entity, intelCard, links, risk, riskMapping, sightings, threatLists, timestamps</li>
+        <li><b>5:</b> analystNotes, enterpriseLists, entity, intelCard, links, risk, riskMapping, sightings, threatLists, timestamps</li>
+    </ul>
+
+    <p><b>url:</b></p>
+    <ul>
+        <li><b>1:</b> entity, risk, timestamps</li>
+        <li><b>2:</b> entity, intelCard, risk, timestamps</li>
+        <li><b>3:</b> analystNotes, entity, intelCard, links, risk, timestamps</li>
+        <li><b>4:</b> analystNotes, enterpriseLists, entity, intelCard, links, risk, riskMapping, sightings, timestamps</li>
+        <li><b>5:</b> analystNotes, enterpriseLists, entity, intelCard, links, risk, riskMapping, sightings, timestamps</li>
+    </ul>
+
+    <p><b>hash:</b></p>
+    <ul>
+        <li><b>1:</b> entity, hashAlgorithm, risk, timestamps</li>
+        <li><b>2:</b> entity, fileHashes, hashAlgorithm, intelCard, risk, timestamps</li>
+        <li><b>3:</b> analystNotes, entity, fileHashes, hashAlgorithm, intelCard, links, risk, timestamps</li>
+        <li><b>4:</b> analystNotes, enterpriseLists, entity, fileHashes, hashAlgorithm, intelCard, links, risk, riskMapping, sightings, threatLists, timestamps</li>
+        <li><b>5:</b> analystNotes, enterpriseLists, entity, fileHashes, hashAlgorithm, intelCard, links, risk, riskMapping, sightings, threatLists, timestamps</li>
+    </ul>
+
+    <p><b>vulnerability:</b></p>
+    <ul>
+        <li><b>1:</b> entity, lifecycleStage, risk, timestamps</li>
+        <li><b>2:</b> entity, intelCard, lifecycleStage, risk, timestamps</li>
+        <li><b>3:</b> analystNotes, entity, intelCard, lifecycleStage, links, risk, timestamps</li>
+        <li><b>4:</b> analystNotes, cvss, cvssv3, cvssv4, enterpriseLists, entity, intelCard, lifecycleStage, links, risk, riskMapping, sightings, threatLists, timestamps</li>
+        <li><b>5:</b> analystNotes, cpe, cpe22uri, cvss, cvssv3, cvssv4, enterpriseLists, entity, intelCard, lifecycleStage, links, nvdDescription, nvdReferences, risk, riskMapping, sightings, threatLists, timestamps</li>
+    </ul>
+    </dd>
+    <dt id="banshee-ioc-search--pretty"><a href="#banshee-ioc-search--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-ioc-search--help"><a href="#banshee-ioc-search--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-ioc-rules">banshee ioc rules<a class="headerlink" href="#banshee-ioc-rules" title="Permanent link">&para;</a></h3>
+<p>Search for IOC rules for a given entity type.</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>banshee ioc rules [OPTIONS] ENTITY_TYPE
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-ioc-rules--entity-type"><a href="#banshee-ioc-rules--entity-type"><code>ENTITY_TYPE</code></a></dt><dd>
+    <p>Entity type of the IOC rules</p>
+    <p>Supported values: <code>ip</code>, <code>domain</code>, <code>url</code>, <code>hash</code>, <code>vulnerability</code></p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-ioc-rules--freetext"><a href="#banshee-ioc-rules--freetext"><code>--freetext</code>, <code>-F</code></a> <i>freetext-rule-name</i></dt><dd>
+    <p>Filter by risk rule name using freetext search</p><dd></dd>
+    <dt id="banshee-ioc-rules--mitre"><a href="#banshee-ioc-rules--mitre"><code>--mitre-code</code>, <code>-M</code></a> <i>mitre-code</i></dt><dd>
+    <p>Filter by MITRE ATT&CK code</p><dd></dd>
+    <dt id="banshee-ioc-rules--criticality"><a href="#banshee-ioc-rules--criticality"><code>--criticality</code>, <code>-C</code></a> <i>criticality</i></dt><dd>
+    <p>Filter by criticality. Higher the value, higher the criticality</p>
+    <p>Accepted values are from 1 to 5</p>
+    <p><strong>Criticality Levels (IP, Domain, URL, Hash)</strong></p>
+    <ul>
+        <li><code>4</code> – Very Malicious (Risk Score band: 90–99)</li>
+        <li><code>3</code> – Malicious (Risk Score band: 65–89)</li>
+        <li><code>2</code> – Suspicious (Risk Score band: 25–64)</li>
+        <li><code>1</code> – Unusual (Risk Score band: 5–24)</li>
+        <li><code>0</code> – No evidence of risk (Risk Score band: 0)</li>
+    </ul>
+    <p><strong>Criticality Levels (Vulnerability)</strong></p>
+    <ul>
+        <li><code>5</code> – Very Critical (Risk Score band: 90–99)</li>
+        <li><code>4</code> – Critical (Risk Score band: 80–89)</li>
+        <li><code>3</code> – High (Risk Score band: 65–79)</li>
+        <li><code>2</code> – Medium (Risk Score band: 25–64)</li>
+        <li><code>1</code> – Low (Risk Score band: 5–24)</li>
+        <li><code>0</code> – No evidence of risk (Risk Score band: 0)</li>
+    </ul>
+    <dd></dd>
+    <dt id="banshee-ioc-rules--pretty"><a href="#banshee-ioc-rules--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-ioc-rules--help"><a href="#banshee-ioc-rules--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h2 id="banshee-list">banshee list<a class="headerlink" href="#banshee-list" title="Permanent link">&para;</a></h2>
+<p>Manage Recorded Future lists and Watch lists</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>banshee list [OPTIONS] COMMAND [ARGS]...
+</code></pre></div></td></tr></table></div>
+<dl class="commands-reference">
+    <dt><a href="#banshee-list-create"><code>banshee list create</code></a></dt><dd><p>Create a new list</p></dd>
+    <dt><a href="#banshee-list-info"><code>banshee list info</code></a></dt><dd><p>Get basic information about a list</p></dd>
+    <dt><a href="#banshee-list-search"><code>banshee list search</code></a></dt><dd><p>Search for lists</p></dd>
+    <dt><a href="#banshee-list-status"><code>banshee list status</code></a></dt><dd><p>Get the status of a list</p></dd>
+    <dt><a href="#banshee-list-entities"><code>banshee list entities</code></a></dt><dd><p>Get the entities in a list</p></dd>
+    <dt><a href="#banshee-list-add"><code>banshee list add</code></a></dt><dd><p>Add an entity to a list</p></dd>
+    <dt><a href="#banshee-list-bulk-add"><code>banshee list bulk-add</code></a></dt><dd><p>Bulk add entities to a list</p></dd>
+    <dt><a href="#banshee-list-remove"><code>banshee list remove</code></a></dt><dd><p>Remove an entity from a list</p></dd>
+    <dt><a href="#banshee-list-bulk-remove"><code>banshee list bulk-remove</code></a></dt><dd><p>Bulk remove entities from a list</p></dd>
+    <dt><a href="#banshee-list-clear"><code>banshee list clear</code></a></dt><dd><p>Clear all entities from a list</p></dd>
+    <dt><a href="#banshee-list-entries"><code>banshee list entries</code></a></dt><dd><p>Get text entries from a list</p></dd>
+</dl>
+
+<h3 id="banshee-list-create">banshee list create<a class="headerlink" href="#banshee-list-create" title="Permanent link">&para;</a></h3>
+<p>Create a new list.</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>banshee list create [OPTIONS] NAME [LIST_TYPE]
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-lookup--alert-id"><a href="#banshee-list-lookup--alert-id"<code>NAME</code></a></dt><dd><p>List name to create</p></dd>
+    <dt id="banshee-list-lookup--alert-id"><a href="#banshee-list-lookup--alert-id"<code>LIST_TYPE</code></a></dt><dd><p>List type to create</p>
+    <p>Supported types are:</p>
+    <ul>
+        <li><code>entity</code></li>
+        <li><code>source</code></li>
+        <li><code>text</code></li>
+    </ul>
+    <p>Defaults to <code>entity</code></p>
+    </dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-lookup--pretty"><a href="#banshee-list-lookup--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-list-lookup--help"><a href="#banshee-list-lookup--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-list-info">banshee list info<a class="headerlink" href="#banshee-list-info" title="Permanent link">&para;</a></h3>
+<p>Get information about a list, such as name, type, timestamps and owner details.</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>banshee list info [OPTIONS] LIST_ID
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-info--list-id"><a href="#banshee-list-info--list-id"><code>LIST_ID</code></a></dt><dd>
+    <p>List ID to get information about</p>
+    <p>List ID can be supplied with and without the '<strong>report:</strong>' prefix</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-list-search">banshee list search<a class="headerlink" href="#banshee-list-search" title="Permanent link">&para;</a></h3>
+<p>Search for lists</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>banshee list search [OPTIONS] LIST_ID
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-search--name"><a href="#banshee-list-search--name"><code>NAME</code></a></dt><dd>
+    <p>List name to search for</p>
+    <p>Not specifying a name will return all lists</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-search--list-type"><a href="#banshee-list-search--list-type"><code>--list-type</code>, <code>-t</code></a> <i>list-type</i></dt><dd>
+    <p>Filter by list type</p>
+    <p>Supported types:</p>
+    <p>
+    <ul>
+        <li><code>entity</code></li>
+        <li><code>source</code></li>
+        <li><code>text</code></li>
+        <li><code>custom</code></li>
+        <li><code>ip</code></li>
+        <li><code>domain</code></li>
+        <li><code>tech_stack</code></li>
+        <li><code>industry</code></li>
+        <li><code>brand</code></li>
+        <li><code>partner</code></li>
+        <li><code>industry_peer</code></li>
+        <li><code>location</code></li>
+        <li><code>supplier</code></li>
+        <li><code>vulnerability</code></li>
+        <li><code>company</code></li>
+        <li><code>hash</code></li>
+        <li><code>operation</code></li>
+        <li><code>attacker</code></li>
+        <li><code>target</code></li>
+        <li><code>method</code></li>
+        <li><code>executive</code></li>
+    </ul>
+    </p><dd></dd>
+    <dt id="banshee-list-search--limit"><a href="#banshee-list-search--limit"><code>--limit</code>, <code>-l</code></a> <i>limit</i></dt><dd>
+    <p>Limit the number of results</p>
+    <p>Defaults to 10</p><dd></dd>
+    <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-list-status">banshee list status<a class="headerlink" href="#banshee-list-status" title="Permanent link">&para;</a></h3>
+<p>Get list status and number of entities.</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>banshee list status [OPTIONS] LIST_ID
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-info--list-id"><a href="#banshee-list-info--list-id"><code>LIST_ID</code></a></dt><dd>
+    <p>List ID to get the status of</p>
+    <p>List ID can be supplied with and without the '<strong>report:</strong>' prefix</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-list-entities">banshee list entities<a class="headerlink" href="#banshee-list-entities" title="Permanent link">&para;</a></h3>
+<p>Get entities on the list</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>banshee list entities [OPTIONS] LIST_ID
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-info--list-id"><a href="#banshee-list-info--list-id"><code>LIST_ID</code></a></dt><dd>
+    <p>List ID to fetch entities from</p>
+    <p>List ID can be supplied with and without the '<strong>report:</strong>' prefix</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-list-entries">banshee list entries<a class="headerlink" href="#banshee-list-entries" title="Permanent link">&para;</a></h3>
+<p>Get text entries on the list</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>banshee list entries [OPTIONS] LIST_ID
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-info--list-id"><a href="#banshee-list-info--list-id"><code>LIST_ID</code></a></dt><dd>
+    <p>List ID to fetch text entries from</p>
+    <p>List ID can be supplied with and without the '<strong>report:</strong>' prefix</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-list-clear">banshee list clear<a class="headerlink" href="#banshee-list-clear" title="Permanent link">&para;</a></h3>
+<p>Fully clear the list and remove all entities. Please note this command will not clear text entries and is not supported.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a>banshee list clear [OPTIONS] LIST_ID
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-info--list-id"><a href="#banshee-list-info--list-id"><code>LIST_ID</code></a></dt><dd>
+    <p>List ID to clear</p>
+    <p>List ID can be supplied with and without the '<strong>report:</strong>' prefix</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-list-add">banshee list add<a class="headerlink" href="#banshee-list-add" title="Permanent link">&para;</a></h3>
+<p>Add an entity to the list.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>banshee list add [OPTIONS] LIST_ID ENTITY_ID [PROPERTIES]
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-add--list-id"><a href="#banshee-list-add--list-id"><code>LIST_ID</code></a></dt><dd>
+    <p>List ID to add to</p>
+    <p>List ID can be supplied with and without the '<strong>report:</strong>' prefix</p></dd>
+    <dt id="banshee-list-add--entity-id"><a href="#banshee-list-add--entity-id"><code>ENTITY_ID</code></a></dt><dd>
+    <p>Entity ID or name with type to add to the list, for example:</p> 
+    <ul>
+        <li>SoA6SP</li>
+        <li>wannacry,malware</li>
+        <li>www.duckdns.org,InternetDomainName</li>
+    </ul></dd>
+    <dt id="banshee-list-add--properties"><a href="#banshee-list-add--properties"><code>PROPERTIES</code></a></dt><dd>
+    <p>Optional properties to set on the entity</p>
+    <p>Properties can be supplied as key=value pairs, for example: type=malware,cool=beans,another=value</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-add--help"><a href="#banshee-list-add--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-list-bulk-add">banshee list bulk-add<a class="headerlink" href="#banshee-list-bulk-add" title="Permanent link">&para;</a></h3>
+<p>Add multiple entities to a list</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a>banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-bulk-add--list-id"><a href="#banshee-list-bulk-add--list-id"><code>LIST_ID</code></a></dt><dd>
+    <p>List ID to add to</p>
+    <p>List ID can be supplied with and without the '<strong>report:</strong>' prefix</p></dd>
+    <dt id="banshee-list-bulk-add--entity-id"><a href="#banshee-list-bulk-add--entity-id"><code>ENTITY_ID</code></a></dt><dd>
+    <p>One or more space/newline separated entities, for example:</p> 
+    <ul>
+        <li>SoA6SP</li>
+        <li>wannacry,malware</li>
+        <li>www.duckdns.org,InternetDomainName</li>
+    </ul>
+    <p>The command also accepts input from stdin. Assume 'entities.txt' is a newline separated file of entities, for example:</p>
+    <pre><code>
+    $ cat entities.txt
+    verifyaccount.otzo.com,InternetDomainName
+    92.38.178.133,IpAddress
+    https://constructorachg.cl/eFSLb6eV/j.html,URL
+    CVE-2019-1215,CyberVulnerability
+    e3f236e4aeb73f8f8f0caebe46f53abbb2f71fa4b266a34ab50e01933709e877,Hash
+    SoA6SP
+    lYNvCK
+    </code></pre>
+    <p>Considering the above you could then run one of the following commands to bulk add the entities:</p>
+    <pre><code>
+    $ banshee list bulk-add LIST_ID < entities.txt
+    $ cat entities.txt | banshee list bulk-add LIST_ID
+    </code></pre></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-bulk-add--help"><a href="#banshee-list-bulk-add--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-list-remove">banshee list remove<a class="headerlink" href="#banshee-list-remove" title="Permanent link">&para;</a></h3>
+<p>Remove an entity from the list.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a>banshee list remove [OPTIONS] LIST_ID ENTITY_ID
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-remove--list-id"><a href="#banshee-list-remove--list-id"><code>LIST_ID</code></a></dt><dd>
+    <p>List ID to remove from</p>
+    <p>List ID can be supplied with and without the '<strong>report:</strong>' prefix</p></dd>
+    <dt id="banshee-list-remove--entity-id"><a href="#banshee-list-remove--entity-id"><code>ENTITY_ID</code></a></dt><dd>
+    <p>Entity ID to remove from the list</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-remove--help"><a href="#banshee-list-remove--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-list-bulk-remove">banshee list bulk-remove<a class="headerlink" href="#banshee-list-bulk-remove" title="Permanent link">&para;</a></h3>
+<p>Remove multiple entities from a list</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a>banshee list bulk-remove [OPTIONS] LIST_ID ENTITY_INPUT...
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-bulk-remove--list-id"><a href="#banshee-list-bulk-remove--list-id"><code>LIST_ID</code></a></dt><dd>
+    <p>List ID to remove from</p>
+    <p>List ID can be supplied with and without the '<strong>report:</strong>' prefix</p></dd>
+    <dt id="banshee-list-bulk-remove--entity-id"><a href="#banshee-list-bulk-remove--entity-id"><code>ENTITY_ID</code></a></dt><dd>
+    <p>One or more space/newline separated entities, for example:</p> 
+    <ul>
+        <li>SoA6SP</li>
+        <li>wannacry,malware</li>
+        <li>www.duckdns.org,InternetDomainName</li>
+    </ul>
+    <p>The command also accepts input from stdin. Assume 'entities.txt' is a newline separated file of entities, for example:</p>
+    <pre><code>
+    $ cat entities.txt
+    verifyaccount.otzo.com,InternetDomainName
+    92.38.178.133,IpAddress
+    https://constructorachg.cl/eFSLb6eV/j.html,URL
+    CVE-2019-1215,CyberVulnerability
+    e3f236e4aeb73f8f8f0caebe46f53abbb2f71fa4b266a34ab50e01933709e877,Hash
+    SoA6SP
+    lYNvCK
+    </code></pre>
+    <p>Considering the above you could then run one of the following commands to bulk remove the entities:</p>
+    <pre><code>
+    $ banshee list bulk-remove LIST_ID < entities.txt
+    $ cat entities.txt | banshee list bulk-remove LIST_ID
+    </code></pre></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-bulk-remove--help"><a href="#banshee-list-bulk-remove--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h2 id="banshee-pba">banshee pba<a class="headerlink" href="#banshee-pba" title="Permanent link">&para;</a></h2>
+<p>Search, lookup and update Recorded Future Playbook Alerts</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a>banshee pba [OPTIONS] COMMAND [ARGS]...
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Commands</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-pba-lookup"><code>banshee pba lookup</code></a></dt><dd><p>Lookup a Playook Alert</p></dd>
+    <dt><a href="#banshee-pba-search"><code>banshee pba search</code></a></dt><dd><p>Search for Playook Alerts</p></dd>
+    <dt><a href="#banshee-pba-update"><code>banshee pba update</code></a></dt><dd><p>Update one or more Playook Alert</p></dd>
+</dl>
+
+<h3 id="banshee-pba-lookup">banshee pba lookup<a class="headerlink" href="#banshee-pba-lookup" title="Permanent link">&para;</a></h3>
+<p>Lookup a Playook Alert.</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a>banshee pba lookup [OPTIONS] ALERT_ID
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-pba-lookup--alert-id"><a href="#banshee-pba-lookup--alert-id"<code>ALER_ID</code></a></dt><dd><p>Alert ID to lookup</p>
+    <p>Alert ID can be supplied with and without the '<strong>task:</strong>' prefix</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-pba-lookup--pretty"><a href="#banshee-pba-lookup--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-pba-lookup--help"><a href="#banshee-pba-lookup--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-pba-search">banshee pba search<a class="headerlink" href="#banshee-pba-search" title="Permanent link">&para;</a></h3>
+<p>Search for Playook Alerts.</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a>banshee pba search [OPTIONS]
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-pba-search--created"><a href="#banshee-pba-search--created"><code>--created</code>, <code>-C</code></a> <i>created-from</i></dt><dd>
+    <p>Filter on the created from time, for example: 1d; 12h</p><dd></dd>
+    <dt id="banshee-pba-search--updated"><a href="#banshee-pba-search--updated"><code>--updated</code>, <code>-u</code></a> <i>updated-from</i></dt><dd>
+    <p>Filter on the updated from time, for example: 1d; 12h</p><dd></dd>
+    <dt id="banshee-pba-search--category"><a href="#banshee-pba-search--category"><code>--category</code>, <code>-c</code></a> <i>category</i></dt><dd>
+    <p>Filter by alert category</p>
+    <p>Supported categories:</p>
+    <p>
+    <ul>
+        <li><code>domain_abuse</code></li>
+        <li><code>cyber_vulnerability</code></li>
+        <li><code>third_party_risk</code></li>
+        <li><code>code_repo_leakage</code></li>
+        <li><code>identity_novel_exposures</code></li>
+        <li><code>geopolitics_facility</code></li>
+    </ul>
+    </p><dd></dd>
+    <dt id="banshee-pba-search--priority"><a href="#banshee-pba-search--priority"><code>--priority</code></a>,  <code>-P</code> <i>priority</i></dt><dd>
+    <p>Filter by alert priority</p>
+    <p>Possible values are: <code>Informational</code>, <code>Moderate</code>, <code>High</code></p>
+    <p>Defaults to all categories</p><dd></dd>
+    <dt id="banshee-pba-search--status"><a href="#banshee-pba-search--status"><code>--status</code></a>,  <code>-s</code> <i>alert-status</i></dt><dd>
+    <p>Filter by alert status</p>
+    <p>Possible values are: <code>New</code>, <code>InProgress</code>, <code>Dismissed</code>, <code>Resolved</code></p>
+    <p>Defaults to all categories</p><dd></dd>
+    <dt id="banshee-pba-search--entity"><a href="#banshee-pba-search--entity"><code>--entity</code></a>,  <code>-e</code> <i>entity</i></dt><dd>
+    <p>Filter alerts by associated entity, for example: idn:recordedfuture.com</p><dd></dd>
+    <dt id="banshee-pba-search--limit"><a href="#banshee-pba-search--limit"><code>--limit</code>, <code>-l</code></a> <i>limit</i></dt><dd>
+    <p>Limit the number of results</p>
+    <p>The maximum limit is 10 000</p>
+    <p>Defaults to 10</p><dd></dd>
+    <dt id="banshee-pba-search--pretty"><a href="#banshee-pba-search--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-pba-search--help"><a href="#banshee-pba-search--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 id="banshee-pba-update">banshee pba update<a class="headerlink" href="#banshee-pba-update" title="Permanent link">&para;</a></h3>
+<p>Update one or more Playook Alert</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1"></a>banshee pba update [OPTIONS] ALERT_IDS...
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-pba-update--alert-id"><a href="#banshee-pba-update--alert-id"<code>ALERT_IDS</code></a></dt><dd>
+    <p>One or more whitespace separated Alert ID</p>
+    <p>Alert ID can be supplied with and without the '<strong>task:</strong>' prefix</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-pba-update--status"><a href="#banshee-pba-update--status"><code>--status</code></a>,  <code>-s</code> <i>alert-status</i></dt><dd>
+    <p>Update the alert(s) to this alert status</p>
+    <p>Possible values are: <code>New</code>, <code>InProgress</code>, <code>Dismissed</code>, <code>Resolved</code></p><dd></dd>
+    <dt id="banshee-pba-update--repopen"><a href="#banshee-pba-update--repopen"><code>--repopen</code></a>,  <code>-r</code> <i>reopen</i></dt><dd>
+    <p>Reopen strategies can only be applied to alerts with a status of Dismissed or Resolved. The following combinations of status/reopen are allowed: <code>Dismissed -> Never</code>; <code>Resolved -> Never</code>; <code>Resolved -> SignificantUpdates</code></p>
+    <p>Supported values are: <code>Never</code>, <code>SignificantUpdates</code></p><dd></dd>
+    <dt id="banshee-pba-update--priority"><a href="#banshee-pba-update--priority"><code>--priority</code></a>,  <code>-P</code> <i>priority</i></dt><dd>
+    <p>Set a new alert priority</p>
+    <p>Possible values are: <code>Informational</code>, <code>Moderate</code>, <code>High</code></p><dd></dd>
+    <dt id="banshee-pba-update--comment"><a href="#banshee-pba-update--comment"><code>--comment</code></a>,  <code>-t</code> <i>comment</i></dt><dd>
+    <p>Comment to add to the alert(s), for example: "Bulk resolved via banshee"</p><dd></dd>
+    <dt id="banshee-pba-update--assignee"><a href="#banshee-pba-update--assignee"><code>--assignee</code></a>,  <code>-a</code> <i>assignee</i></dt><dd>
+    <p>New user to assign the alert(s) to. Accepts uhash of the user, for example: uhash:3aXZxdkM12</p><dd></dd>
+    <dt id="banshee-pba-update--help"><a href="#banshee-pba-update--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<p>Provide one or more alert IDs (whitespace separated) and specify the desired update options:</p>
+
+<pre><code class="language-bash">
+banshee pba update ALERT_ID -s Dismissed
+banshee pba update ALERT_ID -s InProgress -p High -t "Escalated due to new findings"
+banshee pba update ALERT_ID_1 ALERT_ID_2 -s Resolved -a uhash:3aXZxdkM12
+</code></pre>
+
+<h3 class="commands-reference">Supplying Alert IDs</h3>
+
+<h4>1. Directly as arguments (single or multiple):</h4>
+
+<pre><code class="language-bash">
+banshee pba update ALERT_ID -s Resolved
+banshee pba update ALERT_ID -s Resolved
+banshee pba update ALERT_ID_1 ALERT_ID_2 -s Resolved
+</code></pre>
+
+<h4>2. From a file or standard input:</h4>
+
+<p>If you have a file (e.g., <code>alerts.txt</code>) with one alert ID per line:</p>
+
+<pre><code class="language-text">
+ALERT_ID_1
+ALERT_ID_2
+ALERT_ID_3
+</code></pre>
+
+<p>You can update all listed alerts using:</p>
+
+<pre><code class="language-bash">
+banshee pba update -s Dismissed &lt; alerts.txt
+cat alerts.txt | banshee pba update -s Dismissed
+</code></pre>
+
+<h4>3. By piping from a search command:</h4>
+
+<p>Use tools like <code>jq</code> to extract alert IDs from search results and pipe them into the update command:</p>
+
+<pre><code class="language-bash">
+banshee pba search | jq -r '.data[].playbook_alert_id' | banshee pba update -p High -t "Investigation started"
+</code></pre>
+
+<h3 class="commands-reference">Additional Usage Examples</h3>
+
+<pre><code class="language-bash">
+banshee pba search -c domain_abuse -P Informational | jq -r '.data[].playbook_alert_id' | banshee pba update -s Resolved
+banshee pba update ALERT_ID -s Resolved -r Never
+banshee pba update ALERT_ID_1 ALERT_ID_2 -s InProgress -p Informational -t "Bumping priority down due to recent findings."
+banshee pba update ALERT_ID -a
+</code></pre>
+
+<h2 id="banshee-pcap">banshee pcap<a class="headerlink" href="#banshee-pcap" title="Permanent link">&para;</a></h2>
+<p>Enrich packet captures (pcap) with Recorded Future intelligence.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-29-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1"></a>banshee pcap [OPTIONS] COMMAND [ARGS]...
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Commands</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-pcap-enrich"><code>banshee pcap enrich</code></a></dt><dd><p>Enrich a packet capture (pcap) file with Recorded Future intelligence</p></dd>
+</dl>
+
+<h3 id="banshee-pcap-enrich">banshee pcap enrich<a class="headerlink" href="#banshee-pcap-enrich" title="Permanent link">&para;</a></h3>
+<p>This command parses the pcap file to extract network indicators like IP addresses and domains, then enriches them with threat intelligence data. By default, results are filtered to show only indicators that meet your risk score threshold. Use <code>--threat-hunt</code> to also include indicators linked to threat actors, even if they fall below the risk score threshold.
+<br>Please note that lowering the risk score threshold and/or enabling threat hunting may significantly increase both the number of results and processing time.</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1"></a>banshee pcap enrich [OPTIONS] FILE_PATH
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-pcap-enrich--file-path"><a href="#banshee-pcap-enrich--file-path"><code>FILE_PATH</code></a></dt><dd><p>Path to the pcap file to enrich</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-pcap-enrich--risk-score"><a href="#banshee-pcap-enrich--risk-score"><code>--risk-score</code></a>, <code>-r</code> <i>risk-score</i></dt><dd>
+    <p>Filter results to show only indicators with risk score (25 - 99) above this threshold<p>Defaults to 65</p></p></dd>
+    <dt id="banshee-pcap-enrich--threat-hunt"><a href="#banshee-pcap-enrich--threat-hunt"><code>--threat-hunt</code></a>, <code>-t</code></dt><dd>
+    <p>Include indicators linked to threat actors regardless of risk score threshold (retrospective threat hunting)</p></dd>
+    <dt id="banshee-ca-lookup--pretty"><a href="#banshee-ca-lookup--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-pcap-enrich--help"><a href="#banshee-pcap-enrich--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h2 id="banshee-risklist">banshee risklist<a class="headerlink" href="#banshee-risklist" title="Permanent link">&para;</a></h2>
+<p>Manage Risk Lists.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-31-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1"></a>banshee risklist [OPTIONS] COMMAND [ARGS]...
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Commands</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-risklist-fetch"><code>banshee risklist fetch</code></a></dt><dd><p>Download a risk list</p></dd>
+    <dt><a href="#banshee-risklist-stat"><code>banshee risklist stat</code></a></dt><dd><p>Show risk list metadata (etag and timestamp)</p></dd>
+</dl>
+
+<h3 id="banshee-risklist-fetch">banshee risklist fetch<a class="headerlink" href="#banshee-risklist-fetch" title="Permanent link">&para;</a></h3>
+<p>Download a risk list for a specific entity type and list name, or use a custom risk list file.</p>
+<p>Risk lists can be downloaded from Recorded Future by specifying an entity type (<code>--entity-type</code>) and list name (<code>--list-name</code>). Available list names include <code>default</code>, <code>large</code>, or any rule name from <code>banshee ioc rules</code>. For more information about Recorded Future Risk Rules, see the <a href="https://support.recordedfuture.com/hc/en-us/articles/115000897208-Risk-Scoring-in-Recorded-Future">Risk Scoring in Recorded Future</a> support article.</p>
+<p>Alternatively, you can provide a path to a custom risk list file using <code>--custom-list-path</code>.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-32-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1"></a>banshee risklist fetch [OPTIONS]
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-risklist-fetch--entity-type"><a href="#banshee-risklist-fetch--entity-type"><code>--entity-type</code></a>, <code>-e</code> <i>entity-type</i></dt><dd>
+    <p>Entity type for the risk list. Valid values: <code>ip</code>, <code>domain</code>, <code>url</code>, <code>hash</code>, <code>vulnerability</code><br>Required when using <code>--list-name</code></p></dd>
+    <dt id="banshee-risklist-fetch--list-name"><a href="#banshee-risklist-fetch--list-name"><code>--list-name</code></a>, <code>-l</code> <i>list-name</i></dt><dd>
+    <p>Risk list name: <code>default</code>, <code>large</code>, or rule name from <code>banshee ioc rules</code><br>Required when using <code>--entity-type</code></p></dd>
+    <dt id="banshee-risklist-fetch--custom-list-path"><a href="#banshee-risklist-fetch--custom-list-path"><code>--custom-list-path</code></a>, <code>-c</code> <i>custom-list-path</i></dt><dd>
+    <p>Path to custom risk list file. Cannot be used with <code>--entity-type</code> or <code>--list-name</code></p></dd>
+    <dt id="banshee-risklist-fetch--output-path"><a href="#banshee-risklist-fetch--output-path"><code>--output-path</code></a>, <code>-o</code> <i>output-path</i></dt><dd>
+    <p>Output file path. Defaults to current directory with auto-generated filename</p></dd>
+    <dt id="banshee-risklist-fetch--as-json"><a href="#banshee-risklist-fetch--as-json"><code>--as-json</code></a>, <code>-j</code></dt><dd>
+    <p>Convert risk list to JSON format. Can only be used with <code>--list-name</code> and <code>--entity-type</code></p></dd>
+    <dt id="banshee-risklist-fetch--help"><a href="#banshee-risklist-fetch--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Usage Examples</h3>
+
+<pre><code class="language-bash">
+# Download the default risk list for IP addresses
+banshee risklist fetch -e ip -l default
+
+# Download the large risk list for domains as JSON
+banshee risklist fetch -e domain -l large -j
+
+# Download a risk list for hashes that are involved in an Insikt Group Note
+banshee risklist fetch -e hash -l analystNote
+
+# Download a custom risk list file
+banshee risklist fetch -c /path/to/custom_risklist.csv
+
+# Download the default risklist for URLs and save to a specific output path
+banshee risklist fetch -e url -l default -o /tmp/rf_default_url_risklist.csv
+</code></pre>
+
+<h3 id="banshee-risklist-stat">banshee risklist stat<a class="headerlink" href="#banshee-risklist-stat" title="Permanent link">&para;</a></h3>
+<p>Show risk list metadata including etag and timestamp information.</p>
+<p>This command retrieves metadata for a risk list without downloading the full list content. It can be used to check when a risk list was last updated.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-33-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1"></a>banshee risklist stat [OPTIONS]
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-risklist-stat--entity-type"><a href="#banshee-risklist-stat--entity-type"><code>--entity-type</code></a>, <code>-e</code> <i>entity-type</i></dt><dd>
+    <p>Entity type for the risk list. Valid values: <code>ip</code>, <code>domain</code>, <code>url</code>, <code>hash</code>, <code>vulnerability</code><br>Required when using <code>--list-name</code></p></dd>
+    <dt id="banshee-risklist-stat--list-name"><a href="#banshee-risklist-stat--list-name"><code>--list-name</code></a>, <code>-l</code> <i>list-name</i></dt><dd>
+    <p>Risk list name: <code>default</code>, <code>large</code>, or rule name from <code>banshee ioc rules</code><br>Required when using <code>--entity-type</code></p></dd>
+    <dt id="banshee-risklist-stat--custom-list-path"><a href="#banshee-risklist-stat--custom-list-path"><code>--custom-list-path</code></a>, <code>-c</code> <i>custom-list-path</i></dt><dd>
+    <p>Path to custom risk list file. Cannot be used with <code>--entity-type</code> or <code>--list-name</code></p></dd>
+    <dt id="banshee-risklist-stat--pretty"><a href="#banshee-risklist-stat--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p></dd>
+    <dt id="banshee-risklist-stat--help"><a href="#banshee-risklist-stat--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Usage Examples</h3>
+
+<pre><code class="language-bash">
+# Check metadata for the default IP risk list
+banshee risklist stat -e ip -l default
+
+# Check metadata with pretty formatting
+banshee risklist stat -e domain -l large -p
+
+# Check metadata for a custom risk list file
+banshee risklist stat -c /path/to/custom_risklist.txt
+</code></pre>
+
+<h2 id="banshee-rules">banshee rules<a class="headerlink" href="#banshee-rules" title="Permanent link">&para;</a></h2>
+<p>Search for and download detection rules.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-34-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1"></a>banshee rules [OPTIONS] COMMAND [ARGS]...
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Commands</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-rules-search"><code>banshee rules search</code></a></dt><dd><p>Search for detection rules based on filter options</p></dd>
+</dl>
+
+<h3 id="banshee-rules-search">banshee rules search<a class="headerlink" href="#banshee-rules-search" title="Permanent link">&para;</a></h3>
+<p>Search for detection rules based on the provided filter options. Results can be displayed in the console or saved to disk as individual rule files.</p>
+<p>Detection rules can be filtered by type (YARA, Snort, Sigma), associated entities (threat actors, malware, MITRE ATT&amp;CK techniques), creation/update dates, and more. Use <code>--threat-actor-map</code> or <code>--threat-malware-map</code> to automatically filter rules based on entities in your Threat Map.</p>
+<p>To avoid overwhelming output, results are limited to 10 by default. Use the <code>--limit</code> option to retrieve up to 1000 rules.</p>
+<p>By default the command will print the results in JSON format.</p>
+<h3 class="commands-reference">Usage</h3>
+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-35-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1"></a>banshee rules search [OPTIONS]
+</code></pre></div></td></tr></table></div>
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-rules-search--type"><a href="#banshee-rules-search--type"><code>--type</code></a>, <code>-t</code> <i>type</i></dt><dd>
+    <p>Filter by rule type. Valid values: <code>yara</code>, <code>snort</code>, <code>sigma</code><br>Multiple types can be specified and work as a logical OR (e.g., <code>-t yara -t snort</code> returns rules matching either type)</p></dd>
+    <dt id="banshee-rules-search--threat-actor-map"><a href="#banshee-rules-search--threat-actor-map"><code>--threat-actor-map</code></a>, <code>-T</code></dt><dd>
+    <p>Filter rules by threat actors from your Threat Actor Map. When enabled, detection rules associated with actors in your Threat Actor Map will be returned</p></dd>
+    <dt id="banshee-rules-search--threat-actor-category"><a href="#banshee-rules-search--threat-actor-category"><code>--threat-actor-category</code></a>, <code>-C</code> <i>category</i></dt><dd>
+    <p>Filter by threat actor categories from your Threat Actor Map. Multiple categories can be specified and work as a logical OR (e.g., <code>-C nation_state_sponsored -C ransomware_and_extortion_groups</code>)</p></dd>
+    <dt id="banshee-rules-search--threat-malware-map"><a href="#banshee-rules-search--threat-malware-map"><code>--threat-malware-map</code></a>, <code>-M</code></dt><dd>
+    <p>Filter rules by malware from your Malware Threat Map. When enabled, detection rules associated with malware in your Malware Threat Map will be returned</p></dd>
+    <dt id="banshee-rules-search--org-id"><a href="#banshee-rules-search--org-id"><code>--org-id</code></a>, <code>-O</code> <i>org-id</i></dt><dd>
+    <p>Specify the organization ID when fetching threat actors from a Threat Maps (requires <code>--threat-actor-map</code> or <code>--threat-malware-map</code>). Accepts values with or without the <code>uhash:</code> prefix. Useful for MSSP and multi-organization accounts</p></dd>
+    <dt id="banshee-rules-search--entity"><a href="#banshee-rules-search--entity"><code>--entity</code></a>, <code>-e</code> <i>entity</i></dt><dd>
+    <p>Filter by Recorded Future entity IDs associated with detection rules. Multiple entities can be specified and work as a logical OR. Use <code>banshee entity search</code> to find entity IDs (e.g., <code>lzQ5GL</code> for IsaacWiper malware, <code>mitre:T1486</code> for Data Encrypted for Impact)</p></dd>
+    <dt id="banshee-rules-search--created-after"><a href="#banshee-rules-search--created-after"><code>--created-after</code></a>, <code>-a</code> <i>time</i></dt><dd>
+    <p>Filter detection rules created after the specified time. Accepts relative time (e.g., <code>1d</code>, <code>3d</code>, <code>7d</code>) or absolute date (e.g., <code>2024-01-01</code>)</p></dd>
+    <dt id="banshee-rules-search--created-before"><a href="#banshee-rules-search--created-before"><code>--created-before</code></a>, <code>-b</code> <i>time</i></dt><dd>
+    <p>Filter detection rules created before the specified time. Accepts relative time (e.g., <code>1d</code>, <code>3d</code>, <code>7d</code>) or absolute date (e.g., <code>2024-01-01</code>)</p></dd>
+    <dt id="banshee-rules-search--updated-after"><a href="#banshee-rules-search--updated-after"><code>--updated-after</code></a>, <code>-u</code> <i>time</i></dt><dd>
+    <p>Filter detection rules updated after the specified time. Accepts relative time (e.g., <code>1d</code>, <code>3d</code>, <code>7d</code>) or absolute date (e.g., <code>2024-01-01</code>)</p></dd>
+    <dt id="banshee-rules-search--updated-before"><a href="#banshee-rules-search--updated-before"><code>--updated-before</code></a>, <code>-U</code> <i>time</i></dt><dd>
+    <p>Filter detection rules updated before the specified time. Accepts relative time (e.g., <code>1d</code>, <code>3d</code>, <code>7d</code>) or absolute date (e.g., <code>2024-01-01</code>)</p></dd>
+    <dt id="banshee-rules-search--id"><a href="#banshee-rules-search--id"><code>--id</code></a>, <code>-i</code> <i>document-id</i></dt><dd>
+    <p>Filter by a specific Insikt Note document ID associated with detection rules (e.g., <code>doc:lmRPGB</code>)</p></dd>
+    <dt id="banshee-rules-search--title"><a href="#banshee-rules-search--title"><code>--title</code></a>, <code>-n</code> <i>title</i></dt><dd>
+    <p>Free text search for detection rules by their associated Insikt Note titles</p></dd>
+    <dt id="banshee-rules-search--limit"><a href="#banshee-rules-search--limit"><code>--limit</code></a>, <code>-l</code> <i>limit</i></dt><dd>
+    <p>Maximum number of detection rules to return<p>Defaults to 10</p></p></dd>
+    <dt id="banshee-rules-search--output-path"><a href="#banshee-rules-search--output-path"><code>--output-path</code></a>, <code>-o</code> <i>output-path</i></dt><dd>
+    <p>Save the detection rules to the specified directory. Can be a relative or an absolute path. If not specified, results are printed to console</p></dd>
+    <dt id="banshee-rules-search--pretty"><a href="#banshee-rules-search--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p></dd>
+    <dt id="banshee-rules-search--help"><a href="#banshee-rules-search--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Usage Examples</h3>
+
+<pre><code class="language-bash">
+# Search for YARA rules created in the last 7 days
+banshee rules search -t yara -a 7d
+
+# Search for rules associated with threat actors in your Threat Map and pretty print results
+# Since --limit defaults to 10, this will return the first 10 matching rules
+banshee rules search -Tp
+
+# Combine threat actor and malware maps 
+banshee rules search -TMp
+
+# Search for rules by specific entity IDs (e.g., IsaacWiper malware)
+banshee rules search -e lzQ5GL -p
+
+# Search for Snort and Sigma rules updated in the last 3 days, save to directory
+banshee rules search -t snort -t sigma -u 3d -o ./detection_rules
+
+# Search by Insikt Note title
+banshee rules search --title "APT28" -p
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Reference">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Reference
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../environment/" class="md-footer__link md-footer__link--next" aria-label="Next: Environment variables">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Environment variables
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.youtube.com/user/RecordedFuture" target="_blank" rel="noopener" title="www.youtube.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M549.7 124.1c-6.2-23.7-24.8-42.3-48.3-48.6C458.9 64 288.1 64 288.1 64S117.3 64 74.7 75.5c-23.5 6.3-42 24.9-48.3 48.6C15 167 15 256.4 15 256.4s0 89.4 11.4 132.3c6.3 23.6 24.8 41.5 48.3 47.8C117.3 448 288.1 448 288.1 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zM232.2 337.6V175.2l142.7 81.2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.facebook.com/RecordedFuture" target="_blank" rel="noopener" title="www.facebook.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256c0 120 82.7 220.8 194.2 248.5V334.2h-52.8V256h52.8v-33.7c0-87.1 39.4-127.5 125-127.5 16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287v175.9C413.8 494.8 512 386.9 512 256"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/company/recorded-future" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/recordedfuture" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.instagram.com/recordedfuture/" target="_blank" rel="noopener" title="www.instagram.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M224.3 141a115 115 0 1 0-.6 230 115 115 0 1 0 .6-230m-.6 40.4a74.6 74.6 0 1 1 .6 149.2 74.6 74.6 0 1 1-.6-149.2m93.4-45.1a26.8 26.8 0 1 1 53.6 0 26.8 26.8 0 1 1-53.6 0m129.7 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8M399 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.recordedfuture.com/feed" target="_blank" rel="noopener" title="www.recordedfuture.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M0 64c0-17.7 14.3-32 32-32 229.8 0 416 186.2 416 416 0 17.7-14.3 32-32 32s-32-14.3-32-32C384 253.6 226.4 96 32 96 14.3 96 0 81.7 0 64m0 352a64 64 0 1 1 128 0 64 64 0 1 1-128 0m32-256c159.1 0 288 128.9 288 288 0 17.7-14.3 32-32 32s-32-14.3-32-32c0-123.7-100.3-224-224-224-17.7 0-32-14.3-32-32s14.3-32 32-32"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "content.code.copy", "content.code.wrap", "content.footnote.tooltips", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.path", "navigation.top", "navigation.tracking", "navigation.sections", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
