@@ -5,7 +5,8 @@ readme = "README.md"
 requires-python = ">=3.9 , <3.14"
 description = "PS Banshee is a command line tool used to access Recorded Future Intelligence. PS Banshee is designed to get you working quickly with Recorded Future."
 authors = [
-    { name = "Cyber Security Engineering", email = "ps@recordedfuture.com" },
+    { name = "Moise Medici", email = "moise.medici@recordedfuture.com" },
+    { name = "Ernest Bartosevic", email = "ernest.bartosevic@recordedfuture.com" },
 ]
 keywords = ['API', 'Recorded Future', 'Cyber Security Engineering', 'Threat Intelligence', 'command line tool', 'CLI', 'ioc enrichment']
 

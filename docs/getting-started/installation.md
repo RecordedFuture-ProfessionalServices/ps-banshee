@@ -6,15 +6,13 @@ Install ps-banshee with `pipx` or `pip`.
 
 ## Installation
 
-PS Banshee is distributed as a Python package. Contact your Recorded Future account representative to obtain it.
-
 !!! tip "PS Banshee requires Python 3.9 or later (up to 3.13)."
 
-### pipx (isolated environment)
+### Recommended: pipx (isolated environment)
 To install globally, run:
 
 ```bash
-pipx install ps_banshee-1.1.0-py3-none-any.whl
+pipx install ps-banshee
 ```
 
 
@@ -22,10 +20,10 @@ pipx install ps_banshee-1.1.0-py3-none-any.whl
     If you don't have pipx installed, see the [installation guide](https://github.com/pypa/pipx?tab=readme-ov-file#install-pipx).
 
 
-### pip (current environment)
+### Alternative: pip (current environment)
 To install in the current environment, run:
 ```bash
-pip install ps_banshee-1.1.0-py3-none-any.whl
+pip install ps-banshee
 ```
 
 
@@ -47,26 +45,26 @@ To upgrade PS Banshee to a newer version, reinstall using the updated wheel file
 
     **If installed with pipx:**
     ```bash
-    pipx uninstall banshee
-    pipx install ps_banshee-<new-version>-py3-none-any.whl
+    pipx uninstall banshee 
+    pipx install ps-banshee
     ```
 
     **If installed with pip:**
     ```bash
     pip uninstall banshee
-    pip install ps_banshee-<new-version>-py3-none-any.whl
+    pip install ps-banshee
     ```
 
 **If installed with pipx:**
 
 ```bash
-pipx install --force ps_banshee-<new-version>-py3-none-any.whl
+pipx install --force ps-banshee
 ```
 
 **If installed with pip:**
 
 ```bash
-pip install --upgrade ps_banshee-<new-version>-py3-none-any.whl
+pip install --upgrade ps-banshee
 ```
 
 ## Shell autocompletion

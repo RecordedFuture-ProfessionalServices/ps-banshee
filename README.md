@@ -30,7 +30,7 @@ PS Banshee is a command-line interface (CLI) tool designed to provide quick and 
 
 ## Installation
 
-PS Banshee is distributed as a Python package. Contact your Recorded Future account representative to obtain it.
+PS Banshee is available on PyPI and can be installed using `pip` or `pipx`.
 
 !!! tip "PS Banshee requires Python 3.9 or later (up to 3.13)."
 
@@ -38,7 +38,7 @@ PS Banshee is distributed as a Python package. Contact your Recorded Future acco
 To install globally, run:
 
 ```bash
-pipx install ps_banshee-1.1.0-py3-none-any.whl
+pipx install ps-banshee
 ```
 
 
@@ -49,7 +49,7 @@ pipx install ps_banshee-1.1.0-py3-none-any.whl
 ### Alternative: pip (current environment)
 To install in the current environment, run:
 ```bash
-pip install ps_banshee-1.1.0-py3-none-any.whl
+pip install ps-banshee
 ```
 
 ### Dependencies
@@ -105,6 +105,10 @@ banshee ca --help
 banshee ioc lookup --help
 banshee list bulk-add -h
 ```
+
+## Support
+
+Submit a [support request](https://support.recordedfuture.com/hc/en-us/requests/new) for help alternatively reach out to [support@recordedfuture.com](mailto:support@recordedfuture.com).
 
 ---
 
