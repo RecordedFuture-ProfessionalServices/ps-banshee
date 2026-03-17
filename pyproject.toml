@@ -1,8 +1,9 @@
 [project]
 name = "ps-banshee"
-version = "1.1.1"
+version = "1.1.2"
 readme = "README.md"
-requires-python = ">=3.9 , <3.14"
+license = "MIT"
+requires-python = ">=3.9,<3.14"
 description = "PS Banshee is a command line tool used to access Recorded Future Intelligence. PS Banshee is designed to get you working quickly with Recorded Future."
 authors = [
     { name = "Ernest Bartosevic", email = "ernest.bartosevic@recordedfuture.com" }
@@ -12,6 +13,13 @@ maintainers = [
     { name = "Ernest Bartosevic", email = "ernest.bartosevic@recordedfuture.com" },
 ]
 keywords = ['API', 'Recorded Future', 'Cyber Security Engineering', 'Threat Intelligence', 'command line tool', 'CLI', 'ioc enrichment']
+classifiers = [
+    "Environment :: Console",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Information Technology",
+    "Development Status :: 5 - Production/Stable",
+    "Topic :: Security"
+]
 
 dependencies = [
     "typer<0.16.0",
@@ -51,6 +59,10 @@ docs = [
 [project.scripts]
 banshee = "banshee.main:app"
 
+[project.urls]
+Homepage = "https://recordedfuture-professionalservices.github.io/ps-banshee/latest/"
+Changelog = "https://recordedfuture-professionalservices.github.io/ps-banshee/latest/CHANGELOG/"
+
 [tool.setuptools]
 packages = [
     "banshee",
@@ -66,10 +78,3 @@ packages = [
     "**/*.pyc",
 ]
 
-classifiers=[
-    "Environment :: Console",
-    "Operating System :: OS Independent",
-    "Intended Audience :: Information Technology",
-    "Development Status :: 5 - Production/Stable",
-    "Topic :: Security"
-]

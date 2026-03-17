@@ -2,8 +2,6 @@
 
 PS Banshee is a command-line interface (CLI) tool designed to provide quick and efficient access to Recorded Future Intelligence. Built for security professionals, PS Banshee helps streamline investigations and automate common security operations tasks.
 
-![Welcome](docs/img/welcome.gif)
-
 ---
 
 ## Table of Contents
@@ -32,7 +30,7 @@ PS Banshee is a command-line interface (CLI) tool designed to provide quick and 
 
 PS Banshee is available on PyPI and can be installed using `pip` or `pipx`.
 
-!!! tip "PS Banshee requires Python 3.9 or later (up to 3.13)."
+> **Note:** PS Banshee requires Python 3.9 or later (up to 3.13).
 
 ### Recommended: pipx (isolated environment)
 To install globally, run:
@@ -42,8 +40,7 @@ pipx install ps-banshee
 ```
 
 
-!!! info "Installing pipx"
-    If you don't have pipx installed, see the [installation guide](https://github.com/pypa/pipx?tab=readme-ov-file#install-pipx).
+> **Note:** If you don't have pipx installed, see the [installation guide](https://github.com/pypa/pipx?tab=readme-ov-file#install-pipx).
 
 
 ### Alternative: pip (current environment)
