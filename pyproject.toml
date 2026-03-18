@@ -62,6 +62,7 @@ banshee = "banshee.main:app"
 [project.urls]
 Homepage = "https://recordedfuture-professionalservices.github.io/ps-banshee/latest/"
 Changelog = "https://recordedfuture-professionalservices.github.io/ps-banshee/latest/CHANGELOG/"
+Source = "https://github.com/recordedfuture-professionalservices/ps-banshee"
 
 [tool.setuptools]
 packages = [
