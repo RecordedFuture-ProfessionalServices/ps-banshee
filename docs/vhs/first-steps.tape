@@ -63,10 +63,15 @@ Output ../img/first-steps.gif
 
 Require echo
 
-Set Shell "bash"
+Set Shell "zsh"
 Set TypingSpeed 75ms
 Set FontSize 18
 Set Width 1300
 Set Height 1100
+
+Hide
+Type "export PS1='> '" Enter
+Type "clear" Enter
+Show
 
 Type "banshee" Enter Sleep 10

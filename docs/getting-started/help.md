@@ -2,16 +2,16 @@
 
 ## Help menus
 
-The `--help`, `-h` flag can be used to view the help menu for a command, e.g., for `banshee`:
+The `--help`, `-h` flag can be used to view the help menu for a command, e.g., for [banshee](../reference/commands.md#banshee):
 
 ```bash
-$ banshee --help
+banshee --help
 ```
 
-To view the help menu for a specific command, e.g., for `banshee pcap`:
+To view the help menu for a specific command, e.g., for [banshee pcap](../reference/commands.md#banshee-pcap):
 
 ```bash
-$ banshee pcap --help
+banshee pcap --help
 ```
 
 ## Viewing the version
@@ -22,7 +22,7 @@ problem is already solved in a newer version.
 To check the installed version:
 
 ```bash
-$ banshee --version
+banshee --version
 ```
 
 ## Troubleshooting issues
@@ -35,7 +35,7 @@ To enhance the error if a command is failing in unexpected ways,  the `--debug` 
 banshee --debug ioc search ip -p
 ```
 
-The output will display where exactly `banshee` is failing over. This information can then be passed to our support team to aid you in troubleshooting.
+The output will display exactly where the command is failing. This information can then be passed to our support team to help troubleshoot the issue.
 
 ## Open a support case with Recorded Future Support
 
