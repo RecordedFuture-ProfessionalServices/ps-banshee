@@ -28,7 +28,7 @@ PS Banshee is a command-line tool for fast, efficient access to Recorded Future 
 
 ## Installation
 
-PS Banshee is available on PyPI and can be installed using `pip` or `pipx`.
+PS Banshee is available on [PyPI](https://pypi.org/project/ps-banshee/) and can be installed using `pip` or `pipx`.
 
 !!! tip "PS Banshee requires Python 3.9 or later (up to 3.13)."
 

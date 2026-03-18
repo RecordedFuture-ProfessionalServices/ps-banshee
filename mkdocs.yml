@@ -1,4 +1,6 @@
 site_name: PS Banshee
+repo_url: https://github.com/RecordedFuture-ProfessionalServices/ps-banshee
+repo_name: ps-banshee
 
 theme:
   logo: assets/favicon.png

@@ -2,7 +2,7 @@
 
 ## Installation methods
 
-Install ps-banshee with `pipx` or `pip`.
+Install [ps-banshee](https://pypi.org/project/ps-banshee/) with `pipx` or `pip`.
 
 ## Installation
 

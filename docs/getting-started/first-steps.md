@@ -1,7 +1,6 @@
 # First steps with PS Banshee
 
-After [installing PS Banshee](./installation.md), you can check that the commands are available by running the `banshee`
-command:
+After [installing PS Banshee](./installation.md), you can check that the commands are available by running the [banshee](../reference/commands.md#banshee) command:
 
 <img src="../../img/first-steps.gif" alt="PS Banshee commands" onclick="this.src=this.src" style="cursor: pointer;" title="Click to replay">
 
