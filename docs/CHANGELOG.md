@@ -1,5 +1,11 @@
 # Release History
 
+## 1.1.3 - 2026-03-18
+
+### Fixed
+- Fixed an issue in [`pcap enrich`](reference/commands.md#banshee-pcap-enrich) where multithreading was not being used in SOAR enrichment. The risk score enrichment is now faster for large captures.
+
+
 ## 1.1.0 - 2026-03-13
 
 ### Added

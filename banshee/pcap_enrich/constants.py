@@ -11,7 +11,7 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-
+MAX_WORKERS = 20
 MIN_RISK_SCORE = 65
 MIN_TSHARK_VERSION = '3.5.0'
 TA_IP_LIST = '/public/risklists/ta_ip_risklist_v2.csv'
