@@ -26,7 +26,7 @@ from rich import print_json
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
-from banshee.pcap_enrich.constants import TA_DOMAIN_LIST, TA_IP_LIST
+from banshee.pcap_enrich.constants import MAX_WORKERS, TA_DOMAIN_LIST, TA_IP_LIST
 from banshee.pcap_enrich.helpers import TARisklist
 
 
@@ -180,7 +180,7 @@ def pcap_enrich(capture_file: Path, pretty: bool, hunt: bool, min_risk_score: in
 
         progress.update(task_id, description='Enriching indicators')
         try:
-            iocs = soar_mgr.soar(ip=ips, domain=domains)
+            iocs = soar_mgr.soar(ip=ips, domain=domains, max_workers=MAX_WORKERS)
         except (EnrichmentSoarError, ValidationError) as err:
             raise err
 
