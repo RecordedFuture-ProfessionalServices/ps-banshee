@@ -19,6 +19,7 @@ from .list_create import create_list
 from .list_entities import fetch_entities
 from .list_entries import fetch_entries
 from .list_info import fetch_list_info
+from .list_tech_stack_resolve import resolve_tech_stack
 from .list_remove import remove_entity
 from .list_search import search_lists
 from .list_status import fetch_list_status

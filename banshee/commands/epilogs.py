@@ -189,6 +189,47 @@ EPILOG_PCAP_ANALYZER = """
 
 """
 
+EPILOG_TECH_STACK_RESOLVE = """
+
+## Output Columns
+
+* Supplied Input: Original value from your CSV.
+
+* Search Term Used: Final search term used to find the match.
+
+* Resolved Entity / Type / Entity ID: Candidate Product or Product Identifier entity.
+
+* Mapped CVEs: Number of vulnerabilities mapped to that entity.
+
+
+## Interpreting Results
+
+* Low or zero CVEs: Match may be too narrow; consider a broader entity.
+
+* High CVEs: Match may be too broad; consider a more specific entity.
+
+* N/A and 0: No matching entity found; verify spelling and try more specific names.
+
+
+## Next Step: Bulk Add To Tech Stack Watch List
+
+Copy selected Entity IDs to a file, then bulk add them:
+
+* cat entity_ids.txt | banshee list bulk-add <TECH_STACK_LIST_ID>
+
+* banshee list bulk-add <TECH_STACK_LIST_ID> SoA6SP AoNn1w
+
+
+## Example Usage
+
+* banshee list tech-stack-resolve tech-stack.csv
+
+* banshee list tech-stack-resolve tech-stack.csv -m 5
+
+* banshee list tech-stack-resolve tech-stack.csv -o results.csv
+
+"""
+
 EPILOG_ALERT_SEARCH = """
 ## Example Usage
 

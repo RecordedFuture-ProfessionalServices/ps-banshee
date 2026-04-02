@@ -24,10 +24,17 @@ CMD_NAME = 'entity'
 CMD_HELP = 'Search and lookup entities'
 CMD_RICH_HELP = 'Entity Match'
 
+PANEL_ENTITY = 'Entity Match'
+
 app = Typer(no_args_is_help=True)
 
 
-@banshee_cmd(app=app, help_='Lookup an entity by its ID', epilog=EPILOG_ENTITY_LOOKUP)
+@banshee_cmd(
+    app=app,
+    help_='Lookup an entity by its ID',
+    epilog=EPILOG_ENTITY_LOOKUP,
+    rich_help_panel=PANEL_ENTITY,
+)
 def lookup(
     entity_id: str = Argument(show_default=False, help='ID of the entity to lookup'),
     pretty: OPT_PRETTY_PRINT = False,
@@ -36,7 +43,10 @@ def lookup(
 
 
 @banshee_cmd(
-    app=app, help_='Search entities by name and optically by type', epilog=EPILOG_ENTITY_SEARCH
+    app=app,
+    help_='Search entities by name and optically by type',
+    epilog=EPILOG_ENTITY_SEARCH,
+    rich_help_panel=PANEL_ENTITY,
 )
 def search(
     name: str = Argument(show_default=False, help='Name of the entity to search for'),

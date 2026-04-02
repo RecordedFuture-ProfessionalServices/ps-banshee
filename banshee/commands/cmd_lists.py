@@ -28,6 +28,7 @@ from ..lists import (
     fetch_entries,
     fetch_list_info,
     fetch_list_status,
+    resolve_tech_stack,
     remove_entity,
     search_lists,
 )
@@ -44,6 +45,7 @@ from .epilogs import (
     EPILOG_LIST_REMOVE,
     EPILOG_LIST_SEARCH,
     EPILOG_LIST_STATUS,
+    EPILOG_TECH_STACK_RESOLVE,
 )
 
 CMD_NAME = 'list'
@@ -53,6 +55,7 @@ CMD_RICH_HELP = 'Recorded Future Lists & Watch Lists'
 PANEL_LIST_MGMT = 'List Management'
 PANEL_ENTITY_MGMT = 'Entity Management'
 PANEL_TEXT_MATCH_MGMT = 'Text Match Management'
+PANEL_WORKFLOWS = 'Use Cases'
 
 app = Typer(no_args_is_help=True)
 
@@ -291,3 +294,49 @@ def entries(
     pretty: OPT_PRETTY_PRINT = False,
 ):
     fetch_entries(list_id=list_id, pretty=pretty)
+
+
+@banshee_cmd(
+    app=app,
+    help_=(
+        'Resolve technologies and products from a CSV file to Recorded Future entities '
+        'with mapped CVE counts. Designed for Tech Stack Watch List candidate selection.'
+    ),
+    epilog=EPILOG_TECH_STACK_RESOLVE,
+    rich_help_panel=PANEL_WORKFLOWS,
+)
+def tech_stack_resolve(
+    file_path: Annotated[
+        str,
+        Argument(
+            show_default=False,
+            help='CSV file to resolve against Recorded Future entities (first column is used)',
+        ),
+    ],
+    list_id: Annotated[str, Argument(show_default=False, help='ID of the Tech Stack Watch List to add resolved entities to. If not provided, entities will not be added to any list.')] = None,
+    possible_matches: Annotated[
+        int,
+        Option(
+            '--possible-matches',
+            '-m',
+            help='Maximum number of candidate entity matches to keep for each supplied value',
+            min=1,
+            max=25,
+        ),
+    ] = 3,
+    output_file: Annotated[
+        str,
+        Option(
+            '--output-file',
+            '-o',
+            help='Output CSV path for the entity reslution results',
+            show_default=True,
+        ),
+    ] = 'tech_stack_entity_match.csv',
+):
+    resolve_tech_stack(
+        list_id=list_id,
+        infile=file_path,
+        possible_matches=possible_matches,
+        output_file=output_file,
+    )
