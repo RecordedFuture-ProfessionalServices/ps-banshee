@@ -1,0 +1,26 @@
+MIME-Version: 1.0
+Date: Tue, 17 Mar 2026 09:38:57 +0000
+Message-ID: <12Q@mail.gmail.com>
+Subject: A new website I found
+From: Jane Doe <jane_doe@email_domain.com>
+To: John Doe <john44@email_domain.com>
+Content-Type: multipart/alternative; boundary="000000000000c78714064d351ae6"
+
+--000000000000c78714064d351ae6
+Content-Type: text/plain; charset="UTF-8"
+
+Hi John,
+
+Please use this link:
+https://lunar-ossified-mosquito.glitch.me/xavi.html
+
+--000000000000c78714064d351ae6
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<p>Hi John,</p>
+<br>
+<p>Please use this link:</p>
+<p><a href="https://lunar-ossified-mosquito.glitch.me/xavi.html">Click Me!</a></p>
+
+--000000000000c78714064d351ae6--
