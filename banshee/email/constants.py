@@ -15,7 +15,7 @@ MIN_RISK_SCORE = 65
 
 DOMAIN_FROM_SENDER_STRING = r'@(.+?)>'
 IP_ADDRESSES = r'(\d+\.\d+\.\d+\.\d+)'
-URL_ADDRESSES = r'(http(?:s|):\/\/.+?)(?:\s|\"|<|$)'
+URL_ADDRESSES = r'(http(?:s|):\/\/.+?)(?:\s|\"|<|>|$)'
 DOMAINS = r'^((?:\w+\.)?([^:\/\n?]+))$'
 
 TA_IP_LIST = '/public/risklists/ta_ip_risklist_v2.csv'
