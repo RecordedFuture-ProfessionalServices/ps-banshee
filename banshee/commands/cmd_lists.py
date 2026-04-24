@@ -333,10 +333,23 @@ def tech_stack_resolve(
             show_default=True,
         ),
     ] = 'tech_stack_entity_match.csv',
+    list_overwrite: Annotated[
+        bool,
+        Option(
+            '--overwrite',
+            '-w',
+            help='Overwrite the specified watchlist with the resolved entities (instead of appending to it)',
+            is_flag=True,
+        ),
+    ] = False,
 ):
+    if list_overwrite and not list_id:
+        raise BadParameter("Cannot use '--overwrite' option without specifying a list ID")
+
     resolve_tech_stack(
         list_id=list_id,
         infile=file_path,
         possible_matches=possible_matches,
         output_file=output_file,
+        list_overwrite=list_overwrite,
     )

@@ -130,6 +130,7 @@ def resolve_tech_stack(
     infile: str,
     possible_matches: int,
     output_file: str,
+    list_overwrite: bool,
 ):
     output_path = Path(output_file).resolve()
     tech_rows = _load_tech_rows(Path(infile))
