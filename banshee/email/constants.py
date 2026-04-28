@@ -10,14 +10,16 @@
 # for having all necessary licenses, permissions, rights, and/or consents to any data        #
 # accessed from any third party API.                                                         #
 ##############################################################################################
+import re
 
 MIN_RISK_SCORE = 65
 
 DOMAIN_FROM_SENDER_STRING = r'@(.+?)>'
 IP_ADDRESSES = r'(\d+\.\d+\.\d+\.\d+)'
-URL_ADDRESSES = r'(http(?:s|):\/\/.+?)(?:\s|\"|<|>|$)'
-URL_NEW = r'(http(?:s|):\/\/.+?(?:\w|\/))(?:\s|\"|<|>)'
 DOMAINS = r'^((?:\w+\.)?([^:\/\n?]+))$'
+
+URL_HTML = re.compile(r'https?://[^\s<>"]+', re.IGNORECASE)
+URL_TEXT = re.compile(r'\[[^\]\s]*:$')
 
 TA_IP_LIST = '/public/risklists/ta_ip_risklist_v2.csv'
 TA_DOMAIN_LIST = '/public/risklists/ta_domain_risklist_v2.csv'

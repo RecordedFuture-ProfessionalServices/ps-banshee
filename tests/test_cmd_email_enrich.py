@@ -18,6 +18,7 @@ EML_FILES = [
         (
             [
                 {'entity': 'email_domain.com', 'type_': 'domain', 'location': 'header'},
+                {'entity': 'email_domain.com', 'type_': 'domain', 'location': 'header'},
                 {
                     'entity': 'https://lunar-ossified-mosquito.glitch.me/xavi.html',
                     'type_': 'url',
@@ -30,9 +31,15 @@ EML_FILES = [
         TEST_FILES / 'demo.eml',
         (
             [
-                {'entity': 'email_domain.com', 'type_': 'domain', 'location': 'header'},
                 {'entity': '192.168.0.24', 'type_': 'ip', 'location': 'header'},
                 {'entity': '39.62.178.92', 'type_': 'ip', 'location': 'header'},
+                {'entity': 'email_domain.com', 'type_': 'domain', 'location': 'header'},
+                {'entity': 'email_domain.com', 'type_': 'domain', 'location': 'header'},
+                {
+                    'entity': 'https://netfimarketing.com/xad64735f0526b49a3u892a3ff0q4884737e.html',
+                    'location': 'body',
+                    'type_': 'url',
+                },
                 {
                     'entity': 'e13c4a2f06ef91f9eaed524a30ab2e2ce1ec8b7d88828c4ebecf43ca3aa265b6',
                     'type_': 'hash',
@@ -48,8 +55,119 @@ EML_FILES = [
 def test_parse_eml(eml_path, expected):
     headers, body, attachments = parse_eml(eml_path)
     entities = _extract_entities(headers, body, attachments)
-    for elem, expected_elem in zip(entities, expected):
-        assert sorted(elem) == sorted(expected_elem)
+    assert entities == expected
+
+
+@pytest.mark.parametrize(
+    ('url', 'expected'),
+    [
+        ("Hello, this is the link https://example.com/path'", ["https://example.com/path'"]),
+        (
+            'Hello, this is the link https://example.com/path#section!',
+            ['https://example.com/path#section!'],
+        ),
+        (
+            'Hello, this is the link https://example.com/path?q=test&',
+            ['https://example.com/path?q=test&'],
+        ),
+        (
+            'Hello, this is the link https://example.com/path?q=test=',
+            ['https://example.com/path?q=test='],
+        ),
+        (
+            'Hello, this is the link https://example.com/path?q=test+',
+            ['https://example.com/path?q=test+'],
+        ),
+        (
+            'Hello, this is the link https://example.com/path?redirect=https://bank.example/login',
+            ['https://example.com/path?redirect=https://bank.example/login'],
+        ),
+        (
+            'Hello, this is the link https://example.com/path?x=1;',
+            ['https://example.com/path?x=1;'],
+        ),
+        (
+            'Hello, this is the link https://example.com/path?x=1,',
+            ['https://example.com/path?x=1,'],
+        ),
+        (
+            'Hello, this is the link https://example.com/path?x=1.',
+            ['https://example.com/path?x=1.'],
+        ),
+        (
+            'Hello, this is the link https://example.com/path#frag.',
+            ['https://example.com/path#frag.'],
+        ),
+        (
+            'Hello, this is the link https://example.com/path#frag,',
+            ['https://example.com/path#frag,'],
+        ),
+        (
+            'Hello, this is the link https://example.com/path#frag;',
+            ['https://example.com/path#frag;'],
+        ),
+        (
+            'Hello, this is the link https://example.com/path(foo)',
+            ['https://example.com/path(foo)'],
+        ),
+        (
+            'Hello, this is the link https://example.com/path[abc]',
+            ['https://example.com/path[abc]'],
+        ),
+        ('Hello, this is the link https://example.com/a(b)c', ['https://example.com/a(b)c']),
+        ('Hello, this is the link https://example.com/a,b', ['https://example.com/a,b']),
+        ('Hello, this is the link https://example.com/a;b', ['https://example.com/a;b']),
+        ('Hello, this is the link https://example.com/a=1', ['https://example.com/a=1']),
+        ('Hello, this is the link https://example.com/a+b', ['https://example.com/a+b']),
+        ('Hello, this is the link https://example.com/a&b', ['https://example.com/a&b']),
+        ("Hello, this is the link https://example.com/a'b", ["https://example.com/a'b"]),
+        ('Hello, this is the link https://example.com/a!b', ['https://example.com/a!b']),
+        ('Hello, this is the link https://example.com/a*b', ['https://example.com/a*b']),
+        ('Hello, this is the link https://example.com/a%20', ['https://example.com/a%20']),
+        ('Hello, this is the link https://example.com/%7Euser', ['https://example.com/%7Euser']),
+        (
+            'Hello, this is the link https://example.com/%7Euser for review',
+            ['https://example.com/%7Euser'],
+        ),
+        (
+            'Hello, this is the link https://example.com/path?email=user%40example.com',
+            ['https://example.com/path?email=user%40example.com'],
+        ),
+        (
+            'Hello, this is the link https://example.com/path?next=%2Flogin%3Ftoken%3Dabc',
+            ['https://example.com/path?next=%2Flogin%3Ftoken%3Dabc'],
+        ),
+        ('Hello, this is the link https://example.com/path#', ['https://example.com/path#']),
+    ],
+)
+def test_extract_entities_plain(url, expected):
+    entities = _extract_entities({}, {'text/plain': url}, {})
+    urls = [e['entity'] for e in entities]
+    assert urls == expected
+
+
+@pytest.mark.parametrize(
+    ('url', 'expected'),
+    [
+        ('<a href=https://example.com/path>Click</a>', ['https://example.com/path']),
+        (
+            '<a href="https://example.com/login?token=abc&next=/dashboard">Click here</a>',
+            ['https://example.com/login?token=abc&next=/dashboard'],
+        ),
+        (
+            '<a href="https://evil.example/login">https://bank.example/login</a>',
+            ['https://evil.example/login', 'https://bank.example/login'],
+        ),
+        (
+            "<a href='https://example.com/reset?token=abc&next=/login'>Reset password</a>",
+            ['https://example.com/reset?token=abc&next=/login'],
+        ),
+    ],
+)
+def test_extract_entities_html(url, expected):
+    entities = _extract_entities({}, {'text/html': url}, {})
+    urls = [e['entity'] for e in entities]
+    assert urls == expected
 
 
 def test_email_json_out():

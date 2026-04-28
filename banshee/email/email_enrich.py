@@ -14,31 +14,19 @@
 import re
 from contextlib import suppress
 from html import unescape
-from html.parser import HTMLParser
 
 import polars as pl
 from psengine.enrich import EnrichmentLookupError, LookupMgr
 from psengine.enrich.models.soar import Evidence
 from psengine.risklists import RisklistMgr, RiskListNotAvailableError
-from pydantic import BaseModel, HttpUrl, IPvAnyAddress, ValidationError
+from psengine.constants import TIMESTAMP_STR
+from pydantic import ValidationError
 from rich import print_json
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from banshee.email import constants
-from banshee.email.helpers import TARisklist, parse_eml, validate_eml
-
-
-class URL(BaseModel):
-    """Model to validate URL."""
-
-    url: HttpUrl
-
-
-class IP(BaseModel):
-    """Model to validate IP."""
-
-    ip: IPvAnyAddress
+from banshee.email.helpers import IP, URL, HrefExtractor, TARisklist, parse_eml, validate_eml
 
 
 def _serialize_risk_rule_evidence(evidence: list[Evidence]) -> list[dict]:
@@ -105,25 +93,9 @@ def _print_email(df, pretty, console):
     print_json(df.write_json())
 
 
-HTML_RAW_URL_RE = re.compile(r'https?://[^\s<>"\']+', re.IGNORECASE)
-TEXT_RAW_URL_RE = re.compile(r'https?://[^\s<>"]+', re.IGNORECASE)
-
-
-class HrefExtractor(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.hrefs = []
-
-    def handle_starttag(self, tag, attrs):
-        if tag.lower() != 'a':
-            return
-
-        for name, value in attrs:
-            if name.lower() == 'href' and value:
-                self.hrefs.append(unescape(value))
-
-
 def _trim_until_valid(url: str) -> str | None:
+    url = constants.URL_TEXT.sub('', url)
+
     while url:
         with suppress(ValidationError):
             URL(url=url)
@@ -136,6 +108,7 @@ def _trim_until_valid(url: str) -> str | None:
 
 def extract_urls_from_body(body: dict[str, str]) -> list[dict[str, str]]:
     entities = []
+    already_added = set()
 
     for content_type, content in body.items():
         candidates = []
@@ -143,16 +116,19 @@ def extract_urls_from_body(body: dict[str, str]) -> list[dict[str, str]]:
         if content_type == 'text/html':
             parser = HrefExtractor()
             parser.feed(content)
+            parser.close()
             candidates.extend(parser.hrefs)
 
-            candidates.extend(HTML_RAW_URL_RE.findall(unescape(content)))
+            for text_chunk in parser.text_chunks:
+                candidates.extend(constants.URL_HTML.findall(unescape(text_chunk)))
         else:
-            candidates.extend(TEXT_RAW_URL_RE.findall(content))
+            candidates.extend(constants.URL_HTML.findall(content))
 
         for url in candidates:
             valid_url = _trim_until_valid(url)
 
-            if valid_url:
+            if valid_url and valid_url not in already_added:
+                already_added.add(valid_url)
                 entities.append(
                     {
                         'entity': valid_url,
@@ -208,7 +184,6 @@ def _extract_entities(headers: dict, body: dict, attachments: dict) -> list[dict
         }
         for attachment in attachments
     )
-
     return entities
 
 
@@ -233,12 +208,13 @@ def _enrich_by_ioc_type(lookup_mgr: LookupMgr, ioc_type: str, entities: list):
 
     except (ValidationError, EnrichmentLookupError) as err:
         raise err
+
     return [
         {
             'ioc': ioc.entity,
             'risk_score': ioc.content.risk.score,
-            'first_seen': ioc.content.timestamps.first_seen,
-            'last_seen': ioc.content.timestamps.last_seen,
+            'first_seen': ioc.content.timestamps.first_seen.strftime(TIMESTAMP_STR),
+            'last_seen': ioc.content.timestamps.last_seen.strftime(TIMESTAMP_STR),
             'rule_evidence': _serialize_risk_rule_evidence(ioc.content.risk.evidence_details),
             'analyst_notes': ioc.content.analyst_notes,
             'malwares': ioc.links('Actors, Tools & TTPs', 'Malware'),
@@ -259,30 +235,25 @@ def email_enrich(file_path, pretty, hunt, min_risk_score):
     with Progress(
         SpinnerColumn(), TextColumn('[progress.description]{task.description}'), transient=True
     ) as progress:
-        task_id = progress.add_task('Validating EML file')
         validate_eml(file_path)
 
-        progress.update(task_id, description='Parsing EML file')
         headers, body, attachments = parse_eml(file_path)
 
-        progress.update(task_id, description='Extracting Entities')
         extracted_entities = _extract_entities(headers, body, attachments)
 
-        progress.update(task_id, description='Building Entities Dataframe')
         df = pl.DataFrame(
             {'ioc': entity['entity'], 'type_': entity['type_'], 'location': entity['location']}
             for entity in extracted_entities
         )
         df = df.unique(subset=['ioc', 'type_', 'location'])
 
-        progress.update(task_id, description='Enriching Entities')
+        task_id = progress.add_task(description='Enriching Entities')
         entities_with_context = []
         for ioc_type, rows in df.group_by('type_'):
             enriched = _enrich_by_ioc_type(lookup_mgr, ioc_type[0], rows['ioc'].to_list())
             if enriched:
                 entities_with_context.extend(enriched)
 
-        progress.update(task_id, description='Merging Enriched Entities Dataframe')
         enriched_df = pl.DataFrame(entities_with_context)
         df = df.join(enriched_df, on='ioc', how='left')
 

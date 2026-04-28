@@ -16,11 +16,13 @@ import json
 import mimetypes
 import sys
 from email.parser import BytesParser
+from html import unescape
+from html.parser import HTMLParser
 from pathlib import Path
 from typing import Annotated
 
 from psengine.common_models import RFBaseModel
-from pydantic import BeforeValidator, Field
+from pydantic import BeforeValidator, Field, HttpUrl, IPvAnyAddress
 
 
 def arrange_data(data) -> list[str]:
@@ -97,3 +99,38 @@ class TARisklist(RFBaseModel):
     ta_names: Annotated[list[str], BeforeValidator(arrange_data)] = Field(
         validation_alias='ThreatActorNames'
     )
+
+
+class URL(RFBaseModel):
+    """Model to validate URL."""
+
+    url: HttpUrl
+
+
+class IP(RFBaseModel):
+    """Model to validate IP."""
+
+    ip: IPvAnyAddress
+
+
+class HrefExtractor(HTMLParser):
+    """Class to extract HTML links."""
+
+    def __init__(self):
+        super().__init__()
+        self.hrefs = []
+        self.text_chunks = []
+
+    def handle_starttag(self, tag, attrs):
+        """Extract value from `a` and `href` tags."""
+        if tag.lower() != 'a':
+            return
+
+        for name, value in attrs:
+            if name.lower() == 'href' and value:
+                self.hrefs.append(unescape(value))
+
+    def handle_data(self, data):
+        """Avoid duplication helper."""
+        if data:
+            self.text_chunks.append(data)
