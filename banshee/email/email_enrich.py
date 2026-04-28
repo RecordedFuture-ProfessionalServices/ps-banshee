@@ -12,20 +12,33 @@
 ##############################################################################################
 
 import re
+from contextlib import suppress
+from html import unescape
+from html.parser import HTMLParser
 
 import polars as pl
 from psengine.enrich import EnrichmentLookupError, LookupMgr
 from psengine.enrich.models.soar import Evidence
 from psengine.risklists import RisklistMgr, RiskListNotAvailableError
-from pydantic import ValidationError
+from pydantic import BaseModel, HttpUrl, IPvAnyAddress, ValidationError
 from rich import print_json
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
-from validators import ip_address
-from validators import url as url_validator
 
 from banshee.email import constants
 from banshee.email.helpers import TARisklist, parse_eml, validate_eml
+
+
+class URL(BaseModel):
+    """Model to validate URL."""
+
+    url: HttpUrl
+
+
+class IP(BaseModel):
+    """Model to validate IP."""
+
+    ip: IPvAnyAddress
 
 
 def _serialize_risk_rule_evidence(evidence: list[Evidence]) -> list[dict]:
@@ -92,6 +105,65 @@ def _print_email(df, pretty, console):
     print_json(df.write_json())
 
 
+HTML_RAW_URL_RE = re.compile(r'https?://[^\s<>"\']+', re.IGNORECASE)
+TEXT_RAW_URL_RE = re.compile(r'https?://[^\s<>"]+', re.IGNORECASE)
+
+
+class HrefExtractor(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.hrefs = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag.lower() != 'a':
+            return
+
+        for name, value in attrs:
+            if name.lower() == 'href' and value:
+                self.hrefs.append(unescape(value))
+
+
+def _trim_until_valid(url: str) -> str | None:
+    while url:
+        with suppress(ValidationError):
+            URL(url=url)
+            return url
+
+        url = url[:-1]
+
+    return None
+
+
+def extract_urls_from_body(body: dict[str, str]) -> list[dict[str, str]]:
+    entities = []
+
+    for content_type, content in body.items():
+        candidates = []
+
+        if content_type == 'text/html':
+            parser = HrefExtractor()
+            parser.feed(content)
+            candidates.extend(parser.hrefs)
+
+            candidates.extend(HTML_RAW_URL_RE.findall(unescape(content)))
+        else:
+            candidates.extend(TEXT_RAW_URL_RE.findall(content))
+
+        for url in candidates:
+            valid_url = _trim_until_valid(url)
+
+            if valid_url:
+                entities.append(
+                    {
+                        'entity': valid_url,
+                        'type_': 'url',
+                        'location': 'body',
+                    }
+                )
+
+    return entities
+
+
 def _extract_entities(headers: dict, body: dict, attachments: dict) -> list[dict]:
     """Takes the parsed sections of an e-mail and extracts entities from them.
 
@@ -115,26 +187,13 @@ def _extract_entities(headers: dict, body: dict, attachments: dict) -> list[dict
             )
         else:
             extracted_ip_addresses = re.findall(constants.IP_ADDRESSES, header_kv[1])
-            entities.extend(
-                {'entity': ip, 'type_': 'ip', 'location': 'header'}
-                for ip in extracted_ip_addresses
-                if ip_address.ipv4(ip, private=False)
-            )
+            for ip in extracted_ip_addresses:
+                with suppress(ValidationError):
+                    IP(ip=ip)
+                    entities.append({'entity': ip, 'type_': 'ip', 'location': 'header'})
 
+    entities.extend(extract_urls_from_body(body))
     for content_type in body:
-        extracted_urls = re.findall(
-            r'(http(?:s|):\/\/.+?(?:\w|\/))(?:\s|\"|<|>)', body[content_type]
-        )
-        for url in extracted_urls:
-            if url_validator(url):
-                entities.append({'entity': url, 'type_': 'url', 'location': 'body'})
-            else:
-                formatted_url = url
-                while not url_validator(formatted_url) and len(formatted_url) != 0:
-                    formatted_url = formatted_url[:-1]
-                if len(url) != 0:
-                    entities.append({'entity': url, 'type_': 'url', 'location': 'body'})
-
         plain_text_domains = re.findall(constants.DOMAINS, body[content_type])
         entities.extend(
             {'entity': domain, 'type_': 'domain', 'location': 'body'}
