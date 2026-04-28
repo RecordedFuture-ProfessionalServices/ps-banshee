@@ -16,10 +16,10 @@ from contextlib import suppress
 from html import unescape
 
 import polars as pl
+from psengine.constants import TIMESTAMP_STR
 from psengine.enrich import EnrichmentLookupError, LookupMgr
 from psengine.enrich.models.soar import Evidence
 from psengine.risklists import RisklistMgr, RiskListNotAvailableError
-from psengine.constants import TIMESTAMP_STR
 from pydantic import ValidationError
 from rich import print_json
 from rich.console import Console
