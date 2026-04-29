@@ -1189,6 +1189,48 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
     <p>Show help for this command</p>
 </dl>
 
+<h3 class="commands-reference">Result Status Output</h3>
+
+<p><code>banshee list bulk-add</code> groups output by status and prints each matching input entity under that status, for example:</p>
+
+<pre><code class="language-text">
+ADDED:
+SoA6SP
+
+ERROR_MULTIPLE_MATCHES:
+wanna:malware
+</code></pre>
+
+<p>Common statuses:</p>
+<ul>
+    <li><code>ADDED</code> - Entity was successfully added to the list.</li>
+    <li><code>UNCHANGED</code> - Entity already existed on the list (no change made).</li>
+    <li><code>UPDATED</code> - Entity existed and was updated by the API.</li>
+    <li><code>ERROR_MULTIPLE_MATCHES</code> - The input matched more than one possible entity. <strong>The entity was not added.</strong></li>
+    <li><code>ERROR_NOT_FOUND</code> - No matching entity was found.</li>
+    <li><code>ERROR_BAD_ID</code> - Invalid input format or invalid entity reference.</li>
+</ul>
+
+<h3 class="commands-reference">How to Resolve <code>ERROR_MULTIPLE_MATCHES</code></h3>
+
+<p>When you see <code>ERROR_MULTIPLE_MATCHES</code>, the provided entity name is ambiguous. The API could not pick a single exact entity, so the row is skipped and not added.</p>
+
+<p>Recommended workflow:</p>
+<ol>
+    <li>Take the ambiguous value from the command output.</li>
+    <li>Run <code>banshee entity search</code> to find the intended exact entity. If needed, tweak how the name is written in the search term (for example different spelling, spacing, or a more specific variant) to narrow results.</li>
+    <li>Replace the ambiguous value in your input file with the exact entity ID.</li>
+    <li>Run <code>banshee list bulk-add</code> again with the corrected file.</li>
+</ol>
+
+<p>Example:</p>
+<pre><code class="language-bash">
+banshee entity search wannacry --type Malware
+banshee list bulk-add LIST_ID &lt; entities.txt
+</code></pre>
+
+<p>Tip: If you already know the entity ID (for example <code>SoA6SP</code>), prefer IDs over name/type pairs in bulk files to avoid ambiguity.</p>
+
 ### banshee list remove
 
 Remove an entity from the list.
