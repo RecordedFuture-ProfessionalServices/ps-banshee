@@ -14,6 +14,7 @@ banshee [OPTIONS] <COMMAND>
 
 <dl class="commands-reference">
     <dt><a href="#banshee-ca"><code>banshee ca</code></a></dt><dd><p>Search, lookup and update Recorded Future Classic Alerts</p></dd>
+    <dt><a href="#banshee-email"><code>banshee email</code></a></dt><dd><p>Enrich e-mail files (EML) with Recorded Future intelligence</p></dd>
     <dt><a href="#banshee-entity"><code>banshee entity</code></a></dt><dd><p>Search and lookup Recorded Future entities</p></dd>
     <dt><a href="#banshee-ioc"><code>banshee ioc</code></a></dt><dd><p>Search and lookup Indicators of Compromise (IOCs)</p></dd>
     <dt><a href="#banshee-list"><code>banshee list</code></a></dt><dd><p>Manage Recorded Future lists and Watch lists</p></dd>
@@ -424,6 +425,86 @@ banshee entity search [OPTIONS]
     <p>Show help for this command</p>
 </dl>
 
+
+## banshee email
+
+Enrich e-mail files (EML) with Recorded Future intelligence.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee email [OPTIONS] COMMAND [ARGS]...
+```
+
+<h3 class="commands-reference">Commands</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-email-enrich"><code>banshee email enrich</code></a></dt><dd><p>Enrich an e-mail (EML) file with Recorded Future intelligence</p></dd>
+</dl>
+
+### banshee email enrich
+
+Enrich an e-mail (EML) file with Recorded Future Intelligence. This command parses the EML file to extract IP addresses from the header and URLs (prefixed with `http`/`https`) found in the body, then enriches them with threat intelligence data. By default, results are filtered to show only indicators that meet your risk score threshold. Use `--threat-hunt` to also include indicators linked to threat actors, even if they fall below the risk score threshold.
+
+By default the command will print the results in JSON format.
+
+<h3 class="commands-reference">JSON Output</h3>
+
+Each result object in the JSON array contains the following fields:
+
+| Field | Description |
+|---|---|
+| `ioc` | The indicator extracted from the e-mail — either an IP address or a URL |
+| `type` | The indicator type, e.g. `ip` or `url` |
+| `location` | The section of the e-mail where the indicator was found, e.g. `header` or `body` |
+| `risk_score` | Recorded Future risk score |
+| `ta_names` | List of threat actor names associated with this indicator. Empty if none known |
+| `malwares` | List of malware family names linked to this indicator. Empty if none known |
+| `first_seen` | ISO 8601 timestamp of the first recorded sighting |
+| `last_seen` | ISO 8601 timestamp of the most recent recorded sighting |
+| `count_of_analyst_notes` | Number of Recorded Future analyst notes referencing this indicator |
+| `rule_evidence` | Array of individual risk rule evidence details, sorted highest severity first |
+
+Each object in the `rule_evidence` array contains:
+
+| Field | Description |
+|---|---|
+| `rule` | Name of the specific Recorded Future risk rule that fired |
+| `level` | Severity level of this rule — higher integers mean more severe |
+| `timestamp` | ISO 8601 timestamp of the most recent sighting for this rule |
+| `evidence_string` | Human-readable summary of the evidence |
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee email enrich [OPTIONS] FILE_PATH
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-email-enrich--file-path"><a href="#banshee-email-enrich--file-path"><code>FILE_PATH</code></a></dt><dd><p>Path to the EML file to enrich</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-email-enrich--risk-score"><a href="#banshee-email-enrich--risk-score"><code>--risk-score</code></a>, <code>-r</code> <i>risk-score</i></dt><dd>
+    <p>Filter results to show only indicators with risk score (0 - 99) above this threshold</p><p>Defaults to 65</p></dd>
+    <dt id="banshee-email-enrich--threat-hunt"><a href="#banshee-email-enrich--threat-hunt"><code>--threat-hunt</code></a>, <code>-t</code></dt><dd>
+    <p>Include indicators linked to threat actors regardless of risk score threshold</p></dd>
+    <dt id="banshee-email-enrich--pretty"><a href="#banshee-email-enrich--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-email-enrich--help"><a href="#banshee-email-enrich--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+<pre><code class="language-bash">
+banshee email enrich phishing_email.eml
+banshee email enrich phishing_submission.eml -r 1 -p
+banshee email enrich suspicious.eml --threat-hunt
+</code></pre>
 
 ## banshee ioc
 

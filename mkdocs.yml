@@ -87,6 +87,8 @@ nav:
         - usecases/alerts/index.md
       - Detection Rules:
         - usecases/detection-rules/index.md
+      - Email Enrichment:
+        - usecases/email/index.md
       - Entity Matching:
         - usecases/entity/index.md
       - IOC Enrichment:

@@ -600,3 +600,11 @@ DETECTION_RULES_SEARCH = """
 * banshee rules search --threat-actor-map -o fetched_rules
 
 """
+
+EPILOG_EMAIL_ENRICH = """
+## Example usage
+
+* banshee email enrich phishing_email.eml
+
+* banshee email enrich phishing_submission.eml -r 1 -p
+"""
