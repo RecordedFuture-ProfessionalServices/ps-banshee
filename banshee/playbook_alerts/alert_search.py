@@ -57,6 +57,7 @@ def search_alerts(
             print(format_line('Priority', data.priority))
             print(format_line('Enterprise', data.owner_organisation_details.enterprise_name))
             print(format_line('Alert ID', data.playbook_alert_id))
+            print(format_line('Alert Rule', data.alert_rule.name))
             print()
 
         print(f'{results.counts.returned} playbook alert(s)')
