@@ -354,6 +354,8 @@ EPILOG_PBA_SEARCH = """
 
 * banshee pba search -c identity_novel_exposures -c third_party_risk -P High -P Moderate -s New
 
+* banshee pba search -e idn:recordedfuture.com -e idn:example.com -c domain_abuse -u 7d
+
 """
 
 EPILOG_ENTITY_LOOKUP = """

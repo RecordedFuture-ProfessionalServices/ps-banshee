@@ -1330,7 +1330,7 @@ banshee pba search [OPTIONS]
     <dt id="banshee-pba-search--updated"><a href="#banshee-pba-search--updated"><code>--updated</code>, <code>-u</code></a> <i>updated-from</i></dt><dd>
     <p>Filter on the updated from time, for example: 1d; 12h</p><dd></dd>
     <dt id="banshee-pba-search--category"><a href="#banshee-pba-search--category"><code>--category</code>, <code>-c</code></a> <i>category</i></dt><dd>
-    <p>Filter by alert category</p>
+    <p>Filter by alert category (repeatable)</p>
     <p>Supported categories:</p>
     <p>
     <ul>
@@ -1343,15 +1343,15 @@ banshee pba search [OPTIONS]
     </ul>
     </p><dd></dd>
     <dt id="banshee-pba-search--priority"><a href="#banshee-pba-search--priority"><code>--priority</code></a>,  <code>-P</code> <i>priority</i></dt><dd>
-    <p>Filter by alert priority</p>
+    <p>Filter by alert priority (repeatable)</p>
     <p>Possible values are: <code>Informational</code>, <code>Moderate</code>, <code>High</code></p>
     <p>Defaults to all categories</p><dd></dd>
     <dt id="banshee-pba-search--status"><a href="#banshee-pba-search--status"><code>--status</code></a>,  <code>-s</code> <i>alert-status</i></dt><dd>
-    <p>Filter by alert status</p>
+    <p>Filter by alert status (repeatable)</p>
     <p>Possible values are: <code>New</code>, <code>InProgress</code>, <code>Dismissed</code>, <code>Resolved</code></p>
     <p>Defaults to all categories</p><dd></dd>
     <dt id="banshee-pba-search--entity"><a href="#banshee-pba-search--entity"><code>--entity</code></a>,  <code>-e</code> <i>entity</i></dt><dd>
-    <p>Filter alerts by associated entity, for example: idn:recordedfuture.com</p><dd></dd>
+    <p>Filter alerts by associated entity (repeatable), for example: <code>-e idn:recordedfuture.com -e idn:example.com</code></p><dd></dd>
     <dt id="banshee-pba-search--limit"><a href="#banshee-pba-search--limit"><code>--limit</code>, <code>-l</code></a> <i>limit</i></dt><dd>
     <p>Limit the number of results</p>
     <p>The maximum limit is 10 000</p>

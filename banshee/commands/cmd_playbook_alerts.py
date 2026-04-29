@@ -125,7 +125,7 @@ def search(
         Option(
             '--category',
             '-c',
-            help='Recorded Future Playbook Alert category. Default to all categories',
+            help='Recorded Future Playbook Alert category (repeatable). Default to all categories',
             show_default=False,
         ),
     ] = None,
@@ -134,7 +134,7 @@ def search(
         Option(
             '--entity',
             '-e',
-            help='Filter alerts by associated entity.',
+            help='Filter alerts by associated entity (repeatable).',
             show_default=False,
         ),
     ] = None,
@@ -143,7 +143,7 @@ def search(
         Option(
             '--priority',
             '-P',
-            help='Recorded Future Playbook Alert priority. Default to all priorities',
+            help='Recorded Future Playbook Alert priority (repeatable). Default to all priorities',
             show_choices=True,
             show_default=False,
         ),
@@ -153,7 +153,7 @@ def search(
         Option(
             '--status',
             '-s',
-            help='Recorded Future Playbook Alert status. Default to all statuses',
+            help='Recorded Future Playbook Alert status (repeatable). Default to all statuses',
             show_choices=True,
             show_default=False,
         ),
@@ -175,10 +175,10 @@ def search(
     Args:
         created (str, optional): lookback for created time. Defaults to None
         updated (str, optional): lookback for updated time. Defaults to None
-        category (str, optional): lookback for category. Defaults to None
-        entity (str, optional): filter by entity. Defaults to None
-        priority (str, optional): lookback for priority. Defaults to None
-        status (str, optional): lookback for status. Defaults to None
+        category (list[PACategory], optional): filter by category (repeatable). Defaults to None
+        entity (list[str], optional): filter by associated entity (repeatable). Defaults to None
+        priority (list[RFPAPriority], optional): filter by priority (repeatable). Defaults to None
+        status (list[RFPAStatus], optional): filter by status (repeatable). Defaults to None
         limit (int, optional): limit total alerts returned. Defaults to 10
         pretty (bool, optional): Pretty print the output. Defaults to False
     """
