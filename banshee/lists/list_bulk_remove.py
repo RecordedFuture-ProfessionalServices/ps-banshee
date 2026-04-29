@@ -17,16 +17,30 @@ from typing import Union
 from more_itertools import chunked
 from psengine.entity_lists import EntityList, ListApiError
 from psengine.helpers import MultiThreadingHelper
+from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn, track
 
 from .fetch_list import fetch_list
 from .list_helpers import (
+    ERROR_MULTIPLE_MATCHES,
+    ERROR_NOT_FOUND,
+    REMOVED,
     handle_list_api_error,
     process_result,
 )
 
 MAX_WORKERS = 50
 CHUNK_SIZE = 100
+
+
+def _status_color(status: str) -> str:
+    if status == REMOVED:
+        return 'green'
+    if status == ERROR_MULTIPLE_MATCHES:
+        return 'orange1'
+    if status == ERROR_NOT_FOUND:
+        return 'red'
+    return 'grey50'
 
 
 def remove_helper(entity: str, entity_list: EntityList):
@@ -55,6 +69,7 @@ def produce_results(
 
 
 def bulk_remove_entities(list_id: str, entities: list[Union[str, tuple[str, str]]]):
+    console = Console()
     entity_list = fetch_list(list_id)
 
     # Dedup
@@ -78,8 +93,11 @@ def bulk_remove_entities(list_id: str, entities: list[Union[str, tuple[str, str]
         printable_entities = []
         for entity in entities:
             if isinstance(entity, (tuple, list)):
-                printable_entities.append(f'{entity[0]}:{entity[1]}')
+                printable_entities.append(f'{entity[0]},{entity[1]}')
             else:
                 printable_entities.append(entity)
+        printable_entities = sorted(printable_entities, key=str.lower)
         if len(entities) > 0:
-            print(result.upper() + ':\n' + '\n'.join(printable_entities))
+            color = _status_color(result)
+            console.print(f'[{color}]{result.upper()}:[/{color}]')
+            console.print('\n'.join(printable_entities), highlight=False)
