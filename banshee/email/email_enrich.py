@@ -57,7 +57,7 @@ def _print_email(df, pretty, console):
         df = df.rename(
             {
                 'ioc': 'IOC',
-                'type_': 'Type',
+                'type': 'Type',
                 'location': 'Email Section',
                 'risk_score': 'Risk Score',
                 'ta_names': 'Threat Actor(s) Name',
@@ -132,7 +132,7 @@ def extract_urls_from_body(body: dict[str, str]) -> list[dict[str, str]]:
                 entities.append(
                     {
                         'entity': valid_url,
-                        'type_': 'url',
+                        'type': 'url',
                         'location': 'body',
                     }
                 )
@@ -158,7 +158,7 @@ def _extract_entities(headers: dict, body: dict, attachments: dict) -> list[dict
         if header_kv[0] == 'To' or header_kv[0] == 'From':
             email_domains = re.findall(constants.DOMAIN_FROM_SENDER_STRING, header_kv[1])
             entities.extend(
-                {'entity': domain, 'type_': 'domain', 'location': 'header'}
+                {'entity': domain, 'type': 'domain', 'location': 'header'}
                 for domain in email_domains
             )
         else:
@@ -166,20 +166,20 @@ def _extract_entities(headers: dict, body: dict, attachments: dict) -> list[dict
             for ip in extracted_ip_addresses:
                 with suppress(ValidationError):
                     IP(ip=ip)
-                    entities.append({'entity': ip, 'type_': 'ip', 'location': 'header'})
+                    entities.append({'entity': ip, 'type': 'ip', 'location': 'header'})
 
     entities.extend(extract_urls_from_body(body))
     for content_type in body:
         plain_text_domains = re.findall(constants.DOMAINS, body[content_type])
         entities.extend(
-            {'entity': domain, 'type_': 'domain', 'location': 'body'}
+            {'entity': domain, 'type': 'domain', 'location': 'body'}
             for domain in plain_text_domains
         )
 
     entities.extend(
         {
             'entity': attachment['hash'],
-            'type_': 'hash',
+            'type': 'hash',
             'location': 'attachments/' + attachment['name'],
         }
         for attachment in attachments
@@ -226,7 +226,7 @@ def _enrich_by_ioc_type(lookup_mgr: LookupMgr, ioc_type: str, entities: list):
 
 
 def email_enrich(file_path, pretty, hunt, min_risk_score):
-    console = Console()
+    console = Console(highlighter=None)
     lookup_mgr = LookupMgr()
     risklist_mgr = RisklistMgr()
 
@@ -242,22 +242,26 @@ def email_enrich(file_path, pretty, hunt, min_risk_score):
         extracted_entities = _extract_entities(headers, body, attachments)
 
         df = pl.DataFrame(
-            {'ioc': entity['entity'], 'type_': entity['type_'], 'location': entity['location']}
+            {'ioc': entity['entity'], 'type': entity['type'], 'location': entity['location']}
             for entity in extracted_entities
         )
-        df = df.unique(subset=['ioc', 'type_', 'location'])
+        df = df.unique(subset=['ioc', 'type', 'location'])
 
         task_id = progress.add_task(description='Enriching Entities')
         entities_with_context = []
-        for ioc_type, rows in df.group_by('type_'):
+        for ioc_type, rows in df.group_by('type'):
             enriched = _enrich_by_ioc_type(lookup_mgr, ioc_type[0], rows['ioc'].to_list())
             if enriched:
                 entities_with_context.extend(enriched)
-
+        if not entities_with_context:
+            empty_error(
+                f'No indicators above the risk score threshold of {min_risk_score} found', pretty
+            )
+            return
         enriched_df = pl.DataFrame(entities_with_context)
         df = df.join(enriched_df, on='ioc', how='left')
 
-        progress.update(task_id, description='Fetching Risk Lists')
+        progress.update(task_id, description='Fetching Threat Actor Risk Lists')
         try:
             ip_ta_risklist = pl.DataFrame(
                 [

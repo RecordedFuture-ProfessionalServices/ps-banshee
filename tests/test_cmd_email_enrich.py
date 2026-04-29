@@ -17,11 +17,11 @@ EML_FILES = [
         TEST_FILES / 'simple.eml',
         (
             [
-                {'entity': 'email_domain.com', 'type_': 'domain', 'location': 'header'},
-                {'entity': 'email_domain.com', 'type_': 'domain', 'location': 'header'},
+                {'entity': 'email_domain.com', 'type': 'domain', 'location': 'header'},
+                {'entity': 'email_domain.com', 'type': 'domain', 'location': 'header'},
                 {
                     'entity': 'https://lunar-ossified-mosquito.glitch.me/xavi.html',
-                    'type_': 'url',
+                    'type': 'url',
                     'location': 'body',
                 },
             ]
@@ -31,18 +31,18 @@ EML_FILES = [
         TEST_FILES / 'demo.eml',
         (
             [
-                {'entity': '192.168.0.24', 'type_': 'ip', 'location': 'header'},
-                {'entity': '39.62.178.92', 'type_': 'ip', 'location': 'header'},
-                {'entity': 'email_domain.com', 'type_': 'domain', 'location': 'header'},
-                {'entity': 'email_domain.com', 'type_': 'domain', 'location': 'header'},
+                {'entity': '192.168.0.24', 'type': 'ip', 'location': 'header'},
+                {'entity': '39.62.178.92', 'type': 'ip', 'location': 'header'},
+                {'entity': 'email_domain.com', 'type': 'domain', 'location': 'header'},
+                {'entity': 'email_domain.com', 'type': 'domain', 'location': 'header'},
                 {
                     'entity': 'https://netfimarketing.com/xad64735f0526b49a3u892a3ff0q4884737e.html',
                     'location': 'body',
-                    'type_': 'url',
+                    'type': 'url',
                 },
                 {
                     'entity': 'e13c4a2f06ef91f9eaed524a30ab2e2ce1ec8b7d88828c4ebecf43ca3aa265b6',
-                    'type_': 'hash',
+                    'type': 'hash',
                     'location': 'attachments/image.png',
                 },
             ]
@@ -192,7 +192,7 @@ def test_email_json_out():
         [e['level'] for e in enriched['rule_evidence']], reverse=True
     )
 
-    assert isinstance(enriched['type_'], str)
+    assert isinstance(enriched['type'], str)
     assert re.match(r'^body$', enriched['location'])
     assert isinstance(enriched['ta_names'], list)
     assert isinstance(enriched['malwares'], list)

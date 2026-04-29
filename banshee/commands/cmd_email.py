@@ -20,7 +20,7 @@ from banshee.email.constants import MIN_RISK_SCORE
 
 from ..branding import banshee_cmd
 from ..email.email_enrich import email_enrich
-from .epilogs import EPILOG_EML_ANALYZER
+from .epilogs import EPILOG_EMAIL_ENRICH
 
 CMD_NAME = 'email'
 CMD_HELP = 'Enrich e-mail files (EML) with Recorded Future intelligence'
@@ -35,7 +35,7 @@ ENRICH_COMMAND_HELP = (
 app = Typer(no_args_is_help=True)
 
 
-@banshee_cmd(app=app, help_=ENRICH_COMMAND_HELP, epilog=EPILOG_EML_ANALYZER)
+@banshee_cmd(app=app, help_=ENRICH_COMMAND_HELP, epilog=EPILOG_EMAIL_ENRICH)
 def enrich(
     file_path: Annotated[str, Argument(help='Path to eml file', show_default=False)],
     min_risk_score: Annotated[

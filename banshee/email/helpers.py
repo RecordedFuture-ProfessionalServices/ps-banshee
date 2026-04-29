@@ -77,9 +77,12 @@ def parse_eml(eml_path: Path) -> tuple[tuple, dict, dict[str, str]]:
             content_disposition = part.get_content_disposition()
 
             if content_type == 'text/plain' or content_type == 'text/html':
+                charset = part.get_content_charset()
+                if charset is None:
+                    charset = 'utf-8'
                 body[content_type] = (
                     part.get_payload(decode=True)
-                    .decode(part.get_content_charset(), errors='replace')
+                    .decode(charset, errors='replace')
                     .replace('\n', '')
                 )
 

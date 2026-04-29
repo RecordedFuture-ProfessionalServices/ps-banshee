@@ -601,10 +601,10 @@ DETECTION_RULES_SEARCH = """
 
 """
 
-EPILOG_EML_ANALYZER = """
+EPILOG_EMAIL_ENRICH = """
 ## Example usage
 
-* banshee eml enrich phishing_email.eml
+* banshee email enrich phishing_email.eml
 
-* banshee eml enrich phishing_submission.eml -r 1 -p
+* banshee email enrich phishing_submission.eml -r 1 -p
 """
