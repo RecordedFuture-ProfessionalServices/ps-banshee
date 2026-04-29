@@ -27,7 +27,7 @@ def remove_entity(list_id: str, entity: Union[str, tuple[str, str]]):
         TextColumn('[progress.description]{task.description}'),
         transient=True,
     ) as progress:
-        progress.add_task(description='Removing entity...')
+        progress.add_task(description='Removing entity')
         try:
             result = entity_list.remove(entity=entity)
         except ListApiError as err:

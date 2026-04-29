@@ -27,7 +27,7 @@ def add_entity(list_id: str, entity: Union[str, tuple[str, str]], properties: st
         TextColumn('[progress.description]{task.description}'),
         transient=True,
     ) as progress:
-        progress.add_task(description='Adding entity...')
+        progress.add_task(description='Adding entity')
         context = {}
         if properties:
             for prop in properties.split(','):

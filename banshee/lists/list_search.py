@@ -34,7 +34,7 @@ def search_lists(name: str, list_type: str, limit: int, pretty: bool):
         TextColumn('[progress.description]{task.description}'),
         transient=True,
     ) as progress:
-        progress.add_task(description='Searching...', total=None)
+        progress.add_task(description='Searching for lists', total=None)
         results = list_mgr.search(**search_params)
 
     if pretty:
