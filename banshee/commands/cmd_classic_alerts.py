@@ -32,8 +32,8 @@ from .epilogs import (
 )
 
 CMD_NAME = 'ca'
-CMD_HELP = 'Search and lookup Classic Alerts'
-CMD_RICH_HELP = 'Recorded Future Classic Alerts'
+CMD_HELP = 'Fetch and manage Classic Alerts'
+CMD_RICH_HELP = 'Recorded Future Alerts'
 
 app = Typer(no_args_is_help=True)
 

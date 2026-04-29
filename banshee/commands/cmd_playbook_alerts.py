@@ -33,7 +33,7 @@ from .epilogs import (
 
 CMD_NAME = 'pba'
 CMD_HELP = 'Fetch and manage Playbook Alerts'
-CMD_RICH_HELP = 'Recorded Future Playbook Alerts'
+CMD_RICH_HELP = 'Recorded Future Alerts'
 
 app = Typer(no_args_is_help=True)
 
