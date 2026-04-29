@@ -3,7 +3,7 @@ name = "ps-banshee"
 version = "1.2.0"
 readme = "README.md"
 license = "MIT"
-requires-python = ">=3.10,<3.14"
+requires-python = ">=3.10, <3.14"
 description = "PS Banshee is a command line tool used to access Recorded Future Intelligence. PS Banshee is designed to get you working quickly with Recorded Future."
 authors = [
     { name = "Ernest Bartosevic", email = "ernest.bartosevic@recordedfuture.com" }
@@ -29,15 +29,11 @@ dependencies = [
 ]
 
 [build-system]
-requires = [
-    "setuptools>=65",
-    "wheel",
-]
-build-backend = "setuptools.build_meta"
+requires = ["uv_build>=0.11.7,<0.12"]
+build-backend = "uv_build"
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
-    "build==1.0.3",
     "ruff~=0.11.0",
     "pytest==8.3.4",
     "pytest-vcr==1.0.2",
@@ -48,7 +44,6 @@ dev = [
 ]
 
 docs = [
-    "ruff~=0.11.0",
     "mike~=2.1.3",
     "mkdocs~=1.6.1",
     "mkdocs-material~=9.6.18",
@@ -77,5 +72,50 @@ packages = [
 [tool.setuptools.exclude-package-data]
 "*" = [
     "**/*.pyc",
+]
+
+[tool.uv]
+default-groups = "all"
+
+[tool.uv.build-backend]
+module-root = ""
+module-name = "banshee"
+source-exclude = [
+    # Hidden directories
+    ".git/**",
+    ".github/**",
+    ".pytest_cache/**",
+    ".ruff_cache/**",
+    ".venv/**",
+
+    # Hidden files
+    ".coverage",
+    ".env",
+    ".gitignore",
+    ".python-version",
+
+    # Build and test artifacts
+    "dist/**",
+    "build/**",
+    "*.egg-info/**",
+
+    # Generated documentation
+    "docs/**",
+
+    # Tests
+    "htmlcov/**",
+    "test_files/**",
+    "tests/**",
+
+    # Release artifacts
+    "CHANGELOG.md",
+
+    # Lock and cache files
+    "__pycache__/**",
+    "uv.lock",
+    "*.pyc",
+    "*.pyo",
+    "*.log",
+    "*.log.*",
 ]
 
