@@ -14,7 +14,11 @@
 
 """Shared helper functions and constants for entity list operations."""
 
+from collections.abc import Mapping, Sequence
+from typing import Union
+
 from psengine.entity_lists import ListApiError
+from rich.console import Console
 
 # Shared constants
 ADDED = 'added'
@@ -25,6 +29,31 @@ ERROR_BAD_ID = 'error_bad_id'
 ERROR_NOT_FOUND = 'error_not_found'
 ERROR_MULTIPLE_MATCHES = 'error_multiple_matches'
 LIST_MAX_SIZE_REACHED = 'list_max_size_reached'
+
+
+def print_list_results(final_results: Mapping[str, Sequence[Union[str, tuple[str, str]]]]) -> None:
+    """Print grouped operation results in a stable, readable format."""
+    console = Console()
+    first_block = True
+    for result in sorted(final_results):
+        entities = final_results[result]
+        if len(entities) == 0:
+            continue
+
+        if not first_block:
+            console.print()
+        first_block = False
+
+        printable_entities = []
+        for entity in entities:
+            if isinstance(entity, (tuple, list)):
+                printable_entities.append(f'{entity[0]},{entity[1]}')
+            else:
+                printable_entities.append(entity)
+
+        printable_entities = sorted(printable_entities, key=str.lower)
+        console.print(f'[bold]{result.upper()}:[/bold]')
+        console.print('\n'.join(printable_entities), highlight=False)
 
 
 def api_error_cause(err: ListApiError) -> str:

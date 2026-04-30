@@ -218,6 +218,14 @@ def bulk_add(
         show_default=False,
         help='One or more space-separated entities (CLI) or newline-separated entities (stdin), for example: SoA6SP wannacry,malware',  # noqa: E501
     ),
+    overwrite: Annotated[
+        bool,
+        Option(
+            '--overwrite',
+            '-o',
+            help='Overwrite mode: keeps entities present in the supplied file, adds new ones, and removes any entities currently on the list that are not in the file. By default the command appends new entities without removing existing ones.',  # noqa: E501
+        ),
+    ] = False,  # noqa: E501
 ):
     if entity_input is None:
         entity_input = sys.stdin.read()
@@ -225,7 +233,7 @@ def bulk_add(
         entity_input = list(filter(lambda x: x, entity_input))
 
     entities = parse_entity_input(entity_input)
-    bulk_add_entities(list_id=list_id, entities=entities)
+    bulk_add_entities(list_id=list_id, entities=entities, overwrite=overwrite)
 
 
 @banshee_cmd(

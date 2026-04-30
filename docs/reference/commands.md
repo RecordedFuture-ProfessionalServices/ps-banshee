@@ -1185,6 +1185,15 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
+    <dt id="banshee-list-bulk-add--overwrite"><a href="#banshee-list-bulk-add--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
+    <p>Enable overwrite mode. When set, the command will:</p>
+    <ul>
+        <li>Keep all entities currently on the list that are present in the supplied file</li>
+        <li>Add any new entities from the supplied file that are not already on the list</li>
+        <li>Remove any entities currently on the list that are <strong>not</strong> present in the supplied file</li>
+    </ul>
+    <p>By default (without this flag) the command appends new entities to the existing list without removing anything.</p>
+    </dd>
     <dt id="banshee-list-bulk-add--help"><a href="#banshee-list-bulk-add--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>Show help for this command</p>
 </dl>
