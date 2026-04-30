@@ -60,6 +60,10 @@ app = Typer(no_args_is_help=True)
 def parse_entity_input(entities: Union[list, str]):
     parsed_entities = []
     for entity in entities:
+
+        if isinstance(entity, str) and entity.strip() == '':
+            continue
+
         if ',' in entity:
             # Split on the last comma to handle entity names that contain commas
             parsed_entity = entity.rsplit(',', 1)
@@ -73,6 +77,8 @@ def parse_entity_input(entities: Union[list, str]):
             parsed_entity = entity
         parsed_entities.append(parsed_entity)
 
+    if len(parsed_entities) == 0:
+        raise BadParameter('No entities provided')
     return parsed_entities
 
 
