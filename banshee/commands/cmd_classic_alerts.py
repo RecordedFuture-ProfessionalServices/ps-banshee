@@ -11,6 +11,7 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
+import json
 import re
 import sys
 from typing import Annotated
@@ -18,13 +19,14 @@ from typing import Annotated
 from typer import Argument, BadParameter, Option, Typer
 
 from ..branding import banshee_cmd
-from ..legacy_alerts.alert_lookup import lookup_alert
+from ..legacy_alerts.alert_lookup import bulk_lookup_alerts, lookup_alert
 from ..legacy_alerts.alert_search import search_alerts
 from ..legacy_alerts.alert_update import update_alerts
 from ..legacy_alerts.constants import AlertStatus
 from ..legacy_alerts.rules_search import search_alert_rules
 from .args import OPT_PRETTY_PRINT
 from .epilogs import (
+    EPILOG_ALERT_BULK_LOOKUP,
     EPILOG_ALERT_LOOKUP,
     EPILOG_ALERT_RULES_SEARCH,
     EPILOG_ALERT_SEARCH,
@@ -77,6 +79,23 @@ def parse_triggered(value: str):
     return value
 
 
+def parse_search_alerts(value: str):
+    if not value:
+        raise BadParameter('No Alert data supplied')
+
+    try:
+        alerts = json.loads(value)
+    except json.JSONDecodeError as err:
+        raise BadParameter('Invalid JSON supplied') from err
+
+    alert_ids = [alert['id'] for alert in alerts]
+
+    for alert_id in alert_ids:
+        validate_alert_id(alert_id)
+
+    return alert_ids
+
+
 ###################################
 # Commands
 ###################################
@@ -90,6 +109,27 @@ def lookup(
     pretty: OPT_PRETTY_PRINT = False,
 ):
     lookup_alert(id_=alert_id, pretty=pretty)
+
+
+@banshee_cmd(app=app, help_='Lookup multiple Classic Alerts', epilog=EPILOG_ALERT_BULK_LOOKUP)
+def bulk_lookup(
+    csv_flag: Annotated[
+        bool,
+        Option(
+            '--csv', help='Output the result as CSV, Using predefined fields', show_default=False
+        ),
+    ] = False,
+):
+    if sys.stdin.isatty():
+        raise BadParameter(
+            'This command only accepts piped input. Usage: banshee ca search | banshee ca bulk-lookup'  # noqa: E501
+        )
+
+    raw_alerts = sys.stdin.read().strip()
+
+    alert_ids = parse_search_alerts(raw_alerts)
+
+    bulk_lookup_alerts(alert_ids=alert_ids, csv_flag=csv_flag)
 
 
 @banshee_cmd(app=app, help_='Search for Classic Alerts', epilog=EPILOG_ALERT_SEARCH)
@@ -113,12 +153,7 @@ def search(
     ] = None,
     pretty: OPT_PRETTY_PRINT = False,
 ):
-    search_alerts(
-        triggered=triggered,
-        alert_rules=alert_rules,
-        status=status,
-        pretty=pretty,
-    )
+    search_alerts(triggered=triggered, alert_rules=alert_rules, status=status, pretty=pretty)
 
 
 @banshee_cmd(app=app, help_='Search Classic Alert rules', epilog=EPILOG_ALERT_RULES_SEARCH)

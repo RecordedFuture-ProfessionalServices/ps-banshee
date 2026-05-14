@@ -13,6 +13,8 @@
 
 from enum import Enum
 
+DATE_TIME_FORMAT = '%Y-%m-%d %H:%M:%S.%f %Z'
+
 
 class AlertStatus(Enum):
     """Enum representing the status of a classic alert."""
