@@ -27,6 +27,7 @@ UNCHANGED = 'unchanged'
 UPDATED = 'updated'
 ERROR_BAD_ID = 'error_bad_id'
 ERROR_NOT_FOUND = 'error_not_found'
+ERROR_NOT_ALLOWED = 'error_not_allowed'
 ERROR_MULTIPLE_MATCHES = 'error_multiple_matches'
 LIST_MAX_SIZE_REACHED = 'list_max_size_reached'
 
@@ -93,6 +94,8 @@ def handle_list_api_error(err: ListApiError, entity: str) -> tuple[str, str]:
             # We might want to move this to PSEngine _list_op() in the future
             if 'max size' in response_text.lower():
                 return (LIST_MAX_SIZE_REACHED, entity)
+            if 'not allowed to be added' in response_text.lower():
+                return (ERROR_NOT_ALLOWED, entity)
             return (ERROR_BAD_ID, entity)
         return ('error_status_' + str(err.__cause__.response.status_code), entity)
     # Handle timeout and other network errors

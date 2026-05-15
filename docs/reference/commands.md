@@ -1215,9 +1215,11 @@ wanna:malware
     <li><code>ADDED</code> - Entity was successfully added to the list.</li>
     <li><code>UNCHANGED</code> - Entity already existed on the list (no change made).</li>
     <li><code>UPDATED</code> - Entity existed and was updated by the API.</li>
-    <li><code>ERROR_MULTIPLE_MATCHES</code> - The input matched more than one possible entity. <strong>The entity was not added.</strong></li>
-    <li><code>ERROR_NOT_FOUND</code> - No matching entity was found.</li>
     <li><code>ERROR_BAD_ID</code> - Invalid input format or invalid entity reference.</li>
+    <li><code>ERROR_NOT_FOUND</code> - No matching entity was found.</li>
+    <li><code>ERROR_NOT_ALLOWED</code> - The entity type is not allowed in the specified list.</li>
+    <li><code>ERROR_MULTIPLE_MATCHES</code> - The input matched more than one possible entity. <strong>The entity was not added.</strong></li>
+    <li><code>LIST_MAX_SIZE_REACHED</code> - The list specified is full and no more entities can be added.</li>
 </ul>
 
 <h3 class="commands-reference">How to Resolve <code>ERROR_MULTIPLE_MATCHES</code></h3>
