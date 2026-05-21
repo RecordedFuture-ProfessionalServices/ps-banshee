@@ -13,6 +13,7 @@
 
 import csv
 import sys
+from psengine.classic_alerts.classic_alert import ClassicAlert
 
 from .constants import DATE_TIME_FORMAT
 
@@ -24,7 +25,7 @@ def sanitize_csv_field(text):
     return str(text).replace('\r\n', ' ').replace('\r', ' ').replace('\n', ' ').replace(',', ' ')
 
 
-def parse_alerts_to_csv(ca_alerts):
+def parse_alerts_to_csv(ca_alerts: list[ClassicAlert]):
     alerts = []
     for alert in ca_alerts:
         entities = []
@@ -40,16 +41,16 @@ def parse_alerts_to_csv(ca_alerts):
 
         alerts.append(
             {
-                'alert_id': alert.id_,
-                'alert_title': alert.title,
-                'alert_datetime': alert.log.triggered.strftime(DATE_TIME_FORMAT),
-                'alert_status': alert.review.status_in_portal,
-                'url_to_portal': str(alert.url.portal),
-                'alert_rule_name': alert.rule.name,
-                'count_of_hits': len(alert.hits),
-                'primary_entities': ' <-> '.join(entities),
-                'primary_entities_description': ' <-> '.join(entities_descriptions),
-                'ai_insight': sanitize_csv_field(alert.ai_insights.comment),
+                'ID': alert.id_,
+                'Title': alert.title,
+                'Created': alert.log.triggered.strftime(DATE_TIME_FORMAT),
+                'Status': alert.review.status_in_portal,
+                'URL': str(alert.url.portal),
+                'Alert Rule': alert.rule.name,
+                'Hits Count': len(alert.hits),
+                'Primary Entities': ' <-> '.join(entities),
+                'Primary Entities Description': ' <-> '.join(entities_descriptions),
+                'Recorded Future AI Insights': sanitize_csv_field(alert.ai_insights.text or alert.ai_insights.comment),
             }
         )
 

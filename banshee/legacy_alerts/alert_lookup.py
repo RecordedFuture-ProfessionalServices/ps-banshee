@@ -37,6 +37,7 @@ def bulk_lookup_alerts(alert_ids: list, csv_flag: bool):
 
     alerts = alert_mgr.fetch_bulk(
         ids=alert_ids,
+        max_workers=min(30, len(alert_ids))
     )
 
     if csv_flag:
