@@ -26,7 +26,7 @@ def fetch_list(list_id: str):
         TextColumn('[progress.description]{task.description}'),
         transient=True,
     ) as progress:
-        progress.add_task(description='Fetching list information...', total=None)
+        progress.add_task(description='Fetching list information', total=None)
         try:
             entity_list = list_mgr.fetch(list_=list_id)
         except ListApiError as err:

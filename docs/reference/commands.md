@@ -1185,9 +1185,62 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
+    <dt id="banshee-list-bulk-add--overwrite"><a href="#banshee-list-bulk-add--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
+    <p>Enable overwrite mode. When set, the command will:</p>
+    <ul>
+        <li>Keep all entities currently on the list that are present in the supplied file</li>
+        <li>Add any new entities from the supplied file that are not already on the list</li>
+        <li>Remove any entities currently on the list that are <strong>not</strong> present in the supplied file</li>
+    </ul>
+    <p>By default (without this flag) the command appends new entities to the existing list without removing anything.</p>
+    </dd>
     <dt id="banshee-list-bulk-add--help"><a href="#banshee-list-bulk-add--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>Show help for this command</p>
 </dl>
+
+<h3 class="commands-reference">Result Status Output</h3>
+
+<p><code>banshee list bulk-add</code> groups output by status and prints each matching input entity under that status, for example:</p>
+
+<pre><code class="language-text">
+ADDED:
+SoA6SP
+
+ERROR_MULTIPLE_MATCHES:
+wanna:malware
+</code></pre>
+
+<p>Common statuses:</p>
+<ul>
+    <li><code>ADDED</code> - Entity was successfully added to the list.</li>
+    <li><code>UNCHANGED</code> - Entity already existed on the list (no change made).</li>
+    <li><code>UPDATED</code> - Entity existed and was updated by the API.</li>
+    <li><code>ERROR_BAD_ID</code> - Invalid input format or invalid entity reference.</li>
+    <li><code>ERROR_NOT_FOUND</code> - No matching entity was found.</li>
+    <li><code>ERROR_NOT_ALLOWED</code> - The entity type is not allowed in the specified list.</li>
+    <li><code>ERROR_MULTIPLE_MATCHES</code> - The input matched more than one possible entity. <strong>The entity was not added.</strong></li>
+    <li><code>LIST_MAX_SIZE_REACHED</code> - The list specified is full and no more entities can be added.</li>
+</ul>
+
+<h3 class="commands-reference">How to Resolve <code>ERROR_MULTIPLE_MATCHES</code></h3>
+
+<p>When you see <code>ERROR_MULTIPLE_MATCHES</code>, the provided entity name is ambiguous. The API could not pick a single exact entity, so the row is skipped and not added.</p>
+
+<p>Recommended workflow:</p>
+<ol>
+    <li>Take the ambiguous value from the command output.</li>
+    <li>Run <code>banshee entity search</code> to find the intended exact entity. If needed, tweak how the name is written in the search term (for example different spelling, spacing, or a more specific variant) to narrow results.</li>
+    <li>Replace the ambiguous value in your input file with the exact entity ID.</li>
+    <li>Run <code>banshee list bulk-add</code> again with the corrected file.</li>
+</ol>
+
+<p>Example:</p>
+<pre><code class="language-bash">
+banshee entity search wannacry --type Malware
+banshee list bulk-add LIST_ID &lt; entities.txt
+</code></pre>
+
+<p>Tip: If you already know the entity ID (for example <code>SoA6SP</code>), prefer IDs over name/type pairs in bulk files to avoid ambiguity.</p>
 
 ### banshee list remove
 
@@ -1330,7 +1383,7 @@ banshee pba search [OPTIONS]
     <dt id="banshee-pba-search--updated"><a href="#banshee-pba-search--updated"><code>--updated</code>, <code>-u</code></a> <i>updated-from</i></dt><dd>
     <p>Filter on the updated from time, for example: 1d; 12h</p><dd></dd>
     <dt id="banshee-pba-search--category"><a href="#banshee-pba-search--category"><code>--category</code>, <code>-c</code></a> <i>category</i></dt><dd>
-    <p>Filter by alert category</p>
+    <p>Filter by alert category (repeatable)</p>
     <p>Supported categories:</p>
     <p>
     <ul>
@@ -1343,15 +1396,15 @@ banshee pba search [OPTIONS]
     </ul>
     </p><dd></dd>
     <dt id="banshee-pba-search--priority"><a href="#banshee-pba-search--priority"><code>--priority</code></a>,  <code>-P</code> <i>priority</i></dt><dd>
-    <p>Filter by alert priority</p>
+    <p>Filter by alert priority (repeatable)</p>
     <p>Possible values are: <code>Informational</code>, <code>Moderate</code>, <code>High</code></p>
     <p>Defaults to all categories</p><dd></dd>
     <dt id="banshee-pba-search--status"><a href="#banshee-pba-search--status"><code>--status</code></a>,  <code>-s</code> <i>alert-status</i></dt><dd>
-    <p>Filter by alert status</p>
+    <p>Filter by alert status (repeatable)</p>
     <p>Possible values are: <code>New</code>, <code>InProgress</code>, <code>Dismissed</code>, <code>Resolved</code></p>
     <p>Defaults to all categories</p><dd></dd>
     <dt id="banshee-pba-search--entity"><a href="#banshee-pba-search--entity"><code>--entity</code></a>,  <code>-e</code> <i>entity</i></dt><dd>
-    <p>Filter alerts by associated entity, for example: idn:recordedfuture.com</p><dd></dd>
+    <p>Filter alerts by associated entity (repeatable), for example: <code>-e idn:recordedfuture.com -e idn:example.com</code></p><dd></dd>
     <dt id="banshee-pba-search--limit"><a href="#banshee-pba-search--limit"><code>--limit</code>, <code>-l</code></a> <i>limit</i></dt><dd>
     <p>Limit the number of results</p>
     <p>The maximum limit is 10 000</p>

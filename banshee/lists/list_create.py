@@ -28,7 +28,7 @@ def create_list(name: str, list_type: str, pretty: bool):
         TextColumn('[progress.description]{task.description}'),
         transient=True,
     ) as progress:
-        progress.add_task(description='Creating list...', total=None)
+        progress.add_task(description='Creating list', total=None)
         result = list_mgr.create(list_name=name, list_type=list_type)
 
     if pretty:

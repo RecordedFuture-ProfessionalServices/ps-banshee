@@ -1,11 +1,13 @@
-from unittest.mock import patch
+from datetime import datetime, timezone
+from unittest.mock import MagicMock, call, patch
 
 import pytest
-from psengine.entity_lists import EntityList, EntityListMgr, ListApiError
+from psengine.entity_lists import EntityList, EntityListMgr, ListApiError, ListEntity
 from requests import HTTPError, Response
 from typer.testing import CliRunner
 
 from banshee.commands.cmd_lists import app
+from banshee.lists.list_bulk_add import _find_entities_to_add, _find_entities_to_remove
 
 runner = CliRunner()
 
@@ -22,38 +24,39 @@ def test_http_errors():
     with patch.object(EntityListMgr, 'fetch', side_effect=ListApiError('Generic ListApiError')):
         result = runner.invoke(app, args=[COMMAND, 'report:wpHivJ', 'ip:8.8.8.8'])
         assert result.exit_code == 1
-    error_400 = Response()
-    error_400.status_code = 400
-    list_api_error = ListApiError('Mock ListApiError 400')
-    list_api_error.__cause__ = HTTPError(response=error_400)
-    with patch.object(EntityList, 'add', side_effect=list_api_error):
-        result = runner.invoke(app, args=[COMMAND, 'report:wpHivJ', 'ip:8.8.8.8'])
-        assert 'ERROR_BAD_ID' in result.output
-        assert result.exit_code == 0
-    error_404 = Response()
-    error_404.status_code = 404
-    list_api_error = ListApiError('Mock ListApiError 404')
-    list_api_error.__cause__ = HTTPError(response=error_404)
-    with patch.object(EntityList, 'add', side_effect=list_api_error):
-        result = runner.invoke(app, args=[COMMAND, 'report:wpHivJ', 'ip:8.8.8.8'])
-        assert 'ERROR_NOT_FOUND' in result.output
-        assert result.exit_code == 0
-    error_500 = Response()
-    error_500.status_code = 500
-    list_api_error = ListApiError('Mock ListApiError 500')
-    list_api_error.__cause__ = HTTPError(response=error_500)
-    with patch.object(EntityList, 'add', side_effect=list_api_error):
-        result = runner.invoke(app, args=[COMMAND, 'report:wpHivJ', 'ip:8.8.8.8'])
-        assert 'ERROR_STATUS_500' in result.output
-        assert result.exit_code == 0
-    error_503 = Response()
-    error_503.status_code = 503
-    list_api_error = ListApiError('Mock ListApiError 503')
-    list_api_error.__cause__ = HTTPError(response=error_503)
-    with patch.object(EntityList, 'add', side_effect=list_api_error):
-        result = runner.invoke(app, args=[COMMAND, 'report:wpHivJ', 'ip:8.8.8.8'])
-        assert 'ERROR_STATUS_503' in result.output
-        assert result.exit_code == 0
+    with patch.object(EntityList, 'entities', return_value=[]):
+        error_400 = Response()
+        error_400.status_code = 400
+        list_api_error = ListApiError('Mock ListApiError 400')
+        list_api_error.__cause__ = HTTPError(response=error_400)
+        with patch.object(EntityList, 'add', side_effect=list_api_error):
+            result = runner.invoke(app, args=[COMMAND, 'report:wpHivJ', 'ip:8.8.8.8'])
+            assert 'ERROR_BAD_ID' in result.output
+            assert result.exit_code == 0
+        error_404 = Response()
+        error_404.status_code = 404
+        list_api_error = ListApiError('Mock ListApiError 404')
+        list_api_error.__cause__ = HTTPError(response=error_404)
+        with patch.object(EntityList, 'add', side_effect=list_api_error):
+            result = runner.invoke(app, args=[COMMAND, 'report:wpHivJ', 'ip:8.8.8.8'])
+            assert 'ERROR_NOT_FOUND' in result.output
+            assert result.exit_code == 0
+        error_500 = Response()
+        error_500.status_code = 500
+        list_api_error = ListApiError('Mock ListApiError 500')
+        list_api_error.__cause__ = HTTPError(response=error_500)
+        with patch.object(EntityList, 'add', side_effect=list_api_error):
+            result = runner.invoke(app, args=[COMMAND, 'report:wpHivJ', 'ip:8.8.8.8'])
+            assert 'ERROR_STATUS_500' in result.output
+            assert result.exit_code == 0
+        error_503 = Response()
+        error_503.status_code = 503
+        list_api_error = ListApiError('Mock ListApiError 503')
+        list_api_error.__cause__ = HTTPError(response=error_503)
+        with patch.object(EntityList, 'add', side_effect=list_api_error):
+            result = runner.invoke(app, args=[COMMAND, 'report:wpHivJ', 'ip:8.8.8.8'])
+            assert 'ERROR_STATUS_503' in result.output
+            assert result.exit_code == 0
 
 
 IPS_201 = [
@@ -331,3 +334,187 @@ def test_list_bulk_add_fewer_than_100_entities():
     assert result.exit_code == 0
     for ip in IPS_50:
         assert ip in result.output
+
+
+def _make_entity(id_: str, name: str, type_: str) -> ListEntity:
+    return ListEntity(
+        entity={'id': id_, 'name': name, 'type': type_},
+        status='active',
+        added=datetime.now(timezone.utc),
+    )
+
+
+def _make_add_mock(status: str) -> MagicMock:
+    mock = MagicMock()
+    mock.result = status
+    return mock
+
+
+def test_find_entities_to_add_mixed_input_new_entities():
+    pre_existing = [_make_entity('ip:1.1.1.1', '1.1.1.1', 'IpAddress')]
+    provided = [('1.1.1.1', 'IpAddress'), 'ip:2.2.2.2', 'ip:3.3.3.3']
+    result = _find_entities_to_add(pre_existing, provided)
+    assert result == ['ip:2.2.2.2', 'ip:3.3.3.3']
+
+
+def test_find_entities_to_add_id_input_new_entities():
+    pre_existing = [
+        _make_entity('ip:1.1.1.1', '1.1.1.1', 'IpAddress'),
+        _make_entity('ip:2.2.2.2', '2.2.2.2', 'IpAddress'),
+    ]
+    provided = ['ip:1.1.1.1', 'ip:2.2.2.2', 'ip:3.3.3.3']
+    result = _find_entities_to_add(pre_existing, provided)
+    assert result == ['ip:3.3.3.3']
+
+
+def test_find_entities_to_add_empty_pre_existing():
+    result = _find_entities_to_add([], ['ip:1.1.1.1', 'ip:2.2.2.2'])
+    assert result == ['ip:1.1.1.1', 'ip:2.2.2.2']
+
+
+def test_find_entities_to_add_all_input_same_as_pre_existing():
+    pre_existing = [
+        _make_entity('ip:1.1.1.1', '1.1.1.1', 'IpAddress'),
+        _make_entity('ip:2.2.2.2', '2.2.2.2', 'IpAddress'),
+    ]
+    provided = ['ip:1.1.1.1', 'ip:2.2.2.2']
+    result = _find_entities_to_add(pre_existing, provided)
+    assert result == []
+
+
+def test_find_entities_to_remove_mixed_input_remove_something():
+    pre_existing = [
+        _make_entity('ip:1.1.1.1', '1.1.1.1', 'IpAddress'),
+        _make_entity('ip:2.2.2.2', '2.2.2.2', 'IpAddress'),
+        _make_entity('ip:4.4.4.4', '4.4.4.4', 'IpAddress'),
+    ]
+    provided = ['ip:1.1.1.1', ('3.3.3.3', 'IpAddress'), ('4.4.4.4', 'IpAddress')]
+    result = _find_entities_to_remove(pre_existing, provided)
+    assert result == ['ip:2.2.2.2']
+
+
+def test_find_entities_to_remove_id_input():
+    pre_existing = [
+        _make_entity('ip:1.1.1.1', '1.1.1.1', 'IpAddress'),
+        _make_entity('ip:2.2.2.2', '2.2.2.2', 'IpAddress'),
+        _make_entity('ip:4.4.4.4', '4.4.4.4', 'IpAddress'),
+    ]
+    provided = ['ip:1.1.1.1', 'ip:2.2.2.2']
+    result = _find_entities_to_remove(pre_existing, provided)
+    assert result == ['ip:4.4.4.4']
+
+
+def test_find_entities_to_remove_empty_pre_existing():
+    result = _find_entities_to_remove([], ['ip:1.1.1.1'])
+    assert result == []
+
+
+def test_find_entities_to_remove_nothing_to_remove():
+    pre_existing = [
+        _make_entity('ip:1.1.1.1', '1.1.1.1', 'IpAddress'),
+        _make_entity('ip:2.2.2.2', '2.2.2.2', 'IpAddress'),
+    ]
+    provided = ['ip:1.1.1.1', 'ip:2.2.2.2']
+    result = _find_entities_to_remove(pre_existing, provided)
+    assert result == []
+
+
+def test_overwrite_removes_stale_entity():
+    stale = _make_entity('ip:9.9.9.9', '9.9.9.9', 'IpAddress')
+
+    remove_result = MagicMock()
+    remove_result.result = 'removed'
+
+    mock_entity_list = MagicMock(spec=EntityList)
+    mock_entity_list.entities.return_value = [stale]
+    mock_entity_list.add.return_value = _make_add_mock('added')
+    mock_entity_list.remove.return_value = remove_result
+
+    with patch.object(EntityListMgr, 'fetch', return_value=mock_entity_list):
+        result = runner.invoke(app, args=[COMMAND, '--overwrite', 'report:wpHivJ', 'ip:1.1.1.1'])
+
+    assert result.exit_code == 0
+    mock_entity_list.add.assert_called_once_with(entity='ip:1.1.1.1')
+    mock_entity_list.remove.assert_called_once_with(entity='ip:9.9.9.9')
+    assert 'ADDED' in result.output
+    assert 'ip:1.1.1.1' in result.output
+    assert 'REMOVED' in result.output
+    assert 'ip:9.9.9.9' in result.output
+
+
+def test_overwrite_keeps_entity_present_in_provided():
+    existing = _make_entity('ip:1.1.1.1', '1.1.1.1', 'IpAddress')
+
+    mock_entity_list = MagicMock(spec=EntityList)
+    mock_entity_list.entities.return_value = [existing]
+
+    with patch.object(EntityListMgr, 'fetch', return_value=mock_entity_list):
+        result = runner.invoke(app, args=[COMMAND, '--overwrite', 'report:wpHivJ', 'ip:1.1.1.1'])
+        mock_entity_list.add.assert_not_called()
+        mock_entity_list.remove.assert_not_called()
+
+    assert result.exit_code == 0
+    assert 'UNCHANGED' in result.output
+    assert 'ip:1.1.1.1' in result.output
+
+
+def test_without_overwrite_does_not_remove():
+    stale = _make_entity('ip:9.9.9.9', '9.9.9.9', 'IpAddress')
+
+    mock_entity_list = MagicMock(spec=EntityList)
+    mock_entity_list.entities.return_value = [stale]
+    mock_entity_list.add.return_value = _make_add_mock('added')
+
+    with patch.object(EntityListMgr, 'fetch', return_value=mock_entity_list):
+        result = runner.invoke(app, args=[COMMAND, 'report:wpHivJ', 'ip:1.1.1.1'])
+        mock_entity_list.add.assert_called_once_with(entity='ip:1.1.1.1')
+        mock_entity_list.remove.assert_not_called()
+
+    assert result.exit_code == 0
+    assert 'ADDED' in result.output
+    assert 'ip:1.1.1.1' in result.output
+    assert 'REMOVED' not in result.output
+
+
+def test_overwrite_with_no_stale_entities_does_not_call_remove():
+    existing = _make_entity('ip:1.1.1.1', '1.1.1.1', 'IpAddress')
+
+    mock_entity_list = MagicMock(spec=EntityList)
+    mock_entity_list.entities.return_value = [existing]
+
+    with patch.object(EntityListMgr, 'fetch', return_value=mock_entity_list):
+        result = runner.invoke(app, args=[COMMAND, '--overwrite', 'report:wpHivJ', 'ip:1.1.1.1'])
+        mock_entity_list.add.assert_not_called()
+        mock_entity_list.remove.assert_not_called()
+
+    assert result.exit_code == 0
+    assert 'UNCHANGED' in result.output
+    assert 'ip:1.1.1.1' in result.output
+
+
+def test_overwrite_multiple_stale_entities_all_removed():
+    stale1 = _make_entity('ip:9.9.9.9', '9.9.9.9', 'IpAddress')
+    stale2 = _make_entity('ip:8.8.8.8', '8.8.8.8', 'IpAddress')
+
+    remove_result = MagicMock()
+    remove_result.result = 'removed'
+
+    mock_entity_list = MagicMock(spec=EntityList)
+    mock_entity_list.entities.return_value = [stale1, stale2]
+    mock_entity_list.add.return_value = _make_add_mock('added')
+    mock_entity_list.remove.return_value = remove_result
+
+    with patch.object(EntityListMgr, 'fetch', return_value=mock_entity_list):
+        result = runner.invoke(app, args=[COMMAND, '--overwrite', 'report:wpHivJ', 'ip:1.1.1.1'])
+
+    assert result.exit_code == 0
+    mock_entity_list.add.assert_called_once_with(entity='ip:1.1.1.1')
+    assert mock_entity_list.remove.call_count == 2
+    mock_entity_list.remove.assert_has_calls(
+        [call(entity='ip:9.9.9.9'), call(entity='ip:8.8.8.8')], any_order=True
+    )
+    assert 'ADDED' in result.output
+    assert 'ip:1.1.1.1' in result.output
+    assert 'REMOVED' in result.output
+    assert 'ip:9.9.9.9' in result.output
+    assert 'ip:8.8.8.8' in result.output

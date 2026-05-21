@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   build:
-    name: "Python 3.10"
+    name: "Python 3.11"
     runs-on: ubuntu-latest
     
     env:
@@ -30,12 +30,11 @@ jobs:
       - uses: astral-sh/setup-uv@v6
 
       - name: Set up Python
-        run: uv python install 3.10
+        run: uv python install 3.11
 
       - name: Set up venv
         run: |
-          uv venv -p 3.10
-          uv pip install '.[dev]'
+          uv sync
       
       - name: Run tests
         env:
@@ -43,7 +42,7 @@ jobs:
           PY_COLORS: 0
           NO_COLOR: 1
         run: |
-          uv run -p 3.10 pytest \
+          uv run -p 3.11 pytest \
               --cov \
               --cov-report=html:htmlcov --cov-report=term-missing --cov-branch \
               --cov-report=term \
@@ -64,7 +63,7 @@ jobs:
         uses: mshick/add-pr-comment@v2
         with:
           message: |
-            Coverage HTML (Python 3.10: ${{ steps.cov_html.outputs.artifact-url }}
+            Coverage HTML (Python 3.11: ${{ steps.cov_html.outputs.artifact-url }}
           message-id: CoverageHTML
 
 
