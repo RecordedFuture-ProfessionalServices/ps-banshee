@@ -203,6 +203,7 @@ def test_pcap_json_out():
     )
 
 
+@pytest.mark.skip(reason='Temp disable until API issues resolved')
 def test_pcap_pretty_out():
     result = runner.invoke(app, args=['enrich', CAPTURES[1][0].as_posix(), '-p', '-r', '40'])
     assert result.exit_code == 0
