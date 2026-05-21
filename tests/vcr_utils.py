@@ -55,7 +55,9 @@ DO_NOT_CHANGE = (
     'time',
     'analyzed',
     'exfiltration_date',
-    'event_time'
+    'event_time',
+    'note_date',
+    'status_date'
 )
 
 

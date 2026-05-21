@@ -18,6 +18,8 @@ from rich import print_json
 from rich.console import Console
 from rich.markdown import Markdown
 
+from .helpers import parse_alerts_to_csv
+
 
 def lookup_alert(id_: str, pretty: bool):
     alert_mgr = ClassicAlertMgr()
@@ -28,6 +30,20 @@ def lookup_alert(id_: str, pretty: bool):
         _pretty_print(alert)
     else:
         print_json(json.dumps(alert.json()), indent=2)
+
+
+def bulk_lookup_alerts(alert_ids: list, csv_flag: bool):
+    alert_mgr = ClassicAlertMgr()
+
+    alerts = alert_mgr.fetch_bulk(
+        ids=alert_ids,
+    )
+
+    if csv_flag:
+        parse_alerts_to_csv(alerts)
+    else:
+        alerts = [alert.json() for alert in alerts]
+        print_json(json.dumps(alerts), indent=2)
 
 
 def _pretty_print(alert: ClassicAlert):
