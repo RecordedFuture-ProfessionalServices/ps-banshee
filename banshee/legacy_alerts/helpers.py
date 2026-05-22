@@ -18,6 +18,20 @@ from psengine.classic_alerts.classic_alert import ClassicAlert
 
 from .constants import DATE_TIME_FORMAT
 
+CSV_FIELDNAMES = (
+    'ID',
+    'Priority',
+    'Alert Rule',
+    'Status',
+    'Created',
+    'Updated',
+    'Title',
+    'Assignee',
+    'URL',
+    'Entities',
+    'Recorded Future AI Insights',
+)
+
 
 def sanitize_csv_field(text):
     if text is None:
@@ -27,7 +41,8 @@ def sanitize_csv_field(text):
 
 
 def parse_alerts_to_csv(ca_alerts: list[ClassicAlert]):
-    alerts = []
+    writer = csv.DictWriter(sys.stdout, fieldnames=CSV_FIELDNAMES)
+    writer.writeheader()
     for alert in ca_alerts:
         entities: list[str] = []
         for hit in alert.hits:
@@ -36,7 +51,7 @@ def parse_alerts_to_csv(ca_alerts: list[ClassicAlert]):
                 if name not in entities:
                     entities.append(name)
 
-        alerts.append(
+        writer.writerow(
             {
                 'ID': alert.id_,
                 'Priority': '',  # Placeholder until the API adds this
@@ -53,8 +68,3 @@ def parse_alerts_to_csv(ca_alerts: list[ClassicAlert]):
                 ),
             }
         )
-
-    if alerts:
-        writer = csv.DictWriter(sys.stdout, fieldnames=alerts[0].keys())
-        writer.writeheader()
-        writer.writerows(alerts)
