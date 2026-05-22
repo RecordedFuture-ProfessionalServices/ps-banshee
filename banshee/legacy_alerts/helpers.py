@@ -23,7 +23,7 @@ def sanitize_csv_field(text):
     if text is None:
         return ''
 
-    return str(text).replace('\r\n', ' ').replace('\r', ' ').replace('\n', ' ').replace(',', ' ')
+    return str(text).replace('\r\n', ' ').replace('\r', ' ').replace('\n', ' ')
 
 
 def parse_alerts_to_csv(ca_alerts: list[ClassicAlert]):
@@ -40,12 +40,12 @@ def parse_alerts_to_csv(ca_alerts: list[ClassicAlert]):
             {
                 'ID': alert.id_,
                 'Priority': '',  # Placeholder until the API adds this
-                'Alert Rule': alert.rule.name,
+                'Alert Rule': sanitize_csv_field(alert.rule.name),
                 'Status': alert.review.status_in_portal,
                 'Created': alert.log.triggered.strftime(DATE_TIME_FORMAT),
                 'Updated': '',  # placeholder too if added to the API response
-                'Title': alert.title,
-                'Assignee': alert.review.assignee,
+                'Title': sanitize_csv_field(alert.title),
+                'Assignee': sanitize_csv_field(alert.review.assignee),
                 'URL': str(alert.url.portal),
                 'Entities': '; '.join(entities),
                 'Recorded Future AI Insights': sanitize_csv_field(
