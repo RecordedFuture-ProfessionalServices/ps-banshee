@@ -15,6 +15,8 @@ import json
 
 from psengine.classic_alerts import ClassicAlertMgr
 from rich import print_json
+from rich.console import Console
+from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from .helpers import parse_alerts_to_csv
 
@@ -22,7 +24,14 @@ from .helpers import parse_alerts_to_csv
 def export_alerts(alert_ids: list, csv_flag: bool):
     alert_mgr = ClassicAlertMgr()
 
-    alerts = alert_mgr.fetch_bulk(ids=alert_ids, max_workers=min(30, len(alert_ids)))
+    with Progress(
+        SpinnerColumn(),
+        TextColumn('[progress.description]{task.description}'),
+        transient=True,
+        console=Console(stderr=True),
+    ) as progress:
+        progress.add_task(description='Fetching Classic Alerts', total=None)
+        alerts = alert_mgr.fetch_bulk(ids=alert_ids, max_workers=min(30, len(alert_ids)))
 
     if csv_flag:
         parse_alerts_to_csv(alerts)

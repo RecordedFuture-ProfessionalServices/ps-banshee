@@ -51,7 +51,7 @@ def test_ca_export_no_alerts():
 def test_ca_export_json():
     result = runner.invoke(app, args=[COMMAND], input=ALERTS)
     assert result.exit_code == 0
-    
+
     alerts = json.loads(result.output.strip('\n'))
     assert len(alerts) == 3
     for alert in alerts:
