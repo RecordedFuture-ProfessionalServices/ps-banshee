@@ -13,26 +13,19 @@
 
 import json
 
-from psengine.classic_alerts import ClassicAlert, ClassicAlertMgr
+from psengine.classic_alerts import ClassicAlertMgr
 from rich import print_json
-from rich.console import Console
-from rich.markdown import Markdown
+
+from .helpers import parse_alerts_to_csv
 
 
-def lookup_alert(id_: str, pretty: bool):
+def export_alerts(alert_ids: list, csv_flag: bool):
     alert_mgr = ClassicAlertMgr()
 
-    alert = alert_mgr.fetch(id_)
+    alerts = alert_mgr.fetch_bulk(ids=alert_ids, max_workers=min(30, len(alert_ids)))
 
-    if pretty:
-        _pretty_print(alert)
+    if csv_flag:
+        parse_alerts_to_csv(alerts)
     else:
-        print_json(json.dumps(alert.json()), indent=2)
-
-
-def _pretty_print(alert: ClassicAlert):
-    console = Console()
-    md = Markdown(alert.markdown(fragment_entities=False, html_tags=False))
-    console.print(md)
-
-    return
+        alerts = [alert.json() for alert in alerts]
+        print_json(json.dumps(alerts), indent=2)

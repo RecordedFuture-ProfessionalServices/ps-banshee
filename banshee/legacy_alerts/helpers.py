@@ -13,6 +13,7 @@
 
 import csv
 import sys
+
 from psengine.classic_alerts.classic_alert import ClassicAlert
 
 from .constants import DATE_TIME_FORMAT
@@ -28,29 +29,27 @@ def sanitize_csv_field(text):
 def parse_alerts_to_csv(ca_alerts: list[ClassicAlert]):
     alerts = []
     for alert in ca_alerts:
-        entities = []
-        entities_descriptions = []
+        entities: list[str] = []
         for hit in alert.hits:
-            if 'primary_entity' in hit:
-                entities.append(
-                    sanitize_csv_field(hit.primary_entity.name)
-                ) if hit.primary_entity.name not in entities else None
-                entities_descriptions.append(
-                    sanitize_csv_field(hit.primary_entity.description)
-                ) if hit.primary_entity.description not in entities_descriptions else None
+            if hit.primary_entity:
+                name = sanitize_csv_field(hit.primary_entity.name)
+                if name not in entities:
+                    entities.append(name)
 
         alerts.append(
             {
                 'ID': alert.id_,
-                'Title': alert.title,
-                'Created': alert.log.triggered.strftime(DATE_TIME_FORMAT),
-                'Status': alert.review.status_in_portal,
-                'URL': str(alert.url.portal),
                 'Alert Rule': alert.rule.name,
-                'Hits Count': len(alert.hits),
-                'Primary Entities': ' <-> '.join(entities),
-                'Primary Entities Description': ' <-> '.join(entities_descriptions),
-                'Recorded Future AI Insights': sanitize_csv_field(alert.ai_insights.text or alert.ai_insights.comment),
+                'Status': alert.review.status_in_portal,
+                'Created': alert.log.triggered.strftime(DATE_TIME_FORMAT),
+                'Priority': '',  # Placeholder until the API adds this
+                'Title': alert.title,
+                'Assignee': alert.review.assignee,
+                'URL': str(alert.url.portal),
+                'Primary Entities': '; '.join(entities),
+                'Recorded Future AI Insights': sanitize_csv_field(
+                    alert.ai_insights.text or alert.ai_insights.comment
+                ),
             }
         )
 

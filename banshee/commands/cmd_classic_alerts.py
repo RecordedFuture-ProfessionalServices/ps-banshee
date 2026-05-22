@@ -19,14 +19,15 @@ from typing import Annotated
 from typer import Argument, BadParameter, Option, Typer
 
 from ..branding import banshee_cmd
-from ..legacy_alerts.alert_lookup import bulk_lookup_alerts, lookup_alert
+from ..legacy_alerts.alert_export import export_alerts
+from ..legacy_alerts.alert_lookup import lookup_alert
 from ..legacy_alerts.alert_search import search_alerts
 from ..legacy_alerts.alert_update import update_alerts
 from ..legacy_alerts.constants import AlertStatus
 from ..legacy_alerts.rules_search import search_alert_rules
 from .args import OPT_PRETTY_PRINT
 from .epilogs import (
-    EPILOG_ALERT_BULK_LOOKUP,
+    EPILOG_ALERT_EXPORT,
     EPILOG_ALERT_LOOKUP,
     EPILOG_ALERT_RULES_SEARCH,
     EPILOG_ALERT_SEARCH,
@@ -111,27 +112,6 @@ def lookup(
     lookup_alert(id_=alert_id, pretty=pretty)
 
 
-@banshee_cmd(app=app, help_='Lookup multiple Classic Alerts', epilog=EPILOG_ALERT_BULK_LOOKUP)
-def bulk_lookup(
-    csv_flag: Annotated[
-        bool,
-        Option(
-            '--csv', help='Output the result as CSV, Using predefined fields', show_default=False
-        ),
-    ] = False,
-):
-    if sys.stdin.isatty():
-        raise BadParameter(
-            'This command only accepts piped input. Usage: banshee ca search | banshee ca bulk-lookup'  # noqa: E501
-        )
-
-    raw_alerts = sys.stdin.read().strip()
-
-    alert_ids = parse_search_alerts(raw_alerts)
-
-    bulk_lookup_alerts(alert_ids=alert_ids, csv_flag=csv_flag)
-
-
 @banshee_cmd(app=app, help_='Search for Classic Alerts', epilog=EPILOG_ALERT_SEARCH)
 def search(
     triggered: Annotated[
@@ -208,3 +188,24 @@ def update(
     update_alerts(
         alert_ids=parsed_ids, status=status, note=note, note_append=note_append, assignee=assignee
     )
+
+
+@banshee_cmd(app=app, help_='Export triggered Classic Alerts', epilog=EPILOG_ALERT_EXPORT)
+def export(
+    csv_flag: Annotated[
+        bool,
+        Option(
+            '--csv', help='Output the result as CSV, Using predefined fields', show_default=False
+        ),
+    ] = False,
+):
+    if sys.stdin.isatty():
+        raise BadParameter(
+            'This command only accepts piped input. Usage: banshee ca search | banshee ca export'  # noqa: E501
+        )
+
+    raw_alerts = sys.stdin.read().strip()
+
+    alert_ids = parse_search_alerts(raw_alerts)
+
+    export_alerts(alert_ids=alert_ids, csv_flag=csv_flag)

@@ -213,18 +213,16 @@ EPILOG_ALERT_LOOKUP = """
 
 """
 
-EPILOG_ALERT_BULK_LOOKUP = """
-This command doesn't feature a 'pretty' flag, the output is JSON by default or CSV (with the `--csv`).
-
-Input is taken from piping in the results `ca search`.
+EPILOG_ALERT_EXPORT = """
+Input is taken from piping in the results from `banshee ca search`.
 
 ## Example Usage
 
-* banshee ca search -t 1d | banshee ca bulk-lookup
+* banshee ca search -t 1d | banshee ca export
 
-* banshee ca search -t 1d | banshee ca bulk-lookup > alerts.json
+* banshee ca search -t 1d | banshee ca export > alerts.json
 
-* banshee ca search -t 12h -s Pending | banshee ca bulk-lookup --csv > alerts.csv
+* banshee ca search -t 12h -s Pending | banshee ca export --csv > alerts.csv
 
 """
 
