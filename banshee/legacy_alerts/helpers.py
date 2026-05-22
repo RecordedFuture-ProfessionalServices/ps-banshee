@@ -39,14 +39,15 @@ def parse_alerts_to_csv(ca_alerts: list[ClassicAlert]):
         alerts.append(
             {
                 'ID': alert.id_,
+                'Priority': '',  # Placeholder until the API adds this
                 'Alert Rule': alert.rule.name,
                 'Status': alert.review.status_in_portal,
                 'Created': alert.log.triggered.strftime(DATE_TIME_FORMAT),
-                'Priority': '',  # Placeholder until the API adds this
+                'Updated': '',  # placeholder too if added to the API response
                 'Title': alert.title,
                 'Assignee': alert.review.assignee,
                 'URL': str(alert.url.portal),
-                'Primary Entities': '; '.join(entities),
+                'Entities': '; '.join(entities),
                 'Recorded Future AI Insights': sanitize_csv_field(
                     alert.ai_insights.text or alert.ai_insights.comment
                 ),

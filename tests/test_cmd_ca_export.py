@@ -67,6 +67,6 @@ def test_ca_export_csv():
     assert len(result_csv) == 4
     assert (
         result_csv[0]
-        == 'ID,Alert Rule,Status,Created,Priority,Title,Assignee,URL,Primary Entities,Recorded Future AI Insights'
+        == 'ID,Priority,Alert Rule,Status,Created,Updated,Title,Assignee,URL,Entities,Recorded Future AI Insights'
     )
-    assert len(result_csv[1].split(',')) == 10
+    assert len(result_csv[1].split(',')) == 11
