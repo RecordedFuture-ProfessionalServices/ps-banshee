@@ -80,16 +80,35 @@ def parse_triggered(value: str):
     return value
 
 
+_PIPED_INPUT_HINT = (
+    "Expected piped JSON output from 'banshee ca search' "
+    "(e.g. 'banshee ca search -t 1d | banshee ca export')."
+)
+
+
 def parse_search_alerts(value: str):
     if not value:
-        raise BadParameter('No Alert data supplied')
+        raise BadParameter(f'No input received. {_PIPED_INPUT_HINT}')
 
     try:
         alerts = json.loads(value)
     except json.JSONDecodeError as err:
-        raise BadParameter('Invalid JSON supplied') from err
+        raise BadParameter(
+            f'Malformed input: could not parse as JSON ({err.msg}). {_PIPED_INPUT_HINT}'
+        ) from err
 
-    alert_ids = [alert['id'] for alert in alerts]
+    if not isinstance(alerts, list):
+        raise BadParameter(
+            f'Malformed input: expected a JSON array, got {type(alerts).__name__}. '
+            f'{_PIPED_INPUT_HINT}'
+        )
+
+    try:
+        alert_ids = [alert['id'] for alert in alerts]
+    except (KeyError, TypeError) as err:
+        raise BadParameter(
+            f'Malformed input: every alert object must have an "id" field. {_PIPED_INPUT_HINT}'
+        ) from err
 
     for alert_id in alert_ids:
         validate_alert_id(alert_id)

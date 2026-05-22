@@ -32,7 +32,7 @@ def test_ca_export_blank_pipe():
 
 def test_ca_export_invalid_json():
     result = runner.invoke(app, args=[COMMAND], input=INVALID_JSON)
-    assert result.exit_code == 1
+    assert result.exit_code == 2
 
 
 def test_ca_export_invalid_id():
