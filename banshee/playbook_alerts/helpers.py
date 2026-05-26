@@ -81,9 +81,7 @@ def parse_alerts_to_csv(ca_alerts: list):
                     alert.panel_status.reopen if hasattr(alert.panel_status, 'reopen') else ''
                 ),
                 'Onwards Actions': _sanitize_csv_field(
-                    '; '.join(alert.panel_status.actions_taken)
-                    if hasattr(alert.panel_status, 'actions_taken')
-                    else None
+                    '; '.join(alert.panel_status.actions_taken or [])
                 ),
             }
         )

@@ -99,8 +99,8 @@ def validate_status_reopen_options(status: RFPAStatus, reopen: RFPAReopenStrateg
 
 
 _PIPPED_INPUT_HINT = (
-    "Expected piped JSON output from 'banshee pba search' ",
-    "(e.g. 'banshee pba search -C 1d | banshee pba export)",
+    "Expected piped JSON output from 'banshee pba search' "
+    "(e.g. 'banshee pba search -C 1d | banshee pba export)"
 )
 
 
