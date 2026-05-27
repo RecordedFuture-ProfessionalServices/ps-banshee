@@ -14,6 +14,7 @@
 import csv
 import sys
 
+from psengine.classic_alerts import ClassicAlertMgr
 from psengine.classic_alerts.classic_alert import ClassicAlert
 
 from .constants import DATE_TIME_FORMAT
@@ -40,7 +41,20 @@ def sanitize_csv_field(text):
     return str(text).replace('\r\n', ' ').replace('\r', ' ').replace('\n', ' ')
 
 
+def get_ca_rules_priority():
+    alert_mgr = ClassicAlertMgr()
+    rules = alert_mgr.fetch_rules(max_results=1000)
+
+    rule_priority = {}
+    for r in rules:
+        rule_priority[r.id_] = r.priority
+
+    return rule_priority
+
+
 def parse_alerts_to_csv(ca_alerts: list[ClassicAlert]):
+    ca_rules = get_ca_rules_priority()
+
     writer = csv.DictWriter(sys.stdout, fieldnames=CSV_FIELDNAMES)
     writer.writeheader()
     for alert in ca_alerts:
@@ -54,11 +68,12 @@ def parse_alerts_to_csv(ca_alerts: list[ClassicAlert]):
         writer.writerow(
             {
                 'ID': alert.id_,
-                'Priority': '',  # Placeholder until the API adds this
+                'Priority': 'High'
+                if alert.rule.id_ in ca_rules and ca_rules[alert.rule.id_]
+                else 'Informational',
                 'Alert Rule': sanitize_csv_field(alert.rule.name),
                 'Status': alert.review.status_in_portal,
                 'Created': alert.log.triggered.strftime(DATE_TIME_FORMAT),
-                'Updated': '',  # placeholder too if added to the API response
                 'Title': sanitize_csv_field(alert.title),
                 'Assignee': sanitize_csv_field(alert.review.assignee),
                 'URL': str(alert.url.portal),

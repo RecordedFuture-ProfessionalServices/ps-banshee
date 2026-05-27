@@ -42,7 +42,7 @@ def search_alerts(
         SpinnerColumn(),
         TextColumn('[progress.description]{task.description}'),
         transient=True,
-        console=Console(stderr=True)
+        console=Console(stderr=True),
     ) as progress:
         progress.add_task(description='Searching for Playbook Alerts', total=None)
         results = pa_mgr.search(
