@@ -11,21 +11,41 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-from rich.progress import track
+from psengine.helpers import MultiThreadingHelper
+from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from .fetch_list import fetch_list
+
+MAX_WORKERS = 50
 
 
 def clear_list(list_id: str):
     """Clears the list of all entities (text entries can't be removed via API)."""
-    entity_list = fetch_list(list_id)
-    entities = entity_list.entities()
+    with Progress(
+        SpinnerColumn(), TextColumn('[progress.description]{task.description}'), transient=True
+    ) as progress:
+        entity_list = fetch_list(list_id)
+        entities = entity_list.entities()
 
-    if len(entities) == 0:
-        print('No entities to remove')
-        return
+        entities_count = len(entities)
 
-    for entity in track(entities, description=f'Removing {len(entities)} entities'):
-        result = entity_list.remove(entity=entity.entity.id_)
-        if result:
-            pass
+        if entities_count == 0:
+            print('No entities to remove')
+            return
+
+        task_id = progress.add_task(description=f'Removing {entities_count} entities')
+        results = MultiThreadingHelper.multithread_it(
+            MAX_WORKERS, lambda e: entity_list.remove(entity=e.entity.id_), iterator=entities
+        )
+
+        progress.update(task_id, description='Validating entities have been removed')
+        failed = [r.result for r in results if r.result != 'removed']
+
+        if not failed:
+            print(f'Successfully removed {entities_count} entities')
+
+        if failed:
+            remaining = entity_list.entities()
+            print(f'{len(failed)} entities were not removed from the list:')
+            for entity in remaining:
+                print(f'\t- {entity.entity.id_}, {entity.entity.name}')
