@@ -209,19 +209,19 @@ def update(
     )
 
 
-@banshee_cmd(app=app, help_='Export triggered Classic Alerts', epilog=EPILOG_ALERT_EXPORT)
+@banshee_cmd(app=app, help_='Export Classic Alerts as JSON or CSV', epilog=EPILOG_ALERT_EXPORT)
 def export(
     csv_flag: Annotated[
         bool,
         Option(
-            '--csv', help='Output the result as CSV, Using predefined fields', show_default=False
+            '--csv',
+            help='Output as CSV (fixed column set) instead of JSON (full alert details).',
+            show_default=False,
         ),
     ] = False,
 ):
     if sys.stdin.isatty():
-        raise BadParameter(
-            'This command only accepts piped input. Usage: banshee ca search | banshee ca export'  # noqa: E501
-        )
+        raise BadParameter(f'No input received. {_PIPED_INPUT_HINT}')
 
     raw_alerts = sys.stdin.read().strip()
 
