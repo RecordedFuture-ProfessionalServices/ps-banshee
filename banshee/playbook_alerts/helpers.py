@@ -14,6 +14,8 @@
 import csv
 import sys
 
+from psengine.playbook_alerts.constants import PLAYBOOK_ALERT_TYPE
+
 from .constants import DATE_TIME_FORMAT
 
 CSV_FIELDNAMES = (
@@ -35,7 +37,7 @@ def _sanitize_csv_field(text):
     if text is None:
         return ''
 
-    return str(text).replace('\r\n', ' ').replace('\r', ' ').replace('\n', ' ').replace(',', ' ')
+    return str(text).replace('\r\n', ' ').replace('\r', ' ').replace('\n', ' ')
 
 
 def _parse_targets(targets: list):
@@ -48,10 +50,10 @@ def _parse_targets(targets: list):
     return target_entities
 
 
-def parse_alerts_to_csv(ca_alerts: list):
+def parse_alerts_to_csv(pba_alerts: list[PLAYBOOK_ALERT_TYPE]):
     writer = csv.DictWriter(sys.stdout, fieldnames=CSV_FIELDNAMES)
     writer.writeheader()
-    for alert in ca_alerts:
+    for alert in pba_alerts:
         alert_entities = _parse_targets(alert.panel_status.targets)
 
         if alert_entities:
@@ -66,16 +68,14 @@ def parse_alerts_to_csv(ca_alerts: list):
             {
                 'ID': alert.playbook_alert_id,
                 'Priority': alert.panel_status.priority,
-                'Alert Rule': _sanitize_csv_field(alert.panel_status.alert_rule.name),
+                'Alert Rule': _sanitize_csv_field(
+                    alert.panel_status.alert_rule.name or alert.panel_status.alert_rule.label
+                ),
                 'Status': alert.panel_status.status,
                 'Created': alert.panel_status.created.strftime(DATE_TIME_FORMAT),
                 'Updated': alert.panel_status.updated.strftime(DATE_TIME_FORMAT),
                 'Title': _sanitize_csv_field(alert_title),
-                'Assignee': _sanitize_csv_field(
-                    alert.panel_status.assignee_name
-                    if hasattr(alert.panel_status, 'assignee_name')
-                    else None
-                ),
+                'Assignee': _sanitize_csv_field(alert.panel_status.assignee_name),
                 'Entities': '; '.join(alert_entities),
                 'Reopen Strategy': _sanitize_csv_field(
                     alert.panel_status.reopen if hasattr(alert.panel_status, 'reopen') else ''
