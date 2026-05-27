@@ -41,6 +41,7 @@ banshee ca [OPTIONS] COMMAND [ARGS]...
     <dt><a href="#banshee-ca-search"><code>banshee ca search</code></a></dt><dd><p>Search for Classic Alerts</p></dd>
     <dt><a href="#banshee-ca-rules"><code>banshee ca rules</code></a></dt><dd><p>Search for Classic Alert rules</p></dd>
     <dt><a href="#banshee-ca-update"><code>banshee ca update</code></a></dt><dd><p>Update one or more Classic Alert</p></dd>
+    <dt><a href="#banshee-ca-export"><code>banshee ca export</code></a></dt><dd><p>Export Classic Alerts as JSON or CSV</p></dd>
 </dl>
 
 ### banshee ca lookup
@@ -200,6 +201,57 @@ banshee ca search | jq -r '.[].id' | banshee ca update -n "Investigation started
 
 <p>Classic Alerts support only a single note. By default, the <code>update</code> command will overwrite the existing note with the new one.
 If you wish to append a new note instead, use the <code>--append</code> (<code>-A</code>) option.</p>
+
+### banshee ca export
+
+Export Classic Alerts as JSON or CSV. Reads alert IDs from stdin — typically piped from [`banshee ca search`](#banshee-ca-search).
+
+<h3 class="commands-reference">Output Formats</h3>
+
+<p><b>JSON (default)</b> — emits the <i>full</i> alert object for each ID as returned by the Recorded Future API: all top-level fields plus nested hits, entities, evidence, AI insights, review history, portal URLs, and so on. Best for downstream tooling, <code>jq</code> pipelines, or re-ingestion.</p>
+
+<p><b>CSV (<a href="#banshee-ca-export--csv"><code>--csv</code></a>)</b> — emits a high-level summary intended for spreadsheets and reporting. Only the eleven columns listed below are written (header row first); every other field present in the JSON response is omitted.</p>
+
+| Field | Description |
+|---|---|
+| `ID` | Classic Alert ID |
+| `Priority` | Alert priority — *currently always empty; reserved for future API support* |
+| `Alert Rule` | Name of the alert rule that triggered |
+| `Status` | Portal status, e.g. `New`, `Pending`, `Dismissed`, `Resolved` |
+| `Created` | Triggered timestamp (UTC) |
+| `Updated` | Last-updated timestamp — *currently always empty; reserved for future API support* |
+| `Title` | Alert title |
+| `Assignee` | Assigned user (uhash or email) |
+| `URL` | Recorded Future portal URL for the alert |
+| `Entities` | Primary entity names, `;`-separated |
+| `Recorded Future AI Insights` | AI-generated insight text or comment |
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee ca search [SEARCH_OPTIONS] | banshee ca export [OPTIONS]
+```
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-ca-export--csv"><a href="#banshee-ca-export--csv"><code>--csv</code></a></dt><dd>
+    <p>Output as CSV with the fixed column set described above. Without this flag the command emits JSON.</p><dd></dd>
+    <dt id="banshee-ca-export--help"><a href="#banshee-ca-export--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Piped Input</h3>
+
+<p><code>banshee ca export</code> only accepts piped input. It consumes the JSON array produced by <a href="#banshee-ca-search"><code>banshee ca search</code></a>, extracts the alert IDs, and fetches each alert in full. Running the command without a pipe is rejected with an error.</p>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee ca search -t 1d | banshee ca export
+banshee ca search -t 1d -r "Leaked Credential Monitoring" | banshee ca export > credential_alerts.json
+banshee ca search -t 12h -s Pending | banshee ca export --csv > alerts.csv
+</code></pre>
 
 ## banshee entity
 

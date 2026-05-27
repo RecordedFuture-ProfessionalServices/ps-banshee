@@ -15,6 +15,8 @@ import json
 
 from psengine.playbook_alerts import PlaybookAlertMgr
 from rich import print_json
+from rich.console import Console
+from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from .helpers import parse_alerts_to_csv
 
@@ -22,7 +24,14 @@ from .helpers import parse_alerts_to_csv
 def export_alerts(alert_ids_categories: list, csv_flag: bool):
     alert_mgr = PlaybookAlertMgr()
 
-    alerts = alert_mgr.fetch_bulk(alerts=alert_ids_categories)
+    with Progress(
+        SpinnerColumn(),
+        TextColumn('[progress.description]{task.description}'),
+        transient=True,
+        console=Console(stderr=True),
+    ) as progress:
+        progress.add_task(description='Fetching Playbook Alerts', total=None)
+        alerts = alert_mgr.fetch_bulk(alerts=alert_ids_categories)
 
     if csv_flag:
         parse_alerts_to_csv(alerts)
