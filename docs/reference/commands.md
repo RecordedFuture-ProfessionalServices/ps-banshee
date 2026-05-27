@@ -1385,6 +1385,7 @@ banshee pba [OPTIONS] COMMAND [ARGS]...
     <dt><a href="#banshee-pba-lookup"><code>banshee pba lookup</code></a></dt><dd><p>Lookup a Playook Alert</p></dd>
     <dt><a href="#banshee-pba-search"><code>banshee pba search</code></a></dt><dd><p>Search for Playook Alerts</p></dd>
     <dt><a href="#banshee-pba-update"><code>banshee pba update</code></a></dt><dd><p>Update one or more Playook Alert</p></dd>
+    <dt><a href="#banshee-pba-export"><code>banshee pba export</code></a></dt><dd><p>Export Playbook Alerts as JSON or CSV</p></dd>
 </dl>
 
 ### banshee pba lookup
@@ -1557,6 +1558,57 @@ banshee pba search -c domain_abuse -P Informational | jq -r '.data[].playbook_al
 banshee pba update ALERT_ID -s Resolved -r Never
 banshee pba update ALERT_ID_1 ALERT_ID_2 -s InProgress -p Informational -t "Bumping priority down due to recent findings."
 banshee pba update ALERT_ID -a
+</code></pre>
+
+### banshee pba export
+
+Export Playbook Alerts as JSON or CSV. Reads alert IDs and categories from stdin — typically piped from [`banshee pba search`](#banshee-pba-search).
+
+<h3 class="commands-reference">Output Formats</h3>
+
+<p><b>JSON (default)</b> — emits the <i>full</i> alert object for each ID as returned by the Recorded Future API: all top-level fields plus nested panel statuses, targets, evidence, assignees, timestamps, and so on. Best for downstream tooling, <code>jq</code> pipelines, or re-ingestion.</p>
+
+<p><b>CSV (<a href="#banshee-pba-export--csv"><code>--csv</code></a>)</b> — emits a high-level summary intended for spreadsheets and reporting. Only the eleven columns listed below are written (header row first); every other field present in the JSON response is omitted.</p>
+
+| Field | Description |
+|---|---|
+| `ID` | Playbook Alert ID (includes the `task:` prefix) |
+| `Priority` | Alert priority, e.g. `Informational`, `Moderate`, `High` |
+| `Alert Rule` | Name of the alert rule that triggered (falls back to the rule label) |
+| `Status` | Alert status, e.g. `New`, `InProgress`, `Dismissed`, `Resolved` |
+| `Created` | Created timestamp (UTC, `%Y-%m-%d %H:%M:%S`) |
+| `Updated` | Last-updated timestamp (UTC, `%Y-%m-%d %H:%M:%S`) |
+| `Title` | First target entity with a `+N` suffix when more than one, else the alert rule name |
+| `Assignee` | Assigned user display name |
+| `Entities` | Deduped target entity names, `;`-separated |
+| `Reopen Strategy` | Reopen strategy for closed alerts, e.g. `Never`, `SignificantUpdates` |
+| `Onwards Actions` | Actions taken on the alert, `;`-separated |
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee pba search [SEARCH_OPTIONS] | banshee pba export [OPTIONS]
+```
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-pba-export--csv"><a href="#banshee-pba-export--csv"><code>--csv</code></a></dt><dd>
+    <p>Output as CSV with the fixed column set described above. Without this flag the command emits JSON.</p><dd></dd>
+    <dt id="banshee-pba-export--help"><a href="#banshee-pba-export--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Piped Input</h3>
+
+<p><code>banshee pba export</code> only accepts piped input. It consumes the JSON object produced by <a href="#banshee-pba-search"><code>banshee pba search</code></a>, extracts each alert's <code>playbook_alert_id</code> and <code>category</code>, and fetches every alert in full. Running the command without a pipe is rejected with an error.</p>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee pba search --created 1d | banshee pba export
+banshee pba search --updated 7d --category identity_novel_exposures | banshee pba export > identity_alerts.json
+banshee pba search --created 1d --category domain_abuse | banshee pba export --csv > domain_alerts.csv
 </code></pre>
 
 

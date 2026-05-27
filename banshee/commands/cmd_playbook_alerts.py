@@ -98,7 +98,7 @@ def validate_status_reopen_options(status: RFPAStatus, reopen: RFPAReopenStrateg
         )
 
 
-_PIPPED_INPUT_HINT = (
+_PIPED_INPUT_HINT = (
     "Expected piped JSON output from 'banshee pba search' "
     "(e.g. 'banshee pba search -C 1d | banshee pba export)"
 )
@@ -106,19 +106,19 @@ _PIPPED_INPUT_HINT = (
 
 def parse_pba_alerts(value: str):
     if not value:
-        raise BadParameter(f'No input received. {_PIPPED_INPUT_HINT}')
+        raise BadParameter(f'No input received. {_PIPED_INPUT_HINT}')
 
     try:
         alerts = json.loads(value)
     except json.JSONDecodeError as err:
         raise BadParameter(
-            f'Malformed input: could not parse JSON ({err.msg}). {_PIPPED_INPUT_HINT}'
+            f'Malformed input: could not parse JSON ({err.msg}). {_PIPED_INPUT_HINT}'
         ) from err
 
     if not isinstance(alerts, dict):
         raise BadParameter(
             f'Malformed Input: expected a JSON dictionary, got {type(alerts).__name__}. '
-            f'{_PIPPED_INPUT_HINT}'
+            f'{_PIPED_INPUT_HINT}'
         )
 
     try:
@@ -127,7 +127,7 @@ def parse_pba_alerts(value: str):
         ]
     except (KeyError, TypeError) as err:
         raise BadParameter(
-            f'Malformed input: every alert must have a "playbook_alert_id" and "category" field {_PIPPED_INPUT_HINT}'  # noqa: E501
+            f'Malformed input: every alert must have a "playbook_alert_id" and "category" field {_PIPED_INPUT_HINT}'  # noqa: E501
         ) from err
 
     for alert in alert_ids_categories:
@@ -343,14 +343,14 @@ def export(
     csv_flag: Annotated[
         bool,
         Option(
-            '--csv', help='Output the result as CSV using predefined fields', show_default=False
+            '--csv',
+            help='Output as CSV (fixed column set) instead of JSON (full alert details).',
+            show_default=False,
         ),
     ] = False,
 ):
     if sys.stdin.isatty():
-        raise BadParameter(
-            'This command only accepts piped input. Usage: banshee pba search | banshee pba export'  # noqa: E501
-        )
+        raise BadParameter(f'No input received. {_PIPED_INPUT_HINT}')
 
     raw_alerts = sys.stdin.read().strip()
 

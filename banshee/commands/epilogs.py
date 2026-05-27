@@ -289,15 +289,13 @@ You can use either of the following commands to update the alerts:
 """
 
 EPILOG_PBA_EXPORT = """
-This command doesn't feature a `--pretty` flag, the output is JSON by defualt or CSV (with the `--csv`).
-
-Input is taken from piping in the results from `pba search`, see the examples below.
+Input is taken from piping in the results from `banshee pba search`.
 
 ## Example Usage
 
-* banshee pba search --created 1d | banshee pba export
+* banshee pba search --created 1d -l 10 | banshee pba export > alerts.json
 
-* banshee pba search --updated 7d --category identity_novel_exposures --category domain_abuse | banshee pba export --csv
+* banshee pba search --updated 7d --category identity_novel_exposures | banshee pba export --csv > identity_alerts.csv
 
 """
 

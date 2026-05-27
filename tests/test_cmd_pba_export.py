@@ -59,7 +59,7 @@ def test_pba_export_id_non_piped():
     assert result.exit_code == 2
 
 
-def test_pba_export_blank_pip():
+def test_pba_export_blank_pipe():
     result = runner.invoke(app, args=[COMMAND], input='')
     assert result.exit_code == 2
 

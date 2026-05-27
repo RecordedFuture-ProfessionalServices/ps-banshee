@@ -17,6 +17,7 @@ import logging
 
 from psengine.playbook_alerts import PACategory, PlaybookAlertMgr
 from rich import print_json
+from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from ..formatters.output_formatters import format_line, format_time
@@ -41,6 +42,7 @@ def search_alerts(
         SpinnerColumn(),
         TextColumn('[progress.description]{task.description}'),
         transient=True,
+        console=Console(stderr=True)
     ) as progress:
         progress.add_task(description='Searching for Playbook Alerts', total=None)
         results = pa_mgr.search(

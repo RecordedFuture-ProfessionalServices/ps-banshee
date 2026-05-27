@@ -33,20 +33,19 @@ CSV_FIELDNAMES = (
 )
 
 
-def _sanitize_csv_field(text):
+def sanitize_csv_field(text):
     if text is None:
         return ''
 
     return str(text).replace('\r\n', ' ').replace('\r', ' ').replace('\n', ' ')
 
 
-def _parse_targets(targets: list):
+def parse_targets(targets: list):
     target_entities = []
     for entity in targets:
-        if hasattr(entity, 'name'):
-            target_entities.append(entity.name)
-        else:
-            target_entities.append(entity.removeprefix('idn:'))
+        name = entity.name if hasattr(entity, 'name') else entity.removeprefix('idn:')
+        if name not in target_entities:
+            target_entities.append(name)
     return target_entities
 
 
@@ -54,7 +53,7 @@ def parse_alerts_to_csv(pba_alerts: list[PLAYBOOK_ALERT_TYPE]):
     writer = csv.DictWriter(sys.stdout, fieldnames=CSV_FIELDNAMES)
     writer.writeheader()
     for alert in pba_alerts:
-        alert_entities = _parse_targets(alert.panel_status.targets)
+        alert_entities = parse_targets(alert.panel_status.targets)
 
         if alert_entities:
             if len(alert_entities) > 1:
@@ -68,19 +67,19 @@ def parse_alerts_to_csv(pba_alerts: list[PLAYBOOK_ALERT_TYPE]):
             {
                 'ID': alert.playbook_alert_id,
                 'Priority': alert.panel_status.priority,
-                'Alert Rule': _sanitize_csv_field(
+                'Alert Rule': sanitize_csv_field(
                     alert.panel_status.alert_rule.name or alert.panel_status.alert_rule.label
                 ),
                 'Status': alert.panel_status.status,
                 'Created': alert.panel_status.created.strftime(DATE_TIME_FORMAT),
                 'Updated': alert.panel_status.updated.strftime(DATE_TIME_FORMAT),
-                'Title': _sanitize_csv_field(alert_title),
-                'Assignee': _sanitize_csv_field(alert.panel_status.assignee_name),
+                'Title': sanitize_csv_field(alert_title),
+                'Assignee': sanitize_csv_field(alert.panel_status.assignee_name),
                 'Entities': '; '.join(alert_entities),
-                'Reopen Strategy': _sanitize_csv_field(
+                'Reopen Strategy': sanitize_csv_field(
                     alert.panel_status.reopen if hasattr(alert.panel_status, 'reopen') else ''
                 ),
-                'Onwards Actions': _sanitize_csv_field(
+                'Onwards Actions': sanitize_csv_field(
                     '; '.join(alert.panel_status.actions_taken or [])
                 ),
             }
