@@ -15,6 +15,12 @@ import csv
 import sys
 
 from psengine.playbook_alerts.constants import PLAYBOOK_ALERT_TYPE
+from psengine.playbook_alerts.playbook_alerts import (
+    PBA_CodeRepoLeakage,
+    PBA_DomainAbuse,
+    PBA_IdentityNovelExposure,
+    PBA_ThirdPartyRisk,
+)
 
 from .constants import DATE_TIME_FORMAT
 
@@ -27,6 +33,7 @@ CSV_FIELDNAMES = (
     'Updated',
     'Title',
     'Assignee',
+    'Assessments',
     'Entities',
     'Reopen Strategy',
     'Onwards Actions',
@@ -49,6 +56,37 @@ def parse_targets(targets: list):
     return target_entities
 
 
+def extract_assessments(alert):
+    extracted_assessments = []
+
+    if isinstance(alert, (PBA_ThirdPartyRisk)):
+        extracted_assessments.extend(
+            assessment.risk_rule for assessment in alert.panel_evidence_summary.assessments
+        )
+
+    elif isinstance(alert, PBA_IdentityNovelExposure):
+        extracted_assessments.extend(
+            assessment.name for assessment in alert.panel_evidence_summary.assessments
+        )
+
+    elif isinstance(alert, PBA_DomainAbuse):
+        for log in alert.panel_log_v2:
+            for change in log.changes:
+                if change.type_ in ('malicious_url_change', 'malicious_dns_change'):
+                    extracted_assessments.extend(
+                        assessment.title
+                        for record in (change.added or [])
+                        for assessment in record.assessments
+                    )
+
+    elif isinstance(alert, PBA_CodeRepoLeakage):
+        for evidence in alert.panel_evidence_summary.evidence:
+            if evidence.assessments[0].title not in extracted_assessments:
+                extracted_assessments.append(evidence.assessments[0].title)
+
+    return list(set(extracted_assessments))
+
+
 def parse_alerts_to_csv(pba_alerts: list[PLAYBOOK_ALERT_TYPE]):
     writer = csv.DictWriter(sys.stdout, fieldnames=CSV_FIELDNAMES)
     writer.writeheader()
@@ -62,7 +100,6 @@ def parse_alerts_to_csv(pba_alerts: list[PLAYBOOK_ALERT_TYPE]):
                 alert_title = str(alert_entities[0])
         else:
             alert_title = alert.panel_status.alert_rule.name
-
         writer.writerow(
             {
                 'ID': alert.playbook_alert_id,
@@ -75,6 +112,7 @@ def parse_alerts_to_csv(pba_alerts: list[PLAYBOOK_ALERT_TYPE]):
                 'Updated': alert.panel_status.updated.strftime(DATE_TIME_FORMAT),
                 'Title': sanitize_csv_field(alert_title),
                 'Assignee': sanitize_csv_field(alert.panel_status.assignee_name),
+                'Assessments': '; '.join(extract_assessments(alert)),
                 'Entities': '; '.join(alert_entities),
                 'Reopen Strategy': sanitize_csv_field(
                     alert.panel_status.reopen if hasattr(alert.panel_status, 'reopen') else ''

@@ -107,6 +107,6 @@ def test_pba_export_csv():
     assert len(result_csv) == 8
     assert (
         result_csv[0]
-        == 'ID,Priority,Alert Rule,Status,Created,Updated,Title,Assignee,Entities,Reopen Strategy,Onwards Actions'
+        == 'ID,Priority,Alert Rule,Status,Created,Updated,Title,Assignee,Assessments,Entities,Reopen Strategy,Onwards Actions'
     )
-    assert len(result_csv[1].split(',')) == 11
+    assert len(result_csv[1].split(',')) == 12
