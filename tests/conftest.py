@@ -100,5 +100,6 @@ def soar():
 def _reset_sys_excepthook():
     """Fixture to reset sys.excepthook before and after a test."""
     original_excepthook = sys.excepthook
+    sys.excepthook = sys.__excepthook__
     yield
     sys.excepthook = original_excepthook
