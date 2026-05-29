@@ -18,15 +18,15 @@ interactions:
     uri: https://api.recordedfuture.com/list/report:wpHivJ/info
   response:
     body:
-      string: '{"id": "report:wpHivJ", "name": "Mashed pot", "type": "entity", "created":
-        "2024-07-01T12:51:38.804Z", "updated": "2026-02-13T10:59:40.887Z", "owner_id":
-        "Milk toast", "owner_name": "Corned beef", "organisation_id": "Chicken Alfredo",
-        "organisation_name": "Fry sauce", "owner_organisation_details": {"owner_id":
-        "Pancakes", "owner_name": "Coleslaw", "organisations": [], "enterprise_id":
-        "Prawn Pizza", "enterprise_name": "Hummus"}}'
+      string: '{"id": "report:wpHivJ", "name": "Patty", "type": "entity", "created":
+        "2024-07-01T12:51:38.804Z", "updated": "2026-05-28T14:12:13.723Z", "owner_id":
+        "Suckling Pig", "owner_name": "Pepperoni", "organisation_id": "Banh Mi Vi\u00eat",
+        "organisation_name": "Fries", "owner_organisation_details": {"owner_id": "Chicken
+        Biryani", "owner_name": "Cheese dog", "organisations": [], "enterprise_id":
+        "Frybread", "enterprise_name": "Surf and turf"}}'
     headers:
       CF-RAY:
-      - a0242295d90c6402-LHR
+      - a02ddaf25fdaf654-LHR
       Connection:
       - keep-alive
       Content-Encoding:
@@ -34,13 +34,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 27 May 2026 09:53:53 GMT
+      - Thu, 28 May 2026 14:12:36 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
-      Transfer-Encoding:
-      - chunked
       cf-cache-status:
       - DYNAMIC
       scrubbed: '1'
@@ -66,13 +64,13 @@ interactions:
     uri: https://api.recordedfuture.com/list/report:wpHivJ/entities
   response:
     body:
-      string: '[{"entity": {"id": "ip:199.251.244.175", "type": "IpAddress", "name":
-        "153.95.88.250"}, "status": "ready", "added": "2026-02-13T10:58:53.784Z"},
-        {"entity": {"id": "ip:85.140.83.95", "type": "IpAddress", "name": "82.159.249.160"},
-        "status": "ready", "added": "2026-02-13T10:59:02.458Z"}]'
+      string: '[{"entity": {"id": "qmqiQF", "type": "Thread", "name": "Pickled Okra"},
+        "status": "pending", "added": "2026-05-28T14:11:26.412Z"}, {"entity": {"id":
+        "pXJnNy", "type": "FileName", "name": "214.58.212.121"}, "status": "pending",
+        "added": "2026-05-28T14:12:26.081Z"}]'
     headers:
       CF-RAY:
-      - a02422973f3eed14-LHR
+      - a02ddaf38e89947c-LHR
       Connection:
       - keep-alive
       Content-Encoding:
@@ -80,13 +78,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 27 May 2026 09:53:53 GMT
+      - Thu, 28 May 2026 14:12:37 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
-      Transfer-Encoding:
-      - chunked
       cf-cache-status:
       - DYNAMIC
       scrubbed: '1'
@@ -94,14 +90,14 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"entity": {"id": "ip:9.9.9.9"}}'
+    body: '{"entity": {"id": "qmqiQF"}}'
     headers:
       Accept-Encoding:
       - gzip, deflate
       Connection:
       - keep-alive
       Content-Length:
-      - '32'
+      - '28'
       Content-Type:
       - application/json
       User-Agent:
@@ -114,10 +110,10 @@ interactions:
     uri: https://api.recordedfuture.com/list/report:wpHivJ/entity/remove
   response:
     body:
-      string: '{"result": "Reuben"}'
+      string: '{"result": "Thousan"}'
     headers:
       CF-RAY:
-      - a0242298a8057a3e-LHR
+      - a02ddaf4eb9cbf0e-LHR
       Connection:
       - keep-alive
       Content-Length:
@@ -125,7 +121,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 27 May 2026 09:53:55 GMT
+      - Thu, 28 May 2026 14:12:37 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -155,15 +151,15 @@ interactions:
     uri: https://api.recordedfuture.com/list/report:wpHivJ/info
   response:
     body:
-      string: '{"id": "report:wpHivJ", "name": "Meatcake", "type": "entity", "created":
-        "2024-07-01T12:51:38.804Z", "updated": "2026-02-13T10:59:40.887Z", "owner_id":
-        "Chips and dip", "owner_name": "Shawarma", "organisation_id": "Reuben sandwich",
-        "organisation_name": "Pancakes", "owner_organisation_details": {"owner_id":
-        "Haystack", "owner_name": "Clam chowder", "organisations": [], "enterprise_id":
-        "Eggs Neptune", "enterprise_name": "Turducken"}}'
+      string: '{"id": "report:wpHivJ", "name": "Clam cake", "type": "entity", "created":
+        "2024-07-01T12:51:38.804Z", "updated": "2026-05-28T14:12:13.723Z", "owner_id":
+        "Cheese fries", "owner_name": "Celery Victor", "organisation_id": "Cheese
+        dog", "organisation_name": "Tuna Pizza", "owner_organisation_details": {"owner_id":
+        "Onion Rings", "owner_name": "Frito Pie", "organisations": [], "enterprise_id":
+        "Biscuit", "enterprise_name": "Turkish Delight"}}'
     headers:
       CF-RAY:
-      - a02422b33c829383-LHR
+      - a02ddaf87850cd58-LHR
       Connection:
       - keep-alive
       Content-Encoding:
@@ -171,13 +167,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 27 May 2026 09:53:58 GMT
+      - Thu, 28 May 2026 14:12:37 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
-      Transfer-Encoding:
-      - chunked
       cf-cache-status:
       - DYNAMIC
       scrubbed: '1'
@@ -206,7 +200,7 @@ interactions:
       string: '[]'
     headers:
       CF-RAY:
-      - a02422b49a36a5eb-LHR
+      - a02ddaf9dc5f94eb-LHR
       Connection:
       - keep-alive
       Content-Length:
@@ -214,7 +208,48 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 27 May 2026 09:53:58 GMT
+      - Thu, 28 May 2026 14:12:38 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - banshee:tests_/1.1.3 (macOS-26.3.1-arm64-arm-64bit) psengine-py/2.6.0
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/list/report:wpHivJ/entities
+  response:
+    body:
+      string: '[]'
+    headers:
+      CF-RAY:
+      - a02ddb20a82bef31-LHR
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 28 May 2026 14:12:44 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:

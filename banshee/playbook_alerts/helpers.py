@@ -44,7 +44,7 @@ def sanitize_csv_field(text):
     if text is None:
         return ''
 
-    return str(text).replace('\r\n', ' ').replace('\r', ' ').replace('\n', ' ')
+    return str(text).replace('\r\n', ' ').replace('\r', ' ').replace('\n', ' ').replace(',', ' ')
 
 
 def parse_targets(targets: list):

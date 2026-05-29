@@ -58,7 +58,7 @@ def test_ca_export_json():
         assert alert['id'] in ['1b6uQY', 'xr8cqL', '1ct-k8']
 
 
-@pytest.mark.vcr
+@pytest.mark.vcr(record_mode='new_episodes')
 def test_ca_export_csv():
     result = runner.invoke(app, args=[COMMAND, '--csv'], input=ALERTS)
     assert result.exit_code == 0
