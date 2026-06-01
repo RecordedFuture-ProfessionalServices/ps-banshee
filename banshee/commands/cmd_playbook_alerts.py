@@ -41,6 +41,7 @@ CMD_RICH_HELP = 'Recorded Future Alerts'
 app = Typer(no_args_is_help=True)
 
 ALERT_ID_INVALID_MSG = "Alert ID '{}' is not valid. Alert ID should be 36 characters long or 41 characters with 'task:' prefix."  # noqa: E501
+ORG_ID_INVALID_MSG = "Organisation ID '{}' is not valid. Organisation ID should be 10 characters long or with 'uhash' prefix."  # noqa: E501
 
 
 ###################################
@@ -55,6 +56,13 @@ def validate_alert_id(alert_id: str):
         raise BadParameter(ALERT_ID_INVALID_MSG.format(alert_id))
 
     return alert_id
+
+
+def validate_org_id(org_id: str):
+    if len(org_id) == 10:
+        org_id = 'uhash:' + org_id
+    if len(org_id) != 16 or not org_id.startswith('uhash:'):
+        raise BadParameter(ORG_ID_INVALID_MSG.format(org_id))
 
 
 def parse_alert_ids_input(value: list[str]):
@@ -235,6 +243,8 @@ def search(
     """
     created_lookback = TimeHelpers.rel_time_to_date(created) if created is not None else None
     updated_lookback = TimeHelpers.rel_time_to_date(updated) if updated is not None else None
+    validated_orgs = [validate_org_id(org) for org in organisation] if organisation else None
+
     search_alerts(
         created=created_lookback,
         updated=updated_lookback,
@@ -242,7 +252,7 @@ def search(
         entity=entity,
         priority=priority,
         status=status,
-        organisation=organisation,
+        organisation=validated_orgs,
         limit=limit,
         pretty=pretty,
     )
