@@ -34,7 +34,7 @@ build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
-    "ruff~=0.11.0",
+    "ruff~=0.15.8",
     "pytest==8.3.4",
     "pytest-vcr==1.0.2",
     "pytest-cov==6.0.0",
@@ -50,7 +50,8 @@ docs = [
     "mkdocs~=1.6.1",
     "mkdocs-material~=9.6.18",
     "mkdocstrings[python]>=0.18",
-    "griffe-typingdoc~=0.2.8"
+    "griffe-typingdoc~=0.2.8",
+    "mkdocs-llmstxt-md~=0.2.0"
 ]
 
 [project.scripts]
