@@ -33,6 +33,7 @@ def search_alerts(
     entity: str,
     priority: RFPAPriority,
     status: RFPAStatus,
+    organisation: list,
     limit: int,
     pretty: bool,
 ):
@@ -52,6 +53,7 @@ def search_alerts(
             entity=entity,
             priority=priority,
             statuses=status,
+            organisation=organisation,
             max_results=limit,
         )
     if not pretty:

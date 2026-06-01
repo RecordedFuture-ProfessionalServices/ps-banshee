@@ -199,6 +199,12 @@ def search(
             show_default=False,
         ),
     ] = None,
+    organisation: Annotated[
+        list[str],
+        Option(
+            '--org-id', '-o', help='Filter alerts by organisation ID (repeatable)', show_default=False
+        ),
+    ] = None,
     limit: Annotated[
         int,
         Option(
@@ -220,6 +226,7 @@ def search(
         entity (list[str], optional): filter by associated entity (repeatable). Defaults to None
         priority (list[RFPAPriority], optional): filter by priority (repeatable). Defaults to None
         status (list[RFPAStatus], optional): filter by status (repeatable). Defaults to None
+        organisation (list[str], optional): filter by organisation ID. Defaults to None
         limit (int, optional): limit total alerts returned. Defaults to 10
         pretty (bool, optional): Pretty print the output. Defaults to False
     """
@@ -232,6 +239,7 @@ def search(
         entity=entity,
         priority=priority,
         status=status,
+        organisation=organisation,
         limit=limit,
         pretty=pretty,
     )

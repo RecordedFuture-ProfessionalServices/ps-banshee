@@ -379,6 +379,8 @@ EPILOG_PBA_SEARCH = """
 
 * banshee pba search -e idn:recordedfuture.com -e idn:example.com -c domain_abuse -u 7d
 
+* banshee pba search -o uhash:4bHfKRoC8 -o uhash:3hfXrGtIt -C 7d -P High
+
 """
 
 EPILOG_ENTITY_LOOKUP = """
