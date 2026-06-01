@@ -69,6 +69,8 @@ def test_pba_search_args():
             'Moderate',
             '-l',
             '100',
+            '-o',
+            'uhash:5zQaSyRpA1',
         ],
     )
     assert result.exit_code == 0

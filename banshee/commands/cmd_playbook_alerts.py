@@ -202,7 +202,10 @@ def search(
     organisation: Annotated[
         list[str],
         Option(
-            '--org-id', '-o', help='Filter alerts by organisation ID (repeatable)', show_default=False
+            '--org-id',
+            '-o',
+            help='Filter alerts by organisation ID (repeatable)',
+            show_default=False,
         ),
     ] = None,
     limit: Annotated[
