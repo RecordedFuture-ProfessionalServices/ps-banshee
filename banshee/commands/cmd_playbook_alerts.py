@@ -41,7 +41,7 @@ CMD_RICH_HELP = 'Recorded Future Alerts'
 app = Typer(no_args_is_help=True)
 
 ALERT_ID_INVALID_MSG = "Alert ID '{}' is not valid. Alert ID should be 36 characters long or 41 characters with 'task:' prefix."  # noqa: E501
-ORG_ID_INVALID_MSG = "Organisation ID '{}' is not valid. Organisation ID should be 10 characters long or with 'uhash' prefix."  # noqa: E501
+ORG_ID_INVALID_MSG = "Organisation ID '{}' is not valid. Organisation ID should be 10 characters long or 16 characters with 'uhash:' prefix."  # noqa: E501
 
 
 ###################################
