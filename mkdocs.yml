@@ -83,7 +83,7 @@ markdown_extensions:
 plugins:
   - search
   - llmstxt-md:
-      enable_copy_button: true
+      enable_copy_button: false
       markdown_description: |
         Full single-file bundle (every command group inlined): <https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms-full.txt>
 
@@ -93,12 +93,12 @@ plugins:
       sections:
         Commands:
           - knowledge-base/index.md: "Authentication, readiness checks, output conventions, and shared LLM notes for the CLI."
-          - knowledge-base/ca.md: "Classic Alerts (legacy rule-based, short opaque IDs of 6+ chars like `tybakN`). Search, lookup, update."
+          - knowledge-base/ca.md: "Classic Alerts (legacy rule-based, short opaque IDs of 6+ chars like `tybakN`). Search, lookup, update, export."
           - knowledge-base/email.md: "Enrich EML files with RF intelligence."
           - knowledge-base/entity.md: "Entity search and lookup."
           - knowledge-base/ioc.md: "IOC enrichment, bulk enrichment, search, rules."
           - knowledge-base/list.md: "Manage RF Lists & Watch Lists (create, add/remove entities, entries)."
-          - knowledge-base/pba.md: "Playbook Alerts (36-char UUID IDs, `task:` prefix optional; PBA-exclusive categories: domain_abuse, cyber_vulnerability, third_party_risk, code_repo_leakage, identity_novel_exposures, geopolitics_facility, malware_report). Search, lookup, update."
+          - knowledge-base/pba.md: "Playbook Alerts (36-char UUID IDs, `task:` prefix optional; PBA-exclusive categories: domain_abuse, cyber_vulnerability, third_party_risk, code_repo_leakage, identity_novel_exposures, geopolitics_facility, malware_report). Search, lookup, update, export."
           - knowledge-base/pcap.md: "Enrich packet captures with RF intelligence."
           - knowledge-base/risklist.md: "Fetch, create, and inspect risk lists."
           - knowledge-base/rules.md: "Search and download detection rules (Sigma, YARA, Snort)."

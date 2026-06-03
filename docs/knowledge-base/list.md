@@ -128,11 +128,11 @@ Add a single entity to a list.
 |----------|-------------|
 | `LIST_ID` (required) | List ID |
 | `ENTITY_ID` (required) | RF entity ID (e.g. `SoA6SP`) OR `name,type` pair (e.g. `wannacry,malware`) |
-| `PROPERTIES` (optional) | Key-value pairs: `key=value,another=value` |
+| `PROPERTIES` (optional) | Use `annotation=<text>` to attach a note that appears on the Recorded Future platform for this entity. Quote the value if it contains spaces. |
 
 ```bash
 banshee list add 1b0s1q lYNvCK
-banshee list add 1b0s1q lYNvCK key=value,another=value
+banshee list add 1b0s1q lYNvCK 'annotation=C2 server seen during incident X-1234'
 ```
 
 ---
@@ -140,6 +140,10 @@ banshee list add 1b0s1q lYNvCK key=value,another=value
 ### `banshee list bulk-add LIST_ID [ENTITY_INPUT]...`
 
 Add multiple entities to a list. Accepts entity IDs, `name,type` pairs, or `type:value` pairs.
+
+| Option | Short | Default | Description |
+|--------|-------|---------|-------------|
+| `--overwrite` | `-o` | off | Overwrite mode: keep entities present in the supplied input, add new ones, and remove any entities currently on the list that are **not** in the input. Without it, the command only appends new entities and never removes existing ones. |
 
 **Input formats:**
 - RF entity ID: `SoA6SP`
@@ -150,10 +154,15 @@ Add multiple entities to a list. Accepts entity IDs, `name,type` pairs, or `type
 banshee list bulk-add report:21YKUC SoA6SP lYNvCK
 banshee list bulk-add 21YKUC ip:8.8.8.8 www.duckdns.org,InternetDomainName
 
+# Overwrite mode: make the list match exactly the entities supplied (adds missing, removes stale)
+banshee list bulk-add 21YKUC SoA6SP lYNvCK --overwrite
+
 # From file (one entity per line)
 banshee list bulk-add 21YKUC < entities.txt
 cat entities.txt | banshee list bulk-add 21YKUC
 ```
+
+**Response:** Plain text grouped by outcome — `ADDED:`, `REMOVED:` (overwrite only), and `UNCHANGED:` blocks listing the affected entities. Not JSON; do not pipe to `jq`.
 
 ---
 
@@ -184,8 +193,10 @@ cat entities.txt | banshee list bulk-remove 21YKUC
 
 ### `banshee list clear LIST_ID`
 
-Remove **all** entities from a list (destructive — use with care).
+Remove **all** entities from a list (destructive — use with care). Text-match entries cannot be removed via the API. The list itself is not deleted; only its entities are removed.
 
 ```bash
 banshee list clear 1b0s1q
 ```
+
+**Response:** Plain text. Prints `No entities to remove` when the list is already empty, `Successfully removed <N> entities` on success, or — if any removals fail — `<N> entities were not removed from the list:` followed by the still-present entities. Not JSON.

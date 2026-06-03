@@ -13,9 +13,10 @@ Search Playbook Alerts with rich filter options.
 | `--created TEXT` | `-C` | | Filter by created date (e.g. `1d`, `7d`) |
 | `--updated TEXT` | `-u` | | Filter by updated date |
 | `--category` | `-c` | all | One or more categories (repeatable): `domain_abuse`, `cyber_vulnerability`, `third_party_risk`, `code_repo_leakage`, `identity_novel_exposures`, `geopolitics_facility`, `malware_report` |
-| `--entity TEXT` | `-e` | | Filter by associated entity |
-| `--priority` | `-P` | all | `Informational`, `Moderate`, `High` |
-| `--status` | `-s` | all | `New`, `InProgress`, `Dismissed`, `Resolved` |
+| `--entity TEXT` | `-e` | | Filter by associated entity (repeatable) |
+| `--priority` | `-P` | all | `Informational`, `Moderate`, `High` (repeatable) |
+| `--status` | `-s` | all | `New`, `InProgress`, `Dismissed`, `Resolved` (repeatable) |
+| `--org-id TEXT` | `-o` | all | Filter by owning organisation ID (repeatable). Accepts a 10-char ID or a 16-char `uhash:` form |
 | `--limit INTEGER` | `-l` | `100` | Max results (1–10000) |
 | `--pretty` | `-p` | | Pretty print |
 
@@ -27,6 +28,8 @@ banshee pba search -C 1d -u 1d -p
 banshee pba search --limit 1000 --category identity_novel_exposures --category domain_abuse
 banshee pba search --updated 7d --category domain_abuse --pretty
 banshee pba search -c identity_novel_exposures -c third_party_risk -P High -P Moderate -s New
+banshee pba search -e idn:recordedfuture.com -e idn:example.com -c domain_abuse -u 7d
+banshee pba search -o 4bHfKRoC8 -o uhash:3hfXrGtIt -C 7d -P High
 ```
 
 ---
@@ -114,3 +117,24 @@ banshee pba update 26ca663b-a1d8-4dbd-85ef-4bd3cecaa935 c5dd878b-e5e2-4a19-ad28-
 ```
 
 **Response:** Returns plain text, not JSON — one line per updated alert: `SUCCESS:\n<ALERT_ID>`. Do not pipe to `jq`.
+
+---
+
+### `banshee pba export`
+
+Fetch full alert details for the alerts produced by `pba search` and emit them as JSON or CSV. Input is **stdin only** — pipe the JSON object from `banshee pba search`; there are no positional arguments.
+
+| Option | Short | Default | Description |
+|--------|-------|---------|-------------|
+| `--csv` | | JSON | Output as CSV (fixed column set) instead of JSON (full alert details). |
+
+```bash
+banshee pba search --created 1d -l 10 | banshee pba export > alerts.json
+banshee pba search --updated 7d --category identity_novel_exposures | banshee pba export --csv > identity_alerts.csv
+```
+
+**Input:** Expects the JSON object emitted by `banshee pba search` on stdin — the export reads `.data[]` and requires `playbook_alert_id` and `category` on each record (these drive the category-specific fetch). Running with no piped input (a TTY) raises a `BadParameter` error.
+
+**Response shape (default):** A JSON array of full Playbook Alert objects — the same per-alert structure returned by `banshee pba lookup` (`playbook_alert_id`, `panel_status`, `panel_evidence_summary`, `panel_log_v2`).
+
+**Response shape (`--csv`):** CSV with a header row and these fixed columns: `ID`, `Priority`, `Alert Rule`, `Status`, `Created`, `Updated`, `Title`, `Assignee`, `Assessments`, `Entities`, `Reopen Strategy`, `Onwards Actions`. `Assessments` and `Entities` are `; `-joined; commas inside field values are replaced with spaces.

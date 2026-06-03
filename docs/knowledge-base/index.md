@@ -2,7 +2,7 @@
 
 > A Recorded Future CLI for terminal-based threat intelligence investigations.
 > Built by the Cyber Security Engineers at Recorded Future.
-> Validated against `ps-banshee` / `banshee` version 1.2.0.
+> Validated against `ps-banshee` / `banshee` version 1.3.0.
 
 This knowledge base is designed for LLM consumption (Claude Code, Opus, and other agentic CLIs). Three artifacts are published for agents:
 
@@ -66,7 +66,7 @@ If `banshee` is missing, install the Python package `ps-banshee` through your ap
 
 ## Live Validation Snapshot
 
-Last live validation: **2026-05-01** (extended audit) against `ps-banshee` / `banshee` **1.2.0** with `RF_TOKEN` authentication.
+Last live validation: **2026-06-03** (release 1.3.0 refresh) against `ps-banshee` / `banshee` **1.3.0** with `RF_TOKEN` authentication. This run focused on the surfaces new or changed since 1.2.0: `ca export`, `pba export`, the `pba search --org-id` filter, `list bulk-add --overwrite`, the reworked `list clear`, and the `list add` annotation property.
 
 Validated successfully:
 
@@ -75,51 +75,30 @@ Validated successfully:
 banshee --version
 banshee --help
 test -n "$RF_TOKEN" && echo "RF_TOKEN set"
-jq --version
 
 # Read-only API access
-banshee entity search wannacry -l 1
-banshee entity lookup SoA6SP
-banshee ioc bulk-lookup ip 8.8.8.8
-banshee ioc rules ip
 banshee ca rules
-banshee ca search -t 1d -s New
-banshee ca lookup <alert_id>
-banshee list search -l 1
-banshee pba search --limit 1
-banshee pba lookup task:<uuid>
-banshee rules search -t sigma -l 1
+banshee ca search -t 1d
+banshee ca search -t 1d | banshee ca export
+banshee ca search -t 2d | banshee ca export --csv
+banshee pba search -C 30d -l 5
+banshee pba search -C 30d -o uhash:69sKLfTGsS -l 2
+banshee pba search -C 30d -l 5 | banshee pba export --csv
 
 # Mutating workflows tested in a sandbox RF tenant
-banshee list create codex_banshee_smoke_20260501 entity
-banshee list info report:<list_id>
-banshee list status report:<list_id>
+banshee list create banshee_kb_refresh_20260603 entity
+banshee list bulk-add report:<list_id> SoA6SP lYNvCK
+banshee list bulk-add report:<list_id> SoA6SP --overwrite
 banshee list entities report:<list_id>
-banshee list add report:<list_id> SoA6SP smoke=single_add
-banshee list bulk-add report:<list_id> ip:8.8.8.8 www.duckdns.org,InternetDomainName
-banshee list remove report:<list_id> SoA6SP
-banshee list bulk-remove report:<list_id> ip:8.8.8.8 www.duckdns.org,InternetDomainName
 banshee list clear report:<list_id>
-banshee list create codex_banshee_smoke_text_20260501 text
-banshee list entries report:<text_list_id>
-banshee ca update <alert_id> -s Pending -n "Codex smoke test"
-banshee ca update <alert_id> -n "Codex append smoke test" -A
-banshee pba update task:<uuid> -s InProgress -p Informational -t "Codex smoke test"
-banshee pba update task:<uuid> -s Resolved -r Never -t "Codex reopen strategy smoke test"
-
-# Local-output workflows
-banshee email enrich /tmp/banshee_smoke.eml -r 1
-banshee risklist fetch -e ip -l recentValidatedCnc -o /tmp/banshee_smoke_recentValidatedCnc.csv
-banshee risklist create -e ip -R recentValidatedCnc -r 70 -f json -o /tmp/banshee_smoke_risklist.json
-banshee risklist stat -e ip -l recentValidatedCnc
-banshee rules search -t sigma --title Aesthetic --output-path /tmp/banshee_smoke_rules
 ```
 
 Observed caveats:
 
-- In restricted execution sandboxes, API calls can fail before reaching Recorded Future with DNS errors such as `Failed to resolve 'api.recordedfuture.com'`; allow network access and rerun the same command.
+- `ca export` and `pba export` read **only** from stdin and take no positional arguments. Pipe `banshee ca search` / `banshee pba search` into them; invoking with a TTY (no piped input) raises a `BadParameter` error.
+- `pba export` consumes the full `pba search` JSON object (it reads `.data[]`), whereas `ca export` consumes the `ca search` JSON array.
+- `list clear` removes a list's entities but does not delete the list itself, and there is no `list delete` command; the sandbox list created above remains (empty) after clearing.
 - `pcap enrich` was not live-tested because `tshark` was not installed. This is expected: `banshee pcap enrich --help` raises `RuntimeError: tshark is not installed or not in PATH`.
-- `risklist stat -c /tmp/banshee_smoke_risklist.json` returned a Fusion API `400 Bad Request`; the verified stat form is `banshee risklist stat -e ip -l recentValidatedCnc`.
 
 ---
 
@@ -142,13 +121,13 @@ Observed caveats:
 
 | Group | Page | Description |
 |-------|------|-------------|
-| `ca` | [ca.md](ca.md) | Classic Alerts — search, lookup, update |
+| `ca` | [ca.md](ca.md) | Classic Alerts — search, lookup, update, export |
 | `email` | [email.md](email.md) | Enrich EML files with RF intelligence |
 | `entity` | [entity.md](entity.md) | Entity search and lookup |
 | `ioc` | [ioc.md](ioc.md) | IOC enrichment, bulk enrichment, search, rules |
 | `list` | [list.md](list.md) | Manage RF Lists & Watch Lists (create, add/remove entities, entries) |
 | `pcap` | [pcap.md](pcap.md) | Enrich packet captures with RF intelligence |
-| `pba` | [pba.md](pba.md) | Playbook Alerts — search, lookup, update |
+| `pba` | [pba.md](pba.md) | Playbook Alerts — search, lookup, update, export |
 | `risklist` | [risklist.md](risklist.md) | Fetch, create, and inspect risk lists |
 | `rules` | [rules.md](rules.md) | Search and download detection rules (Sigma, YARA, Snort) |
 

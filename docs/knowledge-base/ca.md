@@ -179,3 +179,25 @@ banshee ca update -s Dismissed < alerts.txt
 ```
 
 **Response:** Returns plain text, not JSON — one line per updated alert: `SUCCESS:\n<ALERT_ID>`. Do not pipe to `jq`.
+
+---
+
+### `banshee ca export`
+
+Fetch full alert details for the alerts produced by `ca search` and emit them as JSON or CSV. Input is **stdin only** — pipe the JSON array from `banshee ca search`; there are no positional arguments.
+
+| Option | Short | Default | Description |
+|--------|-------|---------|-------------|
+| `--csv` | | JSON | Output as CSV (fixed column set) instead of JSON (full alert details). |
+
+```bash
+banshee ca search -t 1d | banshee ca export
+banshee ca search -t 1d -r "Leaked Credential Monitoring" | banshee ca export > credential_alerts.json
+banshee ca search -t 12h -s Pending | banshee ca export --csv > alerts.csv
+```
+
+**Input:** Expects the JSON array emitted by `banshee ca search` on stdin; every element must have an `id`. Running with no piped input (a TTY) raises a `BadParameter` error.
+
+**Response shape (default):** A JSON array of full alert objects — the same per-alert structure returned by `banshee ca lookup` (`.id`, `.title`, `.log.triggered`, `.review`, `.rule`, `.hits[]`, etc.).
+
+**Response shape (`--csv`):** CSV with a header row and these fixed columns: `ID`, `Priority`, `Alert Rule`, `Status`, `Created`, `Updated`, `Title`, `Assignee`, `URL`, `Entities`, `Recorded Future AI Insights`. `Priority` is derived from the alert rule (`High` when the rule is a priority rule, otherwise `Informational`); commas inside field values are replaced with spaces.
