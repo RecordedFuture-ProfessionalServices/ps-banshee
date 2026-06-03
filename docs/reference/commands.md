@@ -59,7 +59,7 @@ banshee ca lookup [OPTIONS] ALERT_ID
 <h3 class="commands-reference">Arguments</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-ca-lookup--alert-id"><a href="#banshee-ca-lookup--alert-id"<code>ALER_ID</code></a></dt><dd><p>Alert ID to lookup</p></dd>
+    <dt id="banshee-ca-lookup--alert-id"><a href="#banshee-ca-lookup--alert-id"><code>ALERT_ID</code></a></dt><dd><p>Alert ID to lookup</p></dd>
 </dl>
 
 <h3 class="commands-reference">Options</h3>
@@ -111,6 +111,12 @@ By default the command will print the results in JSON format.
 ```
 banshee ca rules [OPTIONS] [FREETEXT]
 ```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-ca-rules--freetext"><a href="#banshee-ca-rules--freetext"><code>FREETEXT</code></a></dt><dd><p>Optional. Freetext used to filter the alert rules by name.</p></dd>
+</dl>
 
 <h3 class="commands-reference">Options</h3>
 
@@ -215,7 +221,7 @@ Export Classic Alerts as JSON or CSV. Reads alert IDs from stdin — typically p
 | Field | Description |
 |---|---|
 | `ID` | Classic Alert ID |
-| `Priority` | Alert priority — *currently always empty; reserved for future API support* |
+| `Priority` | Alert priority — `High` if the alert rule is a priority rule, otherwise `Informational` |
 | `Alert Rule` | Name of the alert rule that triggered |
 | `Status` | Portal status, e.g. `New`, `Pending`, `Dismissed`, `Resolved` |
 | `Created` | Triggered timestamp (UTC) |
@@ -306,8 +312,14 @@ By default the command will print results in JSON format.
 <h3 class="commands-reference">Usage</h3>
 
 ```
-banshee entity search [OPTIONS]
+banshee entity search [OPTIONS] NAME
 ```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-entity-search--name"><a href="#banshee-entity-search--name"><code>NAME</code></a></dt><dd><p>Name of the entity to search for</p></dd>
+</dl>
 
 <h3 class="commands-reference">Options</h3>
 
@@ -1216,7 +1228,7 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
     <dt id="banshee-list-bulk-add--list-id"><a href="#banshee-list-bulk-add--list-id"><code>LIST_ID</code></a></dt><dd>
     <p>List ID to add to</p>
     <p>List ID can be supplied with and without the '<strong>report:</strong>' prefix</p></dd>
-    <dt id="banshee-list-bulk-add--entity-id"><a href="#banshee-list-bulk-add--entity-id"><code>ENTITY_ID</code></a></dt><dd>
+    <dt id="banshee-list-bulk-add--entity-input"><a href="#banshee-list-bulk-add--entity-input"><code>ENTITY_INPUT</code></a></dt><dd>
     <p>One or more space/newline separated entities, for example:</p> 
     <ul>
         <li>SoA6SP</li>
@@ -1344,7 +1356,7 @@ banshee list bulk-remove [OPTIONS] LIST_ID ENTITY_INPUT...
     <dt id="banshee-list-bulk-remove--list-id"><a href="#banshee-list-bulk-remove--list-id"><code>LIST_ID</code></a></dt><dd>
     <p>List ID to remove from</p>
     <p>List ID can be supplied with and without the '<strong>report:</strong>' prefix</p></dd>
-    <dt id="banshee-list-bulk-remove--entity-id"><a href="#banshee-list-bulk-remove--entity-id"><code>ENTITY_ID</code></a></dt><dd>
+    <dt id="banshee-list-bulk-remove--entity-input"><a href="#banshee-list-bulk-remove--entity-input"><code>ENTITY_INPUT</code></a></dt><dd>
     <p>One or more space/newline separated entities, for example:</p> 
     <ul>
         <li>SoA6SP</li>
@@ -1453,22 +1465,26 @@ banshee pba search [OPTIONS]
         <li><code>code_repo_leakage</code></li>
         <li><code>identity_novel_exposures</code></li>
         <li><code>geopolitics_facility</code></li>
+        <li><code>malware_report</code></li>
     </ul>
     </p><dd></dd>
     <dt id="banshee-pba-search--priority"><a href="#banshee-pba-search--priority"><code>--priority</code></a>,  <code>-P</code> <i>priority</i></dt><dd>
     <p>Filter by alert priority (repeatable)</p>
     <p>Possible values are: <code>Informational</code>, <code>Moderate</code>, <code>High</code></p>
-    <p>Defaults to all categories</p><dd></dd>
+    <p>Defaults to all priorities</p><dd></dd>
     <dt id="banshee-pba-search--status"><a href="#banshee-pba-search--status"><code>--status</code></a>,  <code>-s</code> <i>alert-status</i></dt><dd>
     <p>Filter by alert status (repeatable)</p>
     <p>Possible values are: <code>New</code>, <code>InProgress</code>, <code>Dismissed</code>, <code>Resolved</code></p>
-    <p>Defaults to all categories</p><dd></dd>
+    <p>Defaults to all statuses</p><dd></dd>
     <dt id="banshee-pba-search--entity"><a href="#banshee-pba-search--entity"><code>--entity</code></a>,  <code>-e</code> <i>entity</i></dt><dd>
     <p>Filter alerts by associated entity (repeatable), for example: <code>-e idn:recordedfuture.com -e idn:example.com</code></p><dd></dd>
+    <dt id="banshee-pba-search--org-id"><a href="#banshee-pba-search--org-id"><code>--org-id</code></a>,  <code>-o</code> <i>organisation-id</i></dt><dd>
+    <p>Filter alerts by owning organisation ID (repeatable)</p>
+    <p>Accepts a 10-character ID or the 16-character <code>uhash:</code> form, for example: <code>-o 4bHfKRoC8 -o uhash:3hfXrGtIt</code></p><dd></dd>
     <dt id="banshee-pba-search--limit"><a href="#banshee-pba-search--limit"><code>--limit</code>, <code>-l</code></a> <i>limit</i></dt><dd>
     <p>Limit the number of results</p>
     <p>The maximum limit is 10 000</p>
-    <p>Defaults to 50</p><dd></dd>
+    <p>Defaults to 100</p><dd></dd>
     <dt id="banshee-pba-search--pretty"><a href="#banshee-pba-search--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>Pretty print the results in a human readable format</p><dd></dd>
     <dt id="banshee-pba-search--help"><a href="#banshee-pba-search--help"><code>--help</code></a>, <code>-h</code></dt><dd>
@@ -1499,7 +1515,7 @@ banshee pba update [OPTIONS] ALERT_IDS...
     <dt id="banshee-pba-update--status"><a href="#banshee-pba-update--status"><code>--status</code></a>,  <code>-s</code> <i>alert-status</i></dt><dd>
     <p>Update the alert(s) to this alert status</p>
     <p>Possible values are: <code>New</code>, <code>InProgress</code>, <code>Dismissed</code>, <code>Resolved</code></p><dd></dd>
-    <dt id="banshee-pba-update--repopen"><a href="#banshee-pba-update--repopen"><code>--repopen</code></a>,  <code>-r</code> <i>reopen</i></dt><dd>
+    <dt id="banshee-pba-update--reopen"><a href="#banshee-pba-update--reopen"><code>--reopen</code></a>,  <code>-r</code> <i>reopen</i></dt><dd>
     <p>Reopen strategies can only be applied to alerts with a status of Dismissed or Resolved. The following combinations of status/reopen are allowed: <code>Dismissed -> Never</code>; <code>Resolved -> Never</code>; <code>Resolved -> SignificantUpdates</code></p>
     <p>Supported values are: <code>Never</code>, <code>SignificantUpdates</code></p><dd></dd>
     <dt id="banshee-pba-update--priority"><a href="#banshee-pba-update--priority"><code>--priority</code></a>,  <code>-P</code> <i>priority</i></dt><dd>
@@ -1575,7 +1591,7 @@ Export Playbook Alerts as JSON or CSV. Reads alert IDs and categories from stdin
 
 <p><b>JSON (default)</b> — emits the <i>full</i> alert object for each ID as returned by the Recorded Future API: all top-level fields plus nested panel statuses, targets, evidence, assignees, timestamps, and so on. Best for downstream tooling, <code>jq</code> pipelines, or re-ingestion.</p>
 
-<p><b>CSV (<a href="#banshee-pba-export--csv"><code>--csv</code></a>)</b> — emits a high-level summary intended for spreadsheets and reporting. Only the eleven columns listed below are written (header row first); every other field present in the JSON response is omitted.</p>
+<p><b>CSV (<a href="#banshee-pba-export--csv"><code>--csv</code></a>)</b> — emits a high-level summary intended for spreadsheets and reporting. Only the twelve columns listed below are written (header row first); every other field present in the JSON response is omitted.</p>
 
 | Field | Description |
 |---|---|
@@ -1587,6 +1603,7 @@ Export Playbook Alerts as JSON or CSV. Reads alert IDs and categories from stdin
 | `Updated` | Last-updated timestamp (UTC, `%Y-%m-%d %H:%M:%S`) |
 | `Title` | First target entity with a `+N` suffix when more than one, else the alert rule name |
 | `Assignee` | Assigned user display name |
+| `Assessments` | Risk assessments / rules for the alert (category-dependent), `;`-separated |
 | `Entities` | Deduped target entity names, `;`-separated |
 | `Reopen Strategy` | Reopen strategy for closed alerts, e.g. `Never`, `SignificantUpdates` |
 | `Onwards Actions` | Actions taken on the alert, `;`-separated |
