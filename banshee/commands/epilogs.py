@@ -222,7 +222,7 @@ Input is taken from piping in the results from `banshee ca search`.
 
 * banshee ca search -t 1d -r "Leaked Credential Monitoring" | banshee ca export > credential_alerts.json
 
-* banshee ca search -t 12h -s Pending | banshee ca export --csv > alerts.csv
+* banshee ca search -t 12h -s New | banshee ca export --csv > alerts.csv
 
 """
 

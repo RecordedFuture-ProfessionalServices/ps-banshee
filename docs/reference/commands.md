@@ -256,7 +256,7 @@ banshee ca search [SEARCH_OPTIONS] | banshee ca export [OPTIONS]
 <pre><code class="language-bash">
 banshee ca search -t 1d | banshee ca export
 banshee ca search -t 1d -r "Leaked Credential Monitoring" | banshee ca export > credential_alerts.json
-banshee ca search -t 12h -s Pending | banshee ca export --csv > alerts.csv
+banshee ca search -t 12h -s New | banshee ca export --csv > alerts.csv
 </code></pre>
 
 ## banshee entity

@@ -17,7 +17,9 @@ import sys
 from psengine.playbook_alerts.constants import PLAYBOOK_ALERT_TYPE
 from psengine.playbook_alerts.playbook_alerts import (
     PBA_CodeRepoLeakage,
+    PBA_CyberVulnerability,
     PBA_DomainAbuse,
+    PBA_GeopoliticsFacility,
     PBA_IdentityNovelExposure,
     PBA_ThirdPartyRisk,
 )
@@ -59,7 +61,7 @@ def parse_targets(targets: list):
 def extract_assessments(alert):
     extracted_assessments = []
 
-    if isinstance(alert, (PBA_ThirdPartyRisk)):
+    if isinstance(alert, PBA_ThirdPartyRisk):
         extracted_assessments.extend(
             assessment.risk_rule for assessment in alert.panel_evidence_summary.assessments
         )
@@ -70,21 +72,26 @@ def extract_assessments(alert):
         )
 
     elif isinstance(alert, PBA_DomainAbuse):
-        for log in alert.panel_log_v2:
-            for change in log.changes:
-                if change.type_ in ('malicious_url_change', 'malicious_dns_change'):
-                    extracted_assessments.extend(
-                        assessment.title
-                        for record in (change.added or [])
-                        for assessment in record.assessments
-                    )
+        extracted_assessments.extend(context.context for context in alert.panel_status.context_list)
 
     elif isinstance(alert, PBA_CodeRepoLeakage):
-        for evidence in alert.panel_evidence_summary.evidence:
-            if evidence.assessments[0].title not in extracted_assessments:
-                extracted_assessments.append(evidence.assessments[0].title)
+        extracted_assessments.extend(
+            assessment.title
+            for evidence in alert.panel_evidence_summary.evidence
+            for assessment in evidence.assessments
+        )
 
-    return list(set(extracted_assessments))
+    elif isinstance(alert, PBA_GeopoliticsFacility):
+        extracted_assessments.extend(
+            assessment.name
+            for event in alert.panel_evidence_summary.events
+            for assessment in event.assessments
+        )
+
+    elif isinstance(alert, PBA_CyberVulnerability):
+        extracted_assessments.append(alert.panel_status.lifecycle_stage)
+
+    return sorted(dict.fromkeys(extracted_assessments))
 
 
 def parse_alerts_to_csv(pba_alerts: list[PLAYBOOK_ALERT_TYPE]):

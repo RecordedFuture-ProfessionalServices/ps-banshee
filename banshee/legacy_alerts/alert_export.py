@@ -30,7 +30,7 @@ def export_alerts(alert_ids: list, csv_flag: bool):
         transient=True,
         console=Console(stderr=True),
     ) as progress:
-        progress.add_task(description='Fetching Classic Alerts', total=None)
+        progress.add_task(description=f'Fetching {len(alert_ids)} Classic Alerts', total=None)
         alerts = alert_mgr.fetch_bulk(ids=alert_ids, max_workers=min(30, len(alert_ids)))
 
     if csv_flag:

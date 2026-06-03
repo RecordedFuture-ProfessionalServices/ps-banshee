@@ -30,8 +30,10 @@ def export_alerts(alert_ids_categories: list, csv_flag: bool):
         transient=True,
         console=Console(stderr=True),
     ) as progress:
-        progress.add_task(description='Fetching Playbook Alerts', total=None)
-        alerts = alert_mgr.fetch_bulk(alerts=alert_ids_categories)
+        progress.add_task(
+            description=f'Fetching {len(alert_ids_categories)} Playbook Alerts', total=None
+        )
+        alerts = alert_mgr.fetch_bulk(alerts=alert_ids_categories, alerts_per_page=100)
 
     if csv_flag:
         parse_alerts_to_csv(alerts)
