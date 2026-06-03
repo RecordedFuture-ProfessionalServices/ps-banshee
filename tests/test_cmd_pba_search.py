@@ -4,10 +4,33 @@ import pytest
 from typer.testing import CliRunner
 
 from banshee.commands.cmd_playbook_alerts import app
+from banshee.playbook_alerts import alert_search
 
 runner = CliRunner()
 
 COMMAND = 'search'
+
+
+def test_search_uses_large_page_size(mocker):
+    """Search requests a large page size so results are gathered in fewer round trips."""
+    mock_mgr = mocker.patch.object(alert_search, 'PlaybookAlertMgr').return_value
+    mock_mgr.search.return_value.json.return_value = {'data': []}
+
+    alert_search.search_alerts(
+        created=None,
+        updated=None,
+        category=None,
+        entity=None,
+        priority=None,
+        status=None,
+        organisation=None,
+        limit=100,
+        pretty=False,
+    )
+
+    _, kwargs = mock_mgr.search.call_args
+    assert kwargs['alerts_per_page'] == 1000
+    assert kwargs['max_results'] == 100
 
 
 @pytest.mark.vcr

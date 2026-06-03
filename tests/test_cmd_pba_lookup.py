@@ -4,10 +4,25 @@ import pytest
 from typer.testing import CliRunner
 
 from banshee.commands.cmd_playbook_alerts import app
+from banshee.playbook_alerts import alert_lookup
 
 runner = CliRunner()
 
 COMMAND = 'lookup'
+
+
+@pytest.mark.parametrize(('is_pretty', 'expected_fetch_images'), [(False, False), (True, True)])
+def test_lookup_fetch_images_follows_pretty(mocker, is_pretty, expected_fetch_images):
+    alert_id = 'task:99a83597-3c3f-49c0-af56-c06a636532e8'
+    mock_mgr = mocker.patch.object(alert_lookup, 'PlaybookAlertMgr').return_value
+    mock_mgr._fetch_alert_category.return_value = 'domain_abuse'
+    mocker.patch.object(alert_lookup, 'output_alert')
+
+    alert_lookup.lookup_alert(alert_id, is_pretty=is_pretty)
+
+    mock_mgr.fetch.assert_called_once_with(
+        alert_id=alert_id, category='domain_abuse', fetch_images=expected_fetch_images
+    )
 
 
 def test_pba_lookup_no_args():

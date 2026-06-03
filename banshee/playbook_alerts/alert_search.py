@@ -55,6 +55,7 @@ def search_alerts(
             statuses=status,
             organisation=organisation,
             max_results=limit,
+            alerts_per_page=1000,
         )
     if not pretty:
         print_json(json.dumps(results.json()), indent=2)
