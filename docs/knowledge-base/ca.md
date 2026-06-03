@@ -123,14 +123,28 @@ banshee ca rules -p
 | `.id` | Rule ID (e.g. `k_TnPe`) |
 | `.title` | Rule name |
 | `.enabled` | `true`/`false` — whether the rule is active |
-| `.priority` | `true`/`false` — marks the rule as priority (not an alert severity level) |
+| `.priority` | `true` = alerts from this rule are severity **High**; `false` = severity **Informational**. To triage by priority, fetch rules first and join to alerts via `.rule.id` (see Priority triage workflow below). |
 | `.tags` | Array of tag strings |
 | `.created` | Creation timestamp (ISO 8601) |
 | `.owner` | Object with `id` and `name` — rule owner |
 | `.intelligence_goals` | Array of `{id, name}` objects — associated intelligence goals |
 | `.notification_settings` | Object with `email_subscribers` array |
 
-Use `.title` and `.id` when constructing pipelines — the `priority` field marks a rule as priority, not an alert severity level.
+Use `.title` and `.id` when constructing pipelines. `.priority` maps directly to alert severity: `true` is High, `false` is Informational.
+
+---
+
+### Priority triage workflow
+
+`ca search` and `ca lookup` do not return a per-alert severity field. To triage alerts by severity, fetch the rules list first, filter to rules where `.priority == true`, and intersect against alert `.rule.id` values:
+
+```bash
+# High-priority alert IDs in the last day
+PRIORITY_RULES=$(banshee ca rules | jq -r '.[] | select(.priority == true) | .id' | paste -sd'|' -)
+banshee ca search -t 1d | jq --arg rules "$PRIORITY_RULES" -r '.[] | select(.rule.id | test("^(" + $rules + ")$")) | .id'
+```
+
+Pipe the resulting IDs straight into `banshee ca update` to status-change only the high-priority alerts.
 
 ---
 
