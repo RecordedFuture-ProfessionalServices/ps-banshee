@@ -4,6 +4,9 @@ site_description: A Recorded Future CLI for terminal-based threat intelligence i
 repo_url: https://github.com/RecordedFuture-ProfessionalServices/ps-banshee
 repo_name: ps-banshee
 
+exclude_docs: |
+  _includes/
+
 theme:
   logo: assets/favicon.png
   favicon: assets/favicon.png
@@ -69,7 +72,11 @@ markdown_extensions:
       guess_lang: false
   - pymdownx.superfences
   - pymdownx.inlinehilite
-  - pymdownx.snippets
+  - pymdownx.snippets:
+      base_path: ['docs']
+      check_paths: true
+  - pymdownx.tabbed:
+      alternate_style: true
   - toc:
       permalink: true
 

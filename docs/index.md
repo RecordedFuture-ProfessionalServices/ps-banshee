@@ -31,7 +31,7 @@ PS Banshee is a command-line tool for fast, efficient access to Recorded Future 
 
 PS Banshee is available on [PyPI](https://pypi.org/project/ps-banshee/) and can be installed using `pip` or `pipx`.
 
-!!! tip "PS Banshee requires Python 3.9 or later (up to 3.13)."
+!!! tip "PS Banshee requires Python 3.10 or later (up to 3.13)."
 
 ### Recommended: pipx (isolated environment)
 To install globally, run:
@@ -78,11 +78,7 @@ banshee
 
 ### Authorization
 
-Provide your Recorded Future API key using the `-k` or `--api-key` argument, or set it as the `RF_TOKEN` environment variable:
-
-```bash
-banshee -k <RF_TOKEN> <command> <sub-command> <arguments>
-```
+--8<-- "_includes/authorization.md"
 
 ### Proxies
 

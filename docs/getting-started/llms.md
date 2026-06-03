@@ -17,12 +17,8 @@ Phrasing it as an action ("fetch … then use") is deliberate: a bare URL refere
 
 For agents that run fully offline, vendor a copy of `llms-full.txt` into your project (e.g. `docs/banshee-cli.md`) and reference that local path instead of the URL.
 
-## Authentication
+## Authorization
 
-Export your Recorded Future API token in the shell before the agent runs commands:
+Set the `RF_TOKEN` environment variable in the agent's shell before invoking banshee. The env-var path is strongly preferred for agent workflows — the agent doesn't have to remember to pass `-k` on every call.
 
-```bash
-export RF_TOKEN=<your_api_key>
-```
-
-This is the recommended path — the agent will not need to pass `-k` on every call. See [Installation](installation.md) for the full setup.
+See [Installation → Authorization](installation.md#authorization) for full setup instructions (macOS, Linux, Windows).

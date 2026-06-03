@@ -20,7 +20,7 @@
 
 PS Banshee is available on [PyPI](https://pypi.org/project/ps-banshee/) and can be installed using `pip` or `pipx`.
 
-> **Note:** PS Banshee requires Python 3.9 or later (up to 3.13).
+> **Note:** PS Banshee requires Python 3.10 or later (up to 3.13).
 
 ### Recommended: pipx (isolated environment)
 To install globally, run:
@@ -66,11 +66,60 @@ banshee -h
 
 ### Authorization
 
-PS Banshee requires a Recorded Future API key, which can be provided as the `-k` or `--api-key` argument, or set as the `RF_TOKEN` environment variable.
+PS Banshee reads your Recorded Future API key from the `RF_TOKEN` environment variable (recommended) or from the `-k` / `--api-key` flag on each command.
+
+#### Option 1: Set `RF_TOKEN` (recommended)
+
+**macOS / Linux**
+
+Current shell only:
 
 ```bash
-banshee -k <RF_TOKEN> <command> <sub-command> <arguments>
+export RF_TOKEN=<your_api_key>
 ```
+
+Persist for future shells (zsh — adjust to `~/.bashrc` for bash). Open a new shell after running this (or run `source ~/.zshrc` to apply in the current shell):
+
+```bash
+echo 'export RF_TOKEN=<your_api_key>' >> ~/.zshrc
+```
+
+**Windows (PowerShell)**
+
+Current session only:
+
+```powershell
+$env:RF_TOKEN = '<your_api_key>'
+```
+
+Persist for future sessions (open a new PowerShell after running this):
+
+```powershell
+setx RF_TOKEN <your_api_key>
+```
+
+**Windows (Command Prompt)**
+
+Current session only:
+
+```cmd
+set RF_TOKEN=<your_api_key>
+```
+
+Persist for future sessions (open a new Command Prompt after running this):
+
+```cmd
+setx RF_TOKEN <your_api_key>
+```
+
+#### Option 2: Pass with `-k` per command
+
+```bash
+banshee -k <your_api_key> <command> <sub-command> <arguments>
+```
+
+
+This works on any platform, but is more verbose and the key may land in shell history.
 
 ### Proxies
 
