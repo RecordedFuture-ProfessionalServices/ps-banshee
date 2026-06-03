@@ -201,7 +201,7 @@ def add(
         str,
         Argument(
             show_default=False,
-            help='Use `annotation=<text>` to attach a note that appears on the Recorded Future platform for this entity. Quote the value if it contains spaces.',
+            help='Use `annotation=<text>` to attach a note that appears on the Recorded Future platform for this entity. Quote the value if it contains spaces.',  # noqa: E501
         ),
     ] = None,
 ):
