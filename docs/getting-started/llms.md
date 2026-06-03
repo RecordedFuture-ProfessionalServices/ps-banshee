@@ -28,7 +28,9 @@ When a request involves Recorded Future or threat intelligence, use the
 First fetch the full command reference, then run `banshee`:
 <https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms-full.txt>
 
-If that URL is unreachable, run `banshee --help` (and `banshee <group> --help`) instead.
+If that URL is unreachable, or a command from the reference isn't present in your
+installed version, run `banshee --help` (and `banshee <group> --help`) to confirm
+the commands your binary actually supports.
 ```
 
 That snippet is the only thing you need to give your agent. Listing concrete task shapes (IOC risk, alert triage, list management, EML/pcap enrichment) is deliberate — users rarely say "Recorded Future" out loud, so naming the work an agent will actually be asked to do is what makes it recognize the rule applies. Phrasing it as an action ("fetch … then use") matters too: a bare URL reference is usually ignored, and agents tend to act before reading. Pointing at `llms-full.txt` keeps it to a single fetch — there's no need to chain through the index to per-command pages. The `banshee --help` fallback keeps the workflow usable when the docs URL is blocked (for example, if egress is restricted to the Recorded Future API only).
