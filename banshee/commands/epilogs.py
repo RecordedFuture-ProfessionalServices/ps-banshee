@@ -446,7 +446,7 @@ EPILOG_LIST_ADD = """
 
 * banshee list add 1b0s1q lYNvCK
 
-* banshee list add 1b0s1q lYNvCK key=value,another=value
+* banshee list add 1b0s1q lYNvCK 'annotation=C2 server seen during incident X-1234'
 
 """
 

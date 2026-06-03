@@ -1182,8 +1182,8 @@ banshee list add [OPTIONS] LIST_ID ENTITY_ID [PROPERTIES]
         <li>www.duckdns.org,InternetDomainName</li>
     </ul></dd>
     <dt id="banshee-list-add--properties"><a href="#banshee-list-add--properties"><code>PROPERTIES</code></a></dt><dd>
-    <p>Optional properties to set on the entity</p>
-    <p>Properties can be supplied as key=value pairs, for example: type=malware,cool=beans,another=value</p></dd>
+    <p>Optional. Use <code>annotation=&lt;text&gt;</code> to attach a note that appears on the Recorded Future platform for this entity.</p>
+    <p>Quote the value if it contains spaces.</p></dd>
 </dl>
 
 <h3 class="commands-reference">Options</h3>
@@ -1192,6 +1192,13 @@ banshee list add [OPTIONS] LIST_ID ENTITY_ID [PROPERTIES]
     <dt id="banshee-list-add--help"><a href="#banshee-list-add--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>Show help for this command</p>
 </dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee list add 1b0s1q lYNvCK
+banshee list add 1b0s1q lYNvCK 'annotation=C2 server seen during incident X-1234'
+</code></pre>
 
 ### banshee list bulk-add
 
