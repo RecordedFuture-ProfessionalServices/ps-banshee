@@ -15,6 +15,7 @@ import json
 import re
 import sys
 from typing import Annotated
+from urllib.parse import unquote
 
 from psengine.helpers import TimeHelpers
 from psengine.playbook_alerts import PACategory
@@ -59,10 +60,9 @@ def validate_alert_id(alert_id: str):
 
 
 def validate_org_id(org_id: str):
+    org_id = unquote(org_id)
     if len(org_id) == 10:
         org_id = 'uhash:' + org_id
-    if len(org_id) == 18:
-        org_id = org_id.replace('%3A', ':')
     if len(org_id) != 16 or not org_id.startswith('uhash:'):
         raise BadParameter(ORG_ID_INVALID_MSG.format(org_id))
 
