@@ -61,8 +61,12 @@ def validate_alert_id(alert_id: str):
 def validate_org_id(org_id: str):
     if len(org_id) == 10:
         org_id = 'uhash:' + org_id
+    if len(org_id) == 18:
+        org_id = org_id.replace('%3A', ':')
     if len(org_id) != 16 or not org_id.startswith('uhash:'):
         raise BadParameter(ORG_ID_INVALID_MSG.format(org_id))
+
+    return org_id
 
 
 def parse_alert_ids_input(value: list[str]):

@@ -69,6 +69,8 @@ def test_pba_search_args():
             'High',
             '-s',
             'New',
+            '-o',
+            'uhash:5zQaSyRpA1',
         ],
     )
     assert result.exit_code == 0
@@ -93,7 +95,7 @@ def test_pba_search_args():
             '-l',
             '100',
             '-o',
-            'uhash:5zQaSyRpA1',
+            'uhash%3A5zQaSyRpA1',
         ],
     )
     assert result.exit_code == 0
@@ -108,6 +110,7 @@ test_input = [
     (['-c', 'bad_category'], 2),
     (['-P', 'informational'], 2),
     (['-s', 'inprogress'], 2),
+    (['-o', 'org_name'], 2),
 ]
 
 
