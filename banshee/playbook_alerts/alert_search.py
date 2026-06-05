@@ -67,7 +67,17 @@ def search_alerts(
             print(format_line('Updated', format_time(data.updated)))
             print(format_line('Status', data.status))
             print(format_line('Priority', data.priority))
-            print(format_line('Enterprise', data.owner_organisation_details.enterprise_name))
+            owner = data.owner_organisation_details
+            enterprise = (
+                (
+                    owner.organisations[0].organisation_name
+                    if owner.organisations
+                    else owner.enterprise_name
+                )
+                if owner
+                else ''
+            )
+            print(format_line('Enterprise', enterprise))
             print(format_line('Alert ID', data.playbook_alert_id))
             print(format_line('Alert Rule', data.alert_rule.name))
             print()
