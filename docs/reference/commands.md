@@ -1480,7 +1480,7 @@ banshee pba search [OPTIONS]
     <p>Filter alerts by associated entity (repeatable), for example: <code>-e idn:recordedfuture.com -e idn:example.com</code></p><dd></dd>
     <dt id="banshee-pba-search--org-id"><a href="#banshee-pba-search--org-id"><code>--org-id</code></a>,  <code>-o</code> <i>organisation-id</i></dt><dd>
     <p>Filter alerts by owning organisation ID (repeatable)</p>
-    <p>Accepts a 10-character ID or the 16-character <code>uhash:</code> form, for example: <code>-o 4bHfKRoC8 -o uhash:3hfXrGtIt</code></p><dd></dd>
+    <p>Accepts a 10-character ID or the 16-character <code>uhash:</code> form, for example: <code>-o 69sKLfTGsS -o uhash:5zQaSyRpA1</code></p><dd></dd>
     <dt id="banshee-pba-search--limit"><a href="#banshee-pba-search--limit"><code>--limit</code>, <code>-l</code></a> <i>limit</i></dt><dd>
     <p>Limit the number of results</p>
     <p>The maximum limit is 10 000</p>

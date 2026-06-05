@@ -29,7 +29,7 @@ banshee pba search --limit 1000 --category identity_novel_exposures --category d
 banshee pba search --updated 7d --category domain_abuse --pretty
 banshee pba search -c identity_novel_exposures -c third_party_risk -P High -P Moderate -s New
 banshee pba search -e idn:recordedfuture.com -e idn:example.com -c domain_abuse -u 7d
-banshee pba search -o 4bHfKRoC8 -o uhash:3hfXrGtIt -C 7d -P High
+banshee pba search -o 69sKLfTGsS -o uhash:5zQaSyRpA1 -C 7d -P High
 ```
 
 ---
