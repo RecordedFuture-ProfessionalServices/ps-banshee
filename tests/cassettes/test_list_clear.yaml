@@ -18,15 +18,15 @@ interactions:
     uri: https://api.recordedfuture.com/list/report:wpHivJ/info
   response:
     body:
-      string: '{"id": "report:wpHivJ", "name": "Patty", "type": "entity", "created":
-        "2024-07-01T12:51:38.804Z", "updated": "2026-05-28T14:12:13.723Z", "owner_id":
-        "Suckling Pig", "owner_name": "Pepperoni", "organisation_id": "Banh Mi Vi\u00eat",
-        "organisation_name": "Fries", "owner_organisation_details": {"owner_id": "Chicken
-        Biryani", "owner_name": "Cheese dog", "organisations": [], "enterprise_id":
-        "Frybread", "enterprise_name": "Surf and turf"}}'
+      string: '{"id": "report:wpHivJ", "name": "Fry sauce", "type": "entity", "created":
+        "2024-07-01T12:51:38.804Z", "updated": "2026-06-05T14:21:37.583Z", "owner_id":
+        "Chicken fingers", "owner_name": "Juba", "organisation_id": "Mango and Sticky",
+        "organisation_name": "Massaman Curry", "owner_organisation_details": {"owner_id":
+        "Pork Belly", "owner_name": "Glorified rice", "organisations": [], "enterprise_id":
+        "Home fries", "enterprise_name": "Gyoza"}}'
     headers:
       CF-RAY:
-      - a02ddaf25fdaf654-LHR
+      - a06fe5177b7c9953-LHR
       Connection:
       - keep-alive
       Content-Encoding:
@@ -34,11 +34,13 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 28 May 2026 14:12:36 GMT
+      - Fri, 05 Jun 2026 14:33:52 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
       cf-cache-status:
       - DYNAMIC
       scrubbed: '1'
@@ -64,13 +66,12 @@ interactions:
     uri: https://api.recordedfuture.com/list/report:wpHivJ/entities
   response:
     body:
-      string: '[{"entity": {"id": "qmqiQF", "type": "Thread", "name": "Pickled Okra"},
-        "status": "pending", "added": "2026-05-28T14:11:26.412Z"}, {"entity": {"id":
-        "pXJnNy", "type": "FileName", "name": "214.58.212.121"}, "status": "pending",
-        "added": "2026-05-28T14:12:26.081Z"}]'
+      string: '[{"entity": {"id": "ip:36.190.121.76", "type": "IpAddress", "name":
+        "145.32.158.134"}, "context": {"annotation": "Chicken French"}, "status":
+        "ready", "added": "2026-06-03T10:37:16.828Z"}]'
     headers:
       CF-RAY:
-      - a02ddaf38e89947c-LHR
+      - a06fe51a4c0bd1f7-LHR
       Connection:
       - keep-alive
       Content-Encoding:
@@ -78,11 +79,13 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 28 May 2026 14:12:37 GMT
+      - Fri, 05 Jun 2026 14:33:53 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
       cf-cache-status:
       - DYNAMIC
       scrubbed: '1'
@@ -90,14 +93,62 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"entity": {"id": "qmqiQF"}}'
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - banshee:tests_/1.1.3 (macOS-26.3.1-arm64-arm-64bit) psengine-py/2.6.0
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/list/report:wpHivJ/info
+  response:
+    body:
+      string: '{"id": "report:wpHivJ", "name": "Low Countr", "type": "entity", "created":
+        "2024-07-01T12:51:38.804Z", "updated": "2026-06-05T14:21:37.583Z", "owner_id":
+        "Cheese Curds", "owner_name": "Apple sauce", "organisation_id": "Margherita
+        Pizza", "organisation_name": "Fish and Chips!", "owner_organisation_details":
+        {"owner_id": "Apple butter", "owner_name": "Pork Belly", "organisations":
+        [], "enterprise_id": "Bull roast", "enterprise_name": "Chili con carne"}}'
+    headers:
+      CF-RAY:
+      - a06fe51bbc371e12-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 05 Jun 2026 14:33:53 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"entity": {"id": "ip:8.8.8.8"}}'
     headers:
       Accept-Encoding:
       - gzip, deflate
       Connection:
       - keep-alive
       Content-Length:
-      - '28'
+      - '32'
       Content-Type:
       - application/json
       User-Agent:
@@ -110,10 +161,10 @@ interactions:
     uri: https://api.recordedfuture.com/list/report:wpHivJ/entity/remove
   response:
     body:
-      string: '{"result": "Thousan"}'
+      string: '{"result": "Chicken"}'
     headers:
       CF-RAY:
-      - a02ddaf4eb9cbf0e-LHR
+      - a06fe51cef7889bb-LHR
       Connection:
       - keep-alive
       Content-Length:
@@ -121,7 +172,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 28 May 2026 14:12:37 GMT
+      - Fri, 05 Jun 2026 14:33:57 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -151,15 +202,15 @@ interactions:
     uri: https://api.recordedfuture.com/list/report:wpHivJ/info
   response:
     body:
-      string: '{"id": "report:wpHivJ", "name": "Clam cake", "type": "entity", "created":
-        "2024-07-01T12:51:38.804Z", "updated": "2026-05-28T14:12:13.723Z", "owner_id":
-        "Cheese fries", "owner_name": "Celery Victor", "organisation_id": "Cheese
-        dog", "organisation_name": "Tuna Pizza", "owner_organisation_details": {"owner_id":
-        "Onion Rings", "owner_name": "Frito Pie", "organisations": [], "enterprise_id":
-        "Biscuit", "enterprise_name": "Turkish Delight"}}'
+      string: '{"id": "report:wpHivJ", "name": "Gyoza", "type": "entity", "created":
+        "2024-07-01T12:51:38.804Z", "updated": "2026-06-05T14:21:37.583Z", "owner_id":
+        "Veggie Pizza", "owner_name": "Hawaiian Pizza", "organisation_id": "Moules
+        Frites", "organisation_name": "American fried rice", "owner_organisation_details":
+        {"owner_id": "Chili dog", "owner_name": "Fish and Chips!", "organisations":
+        [], "enterprise_id": "Chicago Hot Dog", "enterprise_name": "Bangers and mash"}}'
     headers:
       CF-RAY:
-      - a02ddaf87850cd58-LHR
+      - a06fe5365d06f668-LHR
       Connection:
       - keep-alive
       Content-Encoding:
@@ -167,11 +218,13 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 28 May 2026 14:12:37 GMT
+      - Fri, 05 Jun 2026 14:33:57 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
       cf-cache-status:
       - DYNAMIC
       scrubbed: '1'
@@ -200,7 +253,7 @@ interactions:
       string: '[]'
     headers:
       CF-RAY:
-      - a02ddaf9dc5f94eb-LHR
+      - a06fe5377d59b78a-LHR
       Connection:
       - keep-alive
       Content-Length:
@@ -208,48 +261,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 28 May 2026 14:12:38 GMT
-      Server:
-      - cloudflare
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains
-      cf-cache-status:
-      - DYNAMIC
-      scrubbed: '1'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json
-      User-Agent:
-      - banshee:tests_/1.1.3 (macOS-26.3.1-arm64-arm-64bit) psengine-py/2.6.0
-      X-RFToken:
-      - bmljZSB0cnkgOikpKSk=
-      accept:
-      - application/json
-    method: GET
-    uri: https://api.recordedfuture.com/list/report:wpHivJ/entities
-  response:
-    body:
-      string: '[]'
-    headers:
-      CF-RAY:
-      - a02ddb20a82bef31-LHR
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '2'
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 28 May 2026 14:12:44 GMT
+      - Fri, 05 Jun 2026 14:33:57 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:

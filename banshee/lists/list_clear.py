@@ -11,43 +11,19 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-from psengine.helpers import MultiThreadingHelper
-from rich.progress import Progress, SpinnerColumn, TextColumn
+from rich.console import Console
 
 from .fetch_list import fetch_list
-
-MAX_WORKERS = 50
+from .list_bulk_remove import bulk_remove_entities
 
 
 def clear_list(list_id: str):
     """Clears the list of all entities (text entries can't be removed via API)."""
-    with Progress(
-        SpinnerColumn(), TextColumn('[progress.description]{task.description}'), transient=True
-    ) as progress:
-        entity_list = fetch_list(list_id)
-        entities = entity_list.entities()
+    entities_list = fetch_list(list_id)
+    entities_to_remove = [entity.entity.id_ for entity in entities_list.entities()]
 
-        entities_count = len(entities)
-
-        if entities_count == 0:
-            print('No entities to remove')
-            return
-
-        task_id = progress.add_task(description=f'Removing {entities_count} entities')
-        results = MultiThreadingHelper.multithread_it(
-            min(MAX_WORKERS, len(entities)),
-            lambda e: entity_list.remove(entity=e.entity.id_),
-            iterator=entities,
-        )
-
-        progress.update(task_id, description='Validating entities have been removed')
-        failed = [r.result for r in results if r.result != 'removed']
-
-        if not failed:
-            print(f'Successfully removed {entities_count} entities')
-
-        if failed:
-            remaining = entity_list.entities()
-            print(f'{len(failed)} entities were not removed from the list:')
-            for entity in remaining:
-                print(f'\t- {entity.entity.id_}, {entity.entity.name}')
+    if len(entities_to_remove) > 0:
+        bulk_remove_entities(list_id, entities_to_remove)
+    else:
+        console = Console()
+        console.print(f"The list '{entities_list.name}' is already empty!")
