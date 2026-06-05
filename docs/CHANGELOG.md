@@ -15,6 +15,7 @@
 - [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) now skips entities already on the list instead of attempting to re-add them, reporting them as `UNCHANGED`. This is a significant speed-up when repeatedly re-running the same input file to add and remove entities.
 - [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) and [`list bulk-remove`](reference/commands.md#banshee-list-bulk-remove) now group their output by outcome (`ADDED`, `REMOVED`, `UNCHANGED`) and sort it for readability.
 - [`ca search`](reference/commands.md#banshee-ca-search) and [`pba search`](reference/commands.md#banshee-pba-search) now write progress indicators to stderr, keeping stdout clean for piping into the new `export` commands.
+- [`ioc lookup`](reference/commands.md#banshee-ioc-lookup) and [`ioc bulk-lookup`](reference/commands.md#banshee-ioc-bulk-lookup) pretty output (`-p`, `--pretty`) now colour-codes the risk score based on maliciousness.
 - Upgraded PSEngine to v2.6.0.
 
 ### Fixed

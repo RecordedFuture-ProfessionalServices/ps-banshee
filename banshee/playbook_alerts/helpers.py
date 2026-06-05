@@ -21,6 +21,7 @@ from psengine.playbook_alerts.playbook_alerts import (
     PBA_DomainAbuse,
     PBA_GeopoliticsFacility,
     PBA_IdentityNovelExposure,
+    PBA_MalwareReport,
     PBA_ThirdPartyRisk,
 )
 
@@ -33,7 +34,7 @@ CSV_FIELDNAMES = (
     'Status',
     'Created',
     'Updated',
-    'Title',
+    'Subject',
     'Assignee',
     'Assessments',
     'Entities',
@@ -98,15 +99,21 @@ def parse_alerts_to_csv(pba_alerts: list[PLAYBOOK_ALERT_TYPE]):
     writer = csv.DictWriter(sys.stdout, fieldnames=CSV_FIELDNAMES)
     writer.writeheader()
     for alert in pba_alerts:
-        alert_entities = parse_targets(alert.panel_status.targets)
+        alert_entities = []
+        subject = ''
+        if isinstance(alert, PBA_MalwareReport):
+            subject = alert.panel_evidence_summary.notification_title
+        elif isinstance(alert, (PBA_IdentityNovelExposure, PBA_CyberVulnerability)):
+            subject = alert.panel_status.entity_name
 
-        if alert_entities:
-            if len(alert_entities) > 1:
-                alert_title = f'{alert_entities[0]} +{len(alert_entities)}'
-            else:
-                alert_title = str(alert_entities[0])
         else:
-            alert_title = alert.panel_status.alert_rule.name
+            alert_entities = parse_targets(alert.panel_status.targets)
+            if alert_entities:
+                if len(alert_entities) > 1:
+                    subject = f'{alert_entities[0]} +{len(alert_entities) - 1}'
+                else:
+                    subject = str(alert_entities[0])
+
         writer.writerow(
             {
                 'ID': alert.playbook_alert_id,
@@ -117,7 +124,7 @@ def parse_alerts_to_csv(pba_alerts: list[PLAYBOOK_ALERT_TYPE]):
                 'Status': alert.panel_status.status,
                 'Created': alert.panel_status.created.strftime(DATE_TIME_FORMAT),
                 'Updated': alert.panel_status.updated.strftime(DATE_TIME_FORMAT),
-                'Title': sanitize_csv_field(alert_title),
+                'Subject': sanitize_csv_field(subject),
                 'Assignee': sanitize_csv_field(alert.panel_status.assignee_name),
                 'Assessments': '; '.join(extract_assessments(alert)),
                 'Entities': '; '.join(alert_entities),
