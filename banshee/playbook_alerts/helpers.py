@@ -51,7 +51,7 @@ def sanitize_csv_field(text):
 
 def parse_targets(targets: list):
     target_entities = []
-    for entity in targets:
+    for entity in targets or []:
         name = entity.name if hasattr(entity, 'name') else entity.removeprefix('idn:')
         if name not in target_entities:
             target_entities.append(name)
@@ -91,7 +91,7 @@ def extract_assessments(alert):
     elif isinstance(alert, PBA_CyberVulnerability):
         extracted_assessments.append(alert.panel_status.lifecycle_stage)
 
-    return sorted(dict.fromkeys(extracted_assessments))
+    return sorted({a for a in extracted_assessments if a is not None})
 
 
 def parse_alerts_to_csv(pba_alerts: list[PLAYBOOK_ALERT_TYPE]):
