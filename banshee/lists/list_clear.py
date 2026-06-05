@@ -35,7 +35,9 @@ def clear_list(list_id: str):
 
         task_id = progress.add_task(description=f'Removing {entities_count} entities')
         results = MultiThreadingHelper.multithread_it(
-            MAX_WORKERS, lambda e: entity_list.remove(entity=e.entity.id_), iterator=entities
+            min(MAX_WORKERS, len(entities)),
+            lambda e: entity_list.remove(entity=e.entity.id_),
+            iterator=entities,
         )
 
         progress.update(task_id, description='Validating entities have been removed')
