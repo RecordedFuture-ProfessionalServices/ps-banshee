@@ -20,11 +20,11 @@ PS Banshee is a command-line tool for fast, efficient access to Recorded Future 
 - E-mail (EML) enrichment
 - IOC lookup and search
 - Packet capture (pcap) enrichment
-- Recorded Future Alert search, lookup, and update
+- Recorded Future Alert search, lookup, update and export
 - Recorded Future Detection Rules (YARA, Snort, Sigma) search and download
 - Recorded Future Entity search and lookup
 - Recorded Future List & Watch List management
-- Recorded Future Playbook Alert search, lookup, and update
+- Recorded Future Playbook Alert search, lookup, update and export
 - Recorded Future Risk List download, and creation
 
 ## Installation

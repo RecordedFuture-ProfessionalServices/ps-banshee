@@ -1601,7 +1601,7 @@ Export Playbook Alerts as JSON or CSV. Reads alert IDs and categories from stdin
 | `Status` | Alert status, e.g. `New`, `InProgress`, `Dismissed`, `Resolved` |
 | `Created` | Created timestamp (UTC, `%Y-%m-%d %H:%M:%S`) |
 | `Updated` | Last-updated timestamp (UTC, `%Y-%m-%d %H:%M:%S`) |
-| `Title` | First target entity with a `+N` suffix when more than one, else the alert rule name |
+| `Subject` | Subject of the alert |
 | `Assignee` | Assigned user display name |
 | `Assessments` | Risk assessments / rules for the alert (category-dependent), `;`-separated |
 | `Entities` | Deduped target entity names, `;`-separated |

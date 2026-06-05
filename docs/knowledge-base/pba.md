@@ -137,4 +137,4 @@ banshee pba search --updated 7d --category identity_novel_exposures | banshee pb
 
 **Response shape (default):** A JSON array of full Playbook Alert objects — the same per-alert structure returned by `banshee pba lookup` (`playbook_alert_id`, `panel_status`, `panel_evidence_summary`, `panel_log_v2`).
 
-**Response shape (`--csv`):** CSV with a header row and these fixed columns: `ID`, `Priority`, `Alert Rule`, `Status`, `Created`, `Updated`, `Title`, `Assignee`, `Assessments`, `Entities`, `Reopen Strategy`, `Onwards Actions`. `Assessments` and `Entities` are `; `-joined; commas inside field values are replaced with spaces.
+**Response shape (`--csv`):** CSV with a header row and these fixed columns: `ID`, `Priority`, `Alert Rule`, `Status`, `Created`, `Updated`, `Subject`, `Assignee`, `Assessments`, `Entities`, `Reopen Strategy`, `Onwards Actions`. `Assessments` and `Entities` are `; `-joined; commas inside field values are replaced with spaces.
