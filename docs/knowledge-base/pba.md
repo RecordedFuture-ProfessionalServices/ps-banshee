@@ -20,7 +20,7 @@ Search Playbook Alerts with rich filter options.
 | `--limit INTEGER` | `-l` | `100` | Max results (1–10000) |
 | `--pretty` | `-p` | | Pretty print |
 
-**Response shape:** Returns a JSON object with three top-level keys: `.data` (array of alert records), `.counts` (`{returned, total}`), and `.status` (request status string). Alert records are under `.data[]` with fields: `playbook_alert_id`, `category`, `priority`, `status`, `title`, `created`, `updated`, `actions_taken`, `owner_organisation_details`.
+**Response shape:** Returns a JSON object with three top-level keys: `.data` (array of alert records), `.counts` (`{returned, total}`), and `.status` (request status object: `{status_code, status_message}`). Alert records are under `.data[]` with fields: `playbook_alert_id`, `alert_rule` (`{id, label, name}`), `category`, `priority`, `status`, `title`, `created`, `updated`, `actions_taken`, `owner_organisation_details`.
 
 ```bash
 banshee pba search --created 1d
