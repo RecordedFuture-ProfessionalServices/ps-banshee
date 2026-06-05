@@ -51,12 +51,11 @@ def sanitize_csv_field(text):
 
 
 def parse_targets(targets: list):
-    target_entities = []
-    for entity in targets or []:
-        name = entity.name if hasattr(entity, 'name') else entity.removeprefix('idn:')
-        if name not in target_entities:
-            target_entities.append(name)
-    return target_entities
+    names = (
+        entity.removeprefix('idn:') if isinstance(entity, str) else entity.name
+        for entity in targets or []
+    )
+    return list(dict.fromkeys(names))
 
 
 def extract_assessments(alert):

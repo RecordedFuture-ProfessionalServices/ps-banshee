@@ -44,7 +44,6 @@ ALERTS = json.dumps(
     }
 )
 EMPTY_JSON = json.dumps([])
-INVALID_JSON_CA_ALERT = json.dumps([{'name': 'kevin'}])
 INVALID_JSON = json.dumps({'data': [{'name': 'steven'}]})
 INVALID_ALERT_ID = json.dumps({'data': [{'playbook_alert_id': 'bad-alert-id'}]})
 

@@ -112,7 +112,7 @@ def validate_status_reopen_options(status: RFPAStatus, reopen: RFPAReopenStrateg
 
 _PIPED_INPUT_HINT = (
     "Expected piped JSON output from 'banshee pba search' "
-    "(e.g. 'banshee pba search -C 1d | banshee pba export)"
+    "(e.g. 'banshee pba search -C 1d | banshee pba export')"
 )
 
 
@@ -139,7 +139,7 @@ def parse_pba_alerts(value: str):
         ]
     except (KeyError, TypeError) as err:
         raise BadParameter(
-            f'Malformed input: every alert must have a "playbook_alert_id" and "category" field {_PIPED_INPUT_HINT}'  # noqa: E501
+            f'Malformed input: every alert must have a "playbook_alert_id" and "category" field. {_PIPED_INPUT_HINT}'  # noqa: E501
         ) from err
 
     for alert in alert_ids_categories:
