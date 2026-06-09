@@ -285,7 +285,7 @@ def bulk_remove(
 
 @banshee_cmd(
     app=app,
-    help_='A utility command to copy entities from one list to another list.',
+    help_='A utility command to copy entities from one list to another list',
     epilog=EPILOG_LIST_COPY,
     rich_help_panel=PANEL_ENTITY_MGMT,
 )
