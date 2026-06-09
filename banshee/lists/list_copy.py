@@ -35,5 +35,5 @@ def copy_list(source_list_id: str, destination_list_id: str, overwrite: bool = F
             list_id=destination_list_id, entities=entities_to_copy, overwrite=overwrite
         )
     else:
-        console = Console()
+        console = Console(stderr=True)
         console.print(f"The source list '{entities_list.name}' is empty!")

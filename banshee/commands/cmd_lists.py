@@ -303,7 +303,7 @@ def copy(
             '-o',
             help='Overwrite mode: keeps entities that are already in the destination list, adds new ones, and removes any entities on the list that are not in the source list. By default the command appends new entities without removing existing ones.',  # noqa: E501
         ),
-    ] = False,  # noqa: E501
+    ] = False,
 ):
     copy_list(
         source_list_id=source_list_id, destination_list_id=destination_list_id, overwrite=overwrite
