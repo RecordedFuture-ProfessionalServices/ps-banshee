@@ -550,6 +550,15 @@ EPILOG_LIST_CLEAR = """
 
 """
 
+EPILOG_LIST_COPY = """
+## Example Usage
+
+* banshee list copy 1b0s1q 21YKUC
+
+* banshee list copy 1b0s1q 21YKUC --overwrite
+
+"""
+
 EPILOG_LIST_ENTITIES = """
 ## Example Usage
 

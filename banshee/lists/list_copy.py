@@ -11,15 +11,29 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-from .list_add import add_entity
+from rich.console import Console
+from rich.progress import Progress, SpinnerColumn, TextColumn
+
+from .fetch_list import fetch_list
 from .list_bulk_add import bulk_add_entities
-from .list_bulk_remove import bulk_remove_entities
-from .list_clear import clear_list
-from .list_copy import copy_list
-from .list_create import create_list
-from .list_entities import fetch_entities
-from .list_entries import fetch_entries
-from .list_info import fetch_list_info
-from .list_remove import remove_entity
-from .list_search import search_lists
-from .list_status import fetch_list_status
+
+
+def copy_list(source_list_id: str, destination_list_id: str, overwrite: bool = False):
+    """Copies entities from one list to another."""
+    with Progress(
+        SpinnerColumn(),
+        TextColumn('[progress.description]{task.description}'),
+        transient=True,
+        console=Console(stderr=True),
+    ) as progress:
+        progress.add_task(description='Retrieving entities from source list', total=None)
+        entities_list = fetch_list(source_list_id)
+        entities_to_copy = [entity.entity.id_ for entity in entities_list.entities()]
+
+    if len(entities_to_copy) > 0:
+        bulk_add_entities(
+            list_id=destination_list_id, entities=entities_to_copy, overwrite=overwrite
+        )
+    else:
+        console = Console()
+        console.print(f"The source list '{entities_list.name}' is empty!")

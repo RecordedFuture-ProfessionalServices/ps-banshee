@@ -23,6 +23,7 @@ from ..lists import (
     bulk_add_entities,
     bulk_remove_entities,
     clear_list,
+    copy_list,
     create_list,
     fetch_entities,
     fetch_entries,
@@ -37,6 +38,7 @@ from .epilogs import (
     EPILOG_LIST_BULK_ADD,
     EPILOG_LIST_BULK_REMOVE,
     EPILOG_LIST_CLEAR,
+    EPILOG_LIST_COPY,
     EPILOG_LIST_CREATE,
     EPILOG_LIST_ENTITIES,
     EPILOG_LIST_ENTRIES,
@@ -279,6 +281,33 @@ def bulk_remove(
 
     entities = parse_entity_input(entity_input)
     bulk_remove_entities(list_id=list_id, entities=entities)
+
+
+@banshee_cmd(
+    app=app,
+    help_='A utility command to copy entities from one list to another list.',
+    epilog=EPILOG_LIST_COPY,
+    rich_help_panel=PANEL_ENTITY_MGMT,
+)
+def copy(
+    source_list_id: Annotated[
+        str, Argument(show_default=False, help='ID of the list to copy entities from')
+    ],
+    destination_list_id: Annotated[
+        str, Argument(show_default=False, help='ID of the list to copy entities to')
+    ],
+    overwrite: Annotated[
+        bool,
+        Option(
+            '--overwrite',
+            '-o',
+            help='Overwrite mode: keeps entities that are already in the destination list, adds new ones, and removes any entities on the list that are not in the source list. By default the command appends new entities without removing existing ones.',  # noqa: E501
+        ),
+    ] = False,  # noqa: E501
+):
+    copy_list(
+        source_list_id=source_list_id, destination_list_id=destination_list_id, overwrite=overwrite
+    )
 
 
 @banshee_cmd(
