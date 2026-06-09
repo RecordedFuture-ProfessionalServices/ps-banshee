@@ -832,7 +832,7 @@ docs = [
 [package.metadata]
 requires-dist = [
     { name = "polars", specifier = "~=1.34.0" },
-    { name = "psengine", specifier = "~=2.6.0" },
+    { name = "psengine", specifier = "~=2.7.0" },
     { name = "pyshark", specifier = "==0.6" },
     { name = "typer", specifier = "<0.16.0" },
 ]
@@ -860,7 +860,7 @@ docs = [
 
 [[package]]
 name = "psengine"
-version = "2.6.0"
+version = "2.7.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "jsonpath-ng" },
@@ -873,9 +873,9 @@ dependencies = [
     { name = "stix2" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/0c/17/f9558b799f4a7ef0a8098ff8cd3a04758af32707ab8027d98070596568ef/psengine-2.6.0.tar.gz", hash = "sha256:6a21aa8e05cdebf46de39fcb67bba71f93e836b91c206324905a44d88b6fc259", size = 138053, upload-time = "2026-04-29T12:37:47.82Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/32/59/375499bbb991679d18ac05b67efc304a7049b6f483199694b061eea14b57/psengine-2.7.0.tar.gz", hash = "sha256:4c6e2b4adfeec4beeb8b883324337a124b22631df05291d4a3c3991c2ec3004f", size = 140541, upload-time = "2026-05-01T10:10:22.134Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d3/a2/faa9708954f897f5ac23dd8ae1faf940dc677b72f3977292d2515ba54d55/psengine-2.6.0-py3-none-any.whl", hash = "sha256:fee3df3eaa487ffe8d4eeed4953123a1a799c6cd9ebe4a537bd85238aa5233ac", size = 253058, upload-time = "2026-04-29T12:37:46.106Z" },
+    { url = "https://files.pythonhosted.org/packages/19/3b/482f70027af792e8faf34f2348962498452b6555bdfbb6d846be3042eaea/psengine-2.7.0-py3-none-any.whl", hash = "sha256:5fa47c22b385cf159c0c9c66f95ff6877307066047e62360949be7caf4fef4d6", size = 259958, upload-time = "2026-05-01T10:10:20.452Z" },
 ]
 
 [[package]]
