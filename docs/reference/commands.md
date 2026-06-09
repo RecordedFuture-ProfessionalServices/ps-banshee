@@ -925,6 +925,7 @@ banshee list [OPTIONS] COMMAND [ARGS]...
     <dt><a href="#banshee-list-bulk-add"><code>banshee list bulk-add</code></a></dt><dd><p>Bulk add entities to a list</p></dd>
     <dt><a href="#banshee-list-remove"><code>banshee list remove</code></a></dt><dd><p>Remove an entity from a list</p></dd>
     <dt><a href="#banshee-list-bulk-remove"><code>banshee list bulk-remove</code></a></dt><dd><p>Bulk remove entities from a list</p></dd>
+    <dt><a href="#banshee-list-copy"><code>banshee list copy</code></a></dt><dd><p>Copy entities from one list to another</p></dd>
     <dt><a href="#banshee-list-clear"><code>banshee list clear</code></a></dt><dd><p>Clear all entities from a list</p></dd>
     <dt><a href="#banshee-list-entries"><code>banshee list entries</code></a></dt><dd><p>Get text entries from a list</p></dd>
 </dl>
@@ -1387,6 +1388,45 @@ banshee list bulk-remove [OPTIONS] LIST_ID ENTITY_INPUT...
     <dt id="banshee-list-bulk-remove--help"><a href="#banshee-list-bulk-remove--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>Show help for this command</p>
 </dl>
+
+### banshee list copy
+
+A utility command to copy entities from one list to another list.
+
+The source list's entities are read and added to the destination list. By default new entities are appended to the destination without touching what is already there. With `--overwrite`, the destination is made to mirror the source: entities already present in both are kept, new ones are added, and any entities on the destination that are **not** in the source are removed.
+
+If the source list is empty the command exits without modifying the destination — even with `--overwrite`.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee list copy [OPTIONS] SOURCE_LIST_ID DESTINATION_LIST_ID
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-copy--source-list-id"><a href="#banshee-list-copy--source-list-id"><code>SOURCE_LIST_ID</code></a></dt><dd>
+    <p>ID of the list to copy entities from</p></dd>
+    <dt id="banshee-list-copy--destination-list-id"><a href="#banshee-list-copy--destination-list-id"><code>DESTINATION_LIST_ID</code></a></dt><dd>
+    <p>ID of the list to copy entities to</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-copy--overwrite"><a href="#banshee-list-copy--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
+    <p>Overwrite mode: keeps entities that are already in the destination list, adds new ones, and removes any entities on the destination that are not in the source list. By default the command appends new entities without removing existing ones.</p></dd>
+    <dt id="banshee-list-copy--help"><a href="#banshee-list-copy--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Examples</h3>
+
+```
+$ banshee list copy 1b0s1q 21YKUC
+$ banshee list copy 1b0s1q 21YKUC --overwrite
+```
 
 ## banshee pba
 

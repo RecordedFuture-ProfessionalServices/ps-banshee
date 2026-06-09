@@ -191,6 +191,27 @@ cat entities.txt | banshee list bulk-remove 21YKUC
 
 ---
 
+### `banshee list copy SOURCE_LIST_ID DESTINATION_LIST_ID`
+
+Copy the entities from one list to another. The source list's entities are read and added to the destination.
+
+| Option | Short | Default | Description |
+|--------|-------|---------|-------------|
+| `--overwrite` | `-o` | off | Overwrite mode: keep entities present in both lists, add new ones, and remove any entities on the destination that are **not** in the source. Without it, entities are only appended to the destination and nothing is removed. |
+
+If the source list is empty the command exits without modifying the destination, even with `--overwrite`.
+
+```bash
+banshee list copy 1b0s1q 21YKUC
+
+# Make the destination mirror the source exactly (adds missing, removes stale)
+banshee list copy 1b0s1q 21YKUC --overwrite
+```
+
+**Response:** Plain text grouped by outcome — `ADDED:`, `REMOVED:` (overwrite only), and `UNCHANGED:` blocks listing the affected entities. Not JSON; do not pipe to `jq`.
+
+---
+
 ### `banshee list clear LIST_ID`
 
 Remove **all** entities from a list (destructive — use with care). Text-match entries cannot be removed via the API. The list itself is not deleted; only its entities are removed.

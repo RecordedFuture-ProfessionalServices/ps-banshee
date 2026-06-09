@@ -6,8 +6,9 @@
 - New [`email enrich`](reference/commands.md#banshee-email-enrich) sub-command to enrich EML files by extracting header IPs and body URLs, then returning Recorded Future intelligence including risk score, threat actor associations, malware links, and risk rule evidence.
 - New [`ca export`](reference/commands.md#banshee-ca-export) sub-command to export Classic Alerts as full JSON or a summary CSV. Reads alert IDs piped from [`ca search`](reference/commands.md#banshee-ca-search).
 - New [`pba export`](reference/commands.md#banshee-pba-export) sub-command to export Playbook Alerts as full JSON or a summary CSV. Reads the search results piped from [`pba search`](reference/commands.md#banshee-pba-search).
-- New `-o`/`--org-id` option for [`pba search`](reference/commands.md#banshee-pba-search) to filter Playbook Alerts by owning organisation ID (repeatable).
-- New `-o`/`--overwrite` option for [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) to make the list match the supplied entities exactly — adding new entities and removing any currently on the list that were not provided.
+- New [`-o`/`--org-id`](reference/commands.md#banshee-pba-search--org-id) option for [`pba search`](reference/commands.md#banshee-pba-search) to filter Playbook Alerts by owning organisation ID (repeatable).
+- New [`-o`/`--overwrite`](reference/commands.md#banshee-list-bulk-add--overwrite) option for [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) to make the list match the supplied entities exactly — adding new entities and removing any currently on the list that were not provided.
+- New [`list copy`](reference/commands.md#banshee-list-copy) sub-command to copy entities from one list to another. Appends by default, or use [`-o`/`--overwrite`](reference/commands.md#banshee-list-copy--overwrite) to make the destination mirror the source exactly.
 - Support for [using banshee with AI agents](getting-started/llms.md), so coding assistants can discover and run the CLI.
 
 ### Changed
