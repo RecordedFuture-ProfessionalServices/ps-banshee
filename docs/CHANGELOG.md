@@ -1,6 +1,6 @@
 # Release History
 
-## 1.3.0 - 2026-06-xx
+## 1.3.0 - 2026-06-12
 
 ### Added
 - New [`email enrich`](reference/commands.md#banshee-email-enrich) sub-command to enrich EML files by extracting header IPs and body URLs, then returning Recorded Future intelligence including risk score, threat actor associations, malware links, and risk rule evidence.
