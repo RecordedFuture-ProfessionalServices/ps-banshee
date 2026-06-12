@@ -20,18 +20,18 @@ PS Banshee is a command-line tool for fast, efficient access to Recorded Future 
 - E-mail (EML) enrichment
 - IOC lookup and search
 - Packet capture (pcap) enrichment
-- Recorded Future Alert search, lookup, and update
+- Recorded Future Alert search, lookup, update and export
 - Recorded Future Detection Rules (YARA, Snort, Sigma) search and download
 - Recorded Future Entity search and lookup
 - Recorded Future List & Watch List management
-- Recorded Future Playbook Alert search, lookup, and update
+- Recorded Future Playbook Alert search, lookup, update and export
 - Recorded Future Risk List download, and creation
 
 ## Installation
 
 PS Banshee is available on [PyPI](https://pypi.org/project/ps-banshee/) and can be installed using `pip` or `pipx`.
 
-!!! tip "PS Banshee requires Python 3.9 or later (up to 3.13)."
+!!! tip "PS Banshee requires Python 3.10 or later (up to 3.13)."
 
 ### Recommended: pipx (isolated environment)
 To install globally, run:
@@ -78,11 +78,7 @@ banshee
 
 ### Authorization
 
-Provide your Recorded Future API key using the `-k` or `--api-key` argument, or set it as the `RF_TOKEN` environment variable:
-
-```bash
-banshee -k <RF_TOKEN> <command> <sub-command> <arguments>
-```
+--8<-- "_includes/authorization.md"
 
 ### Proxies
 

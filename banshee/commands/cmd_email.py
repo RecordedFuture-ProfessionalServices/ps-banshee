@@ -24,7 +24,7 @@ from .epilogs import EPILOG_EMAIL_ENRICH
 
 CMD_NAME = 'email'
 CMD_HELP = 'Enrich e-mail files (EML) with Recorded Future intelligence'
-CMD_RICH_HELP = 'email Enrichment'
+CMD_RICH_HELP = 'E-mail Enrichment'
 
 ENRICH_COMMAND_HELP = (
     'Enrich an e-mail (EML) file with Recorded Future Intelligence. '

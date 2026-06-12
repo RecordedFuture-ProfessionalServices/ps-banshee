@@ -59,7 +59,7 @@ Set WindowBar Colorful
 Set Theme "Dracula"
 Set BorderRadius 10
 
-Output ../img/first-steps.gif
+Output docs/img/first-steps.gif
 
 Require echo
 

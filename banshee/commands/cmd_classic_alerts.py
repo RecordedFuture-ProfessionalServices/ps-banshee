@@ -11,6 +11,7 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
+import json
 import re
 import sys
 from typing import Annotated
@@ -18,6 +19,7 @@ from typing import Annotated
 from typer import Argument, BadParameter, Option, Typer
 
 from ..branding import banshee_cmd
+from ..legacy_alerts.alert_export import export_alerts
 from ..legacy_alerts.alert_lookup import lookup_alert
 from ..legacy_alerts.alert_search import search_alerts
 from ..legacy_alerts.alert_update import update_alerts
@@ -25,6 +27,7 @@ from ..legacy_alerts.constants import AlertStatus
 from ..legacy_alerts.rules_search import search_alert_rules
 from .args import OPT_PRETTY_PRINT
 from .epilogs import (
+    EPILOG_ALERT_EXPORT,
     EPILOG_ALERT_LOOKUP,
     EPILOG_ALERT_RULES_SEARCH,
     EPILOG_ALERT_SEARCH,
@@ -77,6 +80,42 @@ def parse_triggered(value: str):
     return value
 
 
+_PIPED_INPUT_HINT = (
+    "Expected piped JSON output from 'banshee ca search' "
+    "(e.g. 'banshee ca search -t 1d | banshee ca export')."
+)
+
+
+def parse_search_alerts(value: str):
+    if not value:
+        raise BadParameter(f'No input received. {_PIPED_INPUT_HINT}')
+
+    try:
+        alerts = json.loads(value)
+    except json.JSONDecodeError as err:
+        raise BadParameter(
+            f'Malformed input: could not parse as JSON ({err.msg}). {_PIPED_INPUT_HINT}'
+        ) from err
+
+    if not isinstance(alerts, list):
+        raise BadParameter(
+            f'Malformed input: expected a JSON array, got {type(alerts).__name__}. '
+            f'{_PIPED_INPUT_HINT}'
+        )
+
+    try:
+        alert_ids = [alert['id'] for alert in alerts]
+    except (KeyError, TypeError) as err:
+        raise BadParameter(
+            f'Malformed input: every alert object must have an "id" field. {_PIPED_INPUT_HINT}'
+        ) from err
+
+    for alert_id in alert_ids:
+        validate_alert_id(alert_id)
+
+    return alert_ids
+
+
 ###################################
 # Commands
 ###################################
@@ -113,12 +152,7 @@ def search(
     ] = None,
     pretty: OPT_PRETTY_PRINT = False,
 ):
-    search_alerts(
-        triggered=triggered,
-        alert_rules=alert_rules,
-        status=status,
-        pretty=pretty,
-    )
+    search_alerts(triggered=triggered, alert_rules=alert_rules, status=status, pretty=pretty)
 
 
 @banshee_cmd(app=app, help_='Search Classic Alert rules', epilog=EPILOG_ALERT_RULES_SEARCH)
@@ -173,3 +207,24 @@ def update(
     update_alerts(
         alert_ids=parsed_ids, status=status, note=note, note_append=note_append, assignee=assignee
     )
+
+
+@banshee_cmd(app=app, help_='Export Classic Alerts as JSON or CSV', epilog=EPILOG_ALERT_EXPORT)
+def export(
+    csv_flag: Annotated[
+        bool,
+        Option(
+            '--csv',
+            help='Output as CSV (fixed column set) instead of JSON (full alert details).',
+            show_default=False,
+        ),
+    ] = False,
+):
+    if sys.stdin.isatty():
+        raise BadParameter(f'No input received. {_PIPED_INPUT_HINT}')
+
+    raw_alerts = sys.stdin.read().strip()
+
+    alert_ids = parse_search_alerts(raw_alerts)
+
+    export_alerts(alert_ids=alert_ids, csv_flag=csv_flag)

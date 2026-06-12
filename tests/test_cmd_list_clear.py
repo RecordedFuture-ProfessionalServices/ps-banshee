@@ -14,7 +14,7 @@ def test_list_clear_no_args():
     assert result.exit_code == 2
 
 
-@pytest.mark.vcr
+@pytest.mark.vcr(record_mode='new_episodes')
 def test_list_clear():
     result = runner.invoke(app, args=[COMMAND, 'report:wpHivJ'])
     assert result.exit_code == 0

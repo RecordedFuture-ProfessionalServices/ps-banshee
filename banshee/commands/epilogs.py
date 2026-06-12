@@ -213,6 +213,19 @@ EPILOG_ALERT_LOOKUP = """
 
 """
 
+EPILOG_ALERT_EXPORT = """
+Input is taken from piping in the results from `banshee ca search`.
+
+## Example Usage
+
+* banshee ca search -t 1d | banshee ca export
+
+* banshee ca search -t 1d -r "Leaked Credential Monitoring" | banshee ca export > credential_alerts.json
+
+* banshee ca search -t 12h -s New | banshee ca export --csv > alerts.csv
+
+"""
+
 EPILOG_ALERT_RULES_SEARCH = """
 ## Example Usage
 
@@ -275,6 +288,16 @@ You can use either of the following commands to update the alerts:
 
 """
 
+EPILOG_PBA_EXPORT = """
+Input is taken from piping in the results from `banshee pba search`.
+
+## Example Usage
+
+* banshee pba search --created 1d -l 10 | banshee pba export > alerts.json
+
+* banshee pba search --updated 7d --category identity_novel_exposures | banshee pba export --csv > identity_alerts.csv
+
+"""
 
 EPILOG_PBA_UPDATE = """
 ## Accepted Inputs
@@ -356,6 +379,8 @@ EPILOG_PBA_SEARCH = """
 
 * banshee pba search -e idn:recordedfuture.com -e idn:example.com -c domain_abuse -u 7d
 
+* banshee pba search -o 4bHfKRoC8 -o uhash:3hfXrGtIt -C 7d -P High
+
 """
 
 EPILOG_ENTITY_LOOKUP = """
@@ -421,7 +446,7 @@ EPILOG_LIST_ADD = """
 
 * banshee list add 1b0s1q lYNvCK
 
-* banshee list add 1b0s1q lYNvCK key=value,another=value
+* banshee list add 1b0s1q lYNvCK 'annotation=C2 server seen during incident X-1234'
 
 """
 
@@ -522,6 +547,15 @@ EPILOG_LIST_CLEAR = """
 * banshee list clear 1b0s1q
 
 * banshee list clear 1b0s1
+
+"""
+
+EPILOG_LIST_COPY = """
+## Example Usage
+
+* banshee list copy 1b0s1q 21YKUC
+
+* banshee list copy 1b0s1q 21YKUC --overwrite
 
 """
 

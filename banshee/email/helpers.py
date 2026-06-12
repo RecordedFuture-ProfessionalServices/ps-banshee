@@ -65,7 +65,7 @@ def parse_eml(eml_path: Path) -> tuple[tuple, dict, dict[str, str]]:
         dict of the emails body/contents. "text/plain" and/or "text/html"
         list of dictionaries of the attachments. In the form {"name":..., "hash":...}
     """
-    with Path.open(eml_path, 'rb') as f:
+    with Path(eml_path).open('rb') as f:
         parsed_email = BytesParser().parse(f)
 
         headers = [[key, value] for key, value in parsed_email.items()]

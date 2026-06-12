@@ -16,6 +16,7 @@ import json
 
 from psengine.classic_alerts import ClassicAlert, ClassicAlertMgr, NoRulesFoundError
 from rich import print_json
+from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from ..formatters.output_formatters import format_line, format_time
@@ -30,6 +31,7 @@ def search_alerts(triggered: str, alert_rules: str, status: AlertStatus, pretty:
         SpinnerColumn(),
         TextColumn('[progress.description]{task.description}'),
         transient=True,
+        console=Console(stderr=True),
     ) as progress:
         rule_ids = []
         if alert_rules:

@@ -14,6 +14,8 @@
 
 from enum import Enum
 
+DATE_TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
+
 
 class RFPAPriority(Enum):
     """Playbook Alert priorities as Enum."""

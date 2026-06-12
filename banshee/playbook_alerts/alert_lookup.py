@@ -37,10 +37,13 @@ def output_alert(alert: PBA_Generic, is_pretty: bool):
 def lookup_alert(alert_id, is_pretty):
     alert_mgr = PlaybookAlertMgr()
 
+    # Do not fetch images if not pretty printing
+    fetch_images = is_pretty is True
+
     category = alert_mgr._fetch_alert_category(alert_id)
 
     try:
-        alert = alert_mgr.fetch(alert_id=alert_id, category=category, fetch_images=True)
+        alert = alert_mgr.fetch(alert_id=alert_id, category=category, fetch_images=fetch_images)
     except PlaybookAlertRetrieveImageError:
         # Retry but without the image fetching
         alert = alert_mgr.fetch(alert_id=alert_id, category=category, fetch_images=False)

@@ -15,6 +15,7 @@ from .list_add import add_entity
 from .list_bulk_add import bulk_add_entities
 from .list_bulk_remove import bulk_remove_entities
 from .list_clear import clear_list
+from .list_copy import copy_list
 from .list_create import create_list
 from .list_entities import fetch_entities
 from .list_entries import fetch_entries

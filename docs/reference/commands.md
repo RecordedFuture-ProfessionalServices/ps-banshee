@@ -41,6 +41,7 @@ banshee ca [OPTIONS] COMMAND [ARGS]...
     <dt><a href="#banshee-ca-search"><code>banshee ca search</code></a></dt><dd><p>Search for Classic Alerts</p></dd>
     <dt><a href="#banshee-ca-rules"><code>banshee ca rules</code></a></dt><dd><p>Search for Classic Alert rules</p></dd>
     <dt><a href="#banshee-ca-update"><code>banshee ca update</code></a></dt><dd><p>Update one or more Classic Alert</p></dd>
+    <dt><a href="#banshee-ca-export"><code>banshee ca export</code></a></dt><dd><p>Export Classic Alerts as JSON or CSV</p></dd>
 </dl>
 
 ### banshee ca lookup
@@ -58,7 +59,7 @@ banshee ca lookup [OPTIONS] ALERT_ID
 <h3 class="commands-reference">Arguments</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-ca-lookup--alert-id"><a href="#banshee-ca-lookup--alert-id"<code>ALER_ID</code></a></dt><dd><p>Alert ID to lookup</p></dd>
+    <dt id="banshee-ca-lookup--alert-id"><a href="#banshee-ca-lookup--alert-id"><code>ALERT_ID</code></a></dt><dd><p>Alert ID to lookup</p></dd>
 </dl>
 
 <h3 class="commands-reference">Options</h3>
@@ -110,6 +111,12 @@ By default the command will print the results in JSON format.
 ```
 banshee ca rules [OPTIONS] [FREETEXT]
 ```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-ca-rules--freetext"><a href="#banshee-ca-rules--freetext"><code>FREETEXT</code></a></dt><dd><p>Optional. Freetext used to filter the alert rules by name.</p></dd>
+</dl>
 
 <h3 class="commands-reference">Options</h3>
 
@@ -201,6 +208,57 @@ banshee ca search | jq -r '.[].id' | banshee ca update -n "Investigation started
 <p>Classic Alerts support only a single note. By default, the <code>update</code> command will overwrite the existing note with the new one.
 If you wish to append a new note instead, use the <code>--append</code> (<code>-A</code>) option.</p>
 
+### banshee ca export
+
+Export Classic Alerts as JSON or CSV. Reads alert IDs from stdin — typically piped from [`banshee ca search`](#banshee-ca-search).
+
+<h3 class="commands-reference">Output Formats</h3>
+
+<p><b>JSON (default)</b> — emits the <i>full</i> alert object for each ID as returned by the Recorded Future API: all top-level fields plus nested hits, entities, evidence, AI insights, review history, portal URLs, and so on. Best for downstream tooling, <code>jq</code> pipelines, or re-ingestion.</p>
+
+<p><b>CSV (<a href="#banshee-ca-export--csv"><code>--csv</code></a>)</b> — emits a high-level summary intended for spreadsheets and reporting. Only the eleven columns listed below are written (header row first); every other field present in the JSON response is omitted.</p>
+
+| Field | Description |
+|---|---|
+| `ID` | Classic Alert ID |
+| `Priority` | Alert priority — `High` if the alert rule is a priority rule, otherwise `Informational` |
+| `Alert Rule` | Name of the alert rule that triggered |
+| `Status` | Portal status, e.g. `New`, `Pending`, `Dismissed`, `Resolved` |
+| `Created` | Triggered timestamp (UTC) |
+| `Updated` | Last-updated timestamp — *currently always empty; reserved for future API support* |
+| `Title` | Alert title |
+| `Assignee` | Assigned user (uhash or email) |
+| `URL` | Recorded Future portal URL for the alert |
+| `Entities` | Primary entity names, `;`-separated |
+| `Recorded Future AI Insights` | AI-generated insight text or comment |
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee ca search [SEARCH_OPTIONS] | banshee ca export [OPTIONS]
+```
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-ca-export--csv"><a href="#banshee-ca-export--csv"><code>--csv</code></a></dt><dd>
+    <p>Output as CSV with the fixed column set described above. Without this flag the command emits JSON.</p><dd></dd>
+    <dt id="banshee-ca-export--help"><a href="#banshee-ca-export--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Piped Input</h3>
+
+<p><code>banshee ca export</code> only accepts piped input. It consumes the JSON array produced by <a href="#banshee-ca-search"><code>banshee ca search</code></a>, extracts the alert IDs, and fetches each alert in full. Running the command without a pipe is rejected with an error.</p>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee ca search -t 1d | banshee ca export
+banshee ca search -t 1d -r "Leaked Credential Monitoring" | banshee ca export > credential_alerts.json
+banshee ca search -t 12h -s New | banshee ca export --csv > alerts.csv
+</code></pre>
+
 ## banshee entity
 
 Search and lookup Recorded Future entities
@@ -254,8 +312,14 @@ By default the command will print results in JSON format.
 <h3 class="commands-reference">Usage</h3>
 
 ```
-banshee entity search [OPTIONS]
+banshee entity search [OPTIONS] NAME
 ```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-entity-search--name"><a href="#banshee-entity-search--name"><code>NAME</code></a></dt><dd><p>Name of the entity to search for</p></dd>
+</dl>
 
 <h3 class="commands-reference">Options</h3>
 
@@ -861,6 +925,7 @@ banshee list [OPTIONS] COMMAND [ARGS]...
     <dt><a href="#banshee-list-bulk-add"><code>banshee list bulk-add</code></a></dt><dd><p>Bulk add entities to a list</p></dd>
     <dt><a href="#banshee-list-remove"><code>banshee list remove</code></a></dt><dd><p>Remove an entity from a list</p></dd>
     <dt><a href="#banshee-list-bulk-remove"><code>banshee list bulk-remove</code></a></dt><dd><p>Bulk remove entities from a list</p></dd>
+    <dt><a href="#banshee-list-copy"><code>banshee list copy</code></a></dt><dd><p>Copy entities from one list to another</p></dd>
     <dt><a href="#banshee-list-clear"><code>banshee list clear</code></a></dt><dd><p>Clear all entities from a list</p></dd>
     <dt><a href="#banshee-list-entries"><code>banshee list entries</code></a></dt><dd><p>Get text entries from a list</p></dd>
 </dl>
@@ -1130,8 +1195,8 @@ banshee list add [OPTIONS] LIST_ID ENTITY_ID [PROPERTIES]
         <li>www.duckdns.org,InternetDomainName</li>
     </ul></dd>
     <dt id="banshee-list-add--properties"><a href="#banshee-list-add--properties"><code>PROPERTIES</code></a></dt><dd>
-    <p>Optional properties to set on the entity</p>
-    <p>Properties can be supplied as key=value pairs, for example: type=malware,cool=beans,another=value</p></dd>
+    <p>Optional. Use <code>annotation=&lt;text&gt;</code> to attach a note that appears on the Recorded Future platform for this entity.</p>
+    <p>Quote the value if it contains spaces.</p></dd>
 </dl>
 
 <h3 class="commands-reference">Options</h3>
@@ -1140,6 +1205,13 @@ banshee list add [OPTIONS] LIST_ID ENTITY_ID [PROPERTIES]
     <dt id="banshee-list-add--help"><a href="#banshee-list-add--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>Show help for this command</p>
 </dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee list add 1b0s1q lYNvCK
+banshee list add 1b0s1q lYNvCK 'annotation=C2 server seen during incident X-1234'
+</code></pre>
 
 ### banshee list bulk-add
 
@@ -1157,7 +1229,7 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
     <dt id="banshee-list-bulk-add--list-id"><a href="#banshee-list-bulk-add--list-id"><code>LIST_ID</code></a></dt><dd>
     <p>List ID to add to</p>
     <p>List ID can be supplied with and without the '<strong>report:</strong>' prefix</p></dd>
-    <dt id="banshee-list-bulk-add--entity-id"><a href="#banshee-list-bulk-add--entity-id"><code>ENTITY_ID</code></a></dt><dd>
+    <dt id="banshee-list-bulk-add--entity-input"><a href="#banshee-list-bulk-add--entity-input"><code>ENTITY_INPUT</code></a></dt><dd>
     <p>One or more space/newline separated entities, for example:</p> 
     <ul>
         <li>SoA6SP</li>
@@ -1285,7 +1357,7 @@ banshee list bulk-remove [OPTIONS] LIST_ID ENTITY_INPUT...
     <dt id="banshee-list-bulk-remove--list-id"><a href="#banshee-list-bulk-remove--list-id"><code>LIST_ID</code></a></dt><dd>
     <p>List ID to remove from</p>
     <p>List ID can be supplied with and without the '<strong>report:</strong>' prefix</p></dd>
-    <dt id="banshee-list-bulk-remove--entity-id"><a href="#banshee-list-bulk-remove--entity-id"><code>ENTITY_ID</code></a></dt><dd>
+    <dt id="banshee-list-bulk-remove--entity-input"><a href="#banshee-list-bulk-remove--entity-input"><code>ENTITY_INPUT</code></a></dt><dd>
     <p>One or more space/newline separated entities, for example:</p> 
     <ul>
         <li>SoA6SP</li>
@@ -1317,6 +1389,45 @@ banshee list bulk-remove [OPTIONS] LIST_ID ENTITY_INPUT...
     <p>Show help for this command</p>
 </dl>
 
+### banshee list copy
+
+A utility command to copy entities from one list to another list.
+
+The source list's entities are read and added to the destination list. By default new entities are appended to the destination without touching what is already there. With `--overwrite`, the destination is made to mirror the source: entities already present in both are kept, new ones are added, and any entities on the destination that are **not** in the source are removed.
+
+If the source list is empty the command exits without modifying the destination — even with `--overwrite`.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee list copy [OPTIONS] SOURCE_LIST_ID DESTINATION_LIST_ID
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-copy--source-list-id"><a href="#banshee-list-copy--source-list-id"><code>SOURCE_LIST_ID</code></a></dt><dd>
+    <p>ID of the list to copy entities from</p></dd>
+    <dt id="banshee-list-copy--destination-list-id"><a href="#banshee-list-copy--destination-list-id"><code>DESTINATION_LIST_ID</code></a></dt><dd>
+    <p>ID of the list to copy entities to</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-list-copy--overwrite"><a href="#banshee-list-copy--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
+    <p>Overwrite mode: keeps entities that are already in the destination list, adds new ones, and removes any entities on the destination that are not in the source list. By default the command appends new entities without removing existing ones.</p></dd>
+    <dt id="banshee-list-copy--help"><a href="#banshee-list-copy--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Examples</h3>
+
+```
+$ banshee list copy 1b0s1q 21YKUC
+$ banshee list copy 1b0s1q 21YKUC --overwrite
+```
+
 ## banshee pba
 
 Search, lookup and update Recorded Future Playbook Alerts
@@ -1333,6 +1444,7 @@ banshee pba [OPTIONS] COMMAND [ARGS]...
     <dt><a href="#banshee-pba-lookup"><code>banshee pba lookup</code></a></dt><dd><p>Lookup a Playook Alert</p></dd>
     <dt><a href="#banshee-pba-search"><code>banshee pba search</code></a></dt><dd><p>Search for Playook Alerts</p></dd>
     <dt><a href="#banshee-pba-update"><code>banshee pba update</code></a></dt><dd><p>Update one or more Playook Alert</p></dd>
+    <dt><a href="#banshee-pba-export"><code>banshee pba export</code></a></dt><dd><p>Export Playbook Alerts as JSON or CSV</p></dd>
 </dl>
 
 ### banshee pba lookup
@@ -1393,22 +1505,26 @@ banshee pba search [OPTIONS]
         <li><code>code_repo_leakage</code></li>
         <li><code>identity_novel_exposures</code></li>
         <li><code>geopolitics_facility</code></li>
+        <li><code>malware_report</code></li>
     </ul>
     </p><dd></dd>
     <dt id="banshee-pba-search--priority"><a href="#banshee-pba-search--priority"><code>--priority</code></a>,  <code>-P</code> <i>priority</i></dt><dd>
     <p>Filter by alert priority (repeatable)</p>
     <p>Possible values are: <code>Informational</code>, <code>Moderate</code>, <code>High</code></p>
-    <p>Defaults to all categories</p><dd></dd>
+    <p>Defaults to all priorities</p><dd></dd>
     <dt id="banshee-pba-search--status"><a href="#banshee-pba-search--status"><code>--status</code></a>,  <code>-s</code> <i>alert-status</i></dt><dd>
     <p>Filter by alert status (repeatable)</p>
     <p>Possible values are: <code>New</code>, <code>InProgress</code>, <code>Dismissed</code>, <code>Resolved</code></p>
-    <p>Defaults to all categories</p><dd></dd>
+    <p>Defaults to all statuses</p><dd></dd>
     <dt id="banshee-pba-search--entity"><a href="#banshee-pba-search--entity"><code>--entity</code></a>,  <code>-e</code> <i>entity</i></dt><dd>
     <p>Filter alerts by associated entity (repeatable), for example: <code>-e idn:recordedfuture.com -e idn:example.com</code></p><dd></dd>
+    <dt id="banshee-pba-search--org-id"><a href="#banshee-pba-search--org-id"><code>--org-id</code></a>,  <code>-o</code> <i>organisation-id</i></dt><dd>
+    <p>Filter alerts by owning organisation ID (repeatable)</p>
+    <p>Accepts a 10-character ID or the 16-character <code>uhash:</code> form, for example: <code>-o 69sKLfTGsS -o uhash:5zQaSyRpA1</code></p><dd></dd>
     <dt id="banshee-pba-search--limit"><a href="#banshee-pba-search--limit"><code>--limit</code>, <code>-l</code></a> <i>limit</i></dt><dd>
     <p>Limit the number of results</p>
     <p>The maximum limit is 10 000</p>
-    <p>Defaults to 50</p><dd></dd>
+    <p>Defaults to 100</p><dd></dd>
     <dt id="banshee-pba-search--pretty"><a href="#banshee-pba-search--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>Pretty print the results in a human readable format</p><dd></dd>
     <dt id="banshee-pba-search--help"><a href="#banshee-pba-search--help"><code>--help</code></a>, <code>-h</code></dt><dd>
@@ -1439,7 +1555,7 @@ banshee pba update [OPTIONS] ALERT_IDS...
     <dt id="banshee-pba-update--status"><a href="#banshee-pba-update--status"><code>--status</code></a>,  <code>-s</code> <i>alert-status</i></dt><dd>
     <p>Update the alert(s) to this alert status</p>
     <p>Possible values are: <code>New</code>, <code>InProgress</code>, <code>Dismissed</code>, <code>Resolved</code></p><dd></dd>
-    <dt id="banshee-pba-update--repopen"><a href="#banshee-pba-update--repopen"><code>--repopen</code></a>,  <code>-r</code> <i>reopen</i></dt><dd>
+    <dt id="banshee-pba-update--reopen"><a href="#banshee-pba-update--reopen"><code>--reopen</code></a>,  <code>-r</code> <i>reopen</i></dt><dd>
     <p>Reopen strategies can only be applied to alerts with a status of Dismissed or Resolved. The following combinations of status/reopen are allowed: <code>Dismissed -> Never</code>; <code>Resolved -> Never</code>; <code>Resolved -> SignificantUpdates</code></p>
     <p>Supported values are: <code>Never</code>, <code>SignificantUpdates</code></p><dd></dd>
     <dt id="banshee-pba-update--priority"><a href="#banshee-pba-update--priority"><code>--priority</code></a>,  <code>-P</code> <i>priority</i></dt><dd>
@@ -1505,6 +1621,58 @@ banshee pba search -c domain_abuse -P Informational | jq -r '.data[].playbook_al
 banshee pba update ALERT_ID -s Resolved -r Never
 banshee pba update ALERT_ID_1 ALERT_ID_2 -s InProgress -p Informational -t "Bumping priority down due to recent findings."
 banshee pba update ALERT_ID -a
+</code></pre>
+
+### banshee pba export
+
+Export Playbook Alerts as JSON or CSV. Reads alert IDs and categories from stdin — typically piped from [`banshee pba search`](#banshee-pba-search).
+
+<h3 class="commands-reference">Output Formats</h3>
+
+<p><b>JSON (default)</b> — emits the <i>full</i> alert object for each ID as returned by the Recorded Future API: all top-level fields plus nested panel statuses, targets, evidence, assignees, timestamps, and so on. Best for downstream tooling, <code>jq</code> pipelines, or re-ingestion.</p>
+
+<p><b>CSV (<a href="#banshee-pba-export--csv"><code>--csv</code></a>)</b> — emits a high-level summary intended for spreadsheets and reporting. Only the twelve columns listed below are written (header row first); every other field present in the JSON response is omitted.</p>
+
+| Field | Description |
+|---|---|
+| `ID` | Playbook Alert ID (includes the `task:` prefix) |
+| `Priority` | Alert priority, e.g. `Informational`, `Moderate`, `High` |
+| `Alert Rule` | Name of the alert rule that triggered (falls back to the rule label) |
+| `Status` | Alert status, e.g. `New`, `InProgress`, `Dismissed`, `Resolved` |
+| `Created` | Created timestamp (UTC, `%Y-%m-%d %H:%M:%S`) |
+| `Updated` | Last-updated timestamp (UTC, `%Y-%m-%d %H:%M:%S`) |
+| `Subject` | Subject of the alert |
+| `Assignee` | Assigned user display name |
+| `Assessments` | Risk assessments / rules for the alert (category-dependent), `;`-separated |
+| `Entities` | Deduped target entity names, `;`-separated |
+| `Reopen Strategy` | Reopen strategy for closed alerts, e.g. `Never`, `SignificantUpdates` |
+| `Onwards Actions` | Actions taken on the alert, `;`-separated |
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee pba search [SEARCH_OPTIONS] | banshee pba export [OPTIONS]
+```
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-pba-export--csv"><a href="#banshee-pba-export--csv"><code>--csv</code></a></dt><dd>
+    <p>Output as CSV with the fixed column set described above. Without this flag the command emits JSON.</p><dd></dd>
+    <dt id="banshee-pba-export--help"><a href="#banshee-pba-export--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Piped Input</h3>
+
+<p><code>banshee pba export</code> only accepts piped input. It consumes the JSON object produced by <a href="#banshee-pba-search"><code>banshee pba search</code></a>, extracts each alert's <code>playbook_alert_id</code> and <code>category</code>, and fetches every alert in full. Running the command without a pipe is rejected with an error.</p>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee pba search --created 1d | banshee pba export
+banshee pba search --updated 7d --category identity_novel_exposures | banshee pba export > identity_alerts.json
+banshee pba search --created 1d --category domain_abuse | banshee pba export --csv > domain_alerts.csv
 </code></pre>
 
 

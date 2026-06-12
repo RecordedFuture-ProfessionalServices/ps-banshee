@@ -8,11 +8,7 @@ You should see a help menu listing the available commands.
 
 ### Authorization
 
-Provide your Recorded Future API key using the `-k` or `--api-key` argument, or set it as the `RF_TOKEN` environment variable:
-
-```bash
-banshee -k <RF_TOKEN> <command> <sub-command> <arguments>
-```
+--8<-- "_includes/authorization.md"
 
 ### Proxies
 

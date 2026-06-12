@@ -64,7 +64,7 @@ def bulk_remove_entities(list_id: str, entities: list[Union[str, tuple[str, str]
     chunks = list(chunked(entities, CHUNK_SIZE))
     final_results = {}
     if len(chunks) > 1:
-        for i in track(range(len(chunks)), description='Removing entities'):
+        for i in track(range(len(chunks)), description=f'Removing {len(entities)} entities'):
             final_results = produce_results(chunks[i], entity_list, final_results)
     else:
         with Progress(
@@ -72,7 +72,7 @@ def bulk_remove_entities(list_id: str, entities: list[Union[str, tuple[str, str]
             TextColumn('[progress.description]{task.description}'),
             transient=True,
         ) as progress:
-            progress.add_task(description='Removing entities')
+            progress.add_task(description=f'Removing {len(entities)} entities')
             final_results = produce_results(chunks[0], entity_list, final_results)
 
     print_list_results(final_results)

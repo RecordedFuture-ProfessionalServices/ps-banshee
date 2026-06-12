@@ -24,7 +24,7 @@ from .epilogs import EPILOG_IOC_BULK_LOOKUP, EPILOG_IOC_LOOKUP, EPILOG_IOC_RULES
 
 CMD_NAME = 'ioc'
 CMD_HELP = 'Search and lookup IOCs'
-CMD_RICH_HELP = 'Indicators of Compromise'
+CMD_RICH_HELP = 'Indicators of Compromise (IOCs)'
 
 app = Typer(no_args_is_help=True)
 

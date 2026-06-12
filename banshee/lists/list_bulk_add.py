@@ -128,7 +128,9 @@ def bulk_add_entities(
         TextColumn('[progress.description]{task.description}'),
         transient=True,
     ) as progress:
-        task_id = progress.add_task(description='Adding entities', total=len(add_chunks))
+        task_id = progress.add_task(
+            description=f'Adding {len(entities_to_add)} entities', total=len(add_chunks)
+        )
         for chunk in add_chunks:
             final_results = produce_results(chunk, entity_list, final_results)
 
@@ -136,7 +138,9 @@ def bulk_add_entities(
             entities_to_remove = _find_entities_to_remove(pre_existing_entities, entities)
             if entities_to_remove:
                 remove_chunks = list(chunked(entities_to_remove, CHUNK_SIZE))
-                progress.update(task_id, description='Removing stale entities')
+                progress.update(
+                    task_id, description=f'Removing {len(entities_to_remove)} stale entities'
+                )
                 for chunk in remove_chunks:
                     produce_remove_results(chunk, entity_list, final_results)
 
