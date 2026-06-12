@@ -66,7 +66,7 @@ If `banshee` is missing, install the Python package `ps-banshee` through your ap
 
 ## Live Validation Snapshot
 
-Last live validation: **2026-06-03** (release 1.3.0 refresh) against `ps-banshee` / `banshee` **1.3.0** with `RF_TOKEN` authentication. This run focused on the surfaces new or changed since 1.2.0: `ca export`, `pba export`, the `pba search --org-id` filter, `list bulk-add --overwrite`, the reworked `list clear`, and the `list add` annotation property.
+Last live validation: **2026-06-12** (release 1.3.0 refresh) against `ps-banshee` / `banshee` **1.3.0** with `RF_TOKEN` authentication. 
 
 Validated successfully:
 
@@ -78,26 +78,23 @@ test -n "$RF_TOKEN" && echo "RF_TOKEN set"
 
 # Read-only API access
 banshee ca rules
-banshee ca search -t 1d
-banshee ca search -t 1d | banshee ca export
-banshee ca search -t 2d | banshee ca export --csv
-banshee pba search -C 30d -l 5
-banshee pba search -C 30d -o uhash:69sKLfTGsS -l 2
-banshee pba search -C 30d -l 5 | banshee pba export --csv
-
-# Mutating workflows tested in a sandbox RF tenant
-banshee list create banshee_kb_refresh_20260603 entity
-banshee list bulk-add report:<list_id> SoA6SP lYNvCK
-banshee list bulk-add report:<list_id> SoA6SP --overwrite
-banshee list entities report:<list_id>
-banshee list clear report:<list_id>
+banshee ca rules leaked
+banshee ca search -t 7d
+banshee ca search -t 12h | banshee ca export
+banshee ca search -t 12h | banshee ca export --csv
+banshee pba search -C 60d -l 3
+banshee pba search -o uhash:69sKLfTGsS -C 60d -l 3
+banshee pba search -C 60d -l 3 | banshee pba export
+banshee pba search -C 60d -l 3 | banshee pba export --csv
+banshee ioc bulk-lookup ip 8.8.8.8
 ```
 
 Observed caveats:
 
-- `ca export` and `pba export` read **only** from stdin and take no positional arguments. Pipe `banshee ca search` / `banshee pba search` into them; invoking with a TTY (no piped input) raises a `BadParameter` error.
+- `ca export` and `pba export` read **only** from stdin and take no positional arguments. Pipe `banshee ca search` / `banshee pba search` into them.
 - `pba export` consumes the full `pba search` JSON object (it reads `.data[]`), whereas `ca export` consumes the `ca search` JSON array.
-- `list clear` removes a list's entities but does not delete the list itself, and there is no `list delete` command; the sandbox list created above remains (empty) after clearing.
+- In `ca export --csv` the `Updated` column is currently always empty (reserved for future API support) - confirmed in this run.
+- The new `pba search --org-id` (`-o`) filter accepts a 10-character ID or the 16-character `uhash:` form and is repeatable.
 - `pcap enrich` was not live-tested because `tshark` was not installed. This is expected: `banshee pcap enrich --help` raises `RuntimeError: tshark is not installed or not in PATH`.
 
 ---
