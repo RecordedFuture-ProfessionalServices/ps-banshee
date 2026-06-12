@@ -127,7 +127,7 @@ Add a single entity to a list.
 | Argument | Description |
 |----------|-------------|
 | `LIST_ID` (required) | List ID |
-| `ENTITY_ID` (required) | RF entity ID (e.g. `SoA6SP`) OR `name,type` pair (e.g. `wannacry,malware`) |
+| `ENTITY_ID` (required) | RF entity ID (e.g. `SoA6SP`) OR `name,type` pair (e.g. `wannacry,Malware`) |
 | `PROPERTIES` (optional) | Use `annotation=<text>` to attach a note that appears on the Recorded Future platform for this entity. Quote the value if it contains spaces. |
 
 ```bash
@@ -147,7 +147,7 @@ Add multiple entities to a list. Accepts entity IDs, `name,type` pairs, or `type
 
 **Input formats:**
 - RF entity ID: `SoA6SP`
-- Name + type: `wannacry,malware` or `www.duckdns.org,InternetDomainName`
+- Name + type: `wannacry,Malware` or `www.duckdns.org,InternetDomainName`
 - Type-prefixed value: `ip:8.8.8.8`
 
 ```bash

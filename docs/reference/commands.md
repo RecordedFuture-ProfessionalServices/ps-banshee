@@ -1191,7 +1191,7 @@ banshee list add [OPTIONS] LIST_ID ENTITY_ID [PROPERTIES]
     <p>Entity ID or name with type to add to the list, for example:</p> 
     <ul>
         <li>SoA6SP</li>
-        <li>wannacry,malware</li>
+        <li>wannacry,Malware</li>
         <li>www.duckdns.org,InternetDomainName</li>
     </ul></dd>
     <dt id="banshee-list-add--properties"><a href="#banshee-list-add--properties"><code>PROPERTIES</code></a></dt><dd>
@@ -1233,7 +1233,7 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
     <p>One or more space/newline separated entities, for example:</p> 
     <ul>
         <li>SoA6SP</li>
-        <li>wannacry,malware</li>
+        <li>wannacry,Malware</li>
         <li>www.duckdns.org,InternetDomainName</li>
     </ul>
     <p>The command also accepts input from stdin. Assume 'entities.txt' is a newline separated file of entities, for example:</p>
@@ -1361,7 +1361,7 @@ banshee list bulk-remove [OPTIONS] LIST_ID ENTITY_INPUT...
     <p>One or more space/newline separated entities, for example:</p> 
     <ul>
         <li>SoA6SP</li>
-        <li>wannacry,malware</li>
+        <li>wannacry,Malware</li>
         <li>www.duckdns.org,InternetDomainName</li>
     </ul>
     <p>The command also accepts input from stdin. Assume 'entities.txt' is a newline separated file of entities, for example:</p>

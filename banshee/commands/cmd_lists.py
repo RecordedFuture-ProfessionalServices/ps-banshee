@@ -197,7 +197,7 @@ def add(
     list_id: Annotated[str, Argument(show_default=False, help='ID of the list')],
     entity_id: str = Argument(
         show_default=False,
-        help='Entity ID or name with type to add, for example: 1. SoA6SP, 2. wannacry,malware',
+        help='Entity ID or name with type to add, for example: 1. SoA6SP, 2. wannacry,Malware',
     ),
     properties: Annotated[
         str,
@@ -223,7 +223,7 @@ def bulk_add(
     entity_input: list[str] = Argument(  # noqa: B008
         ... if sys.stdin.isatty() else None,  # noqa: B008
         show_default=False,
-        help='One or more space-separated entities (CLI) or newline-separated entities (stdin), for example: SoA6SP wannacry,malware',  # noqa: E501
+        help='One or more space-separated entities (CLI) or newline-separated entities (stdin), for example: SoA6SP wannacry,Malware',  # noqa: E501
     ),
     overwrite: Annotated[
         bool,
@@ -271,7 +271,7 @@ def bulk_remove(
     entity_input: list[str] = Argument(  # noqa: B008
         ... if sys.stdin.isatty() else None,  # noqa: B008
         show_default=False,
-        help='One or more space-separated entities (CLI) or newline-separated entities (stdin), for example: SoA6SP wannacry,malware',  # noqa: E501
+        help='One or more space-separated entities (CLI) or newline-separated entities (stdin), for example: SoA6SP wannacry,Malware',  # noqa: E501
     ),
 ):
     if entity_input is None:
