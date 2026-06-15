@@ -62,21 +62,6 @@ Homepage = "https://recordedfuture-professionalservices.github.io/ps-banshee/lat
 Changelog = "https://recordedfuture-professionalservices.github.io/ps-banshee/latest/CHANGELOG/"
 Source = "https://github.com/recordedfuture-professionalservices/ps-banshee"
 
-[tool.setuptools]
-packages = [
-    "banshee",
-]
-
-[tool.setuptools.package-data]
-"*" = [
-    "**/*",
-]
-
-[tool.setuptools.exclude-package-data]
-"*" = [
-    "**/*.pyc",
-]
-
 [tool.uv]
 default-groups = "all"
 
