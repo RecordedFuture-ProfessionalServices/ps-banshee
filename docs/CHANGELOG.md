@@ -1,5 +1,27 @@
 # Release History
 
+## 1.3.0 - 2026-06-15
+
+### Added
+- New [`email enrich`](reference/commands.md#banshee-email-enrich) sub-command to enrich EML files by extracting header IPs and body URLs, then returning Recorded Future intelligence including risk score, threat actor associations, malware links, and risk rule evidence.
+- New [`ca export`](reference/commands.md#banshee-ca-export) sub-command to export Classic Alerts as full JSON or a summary CSV. Reads alert IDs piped from [`ca search`](reference/commands.md#banshee-ca-search).
+- New [`pba export`](reference/commands.md#banshee-pba-export) sub-command to export Playbook Alerts as full JSON or a summary CSV. Reads the search results piped from [`pba search`](reference/commands.md#banshee-pba-search).
+- New [`-o`/`--org-id`](reference/commands.md#banshee-pba-search--org-id) option for [`pba search`](reference/commands.md#banshee-pba-search) to filter Playbook Alerts by owning organisation ID (repeatable).
+- New [`-o`/`--overwrite`](reference/commands.md#banshee-list-bulk-add--overwrite) option for [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) to make the list match the supplied entities exactly — adding new entities and removing any currently on the list that were not provided.
+- New [`list copy`](reference/commands.md#banshee-list-copy) sub-command to copy entities from one list to another. Appends by default, or use [`-o`/`--overwrite`](reference/commands.md#banshee-list-copy--overwrite) to make the destination mirror the source exactly.
+- Support for [using banshee with AI agents](getting-started/llms.md), so coding assistants can discover and run the CLI.
+
+### Changed
+- [`list clear`](reference/commands.md#banshee-list-clear) now removes entities concurrently (much faster on large lists), matching [`list bulk-remove`](reference/commands.md#banshee-list-bulk-remove): it reports what was removed, grouping output by outcome (`REMOVED`, and any that could not be removed) and sorting it for readability.
+- [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) now skips entities already on the list instead of attempting to re-add them, reporting them as `UNCHANGED`. This is a significant speed-up when repeatedly re-running the same input file to add and remove entities.
+- [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) and [`list bulk-remove`](reference/commands.md#banshee-list-bulk-remove) now group their output by outcome (`ADDED`, `REMOVED`, `UNCHANGED`) and sort it for readability.
+- [`ca search`](reference/commands.md#banshee-ca-search) and [`pba search`](reference/commands.md#banshee-pba-search) now write progress indicators to stderr, keeping stdout clean for piping into the new `export` commands.
+- [`ioc lookup`](reference/commands.md#banshee-ioc-lookup) and [`ioc bulk-lookup`](reference/commands.md#banshee-ioc-bulk-lookup) pretty output (`-p`, `--pretty`) now colour-codes the risk score based on maliciousness.
+- Upgraded PSEngine to ~v2.8.1.
+
+### Fixed
+- [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) and [`list bulk-remove`](reference/commands.md#banshee-list-bulk-remove) now ignore blank input lines and report a clear error when no entities are supplied.
+
 ## 1.1.3 - 2026-03-18
 
 ### Fixed

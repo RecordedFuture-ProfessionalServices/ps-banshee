@@ -59,7 +59,7 @@ build_module:
 test: review unittests
 
 unittests:
-	$(RUN_UNIT_TESTS) -s --cov=banshee --cov-report html --cov-branch --cov-report term
+	$(RUN_UNIT_TESTS) --cov=banshee --cov-report html --cov-branch --cov-report term --random-order-bucket=module --cov-fail-under=84
 	@coverage html
 
 

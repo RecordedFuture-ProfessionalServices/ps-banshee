@@ -17,6 +17,8 @@ import logging
 
 from psengine.playbook_alerts import PACategory, PlaybookAlertMgr
 from rich import print_json
+from rich.console import Console
+from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from ..formatters.output_formatters import format_line, format_time
 from .constants import RFPAPriority, RFPAStatus
@@ -31,20 +33,30 @@ def search_alerts(
     entity: str,
     priority: RFPAPriority,
     status: RFPAStatus,
+    organisation: list,
     limit: int,
     pretty: bool,
 ):
     """Search functionality for playbook alerts."""
     pa_mgr = PlaybookAlertMgr()
-    results = pa_mgr.search(
-        created_from=created,
-        updated_from=updated,
-        category=category,
-        entity=entity,
-        priority=priority,
-        statuses=status,
-        max_results=limit,
-    )
+    with Progress(
+        SpinnerColumn(),
+        TextColumn('[progress.description]{task.description}'),
+        transient=True,
+        console=Console(stderr=True),
+    ) as progress:
+        progress.add_task(description='Searching for Playbook Alerts', total=None)
+        results = pa_mgr.search(
+            created_from=created,
+            updated_from=updated,
+            category=category,
+            entity=entity,
+            priority=priority,
+            statuses=status,
+            organisation=organisation,
+            max_results=limit,
+            alerts_per_page=1000,
+        )
     if not pretty:
         print_json(json.dumps(results.json()), indent=2)
     else:
@@ -55,8 +67,19 @@ def search_alerts(
             print(format_line('Updated', format_time(data.updated)))
             print(format_line('Status', data.status))
             print(format_line('Priority', data.priority))
-            print(format_line('Enterprise', data.owner_organisation_details.enterprise_name))
+            owner = data.owner_organisation_details
+            enterprise = (
+                (
+                    owner.organisations[0].organisation_name
+                    if owner.organisations
+                    else owner.enterprise_name
+                )
+                if owner
+                else ''
+            )
+            print(format_line('Enterprise', enterprise))
             print(format_line('Alert ID', data.playbook_alert_id))
+            print(format_line('Alert Rule', data.alert_rule.name))
             print()
 
         print(f'{results.counts.returned} playbook alert(s)')

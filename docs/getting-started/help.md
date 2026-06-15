@@ -27,8 +27,6 @@ banshee --version
 
 ## Troubleshooting issues
 
-## Errors
-
 To enhance the error if a command is failing in unexpected ways,  the `--debug` flag can be used:
 
 ```bash

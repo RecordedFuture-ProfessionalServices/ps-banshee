@@ -9,8 +9,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
-        platform_id unknown
+      - banshee:tests_/1.1.3 (macOS-26.3.1-arm64-arm-64bit) psengine-py/2.6.0
       X-RFToken:
       - bmljZSB0cnkgOikpKSk=
       accept:
@@ -19,16 +18,15 @@ interactions:
     uri: https://api.recordedfuture.com/list/report:wpHivJ/info
   response:
     body:
-      string: '{"id": "report:wpHivJ", "name": "Hot chicke", "type": "entity", "created":
-        "2024-07-01T12:51:38.804Z", "updated": "2026-02-06T16:43:16.287Z", "owner_id":
-        "Erlang is a gene", "owner_name": "Haskell features a type", "organisation_id":
-        "Where are my pan", "organisation_name": "Tuples are containers for a fixed",
-        "owner_organisation_details": {"owner_id": "Its main impleme", "owner_name":
-        "Erlang is known for its", "organisations": [], "enterprise_id": "Do you have
-        any ", "enterprise_name": "She spent her earliest years read"}}'
+      string: '{"id": "report:wpHivJ", "name": "Fry sauce", "type": "entity", "created":
+        "2024-07-01T12:51:38.804Z", "updated": "2026-06-05T14:21:37.583Z", "owner_id":
+        "Chicken fingers", "owner_name": "Juba", "organisation_id": "Mango and Sticky",
+        "organisation_name": "Massaman Curry", "owner_organisation_details": {"owner_id":
+        "Pork Belly", "owner_name": "Glorified rice", "organisations": [], "enterprise_id":
+        "Home fries", "enterprise_name": "Gyoza"}}'
     headers:
       CF-RAY:
-      - 9cd388458f28beb3-LHR
+      - a06fe5177b7c9953-LHR
       Connection:
       - keep-alive
       Content-Encoding:
@@ -36,7 +34,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 13 Feb 2026 10:09:48 GMT
+      - Fri, 05 Jun 2026 14:33:52 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -59,8 +57,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
-        platform_id unknown
+      - banshee:tests_/1.1.3 (macOS-26.3.1-arm64-arm-64bit) psengine-py/2.6.0
       X-RFToken:
       - bmljZSB0cnkgOikpKSk=
       accept:
@@ -69,13 +66,12 @@ interactions:
     uri: https://api.recordedfuture.com/list/report:wpHivJ/entities
   response:
     body:
-      string: '[{"entity": {"id": "ip:61.11.55.24", "type": "IpAddress", "name": "Sweet
-        P"}, "status": "ready", "added": "2026-06-15T04:33:56.711Z"}, {"entity": {"id":
-        "ip:144.157.63.42", "type": "IpAddress", "name": "Bao"}, "status": "ready",
-        "added": "2026-05-08T18:20:37.658Z"}]'
+      string: '[{"entity": {"id": "ip:36.190.121.76", "type": "IpAddress", "name":
+        "145.32.158.134"}, "context": {"annotation": "Chicken French"}, "status":
+        "ready", "added": "2026-06-03T10:37:16.828Z"}]'
     headers:
       CF-RAY:
-      - 9cd38846b838ef35-LHR
+      - a06fe51a4c0bd1f7-LHR
       Connection:
       - keep-alive
       Content-Encoding:
@@ -83,7 +79,55 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 13 Feb 2026 10:09:48 GMT
+      - Fri, 05 Jun 2026 14:33:53 GMT
+      Server:
+      - cloudflare
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      scrubbed: '1'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - banshee:tests_/1.1.3 (macOS-26.3.1-arm64-arm-64bit) psengine-py/2.6.0
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/list/report:wpHivJ/info
+  response:
+    body:
+      string: '{"id": "report:wpHivJ", "name": "Low Countr", "type": "entity", "created":
+        "2024-07-01T12:51:38.804Z", "updated": "2026-06-05T14:21:37.583Z", "owner_id":
+        "Cheese Curds", "owner_name": "Apple sauce", "organisation_id": "Margherita
+        Pizza", "organisation_name": "Fish and Chips!", "owner_organisation_details":
+        {"owner_id": "Apple butter", "owner_name": "Pork Belly", "organisations":
+        [], "enterprise_id": "Bull roast", "enterprise_name": "Chili con carne"}}'
+    headers:
+      CF-RAY:
+      - a06fe51bbc371e12-LHR
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 05 Jun 2026 14:33:53 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -108,8 +152,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
-        platform_id unknown
+      - banshee:tests_/1.1.3 (macOS-26.3.1-arm64-arm-64bit) psengine-py/2.6.0
       X-RFToken:
       - bmljZSB0cnkgOikpKSk=
       accept:
@@ -118,10 +161,10 @@ interactions:
     uri: https://api.recordedfuture.com/list/report:wpHivJ/entity/remove
   response:
     body:
-      string: '{"result": "The syn"}'
+      string: '{"result": "Chicken"}'
     headers:
       CF-RAY:
-      - 9cd388482f3f63c1-LHR
+      - a06fe51cef7889bb-LHR
       Connection:
       - keep-alive
       Content-Length:
@@ -129,51 +172,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 13 Feb 2026 10:09:52 GMT
-      Server:
-      - cloudflare
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains
-      cf-cache-status:
-      - DYNAMIC
-      scrubbed: '1'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"entity": {"id": "ip:9.9.9.9"}}'
-    headers:
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '32'
-      Content-Type:
-      - application/json
-      User-Agent:
-      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
-        platform_id unknown
-      X-RFToken:
-      - bmljZSB0cnkgOikpKSk=
-      accept:
-      - application/json
-    method: POST
-    uri: https://api.recordedfuture.com/list/report:wpHivJ/entity/remove
-  response:
-    body:
-      string: '{"result": "Do you "}'
-    headers:
-      CF-RAY:
-      - 9cd388607c34fd92-LHR
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '20'
-      Content-Type:
-      - application/json
-      Date:
-      - Fri, 13 Feb 2026 10:09:53 GMT
+      - Fri, 05 Jun 2026 14:33:57 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -194,8 +193,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
-        platform_id unknown
+      - banshee:tests_/1.1.3 (macOS-26.3.1-arm64-arm-64bit) psengine-py/2.6.0
       X-RFToken:
       - bmljZSB0cnkgOikpKSk=
       accept:
@@ -204,16 +202,15 @@ interactions:
     uri: https://api.recordedfuture.com/list/report:wpHivJ/info
   response:
     body:
-      string: '{"id": "report:wpHivJ", "name": "Cowboy bea", "type": "entity", "created":
-        "2024-07-01T12:51:38.804Z", "updated": "2026-02-06T16:43:16.287Z", "owner_id":
-        "Ports are create", "owner_name": "Initially composing lig", "organisation_id":
-        "The arguments ca", "organisation_name": "Do you come here often?", "owner_organisation_details":
-        {"owner_id": "Erlang is a gene", "owner_name": "They are written as str",
-        "organisations": [], "enterprise_id": "Ports are create", "enterprise_name":
-        "Do you come here often?"}}'
+      string: '{"id": "report:wpHivJ", "name": "Gyoza", "type": "entity", "created":
+        "2024-07-01T12:51:38.804Z", "updated": "2026-06-05T14:21:37.583Z", "owner_id":
+        "Veggie Pizza", "owner_name": "Hawaiian Pizza", "organisation_id": "Moules
+        Frites", "organisation_name": "American fried rice", "owner_organisation_details":
+        {"owner_id": "Chili dog", "owner_name": "Fish and Chips!", "organisations":
+        [], "enterprise_id": "Chicago Hot Dog", "enterprise_name": "Bangers and mash"}}'
     headers:
       CF-RAY:
-      - 9cd388681ed045b6-LHR
+      - a06fe5365d06f668-LHR
       Connection:
       - keep-alive
       Content-Encoding:
@@ -221,7 +218,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 13 Feb 2026 10:09:54 GMT
+      - Fri, 05 Jun 2026 14:33:57 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -244,8 +241,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - ps-banshee-unittests/1.1.0 (macOS-26.2-arm64-arm-64bit) psengine-py/2.4.1
-        platform_id unknown
+      - banshee:tests_/1.1.3 (macOS-26.3.1-arm64-arm-64bit) psengine-py/2.6.0
       X-RFToken:
       - bmljZSB0cnkgOikpKSk=
       accept:
@@ -257,7 +253,7 @@ interactions:
       string: '[]'
     headers:
       CF-RAY:
-      - 9cd388697bfb1520-LHR
+      - a06fe5377d59b78a-LHR
       Connection:
       - keep-alive
       Content-Length:
@@ -265,7 +261,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 13 Feb 2026 10:09:54 GMT
+      - Fri, 05 Jun 2026 14:33:57 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:

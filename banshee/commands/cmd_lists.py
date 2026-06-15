@@ -23,6 +23,7 @@ from ..lists import (
     bulk_add_entities,
     bulk_remove_entities,
     clear_list,
+    copy_list,
     create_list,
     fetch_entities,
     fetch_entries,
@@ -37,6 +38,7 @@ from .epilogs import (
     EPILOG_LIST_BULK_ADD,
     EPILOG_LIST_BULK_REMOVE,
     EPILOG_LIST_CLEAR,
+    EPILOG_LIST_COPY,
     EPILOG_LIST_CREATE,
     EPILOG_LIST_ENTITIES,
     EPILOG_LIST_ENTRIES,
@@ -60,6 +62,9 @@ app = Typer(no_args_is_help=True)
 def parse_entity_input(entities: Union[list, str]):
     parsed_entities = []
     for entity in entities:
+        if isinstance(entity, str) and entity.strip() == '':
+            continue
+
         if ',' in entity:
             # Split on the last comma to handle entity names that contain commas
             parsed_entity = entity.rsplit(',', 1)
@@ -73,6 +78,8 @@ def parse_entity_input(entities: Union[list, str]):
             parsed_entity = entity
         parsed_entities.append(parsed_entity)
 
+    if len(parsed_entities) == 0:
+        raise BadParameter('No entities provided')
     return parsed_entities
 
 
@@ -190,13 +197,13 @@ def add(
     list_id: Annotated[str, Argument(show_default=False, help='ID of the list')],
     entity_id: str = Argument(
         show_default=False,
-        help='Entity ID or name with type to add, for example: 1. SoA6SP, 2. wannacry,malware',
+        help='Entity ID or name with type to add, for example: 1. SoA6SP, 2. wannacry,Malware',
     ),
     properties: Annotated[
         str,
         Argument(
             show_default=False,
-            help='Properties to add, for example: key=value,another=value',
+            help='Use `annotation=<text>` to attach a note that appears on the Recorded Future platform for this entity. Quote the value if it contains spaces.',  # noqa: E501
         ),
     ] = None,
 ):
@@ -216,8 +223,16 @@ def bulk_add(
     entity_input: list[str] = Argument(  # noqa: B008
         ... if sys.stdin.isatty() else None,  # noqa: B008
         show_default=False,
-        help='One or more space-separated entities (CLI) or newline-separated entities (stdin), for example: SoA6SP wannacry,malware',  # noqa: E501
+        help='One or more space-separated entities (CLI) or newline-separated entities (stdin), for example: SoA6SP wannacry,Malware',  # noqa: E501
     ),
+    overwrite: Annotated[
+        bool,
+        Option(
+            '--overwrite',
+            '-o',
+            help='Overwrite mode: keeps entities present in the supplied file, adds new ones, and removes any entities currently on the list that are not in the file. By default the command appends new entities without removing existing ones.',  # noqa: E501
+        ),
+    ] = False,  # noqa: E501
 ):
     if entity_input is None:
         entity_input = sys.stdin.read()
@@ -225,7 +240,7 @@ def bulk_add(
         entity_input = list(filter(lambda x: x, entity_input))
 
     entities = parse_entity_input(entity_input)
-    bulk_add_entities(list_id=list_id, entities=entities)
+    bulk_add_entities(list_id=list_id, entities=entities, overwrite=overwrite)
 
 
 @banshee_cmd(
@@ -256,7 +271,7 @@ def bulk_remove(
     entity_input: list[str] = Argument(  # noqa: B008
         ... if sys.stdin.isatty() else None,  # noqa: B008
         show_default=False,
-        help='One or more space-separated entities (CLI) or newline-separated entities (stdin), for example: SoA6SP wannacry,malware',  # noqa: E501
+        help='One or more space-separated entities (CLI) or newline-separated entities (stdin), for example: SoA6SP wannacry,Malware',  # noqa: E501
     ),
 ):
     if entity_input is None:
@@ -266,6 +281,33 @@ def bulk_remove(
 
     entities = parse_entity_input(entity_input)
     bulk_remove_entities(list_id=list_id, entities=entities)
+
+
+@banshee_cmd(
+    app=app,
+    help_='A utility command to copy entities from one list to another list',
+    epilog=EPILOG_LIST_COPY,
+    rich_help_panel=PANEL_ENTITY_MGMT,
+)
+def copy(
+    source_list_id: Annotated[
+        str, Argument(show_default=False, help='ID of the list to copy entities from')
+    ],
+    destination_list_id: Annotated[
+        str, Argument(show_default=False, help='ID of the list to copy entities to')
+    ],
+    overwrite: Annotated[
+        bool,
+        Option(
+            '--overwrite',
+            '-o',
+            help='Overwrite mode: keeps entities that are already in the destination list, adds new ones, and removes any entities on the list that are not in the source list. By default the command appends new entities without removing existing ones.',  # noqa: E501
+        ),
+    ] = False,
+):
+    copy_list(
+        source_list_id=source_list_id, destination_list_id=destination_list_id, overwrite=overwrite
+    )
 
 
 @banshee_cmd(

@@ -11,21 +11,25 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
+import json
 import re
 import sys
 from typing import Annotated
+from urllib.parse import unquote
 
 from psengine.helpers import TimeHelpers
 from psengine.playbook_alerts import PACategory
 from typer import Argument, BadParameter, Option, Typer
 
 from ..branding import banshee_cmd
+from ..playbook_alerts.alert_export import export_alerts
 from ..playbook_alerts.alert_lookup import lookup_alert
 from ..playbook_alerts.alert_search import search_alerts
 from ..playbook_alerts.alert_update import update_alerts
 from ..playbook_alerts.constants import RFPAPriority, RFPAReopenStrategy, RFPAStatus
 from .args import OPT_PRETTY_PRINT
 from .epilogs import (
+    EPILOG_PBA_EXPORT,
     EPILOG_PBA_LOOKUP,
     EPILOG_PBA_SEARCH,
     EPILOG_PBA_UPDATE,
@@ -33,11 +37,12 @@ from .epilogs import (
 
 CMD_NAME = 'pba'
 CMD_HELP = 'Fetch and manage Playbook Alerts'
-CMD_RICH_HELP = 'Recorded Future Playbook Alerts'
+CMD_RICH_HELP = 'Recorded Future Alerts'
 
 app = Typer(no_args_is_help=True)
 
 ALERT_ID_INVALID_MSG = "Alert ID '{}' is not valid. Alert ID should be 36 characters long or 41 characters with 'task:' prefix."  # noqa: E501
+ORG_ID_INVALID_MSG = "Organisation ID '{}' is not valid. Organisation ID should be 10 characters long or 16 characters with 'uhash:' prefix."  # noqa: E501
 
 
 ###################################
@@ -52,6 +57,16 @@ def validate_alert_id(alert_id: str):
         raise BadParameter(ALERT_ID_INVALID_MSG.format(alert_id))
 
     return alert_id
+
+
+def validate_org_id(org_id: str):
+    org_id = unquote(org_id)
+    if len(org_id) == 10:
+        org_id = 'uhash:' + org_id
+    if len(org_id) != 16 or not org_id.startswith('uhash:'):
+        raise BadParameter(ORG_ID_INVALID_MSG.format(org_id))
+
+    return org_id
 
 
 def parse_alert_ids_input(value: list[str]):
@@ -95,6 +110,44 @@ def validate_status_reopen_options(status: RFPAStatus, reopen: RFPAReopenStrateg
         )
 
 
+_PIPED_INPUT_HINT = (
+    "Expected piped JSON output from 'banshee pba search' "
+    "(e.g. 'banshee pba search -C 1d | banshee pba export')"
+)
+
+
+def parse_pba_alerts(value: str):
+    if not value:
+        raise BadParameter(f'No input received. {_PIPED_INPUT_HINT}')
+
+    try:
+        alerts = json.loads(value)
+    except json.JSONDecodeError as err:
+        raise BadParameter(
+            f'Malformed input: could not parse JSON ({err.msg}). {_PIPED_INPUT_HINT}'
+        ) from err
+
+    if not isinstance(alerts, dict):
+        raise BadParameter(
+            f'Malformed Input: expected a JSON dictionary, got {type(alerts).__name__}. '
+            f'{_PIPED_INPUT_HINT}'
+        )
+
+    try:
+        alert_ids_categories = [
+            (alert['playbook_alert_id'], alert['category']) for alert in alerts['data']
+        ]
+    except (KeyError, TypeError) as err:
+        raise BadParameter(
+            f'Malformed input: every alert must have a "playbook_alert_id" and "category" field. {_PIPED_INPUT_HINT}'  # noqa: E501
+        ) from err
+
+    for alert in alert_ids_categories:
+        validate_alert_id(alert[0])
+
+    return alert_ids_categories
+
+
 ###################################
 # Commands
 ###################################
@@ -125,7 +178,7 @@ def search(
         Option(
             '--category',
             '-c',
-            help='Recorded Future Playbook Alert category. Default to all categories',
+            help='Recorded Future Playbook Alert category (repeatable). Default to all categories',
             show_default=False,
         ),
     ] = None,
@@ -134,7 +187,7 @@ def search(
         Option(
             '--entity',
             '-e',
-            help='Filter alerts by associated entity.',
+            help='Filter alerts by associated entity (repeatable).',
             show_default=False,
         ),
     ] = None,
@@ -143,7 +196,7 @@ def search(
         Option(
             '--priority',
             '-P',
-            help='Recorded Future Playbook Alert priority. Default to all priorities',
+            help='Recorded Future Playbook Alert priority (repeatable). Default to all priorities',
             show_choices=True,
             show_default=False,
         ),
@@ -153,8 +206,17 @@ def search(
         Option(
             '--status',
             '-s',
-            help='Recorded Future Playbook Alert status. Default to all statuses',
+            help='Recorded Future Playbook Alert status (repeatable). Default to all statuses',
             show_choices=True,
+            show_default=False,
+        ),
+    ] = None,
+    organisation: Annotated[
+        list[str],
+        Option(
+            '--org-id',
+            '-o',
+            help='Filter alerts by organisation ID (repeatable)',
             show_default=False,
         ),
     ] = None,
@@ -175,15 +237,18 @@ def search(
     Args:
         created (str, optional): lookback for created time. Defaults to None
         updated (str, optional): lookback for updated time. Defaults to None
-        category (str, optional): lookback for category. Defaults to None
-        entity (str, optional): filter by entity. Defaults to None
-        priority (str, optional): lookback for priority. Defaults to None
-        status (str, optional): lookback for status. Defaults to None
+        category (list[PACategory], optional): filter by category (repeatable). Defaults to None
+        entity (list[str], optional): filter by associated entity (repeatable). Defaults to None
+        priority (list[RFPAPriority], optional): filter by priority (repeatable). Defaults to None
+        status (list[RFPAStatus], optional): filter by status (repeatable). Defaults to None
+        organisation (list[str], optional): filter by organisation ID. Defaults to None
         limit (int, optional): limit total alerts returned. Defaults to 10
         pretty (bool, optional): Pretty print the output. Defaults to False
     """
     created_lookback = TimeHelpers.rel_time_to_date(created) if created is not None else None
     updated_lookback = TimeHelpers.rel_time_to_date(updated) if updated is not None else None
+    validated_orgs = [validate_org_id(org) for org in organisation] if organisation else None
+
     search_alerts(
         created=created_lookback,
         updated=updated_lookback,
@@ -191,6 +256,7 @@ def search(
         entity=entity,
         priority=priority,
         status=status,
+        organisation=validated_orgs,
         limit=limit,
         pretty=pretty,
     )
@@ -295,3 +361,24 @@ def update(
         reopen_strategy=reopen_strategy,
         assignee=assignee,
     )
+
+
+@banshee_cmd(app=app, help_='Export triggered Playbook Alerts', epilog=EPILOG_PBA_EXPORT)
+def export(
+    csv_flag: Annotated[
+        bool,
+        Option(
+            '--csv',
+            help='Output as CSV (fixed column set) instead of JSON (full alert details).',
+            show_default=False,
+        ),
+    ] = False,
+):
+    if sys.stdin.isatty():
+        raise BadParameter(f'No input received. {_PIPED_INPUT_HINT}')
+
+    raw_alerts = sys.stdin.read().strip()
+
+    alert_id_categories = parse_pba_alerts(raw_alerts)
+
+    export_alerts(alert_ids_categories=alert_id_categories, csv_flag=csv_flag)

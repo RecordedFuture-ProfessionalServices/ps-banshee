@@ -59,30 +59,35 @@ Set WindowBar Colorful
 Set Theme "Dracula"
 Set BorderRadius 10
 
-Output ../img/welcome.gif
+Output docs/img/welcome.gif
 
 Require echo
+Require banshee
+Require jq
 
 Set Shell "zsh"
-Set TypingSpeed 75ms
+Set TypingSpeed 60ms
 Set FontSize 18
 Set Width 1300
-Set Height 650
+Set Height 750
 
 Hide
 Type "export PS1='> '" Enter
 Type "clear" Enter
 Show
 
-Type "Welcome to PS Banshee!" Sleep 1.5 Ctrl+U
 
-Type "Lets enrich an IP address and display prettified results" Sleep 1.5 Ctrl+U
+Type "Welcome to PS Banshee!" Sleep 1.2 Ctrl+U
+Type "banshee" Sleep 0.5s Enter Sleep 1.2s
 
-Type "banshee ioc lookup ip 116.198.233.179 -p" Enter Sleep 2s
+Type "Lets enrich an IP address with threat intelligence" Sleep 1.5 Ctrl+U
+Type "banshee ioc lookup ip 116.198.233.179 -pa" Enter Sleep 2.5s
 
-Type "Great! But what about the raw results?" Sleep 0.5 Type " Easy just omit the -p argument" Sleep 0.5 Ctrl+U
+Type "What about piping raw results?" Sleep 1.5s Ctrl+U 
+Type "banshee ioc lookup ip 116.198.233.179 | jq '.[0].risk | {score, risk_rules: [.evidenceDetails[].rule]}'" Enter Sleep 2.5s
 
-Type "banshee ioc lookup ip 116.198.233.179" Sleep 0.5 Enter Sleep 2s
+Type "Next let's search for Ransomware related sigma rules created in the last 20 days" Sleep 1.5s Ctrl+U
+Type "banshee rules search -t sigma --title Ransomware -a 20d -p" Enter Sleep 2.5s
 
-Type "Perfect! Now lets filter through these results using JQ and find the risk score and risk rules associated with this IP. This is a good one!" Sleep 0.5 Ctrl+U
-Type "banshee ioc lookup ip 116.198.233.179 | jq  ' [ .[] | { score: .risk.score, rules: [.risk.evidenceDetails.[].rule] } ]'" Sleep 0.5 Enter Sleep 10s
+Type "Finally bulk add CVEs from a file to a Vulnerability Watch List" Sleep 1.5s Ctrl+U 
+Type "banshee list bulk-add uHHpjf < cve.csv" Enter Sleep 8s

@@ -11,21 +11,19 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-from rich.progress import track
+from rich.console import Console
 
 from .fetch_list import fetch_list
+from .list_bulk_remove import bulk_remove_entities
 
 
 def clear_list(list_id: str):
     """Clears the list of all entities (text entries can't be removed via API)."""
-    entity_list = fetch_list(list_id)
-    entities = entity_list.entities()
+    entities_list = fetch_list(list_id)
+    entities_to_remove = [entity.entity.id_ for entity in entities_list.entities()]
 
-    if len(entities) == 0:
-        print('No entities to remove')
-        return
-
-    for entity in track(entities, description=f'Removing {len(entities)} entities'):
-        result = entity_list.remove(entity=entity.entity.id_)
-        if result:
-            pass
+    if len(entities_to_remove) > 0:
+        bulk_remove_entities(list_id, entities_to_remove)
+    else:
+        console = Console()
+        console.print(f"The list '{entities_list.name}' is already empty!")
