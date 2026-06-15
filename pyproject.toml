@@ -41,7 +41,7 @@ dev = [
     "pytest-mock==3.14.0",
     "pytest-random-order==1.2.0",
     "pytest-md==0.2.0",
-    "urllib3<2.3.0",
+    "urllib3<2.8.0",
     "mimesis>=12.1.0"
 ]
 
