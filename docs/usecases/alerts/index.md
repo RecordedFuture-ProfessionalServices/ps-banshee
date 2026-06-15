@@ -13,5 +13,7 @@ Retrieve and manage Recorded Future alerts directly from the terminal using [`ba
 
 - For Playbook Alerts, leverage [`banshee pba search`](../../reference/commands.md#banshee-pba-search) with category and priority filters, then use [`banshee pba update`](../../reference/commands.md#banshee-pba-update) to modify status, add comments, assign users, and set reopen strategies. 
 
+- Pipe either search into [`banshee ca export`](../../reference/commands.md#banshee-ca-export) or [`banshee pba export`](../../reference/commands.md#banshee-pba-export) to capture full alert detail as JSON, or add `--csv` for a spreadsheet-ready summary for offline reporting and sharing. 
+
 
 This approach speeds up triage, maintains alert consistency, and enables analysts to update multiple alerts simultaneously through bulk operations.
