@@ -18,7 +18,6 @@ from .list_helpers import api_error_cause
 
 
 def fetch_list(list_id: str):
-    """Clears the list of all entities (text entries can't be removed via API)."""
     list_mgr = EntityListMgr()
 
     with Progress(
