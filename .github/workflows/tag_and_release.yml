@@ -79,19 +79,18 @@ jobs:
     environment:
       name: pypi
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           ref: ${{ needs.release.outputs.version }}
           fetch-depth: 0
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
+          
+      - uses: astral-sh/setup-uv@v7
+      
       - name: Build release distributions
         run: |
           uv python install ${{ vars.PYTHON_VERSION }} 
           uv build
+
 
       - name: Publish release distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
