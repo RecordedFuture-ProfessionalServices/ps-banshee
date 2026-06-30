@@ -4,7 +4,7 @@
 
 ### Changed
 
-- Bump requirements of `requests` and `pydantic-settings` to mitigate vulnerabilities.
+- Bump dependencies.
 
 ## 1.3.0 - 2026-06-15
 
