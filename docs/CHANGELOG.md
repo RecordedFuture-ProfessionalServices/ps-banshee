@@ -1,5 +1,11 @@
 # Release History
 
+## v1.3.1 - 2026-06-30
+
+### Changed
+
+- Bump requirements of `requests` and `pydantic-settings` to mitigate vulnerabilities.
+
 ## 1.3.0 - 2026-06-15
 
 ### Added
