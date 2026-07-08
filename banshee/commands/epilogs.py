@@ -599,6 +599,8 @@ RISKLIST_STAT = """
 
 * banshee risklist stat -c /custom/path/to/list.csv -C
 
+* banshee risklist stat -e domain -l domain_risklist -C
+
 """
 
 RISKLIST_CREATE = """
