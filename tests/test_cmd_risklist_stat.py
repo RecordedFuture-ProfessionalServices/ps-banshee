@@ -1,4 +1,5 @@
 import json
+from unittest.mock import MagicMock, patch
 
 import pytest
 from typer.testing import CliRunner
@@ -10,6 +11,13 @@ from .conftest import strip_ansi
 runner = CliRunner()
 
 COMMAND = 'stat'
+
+
+def _fake_fusion_response(content: bytes, exists: bool = True):
+    resp = MagicMock()
+    resp.exists = exists
+    resp.content = content
+    return resp
 
 
 @pytest.mark.vcr
@@ -103,3 +111,98 @@ def test_risklist_stat_fusion_not_found_pretty():
     )
     assert result.exit_code == 1
     assert result.output == 'File not found /public/prevent/bad-list4040404.csv\n'
+
+
+###############################################################################
+# --count / -C
+###############################################################################
+
+
+@patch('banshee.risklist.risklist_stat.RisklistMgr')
+def test_risklist_stat_count_api(mock_mgr):
+    mock_mgr.return_value.fetch_risklist.return_value = iter(
+        [
+            ['Name', 'Risk', 'RiskString', 'EvidenceDetails'],
+            ['1.1.1.1', '85', '3/8', '[]'],
+            ['2.2.2.2', '85', '3/8', '[]'],
+            ['3.3.3.3', '65', '2/8', '[]'],
+        ]
+    )
+
+    result = runner.invoke(
+        app,
+        args=[COMMAND, '--entity-type', 'ip', '--list-name', 'default', '--count'],
+        env={'COLUMNS': '200'},
+    )
+
+    assert result.exit_code == 0
+    output = strip_ansi(result.output)
+    assert 'default_ip_risklist' in output
+    assert '65' in output and '85' in output
+    assert 'Total' in output
+    assert '3' in output  # total count
+
+
+@patch('banshee.risklist.risklist_stat.FusionMgr')
+def test_risklist_stat_count_custom(mock_mgr):
+    csv_bytes = (
+        b'Name,Risk,RiskString,EvidenceDetails\n'
+        b'1.1.1.1,85,3/8,[]\n'
+        b'2.2.2.2,85,3/8,[]\n'
+        b'3.3.3.3,65,2/8,[]\n'
+    )
+    mock_mgr.return_value.get_files.return_value = [_fake_fusion_response(csv_bytes)]
+
+    result = runner.invoke(
+        app,
+        args=[COMMAND, '--custom-list-path', '/some/list.csv', '-C'],
+        env={'COLUMNS': '200'},
+    )
+
+    assert result.exit_code == 0
+    output = strip_ansi(result.output)
+    assert '/some/list.csv' in output
+    assert '65' in output and '85' in output
+    assert 'Total' in output
+
+
+@patch('banshee.risklist.risklist_stat.FusionMgr')
+def test_risklist_stat_count_custom_missing_risk_column(mock_mgr):
+    csv_bytes = b'Name,Score,EvidenceDetails\n1.1.1.1,85,[]\n'
+    mock_mgr.return_value.get_files.return_value = [_fake_fusion_response(csv_bytes)]
+
+    result = runner.invoke(
+        app,
+        args=[COMMAND, '--custom-list-path', '/some/list.csv', '--count'],
+    )
+
+    assert result.exit_code == 1
+    assert "Risk list has no 'Risk' column" in result.output
+
+
+@patch('banshee.risklist.risklist_stat.FusionMgr')
+def test_risklist_stat_count_custom_empty_file(mock_mgr):
+    mock_mgr.return_value.get_files.return_value = [_fake_fusion_response(b'')]
+
+    result = runner.invoke(
+        app,
+        args=[COMMAND, '--custom-list-path', '/some/list.csv', '--count'],
+    )
+
+    assert result.exit_code == 1
+    assert 'Risk list is empty' in result.output
+
+
+@patch('banshee.risklist.risklist_stat.FusionMgr')
+def test_risklist_stat_count_custom_not_found(mock_mgr):
+    mock_mgr.return_value.get_files.return_value = [
+        _fake_fusion_response(b'', exists=False)
+    ]
+
+    result = runner.invoke(
+        app,
+        args=[COMMAND, '--custom-list-path', '/missing/list.csv', '--count'],
+    )
+
+    assert result.exit_code == 1
+    assert "'/missing/list.csv' not found" in result.output

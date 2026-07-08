@@ -595,6 +595,10 @@ RISKLIST_STAT = """
 
 * banshee risklist stat -c /custom/path/to/list.csv
 
+* banshee risklist stat -e ip -l default --count
+
+* banshee risklist stat -c /custom/path/to/list.csv -C
+
 """
 
 RISKLIST_CREATE = """

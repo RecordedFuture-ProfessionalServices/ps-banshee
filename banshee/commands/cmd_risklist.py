@@ -228,6 +228,14 @@ def stat(
         ),
     ] = None,
     pretty: OPT_PRETTY_PRINT = False,
+    count: Annotated[
+        bool,
+        Option(
+            '--count',
+            '-C',
+            help='Download the risk list and show a table of indicator counts per risk score',
+        ),
+    ] = False,
 ):
     validate_risklist_args(entity_type, list_name, custom_list_path, as_json=None)
 
@@ -236,4 +244,5 @@ def stat(
         list_=list_name,
         custom_list_path=custom_list_path,
         pretty=pretty,
+        count=count,
     )

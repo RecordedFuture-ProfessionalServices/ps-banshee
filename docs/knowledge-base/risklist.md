@@ -60,10 +60,12 @@ Show metadata for a risk list — whether it exists in Fusion and its current et
 | `--list-name TEXT` | `-l` | List name |
 | `--custom-list-path TEXT` | `-c` | Path to local risk list file |
 | `--pretty` | `-p` | Pretty print |
+| `--count` | `-C` | Download the risk list and print a table of indicator counts per risk score |
 
 ```bash
 banshee risklist stat -e ip -l recentValidatedCnc
 banshee risklist stat -e domain -l domain_risklist
+banshee risklist stat -e ip -l default --count
 ```
 
 **Response shape:** Returns a single JSON object:
