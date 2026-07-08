@@ -138,7 +138,8 @@ def test_risklist_stat_count_api(mock_mgr):
     assert result.exit_code == 0
     output = strip_ansi(result.output)
     assert 'default_ip_risklist' in output
-    assert '65' in output and '85' in output
+    assert '65' in output
+    assert '85' in output
     assert 'Total' in output
     assert '3' in output  # total count
 
@@ -162,7 +163,8 @@ def test_risklist_stat_count_custom(mock_mgr):
     assert result.exit_code == 0
     output = strip_ansi(result.output)
     assert '/some/list.csv' in output
-    assert '65' in output and '85' in output
+    assert '65' in output
+    assert '85' in output
     assert 'Total' in output
 
 
@@ -195,9 +197,7 @@ def test_risklist_stat_count_custom_empty_file(mock_mgr):
 
 @patch('banshee.risklist.risklist_stat.FusionMgr')
 def test_risklist_stat_count_custom_not_found(mock_mgr):
-    mock_mgr.return_value.get_files.return_value = [
-        _fake_fusion_response(b'', exists=False)
-    ]
+    mock_mgr.return_value.get_files.return_value = [_fake_fusion_response(b'', exists=False)]
 
     result = runner.invoke(
         app,

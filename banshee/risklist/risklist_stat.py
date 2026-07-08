@@ -85,9 +85,7 @@ def _count_custom_risklist(custom_list_path: str) -> dict[int, int]:
     return _count_from_rows(rows)
 
 
-def count_risklist(
-    entity_type: str = None, list_: str = None, custom_list_path: str = None
-):
+def count_risklist(entity_type: str = None, list_: str = None, custom_list_path: str = None):
     with Progress(
         SpinnerColumn(),
         TextColumn('[progress.description]{task.description}'),
@@ -113,9 +111,7 @@ def stat_risklist(
     count: bool = False,
 ):
     if count:
-        count_risklist(
-            entity_type=entity_type, list_=list_, custom_list_path=custom_list_path
-        )
+        count_risklist(entity_type=entity_type, list_=list_, custom_list_path=custom_list_path)
         return
 
     if custom_list_path:
