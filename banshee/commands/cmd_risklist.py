@@ -233,7 +233,7 @@ def stat(
         Option(
             '--count',
             '-C',
-            help='Download the risk list and show a table of indicator counts per risk score',
+            help='Download the risk list and include indicator counts per risk score in the output',  # noqa: E501
         ),
     ] = False,
 ):

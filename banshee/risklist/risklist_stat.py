@@ -23,25 +23,13 @@ from psengine.risklists import RisklistMgr
 from rich import print_json
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich.table import Table
 
 from ..fusion_files import stat_fusion_file
-
-
-def _print_count_table(title: str, counts: dict[int, int]):
-    console = Console()
-    table = Table(title=title)
-    table.add_column('Risk Score', style='cyan', justify='right')
-    table.add_column('Count', style='white', justify='right')
-
-    total = 0
-    for score in sorted(counts):
-        table.add_row(str(score), str(counts[score]))
-        total += counts[score]
-
-    table.add_section()
-    table.add_row('Total', str(total), style='bold')
-    console.print(table)
+from ..fusion_files.feed_stat import (
+    _print_count_table,
+    _print_metadata_block,
+    _summary_line,
+)
 
 
 def _count_from_rows(rows) -> dict[int, int]:
@@ -85,7 +73,9 @@ def _count_custom_risklist(custom_list_path: str) -> dict[int, int]:
     return _count_from_rows(rows)
 
 
-def count_risklist(entity_type: str = None, list_: str = None, custom_list_path: str = None):
+def _fetch_counts(
+    entity_type=None, list_: str = None, custom_list_path: str = None
+) -> dict[int, int]:
     with Progress(
         SpinnerColumn(),
         TextColumn('[progress.description]{task.description}'),
@@ -93,14 +83,8 @@ def count_risklist(entity_type: str = None, list_: str = None, custom_list_path:
     ) as progress:
         progress.add_task(description='Fetching risklist')
         if custom_list_path:
-            title = custom_list_path
-            counts = _count_custom_risklist(custom_list_path)
-        else:
-            entity_type = entity_type.value
-            title = f'{list_}_{entity_type}_risklist'
-            counts = _count_api_risklist(list_, entity_type)
-
-    _print_count_table(title, counts)
+            return _count_custom_risklist(custom_list_path)
+        return _count_api_risklist(list_, entity_type.value)
 
 
 def stat_risklist(
@@ -110,12 +94,14 @@ def stat_risklist(
     pretty: bool = False,
     count: bool = False,
 ):
+    counts = None
     if count:
-        count_risklist(entity_type=entity_type, list_=list_, custom_list_path=custom_list_path)
-        return
+        counts = _fetch_counts(
+            entity_type=entity_type, list_=list_, custom_list_path=custom_list_path
+        )
 
     if custom_list_path:
-        stat_fusion_file(file_path=custom_list_path, pretty=pretty)
+        stat_fusion_file(file_path=custom_list_path, pretty=pretty, counts=counts)
     else:
         entity_type = entity_type.value
         rf_client = RFClient()
@@ -123,25 +109,32 @@ def stat_risklist(
         params = {'list': list_}
 
         response = rf_client.request('HEAD', url, params=params)
+        title = list_ if list_.endswith('_risklist') else f'{list_}_{entity_type}_risklist'
 
         if not pretty:
             filtered_headers = {
-                'name': f'{list_}_{entity_type}_risklist',
+                'name': title,
                 'exists': response.status_code == 200,
                 'etag': response.headers.get('etag', '').strip('"'),
             }
+            if counts is not None:
+                filtered_headers['counts'] = {str(k): counts[k] for k in sorted(counts)}
             print_json(json.dumps(filtered_headers, indent=2))
         else:
             console = Console()
-            table = Table(show_header=False, box=None, padding=(0, 2))
-            table.add_column('Property', style='cyan bold', no_wrap=True)
-            table.add_column('Value', style='white')
-
+            metadata: list[tuple[str, str]] = []
             if list_:
-                table.add_row('Name:', f'{list_}_{entity_type}_risklist')
-
+                metadata.append(('Name', title))
             if 'etag' in response.headers:
                 etag = response.headers['etag'].strip('"')
-                table.add_row('ETag:', f'[yellow]{etag}[/yellow]')
+                metadata.append(('ETag', f'[yellow]{etag}[/yellow]'))
+            if counts:
+                summary = _summary_line(counts)
+                if summary:
+                    metadata.append(('Total', summary))
 
-            console.print(table)
+            _print_metadata_block(metadata, console)
+
+            if counts:
+                console.print()
+                _print_count_table(counts, console)
