@@ -25,6 +25,17 @@ _BAR_MAX_WIDTH = 24
 _BAR_EIGHTHS = '▏▎▍▌▋▊▉'
 
 
+def _color_for_score(score: int) -> str:
+    """Recorded Future risk-band colors: <25 low, 25-64 med, 65-89 high, 90+ critical."""
+    if score >= 90:
+        return 'red'
+    if score >= 65:
+        return 'dark_orange'
+    if score >= 25:
+        return 'yellow'
+    return 'green'
+
+
 def _bar(count: int, max_count: int, width: int = _BAR_MAX_WIDTH) -> str:
     if max_count <= 0 or count <= 0:
         return ''
@@ -106,12 +117,14 @@ def _print_count_table(counts: dict[int, int], console: Console = None) -> None:
     for s in scores:
         c = counts[s]
         pct = c / total * 100 if total else 0
+        bar = _bar(c, max_count)
+        color = _color_for_score(s)
         rows.append(
             (
                 f'{s:,}',
                 f'{c:,}',
                 f'{pct:.2f} %',
-                _bar(c, max_count),
+                f'[{color}]{bar}[/{color}]' if bar else '',
             )
         )
 
