@@ -254,10 +254,14 @@ def test_risklist_stat_count_api_pretty(mock_mgr, mock_client):
     # summary line: 3 rows total, computed stats
     assert '3 entries · mean 78.3 · median 85 · mode 85 · p95 85 · p99 85' in output
     # table headers, thousands-separator formatting and percentages
-    assert 'Score' in output and 'Count' in output and 'Pct' in output
+    assert 'Score' in output
+    assert 'Count' in output
+    assert 'Pct' in output
     assert 'Cum%' not in output
-    assert '65' in output and '85' in output
-    assert '33.33 %' in output and '66.67 %' in output
+    assert '65' in output
+    assert '85' in output
+    assert '33.33 %' in output
+    assert '66.67 %' in output
     # inline bar for the largest row
     assert '█' in output
 

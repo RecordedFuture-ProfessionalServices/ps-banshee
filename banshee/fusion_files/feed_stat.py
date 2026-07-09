@@ -131,9 +131,9 @@ def _print_count_table(counts: dict[int, int], console: Console = None) -> None:
     total_label = 'Total'
     total_val = f'{total:,}'
     headers = ('Score', 'Count', 'Pct')
-    w_score = max(len(headers[0]), max(len(r[0]) for r in rows), len(total_label))
-    w_count = max(len(headers[1]), max(len(r[1]) for r in rows), len(total_val))
-    w_pct = max(len(headers[2]), max(len(r[2]) for r in rows))
+    w_score = max(len(headers[0]), *(len(r[0]) for r in rows), len(total_label))
+    w_count = max(len(headers[1]), *(len(r[1]) for r in rows), len(total_val))
+    w_pct = max(len(headers[2]), *(len(r[2]) for r in rows))
     gap = '  '
 
     header_line = (
