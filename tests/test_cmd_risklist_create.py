@@ -13,6 +13,13 @@ runner = CliRunner()
 COMMAND = 'create'
 
 FAKE_CSV_ROW = {'Name': '1.2.3.4', 'Risk': '85', 'RiskString': '3/8', 'EvidenceDetails': '[]'}
+FAKE_HASH_CSV_ROW = {
+    'Name': 'a' * 64,
+    'Algorithm': 'sha256',
+    'Risk': '85',
+    'RiskString': '3/8',
+    'EvidenceDetails': '[]',
+}
 
 
 def _fake_entry():
@@ -26,6 +33,8 @@ def _fake_entry():
 def _fake_fetch(_rule, _entity_type, validate=None, **_kwargs):
     if validate is not None:
         return [_fake_entry()]
+    if _entity_type == 'hash':
+        return [FAKE_HASH_CSV_ROW]
     return [FAKE_CSV_ROW]
 
 
@@ -182,9 +191,11 @@ def test_risklist_create_fusion_upload(mock_mgr, mock_fusion):
         ('url', ['recentBotnetUrl', 'recentRelatedNote'], 'csv', '.csv', 5),
     ],
 )
+@patch('banshee.risklist.risklist_create.RisklistMgr')
 def test_risklist_create_multiple_rules(
-    tmp_path, monkeypatch, entity_type, risk_rules, format_, ext, risk_score
+    mock_mgr, tmp_path, monkeypatch, entity_type, risk_rules, format_, ext, risk_score
 ):
+    mock_mgr.return_value.fetch_risklist.side_effect = _fake_fetch
     monkeypatch.chdir(tmp_path)
 
     args = [COMMAND, '--entity-type', entity_type, '-f', format_]
