@@ -202,12 +202,16 @@ def _extract_raw_iocs(malicious: list) -> tuple:
     """Extract raw IOCs and SHA256 hashes from malicious samples."""
     ip_counter: Counter = Counter()
     domain_counter: Counter = Counter()
-    hashes: set[str] = set()
+    sha256_map: dict[str, dict] = {}
     extracted_c2: Counter = Counter()
 
     for _, report in malicious:
-        if report.sample.sha256:
-            hashes.add(report.sample.sha256)
+        sha256 = report.sample.sha256
+        if sha256 and sha256 not in sha256_map:
+            top_tag = next(
+                (t[len('family:'):] for t in report.analysis.tags if t.startswith('family:')), ''
+            )
+            sha256_map[sha256] = {'sha256': sha256, 'score': report.analysis.score, 'top_tag': top_tag}
         for target in report.targets:
             if target.iocs:
                 ip_counter.update(target.iocs.ips)
@@ -220,7 +224,7 @@ def _extract_raw_iocs(malicious: list) -> tuple:
                     if durl.url:
                         extracted_c2[durl.url] += 1
 
-    return ip_counter, domain_counter, hashes, extracted_c2
+    return ip_counter, domain_counter, list(sha256_map.values()), extracted_c2
 
 
 def _soar_enrich(ip_counter: Counter, domain_counter: Counter) -> tuple:
@@ -342,13 +346,13 @@ def fetch_sandbox_stats(
     top_tags = _build_tag_taxonomy(reports)
 
     malicious = [(s, r) for s, r in reports if _score_bucket(r.analysis.score) == 'malicious']
-    ip_ctr, dom_ctr, hashes, extracted_c2 = _extract_raw_iocs(malicious)
+    ip_ctr, dom_ctr, sha256_entries, extracted_c2 = _extract_raw_iocs(malicious)
     verified, soar_skipped = _soar_enrich(ip_ctr, dom_ctr)
 
     top_iocs = TopIocs(
-        extracted_c2=extracted_c2.most_common(10),
+        extracted_c2=extracted_c2.most_common(),
         verified_network=verified,
-        malicious_sha256=list(hashes),
+        malicious_sha256=sorted(sha256_entries, key=lambda x: x['score'], reverse=True),
     )
 
     return SandboxStats(

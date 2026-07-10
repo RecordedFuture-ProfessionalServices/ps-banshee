@@ -14,6 +14,7 @@ from banshee.sandbox.output import (
     _BAR_WIDTH,
     _fmt_tags,
     _print_file_types,
+    _print_hashes,
     _search_url,
     _to_json_dict,
     _trend_str,
@@ -122,7 +123,7 @@ def _make_stats(**overrides) -> SandboxStats:
                     most_critical_rule='Actively Communicating C&C',
                 )
             ],
-            malicious_sha256=['abc123'],
+            malicious_sha256=[{'sha256': 'abc123', 'score': 9, 'top_tag': 'vidar'}],
         ),
         'trend_vs_prior_period': {
             'total': {'current': 10, 'prev': 15},
@@ -219,7 +220,20 @@ class TestExtractRawIocs:
     def test_extracts_sha256(self):
         report = _make_report(sha256='deadbeef')
         ip_ctr, dom_ctr, hashes, c2 = _extract_raw_iocs([(MagicMock(), report)])
-        assert 'deadbeef' in hashes
+        assert any(h['sha256'] == 'deadbeef' for h in hashes)
+
+    def test_extracts_sha256_with_score_and_family(self):
+        report = _make_report(sha256='aabbcc', score=9, tags=['family:vidar', 'pe'])
+        _, _, hashes, _ = _extract_raw_iocs([(MagicMock(), report)])
+        entry = next(h for h in hashes if h['sha256'] == 'aabbcc')
+        assert entry['score'] == 9
+        assert entry['top_tag'] == 'vidar'
+
+    def test_extracts_sha256_no_family_tag(self):
+        report = _make_report(sha256='cc11aa', score=8, tags=['pe', 'exe'])
+        _, _, hashes, _ = _extract_raw_iocs([(MagicMock(), report)])
+        entry = next(h for h in hashes if h['sha256'] == 'cc11aa')
+        assert entry['top_tag'] == ''
 
     def test_extracts_c2_from_config(self):
         ex = MagicMock()
@@ -251,7 +265,7 @@ class TestExtractRawIocs:
     def test_skips_none_sha256(self):
         report = _make_report(sha256=None)
         _, _, hashes, _ = _extract_raw_iocs([(MagicMock(), report)])
-        assert hashes == set()
+        assert hashes == []
 
 
 class TestSoarEnrich:
@@ -484,6 +498,10 @@ class TestToJsonDict:
         assert 'trend_vs_prior_period' in d
         assert isinstance(d['top_iocs']['extracted_c2'], list)
         assert isinstance(d['top_iocs']['verified_network'][0]['rf_score'], int)
+        sha256_entry = d['top_iocs']['malicious_sha256'][0]
+        assert sha256_entry['sha256'] == 'abc123'
+        assert sha256_entry['score'] == 9
+        assert sha256_entry['top_tag'] == 'vidar'
 
     def test_extracted_c2_as_lists(self):
         stats = _make_stats()
@@ -534,6 +552,48 @@ class TestPrintFileTypes:
     def test_section_header_present(self):
         out = self._render({'exe': 10})
         assert 'File types' in out
+
+
+# ---------------------------------------------------------------------------
+# Unit tests — _print_tag_table (threat intel bar charts)
+# ---------------------------------------------------------------------------
+# Unit tests — _print_hashes
+# ---------------------------------------------------------------------------
+
+
+class TestPrintHashes:
+    def _render(self, hashes: list, frontend_base: str = '') -> str:
+        buf = StringIO()
+        console = Console(file=buf, highlight=False, markup=True, width=120)
+        _print_hashes(console, hashes, frontend_base)
+        return buf.getvalue()
+
+    def test_renders_score_sha256_family(self):
+        out = self._render([{'sha256': 'abc' * 21, 'score': 9, 'top_tag': 'vidar'}])
+        assert 'Score' in out
+        assert 'SHA256' in out
+        assert 'Family' in out
+        assert '9' in out
+        assert 'vidar' in out
+        assert 'abc' * 21 in out
+
+    def test_truncates_at_20(self):
+        hashes = [{'sha256': f'{"a" * 63}{i:x}', 'score': 9, 'top_tag': ''} for i in range(25)]
+        out = self._render(hashes)
+        assert '5 more' in out
+
+    def test_no_more_message_when_under_cap(self):
+        hashes = [{'sha256': 'a' * 64, 'score': 9, 'top_tag': ''}]
+        out = self._render(hashes)
+        assert 'more' not in out
+
+    def test_frontend_base_preserves_sha256(self):
+        sha = 'a' * 64
+        out = self._render(
+            [{'sha256': sha, 'score': 9, 'top_tag': ''}],
+            frontend_base='https://sandbox.recordedfuture.com',
+        )
+        assert sha in out
 
 
 # ---------------------------------------------------------------------------
@@ -643,7 +703,10 @@ class TestCmdSandboxStats:
             top_iocs=TopIocs(
                 extracted_c2=[],
                 verified_network=[],
-                malicious_sha256=['abc' * 21, 'def' * 21],
+                malicious_sha256=[
+                    {'sha256': 'abc' * 21, 'score': 9, 'top_tag': 'vidar'},
+                    {'sha256': 'def' * 21, 'score': 8, 'top_tag': ''},
+                ],
             ),
         )
         mock_fetch.return_value = stats
@@ -653,8 +716,24 @@ class TestCmdSandboxStats:
         assert 'abc' * 21 in result.output
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
+    def test_stats_pretty_hashes_show_score_and_family(self, mock_fetch):
+        stats = _make_stats(
+            sandbox_choice='eu',
+            top_iocs=TopIocs(
+                extracted_c2=[],
+                verified_network=[],
+                malicious_sha256=[{'sha256': 'abc' * 21, 'score': 9, 'top_tag': 'vidar'}],
+            ),
+        )
+        mock_fetch.return_value = stats
+        result = runner.invoke(app, args=['--pretty'])
+        assert result.exit_code == 0
+        assert 'Score' in result.output
+        assert 'abc' * 21 in result.output
+
+    @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_pretty_truncates_hashes_at_20(self, mock_fetch):
-        hashes = [f'{"a" * 63}{i:x}' for i in range(25)]
+        hashes = [{'sha256': f'{"a" * 63}{i:x}', 'score': 9, 'top_tag': ''} for i in range(25)]
         stats = _make_stats(
             sandbox_choice='eu',
             top_iocs=TopIocs(extracted_c2=[], verified_network=[], malicious_sha256=hashes),
@@ -663,6 +742,46 @@ class TestCmdSandboxStats:
         result = runner.invoke(app, args=['--pretty'])
         assert result.exit_code == 0
         assert '5 more' in result.output
+
+    @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
+    def test_stats_pretty_c2_shows_more_message(self, mock_fetch):
+        c2s = [(f'http://c2-{i}.bad', i + 1) for i in range(12)]
+        stats = _make_stats(
+            top_iocs=TopIocs(extracted_c2=c2s, verified_network=[], malicious_sha256=[])
+        )
+        mock_fetch.return_value = stats
+        result = runner.invoke(app, args=['--pretty'])
+        assert result.exit_code == 0
+        assert '2 more' in result.output
+
+    @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
+    def test_stats_pretty_verified_iocs_shows_more_message(self, mock_fetch):
+        iocs = [
+            VerifiedIoc(indicator=f'1.2.3.{i}', type='IpAddress', rf_score=75, most_critical_rule='C&C')
+            for i in range(12)
+        ]
+        stats = _make_stats(
+            top_iocs=TopIocs(extracted_c2=[], verified_network=iocs, malicious_sha256=[])
+        )
+        mock_fetch.return_value = stats
+        result = runner.invoke(app, args=['--pretty'])
+        assert result.exit_code == 0
+        assert '2 more' in result.output
+
+    @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
+    def test_stats_pretty_c2_column_headers_visible(self, mock_fetch):
+        stats = _make_stats(
+            top_iocs=TopIocs(
+                extracted_c2=[('http://c2.bad', 3)],
+                verified_network=[],
+                malicious_sha256=[],
+            )
+        )
+        mock_fetch.return_value = stats
+        result = runner.invoke(app, args=['--pretty'])
+        assert result.exit_code == 0
+        assert 'Hits' in result.output
+        assert 'URL' in result.output
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_json_always_includes_sha256s(self, mock_fetch):

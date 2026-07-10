@@ -15,6 +15,7 @@ import json
 from urllib.parse import quote_plus
 
 from rich import print_json
+from rich.columns import Columns
 from rich.console import Console
 from rich.rule import Rule
 from rich.table import Table
@@ -124,7 +125,7 @@ def _print_summary(console: Console, stats: SandboxStats) -> None:
 def _print_platform(console: Console, by_platform: dict) -> None:
     if not by_platform:
         return
-    console.print(Rule('[bold]Platform[/bold]  (behavioral tasks)', style='dim'))
+    console.print(Rule('[bold]Platform[/bold]', style='dim'))
     tbl = Table(show_header=False, box=None, padding=(0, 2, 0, 2))
     tbl.add_column('OS', style='cyan', no_wrap=True)
     tbl.add_column('Count', style='bold')
@@ -136,6 +137,8 @@ def _print_platform(console: Console, by_platform: dict) -> None:
 
 _BAR_WIDTH = 28
 _BAR_CHAR = '█'
+_PANEL_TOP_N = 8
+_BOTNET_TRUNCATE = 14
 
 
 def _print_file_types(console: Console, arch_file: dict, frontend_base: str) -> None:
@@ -145,8 +148,8 @@ def _print_file_types(console: Console, arch_file: dict, frontend_base: str) -> 
     max_count = max(arch_file.values())
     tbl = Table(show_header=False, box=None, padding=(0, 1, 0, 1))
     tbl.add_column('Type', style='dim', justify='right', width=10, no_wrap=True)
+    tbl.add_column('Count', style='bold', justify='right', width=6)
     tbl.add_column('Bar', no_wrap=True)
-    tbl.add_column('Count', style='bold', justify='left', width=6)
     for tag, count in arch_file.items():
         bar_len = max(1, int(count / max_count * _BAR_WIDTH))
         bar = f'[steel_blue1]{_BAR_CHAR * bar_len}[/steel_blue1]'
@@ -154,9 +157,43 @@ def _print_file_types(console: Console, arch_file: dict, frontend_base: str) -> 
         if frontend_base:
             url = _search_url(frontend_base, f'tag:{tag}')
             label = f'[link={url}]{tag}[/link]'
-        tbl.add_row(label, bar, str(count))
+        tbl.add_row(label, str(count), bar)
     console.print(tbl)
     console.print()
+
+
+def _make_threat_col(
+    title: str,
+    tags: dict,
+    strip_prefix: str = '',
+    query_prefix: str = '',
+    frontend_base: str = '',
+    top_n: int = _PANEL_TOP_N,
+    truncate_at: int = 0,
+) -> Table:
+    items = list(tags.items())[:top_n]
+    tbl = Table(
+        title=f'[bold magenta]{title}[/bold magenta]',
+        title_justify='center',
+        show_header=False,
+        box=None,
+        padding=(0, 2, 0, 2),
+        expand=True,
+    )
+    tbl.add_column('Name', style='cyan')
+    tbl.add_column('Count', style='bold dim', justify='right', width=5, no_wrap=True)
+    for tag, count in items:
+        name = tag[len(strip_prefix):] if strip_prefix else tag
+        if truncate_at and len(name) > truncate_at:
+            name = name[:truncate_at] + '…'
+        if frontend_base:
+            query = f'{query_prefix}{tag}' if query_prefix else tag
+            url = _search_url(frontend_base, query)
+            cell = f'[link={url}]{name}[/link]'
+        else:
+            cell = name
+        tbl.add_row(cell, str(count))
+    return tbl
 
 
 def _print_threat_intel(console: Console, tags, frontend_base: str) -> None:
@@ -164,51 +201,63 @@ def _print_threat_intel(console: Console, tags, frontend_base: str) -> None:
     if not has_tags:
         return
     console.print(Rule('[bold]Threat intel[/bold]', style='dim'))
+    cols = []
     if tags.malware_families:
-        console.print(
-            f'  [bold magenta]Malware families[/bold magenta]'
-            f'   {_fmt_tags(tags.malware_families, strip_prefix="family:", frontend_base=frontend_base)}'
-        )
+        cols.append(_make_threat_col(
+            'Malware families', tags.malware_families,
+            strip_prefix='family:', frontend_base=frontend_base,
+        ))
+    if tags.behavioral_ttp:
+        cols.append(_make_threat_col(
+            'Behavioral / TTP', tags.behavioral_ttp,
+            query_prefix='tag:', frontend_base=frontend_base,
+        ))
     if tags.botnets:
         unique = len(tags.botnets)
-        top_str = _fmt_tags(
-            tags.botnets, strip_prefix='botnet:', frontend_base=frontend_base, top_n=5
-        )
-        suffix = f'   [dim][{unique} unique botnet IDs][/dim]' if unique > 5 else ''
-        console.print(f'  [bold magenta]Botnets tracked [/bold magenta]   {top_str}{suffix}')
-    if tags.behavioral_ttp:
-        console.print(
-            f'  [bold magenta]Behavioral/TTP  [/bold magenta]'
-            f'   {_fmt_tags(tags.behavioral_ttp, query_prefix="tag:", frontend_base=frontend_base)}'
-        )
-    console.print()
+        title = f'Botnets  [dim]({unique} unique)[/dim]' if unique > 5 else 'Botnets'
+        cols.append(_make_threat_col(
+            title, tags.botnets,
+            strip_prefix='botnet:', frontend_base=frontend_base,
+            top_n=5, truncate_at=_BOTNET_TRUNCATE,
+        ))
+    if cols:
+        console.print(Columns(cols, equal=True, expand=True))
+        console.print()
+
+
+_IOC_DISPLAY_CAP = 10
+_HASH_DISPLAY_CAP = 20
+_MORE_MSG = '  [dim]… and {} more (use JSON output for the full list)[/dim]'
 
 
 def _print_iocs(console: Console, iocs, soar_skipped: bool, frontend_base: str) -> None:
     if iocs.extracted_c2:
-        console.print(
-            Rule('[bold]Extracted C2s[/bold]  (top 10)', style='dim')
-        )
-        tbl = Table(show_header=False, box=None, padding=(0, 2, 0, 2))
+        total = len(iocs.extracted_c2)
+        console.print(Rule('[bold]Extracted C2s[/bold]', style='dim'))
+        tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 2), header_style='dim')
+        tbl.add_column('Hits', style='bold', width=7)
         tbl.add_column('URL', style='cyan')
-        tbl.add_column('Count', style='bold')
-        for c2_url, count in iocs.extracted_c2:
+        for c2_url, count in iocs.extracted_c2[:_IOC_DISPLAY_CAP]:
+            color = 'red' if count >= 5 else 'yellow' if count >= 2 else 'grey50'
             if frontend_base:
                 link = _search_url(frontend_base, f'url:{c2_url}')
                 display = f'[link={link}]{c2_url}[/link]'
             else:
                 display = c2_url
-            tbl.add_row(display, str(count))
+            tbl.add_row(f'[{color}]{count}[/{color}]', display)
         console.print(tbl)
+        if total > _IOC_DISPLAY_CAP:
+            console.print(_MORE_MSG.format(total - _IOC_DISPLAY_CAP))
         console.print()
 
     if iocs.verified_network:
-        console.print(Rule('[bold]Verified network IOCs[/bold]  (top 10)', style='dim'))
-        tbl = Table(show_header=False, box=None, padding=(0, 2, 0, 2))
-        tbl.add_column('Score', style='bold', width=5)
+        total = len(iocs.verified_network)
+        console.print(Rule('[bold]Verified network IOCs[/bold]', style='dim'))
+        tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 2), header_style='dim')
+        tbl.add_column('Score', style='bold', width=7)
         tbl.add_column('Indicator', style='cyan', width=40, no_wrap=True)
         tbl.add_column('Rule', style='dim')
-        for ioc in iocs.verified_network:
+        for ioc in iocs.verified_network[:_IOC_DISPLAY_CAP]:
             score = _ioc_rf_score(ioc)
             color = 'red' if score >= 65 else 'yellow' if score >= 25 else 'grey50'
             indicator = _ioc_field(ioc, 'indicator')
@@ -223,6 +272,8 @@ def _print_iocs(console: Console, iocs, soar_skipped: bool, frontend_base: str) 
                 _ioc_field(ioc, 'most_critical_rule') or '',
             )
         console.print(tbl)
+        if total > _IOC_DISPLAY_CAP:
+            console.print(_MORE_MSG.format(total - _IOC_DISPLAY_CAP))
         console.print()
     elif soar_skipped and iocs.extracted_c2:
         console.print(
@@ -232,22 +283,27 @@ def _print_iocs(console: Console, iocs, soar_skipped: bool, frontend_base: str) 
 
 
 def _print_hashes(console: Console, hashes: list, frontend_base: str) -> None:
-    shown = hashes[:20]
-    console.print(Rule('[bold]Malicious SHA256s[/bold]  (top 20)', style='dim'))
-    tbl = Table(show_header=False, box=None, padding=(0, 2, 0, 2))
+    shown = hashes[:_HASH_DISPLAY_CAP]
+    total = len(hashes)
+    console.print(Rule('[bold]Malicious SHA256s[/bold]', style='dim'))
+    tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 2), header_style='dim')
+    tbl.add_column('Score', style='bold', width=7)
     tbl.add_column('SHA256', style='cyan', no_wrap=True)
-    for sha in shown:
+    tbl.add_column('Family', style='dim')
+    for entry in shown:
+        score = entry['score']
+        sha = entry['sha256']
+        top_tag = entry.get('top_tag', '')
+        color = 'red' if score >= 9 else 'dark_orange'
         if frontend_base:
             link = _search_url(frontend_base, f'sha256:{sha}')
             display = f'[link={link}]{sha}[/link]'
         else:
             display = sha
-        tbl.add_row(display)
+        tbl.add_row(f'[{color}]{score}[/{color}]', display, top_tag)
     console.print(tbl)
-    if len(hashes) > 20:
-        console.print(
-            f'  [dim]… and {len(hashes) - 20} more (use JSON output for the full list)[/dim]'
-        )
+    if total > _HASH_DISPLAY_CAP:
+        console.print(_MORE_MSG.format(total - _HASH_DISPLAY_CAP))
     console.print()
 
 
