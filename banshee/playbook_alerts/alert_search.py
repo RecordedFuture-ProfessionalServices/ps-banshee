@@ -13,7 +13,6 @@
 
 
 import json
-import logging
 
 from psengine.playbook_alerts import PACategory, PlaybookAlertMgr
 from rich import print_json
@@ -22,9 +21,6 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from ..formatters.output_formatters import format_line, format_time
 from .constants import RFPAPriority, RFPAStatus
-
-LOG = logging.getLogger('psengine')
-
 
 def search_alerts(
     created: str,
