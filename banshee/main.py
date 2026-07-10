@@ -24,7 +24,7 @@ import urllib3
 from ._version import __version__
 from .app_config import config_init
 from .branding import BRANDING
-from .commands.args import OPT_NO_SSL_VERIFY, OPT_RF_API_KEY
+from .commands.args import OPT_NO_SSL_VERIFY, OPT_RF_API_KEY, OPT_SANDBOX_CHOICE, OPT_SANDBOX_KEY
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -110,9 +110,11 @@ def main(
         typer.Option('--debug', help='Run banshee in debug mode.', is_eager=True),
     ] = False,
     api_key: OPT_RF_API_KEY = None,
+    sandbox_key: OPT_SANDBOX_KEY = None,
+    sandbox_choice: OPT_SANDBOX_CHOICE = 'eu',
     no_ssl_verify: OPT_NO_SSL_VERIFY = False,
 ):
     if not debug:
         sys.excepthook = squelch_uncaught_exception
 
-    config_init(get_called_commands(ctx), api_key, no_ssl_verify)
+    config_init(get_called_commands(ctx), api_key, no_ssl_verify, sandbox_key, sandbox_choice)

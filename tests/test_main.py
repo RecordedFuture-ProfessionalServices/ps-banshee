@@ -152,6 +152,60 @@ def test_config_init_called_with_correct_command(argv, expected):
     assert captured.get('cmd', '') == expected
 
 
+def test_sandbox_key_flag_passed_to_config_init():
+    captured = {}
+
+    def mock_config_init(*args):
+        *_, sandbox_key, sandbox_choice = args
+        captured.update(sandbox_key=sandbox_key, sandbox_choice=sandbox_choice)
+        raise typer.Exit()
+
+    with patch('banshee.main.config_init', side_effect=mock_config_init):
+        runner.invoke(app, args=['-K', 'sbx_token_abc', 'ioc'])
+
+    assert captured['sandbox_key'] == 'sbx_token_abc'
+
+
+def test_sandbox_choice_flag_passed_to_config_init():
+    captured = {}
+
+    def mock_config_init(*args):
+        *_, sandbox_key, sandbox_choice = args
+        captured.update(sandbox_key=sandbox_key, sandbox_choice=sandbox_choice)
+        raise typer.Exit()
+
+    with patch('banshee.main.config_init', side_effect=mock_config_init):
+        runner.invoke(app, args=['--sandbox-choice', 'usa', 'ioc'])
+
+    assert captured['sandbox_choice'] == 'usa'
+
+
+def test_sandbox_choice_defaults_to_eu():
+    captured = {}
+
+    def mock_config_init(*args):
+        *_, sandbox_choice = args
+        captured.update(sandbox_choice=sandbox_choice)
+        raise typer.Exit()
+
+    with patch('banshee.main.config_init', side_effect=mock_config_init):
+        runner.invoke(app, args=['ioc'])
+
+    assert captured['sandbox_choice'] == 'eu'
+
+
+def test_main_help_shows_sandbox_flags():
+    result = runner.invoke(app, args=['--help'])
+    assert '--sandbox-key' in result.output
+    assert '--sandbox-choice' in result.output
+
+
+def test_sandbox_choice_invalid_value_rejected_by_cli():
+    result = runner.invoke(app, args=['--sandbox-choice', 'xyz', 'ioc'])
+    assert result.exit_code != 0
+    assert 'xyz' in result.output
+
+
 def test_main_squelch_uncaught_exception_prints_to_stderr():
     with patch('sys.stderr') as mock_stderr:
         exc_type = ValueError

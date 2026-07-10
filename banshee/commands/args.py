@@ -11,8 +11,10 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-from typing import Annotated, Optional
+from typing import Annotated, Optional, get_args
 
+import click
+from psengine.sandbox.sandbox_mgr import SandboxChoice
 from typer import Option
 
 ################################
@@ -40,5 +42,26 @@ OPT_NO_SSL_VERIFY = Annotated[
         '-s',
         help="""Disable SSL Verification. Useful when using proxies. To
             utilize a proxy set the environment variable HTTP_PROXY or HTTPS_PROXY.""",
+    ),
+]
+
+OPT_SANDBOX_KEY = Annotated[
+    Optional[str],
+    Option(
+        '--sandbox-key',
+        '-K',
+        envvar='RF_SANDBOX_TOKEN',
+        help='Recorded Future Sandbox API token.',
+        show_default=False,
+    ),
+]
+
+OPT_SANDBOX_CHOICE = Annotated[
+    str,
+    Option(
+        '--sandbox-choice',
+        envvar='RF_SANDBOX_CHOICE',
+        help='Sandbox region.',
+        click_type=click.Choice(get_args(SandboxChoice), case_sensitive=False),
     ),
 ]

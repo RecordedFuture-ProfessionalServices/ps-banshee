@@ -9,6 +9,7 @@ from psengine.config import Config, get_config
 from psengine.enrich import LookupMgr, SoarMgr
 
 from banshee import version
+from banshee.app_config import BansheeConfig
 
 from .vcr_utils import scrub_response
 
@@ -72,6 +73,7 @@ def vcr(vcr):
 @pytest.fixture(scope='session', autouse=True)
 def config():
     Config.init(
+        config_class=BansheeConfig,
         rf_token=os.environ.get(RF_API_KEY),
         app_id=APP_ID,
     )
