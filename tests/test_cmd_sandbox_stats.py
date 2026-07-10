@@ -11,12 +11,14 @@ from typer.testing import CliRunner
 from banshee.commands.cmd_sandbox import app
 from banshee.sandbox.output import (
     _BAR_CHAR,
-    _BAR_WIDTH,
+    _BAR_WIDTH_HALF,
     _SPARK_CHARS,
+    _SPARK_MAX_BUCKETS,
+    _bucket_counts,
     _fmt_tags,
     _print_chart_and_summary,
-    _print_file_types,
     _print_hashes,
+    _print_submission_profile,
     _search_url,
     _sparkline,
     _to_json_dict,
@@ -513,6 +515,33 @@ class TestBuildDailyByFamily:
         assert _build_daily_by_family([]) == {}
 
 
+class TestBucketCounts:
+    def test_no_bucketing_when_under_limit(self):
+        counts = [1, 2, 3]
+        assert _bucket_counts(counts, 5) == [1, 2, 3]
+
+    def test_returns_counts_unchanged_at_exact_limit(self):
+        counts = list(range(10))
+        assert _bucket_counts(counts, 10) == counts
+
+    def test_buckets_down_to_max(self):
+        counts = list(range(60))
+        result = _bucket_counts(counts, _SPARK_MAX_BUCKETS)
+        assert len(result) == _SPARK_MAX_BUCKETS
+
+    def test_sums_within_buckets(self):
+        counts = [1, 1, 1, 2, 2, 2]
+        result = _bucket_counts(counts, 2)
+        assert result[0] == 3
+        assert result[1] == 6
+
+    def test_large_window_capped_at_max_buckets(self):
+        counts = [1] * 365
+        result = _bucket_counts(counts, _SPARK_MAX_BUCKETS)
+        assert len(result) == _SPARK_MAX_BUCKETS
+        assert sum(result) == 365
+
+
 class TestSparkline:
     def test_all_zero_returns_min_chars(self):
         result = _sparkline([0, 0, 0], global_max=0)
@@ -689,44 +718,63 @@ class TestToJsonDict:
 
 
 # ---------------------------------------------------------------------------
-# Unit tests — _print_file_types histogram
+# Unit tests — _print_submission_profile
 # ---------------------------------------------------------------------------
 
 
-class TestPrintFileTypes:
-    def _render(self, by_file_type: dict, frontend_base: str = '') -> str:
+class TestPrintSubmissionProfile:
+    def _render(self, by_platform=None, by_file_type=None, frontend_base='') -> str:
         buf = StringIO()
-        console = Console(file=buf, highlight=False, markup=True)
-        _print_file_types(console, by_file_type, frontend_base)
+        console = Console(file=buf, highlight=False, markup=True, width=120)
+        _print_submission_profile(console, by_platform or {}, by_file_type or {}, frontend_base)
         return buf.getvalue()
 
-    def test_renders_bar_chars(self):
-        out = self._render({'.exe': 100, '.dll': 50})
+    def test_empty_both_no_output(self):
+        assert self._render() == ''
+
+    def test_section_header_present(self):
+        out = self._render(by_platform={'win': 1})
+        assert 'Submission profile' in out
+
+    def test_renders_platform_names(self):
+        out = self._render(by_platform={'windows10-2004-x64': 5, 'linux': 2})
+        assert 'windows10-2004-x64' in out
+        assert 'linux' in out
+
+    def test_renders_file_type_bar_chars(self):
+        out = self._render(by_file_type={'.exe': 100, '.dll': 50})
         assert _BAR_CHAR in out
         assert '.exe' in out
         assert '.dll' in out
 
-    def test_empty_dict_no_output(self):
-        assert self._render({}) == ''
-
-    def test_max_count_gets_full_bar(self):
-        out = self._render({'.exe': 100})
-        assert _BAR_CHAR * _BAR_WIDTH in out
+    def test_max_count_gets_full_half_bar(self):
+        out = self._render(by_file_type={'.exe': 100})
+        assert _BAR_CHAR * _BAR_WIDTH_HALF in out
 
     def test_shorter_bar_for_smaller_count(self):
-        out = self._render({'.exe': 100, '.dll': 50})
-        full_bar = _BAR_CHAR * _BAR_WIDTH
-        half_bar = _BAR_CHAR * (_BAR_WIDTH // 2)
-        assert full_bar in out
-        assert half_bar in out
+        out = self._render(by_file_type={'.exe': 100, '.dll': 50})
+        assert _BAR_CHAR * _BAR_WIDTH_HALF in out
+        assert _BAR_CHAR * (_BAR_WIDTH_HALF // 2) in out
 
     def test_count_appears_in_output(self):
-        out = self._render({'.exe': 247})
+        out = self._render(by_file_type={'.exe': 247})
         assert '247' in out
 
-    def test_section_header_present(self):
-        out = self._render({'.exe': 10})
-        assert 'File types' in out
+    def test_side_by_side_shows_both(self):
+        out = self._render(by_platform={'linux': 3}, by_file_type={'.elf': 10})
+        assert 'linux' in out
+        assert '.elf' in out
+        assert _BAR_CHAR in out
+
+    def test_only_platform_renders(self):
+        out = self._render(by_platform={'linux': 3})
+        assert 'linux' in out
+        assert 'Submission profile' in out
+
+    def test_only_file_types_renders(self):
+        out = self._render(by_file_type={'.pdf': 10})
+        assert '.pdf' in out
+        assert 'Submission profile' in out
 
 
 # ---------------------------------------------------------------------------

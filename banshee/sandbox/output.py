@@ -84,6 +84,7 @@ def _ioc_field(ioc, attr: str) -> str:
 
 _CHART_FAMILIES = 8
 _SPARK_CHARS = '▁▂▃▄▅▆▇█'
+_SPARK_MAX_BUCKETS = 40
 _FAMILY_COLORS = [
     'steel_blue1',
     'green3',
@@ -94,6 +95,19 @@ _FAMILY_COLORS = [
     'bright_red',
     'medium_purple',
 ]
+
+
+def _bucket_counts(counts: list, max_buckets: int) -> list:
+    """Aggregate counts into at most max_buckets by summing consecutive groups."""
+    n = len(counts)
+    if n <= max_buckets:
+        return counts
+    result = []
+    for i in range(max_buckets):
+        start = round(i * n / max_buckets)
+        end = round((i + 1) * n / max_buckets)
+        result.append(sum(counts[start:end]))
+    return result
 
 
 def _sparkline(counts: list, global_max: int) -> str:
@@ -156,15 +170,20 @@ def _print_chart_and_summary(console: Console, stats: SandboxStats) -> None:
 
     totals = {f: sum(v.values()) for f, v in daily_by_family.items()}
     top_families = sorted(totals, key=lambda k: totals[k], reverse=True)[:_CHART_FAMILIES]
-    all_nonzero = [c for f in top_families for c in daily_by_family[f].values() if c > 0]
+
+    # Bucket large windows down to _SPARK_MAX_BUCKETS; short windows stay one-day-per-slot.
+    # Stretch each slot for readability: ≤10 slots → 4 chars, ≤20 → 2, else → 1.
+    n = len(all_dates)
+    raw_by_family = {f: [daily_by_family[f].get(ds, 0) for ds in all_dates] for f in top_families}
+    bucketed = {f: _bucket_counts(raw_by_family[f], _SPARK_MAX_BUCKETS) for f in top_families}
+    n_display = len(next(iter(bucketed.values()))) if bucketed else n
+    bar_w = 4 if n_display <= 10 else 2 if n_display <= 20 else 1
+    total_width = n_display * bar_w
+
+    all_nonzero = [c for f in top_families for c in bucketed[f] if c > 0]
     global_max = max(all_nonzero) if all_nonzero else 0
 
-    # Stretch each bar so short windows are readable: ≤10d → 4 chars/day, ≤20d → 2, else → 1
-    n = len(all_dates)
-    bar_w = 4 if n <= 10 else 2 if n <= 20 else 1
-    total_width = n * bar_w
-
-    # Date axis label scaled to the stretched sparkline width
+    # Date axis label scaled to the stretched (bucketed) sparkline width
     start_lbl = stats.period_start.strftime('%-d %b')
     end_lbl = stats.period_end.strftime('%-d %b')
     date_spark = ''
@@ -176,9 +195,8 @@ def _print_chart_and_summary(console: Console, stats: SandboxStats) -> None:
     chart_rows: list[tuple[str, str, str]] = []
     for i, family in enumerate(top_families):
         color = _FAMILY_COLORS[i % len(_FAMILY_COLORS)]
-        daily = daily_by_family[family]
-        counts = [daily.get(ds, 0) for ds in all_dates]
-        peak = max(counts) if counts else 0
+        counts = bucketed[family]
+        peak = max(raw_by_family[family]) if raw_by_family[family] else 0
         spark = ''.join(c * bar_w for c in _sparkline(counts, global_max))
         chart_rows.append((family, f'[{color}]{spark}[/{color}]', str(peak)))
     chart_rows.append(('', date_spark, ''))
@@ -204,36 +222,44 @@ def _print_chart_and_summary(console: Console, stats: SandboxStats) -> None:
     console.print()
 
 
-def _print_platform(console: Console, by_platform: dict) -> None:
-    if not by_platform:
-        return
-    console.print(Rule('[bold]Platform[/bold]', style='dim'))
-    tbl = Table(show_header=False, box=None, padding=(0, 2, 0, 2))
-    tbl.add_column('OS', style='cyan', no_wrap=True)
-    tbl.add_column('Count', style='bold')
-    for os_name, count in by_platform.items():
-        tbl.add_row(os_name, str(count))
-    console.print(tbl)
-    console.print()
-
-
 _BAR_WIDTH = 28
+_BAR_WIDTH_HALF = 16
 _BAR_CHAR = '█'
 _PANEL_TOP_N = 8
 _BOTNET_TRUNCATE = 14
 
 
-def _print_file_types(console: Console, by_file_type: dict, frontend_base: str) -> None:
-    if not by_file_type:
-        return
-    console.print(Rule('[bold]File types[/bold]', style='dim'))
+def _platform_table(by_platform: dict) -> Table:
+    tbl = Table(
+        title='[dim]Platform[/dim]',
+        title_justify='left',
+        show_header=False,
+        box=None,
+        padding=(0, 2, 0, 0),
+        expand=True,
+    )
+    tbl.add_column('OS', style='cyan', no_wrap=True)
+    tbl.add_column('Count', style='bold', justify='right', width=5)
+    for os_name, count in by_platform.items():
+        tbl.add_row(os_name, str(count))
+    return tbl
+
+
+def _file_type_table(by_file_type: dict, frontend_base: str) -> Table:
     max_count = max(by_file_type.values())
-    tbl = Table(show_header=False, box=None, padding=(0, 1, 0, 1))
-    tbl.add_column('Type', style='dim', justify='right', width=10, no_wrap=True)
-    tbl.add_column('Count', style='bold', justify='right', width=6)
+    tbl = Table(
+        title='[dim]File types[/dim]',
+        title_justify='left',
+        show_header=False,
+        box=None,
+        padding=(0, 1, 0, 0),
+        expand=True,
+    )
+    tbl.add_column('Type', style='dim', justify='right', width=8, no_wrap=True)
+    tbl.add_column('Count', style='bold', justify='right', width=5)
     tbl.add_column('Bar', no_wrap=True)
     for ext, count in by_file_type.items():
-        bar_len = max(1, int(count / max_count * _BAR_WIDTH))
+        bar_len = max(1, int(count / max_count * _BAR_WIDTH_HALF))
         bar = f'[steel_blue1]{_BAR_CHAR * bar_len}[/steel_blue1]'
         tag = ext.lstrip('.')
         label = ext
@@ -241,7 +267,21 @@ def _print_file_types(console: Console, by_file_type: dict, frontend_base: str) 
             url = _search_url(frontend_base, f'tag:{tag}')
             label = f'[link={url}]{ext}[/link]'
         tbl.add_row(label, str(count), bar)
-    console.print(tbl)
+    return tbl
+
+
+def _print_submission_profile(
+    console: Console, by_platform: dict, by_file_type: dict, frontend_base: str
+) -> None:
+    if not by_platform and not by_file_type:
+        return
+    console.print(Rule('[bold]Submission profile[/bold]', style='dim'))
+    cols = []
+    if by_platform:
+        cols.append(_platform_table(by_platform))
+    if by_file_type:
+        cols.append(_file_type_table(by_file_type, frontend_base))
+    console.print(Columns(cols, equal=True, expand=True))
     console.print()
 
 
@@ -465,8 +505,7 @@ def print_sandbox_stats(stats: SandboxStats, pretty: bool = False) -> None:
         )
         console.print()
         _print_chart_and_summary(console, stats)
-        _print_platform(console, stats.by_platform)
-        _print_file_types(console, stats.by_file_type, frontend_base)
+        _print_submission_profile(console, stats.by_platform, stats.by_file_type, frontend_base)
         _print_threat_intel(console, stats.top_tags, frontend_base)
         _print_iocs(console, stats.top_iocs, stats.soar_skipped, frontend_base)
 
