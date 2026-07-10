@@ -159,13 +159,17 @@ def _print_chart_and_summary(console: Console, stats: SandboxStats) -> None:
     all_nonzero = [c for f in top_families for c in daily_by_family[f].values() if c > 0]
     global_max = max(all_nonzero) if all_nonzero else 0
 
-    # Date axis label for the bottom of the sparkline column
+    # Stretch each bar so short windows are readable: ≤10d → 4 chars/day, ≤20d → 2, else → 1
     n = len(all_dates)
+    bar_w = 4 if n <= 10 else 2 if n <= 20 else 1
+    total_width = n * bar_w
+
+    # Date axis label scaled to the stretched sparkline width
     start_lbl = stats.period_start.strftime('%-d %b')
     end_lbl = stats.period_end.strftime('%-d %b')
     date_spark = ''
-    if n >= len(start_lbl) + len(end_lbl) + 2:
-        gap = n - len(start_lbl) - len(end_lbl)
+    if total_width >= len(start_lbl) + len(end_lbl) + 2:
+        gap = total_width - len(start_lbl) - len(end_lbl)
         date_spark = f'[dim]{start_lbl}{" " * gap}{end_lbl}[/dim]'
 
     # Build left (chart) rows
@@ -175,7 +179,7 @@ def _print_chart_and_summary(console: Console, stats: SandboxStats) -> None:
         daily = daily_by_family[family]
         counts = [daily.get(ds, 0) for ds in all_dates]
         peak = max(counts) if counts else 0
-        spark = _sparkline(counts, global_max)
+        spark = ''.join(c * bar_w for c in _sparkline(counts, global_max))
         chart_rows.append((family, f'[{color}]{spark}[/{color}]', str(peak)))
     chart_rows.append(('', date_spark, ''))
 
