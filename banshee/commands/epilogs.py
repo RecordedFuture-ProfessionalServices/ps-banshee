@@ -589,7 +589,7 @@ RISKLIST_STAT = """
 
 * banshee risklist stat --entity-type ip --list-name ip_risklist
 
-* banshee risklist stat -e domain -l domain_risklist
+* banshee risklist stat -e domain -l default
 
 * banshee risklist stat --custom-list-path /custom/path/to/risklist.csv
 
@@ -597,9 +597,9 @@ RISKLIST_STAT = """
 
 * banshee risklist stat -e ip -l default --count
 
-* banshee risklist stat -c /custom/path/to/list.csv -C
+* banshee risklist stat -c /custom/path/to/list.csv -Cp
 
-* banshee risklist stat -e domain -l domain_risklist -C
+* banshee risklist stat -e domain -l default -C
 
 """
 

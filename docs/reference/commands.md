@@ -1914,7 +1914,7 @@ banshee risklist stat [OPTIONS]
     <dt id="banshee-risklist-stat--pretty"><a href="#banshee-risklist-stat--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
     <p>Pretty print the results in a human readable format</p></dd>
     <dt id="banshee-risklist-stat--count"><a href="#banshee-risklist-stat--count"><code>--count</code></a>, <code>-C</code></dt><dd>
-    <p>Download the risk list and show a table of indicator counts per risk score. Overrides the default metadata output.</p></dd>
+    <p>Show IOC counts and risk score distribution across the risk list.</p></dd>
     <dt id="banshee-risklist-stat--help"><a href="#banshee-risklist-stat--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>Show help for this command</p>
 </dl>
@@ -1931,8 +1931,8 @@ banshee risklist stat -e domain -l large -p
 # Check metadata for a custom risk list file
 banshee risklist stat -c /path/to/custom_risklist.txt
 
-# Count indicators per risk score in the default IP risk list
-banshee risklist stat -e ip -l default --count
+# Count indicators per risk score in the default IP risk list and pretty print
+banshee risklist stat -e ip -l default -Cp
 </code></pre>
 
 ## banshee rules
