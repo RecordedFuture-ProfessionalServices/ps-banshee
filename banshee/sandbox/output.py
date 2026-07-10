@@ -109,70 +109,18 @@ def _sparkline(counts: list, global_max: int) -> str:
     return ''.join(result)
 
 
-def _print_submission_chart(
-    console: Console,
-    daily_by_family: dict,
-    period_start,
-    period_end,
-    period_days: int,
-) -> None:
-    if not daily_by_family:
-        return
-
-    all_dates = []
-    d = period_start.date()
-    end = period_end.date()
-    while d <= end:
-        all_dates.append(d.strftime('%Y-%m-%d'))
-        d += timedelta(days=1)
-
-    totals = {f: sum(v.values()) for f, v in daily_by_family.items()}
-    top_families = sorted(totals, key=lambda k: totals[k], reverse=True)[:_CHART_FAMILIES]
-
-    all_nonzero = [c for f in top_families for c in daily_by_family[f].values() if c > 0]
-    global_max = max(all_nonzero) if all_nonzero else 0
-
-    tbl = Table(show_header=False, box=None, padding=(0, 1, 0, 1))
-    tbl.add_column('Family', style='dim', justify='right', width=16, no_wrap=True)
-    tbl.add_column('Spark', no_wrap=True)
-    tbl.add_column('Peak', style='bold dim', justify='right', width=5)
-
-    for i, family in enumerate(top_families):
-        color = _FAMILY_COLORS[i % len(_FAMILY_COLORS)]
-        daily = daily_by_family[family]
-        counts = [daily.get(date_str, 0) for date_str in all_dates]
-        peak = max(counts) if counts else 0
-        spark = _sparkline(counts, global_max)
-        tbl.add_row(family, f'[{color}]{spark}[/{color}]', str(peak))
-
-    # Date axis: only add when sparkline is wide enough for both labels without overlap
-    n = len(all_dates)
-    start_lbl = period_start.strftime('%-d %b')
-    end_lbl = period_end.strftime('%-d %b')
-    if n >= len(start_lbl) + len(end_lbl) + 2:
-        gap = n - len(start_lbl) - len(end_lbl)
-        tbl.add_row('', f'[dim]{start_lbl}{" " * gap}{end_lbl}[/dim]', '')
-
-    console.print(Rule(f'[bold]Malware trends · last {period_days}d[/bold]', style='dim'))
-    console.print(tbl)
-    console.print()
-
-
-def _print_summary(console: Console, stats: SandboxStats) -> None:
+def _summary_lines(stats: SandboxStats) -> list:
     trend = stats.trend_vs_prior_period
     total = trend['total']['current']
     reported = trend['reported']['current']
-    console.print(
-        f'  [bold]{total:,}[/bold] submissions  [dim]·[/dim]  [bold]{reported:,}[/bold] reported'
-    )
-    console.print()
-
     status_str = '  '.join(f'{k}: {v}' for k, v in stats.by_status.items())
     kind_str = '  '.join(f'{k}: {v}' for k, v in stats.by_kind.items())
-    console.print(f'  [dim]by status[/dim]  {status_str}')
-    console.print(f'  [dim]by kind  [/dim]  {kind_str}')
-    console.print()
-
+    lines = [
+        f'[bold]{total:,}[/bold] submissions  [dim]·[/dim]  [bold]{reported:,}[/bold] reported',
+        '',
+        f'[dim]by status[/dim]  {status_str}',
+        f'[dim]by kind  [/dim]  {kind_str}',
+    ]
     if stats.by_score:
         parts = []
         for bucket in ('malicious', 'suspicious', 'potentially_suspicious', 'clean', 'unknown'):
@@ -181,8 +129,76 @@ def _print_summary(console: Console, stats: SandboxStats) -> None:
                 color = _SCORE_COLORS[bucket]
                 label = _SCORE_LABELS[bucket]
                 parts.append(f'[{color}]{label}: {count}[/{color}]')
-        console.print('  [dim]by score  [/dim]  ' + '   '.join(parts))
-        console.print()
+        if parts:
+            lines += ['', '[dim]by score[/dim]  ' + '   '.join(parts)]
+    return lines
+
+
+def _print_summary(console: Console, stats: SandboxStats) -> None:
+    for line in _summary_lines(stats):
+        console.print(f'  {line}' if line else '')
+    console.print()
+
+
+def _print_chart_and_summary(console: Console, stats: SandboxStats) -> None:
+    daily_by_family = stats.daily_by_family
+
+    if not daily_by_family:
+        _print_summary(console, stats)
+        return
+
+    all_dates = []
+    d = stats.period_start.date()
+    end = stats.period_end.date()
+    while d <= end:
+        all_dates.append(d.strftime('%Y-%m-%d'))
+        d += timedelta(days=1)
+
+    totals = {f: sum(v.values()) for f, v in daily_by_family.items()}
+    top_families = sorted(totals, key=lambda k: totals[k], reverse=True)[:_CHART_FAMILIES]
+    all_nonzero = [c for f in top_families for c in daily_by_family[f].values() if c > 0]
+    global_max = max(all_nonzero) if all_nonzero else 0
+
+    # Date axis label for the bottom of the sparkline column
+    n = len(all_dates)
+    start_lbl = stats.period_start.strftime('%-d %b')
+    end_lbl = stats.period_end.strftime('%-d %b')
+    date_spark = ''
+    if n >= len(start_lbl) + len(end_lbl) + 2:
+        gap = n - len(start_lbl) - len(end_lbl)
+        date_spark = f'[dim]{start_lbl}{" " * gap}{end_lbl}[/dim]'
+
+    # Build left (chart) rows
+    chart_rows: list[tuple[str, str, str]] = []
+    for i, family in enumerate(top_families):
+        color = _FAMILY_COLORS[i % len(_FAMILY_COLORS)]
+        daily = daily_by_family[family]
+        counts = [daily.get(ds, 0) for ds in all_dates]
+        peak = max(counts) if counts else 0
+        spark = _sparkline(counts, global_max)
+        chart_rows.append((family, f'[{color}]{spark}[/{color}]', str(peak)))
+    chart_rows.append(('', date_spark, ''))
+
+    right_lines = _summary_lines(stats)
+
+    # Single table: chart columns | │ divider | stats column.
+    # The │ appears in every row so it spans the full height naturally.
+    tbl = Table(show_header=False, box=None, padding=(0, 1, 0, 1), expand=True)
+    tbl.add_column('Family', style='dim', justify='right', width=16, no_wrap=True)
+    tbl.add_column('Spark', no_wrap=True)
+    tbl.add_column('Peak', style='bold dim', justify='right', width=5)
+    tbl.add_column('Sep', justify='center', width=1, no_wrap=True)
+    tbl.add_column('Stats', ratio=1, no_wrap=False)
+
+    total_rows = max(len(chart_rows), len(right_lines))
+    for i in range(total_rows):
+        fam, spark, peak = chart_rows[i] if i < len(chart_rows) else ('', '', '')
+        right = right_lines[i] if i < len(right_lines) else ''
+        tbl.add_row(fam, spark, peak, '[dim]│[/dim]', right)
+
+    console.print(Rule(f'[bold]Malware trends · last {stats.period_days}d[/bold]', style='dim'))
+    console.print(tbl)
+    console.print()
 
 
 def _print_platform(console: Console, by_platform: dict) -> None:
@@ -440,14 +456,7 @@ def print_sandbox_stats(stats: SandboxStats, pretty: bool = False) -> None:
             )
         )
         console.print()
-        _print_submission_chart(
-            console,
-            stats.daily_by_family,
-            stats.period_start,
-            stats.period_end,
-            stats.period_days,
-        )
-        _print_summary(console, stats)
+        _print_chart_and_summary(console, stats)
         _print_platform(console, stats.by_platform)
         _print_file_types(console, stats.by_file_type, frontend_base)
         _print_threat_intel(console, stats.top_tags, frontend_base)

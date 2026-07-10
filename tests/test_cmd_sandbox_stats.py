@@ -14,9 +14,9 @@ from banshee.sandbox.output import (
     _BAR_WIDTH,
     _SPARK_CHARS,
     _fmt_tags,
+    _print_chart_and_summary,
     _print_file_types,
     _print_hashes,
-    _print_submission_chart,
     _search_url,
     _sparkline,
     _to_json_dict,
@@ -542,16 +542,27 @@ class TestSparkline:
         assert len(result) == 5
 
 
-class TestPrintSubmissionChart:
-    def _render(self, daily_by_family: dict, period_days: int = 7) -> str:
+class TestPrintChartAndSummary:
+    def _render(self, daily_by_family: dict, period_days: int = 7, **overrides) -> str:
         buf = StringIO()
-        console = Console(file=buf, highlight=False, markup=True, width=100)
-        period_start = _NOW - timedelta(days=period_days)
-        _print_submission_chart(console, daily_by_family, period_start, _NOW, period_days)
+        console = Console(file=buf, highlight=False, markup=True, width=200)
+        stats = _make_stats(
+            daily_by_family=daily_by_family,
+            period_days=period_days,
+            period_start=_NOW - timedelta(days=period_days),
+            period_end=_NOW,
+            **overrides,
+        )
+        _print_chart_and_summary(console, stats)
         return buf.getvalue()
 
-    def test_empty_dict_produces_no_output(self):
-        assert self._render({}) == ''
+    def test_empty_dict_skips_trends_header(self):
+        out = self._render({})
+        assert 'trends' not in out.lower()
+
+    def test_empty_dict_shows_summary_stats(self):
+        out = self._render({})
+        assert 'submissions' in out
 
     def test_renders_section_header(self):
         daily = {'vidar': {'2026-07-09': 5, '2026-07-10': 10}}
@@ -582,6 +593,16 @@ class TestPrintSubmissionChart:
         daily = {'vidar': {'2026-07-09': 0, '2026-07-10': 0}}
         out = self._render(daily)
         assert out != ''
+
+    def test_summary_stats_appear_alongside_chart(self):
+        daily = {'vidar': {'2026-07-09': 5}}
+        out = self._render(daily)
+        assert 'submissions' in out
+
+    def test_divider_appears_when_chart_present(self):
+        daily = {'vidar': {'2026-07-09': 5}}
+        out = self._render(daily)
+        assert '│' in out
 
 
 class TestSearchUrl:
