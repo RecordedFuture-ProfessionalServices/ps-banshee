@@ -1,6 +1,6 @@
 # Release History
 
-## v.1.4.0 - 2026-07-10
+## v.1.4.0 - 2026-07-13
 
 ### Added
 - New [`-C`/`--count`](reference/commands.md#banshee-risklist-stat--count) option for [`risklist stat`](reference/commands.md#banshee-risklist-stat) to download the risk list and print a table of indicator counts per risk score.
