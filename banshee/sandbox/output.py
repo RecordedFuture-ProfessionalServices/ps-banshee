@@ -196,7 +196,6 @@ def _print_chart_and_summary(console: Console, stats: SandboxStats) -> None:
         right = right_lines[i] if i < len(right_lines) else ''
         tbl.add_row(fam, spark, peak, '[dim]│[/dim]', right)
 
-    console.print(Rule(f'[bold]Malware trends · last {stats.period_days}d[/bold]', style='dim'))
     console.print(tbl)
     console.print()
 
@@ -393,7 +392,12 @@ def _print_hashes(console: Console, hashes: list, frontend_base: str) -> None:
             display = f'[link={link}]{sha}[/link]'
         else:
             display = sha
-        tbl.add_row(f'[{color}]{score}[/{color}]', display, top_tag)
+        if frontend_base and top_tag:
+            family_url = _search_url(frontend_base, f'family:{top_tag}')
+            family_cell = f'[link={family_url}]{top_tag}[/link]'
+        else:
+            family_cell = top_tag
+        tbl.add_row(f'[{color}]{score}[/{color}]', display, family_cell)
     console.print(tbl)
     if total > _HASH_DISPLAY_CAP:
         console.print(_MORE_MSG.format(total - _HASH_DISPLAY_CAP))

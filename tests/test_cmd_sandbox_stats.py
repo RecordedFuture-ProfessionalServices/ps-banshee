@@ -564,10 +564,10 @@ class TestPrintChartAndSummary:
         out = self._render({})
         assert 'submissions' in out
 
-    def test_renders_section_header(self):
+    def test_renders_sparkline_chars(self):
         daily = {'vidar': {'2026-07-09': 5, '2026-07-10': 10}}
         out = self._render(daily)
-        assert 'trends' in out.lower()
+        assert any(c in out for c in '▁▂▃▄▅▆▇█')
 
     def test_family_name_appears_in_output(self):
         daily = {'vidar': {'2026-07-09': 5}}
@@ -737,9 +737,11 @@ class TestPrintFileTypes:
 
 
 class TestPrintHashes:
-    def _render(self, hashes: list, frontend_base: str = '') -> str:
+    def _render(self, hashes: list, frontend_base: str = '', force_terminal: bool = False) -> str:
         buf = StringIO()
-        console = Console(file=buf, highlight=False, markup=True, width=120)
+        console = Console(
+            file=buf, highlight=False, markup=True, width=120, force_terminal=force_terminal
+        )
         _print_hashes(console, hashes, frontend_base)
         return buf.getvalue()
 
@@ -769,6 +771,20 @@ class TestPrintHashes:
             frontend_base='https://sandbox.recordedfuture.com',
         )
         assert sha in out
+
+    def test_family_tag_linked_when_frontend_base_set(self):
+        sha = 'b' * 64
+        out = self._render(
+            [{'sha256': sha, 'score': 9, 'top_tag': 'vidar'}],
+            frontend_base='https://sandbox.recordedfuture.com',
+            force_terminal=True,
+        )
+        assert 'family%3Avidar' in out
+
+    def test_family_tag_plain_without_frontend_base(self):
+        out = self._render([{'sha256': 'c' * 64, 'score': 9, 'top_tag': 'vidar'}])
+        assert 'vidar' in out
+        assert 'link=' not in out
 
 
 # ---------------------------------------------------------------------------
@@ -993,7 +1009,7 @@ class TestCmdSandboxStats:
         mock_fetch.return_value = stats
         result = runner.invoke(app, args=['--pretty'])
         assert result.exit_code == 0
-        assert 'trends' in result.output.lower()
+        assert any(c in result.output for c in '▁▂▃▄▅▆▇█')
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_pretty_no_chart_when_no_family_data(self, mock_fetch):
@@ -1001,7 +1017,7 @@ class TestCmdSandboxStats:
         mock_fetch.return_value = stats
         result = runner.invoke(app, args=['--pretty'])
         assert result.exit_code == 0
-        assert 'trends' not in result.output.lower()
+        assert not any(c in result.output for c in '▂▃▄▅▆▇')
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_json_includes_daily_by_family(self, mock_fetch):
