@@ -134,8 +134,33 @@ def _print_platform(console: Console, by_platform: dict) -> None:
     console.print()
 
 
+_BAR_WIDTH = 28
+_BAR_CHAR = '█'
+
+
+def _print_file_types(console: Console, arch_file: dict, frontend_base: str) -> None:
+    if not arch_file:
+        return
+    console.print(Rule('[bold]File types[/bold]', style='dim'))
+    max_count = max(arch_file.values())
+    tbl = Table(show_header=False, box=None, padding=(0, 1, 0, 1))
+    tbl.add_column('Type', style='dim', justify='right', width=10, no_wrap=True)
+    tbl.add_column('Bar', no_wrap=True)
+    tbl.add_column('Count', style='bold', justify='left', width=6)
+    for tag, count in arch_file.items():
+        bar_len = max(1, int(count / max_count * _BAR_WIDTH))
+        bar = f'[steel_blue1]{_BAR_CHAR * bar_len}[/steel_blue1]'
+        label = tag
+        if frontend_base:
+            url = _search_url(frontend_base, f'tag:{tag}')
+            label = f'[link={url}]{tag}[/link]'
+        tbl.add_row(label, bar, str(count))
+    console.print(tbl)
+    console.print()
+
+
 def _print_threat_intel(console: Console, tags, frontend_base: str) -> None:
-    has_tags = any([tags.malware_families, tags.botnets, tags.behavioral_ttp, tags.arch_file])
+    has_tags = any([tags.malware_families, tags.botnets, tags.behavioral_ttp])
     if not has_tags:
         return
     console.print(Rule('[bold]Threat intel[/bold]', style='dim'))
@@ -156,18 +181,13 @@ def _print_threat_intel(console: Console, tags, frontend_base: str) -> None:
             f'  [bold magenta]Behavioral/TTP  [/bold magenta]'
             f'   {_fmt_tags(tags.behavioral_ttp, query_prefix="tag:", frontend_base=frontend_base)}'
         )
-    if tags.arch_file:
-        console.print(
-            f'  [bold magenta]Arch / file type[/bold magenta]'
-            f'   {_fmt_tags(tags.arch_file, query_prefix="tag:", frontend_base=frontend_base)}'
-        )
     console.print()
 
 
 def _print_iocs(console: Console, iocs, soar_skipped: bool, frontend_base: str) -> None:
     if iocs.extracted_c2:
         console.print(
-            Rule('[bold]Extracted C2s[/bold]  (parsed from malware configs)', style='dim')
+            Rule('[bold]Extracted C2s[/bold]  (top 10)', style='dim')
         )
         tbl = Table(show_header=False, box=None, padding=(0, 2, 0, 2))
         tbl.add_column('URL', style='cyan')
@@ -183,7 +203,7 @@ def _print_iocs(console: Console, iocs, soar_skipped: bool, frontend_base: str) 
         console.print()
 
     if iocs.verified_network:
-        console.print(Rule('[bold]Verified network IOCs[/bold]  (SOAR · score ≥ 25)', style='dim'))
+        console.print(Rule('[bold]Verified network IOCs[/bold]  (top 10)', style='dim'))
         tbl = Table(show_header=False, box=None, padding=(0, 2, 0, 2))
         tbl.add_column('Score', style='bold', width=5)
         tbl.add_column('Indicator', style='cyan', width=40, no_wrap=True)
@@ -287,6 +307,7 @@ def print_sandbox_stats(stats: SandboxStats, pretty: bool = False) -> None:
         console.print()
         _print_summary(console, stats)
         _print_platform(console, stats.by_platform)
+        _print_file_types(console, stats.top_tags.arch_file, frontend_base)
         _print_threat_intel(console, stats.top_tags, frontend_base)
         _print_iocs(console, stats.top_iocs, stats.soar_skipped, frontend_base)
 

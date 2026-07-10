@@ -1,14 +1,19 @@
 import json
 from collections import Counter
 from datetime import datetime, timedelta, timezone
+from io import StringIO
 from unittest.mock import MagicMock, patch
 
 import pytest
+from rich.console import Console
 from typer.testing import CliRunner
 
 from banshee.commands.cmd_sandbox import app
 from banshee.sandbox.output import (
+    _BAR_CHAR,
+    _BAR_WIDTH,
     _fmt_tags,
+    _print_file_types,
     _search_url,
     _to_json_dict,
     _trend_str,
@@ -491,6 +496,47 @@ class TestToJsonDict:
 
 
 # ---------------------------------------------------------------------------
+# Unit tests — _print_file_types histogram
+# ---------------------------------------------------------------------------
+
+
+class TestPrintFileTypes:
+    def _render(self, arch_file: dict, frontend_base: str = '') -> str:
+        buf = StringIO()
+        console = Console(file=buf, highlight=False, markup=True)
+        _print_file_types(console, arch_file, frontend_base)
+        return buf.getvalue()
+
+    def test_renders_bar_chars(self):
+        out = self._render({'exe': 100, 'dll': 50})
+        assert _BAR_CHAR in out
+        assert 'exe' in out
+        assert 'dll' in out
+
+    def test_empty_dict_no_output(self):
+        assert self._render({}) == ''
+
+    def test_max_count_gets_full_bar(self):
+        out = self._render({'exe': 100})
+        assert _BAR_CHAR * _BAR_WIDTH in out
+
+    def test_shorter_bar_for_smaller_count(self):
+        out = self._render({'exe': 100, 'dll': 50})
+        full_bar = _BAR_CHAR * _BAR_WIDTH
+        half_bar = _BAR_CHAR * (_BAR_WIDTH // 2)
+        assert full_bar in out
+        assert half_bar in out
+
+    def test_count_appears_in_output(self):
+        out = self._render({'exe': 247})
+        assert '247' in out
+
+    def test_section_header_present(self):
+        out = self._render({'exe': 10})
+        assert 'File types' in out
+
+
+# ---------------------------------------------------------------------------
 # CLI tests — cmd_sandbox.stats via CliRunner
 # ---------------------------------------------------------------------------
 
@@ -625,3 +671,36 @@ class TestCmdSandboxStats:
         assert result.exit_code == 0
         data = json.loads(result.output)
         assert 'malicious_sha256' in data['top_iocs']
+
+    @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
+    def test_stats_pretty_shows_file_types_histogram(self, mock_fetch):
+        stats = _make_stats(
+            top_tags=TopTags(
+                malware_families={'family:vidar': 5},
+                botnets={},
+                behavioral_ttp={},
+                arch_file={'exe': 200, 'dll': 100, 'pdf': 40},
+            )
+        )
+        mock_fetch.return_value = stats
+        result = runner.invoke(app, args=['--pretty'])
+        assert result.exit_code == 0
+        assert 'File types' in result.output
+        assert _BAR_CHAR in result.output
+        assert 'exe' in result.output
+        assert 'dll' in result.output
+
+    @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
+    def test_stats_pretty_no_arch_file_no_file_types_section(self, mock_fetch):
+        stats = _make_stats(
+            top_tags=TopTags(
+                malware_families={'family:vidar': 5},
+                botnets={},
+                behavioral_ttp={},
+                arch_file={},
+            )
+        )
+        mock_fetch.return_value = stats
+        result = runner.invoke(app, args=['--pretty'])
+        assert result.exit_code == 0
+        assert 'File types' not in result.output
