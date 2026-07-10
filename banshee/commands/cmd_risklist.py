@@ -206,7 +206,11 @@ def create(
     )
 
 
-@banshee_cmd(app=app, help_='Show risk list metadata (etag and timestamp)', epilog=RISKLIST_STAT)
+@banshee_cmd(
+    app=app,
+    help_='Show risk list metadata and optionally its score distribution',
+    epilog=RISKLIST_STAT,
+)
 def stat(
     entity_type: Annotated[
         EntityType,
@@ -217,25 +221,25 @@ def stat(
         Option(
             '--list-name',
             '-l',
-            help='Risk list name: default, large, or rule name from `banshee ioc rules`',
+            help='Risk list name: `default`, `large`, or rule name from `banshee ioc rules`',
             show_default=False,
         ),
     ] = None,
     custom_list_path: Annotated[
         str,
         Option(
-            '--custom-list-path', '-c', help='Path to custom risk list file', show_default=False
+            '--custom-list-path', '-c', help='Path to a custom risk list file', show_default=False
         ),
     ] = None,
-    pretty: OPT_PRETTY_PRINT = False,
     count: Annotated[
         bool,
         Option(
             '--count',
             '-C',
-            help='Download the risk list and include indicator counts per risk score in the output',  # noqa: E501
+            help='Show IOC counts and risk score distribution across the risk list',
         ),
     ] = False,
+    pretty: OPT_PRETTY_PRINT = False,
 ):
     validate_risklist_args(entity_type, list_name, custom_list_path, as_json=None)
 

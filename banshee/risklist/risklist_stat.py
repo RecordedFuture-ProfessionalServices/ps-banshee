@@ -80,8 +80,9 @@ def _fetch_counts(
         SpinnerColumn(),
         TextColumn('[progress.description]{task.description}'),
         transient=True,
+        console=Console(stderr=True),
     ) as progress:
-        progress.add_task(description='Fetching risklist')
+        progress.add_task(description='Computing risk score distribution')
         if custom_list_path:
             return _count_custom_risklist(custom_list_path)
         return _count_api_risklist(list_, entity_type.value)
