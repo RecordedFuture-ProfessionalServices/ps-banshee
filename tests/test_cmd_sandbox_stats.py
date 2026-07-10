@@ -6,12 +6,12 @@ from unittest.mock import MagicMock, patch
 import pytest
 from typer.testing import CliRunner
 
-from banshee.commands.cmd_sandbox import (
+from banshee.commands.cmd_sandbox import app
+from banshee.sandbox.output import (
     _fmt_tags,
     _search_url,
     _to_json_dict,
     _trend_str,
-    app,
 )
 from banshee.sandbox.stats import (
     SandboxStats,

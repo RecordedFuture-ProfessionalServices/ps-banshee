@@ -11,6 +11,7 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
+from .output import print_sandbox_stats
 from .stats import SandboxStats, fetch_sandbox_stats
 
-__all__ = ['SandboxStats', 'fetch_sandbox_stats']
+__all__ = ['SandboxStats', 'fetch_sandbox_stats', 'print_sandbox_stats']
