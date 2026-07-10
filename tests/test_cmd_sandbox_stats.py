@@ -24,6 +24,7 @@ from banshee.sandbox.stats import (
     TopIocs,
     TopTags,
     VerifiedIoc,
+    _build_file_type_map,
     _build_score_and_platform,
     _build_tag_taxonomy,
     _extract_raw_iocs,
@@ -131,6 +132,7 @@ def _make_stats(**overrides) -> SandboxStats:
         },
         'limit_hit': False,
         'soar_skipped': False,
+        'by_file_type': {'.exe': 50, '.dll': 20},
     }
     defaults.update(overrides)
     return SandboxStats(**defaults)
@@ -214,6 +216,48 @@ class TestBuildTagTaxonomy:
         result = _build_tag_taxonomy([(MagicMock(), r)])
         assert result.malware_families == {}
         assert result.behavioral_ttp == {}
+
+
+class TestBuildFileTypeMap:
+    def _make_static_report(self, files_exts: list[list[str]]):
+        sr = MagicMock()
+        sr.files = []
+        for exts in files_exts:
+            f = MagicMock()
+            f.exts = exts
+            sr.files.append(f)
+        return sr
+
+    def test_collects_exts_from_files(self):
+        sr = self._make_static_report([['.exe', '.dll'], ['.js']])
+        result = _build_file_type_map([sr])
+        assert result['.exe'] == 1
+        assert result['.dll'] == 1
+        assert result['.js'] == 1
+
+    def test_normalises_to_lowercase(self):
+        sr = self._make_static_report([['.EXE', '.Dll']])
+        result = _build_file_type_map([sr])
+        assert '.exe' in result
+        assert '.dll' in result
+        assert '.EXE' not in result
+
+    def test_counts_across_multiple_reports(self):
+        sr1 = self._make_static_report([['.exe']])
+        sr2 = self._make_static_report([['.exe'], ['.js']])
+        result = _build_file_type_map([sr1, sr2])
+        assert result['.exe'] == 2
+        assert result['.js'] == 1
+
+    def test_empty_reports_returns_empty(self):
+        assert _build_file_type_map([]) == {}
+
+    def test_sorted_by_count_descending(self):
+        sr = self._make_static_report([['.exe', '.exe', '.exe', '.js']])
+        result = _build_file_type_map([sr])
+        keys = list(result.keys())
+        assert keys[0] == '.exe'
+        assert keys[1] == '.js'
 
 
 class TestExtractRawIocs:
@@ -374,7 +418,8 @@ class TestFetchSandboxStats:
         sample = _make_sample(submitted_delta_days=1, status='reported')
         mock_mgr_cls.return_value.fetch_samples.return_value = [sample]
         report = _make_report(score=9, tags=['family:mirai'])
-        mock_mt.multithread_it.return_value = [report]
+        # First call: overviews; second call: static reports (return empty list)
+        mock_mt.multithread_it.side_effect = [[report], []]
 
         result = fetch_sandbox_stats(days=7, subset='org')
 
@@ -407,7 +452,8 @@ class TestFetchSandboxStats:
         prev = _make_sample(submitted_delta_days=10, status='reported')
         prev.submitted = now - timedelta(days=10)
         mock_mgr_cls.return_value.fetch_samples.return_value = [current, prev]
-        mock_mt.multithread_it.return_value = [_make_report(score=2)]
+        # First call: overviews; second call: static reports (return empty list)
+        mock_mt.multithread_it.side_effect = [[_make_report(score=2)], []]
 
         result = fetch_sandbox_stats(days=7, subset='org')
 
@@ -494,6 +540,7 @@ class TestToJsonDict:
         d = _to_json_dict(stats)
         assert 'period_start' in d
         assert 'by_score' in d
+        assert 'by_file_type' in d
         assert 'top_iocs' in d
         assert 'trend_vs_prior_period' in d
         assert isinstance(d['top_iocs']['extracted_c2'], list)
@@ -502,6 +549,11 @@ class TestToJsonDict:
         assert sha256_entry['sha256'] == 'abc123'
         assert sha256_entry['score'] == 9
         assert sha256_entry['top_tag'] == 'vidar'
+
+    def test_by_file_type_in_output(self):
+        stats = _make_stats(by_file_type={'.exe': 98, '.js': 92})
+        d = _to_json_dict(stats)
+        assert d['by_file_type'] == {'.exe': 98, '.js': 92}
 
     def test_extracted_c2_as_lists(self):
         stats = _make_stats()
@@ -519,38 +571,38 @@ class TestToJsonDict:
 
 
 class TestPrintFileTypes:
-    def _render(self, arch_file: dict, frontend_base: str = '') -> str:
+    def _render(self, by_file_type: dict, frontend_base: str = '') -> str:
         buf = StringIO()
         console = Console(file=buf, highlight=False, markup=True)
-        _print_file_types(console, arch_file, frontend_base)
+        _print_file_types(console, by_file_type, frontend_base)
         return buf.getvalue()
 
     def test_renders_bar_chars(self):
-        out = self._render({'exe': 100, 'dll': 50})
+        out = self._render({'.exe': 100, '.dll': 50})
         assert _BAR_CHAR in out
-        assert 'exe' in out
-        assert 'dll' in out
+        assert '.exe' in out
+        assert '.dll' in out
 
     def test_empty_dict_no_output(self):
         assert self._render({}) == ''
 
     def test_max_count_gets_full_bar(self):
-        out = self._render({'exe': 100})
+        out = self._render({'.exe': 100})
         assert _BAR_CHAR * _BAR_WIDTH in out
 
     def test_shorter_bar_for_smaller_count(self):
-        out = self._render({'exe': 100, 'dll': 50})
+        out = self._render({'.exe': 100, '.dll': 50})
         full_bar = _BAR_CHAR * _BAR_WIDTH
         half_bar = _BAR_CHAR * (_BAR_WIDTH // 2)
         assert full_bar in out
         assert half_bar in out
 
     def test_count_appears_in_output(self):
-        out = self._render({'exe': 247})
+        out = self._render({'.exe': 247})
         assert '247' in out
 
     def test_section_header_present(self):
-        out = self._render({'exe': 10})
+        out = self._render({'.exe': 10})
         assert 'File types' in out
 
 
@@ -757,7 +809,9 @@ class TestCmdSandboxStats:
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_pretty_verified_iocs_shows_more_message(self, mock_fetch):
         iocs = [
-            VerifiedIoc(indicator=f'1.2.3.{i}', type='IpAddress', rf_score=75, most_critical_rule='C&C')
+            VerifiedIoc(
+                indicator=f'1.2.3.{i}', type='IpAddress', rf_score=75, most_critical_rule='C&C'
+            )
             for i in range(12)
         ]
         stats = _make_stats(
@@ -793,32 +847,18 @@ class TestCmdSandboxStats:
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_pretty_shows_file_types_histogram(self, mock_fetch):
-        stats = _make_stats(
-            top_tags=TopTags(
-                malware_families={'family:vidar': 5},
-                botnets={},
-                behavioral_ttp={},
-                arch_file={'exe': 200, 'dll': 100, 'pdf': 40},
-            )
-        )
+        stats = _make_stats(by_file_type={'.exe': 200, '.dll': 100, '.pdf': 40})
         mock_fetch.return_value = stats
         result = runner.invoke(app, args=['--pretty'])
         assert result.exit_code == 0
         assert 'File types' in result.output
         assert _BAR_CHAR in result.output
-        assert 'exe' in result.output
-        assert 'dll' in result.output
+        assert '.exe' in result.output
+        assert '.dll' in result.output
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
-    def test_stats_pretty_no_arch_file_no_file_types_section(self, mock_fetch):
-        stats = _make_stats(
-            top_tags=TopTags(
-                malware_families={'family:vidar': 5},
-                botnets={},
-                behavioral_ttp={},
-                arch_file={},
-            )
-        )
+    def test_stats_pretty_no_file_types_when_empty(self, mock_fetch):
+        stats = _make_stats(by_file_type={})
         mock_fetch.return_value = stats
         result = runner.invoke(app, args=['--pretty'])
         assert result.exit_code == 0

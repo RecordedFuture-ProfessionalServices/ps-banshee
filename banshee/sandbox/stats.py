@@ -21,7 +21,7 @@ from psengine.enrich import SoarMgr
 from psengine.enrich.errors import EnrichmentSoarError
 from psengine.helpers import MultiThreadingHelper
 from psengine.sandbox import SandboxMgr
-from psengine.sandbox.errors import SampleOverviewError
+from psengine.sandbox.errors import SampleOverviewError, SampleStaticReportError
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
@@ -57,6 +57,13 @@ _ARCH_FILE_TAGS = {
     'lnk',
     'dll',
     'exe',
+    'sh',
+    'ps1',
+    'msi',
+    'wsf',
+    'vhd',
+    'rar',
+    'msg',
 }
 
 _OVERVIEW_WORKERS = 50
@@ -139,6 +146,7 @@ class SandboxStats:
     limit_hit: bool = False
     soar_skipped: bool = False
     sandbox_choice: str = 'eu'
+    by_file_type: dict = field(default_factory=dict)
 
 
 def _fetch_overviews(mgr: SandboxMgr, reported: list) -> list:
@@ -159,6 +167,36 @@ def _fetch_overviews(mgr: SandboxMgr, reported: list) -> list:
             iterator=[s.id_ for s in reported],
         )
     return [(s, r) for s, r in zip(reported, raw) if r is not None]
+
+
+def _fetch_static_reports(mgr: SandboxMgr, reported: list) -> list:
+    """Fetch static reports in parallel; silently skip unavailable ones."""
+
+    def _safe(sample_id: str):
+        try:
+            return mgr.fetch_sample_static_report(sample_id)
+        except (SampleOverviewError, SampleStaticReportError):
+            return None
+
+    label = f'Fetching {len(reported)} static reports…'
+    with _spinner(label) as progress:
+        progress.add_task(label)
+        raw = MultiThreadingHelper.multithread_it(
+            _OVERVIEW_WORKERS,
+            _safe,
+            iterator=[s.id_ for s in reported],
+        )
+    return [r for r in raw if r is not None]
+
+
+def _build_file_type_map(static_reports: list) -> dict:
+    """Collect file extensions from StaticReportFile.exts across all static reports."""
+    ext_counter: Counter = Counter()
+    for sr in static_reports:
+        for f in sr.files:
+            for ext in f.exts:
+                ext_counter[ext.lower()] += 1
+    return dict(ext_counter.most_common())
 
 
 def _build_score_and_platform(reports: list) -> tuple:
@@ -209,9 +247,13 @@ def _extract_raw_iocs(malicious: list) -> tuple:
         sha256 = report.sample.sha256
         if sha256 and sha256 not in sha256_map:
             top_tag = next(
-                (t[len('family:'):] for t in report.analysis.tags if t.startswith('family:')), ''
+                (t[len('family:') :] for t in report.analysis.tags if t.startswith('family:')), ''
             )
-            sha256_map[sha256] = {'sha256': sha256, 'score': report.analysis.score, 'top_tag': top_tag}
+            sha256_map[sha256] = {
+                'sha256': sha256,
+                'score': report.analysis.score,
+                'top_tag': top_tag,
+            }
         for target in report.targets:
             if target.iocs:
                 ip_counter.update(target.iocs.ips)
@@ -342,8 +384,10 @@ def fetch_sandbox_stats(
         )
 
     reports = _fetch_overviews(mgr, reported_current)
+    static_reports = _fetch_static_reports(mgr, reported_current)
     by_score, by_platform = _build_score_and_platform(reports)
     top_tags = _build_tag_taxonomy(reports)
+    by_file_type = _build_file_type_map(static_reports)
 
     malicious = [(s, r) for s, r in reports if _score_bucket(r.analysis.score) == 'malicious']
     ip_ctr, dom_ctr, sha256_entries, extracted_c2 = _extract_raw_iocs(malicious)
@@ -372,4 +416,5 @@ def fetch_sandbox_stats(
         limit_hit=limit_hit,
         soar_skipped=soar_skipped,
         sandbox_choice=config.sandbox_choice,
+        by_file_type=by_file_type,
     )

@@ -1,8 +1,8 @@
-##################################### TERMS OF USE ###########################################
+#################################### TERMS OF USE ###########################################
 # The following code is provided for demonstration purpose only, and should not be used      #
 # without independent verification. Recorded Future makes no representations or warranties,  #
 # express, implied, statutory, or otherwise, regarding any aspect of this code or of the     #
-# information it may retrieve, and provides it both strictly "as-is" and without assuming    #
+# information it may retrieve, and provides it both strictly “as-is” and without assuming    #
 # responsibility for any information it may retrieve. Recorded Future shall not be liable    #
 # for, and you assume all risk of using, the foregoing. By using this code, Customer         #
 # represents that it is solely responsible for having all necessary licenses, permissions,   #
@@ -141,22 +141,23 @@ _PANEL_TOP_N = 8
 _BOTNET_TRUNCATE = 14
 
 
-def _print_file_types(console: Console, arch_file: dict, frontend_base: str) -> None:
-    if not arch_file:
+def _print_file_types(console: Console, by_file_type: dict, frontend_base: str) -> None:
+    if not by_file_type:
         return
     console.print(Rule('[bold]File types[/bold]', style='dim'))
-    max_count = max(arch_file.values())
+    max_count = max(by_file_type.values())
     tbl = Table(show_header=False, box=None, padding=(0, 1, 0, 1))
     tbl.add_column('Type', style='dim', justify='right', width=10, no_wrap=True)
     tbl.add_column('Count', style='bold', justify='right', width=6)
     tbl.add_column('Bar', no_wrap=True)
-    for tag, count in arch_file.items():
+    for ext, count in by_file_type.items():
         bar_len = max(1, int(count / max_count * _BAR_WIDTH))
         bar = f'[steel_blue1]{_BAR_CHAR * bar_len}[/steel_blue1]'
-        label = tag
-        if frontend_base:
+        tag = ext.lstrip('.')
+        label = ext
+        if frontend_base and tag:
             url = _search_url(frontend_base, f'tag:{tag}')
-            label = f'[link={url}]{tag}[/link]'
+            label = f'[link={url}]{ext}[/link]'
         tbl.add_row(label, str(count), bar)
     console.print(tbl)
     console.print()
@@ -183,7 +184,7 @@ def _make_threat_col(
     tbl.add_column('Name', style='cyan')
     tbl.add_column('Count', style='bold dim', justify='right', width=5, no_wrap=True)
     for tag, count in items:
-        name = tag[len(strip_prefix):] if strip_prefix else tag
+        name = tag[len(strip_prefix) :] if strip_prefix else tag
         if truncate_at and len(name) > truncate_at:
             name = name[:truncate_at] + '…'
         if frontend_base:
@@ -203,23 +204,36 @@ def _print_threat_intel(console: Console, tags, frontend_base: str) -> None:
     console.print(Rule('[bold]Threat intel[/bold]', style='dim'))
     cols = []
     if tags.malware_families:
-        cols.append(_make_threat_col(
-            'Malware families', tags.malware_families,
-            strip_prefix='family:', frontend_base=frontend_base,
-        ))
+        cols.append(
+            _make_threat_col(
+                'Malware families',
+                tags.malware_families,
+                strip_prefix='family:',
+                frontend_base=frontend_base,
+            )
+        )
     if tags.behavioral_ttp:
-        cols.append(_make_threat_col(
-            'Behavioral / TTP', tags.behavioral_ttp,
-            query_prefix='tag:', frontend_base=frontend_base,
-        ))
+        cols.append(
+            _make_threat_col(
+                'Behavioral / TTP',
+                tags.behavioral_ttp,
+                query_prefix='tag:',
+                frontend_base=frontend_base,
+            )
+        )
     if tags.botnets:
         unique = len(tags.botnets)
         title = f'Botnets  [dim]({unique} unique)[/dim]' if unique > 5 else 'Botnets'
-        cols.append(_make_threat_col(
-            title, tags.botnets,
-            strip_prefix='botnet:', frontend_base=frontend_base,
-            top_n=5, truncate_at=_BOTNET_TRUNCATE,
-        ))
+        cols.append(
+            _make_threat_col(
+                title,
+                tags.botnets,
+                strip_prefix='botnet:',
+                frontend_base=frontend_base,
+                top_n=5,
+                truncate_at=_BOTNET_TRUNCATE,
+            )
+        )
     if cols:
         console.print(Columns(cols, equal=True, expand=True))
         console.print()
@@ -338,6 +352,7 @@ def _to_json_dict(stats: SandboxStats) -> dict:
             ],
             'malicious_sha256': stats.top_iocs.malicious_sha256,
         },
+        'by_file_type': stats.by_file_type,
         'trend_vs_prior_period': stats.trend_vs_prior_period,
         'limit_hit': stats.limit_hit,
         'soar_skipped': stats.soar_skipped,
@@ -363,7 +378,7 @@ def print_sandbox_stats(stats: SandboxStats, pretty: bool = False) -> None:
         console.print()
         _print_summary(console, stats)
         _print_platform(console, stats.by_platform)
-        _print_file_types(console, stats.top_tags.arch_file, frontend_base)
+        _print_file_types(console, stats.by_file_type, frontend_base)
         _print_threat_intel(console, stats.top_tags, frontend_base)
         _print_iocs(console, stats.top_iocs, stats.soar_skipped, frontend_base)
 
