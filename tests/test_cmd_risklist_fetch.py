@@ -16,7 +16,12 @@ COMMAND = 'fetch'
 def _fake_risklist_fetch(*_args, validate=None, **_kwargs):
     if validate is not None:
         entry = MagicMock()
-        entry.json.return_value = {'Name': '1.2.3.4', 'Risk': 75, 'RiskString': '3/8', 'EvidenceDetails': []}
+        entry.json.return_value = {
+            'Name': '1.2.3.4',
+            'Risk': 75,
+            'RiskString': '3/8',
+            'EvidenceDetails': [],
+        }
         return iter([entry])
     return iter([['1.2.3.4', '75', '3/8', '[]']])
 
@@ -26,6 +31,7 @@ def _fake_fusion_file():
     f.exists = True
     f.content = b'fake file content for testing'
     return f
+
 
 DATA = [
     (
@@ -64,7 +70,9 @@ DATA = [
 @patch('banshee.risklist.risklist_fetch.FusionMgr')
 @patch('banshee.risklist.risklist_fetch.RisklistMgr')
 @pytest.mark.parametrize(('command', 'filename', 'expected_output'), DATA, ids=[d[1] for d in DATA])
-def test_risklist_fetch(mock_risklist_cls, mock_fusion_cls, tmp_path, command, filename, expected_output):
+def test_risklist_fetch(
+    mock_risklist_cls, mock_fusion_cls, tmp_path, command, filename, expected_output
+):
     mock_risklist_cls.return_value.fetch_risklist.side_effect = _fake_risklist_fetch
     mock_fusion_cls.return_value.get_files.return_value = [_fake_fusion_file()]
     result = runner.invoke(app, args=[COMMAND] + command.format(tmp_path).split())

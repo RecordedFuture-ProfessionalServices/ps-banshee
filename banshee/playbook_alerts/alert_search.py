@@ -22,6 +22,7 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 from ..formatters.output_formatters import format_line, format_time
 from .constants import RFPAPriority, RFPAStatus
 
+
 def search_alerts(
     created: str,
     updated: str,
