@@ -147,6 +147,7 @@ class SandboxStats:
     soar_skipped: bool = False
     sandbox_choice: str = 'eu'
     by_file_type: dict = field(default_factory=dict)
+    daily_by_family: dict = field(default_factory=dict)
 
 
 def _fetch_overviews(mgr: SandboxMgr, reported: list) -> list:
@@ -313,6 +314,20 @@ def _soar_enrich(ip_counter: Counter, domain_counter: Counter) -> tuple:
     return verified, False
 
 
+def _build_daily_by_family(reports: list) -> dict:
+    """Count daily submissions per malware family from overview reports."""
+    from collections import defaultdict
+
+    daily: dict = defaultdict(lambda: defaultdict(int))
+    for sample, report in reports:
+        date_str = sample.submitted.strftime('%Y-%m-%d')
+        for tag in report.analysis.tags:
+            if tag.startswith('family:'):
+                family = tag[len('family:') :]
+                daily[family][date_str] += 1
+    return {f: dict(d) for f, d in daily.items()}
+
+
 def fetch_sandbox_stats(
     days: int = 7,
     subset: str = 'org',
@@ -388,6 +403,7 @@ def fetch_sandbox_stats(
     by_score, by_platform = _build_score_and_platform(reports)
     top_tags = _build_tag_taxonomy(reports)
     by_file_type = _build_file_type_map(static_reports)
+    daily_by_family = _build_daily_by_family(reports)
 
     malicious = [(s, r) for s, r in reports if _score_bucket(r.analysis.score) == 'malicious']
     ip_ctr, dom_ctr, sha256_entries, extracted_c2 = _extract_raw_iocs(malicious)
@@ -417,4 +433,5 @@ def fetch_sandbox_stats(
         soar_skipped=soar_skipped,
         sandbox_choice=config.sandbox_choice,
         by_file_type=by_file_type,
+        daily_by_family=daily_by_family,
     )

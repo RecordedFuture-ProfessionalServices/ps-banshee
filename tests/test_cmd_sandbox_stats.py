@@ -12,18 +12,21 @@ from banshee.commands.cmd_sandbox import app
 from banshee.sandbox.output import (
     _BAR_CHAR,
     _BAR_WIDTH,
+    _SPARK_CHARS,
     _fmt_tags,
     _print_file_types,
     _print_hashes,
+    _print_submission_chart,
     _search_url,
+    _sparkline,
     _to_json_dict,
-    _trend_str,
 )
 from banshee.sandbox.stats import (
     SandboxStats,
     TopIocs,
     TopTags,
     VerifiedIoc,
+    _build_daily_by_family,
     _build_file_type_map,
     _build_score_and_platform,
     _build_tag_taxonomy,
@@ -466,21 +469,119 @@ class TestFetchSandboxStats:
 # ---------------------------------------------------------------------------
 
 
-class TestTrendStr:
-    def test_no_prior_data(self):
-        assert 'no prior data' in _trend_str(10, 0)
+class TestBuildDailyByFamily:
+    def test_extracts_family_by_date(self):
+        sample = MagicMock()
+        sample.submitted = datetime(2026, 7, 1, tzinfo=timezone.utc)
+        report = _make_report(tags=['family:vidar', 'pe'])
+        result = _build_daily_by_family([(sample, report)])
+        assert result == {'vidar': {'2026-07-01': 1}}
 
-    def test_increase(self):
-        result = _trend_str(110, 100)
-        assert '110' in result
-        assert '▲' in result
-        assert '+10%' in result
+    def test_multiple_families_same_day(self):
+        sample = MagicMock()
+        sample.submitted = datetime(2026, 7, 1, tzinfo=timezone.utc)
+        report = _make_report(tags=['family:vidar', 'family:mirai'])
+        result = _build_daily_by_family([(sample, report)])
+        assert result['vidar']['2026-07-01'] == 1
+        assert result['mirai']['2026-07-01'] == 1
 
-    def test_decrease(self):
-        result = _trend_str(90, 100)
-        assert '90' in result
-        assert '▼' in result
-        assert '-10%' in result
+    def test_same_family_different_days(self):
+        s1, s2 = MagicMock(), MagicMock()
+        s1.submitted = datetime(2026, 7, 1, tzinfo=timezone.utc)
+        s2.submitted = datetime(2026, 7, 2, tzinfo=timezone.utc)
+        r = _make_report(tags=['family:vidar'])
+        result = _build_daily_by_family([(s1, r), (s2, r)])
+        assert result['vidar']['2026-07-01'] == 1
+        assert result['vidar']['2026-07-02'] == 1
+
+    def test_same_family_same_day_accumulates(self):
+        s1, s2 = MagicMock(), MagicMock()
+        s1.submitted = datetime(2026, 7, 1, tzinfo=timezone.utc)
+        s2.submitted = datetime(2026, 7, 1, tzinfo=timezone.utc)
+        r = _make_report(tags=['family:vidar'])
+        result = _build_daily_by_family([(s1, r), (s2, r)])
+        assert result['vidar']['2026-07-01'] == 2
+
+    def test_no_family_tags_returns_empty(self):
+        sample = MagicMock()
+        sample.submitted = datetime(2026, 7, 1, tzinfo=timezone.utc)
+        report = _make_report(tags=['pe', 'discovery'])
+        result = _build_daily_by_family([(sample, report)])
+        assert result == {}
+
+    def test_empty_reports_returns_empty(self):
+        assert _build_daily_by_family([]) == {}
+
+
+class TestSparkline:
+    def test_all_zero_returns_min_chars(self):
+        result = _sparkline([0, 0, 0], global_max=0)
+        assert result == _SPARK_CHARS[0] * 3
+
+    def test_global_max_zero_returns_min_chars(self):
+        result = _sparkline([0, 5, 10], global_max=0)
+        assert result == _SPARK_CHARS[0] * 3
+
+    def test_max_value_returns_full_block(self):
+        result = _sparkline([100], global_max=100)
+        assert result == _SPARK_CHARS[7]
+
+    def test_zero_entry_returns_min_char(self):
+        result = _sparkline([0, 100], global_max=100)
+        assert result[0] == _SPARK_CHARS[0]
+        assert result[1] == _SPARK_CHARS[7]
+
+    def test_proportional_scaling(self):
+        result = _sparkline([0, 50, 100], global_max=100)
+        assert len(result) == 3
+        assert result[0] < result[1] < result[2]
+
+    def test_length_matches_input(self):
+        counts = [1, 2, 3, 4, 5]
+        result = _sparkline(counts, global_max=5)
+        assert len(result) == 5
+
+
+class TestPrintSubmissionChart:
+    def _render(self, daily_by_family: dict, period_days: int = 7) -> str:
+        buf = StringIO()
+        console = Console(file=buf, highlight=False, markup=True, width=100)
+        period_start = _NOW - timedelta(days=period_days)
+        _print_submission_chart(console, daily_by_family, period_start, _NOW, period_days)
+        return buf.getvalue()
+
+    def test_empty_dict_produces_no_output(self):
+        assert self._render({}) == ''
+
+    def test_renders_section_header(self):
+        daily = {'vidar': {'2026-07-09': 5, '2026-07-10': 10}}
+        out = self._render(daily)
+        assert 'trends' in out.lower()
+
+    def test_family_name_appears_in_output(self):
+        daily = {'vidar': {'2026-07-09': 5}}
+        out = self._render(daily)
+        assert 'vidar' in out
+
+    def test_peak_count_appears_in_output(self):
+        daily = {'vidar': {'2026-07-09': 42}}
+        out = self._render(daily)
+        assert '42' in out
+
+    def test_date_labels_appear_in_output(self):
+        daily = {'vidar': {'2026-07-09': 5}}
+        out = self._render(daily, period_days=30)
+        assert 'Jun' in out or 'Jul' in out
+
+    def test_caps_at_eight_families(self):
+        daily = {f'family{i}': {'2026-07-09': i + 1} for i in range(10)}
+        out = self._render(daily)
+        assert out != ''
+
+    def test_all_zero_counts_renders_without_error(self):
+        daily = {'vidar': {'2026-07-09': 0, '2026-07-10': 0}}
+        out = self._render(daily)
+        assert out != ''
 
 
 class TestSearchUrl:
@@ -541,6 +642,7 @@ class TestToJsonDict:
         assert 'period_start' in d
         assert 'by_score' in d
         assert 'by_file_type' in d
+        assert 'daily_by_family' in d
         assert 'top_iocs' in d
         assert 'trend_vs_prior_period' in d
         assert isinstance(d['top_iocs']['extracted_c2'], list)
@@ -863,3 +965,27 @@ class TestCmdSandboxStats:
         result = runner.invoke(app, args=['--pretty'])
         assert result.exit_code == 0
         assert 'File types' not in result.output
+
+    @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
+    def test_stats_pretty_shows_submission_chart_when_data_present(self, mock_fetch):
+        stats = _make_stats(daily_by_family={'vidar': {'2026-07-09': 5, '2026-07-10': 10}})
+        mock_fetch.return_value = stats
+        result = runner.invoke(app, args=['--pretty'])
+        assert result.exit_code == 0
+        assert 'trends' in result.output.lower()
+
+    @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
+    def test_stats_pretty_no_chart_when_no_family_data(self, mock_fetch):
+        stats = _make_stats(daily_by_family={})
+        mock_fetch.return_value = stats
+        result = runner.invoke(app, args=['--pretty'])
+        assert result.exit_code == 0
+        assert 'trends' not in result.output.lower()
+
+    @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
+    def test_stats_json_includes_daily_by_family(self, mock_fetch):
+        mock_fetch.return_value = _make_stats(daily_by_family={'vidar': {'2026-07-09': 5}})
+        result = runner.invoke(app, args=[])
+        assert result.exit_code == 0
+        data = json.loads(result.output)
+        assert data['daily_by_family'] == {'vidar': {'2026-07-09': 5}}

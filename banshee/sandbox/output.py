@@ -12,6 +12,7 @@
 ##############################################################################################
 
 import json
+from datetime import timedelta
 from urllib.parse import quote_plus
 
 from rich import print_json
@@ -51,17 +52,6 @@ def _search_url(frontend_base: str, query: str) -> str:
     return f'{frontend_base}/s?q={quote_plus(query)}'
 
 
-def _trend_str(curr: int, prev: int) -> str:
-    if prev == 0:
-        return f'{curr:,}  (no prior data)'
-    delta = curr - prev
-    pct = (delta / prev) * 100
-    sign = '+' if delta >= 0 else ''
-    arrow = '▲' if delta >= 0 else '▼'
-    color = 'green' if delta >= 0 else 'red'
-    return f'{curr:,}  vs {prev:,} prev  [{color}]{arrow} {sign}{pct:.0f}%[/{color}]'
-
-
 def _fmt_tags(
     tag_dict: dict,
     strip_prefix: str = '',
@@ -92,15 +82,88 @@ def _ioc_field(ioc, attr: str) -> str:
     return getattr(ioc, attr) if isinstance(ioc, VerifiedIoc) else ioc[attr]
 
 
+_CHART_FAMILIES = 8
+_SPARK_CHARS = '▁▂▃▄▅▆▇█'
+_FAMILY_COLORS = [
+    'steel_blue1',
+    'green3',
+    'magenta',
+    'yellow',
+    'cyan',
+    'orange1',
+    'bright_red',
+    'medium_purple',
+]
+
+
+def _sparkline(counts: list, global_max: int) -> str:
+    if global_max == 0:
+        return _SPARK_CHARS[0] * len(counts)
+    result = []
+    for c in counts:
+        if c == 0:
+            result.append(_SPARK_CHARS[0])
+        else:
+            level = max(1, min(7, round(c / global_max * 7)))
+            result.append(_SPARK_CHARS[level])
+    return ''.join(result)
+
+
+def _print_submission_chart(
+    console: Console,
+    daily_by_family: dict,
+    period_start,
+    period_end,
+    period_days: int,
+) -> None:
+    if not daily_by_family:
+        return
+
+    all_dates = []
+    d = period_start.date()
+    end = period_end.date()
+    while d <= end:
+        all_dates.append(d.strftime('%Y-%m-%d'))
+        d += timedelta(days=1)
+
+    totals = {f: sum(v.values()) for f, v in daily_by_family.items()}
+    top_families = sorted(totals, key=lambda k: totals[k], reverse=True)[:_CHART_FAMILIES]
+
+    all_nonzero = [c for f in top_families for c in daily_by_family[f].values() if c > 0]
+    global_max = max(all_nonzero) if all_nonzero else 0
+
+    tbl = Table(show_header=False, box=None, padding=(0, 1, 0, 1))
+    tbl.add_column('Family', style='dim', justify='right', width=16, no_wrap=True)
+    tbl.add_column('Spark', no_wrap=True)
+    tbl.add_column('Peak', style='bold dim', justify='right', width=5)
+
+    for i, family in enumerate(top_families):
+        color = _FAMILY_COLORS[i % len(_FAMILY_COLORS)]
+        daily = daily_by_family[family]
+        counts = [daily.get(date_str, 0) for date_str in all_dates]
+        peak = max(counts) if counts else 0
+        spark = _sparkline(counts, global_max)
+        tbl.add_row(family, f'[{color}]{spark}[/{color}]', str(peak))
+
+    # Date axis: only add when sparkline is wide enough for both labels without overlap
+    n = len(all_dates)
+    start_lbl = period_start.strftime('%-d %b')
+    end_lbl = period_end.strftime('%-d %b')
+    if n >= len(start_lbl) + len(end_lbl) + 2:
+        gap = n - len(start_lbl) - len(end_lbl)
+        tbl.add_row('', f'[dim]{start_lbl}{" " * gap}{end_lbl}[/dim]', '')
+
+    console.print(Rule(f'[bold]Malware trends · last {period_days}d[/bold]', style='dim'))
+    console.print(tbl)
+    console.print()
+
+
 def _print_summary(console: Console, stats: SandboxStats) -> None:
     trend = stats.trend_vs_prior_period
+    total = trend['total']['current']
+    reported = trend['reported']['current']
     console.print(
-        f'  [bold]Submissions[/bold]'
-        f'  {_trend_str(trend["total"]["current"], trend["total"]["prev"])}'
-    )
-    console.print(
-        f'  [bold]Reported   [/bold]'
-        f'  {_trend_str(trend["reported"]["current"], trend["reported"]["prev"])}'
+        f'  [bold]{total:,}[/bold] submissions  [dim]·[/dim]  [bold]{reported:,}[/bold] reported'
     )
     console.print()
 
@@ -353,6 +416,7 @@ def _to_json_dict(stats: SandboxStats) -> dict:
             'malicious_sha256': stats.top_iocs.malicious_sha256,
         },
         'by_file_type': stats.by_file_type,
+        'daily_by_family': stats.daily_by_family,
         'trend_vs_prior_period': stats.trend_vs_prior_period,
         'limit_hit': stats.limit_hit,
         'soar_skipped': stats.soar_skipped,
@@ -376,6 +440,13 @@ def print_sandbox_stats(stats: SandboxStats, pretty: bool = False) -> None:
             )
         )
         console.print()
+        _print_submission_chart(
+            console,
+            stats.daily_by_family,
+            stats.period_start,
+            stats.period_end,
+            stats.period_days,
+        )
         _print_summary(console, stats)
         _print_platform(console, stats.by_platform)
         _print_file_types(console, stats.by_file_type, frontend_base)
