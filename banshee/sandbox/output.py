@@ -268,7 +268,7 @@ def _to_json_dict(stats: SandboxStats) -> dict:
     }
 
 
-def print_sandbox_stats(stats: SandboxStats, pretty: bool = False, show_hashes: bool = False) -> None:
+def print_sandbox_stats(stats: SandboxStats, pretty: bool = False) -> None:
     if pretty:
         console = Console()
         frontend_base = _SANDBOX_FRONTEND_URLS.get(
@@ -290,7 +290,7 @@ def print_sandbox_stats(stats: SandboxStats, pretty: bool = False, show_hashes: 
         _print_threat_intel(console, stats.top_tags, frontend_base)
         _print_iocs(console, stats.top_iocs, stats.soar_skipped, frontend_base)
 
-        if show_hashes and stats.top_iocs.malicious_sha256:
+        if stats.top_iocs.malicious_sha256:
             _print_hashes(console, stats.top_iocs.malicious_sha256, frontend_base)
 
         footer_parts = []

@@ -47,7 +47,7 @@ _EPILOG_STATS = """
 banshee sandbox stats
 banshee sandbox stats --days 14 --subset owned --pretty
 banshee sandbox stats --days 30 --limit 500
-banshee sandbox stats --pretty --hashes
+banshee sandbox stats --pretty
 ```
 """
 
@@ -78,10 +78,6 @@ def stats(
         ),
     ] = None,
     pretty: OPT_PRETTY_PRINT = False,
-    hashes: Annotated[
-        bool,
-        Option('--hashes', '-H', help='Show top 20 malicious SHA256s (pretty mode only)'),
-    ] = False,
 ):
     result = fetch_sandbox_stats(days=days, subset=subset, limit=limit or 0)
-    print_sandbox_stats(result, pretty=pretty, show_hashes=hashes)
+    print_sandbox_stats(result, pretty=pretty)

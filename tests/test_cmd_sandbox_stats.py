@@ -591,7 +591,7 @@ class TestCmdSandboxStats:
         assert 'Verified network IOCs' in result.output
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
-    def test_stats_pretty_hashes_flag_shows_sha256s(self, mock_fetch):
+    def test_stats_pretty_always_shows_sha256s(self, mock_fetch):
         stats = _make_stats(
             sandbox_choice='eu',
             top_iocs=TopIocs(
@@ -601,27 +601,27 @@ class TestCmdSandboxStats:
             ),
         )
         mock_fetch.return_value = stats
-        result = runner.invoke(app, args=['--pretty', '--hashes'])
+        result = runner.invoke(app, args=['--pretty'])
         assert result.exit_code == 0
         assert 'SHA256' in result.output
         assert 'abc' * 21 in result.output
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
-    def test_stats_pretty_hashes_flag_truncates_at_20(self, mock_fetch):
+    def test_stats_pretty_truncates_hashes_at_20(self, mock_fetch):
         hashes = [f'{"a" * 63}{i:x}' for i in range(25)]
         stats = _make_stats(
             sandbox_choice='eu',
             top_iocs=TopIocs(extracted_c2=[], verified_network=[], malicious_sha256=hashes),
         )
         mock_fetch.return_value = stats
-        result = runner.invoke(app, args=['--pretty', '--hashes'])
+        result = runner.invoke(app, args=['--pretty'])
         assert result.exit_code == 0
         assert '5 more' in result.output
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
-    def test_stats_hashes_flag_ignored_without_pretty(self, mock_fetch):
+    def test_stats_json_always_includes_sha256s(self, mock_fetch):
         mock_fetch.return_value = _make_stats()
-        result = runner.invoke(app, args=['--hashes'])
+        result = runner.invoke(app, args=[])
         assert result.exit_code == 0
         data = json.loads(result.output)
         assert 'malicious_sha256' in data['top_iocs']
