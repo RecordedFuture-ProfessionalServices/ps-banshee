@@ -12,6 +12,7 @@ from banshee.commands.cmd_sandbox import app
 from banshee.sandbox.output import (
     _BAR_CHAR,
     _BAR_WIDTH_HALF,
+    _SCORE_SHORT_LABELS,
     _SPARK_CHARS,
     _SPARK_MAX_BUCKETS,
     _bucket_counts,
@@ -22,6 +23,8 @@ from banshee.sandbox.output import (
     _search_url,
     _sparkline,
     _to_json_dict,
+    _trend_pct,
+    _trend_str,
 )
 from banshee.sandbox.stats import (
     SandboxStats,
@@ -637,6 +640,54 @@ class TestPrintChartAndSummary:
         out = self._render({})
         assert 'by status' not in out
 
+    def test_summary_shows_up_trend_arrow(self):
+        out = self._render(
+            {},
+            trend_vs_prior_period={
+                'total': {'current': 10, 'prev': 8},
+                'reported': {'current': 8, 'prev': 6},
+            },
+        )
+        assert '↑' in out
+
+    def test_summary_shows_down_trend_arrow(self):
+        out = self._render(
+            {},
+            trend_vs_prior_period={
+                'total': {'current': 7, 'prev': 10},
+                'reported': {'current': 5, 'prev': 8},
+            },
+        )
+        assert '↓' in out
+
+    def test_summary_no_arrow_when_prev_zero(self):
+        out = self._render(
+            {},
+            trend_vs_prior_period={
+                'total': {'current': 5, 'prev': 0},
+                'reported': {'current': 4, 'prev': 0},
+            },
+        )
+        assert '↑' not in out
+        assert '↓' not in out
+
+    def test_score_renders_one_row_per_bucket(self):
+        out = self._render({}, by_score={'malicious': 10, 'clean': 5})
+        assert _SCORE_SHORT_LABELS['malicious'] in out
+        assert _SCORE_SHORT_LABELS['clean'] in out
+
+    def test_score_bar_chars_present(self):
+        out = self._render({}, by_score={'malicious': 10})
+        assert _BAR_CHAR in out
+
+    def test_zero_score_bucket_omitted(self):
+        out = self._render({}, by_score={'malicious': 10, 'suspicious': 0})
+        assert _SCORE_SHORT_LABELS['suspicious'] not in out
+
+    def test_score_section_absent_when_no_data(self):
+        out = self._render({}, by_score={})
+        assert 'by score' not in out
+
     def test_divider_appears_when_chart_present(self):
         daily = {'vidar': {'2026-07-09': 5}}
         out = self._render(daily)
@@ -694,6 +745,51 @@ class TestFmtTags:
         assert 'vidar (5)' in result
 
 
+class TestTrendStr:
+    def test_up_returns_red_arrow_and_pct(self):
+        result = _trend_str(110, 100)
+        assert '↑' in result
+        assert '10%' in result
+        assert 'red' in result
+
+    def test_down_returns_green_arrow_and_pct(self):
+        result = _trend_str(90, 100)
+        assert '↓' in result
+        assert '10%' in result
+        assert 'green' in result
+
+    def test_equal_returns_dash(self):
+        result = _trend_str(100, 100)
+        assert '—' in result
+
+    def test_prev_zero_returns_empty(self):
+        assert _trend_str(5, 0) == ''
+
+    def test_both_zero_returns_empty(self):
+        assert _trend_str(0, 0) == ''
+
+    def test_pct_rounds(self):
+        result = _trend_str(103, 100)
+        assert '3%' in result
+
+
+class TestTrendPct:
+    def test_increase(self):
+        assert _trend_pct(110, 100) == 10
+
+    def test_decrease(self):
+        assert _trend_pct(90, 100) == -10
+
+    def test_no_change(self):
+        assert _trend_pct(100, 100) == 0
+
+    def test_prev_zero_returns_none(self):
+        assert _trend_pct(5, 0) is None
+
+    def test_rounds_result(self):
+        assert _trend_pct(103, 100) == 3
+
+
 class TestToJsonDict:
     def test_structure(self):
         stats = _make_stats()
@@ -715,6 +811,27 @@ class TestToJsonDict:
         stats = _make_stats()
         d = _to_json_dict(stats)
         assert 'by_status' not in d
+
+    def test_trend_pct_change_in_json(self):
+        stats = _make_stats(
+            trend_vs_prior_period={
+                'total': {'current': 10, 'prev': 8},
+                'reported': {'current': 8, 'prev': 6},
+            }
+        )
+        d = _to_json_dict(stats)
+        assert d['trend_vs_prior_period']['total']['pct_change'] == 25
+        assert d['trend_vs_prior_period']['reported']['pct_change'] == 33
+
+    def test_trend_pct_change_none_when_prev_zero(self):
+        stats = _make_stats(
+            trend_vs_prior_period={
+                'total': {'current': 5, 'prev': 0},
+                'reported': {'current': 4, 'prev': 0},
+            }
+        )
+        d = _to_json_dict(stats)
+        assert d['trend_vs_prior_period']['total']['pct_change'] is None
 
     def test_by_file_type_in_output(self):
         stats = _make_stats(by_file_type={'.exe': 98, '.js': 92})

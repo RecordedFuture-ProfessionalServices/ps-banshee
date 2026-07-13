@@ -25,8 +25,8 @@ from .stats import SandboxStats, VerifiedIoc
 
 _SCORE_COLORS = {
     'malicious': 'red',
-    'suspicious': 'yellow',
-    'potentially_suspicious': 'dark_orange',
+    'suspicious': 'dark_orange',
+    'potentially_suspicious': 'yellow',
     'clean': 'green',
     'unknown': 'grey50',
 }
@@ -123,14 +123,37 @@ def _sparkline(counts: list, global_max: int) -> str:
     return ''.join(result)
 
 
+def _trend_str(current: int, prev: int) -> str:
+    """Return a Rich-markup trend indicator, or '' when prior period is unknown."""
+    if prev == 0:
+        return ''
+    if current == prev:
+        return '[dim]—[/dim]'
+    pct = round(abs(current - prev) / prev * 100)
+    if current > prev:
+        return f'[red]↑ {pct}%[/red]'
+    return f'[green]↓ {pct}%[/green]'
+
+
+def _trend_pct(current: int, prev: int):
+    """Return signed percentage change, or None when prior period is zero."""
+    if prev == 0:
+        return None
+    return round((current - prev) / prev * 100)
+
+
 def _summary_lines(stats: SandboxStats) -> list:
     trend = stats.trend_vs_prior_period
     total = trend['total']['current']
     analyzed = trend['reported']['current']
+    submissions_trend = _trend_str(total, trend['total']['prev'])
+    submissions_cell = f'[bold]{total:,}[/bold] submissions'
+    if submissions_trend:
+        submissions_cell += f' {submissions_trend}'
     kind_str = '  '.join(f'{k}: {v}' for k, v in stats.by_kind.items())
     lines = [
         (
-            f'[bold]{total:,}[/bold] submissions  [dim]·[/dim]'
+            f'{submissions_cell}  [dim]·[/dim]'
             f'  [bold]{analyzed:,}[/bold] analyzed  [dim]·[/dim]'
             f'  [bold]{stats.pending:,}[/bold] pending'
         ),
@@ -138,15 +161,25 @@ def _summary_lines(stats: SandboxStats) -> list:
         f'[dim]by kind  [/dim]  {kind_str}',
     ]
     if stats.by_score:
-        parts = []
-        for bucket in ('malicious', 'suspicious', 'potentially_suspicious', 'clean', 'unknown'):
-            count = stats.by_score.get(bucket, 0)
-            if count:
+        buckets = [
+            (b, stats.by_score[b])
+            for b in ('malicious', 'suspicious', 'potentially_suspicious', 'clean', 'unknown')
+            if stats.by_score.get(b, 0)
+        ]
+        if buckets:
+            max_count = max(c for _, c in buckets)
+            count_w = max(len(str(c)) for _, c in buckets)
+            label_w = max(len(_SCORE_SHORT_LABELS[b]) for b, _ in buckets)
+            lines.append('')
+            for i, (bucket, count) in enumerate(buckets):
                 color = _SCORE_COLORS[bucket]
-                label = _SCORE_LABELS[bucket]
-                parts.append(f'[{color}]{label}: {count}[/{color}]')
-        if parts:
-            lines += ['', '[dim]by score[/dim]  ' + '   '.join(parts)]
+                label = _SCORE_SHORT_LABELS[bucket].ljust(label_w)
+                bar_len = max(1, round(count / max_count * _SCORE_BAR_WIDTH))
+                bar = _BAR_CHAR * bar_len
+                prefix = '[dim]by score[/dim]  ' if i == 0 else '          '
+                lines.append(
+                    f'{prefix}[{color}]{label}[/{color}]  {count:>{count_w}}  [{color}]{bar}[/{color}]'
+                )
     return lines
 
 
@@ -229,6 +262,14 @@ _BAR_WIDTH_HALF = 16
 _BAR_CHAR = '█'
 _PANEL_TOP_N = 8
 _BOTNET_TRUNCATE = 14
+_SCORE_BAR_WIDTH = 12
+_SCORE_SHORT_LABELS = {
+    'malicious': 'malicious (8–10)',
+    'suspicious': 'suspicious (5–7)',
+    'potentially_suspicious': 'pot.susp. (3–4)',
+    'clean': 'clean (1–2)',
+    'unknown': 'unknown',
+}
 
 
 def _platform_table(by_platform: dict) -> Table:
@@ -482,7 +523,10 @@ def _to_json_dict(stats: SandboxStats) -> dict:
         },
         'by_file_type': stats.by_file_type,
         'daily_by_family': stats.daily_by_family,
-        'trend_vs_prior_period': stats.trend_vs_prior_period,
+        'trend_vs_prior_period': {
+            k: {**v, 'pct_change': _trend_pct(v['current'], v['prev'])}
+            for k, v in stats.trend_vs_prior_period.items()
+        },
         'limit_hit': stats.limit_hit,
         'soar_skipped': stats.soar_skipped,
     }
