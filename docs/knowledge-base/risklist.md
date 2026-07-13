@@ -60,10 +60,12 @@ Show metadata for a risk list — whether it exists in Fusion and its current et
 | `--list-name TEXT` | `-l` | List name |
 | `--custom-list-path TEXT` | `-c` | Path to local risk list file |
 | `--pretty` | `-p` | Pretty print |
+| `--count` | `-C` | Show IOC counts and risk score distribution across the risk list |
 
 ```bash
 banshee risklist stat -e ip -l recentValidatedCnc
 banshee risklist stat -e domain -l domain_risklist
+banshee risklist stat -e ip -l default --count
 ```
 
 **Response shape:** Returns a single JSON object:
@@ -73,5 +75,6 @@ banshee risklist stat -e domain -l domain_risklist
 | `.name` | Risk list name as stored in Fusion (e.g. `"recentValidatedCnc_ip_risklist"`) |
 | `.exists` | `true`/`false` — whether the list exists in RF Fusion |
 | `.etag` | Etag hash string for cache validation |
+| `.counts` | *(only with `--count`)* Object mapping each risk score to its IOC count, e.g. `{"28": 261110, "65": 6531}` |
 
 **Live-test note:** During 2026-05-01 testing, `--custom-list-path /tmp/banshee_smoke_risklist.json` attempted a Fusion API lookup and returned `400 Bad Request`; prefer `-e`/`-l` unless validating a known Fusion-backed custom path.

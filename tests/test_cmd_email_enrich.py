@@ -1,6 +1,8 @@
 import json
 import re
+from datetime import datetime
 from pathlib import Path
+from unittest.mock import MagicMock, patch
 
 import pytest
 from typer.testing import CliRunner
@@ -170,7 +172,37 @@ def test_extract_entities_html(url, expected):
     assert urls == expected
 
 
-def test_email_json_out():
+def _make_email_lookup_result(entity, entity_type):
+    result = MagicMock()
+    result.entity = entity
+    result.is_enriched = entity_type == 'url'
+    result.content.risk.score = 75
+    result.content.timestamps.first_seen = datetime(2024, 1, 1)
+    result.content.timestamps.last_seen = datetime(2024, 6, 1)
+    evidence = MagicMock()
+    evidence.rule = 'recentAnalystNote'
+    evidence.criticality = 3
+    evidence.timestamp = '2024-01-01T00:00:00Z'
+    evidence.evidence_string = 'Test evidence'
+    result.content.risk.evidence_details = [evidence]
+    result.content.analyst_notes = ['analyst note']
+    result.links.return_value = ['TestMalware']
+    return result
+
+
+@patch('banshee.email.email_enrich.RisklistMgr')
+@patch('banshee.email.email_enrich.LookupMgr')
+def test_email_json_out(mock_lookup_cls, mock_risklist_cls):
+    def fake_lookup_bulk(entities, entity_type, **_kwargs):
+        return [_make_email_lookup_result(e, entity_type) for e in entities]
+
+    def fake_fetch_risklist(*_args, **_kwargs):
+        item = MagicMock()
+        item.json.return_value = {'ioc': 'placeholder.example.com', 'ta_names': ['APT0']}
+        return iter([item])
+
+    mock_lookup_cls.return_value.lookup_bulk.side_effect = fake_lookup_bulk
+    mock_risklist_cls.return_value.fetch_risklist.side_effect = fake_fetch_risklist
     result = runner.invoke(app, args=[EML_FILES[0][0].as_posix(), '-r', '50'])
     assert result.exit_code == 0
     data = json.loads(result.output)

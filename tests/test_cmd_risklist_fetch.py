@@ -1,4 +1,5 @@
 from pathlib import Path
+from unittest.mock import MagicMock, patch
 
 import pytest
 from typer.testing import CliRunner
@@ -10,6 +11,27 @@ from .conftest import strip_ansi
 runner = CliRunner()
 
 COMMAND = 'fetch'
+
+
+def _fake_risklist_fetch(*_args, validate=None, **_kwargs):
+    if validate is not None:
+        entry = MagicMock()
+        entry.json.return_value = {
+            'Name': '1.2.3.4',
+            'Risk': 75,
+            'RiskString': '3/8',
+            'EvidenceDetails': [],
+        }
+        return iter([entry])
+    return iter([['1.2.3.4', '75', '3/8', '[]']])
+
+
+def _fake_fusion_file():
+    f = MagicMock()
+    f.exists = True
+    f.content = b'fake file content for testing'
+    return f
+
 
 DATA = [
     (
@@ -45,8 +67,14 @@ DATA = [
 ]
 
 
+@patch('banshee.risklist.risklist_fetch.FusionMgr')
+@patch('banshee.risklist.risklist_fetch.RisklistMgr')
 @pytest.mark.parametrize(('command', 'filename', 'expected_output'), DATA, ids=[d[1] for d in DATA])
-def test_risklist_fetch(tmp_path, command, filename, expected_output):
+def test_risklist_fetch(
+    mock_risklist_cls, mock_fusion_cls, tmp_path, command, filename, expected_output
+):
+    mock_risklist_cls.return_value.fetch_risklist.side_effect = _fake_risklist_fetch
+    mock_fusion_cls.return_value.get_files.return_value = [_fake_fusion_file()]
     result = runner.invoke(app, args=[COMMAND] + command.format(tmp_path).split())
     out_file = tmp_path / filename
     assert strip_ansi(result.output).strip('\n') == expected_output.format(out_file).strip('\n')
@@ -54,7 +82,9 @@ def test_risklist_fetch(tmp_path, command, filename, expected_output):
     assert out_file.stat().st_size > 0
 
 
-def test_risklist_fetch_cwd():
+@patch('banshee.risklist.risklist_fetch.RisklistMgr')
+def test_risklist_fetch_cwd(mock_risklist_cls):
+    mock_risklist_cls.return_value.fetch_risklist.side_effect = _fake_risklist_fetch
     result = runner.invoke(app, args=[COMMAND, '--list-name', 'cncSite', '--entity-type', 'domain'])
     out_file = Path.cwd() / 'domain_cncSite.csv'
     assert result.exit_code == 0

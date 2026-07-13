@@ -22,3 +22,6 @@ tests/output/*
 virt/
 *db.json
 psengine
+.claude/
+CLAUDE.md
+ARCHITECTURE.md

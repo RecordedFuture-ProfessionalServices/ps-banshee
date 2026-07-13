@@ -1,6 +1,7 @@
 import json
 import re
 from pathlib import Path
+from unittest.mock import MagicMock, patch
 
 import pytest
 from typer.testing import CliRunner
@@ -158,6 +159,34 @@ CAPTURES = [
 ]
 
 
+def _make_soar_result():
+    result = MagicMock()
+    result.entity = '172.217.0.238'
+    result.content.entity.type_ = 'IpAddress'
+    result.content.risk.score = 75
+    result.content.risk.rule.most_critical = 'recentAnalystNote'
+    evidence = MagicMock()
+    evidence.level = 3
+    evidence.json.return_value = {
+        'count': 1,
+        'timestamp': '2024-01-01T00:00:00.000Z',
+        'description': 'Test evidence',
+        'rule': 'recentAnalystNote',
+        'sightings': 1,
+        'mitigation': 'Block',
+        'level': 3,
+        'type': 'Risk',
+    }
+    result.content.risk.rule.evidence = [evidence]
+    return result
+
+
+def _make_ta_item():
+    item = MagicMock()
+    item.json.return_value = {'ioc': '172.217.0.238', 'ta_names': []}
+    return item
+
+
 @pytest.mark.parametrize(('capture', 'expected'), CAPTURES)
 def test_extract_entities_pcap(capture, expected):
     entities = _extract_entities_from_capture(capture)
@@ -165,7 +194,17 @@ def test_extract_entities_pcap(capture, expected):
         assert sorted(elem) == sorted(expected_elem)
 
 
-def test_pcap_json_out():
+@patch('banshee.pcap_enrich.pcap_enrich.LookupMgr')
+@patch('banshee.pcap_enrich.pcap_enrich.RisklistMgr')
+@patch('banshee.pcap_enrich.pcap_enrich.SoarMgr')
+def test_pcap_json_out(mock_soar_cls, mock_risklist_cls, mock_lookup_cls):
+    mock_soar_cls.return_value.soar.return_value = [_make_soar_result()]
+    mock_risklist_cls.return_value.fetch_risklist.side_effect = lambda *_a, **_kw: iter(
+        [_make_ta_item()]
+    )
+    mock_lookup_cls.return_value.lookup_bulk.return_value = [
+        MagicMock(links=MagicMock(return_value=[]))
+    ]
     result = runner.invoke(app, args=['enrich', CAPTURES[0][0].as_posix(), '-r', '40'])
     assert result.exit_code == 0
     data = json.loads(result.output)
@@ -203,7 +242,17 @@ def test_pcap_json_out():
     )
 
 
-def test_pcap_pretty_out():
+@patch('banshee.pcap_enrich.pcap_enrich.LookupMgr')
+@patch('banshee.pcap_enrich.pcap_enrich.RisklistMgr')
+@patch('banshee.pcap_enrich.pcap_enrich.SoarMgr')
+def test_pcap_pretty_out(mock_soar_cls, mock_risklist_cls, mock_lookup_cls):
+    mock_soar_cls.return_value.soar.return_value = [_make_soar_result()]
+    mock_risklist_cls.return_value.fetch_risklist.side_effect = lambda *_a, **_kw: iter(
+        [_make_ta_item()]
+    )
+    mock_lookup_cls.return_value.lookup_bulk.return_value = [
+        MagicMock(links=MagicMock(return_value=[]))
+    ]
     result = runner.invoke(app, args=['enrich', CAPTURES[1][0].as_posix(), '-p', '-r', '40'])
     assert result.exit_code == 0
 
