@@ -13,7 +13,7 @@
 
 from typing import Annotated
 
-from typer import Argument, Option, Typer
+from typer import Argument, BadParameter, Option, Typer
 
 from ..branding import banshee_cmd
 from ..sandbox import (
@@ -21,9 +21,15 @@ from ..sandbox import (
     get_sandbox_profile,
     list_sandbox_profiles,
     print_sandbox_stats,
+    set_sandbox_sample_profile,
 )
 from .args import OPT_PRETTY_PRINT, OPT_SANDBOX_SUBSET
-from .epilogs import EPILOG_SANDBOX_PROFILE_GET, EPILOG_SANDBOX_PROFILE_LIST, EPILOG_SANDBOX_STATS
+from .epilogs import (
+    EPILOG_SANDBOX_PROFILE_GET,
+    EPILOG_SANDBOX_PROFILE_LIST,
+    EPILOG_SANDBOX_SET_PROFILE,
+    EPILOG_SANDBOX_STATS,
+)
 
 CMD_NAME = 'sandbox'
 CMD_HELP = 'Sandbox submission analytics and profile management'
@@ -31,6 +37,7 @@ CMD_RICH_HELP = 'Sandbox'
 
 _PANEL_ANALYTICS = 'Analytics'
 _PANEL_PROFILE_MGMT = 'Profile Management'
+_PANEL_SUBMISSION = 'Submission'
 
 _HELP_STATS = (
     'Aggregate sandbox submissions over a configurable window and print a '
@@ -42,6 +49,11 @@ _HELP_STATS = (
 
 _HELP_PROFILE_GET = 'Fetch a single analysis profile by ID or name'
 _HELP_PROFILE_LIST = 'List all analysis profiles available in Recorded Future Sandbox'
+_HELP_SET_PROFILE = (
+    'Assign analysis profiles to a sample paused at static analysis '
+    '(submitted with interactive=True). Use --auto to let the sandbox choose '
+    'automatically, or --pick FILE:PROFILE for manual per-file mapping.'
+)
 
 app = Typer(no_args_is_help=True)
 profile_app = Typer(no_args_is_help=True)
@@ -77,6 +89,40 @@ def get_(
 )
 def list_(pretty: OPT_PRETTY_PRINT = False):
     list_sandbox_profiles(pretty=pretty)
+
+
+@banshee_cmd(
+    app=app,
+    name='set-profile',
+    help_=_HELP_SET_PROFILE,
+    epilog=EPILOG_SANDBOX_SET_PROFILE,
+    rich_help_panel=_PANEL_SUBMISSION,
+)
+def set_profile(
+    sample_id: Annotated[str, Argument(help='Sandbox sample ID')],
+    auto: Annotated[
+        bool,
+        Option('--auto', '-a', help='Let the sandbox auto-select profiles for all files'),
+    ] = False,
+    pick: Annotated[
+        list[str] | None,
+        Option(
+            '--pick',
+            help='Map a file to a profile: FILE:PROFILE (repeatable)',
+            metavar='FILE:PROFILE',
+        ),
+    ] = None,
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    if auto and pick:
+        raise BadParameter('--auto and --pick are mutually exclusive')
+    if not auto and not pick:
+        raise BadParameter('provide either --auto or at least one --pick FILE:PROFILE')
+    for raw in pick or []:
+        file_, sep, profile = raw.partition(':')
+        if not sep or not file_ or not profile:
+            raise BadParameter(f'--pick value must be FILE:PROFILE, got: {raw!r}')
+    set_sandbox_sample_profile(sample_id, auto=auto, picks=pick, pretty=pretty)
 
 
 app.add_typer(

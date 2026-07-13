@@ -675,6 +675,21 @@ EPILOG_SANDBOX_PROFILE_LIST = """
 
 """
 
+EPILOG_SANDBOX_SET_PROFILE = """
+## Example Usage
+
+* banshee sandbox set-profile 260501-h4p7laawme --auto
+
+* banshee sandbox set-profile 260501-h4p7laawme --pick file.exe:win10-x64
+
+* banshee sandbox set-profile 260501-h4p7laawme --pick file.exe:win10-x64 --pick doc.docx:office365
+
+* banshee sandbox set-profile 260501-h4p7laawme --auto -p
+
+* banshee sandbox set-profile 260501-h4p7laawme --pick file.exe:win10-x64 | jq '.success'
+
+"""
+
 EPILOG_SANDBOX_STATS = """
 ## Score buckets (Triage 1–10 scale)
 
