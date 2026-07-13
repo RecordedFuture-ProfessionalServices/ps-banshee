@@ -124,6 +124,7 @@ class TopIocs:
     extracted_c2: list = field(default_factory=list)  # [(url, count), ...]
     verified_network: list = field(default_factory=list)  # [VerifiedIoc, ...]
     malicious_sha256: list = field(default_factory=list)
+    c2_soar: dict = field(default_factory=dict)  # {url: {'rf_score': int, 'top_risk_rule': str}}
 
 
 @dataclass
@@ -146,6 +147,7 @@ class SandboxStats:
     limit_hit: bool = False
     soar_skipped: bool = False
     sandbox_choice: str = 'eu'
+    by_kind_prev: dict = field(default_factory=dict)
     by_file_type: dict = field(default_factory=dict)
     daily_by_family: dict = field(default_factory=dict)
 
@@ -298,7 +300,7 @@ def _soar_enrich(ip_counter: Counter, domain_counter: Counter) -> tuple:
         return [], True
 
     risky = sorted(
-        [r for r in soar_results if r.content and r.content.risk.score >= _SOAR_MIN_SCORE],
+        [r for r in soar_results if r.is_enriched and r.content.risk.score >= _SOAR_MIN_SCORE],
         key=lambda r: r.content.risk.score,
         reverse=True,
     )
@@ -312,6 +314,59 @@ def _soar_enrich(ip_counter: Counter, domain_counter: Counter) -> tuple:
         for r in risky
     ]
     return verified, False
+
+
+def _soar_enrich_hashes(sha256_list: list) -> dict:
+    """SOAR-enrich SHA256 hashes. Returns {sha256: {'rf_score': int, 'top_risk_rule': str}}."""
+    if not sha256_list:
+        return {}
+    rf_token = get_config().rf_token
+    if not rf_token or not rf_token.get_secret_value():
+        return {}
+    label = f'SOAR-enriching {len(sha256_list)} SHA256s…'
+    try:
+        with _spinner(label) as progress:
+            progress.add_task(label)
+            results = SoarMgr().soar(hash_=sha256_list, max_workers=_SOAR_WORKERS)
+    except EnrichmentSoarError:
+        print(
+            'NOTE: SHA256 SOAR enrichment failed — skipping RF scores for hashes.',
+            file=sys.stderr,
+        )
+        return {}
+    return {
+        r.entity: {
+            'rf_score': r.content.risk.score,
+            'top_risk_rule': r.content.risk.rule.most_critical,
+        }
+        for r in results
+        if r.is_enriched
+    }
+
+
+def _soar_enrich_c2_urls(url_list: list) -> dict:
+    """SOAR-enrich extracted C2 URLs. Returns {url: {'rf_score': int, 'top_risk_rule': str}}."""
+    if not url_list:
+        return {}
+    rf_token = get_config().rf_token
+    if not rf_token or not rf_token.get_secret_value():
+        return {}
+    label = f'SOAR-enriching {len(url_list)} C2 URLs…'
+    try:
+        with _spinner(label) as progress:
+            progress.add_task(label)
+            results = SoarMgr().soar(url=url_list, max_workers=_SOAR_WORKERS)
+    except EnrichmentSoarError:
+        print('NOTE: C2 URL SOAR enrichment failed — skipping RF scores for C2s.', file=sys.stderr)
+        return {}
+    return {
+        r.entity: {
+            'rf_score': r.content.risk.score,
+            'top_risk_rule': r.content.risk.rule.most_critical,
+        }
+        for r in results
+        if r.is_enriched
+    }
 
 
 def _build_daily_by_family(reports: list) -> dict:
@@ -372,6 +427,7 @@ def fetch_sandbox_stats(
 
     by_status = dict(Counter(s.status for s in current).most_common())
     by_kind = dict(Counter(s.kind for s in current).most_common())
+    by_kind_prev = dict(Counter(s.kind for s in prev))
     pending = sum(1 for s in current if s.status != 'reported')
     trend = {
         'total': {'current': len(current), 'prev': len(prev)},
@@ -388,6 +444,7 @@ def fetch_sandbox_stats(
             pending=pending,
             by_status=by_status,
             by_kind=by_kind,
+            by_kind_prev=by_kind_prev,
             by_platform={},
             by_score={},
             top_tags=TopTags(),
@@ -409,10 +466,21 @@ def fetch_sandbox_stats(
     ip_ctr, dom_ctr, sha256_entries, extracted_c2 = _extract_raw_iocs(malicious)
     verified, soar_skipped = _soar_enrich(ip_ctr, dom_ctr)
 
+    top_sha256s = [e['sha256'] for e in sha256_entries[:_SOAR_TOP_N]]
+    hash_soar = _soar_enrich_hashes(top_sha256s)
+    for entry in sha256_entries:
+        soar = hash_soar.get(entry['sha256']) or {}
+        entry['rf_score'] = soar.get('rf_score')
+        entry['top_risk_rule'] = soar.get('top_risk_rule')
+
+    top_c2_urls = [url for url, _ in extracted_c2.most_common(_SOAR_TOP_N)]
+    c2_soar = _soar_enrich_c2_urls(top_c2_urls)
+
     top_iocs = TopIocs(
         extracted_c2=extracted_c2.most_common(),
         verified_network=verified,
         malicious_sha256=sorted(sha256_entries, key=lambda x: x['score'], reverse=True),
+        c2_soar=c2_soar,
     )
 
     return SandboxStats(
@@ -424,6 +492,7 @@ def fetch_sandbox_stats(
         pending=pending,
         by_status=by_status,
         by_kind=by_kind,
+        by_kind_prev=by_kind_prev,
         by_platform=by_platform,
         by_score=by_score,
         top_tags=top_tags,

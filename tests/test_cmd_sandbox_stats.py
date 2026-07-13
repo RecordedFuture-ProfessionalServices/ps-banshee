@@ -38,6 +38,8 @@ from banshee.sandbox.stats import (
     _extract_raw_iocs,
     _score_bucket,
     _soar_enrich,
+    _soar_enrich_c2_urls,
+    _soar_enrich_hashes,
     fetch_sandbox_stats,
 )
 
@@ -138,6 +140,7 @@ def _make_stats(**overrides) -> SandboxStats:
             'total': {'current': 10, 'prev': 15},
             'reported': {'current': 8, 'prev': 12},
         },
+        'by_kind_prev': {'file': 4, 'url': 5},
         'limit_hit': False,
         'soar_skipped': False,
         'by_file_type': {'.exe': 50, '.dll': 20},
@@ -399,6 +402,146 @@ def _setup_sandbox_mgr(samples, overviews):
     mgr.fetch_samples.return_value = samples
     mgr.fetch_sample_overview_report.side_effect = overviews
     return mgr
+
+
+class TestSoarEnrichHashes:
+    def test_empty_list_returns_empty(self):
+        assert _soar_enrich_hashes([]) == {}
+
+    def test_no_rf_token_returns_empty(self):
+        with patch('banshee.sandbox.stats.get_config') as mock_cfg:
+            mock_cfg.return_value.rf_token = None
+            assert _soar_enrich_hashes(['abc123']) == {}
+
+    def test_empty_token_returns_empty(self):
+        with patch('banshee.sandbox.stats.get_config') as mock_cfg:
+            token = MagicMock()
+            token.get_secret_value.return_value = ''
+            mock_cfg.return_value.rf_token = token
+            assert _soar_enrich_hashes(['abc123']) == {}
+
+    def test_soar_error_returns_empty(self):
+        from psengine.enrich.errors import EnrichmentSoarError
+
+        with (
+            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
+            patch('banshee.sandbox.stats._spinner'),
+        ):
+            token = MagicMock()
+            token.get_secret_value.return_value = 'tok'
+            mock_cfg.return_value.rf_token = token
+            mock_soar.return_value.soar.side_effect = EnrichmentSoarError('fail')
+            assert _soar_enrich_hashes(['abc123']) == {}
+
+    def test_returns_score_map(self):
+        with (
+            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
+            patch('banshee.sandbox.stats._spinner'),
+        ):
+            token = MagicMock()
+            token.get_secret_value.return_value = 'tok'
+            mock_cfg.return_value.rf_token = token
+            r = MagicMock()
+            r.entity = 'abc123'
+            r.content.risk.score = 80
+            r.content.risk.rule.most_critical = 'Malware C&C'
+            mock_soar.return_value.soar.return_value = [r]
+            result = _soar_enrich_hashes(['abc123'])
+        assert result == {'abc123': {'rf_score': 80, 'top_risk_rule': 'Malware C&C'}}
+
+    def test_skips_unenriched_results(self):
+        with (
+            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
+            patch('banshee.sandbox.stats._spinner'),
+        ):
+            token = MagicMock()
+            token.get_secret_value.return_value = 'tok'
+            mock_cfg.return_value.rf_token = token
+            r = MagicMock()
+            r.entity = 'abc123'
+            r.is_enriched = False
+            mock_soar.return_value.soar.return_value = [r]
+            result = _soar_enrich_hashes(['abc123'])
+        assert result == {}
+
+    def test_calls_soar_with_hash_kwarg(self):
+        with (
+            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
+            patch('banshee.sandbox.stats._spinner'),
+        ):
+            token = MagicMock()
+            token.get_secret_value.return_value = 'tok'
+            mock_cfg.return_value.rf_token = token
+            mock_soar.return_value.soar.return_value = []
+            _soar_enrich_hashes(['abc123', 'def456'])
+            call_kwargs = mock_soar.return_value.soar.call_args.kwargs
+        assert call_kwargs.get('hash_') == ['abc123', 'def456']
+
+
+class TestSoarEnrichC2Urls:
+    def test_empty_list_returns_empty(self):
+        assert _soar_enrich_c2_urls([]) == {}
+
+    def test_no_rf_token_returns_empty(self):
+        with patch('banshee.sandbox.stats.get_config') as mock_cfg:
+            mock_cfg.return_value.rf_token = None
+            assert _soar_enrich_c2_urls(['http://bad.com']) == {}
+
+    def test_empty_token_returns_empty(self):
+        with patch('banshee.sandbox.stats.get_config') as mock_cfg:
+            token = MagicMock()
+            token.get_secret_value.return_value = ''
+            mock_cfg.return_value.rf_token = token
+            assert _soar_enrich_c2_urls(['http://bad.com']) == {}
+
+    def test_soar_error_returns_empty(self):
+        from psengine.enrich.errors import EnrichmentSoarError
+
+        with (
+            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
+            patch('banshee.sandbox.stats._spinner'),
+        ):
+            token = MagicMock()
+            token.get_secret_value.return_value = 'tok'
+            mock_cfg.return_value.rf_token = token
+            mock_soar.return_value.soar.side_effect = EnrichmentSoarError('fail')
+            assert _soar_enrich_c2_urls(['http://bad.com']) == {}
+
+    def test_returns_score_map(self):
+        with (
+            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
+            patch('banshee.sandbox.stats._spinner'),
+        ):
+            token = MagicMock()
+            token.get_secret_value.return_value = 'tok'
+            mock_cfg.return_value.rf_token = token
+            r = MagicMock()
+            r.entity = 'http://bad.com'
+            r.content.risk.score = 75
+            r.content.risk.rule.most_critical = 'C&C Server'
+            mock_soar.return_value.soar.return_value = [r]
+            result = _soar_enrich_c2_urls(['http://bad.com'])
+        assert result == {'http://bad.com': {'rf_score': 75, 'top_risk_rule': 'C&C Server'}}
+
+    def test_calls_soar_with_url_kwarg(self):
+        with (
+            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
+            patch('banshee.sandbox.stats._spinner'),
+        ):
+            token = MagicMock()
+            token.get_secret_value.return_value = 'tok'
+            mock_cfg.return_value.rf_token = token
+            mock_soar.return_value.soar.return_value = []
+            _soar_enrich_c2_urls(['http://c2.bad', 'http://dropper.bad'])
+            call_kwargs = mock_soar.return_value.soar.call_args.kwargs
+        assert call_kwargs.get('url') == ['http://c2.bad', 'http://dropper.bad']
 
 
 class TestFetchSandboxStats:
@@ -663,11 +806,37 @@ class TestPrintChartAndSummary:
     def test_summary_no_arrow_when_prev_zero(self):
         out = self._render(
             {},
+            by_kind_prev={},
             trend_vs_prior_period={
                 'total': {'current': 5, 'prev': 0},
                 'reported': {'current': 4, 'prev': 0},
             },
         )
+        assert '↑' not in out
+        assert '↓' not in out
+
+    def test_by_kind_trend_up(self):
+        out = self._render(
+            {},
+            by_kind={'file': 10, 'url': 3},
+            by_kind_prev={'file': 6, 'url': 5},
+        )
+        assert 'file' in out
+        assert 'url' in out
+        assert '↑' in out
+        assert '↓' in out
+
+    def test_by_kind_trend_no_arrow_when_prev_zero(self):
+        out = self._render(
+            {},
+            by_kind={'file': 5},
+            by_kind_prev={},
+            trend_vs_prior_period={
+                'total': {'current': 5, 'prev': 0},
+                'reported': {'current': 4, 'prev': 0},
+            },
+        )
+        assert 'file' in out
         assert '↑' not in out
         assert '↓' not in out
 
@@ -683,6 +852,10 @@ class TestPrintChartAndSummary:
     def test_zero_score_bucket_omitted(self):
         out = self._render({}, by_score={'malicious': 10, 'suspicious': 0})
         assert _SCORE_SHORT_LABELS['suspicious'] not in out
+
+    def test_unknown_bucket_never_rendered(self):
+        out = self._render({}, by_score={'malicious': 5, 'unknown': 10})
+        assert _SCORE_SHORT_LABELS['unknown'] not in out
 
     def test_score_section_absent_when_no_data(self):
         out = self._render({}, by_score={})
@@ -838,10 +1011,31 @@ class TestToJsonDict:
         d = _to_json_dict(stats)
         assert d['by_file_type'] == {'.exe': 98, '.js': 92}
 
-    def test_extracted_c2_as_lists(self):
+    def test_extracted_c2_as_dicts(self):
         stats = _make_stats()
         d = _to_json_dict(stats)
-        assert d['top_iocs']['extracted_c2'] == [['http://c2.example.com', 5]]
+        assert d['top_iocs']['extracted_c2'] == [
+            {'url': 'http://c2.example.com', 'count': 5, 'rf_score': None, 'top_risk_rule': None}
+        ]
+
+    def test_extracted_c2_includes_rf_score_and_rule_when_present(self):
+        stats = _make_stats(
+            top_iocs=TopIocs(
+                extracted_c2=[('http://c2.example.com', 5)],
+                verified_network=[],
+                malicious_sha256=[],
+                c2_soar={'http://c2.example.com': {'rf_score': 75, 'top_risk_rule': 'C&C Server'}},
+            )
+        )
+        d = _to_json_dict(stats)
+        assert d['top_iocs']['extracted_c2'] == [
+            {
+                'url': 'http://c2.example.com',
+                'count': 5,
+                'rf_score': 75,
+                'top_risk_rule': 'C&C Server',
+            }
+        ]
 
     def test_json_serialisable(self):
         stats = _make_stats()
@@ -854,10 +1048,10 @@ class TestToJsonDict:
 
 
 class TestPrintSubmissionProfile:
-    def _render(self, by_platform=None, by_file_type=None, frontend_base='') -> str:
+    def _render(self, by_platform=None, by_file_type=None) -> str:
         buf = StringIO()
         console = Console(file=buf, highlight=False, markup=True, width=120)
-        _print_submission_profile(console, by_platform or {}, by_file_type or {}, frontend_base)
+        _print_submission_profile(console, by_platform or {}, by_file_type or {})
         return buf.getvalue()
 
     def test_empty_both_no_output(self):
@@ -924,19 +1118,45 @@ class TestPrintHashes:
         _print_hashes(console, hashes, frontend_base)
         return buf.getvalue()
 
+    def test_renders_sandbox_score_risk_score_sha256_family(self):
+        out = self._render([{'sha256': 'abc' * 21, 'score': 9, 'top_tag': 'vidar', 'rf_score': 80}])
+        assert 'Sandbox Score' in out
+        assert 'Risk Score' in out
+        assert 'SHA256' in out
+        assert 'Family' in out
+        assert '9' in out
+        assert '80' in out
+        assert 'vidar' in out
+        assert 'abc' * 21 in out
+
     def test_renders_score_sha256_family(self):
         out = self._render([{'sha256': 'abc' * 21, 'score': 9, 'top_tag': 'vidar'}])
-        assert 'Score' in out
+        assert 'Sandbox Score' in out
+        assert 'Risk Score' in out
         assert 'SHA256' in out
         assert 'Family' in out
         assert '9' in out
         assert 'vidar' in out
         assert 'abc' * 21 in out
 
-    def test_truncates_at_20(self):
-        hashes = [{'sha256': f'{"a" * 63}{i:x}', 'score': 9, 'top_tag': ''} for i in range(25)]
+    def test_risk_score_dash_when_none(self):
+        out = self._render([{'sha256': 'abc' * 21, 'score': 9, 'top_tag': ''}])
+        assert '—' in out
+
+    def test_risk_score_shown_when_present(self):
+        out = self._render([{'sha256': 'abc' * 21, 'score': 9, 'top_tag': '', 'rf_score': 55}])
+        assert '55' in out
+
+    def test_sandbox_score_before_risk_score(self):
+        out = self._render([{'sha256': 'abc' * 21, 'score': 9, 'top_tag': '', 'rf_score': 55}])
+        assert out.index('Sandbox Score') < out.index('Risk Score')
+
+    def test_truncates_at_10(self):
+        hashes = [{'sha256': f'{"b" * 63}{i:x}', 'score': 9, 'top_tag': ''} for i in range(15)]
         out = self._render(hashes)
         assert '5 more' in out
+        assert f'{"b" * 63}9' in out  # 10th entry rendered
+        assert f'{"b" * 63}b' not in out  # 12th entry (i=11, hex b) not rendered
 
     def test_no_more_message_when_under_cap(self):
         hashes = [{'sha256': 'a' * 64, 'score': 9, 'top_tag': ''}]
@@ -1083,7 +1303,7 @@ class TestCmdSandboxStats:
         result = runner.invoke(app, args=['--pretty'])
         assert result.exit_code == 0
         assert 'SHA256' in result.output
-        assert 'abc' * 21 in result.output
+        assert 'abc' * 8 in result.output  # partial check — CliRunner 80-col may truncate
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_pretty_hashes_show_score_and_family(self, mock_fetch):
@@ -1099,11 +1319,11 @@ class TestCmdSandboxStats:
         result = runner.invoke(app, args=['--pretty'])
         assert result.exit_code == 0
         assert 'Score' in result.output
-        assert 'abc' * 21 in result.output
+        assert 'abc' * 8 in result.output  # partial check — CliRunner 80-col may truncate
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
-    def test_stats_pretty_truncates_hashes_at_20(self, mock_fetch):
-        hashes = [{'sha256': f'{"a" * 63}{i:x}', 'score': 9, 'top_tag': ''} for i in range(25)]
+    def test_stats_pretty_truncates_hashes_at_10(self, mock_fetch):
+        hashes = [{'sha256': f'{"a" * 63}{i:x}', 'score': 9, 'top_tag': ''} for i in range(15)]
         stats = _make_stats(
             sandbox_choice='eu',
             top_iocs=TopIocs(extracted_c2=[], verified_network=[], malicious_sha256=hashes),
@@ -1152,8 +1372,41 @@ class TestCmdSandboxStats:
         mock_fetch.return_value = stats
         result = runner.invoke(app, args=['--pretty'])
         assert result.exit_code == 0
+        assert 'Risk Score' in result.output
         assert 'Hits' in result.output
         assert 'URL' in result.output
+
+    @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
+    def test_stats_pretty_c2_shows_rf_score_when_enriched(self, mock_fetch):
+        stats = _make_stats(
+            top_iocs=TopIocs(
+                extracted_c2=[('http://c2.bad', 3)],
+                verified_network=[],
+                malicious_sha256=[],
+                c2_soar={'http://c2.bad': {'rf_score': 88, 'top_risk_rule': 'C&C Server'}},
+            )
+        )
+        mock_fetch.return_value = stats
+        result = runner.invoke(app, args=['--pretty'])
+        assert result.exit_code == 0
+        assert '88' in result.output
+        assert 'C&C Server' in result.output
+
+    @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
+    def test_stats_pretty_hashes_show_rf_score_column(self, mock_fetch):
+        stats = _make_stats(
+            top_iocs=TopIocs(
+                extracted_c2=[],
+                verified_network=[],
+                malicious_sha256=[
+                    {'sha256': 'abc' * 21, 'score': 9, 'top_tag': 'vidar', 'rf_score': 90}
+                ],
+            )
+        )
+        mock_fetch.return_value = stats
+        result = runner.invoke(app, args=['--pretty'])
+        assert result.exit_code == 0
+        assert '90' in result.output  # RF score value present; header may wrap in 80-col terminal
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_json_always_includes_sha256s(self, mock_fetch):

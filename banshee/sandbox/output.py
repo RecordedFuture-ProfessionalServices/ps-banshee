@@ -150,7 +150,11 @@ def _summary_lines(stats: SandboxStats) -> list:
     submissions_cell = f'[bold]{total:,}[/bold] submissions'
     if submissions_trend:
         submissions_cell += f' {submissions_trend}'
-    kind_str = '  '.join(f'{k}: {v}' for k, v in stats.by_kind.items())
+    kind_parts = []
+    for k, v in stats.by_kind.items():
+        t = _trend_str(v, stats.by_kind_prev.get(k, 0))
+        kind_parts.append(f'{k}: {v}' + (f' {t}' if t else ''))
+    kind_str = '  '.join(kind_parts)
     lines = [
         (
             f'{submissions_cell}  [dim]·[/dim]'
@@ -163,7 +167,7 @@ def _summary_lines(stats: SandboxStats) -> list:
     if stats.by_score:
         buckets = [
             (b, stats.by_score[b])
-            for b in ('malicious', 'suspicious', 'potentially_suspicious', 'clean', 'unknown')
+            for b in ('malicious', 'suspicious', 'potentially_suspicious', 'clean')
             if stats.by_score.get(b, 0)
         ]
         if buckets:
@@ -178,7 +182,8 @@ def _summary_lines(stats: SandboxStats) -> list:
                 bar = _BAR_CHAR * bar_len
                 prefix = '[dim]by score[/dim]  ' if i == 0 else '          '
                 lines.append(
-                    f'{prefix}[{color}]{label}[/{color}]  {count:>{count_w}}  [{color}]{bar}[/{color}]'
+                    f'{prefix}[{color}]{label}[/{color}]'
+                    f'  {count:>{count_w}}  [{color}]{bar}[/{color}]'
                 )
     return lines
 
@@ -238,20 +243,21 @@ def _print_chart_and_summary(console: Console, stats: SandboxStats) -> None:
 
     right_lines = _summary_lines(stats)
 
-    # Single table: chart columns | │ divider | stats column.
+    # Single table: stats column | │ divider | chart columns.
     # The │ appears in every row so it spans the full height naturally.
     tbl = Table(show_header=False, box=None, padding=(0, 1, 0, 1), expand=True)
+    tbl.add_column('Stats', no_wrap=False)
+    tbl.add_column('Sep', justify='center', width=1, no_wrap=True)
     tbl.add_column('Family', style='dim', justify='right', width=16, no_wrap=True)
     tbl.add_column('Spark', no_wrap=True)
     tbl.add_column('Peak', style='bold dim', justify='right', width=5)
-    tbl.add_column('Sep', justify='center', width=1, no_wrap=True)
-    tbl.add_column('Stats', ratio=1, no_wrap=False)
+    tbl.add_column('Filler', ratio=1)
 
     total_rows = max(len(chart_rows), len(right_lines))
     for i in range(total_rows):
         fam, spark, peak = chart_rows[i] if i < len(chart_rows) else ('', '', '')
         right = right_lines[i] if i < len(right_lines) else ''
-        tbl.add_row(fam, spark, peak, '[dim]│[/dim]', right)
+        tbl.add_row(right, '[dim]│[/dim]', fam, spark, peak, '')
 
     console.print(tbl)
     console.print()
@@ -261,13 +267,12 @@ _BAR_WIDTH = 28
 _BAR_WIDTH_HALF = 16
 _BAR_CHAR = '█'
 _PANEL_TOP_N = 8
-_BOTNET_TRUNCATE = 14
 _SCORE_BAR_WIDTH = 12
 _SCORE_SHORT_LABELS = {
     'malicious': 'malicious (8–10)',
     'suspicious': 'suspicious (5–7)',
-    'potentially_suspicious': 'pot.susp. (3–4)',
-    'clean': 'clean (1–2)',
+    'potentially_suspicious': 'likely benign (2–4)',
+    'clean': 'no threat (1)',
     'unknown': 'unknown',
 }
 
@@ -288,7 +293,7 @@ def _platform_table(by_platform: dict) -> Table:
     return tbl
 
 
-def _file_type_table(by_file_type: dict, frontend_base: str) -> Table:
+def _file_type_table(by_file_type: dict) -> Table:
     max_count = max(by_file_type.values())
     tbl = Table(
         title='[dim]File types[/dim]',
@@ -304,18 +309,11 @@ def _file_type_table(by_file_type: dict, frontend_base: str) -> Table:
     for ext, count in by_file_type.items():
         bar_len = max(1, int(count / max_count * _BAR_WIDTH_HALF))
         bar = f'[steel_blue1]{_BAR_CHAR * bar_len}[/steel_blue1]'
-        tag = ext.lstrip('.')
-        label = ext
-        if frontend_base and tag:
-            url = _search_url(frontend_base, f'tag:{tag}')
-            label = f'[link={url}]{ext}[/link]'
-        tbl.add_row(label, str(count), bar)
+        tbl.add_row(ext, str(count), bar)
     return tbl
 
 
-def _print_submission_profile(
-    console: Console, by_platform: dict, by_file_type: dict, frontend_base: str
-) -> None:
+def _print_submission_profile(console: Console, by_platform: dict, by_file_type: dict) -> None:
     if not by_platform and not by_file_type:
         return
     console.print(Rule('[bold]Submission profile[/bold]', style='dim'))
@@ -323,7 +321,7 @@ def _print_submission_profile(
     if by_platform:
         cols.append(_platform_table(by_platform))
     if by_file_type:
-        cols.append(_file_type_table(by_file_type, frontend_base))
+        cols.append(_file_type_table(by_file_type))
     console.print(Columns(cols, equal=True, expand=True))
     console.print()
 
@@ -335,7 +333,6 @@ def _make_threat_col(
     query_prefix: str = '',
     frontend_base: str = '',
     top_n: int = _PANEL_TOP_N,
-    truncate_at: int = 0,
 ) -> Table:
     items = list(tags.items())[:top_n]
     tbl = Table(
@@ -350,8 +347,6 @@ def _make_threat_col(
     tbl.add_column('Count', style='bold dim', justify='right', width=5, no_wrap=True)
     for tag, count in items:
         name = tag[len(strip_prefix) :] if strip_prefix else tag
-        if truncate_at and len(name) > truncate_at:
-            name = name[:truncate_at] + '…'
         if frontend_base:
             query = f'{query_prefix}{tag}' if query_prefix else tag
             url = _search_url(frontend_base, query)
@@ -387,16 +382,13 @@ def _print_threat_intel(console: Console, tags, frontend_base: str) -> None:
             )
         )
     if tags.botnets:
-        unique = len(tags.botnets)
-        title = f'Botnets  [dim]({unique} unique)[/dim]' if unique > 5 else 'Botnets'
         cols.append(
             _make_threat_col(
-                title,
+                'Botnets',
                 tags.botnets,
                 strip_prefix='botnet:',
                 frontend_base=frontend_base,
                 top_n=5,
-                truncate_at=_BOTNET_TRUNCATE,
             )
         )
     if cols:
@@ -404,8 +396,7 @@ def _print_threat_intel(console: Console, tags, frontend_base: str) -> None:
         console.print()
 
 
-_IOC_DISPLAY_CAP = 10
-_HASH_DISPLAY_CAP = 20
+_DISPLAY_CAP = 10
 _MORE_MSG = '  [dim]… and {} more (use JSON output for the full list)[/dim]'
 
 
@@ -414,29 +405,37 @@ def _print_iocs(console: Console, iocs, soar_skipped: bool, frontend_base: str) 
         total = len(iocs.extracted_c2)
         console.print(Rule('[bold]Extracted C2s[/bold]', style='dim'))
         tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 2), header_style='dim')
+        tbl.add_column('Risk Score', style='bold', width=10)
         tbl.add_column('Hits', style='bold', width=7)
         tbl.add_column('URL', style='cyan')
-        for c2_url, count in iocs.extracted_c2[:_IOC_DISPLAY_CAP]:
-            color = 'red' if count >= 5 else 'yellow' if count >= 2 else 'grey50'
+        tbl.add_column('Top Risk Rule', style='dim')
+        for c2_url, count in iocs.extracted_c2[:_DISPLAY_CAP]:
+            hit_color = 'red' if count >= 5 else 'yellow' if count >= 2 else 'grey50'
+            soar = iocs.c2_soar.get(c2_url) or {}
             if frontend_base:
                 link = _search_url(frontend_base, f'url:{c2_url}')
                 display = f'[link={link}]{c2_url}[/link]'
             else:
                 display = c2_url
-            tbl.add_row(f'[{color}]{count}[/{color}]', display)
+            tbl.add_row(
+                _rf_score_cell(soar.get('rf_score')),
+                f'[{hit_color}]{count}[/{hit_color}]',
+                display,
+                soar.get('top_risk_rule') or '',
+            )
         console.print(tbl)
-        if total > _IOC_DISPLAY_CAP:
-            console.print(_MORE_MSG.format(total - _IOC_DISPLAY_CAP))
+        if total > _DISPLAY_CAP:
+            console.print(_MORE_MSG.format(total - _DISPLAY_CAP))
         console.print()
 
     if iocs.verified_network:
         total = len(iocs.verified_network)
         console.print(Rule('[bold]Verified network IOCs[/bold]', style='dim'))
         tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 2), header_style='dim')
-        tbl.add_column('Score', style='bold', width=7)
+        tbl.add_column('Risk Score', style='bold', width=10)
         tbl.add_column('Indicator', style='cyan', width=40, no_wrap=True)
-        tbl.add_column('Rule', style='dim')
-        for ioc in iocs.verified_network[:_IOC_DISPLAY_CAP]:
+        tbl.add_column('Top Risk Rule', style='dim')
+        for ioc in iocs.verified_network[:_DISPLAY_CAP]:
             score = _ioc_rf_score(ioc)
             color = 'red' if score >= 65 else 'yellow' if score >= 25 else 'grey50'
             indicator = _ioc_field(ioc, 'indicator')
@@ -451,8 +450,8 @@ def _print_iocs(console: Console, iocs, soar_skipped: bool, frontend_base: str) 
                 _ioc_field(ioc, 'most_critical_rule') or '',
             )
         console.print(tbl)
-        if total > _IOC_DISPLAY_CAP:
-            console.print(_MORE_MSG.format(total - _IOC_DISPLAY_CAP))
+        if total > _DISPLAY_CAP:
+            console.print(_MORE_MSG.format(total - _DISPLAY_CAP))
         console.print()
     elif soar_skipped and iocs.extracted_c2:
         console.print(
@@ -461,14 +460,23 @@ def _print_iocs(console: Console, iocs, soar_skipped: bool, frontend_base: str) 
         console.print()
 
 
+def _rf_score_cell(rf_score) -> str:
+    if rf_score is None:
+        return '[grey50]—[/grey50]'
+    color = 'red' if rf_score >= 65 else 'yellow' if rf_score >= 25 else 'grey50'
+    return f'[{color}]{rf_score}[/{color}]'
+
+
 def _print_hashes(console: Console, hashes: list, frontend_base: str) -> None:
-    shown = hashes[:_HASH_DISPLAY_CAP]
+    shown = hashes[:_DISPLAY_CAP]
     total = len(hashes)
     console.print(Rule('[bold]Malicious SHA256s[/bold]', style='dim'))
     tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 2), header_style='dim')
-    tbl.add_column('Score', style='bold', width=7)
+    tbl.add_column('Sandbox Score', style='bold', width=13)
+    tbl.add_column('Risk Score', style='bold', width=10)
     tbl.add_column('SHA256', style='cyan', no_wrap=True)
     tbl.add_column('Family', style='dim')
+    tbl.add_column('Top Risk Rule', style='dim')
     for entry in shown:
         score = entry['score']
         sha = entry['sha256']
@@ -484,10 +492,16 @@ def _print_hashes(console: Console, hashes: list, frontend_base: str) -> None:
             family_cell = f'[link={family_url}]{top_tag}[/link]'
         else:
             family_cell = top_tag
-        tbl.add_row(f'[{color}]{score}[/{color}]', display, family_cell)
+        tbl.add_row(
+            f'[{color}]{score}[/{color}]',
+            _rf_score_cell(entry.get('rf_score')),
+            display,
+            family_cell,
+            entry.get('top_risk_rule') or '',
+        )
     console.print(tbl)
-    if total > _HASH_DISPLAY_CAP:
-        console.print(_MORE_MSG.format(total - _HASH_DISPLAY_CAP))
+    if total > _DISPLAY_CAP:
+        console.print(_MORE_MSG.format(total - _DISPLAY_CAP))
     console.print()
 
 
@@ -509,7 +523,15 @@ def _to_json_dict(stats: SandboxStats) -> dict:
             'behavioral_ttp': stats.top_tags.behavioral_ttp,
         },
         'top_iocs': {
-            'extracted_c2': [list(pair) for pair in stats.top_iocs.extracted_c2],
+            'extracted_c2': [
+                {
+                    'url': url,
+                    'count': count,
+                    'rf_score': (stats.top_iocs.c2_soar.get(url) or {}).get('rf_score'),
+                    'top_risk_rule': (stats.top_iocs.c2_soar.get(url) or {}).get('top_risk_rule'),
+                }
+                for url, count in stats.top_iocs.extracted_c2
+            ],
             'verified_network': [
                 {
                     'indicator': _ioc_field(ioc, 'indicator'),
@@ -550,19 +572,13 @@ def print_sandbox_stats(stats: SandboxStats, pretty: bool = False) -> None:
         )
         console.print()
         _print_chart_and_summary(console, stats)
-        _print_submission_profile(console, stats.by_platform, stats.by_file_type, frontend_base)
+        _print_submission_profile(console, stats.by_platform, stats.by_file_type)
         _print_threat_intel(console, stats.top_tags, frontend_base)
         _print_iocs(console, stats.top_iocs, stats.soar_skipped, frontend_base)
 
         if stats.top_iocs.malicious_sha256:
             _print_hashes(console, stats.top_iocs.malicious_sha256, frontend_base)
 
-        footer_parts = []
-        if stats.top_iocs.malicious_sha256:
-            n = len(stats.top_iocs.malicious_sha256)
-            footer_parts.append(f'[bold]{n}[/bold] malicious SHA256s')
-        if footer_parts:
-            console.print('  ' + '  ·  '.join(footer_parts))
         console.print()
     else:
         print_json(json.dumps(_to_json_dict(stats)), indent=2)
