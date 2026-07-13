@@ -32,7 +32,7 @@ Fix: filter out botnet tags whose value looks like a hex hash (matches `^[0-9a-f
 
 ---
 
-### [ ] 5. `subset` is a plain `str` with no validation (`cmd_sandbox.py:48–51`)
+### [x] 5. `subset` is a plain `str` with no validation (`cmd_sandbox.py:48–51`)
 
 `--subset garbage` passes silently to the API. Per project conventions (CLAUDE.md), this must use the psengine `Literal` type so invalid values are rejected at the CLI layer.
 
@@ -66,7 +66,7 @@ Fix: when building the Verified network IOCs display, suppress domains/IPs that 
 
 ---
 
-### [ ] 9. RF score 0 looks identical to low-risk scores (both grey)
+### [x] 9. RF score 0 looks identical to low-risk scores (both grey)
 
 `_rf_score_cell` colors scores 0–24 identically (`grey50`). Score 0 means RF has no data — that is different from "low risk." An IP with score 0 might be a novel, unindexed C2. Currently `_rf_score_cell(0)` returns `[grey50]0[/grey50]`; the `—` display only triggers when the value is `None`.
 
@@ -74,7 +74,7 @@ Fix: treat `rf_score == 0` the same as `None` — display `—` in grey, or add 
 
 ---
 
-### [ ] 10. `discovery` at #1 in Behavioral TTPs every run is noise
+### [x] 10. `discovery` at #1 in Behavioral TTPs every run is noise
 
 `discovery` will top the TTP list in almost every sandbox run — system enumeration is universal in malware. It carries no shift-specific signal. Same applies to `execution` and `persistence` to a lesser degree.
 

@@ -189,3 +189,30 @@ def test_ioc_lookup_verbose(entity_type, args, expected_field_count):
     output = json.loads(result.output)
     for result in output:
         assert len(result.keys()) == expected_field_count
+
+
+class TestColorRiskScore:
+    def setup_method(self):
+        from banshee.formatters.output_formatters import color_risk_score
+
+        self.color_risk_score = color_risk_score
+
+    def test_score_zero_renders_dash(self):
+        result = self.color_risk_score(0)
+        assert '—' in result
+        assert ']0[' not in result
+
+    def test_high_score_red(self):
+        result = self.color_risk_score(90)
+        assert 'red' in result
+        assert '90' in result
+
+    def test_medium_score_yellow(self):
+        result = self.color_risk_score(50)
+        assert 'yellow' in result
+        assert '50' in result
+
+    def test_low_score_grey(self):
+        result = self.color_risk_score(10)
+        assert 'grey50' in result
+        assert '10' in result

@@ -1250,6 +1250,11 @@ class TestPrintHashes:
         out = self._render([{'sha256': 'abc' * 21, 'score': 9, 'top_tag': ''}])
         assert '—' in out
 
+    def test_risk_score_dash_when_zero(self):
+        out = self._render([{'sha256': 'abc' * 21, 'score': 9, 'top_tag': '', 'rf_score': 0}])
+        assert '—' in out
+        assert '0' not in out.split('Risk Score')[1]
+
     def test_risk_score_shown_when_present(self):
         out = self._render([{'sha256': 'abc' * 21, 'score': 9, 'top_tag': '', 'rf_score': 55}])
         assert '55' in out

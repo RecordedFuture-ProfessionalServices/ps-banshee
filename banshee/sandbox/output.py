@@ -471,7 +471,7 @@ def _print_iocs(console: Console, iocs, soar_skipped: bool) -> None:
 
 
 def _rf_score_cell(rf_score) -> str:
-    if rf_score is None:
+    if not rf_score:
         return '[grey50]—[/grey50]'
     color = 'red' if rf_score >= 65 else 'yellow' if rf_score >= 25 else 'grey50'
     return f'[{color}]{rf_score}[/{color}]'

@@ -41,5 +41,7 @@ def format_time(timestamp: Union[datetime, str]) -> str:
 
 
 def color_risk_score(score: int) -> str:
+    if not score:
+        return '[grey50]—[/grey50]'
     color = 'red' if score >= 65 else 'yellow' if score >= 25 else 'grey50'
     return f'[{color}]{score}[/{color}]'
