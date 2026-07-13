@@ -13,7 +13,7 @@
 
 import json
 from datetime import timedelta
-from urllib.parse import quote_plus
+from urllib.parse import quote, quote_plus
 
 from rich import print_json
 from rich.columns import Columns
@@ -50,6 +50,19 @@ _SANDBOX_FRONTEND_URLS = {
 
 def _search_url(frontend_base: str, query: str) -> str:
     return f'{frontend_base}/s?q={quote_plus(query)}'
+
+
+_INTEL_CARD_BASE = 'https://app.recordedfuture.com/portal/intelligence-card'
+_INTEL_CARD_TYPE = {
+    'IpAddress': 'ip',
+    'InternetDomainName': 'idn',
+    'URL': 'url',
+    'Hash': 'hash',
+}
+
+
+def _intel_card_url(rf_type: str, value: str) -> str:
+    return f'{_INTEL_CARD_BASE}/{quote(f"{rf_type}:{value}", safe="")}'
 
 
 def _fmt_tags(
@@ -400,7 +413,7 @@ _DISPLAY_CAP = 10
 _MORE_MSG = '  [dim]… and {} more (use JSON output for the full list)[/dim]'
 
 
-def _print_iocs(console: Console, iocs, soar_skipped: bool, frontend_base: str) -> None:
+def _print_iocs(console: Console, iocs, soar_skipped: bool) -> None:
     if iocs.extracted_c2:
         total = len(iocs.extracted_c2)
         console.print(Rule('[bold]Extracted C2s[/bold]', style='dim'))
@@ -412,11 +425,7 @@ def _print_iocs(console: Console, iocs, soar_skipped: bool, frontend_base: str) 
         for c2_url, count in iocs.extracted_c2[:_DISPLAY_CAP]:
             hit_color = 'red' if count >= 5 else 'yellow' if count >= 2 else 'grey50'
             soar = iocs.c2_soar.get(c2_url) or {}
-            if frontend_base:
-                link = _search_url(frontend_base, f'url:{c2_url}')
-                display = f'[link={link}]{c2_url}[/link]'
-            else:
-                display = c2_url
+            display = f'[link={_intel_card_url("url", c2_url)}]{c2_url}[/link]'
             tbl.add_row(
                 _rf_score_cell(soar.get('rf_score')),
                 f'[{hit_color}]{count}[/{hit_color}]',
@@ -439,11 +448,8 @@ def _print_iocs(console: Console, iocs, soar_skipped: bool, frontend_base: str) 
             score = _ioc_rf_score(ioc)
             color = 'red' if score >= 65 else 'yellow' if score >= 25 else 'grey50'
             indicator = _ioc_field(ioc, 'indicator')
-            if frontend_base:
-                link = _search_url(frontend_base, indicator)
-                indicator_cell = f'[link={link}]{indicator}[/link]'
-            else:
-                indicator_cell = indicator
+            rf_type = _INTEL_CARD_TYPE.get(_ioc_field(ioc, 'type'), 'ip')
+            indicator_cell = f'[link={_intel_card_url(rf_type, indicator)}]{indicator}[/link]'
             tbl.add_row(
                 f'[{color}]{score}[/{color}]',
                 indicator_cell,
@@ -482,11 +488,7 @@ def _print_hashes(console: Console, hashes: list, frontend_base: str) -> None:
         sha = entry['sha256']
         top_tag = entry.get('top_tag', '')
         color = 'red' if score >= 9 else 'dark_orange'
-        if frontend_base:
-            link = _search_url(frontend_base, f'sha256:{sha}')
-            display = f'[link={link}]{sha}[/link]'
-        else:
-            display = sha
+        display = f'[link={_intel_card_url("hash", sha)}]{sha}[/link]'
         if frontend_base and top_tag:
             family_url = _search_url(frontend_base, f'family:{top_tag}')
             family_cell = f'[link={family_url}]{top_tag}[/link]'
@@ -574,7 +576,7 @@ def print_sandbox_stats(stats: SandboxStats, pretty: bool = False) -> None:
         _print_chart_and_summary(console, stats)
         _print_submission_profile(console, stats.by_platform, stats.by_file_type)
         _print_threat_intel(console, stats.top_tags, frontend_base)
-        _print_iocs(console, stats.top_iocs, stats.soar_skipped, frontend_base)
+        _print_iocs(console, stats.top_iocs, stats.soar_skipped)
 
         if stats.top_iocs.malicious_sha256:
             _print_hashes(console, stats.top_iocs.malicious_sha256, frontend_base)

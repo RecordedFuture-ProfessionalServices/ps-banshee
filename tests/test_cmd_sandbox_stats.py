@@ -17,6 +17,7 @@ from banshee.sandbox.output import (
     _SPARK_MAX_BUCKETS,
     _bucket_counts,
     _fmt_tags,
+    _intel_card_url,
     _print_chart_and_summary,
     _print_hashes,
     _print_submission_profile,
@@ -880,6 +881,30 @@ class TestSearchUrl:
         assert _search_url('https://tria.ge', '1.2.3.4').startswith('https://tria.ge/s?q=')
 
 
+class TestIntelCardUrl:
+    def test_ip(self):
+        assert _intel_card_url('ip', '1.2.3.4') == (
+            'https://app.recordedfuture.com/portal/intelligence-card/ip%3A1.2.3.4'
+        )
+
+    def test_domain(self):
+        assert _intel_card_url('idn', 'onetoken.ink') == (
+            'https://app.recordedfuture.com/portal/intelligence-card/idn%3Aonetoken.ink'
+        )
+
+    def test_hash(self):
+        sha = 'a' * 64
+        assert _intel_card_url('hash', sha) == (
+            f'https://app.recordedfuture.com/portal/intelligence-card/hash%3A{sha}'
+        )
+
+    def test_url_fully_encoded(self):
+        assert _intel_card_url('url', 'https://telegram.me/oxffffw') == (
+            'https://app.recordedfuture.com/portal/intelligence-card/'
+            'url%3Ahttps%3A%2F%2Ftelegram.me%2Foxffffw'
+        )
+
+
 class TestFmtTags:
     def test_empty_dict(self):
         assert '—' in _fmt_tags({})
@@ -1163,13 +1188,11 @@ class TestPrintHashes:
         out = self._render(hashes)
         assert 'more' not in out
 
-    def test_frontend_base_preserves_sha256(self):
+    def test_sha256_links_to_intel_card(self):
         sha = 'a' * 64
-        out = self._render(
-            [{'sha256': sha, 'score': 9, 'top_tag': ''}],
-            frontend_base='https://sandbox.recordedfuture.com',
-        )
+        out = self._render([{'sha256': sha, 'score': 9, 'top_tag': ''}], force_terminal=True)
         assert sha in out
+        assert f'hash%3A{sha}' in out
 
     def test_family_tag_linked_when_frontend_base_set(self):
         sha = 'b' * 64
@@ -1183,7 +1206,7 @@ class TestPrintHashes:
     def test_family_tag_plain_without_frontend_base(self):
         out = self._render([{'sha256': 'c' * 64, 'score': 9, 'top_tag': 'vidar'}])
         assert 'vidar' in out
-        assert 'link=' not in out
+        assert 'family%3Avidar' not in out
 
 
 # ---------------------------------------------------------------------------
