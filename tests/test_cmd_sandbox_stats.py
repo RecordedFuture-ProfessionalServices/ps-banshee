@@ -199,6 +199,30 @@ class TestBuildScoreAndPlatform:
         assert by_score == {'malicious': 1, 'clean': 1}
         assert by_platform == {'win': 2}
 
+    def test_same_os_counted_once_per_sample(self):
+        # Two behavioral tasks on the same OS for a single sample must count as 1, not 2.
+        report = _make_report(
+            score=9,
+            tasks={
+                't1': _make_task(kind='behavioral', os='win10'),
+                't2': _make_task(kind='behavioral', os='win10'),
+            },
+        )
+        _, by_platform = _build_score_and_platform([('sample-1', report)])
+        assert by_platform == {'win10': 1}
+
+    def test_different_os_per_sample_each_counted(self):
+        # One sample run on two different OSes → both counted, but each only once.
+        report = _make_report(
+            score=9,
+            tasks={
+                't1': _make_task(kind='behavioral', os='win10'),
+                't2': _make_task(kind='behavioral', os='linux'),
+            },
+        )
+        _, by_platform = _build_score_and_platform([('sample-1', report)])
+        assert by_platform == {'win10': 1, 'linux': 1}
+
 
 class TestBuildTagTaxonomy:
     def test_classifies_family_tags(self):
