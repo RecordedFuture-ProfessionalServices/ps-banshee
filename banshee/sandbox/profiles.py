@@ -15,8 +15,8 @@ import json
 import sys
 
 from psengine.config import get_config
-from psengine.sandbox import SandboxMgr
-from psengine.sandbox.errors import ProfileNotFoundError
+from psengine.sandbox import ProfileUpdateOut, SandboxMgr
+from psengine.sandbox.errors import ProfileNotFoundError, ProfileUpdateError
 from psengine.sandbox.sandbox import Profile
 from rich import print_json
 from rich.console import Console
@@ -63,6 +63,80 @@ def get_sandbox_profile(profile_id_or_name: str, pretty: bool = False) -> None:
         console.print(_profiles_table([profile]))
     else:
         print_json(json.dumps(profile.json()))
+
+
+def _merged(supplied, existing, cleared: bool = False):
+    if cleared:
+        return None
+    return supplied if supplied is not None else existing
+
+
+def _print_update_result(result: ProfileUpdateOut, pretty: bool) -> None:
+    if pretty:
+        msg = 'Profile updated' if result.updated else 'Profile not found — nothing updated'
+        Console().print(msg)
+    else:
+        print_json(json.dumps(result.json()))
+
+
+def update_sandbox_profile(
+    profile_id_or_name: str,
+    name: str | None = None,
+    tags: list[str] | None = None,
+    timeout: int | None = None,
+    network: str | None = None,
+    geolocation: list[str] | None = None,
+    browser: str | None = None,
+    unset: list[str] | None = None,
+    pretty: bool = False,
+) -> None:
+    """Merge the supplied fields into the existing profile and PUT the result.
+
+    Omitted fields keep their current values; fields listed in `unset` are cleared.
+    """
+    config = get_config()
+    mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
+    try:
+        with _spinner('Fetching profile…'):
+            profile = mgr.fetch_profile(profile_id_or_name)
+    except ProfileNotFoundError:
+        _print_update_result(ProfileUpdateOut(updated=False), pretty)
+        return
+
+    cleared = set(unset or [])
+    existing_browser = profile.options.browser if profile.options else None
+    merged_timeout = _merged(timeout, profile.timeout)
+    merged_network = _merged(network, profile.network, 'network' in cleared)
+    merged_geolocation = _merged(geolocation, profile.geolocation, 'geolocation' in cleared) or None
+    if merged_timeout is None:
+        _ERR_CONSOLE.print('[red]Profile has no stored timeout — supply --timeout[/red]')
+        sys.exit(1)
+    # Only guard the user's explicit intent: profiles fetched from the server may
+    # already hold geolocation with a non-vpn network, and inherited state must
+    # not block unrelated updates -- the API stays the authority there.
+    if geolocation and merged_network != 'vpn':
+        _ERR_CONSOLE.print(
+            '[red]Geolocation requires a vpn network[/red] — '
+            f"this profile's network is {merged_network or 'not set'}; "
+            'pass --network vpn together with --geolocation'
+        )
+        sys.exit(1)
+
+    try:
+        with _spinner('Updating profile…'):
+            result = mgr.update_profile(
+                profile.id_,
+                name=_merged(name, profile.name),
+                tags=_merged(tags, profile.tags),
+                timeout=merged_timeout,
+                network=merged_network,
+                geolocation=merged_geolocation,
+                browser=_merged(browser, existing_browser, 'browser' in cleared),
+            )
+    except ProfileUpdateError as exc:
+        _ERR_CONSOLE.print(f'[red]Profile update failed:[/red] {exc}')
+        sys.exit(1)
+    _print_update_result(result, pretty)
 
 
 def list_sandbox_profiles(pretty: bool = False) -> None:

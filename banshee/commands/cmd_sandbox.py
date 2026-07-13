@@ -22,11 +22,19 @@ from ..sandbox import (
     list_sandbox_profiles,
     print_sandbox_stats,
     set_sandbox_sample_profile,
+    update_sandbox_profile,
 )
-from .args import OPT_PRETTY_PRINT, OPT_SANDBOX_SUBSET
+from .args import (
+    OPT_PRETTY_PRINT,
+    OPT_PROFILE_UNSET,
+    OPT_SANDBOX_BROWSER,
+    OPT_SANDBOX_NETWORK,
+    OPT_SANDBOX_SUBSET,
+)
 from .epilogs import (
     EPILOG_SANDBOX_PROFILE_GET,
     EPILOG_SANDBOX_PROFILE_LIST,
+    EPILOG_SANDBOX_PROFILE_UPDATE,
     EPILOG_SANDBOX_SET_PROFILE,
     EPILOG_SANDBOX_STATS,
 )
@@ -49,6 +57,12 @@ _HELP_STATS = (
 
 _HELP_PROFILE_GET = 'Fetch a single analysis profile by ID or name'
 _HELP_PROFILE_LIST = 'List all analysis profiles available in Recorded Future Sandbox'
+_HELP_PROFILE_UPDATE = (
+    'Update an existing analysis profile. Only the options you supply change — '
+    'omitted options keep their current value. Use --unset to clear network, '
+    'browser, or geolocation. Updating a non-existent profile prints '
+    '{"updated": false} and exits 0.'
+)
 _HELP_SET_PROFILE = (
     'Assign analysis profiles to a sample paused at static analysis '
     '(submitted with interactive=True). Use --auto to let the sandbox choose '
@@ -89,6 +103,56 @@ def get_(
 )
 def list_(pretty: OPT_PRETTY_PRINT = False):
     list_sandbox_profiles(pretty=pretty)
+
+
+@banshee_cmd(
+    app=profile_app,
+    name='update',
+    help_=_HELP_PROFILE_UPDATE,
+    epilog=EPILOG_SANDBOX_PROFILE_UPDATE,
+)
+def update(
+    profile_id_or_name: Annotated[str, Argument(help='Profile ID or name')],
+    name: Annotated[
+        str | None,
+        Option('--name', '-n', help='New profile name'),
+    ] = None,
+    tags: Annotated[
+        list[str] | None,
+        Option('--tags', '-T', help='OS/locale tag; replaces all existing tags (repeatable)'),
+    ] = None,
+    timeout: Annotated[
+        int | None,
+        Option('--timeout', '-t', help='Analysis timeout in seconds', min=1, max=3600),
+    ] = None,
+    network: OPT_SANDBOX_NETWORK = None,
+    geolocation: Annotated[
+        list[str] | None,
+        Option('--geolocation', help='VPN country code; requires a vpn network (repeatable)'),
+    ] = None,
+    browser: OPT_SANDBOX_BROWSER = None,
+    unset: OPT_PROFILE_UNSET = None,
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    supplied = {'network': network, 'browser': browser, 'geolocation': geolocation}
+    if not any([name, tags, timeout, *supplied.values(), unset]):
+        raise BadParameter('nothing to update — supply at least one field option or --unset')
+    conflicts = sorted(f for f, v in supplied.items() if v is not None and f in (unset or []))
+    if conflicts:
+        raise BadParameter(f'cannot both set and unset: {", ".join(conflicts)}')
+    if geolocation and (network is not None and network != 'vpn' or 'network' in (unset or [])):
+        raise BadParameter('--geolocation requires --network vpn')
+    update_sandbox_profile(
+        profile_id_or_name,
+        name=name,
+        tags=tags,
+        timeout=timeout,
+        network=network,
+        geolocation=geolocation,
+        browser=browser,
+        unset=unset,
+        pretty=pretty,
+    )
 
 
 @banshee_cmd(

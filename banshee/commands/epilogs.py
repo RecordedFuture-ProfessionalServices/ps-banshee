@@ -664,6 +664,21 @@ EPILOG_SANDBOX_PROFILE_GET = """
 
 """
 
+EPILOG_SANDBOX_PROFILE_UPDATE = """
+## Example Usage
+
+* banshee sandbox profile update ernie -n ernie-v2
+
+* banshee sandbox profile update ernie -T os:windows10-2004-x64 -T locale:en-us
+
+* banshee sandbox profile update ernie -t 300 -N vpn --geolocation us --geolocation gb
+
+* banshee sandbox profile update ernie --unset browser --unset network
+
+* banshee sandbox profile update ernie -n ernie-v2 | jq '.updated'
+
+"""
+
 EPILOG_SANDBOX_PROFILE_LIST = """
 ## Example Usage
 

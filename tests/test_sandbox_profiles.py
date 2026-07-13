@@ -16,11 +16,17 @@ from io import StringIO
 from unittest.mock import MagicMock, patch
 
 import pytest
-from psengine.sandbox.errors import ProfileFetchError, ProfileNotFoundError
+from psengine.sandbox import ProfileUpdateOut
+from psengine.sandbox.errors import ProfileFetchError, ProfileNotFoundError, ProfileUpdateError
 from psengine.sandbox.sandbox import Profile
 from rich.console import Console
 
-from banshee.sandbox.profiles import _profiles_table, get_sandbox_profile, list_sandbox_profiles
+from banshee.sandbox.profiles import (
+    _profiles_table,
+    get_sandbox_profile,
+    list_sandbox_profiles,
+    update_sandbox_profile,
+)
 
 _SPINNER_MOCK = MagicMock(
     return_value=MagicMock(
@@ -250,3 +256,159 @@ class TestGetSandboxProfile:
             get_sandbox_profile('unknown-id', pretty=False)
         err = capsys.readouterr().err
         assert 'not found' in err.lower() or 'no such profile' in err.lower()
+
+
+_FULL_PROFILE = _make_profile(
+    network='internet',
+    geolocation=[],
+    options={'browser': 'firefox'},
+)
+
+
+def _mock_update_mgr(mock_mgr_cls, profile=_FULL_PROFILE):
+    mgr = mock_mgr_cls.return_value
+    mgr.fetch_profile.return_value = profile
+    mgr.update_profile.return_value = ProfileUpdateOut(updated=True)
+    return mgr
+
+
+class TestUpdateSandboxProfile:
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_name_only_keeps_existing_fields(self, mock_mgr_cls):
+        mgr = _mock_update_mgr(mock_mgr_cls)
+        update_sandbox_profile('w7-long', name='renamed')
+        mgr.update_profile.assert_called_once_with(
+            'w7-long',
+            name='renamed',
+            tags=['os:windows7-x64', 'locale:en-us'],
+            timeout=300,
+            network='internet',
+            geolocation=None,
+            browser='firefox',
+        )
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_supplied_fields_overwrite(self, mock_mgr_cls):
+        mgr = _mock_update_mgr(mock_mgr_cls)
+        update_sandbox_profile('w7-long', tags=['os:windows10-2004-x64'], timeout=120)
+        kwargs = mgr.update_profile.call_args.kwargs
+        assert kwargs['tags'] == ['os:windows10-2004-x64']
+        assert kwargs['timeout'] == 120
+        assert kwargs['name'] == 'Windows 7 Long'
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_unset_browser_sends_none(self, mock_mgr_cls):
+        mgr = _mock_update_mgr(mock_mgr_cls)
+        update_sandbox_profile('w7-long', unset=['browser'])
+        assert mgr.update_profile.call_args.kwargs['browser'] is None
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_unset_network_and_geolocation(self, mock_mgr_cls):
+        profile = _make_profile(network='vpn', geolocation=['us'])
+        mgr = _mock_update_mgr(mock_mgr_cls, profile)
+        update_sandbox_profile('w7-long', unset=['network', 'geolocation'])
+        kwargs = mgr.update_profile.call_args.kwargs
+        assert kwargs['network'] is None
+        assert kwargs['geolocation'] is None
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_put_uses_fetched_id_not_name(self, mock_mgr_cls):
+        mgr = _mock_update_mgr(mock_mgr_cls)
+        update_sandbox_profile('Windows 7 Long', timeout=200)
+        assert mgr.update_profile.call_args.args[0] == 'w7-long'
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_not_found_outputs_updated_false_exit_0(self, mock_mgr_cls, capsys):
+        mgr = mock_mgr_cls.return_value
+        mgr.fetch_profile.side_effect = ProfileNotFoundError('no such profile')
+        update_sandbox_profile('unknown-id', name='x')
+        out = capsys.readouterr().out
+        assert json.loads(out) == {'updated': False}
+        mgr.update_profile.assert_not_called()
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_not_found_pretty_message(self, mock_mgr_cls, capsys):
+        mock_mgr_cls.return_value.fetch_profile.side_effect = ProfileNotFoundError('nope')
+        update_sandbox_profile('unknown-id', name='x', pretty=True)
+        out = capsys.readouterr().out
+        assert 'not found' in out.lower()
+        with pytest.raises(json.JSONDecodeError):
+            json.loads(out)
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_supplied_geolocation_without_vpn_exits_1(self, mock_mgr_cls, capsys):
+        mgr = _mock_update_mgr(mock_mgr_cls)  # network='internet'
+        with pytest.raises(SystemExit) as exc_info:
+            update_sandbox_profile('w7-long', geolocation=['us'])
+        assert exc_info.value.code == 1
+        assert 'vpn' in capsys.readouterr().err.lower()
+        mgr.update_profile.assert_not_called()
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_inherited_geolocation_does_not_block_update(self, mock_mgr_cls):
+        """A profile already holding geolocation with a non-vpn network updates fine."""
+        profile = _make_profile(network='drop', geolocation=['us'])
+        mgr = _mock_update_mgr(mock_mgr_cls, profile)
+        update_sandbox_profile('w7-long', timeout=150)
+        kwargs = mgr.update_profile.call_args.kwargs
+        assert kwargs['timeout'] == 150
+        assert kwargs['geolocation'] == ['us']
+        assert kwargs['network'] == 'drop'
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_geolocation_ok_when_profile_already_vpn(self, mock_mgr_cls):
+        profile = _make_profile(network='vpn', geolocation=['de'])
+        mgr = _mock_update_mgr(mock_mgr_cls, profile)
+        update_sandbox_profile('w7-long', geolocation=['us'])
+        assert mgr.update_profile.call_args.kwargs['geolocation'] == ['us']
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_update_error_exits_1(self, mock_mgr_cls, capsys):
+        mgr = _mock_update_mgr(mock_mgr_cls)
+        mgr.update_profile.side_effect = ProfileUpdateError('API down')
+        with pytest.raises(SystemExit) as exc_info:
+            update_sandbox_profile('w7-long', name='x')
+        assert exc_info.value.code == 1
+        assert 'api down' in capsys.readouterr().err.lower()
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_success_outputs_updated_true_json(self, mock_mgr_cls, capsys):
+        _mock_update_mgr(mock_mgr_cls)
+        update_sandbox_profile('w7-long', name='x')
+        out = capsys.readouterr().out
+        assert json.loads(out) == {'updated': True}
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_success_pretty_message_not_json(self, mock_mgr_cls, capsys):
+        _mock_update_mgr(mock_mgr_cls)
+        update_sandbox_profile('w7-long', name='x', pretty=True)
+        out = capsys.readouterr().out
+        assert 'updated' in out.lower()
+        with pytest.raises(json.JSONDecodeError):
+            json.loads(out)
