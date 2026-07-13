@@ -19,6 +19,7 @@ from .profiles import (
     list_sandbox_profiles,
     update_sandbox_profile,
 )
+from .reports import fetch_overview_report
 from .stats import SandboxStats, fetch_sandbox_stats
 from .submit import set_sandbox_sample_profile
 
@@ -26,6 +27,7 @@ __all__ = [
     'SandboxStats',
     'create_sandbox_profile',
     'delete_sandbox_profile',
+    'fetch_overview_report',
     'fetch_sandbox_stats',
     'get_sandbox_profile',
     'list_sandbox_profiles',

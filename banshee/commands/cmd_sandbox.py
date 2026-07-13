@@ -19,6 +19,7 @@ from ..branding import banshee_cmd
 from ..sandbox import (
     create_sandbox_profile,
     delete_sandbox_profile,
+    fetch_overview_report,
     fetch_sandbox_stats,
     get_sandbox_profile,
     list_sandbox_profiles,
@@ -39,6 +40,7 @@ from .epilogs import (
     EPILOG_SANDBOX_PROFILE_GET,
     EPILOG_SANDBOX_PROFILE_LIST,
     EPILOG_SANDBOX_PROFILE_UPDATE,
+    EPILOG_SANDBOX_REPORT_OVERVIEW,
     EPILOG_SANDBOX_SET_PROFILE,
     EPILOG_SANDBOX_STATS,
 )
@@ -49,6 +51,7 @@ CMD_RICH_HELP = 'Sandbox'
 
 _PANEL_ANALYTICS = 'Analytics'
 _PANEL_PROFILE_MGMT = 'Profile Management'
+_PANEL_REPORTS = 'Reports'
 _PANEL_SUBMISSION = 'Submission'
 
 _HELP_STATS = (
@@ -77,6 +80,13 @@ _HELP_PROFILE_UPDATE = (
     'browser, or geolocation. Updating a non-existent profile prints '
     '{"updated": false} and exits 0.'
 )
+_HELP_REPORT_OVERVIEW = (
+    'Fetch the overview report for a completed sandbox sample: verdict score, '
+    'malware family, tags, hashes, detection signatures, extracted malware '
+    'configs, network IOCs, and per-task results. Default output is the full '
+    'report as JSON; use `--pretty` for a summarised human-readable view. '
+    'Requires the sample to have finished analysis (status `reported`).'
+)
 _HELP_SET_PROFILE = (
     'Assign analysis profiles to a sample paused at static analysis '
     '(submitted with interactive=True). Use --auto to let the sandbox choose '
@@ -85,6 +95,7 @@ _HELP_SET_PROFILE = (
 
 app = Typer(no_args_is_help=True)
 profile_app = Typer(no_args_is_help=True)
+report_app = Typer(no_args_is_help=True)
 
 
 def _require_non_empty(**options):
@@ -270,9 +281,28 @@ def set_profile(
     set_sandbox_sample_profile(sample_id, auto=auto, picks=pick, pretty=pretty)
 
 
+@banshee_cmd(
+    app=report_app,
+    name='overview',
+    help_=_HELP_REPORT_OVERVIEW,
+    epilog=EPILOG_SANDBOX_REPORT_OVERVIEW,
+)
+def overview(
+    sample_id: Annotated[str, Argument(help='Sandbox sample ID')],
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    fetch_overview_report(sample_id, pretty=pretty)
+
+
 app.add_typer(
     profile_app,
     name='profile',
     help='Manage analysis profiles',
     rich_help_panel=_PANEL_PROFILE_MGMT,
+)
+app.add_typer(
+    report_app,
+    name='report',
+    help='Sample analysis reports',
+    rich_help_panel=_PANEL_REPORTS,
 )
