@@ -17,7 +17,7 @@ from typer import Option, Typer
 
 from ..branding import banshee_cmd
 from ..sandbox import fetch_sandbox_stats, print_sandbox_stats
-from .args import OPT_PRETTY_PRINT
+from .args import OPT_PRETTY_PRINT, OPT_SANDBOX_SUBSET
 from .epilogs import EPILOG_SANDBOX_STATS
 
 CMD_NAME = 'sandbox'
@@ -41,14 +41,7 @@ def stats(
         int,
         Option('--days', '-d', help='Lookback window in days', min=1),
     ] = 7,
-    subset: Annotated[
-        str,
-        Option(
-            '--subset',
-            '-s',
-            help="Sample scope: 'org' (org-wide) or 'owned' (current user)",
-        ),
-    ] = 'org',
+    subset: OPT_SANDBOX_SUBSET = 'org',
     pretty: OPT_PRETTY_PRINT = False,
 ):
     result = fetch_sandbox_stats(days=days, subset=subset)

@@ -14,7 +14,7 @@
 from typing import Annotated, Optional, get_args
 
 import click
-from psengine.sandbox.sandbox_mgr import SandboxChoice
+from psengine.sandbox.sandbox_mgr import SandboxChoice, SandboxSubset
 from typer import Option
 
 ################################
@@ -63,5 +63,15 @@ OPT_SANDBOX_CHOICE = Annotated[
         envvar='RF_SANDBOX_CHOICE',
         help='Sandbox region.',
         click_type=click.Choice(get_args(SandboxChoice), case_sensitive=False),
+    ),
+]
+
+OPT_SANDBOX_SUBSET = Annotated[
+    str,
+    Option(
+        '--subset',
+        '-s',
+        help='Sample scope.',
+        click_type=click.Choice(get_args(SandboxSubset), case_sensitive=False),
     ),
 ]
