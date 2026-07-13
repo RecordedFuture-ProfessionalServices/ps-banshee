@@ -25,6 +25,7 @@ from ..sandbox import (
     list_sandbox_profiles,
     print_sandbox_stats,
     set_sandbox_sample_profile,
+    submit_sandbox_sample,
     update_sandbox_profile,
 )
 from .args import (
@@ -43,6 +44,7 @@ from .epilogs import (
     EPILOG_SANDBOX_REPORT_OVERVIEW,
     EPILOG_SANDBOX_SET_PROFILE,
     EPILOG_SANDBOX_STATS,
+    EPILOG_SANDBOX_SUBMIT,
 )
 
 CMD_NAME = 'sandbox'
@@ -91,6 +93,15 @@ _HELP_SET_PROFILE = (
     'Assign analysis profiles to a sample paused at static analysis '
     '(submitted with interactive=True). Use --auto to let the sandbox choose '
     'automatically, or --pick FILE:PROFILE for manual per-file mapping.'
+)
+_HELP_SUBMIT = (
+    'Submit a sample to Recorded Future Sandbox for analysis. The submission '
+    'kind is detected from the target: an existing local file is uploaded, a '
+    'URL is detonated in a browser (or downloaded first with --fetch), and '
+    '--import brings in a public sample by ID. Default output is the submitted '
+    'sample as JSON; --wait polls until analysis completes and prints the '
+    'overview report instead. --interactive pauses at static analysis and '
+    'prompts for file and profile selection before detonation.'
 )
 
 app = Typer(no_args_is_help=True)
@@ -245,6 +256,84 @@ def delete(
     if not yes:
         confirm(f'Delete profile {profile_id_or_name!r}?', abort=True)
     delete_sandbox_profile(profile_id_or_name)
+
+
+@banshee_cmd(
+    app=app,
+    name='submit',
+    help_=_HELP_SUBMIT,
+    epilog=EPILOG_SANDBOX_SUBMIT,
+    rich_help_panel=_PANEL_SUBMISSION,
+)
+def submit(
+    target: Annotated[
+        str,
+        Argument(help='File path, URL, or public sample ID (with --import)'),
+    ],
+    fetch: Annotated[
+        bool,
+        Option('--fetch', help='Download the URL target first, then analyse the downloaded file'),
+    ] = False,
+    import_: Annotated[
+        bool,
+        Option('--import', help='Treat the target as a public sample ID to import'),
+    ] = False,
+    profile: Annotated[
+        list[str] | None,
+        Option('--profile', help='Analysis profile name or ID (repeatable)'),
+    ] = None,
+    timeout: Annotated[
+        int | None,
+        Option('--timeout', '-t', help='Analysis timeout in seconds', min=1, max=3600),
+    ] = None,
+    network: OPT_SANDBOX_NETWORK = None,
+    geolocation: Annotated[
+        str | None,
+        Option('--geolocation', help='VPN exit country code; requires --network vpn'),
+    ] = None,
+    tags: Annotated[
+        list[str] | None,
+        Option('--tags', '-T', help='Custom tag attached to the submission (repeatable)'),
+    ] = None,
+    password: Annotated[
+        str | None,
+        Option('--password', help='Password for protected archives'),
+    ] = None,
+    wait: Annotated[
+        bool,
+        Option('--wait', '-w', help='Wait for analysis to finish and print the overview report'),
+    ] = False,
+    interactive: Annotated[
+        bool,
+        Option(
+            '--interactive',
+            '-i',
+            help='Pause at static analysis and prompt for file and profile selection',
+        ),
+    ] = False,
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    _require_non_empty(profile=profile, tags=tags, geolocation=geolocation, password=password)
+    if fetch and import_:
+        raise BadParameter('--fetch and --import are mutually exclusive')
+    if interactive and profile:
+        raise BadParameter('--interactive and --profile are mutually exclusive')
+    if geolocation and network != 'vpn':
+        raise BadParameter('--geolocation requires --network vpn')
+    submit_sandbox_sample(
+        target,
+        fetch=fetch,
+        import_=import_,
+        profiles=profile,
+        timeout=timeout,
+        network=network,
+        geolocation=geolocation,
+        tags=tags,
+        password=password,
+        wait=wait,
+        interactive=interactive,
+        pretty=pretty,
+    )
 
 
 @banshee_cmd(

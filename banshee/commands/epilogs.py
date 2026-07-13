@@ -741,6 +741,36 @@ EPILOG_SANDBOX_SET_PROFILE = """
 
 """
 
+EPILOG_SANDBOX_SUBMIT = """
+## Target kinds
+
+| Target | Kind |
+|--------|------|
+| Local file path | file |
+| URL | url (detonated in a browser) |
+| URL + --fetch | fetch (downloaded first, then detonated) |
+| Public sample ID + --import | import |
+
+## Example Usage
+
+* banshee sandbox submit malware.exe
+
+* banshee sandbox submit https://evil.com
+
+* banshee sandbox submit https://cdn.evil.com/payload.exe --fetch
+
+* banshee sandbox submit 250601-abc123 --import
+
+* banshee sandbox submit malware.zip --password infected --profile win10-x64 -T case-42
+
+* banshee sandbox submit malware.exe --network vpn --geolocation us -t 300
+
+* banshee sandbox submit malware.exe --wait | jq '.analysis.score'
+
+* banshee sandbox submit archive.zip --interactive --wait --pretty
+
+"""
+
 EPILOG_SANDBOX_STATS = """
 ## Score buckets (Triage 1–10 scale)
 
