@@ -25,6 +25,7 @@ from ..sandbox import (
     fetch_static_report,
     get_sandbox_profile,
     list_sandbox_profiles,
+    list_sandbox_samples,
     print_sandbox_stats,
     set_sandbox_sample_profile,
     submit_sandbox_sample,
@@ -38,6 +39,7 @@ from .args import (
     OPT_SANDBOX_SUBSET,
 )
 from .epilogs import (
+    EPILOG_SANDBOX_LIST,
     EPILOG_SANDBOX_PROFILE_CREATE,
     EPILOG_SANDBOX_PROFILE_DELETE,
     EPILOG_SANDBOX_PROFILE_GET,
@@ -66,6 +68,13 @@ _HELP_STATS = (
     'Shows submission volume, score distribution, top malware families, platform '
     'coverage, extracted C2s, and SOAR-validated network IOCs. '
     'Default output is JSON; use `--pretty` for a human-readable Rich layout.'
+)
+
+_HELP_LIST = (
+    'List sandbox samples: your own submissions, all submissions in your '
+    'organisation (default), or the public feed. Default output is a JSON '
+    'array of samples; use `--pretty` for a human-readable table. '
+    'An empty result prints `[]` and exits 0.'
 )
 
 _HELP_PROFILE_CREATE = (
@@ -276,6 +285,24 @@ def delete(
     if not yes:
         confirm(f'Delete profile {profile_id_or_name!r}?', abort=True)
     delete_sandbox_profile(profile_id_or_name)
+
+
+@banshee_cmd(
+    app=app,
+    name='list',
+    help_=_HELP_LIST,
+    epilog=EPILOG_SANDBOX_LIST,
+    rich_help_panel=_PANEL_SUBMISSION,
+)
+def list_samples(
+    subset: OPT_SANDBOX_SUBSET = 'org',
+    limit: Annotated[
+        int,
+        Option('--limit', '-l', help='Maximum number of samples to return', min=1, max=4095),
+    ] = 20,
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    list_sandbox_samples(subset=subset, limit=limit, pretty=pretty)
 
 
 @banshee_cmd(

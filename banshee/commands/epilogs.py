@@ -651,6 +651,21 @@ EPILOG_EMAIL_ENRICH = """
 * banshee email enrich phishing_submission.eml -r 1 -p
 """
 
+EPILOG_SANDBOX_LIST = """
+## Example Usage
+
+* banshee sandbox list
+
+* banshee sandbox list --subset owned
+
+* banshee sandbox list -s public -l 50
+
+* banshee sandbox list -p
+
+* banshee sandbox list | jq '.[].sha256'
+
+"""
+
 EPILOG_SANDBOX_PROFILE_CREATE = """
 ## Example Usage
 
