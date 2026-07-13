@@ -651,6 +651,17 @@ EPILOG_EMAIL_ENRICH = """
 * banshee email enrich phishing_submission.eml -r 1 -p
 """
 
+EPILOG_SANDBOX_PROFILE_DELETE = """
+## Example Usage
+
+* banshee sandbox profile delete 022b8c4e-22ab-46a4-ac49-a2732b2412b7
+
+* banshee sandbox profile delete 'Windows 7 Long'
+
+* banshee sandbox profile delete w7-long -y
+
+"""
+
 EPILOG_SANDBOX_PROFILE_GET = """
 ## Example Usage
 
