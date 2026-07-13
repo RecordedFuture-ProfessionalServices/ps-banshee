@@ -21,6 +21,7 @@ from ..sandbox import (
     delete_sandbox_profile,
     fetch_overview_report,
     fetch_sandbox_stats,
+    fetch_static_report,
     get_sandbox_profile,
     list_sandbox_profiles,
     print_sandbox_stats,
@@ -42,6 +43,7 @@ from .epilogs import (
     EPILOG_SANDBOX_PROFILE_LIST,
     EPILOG_SANDBOX_PROFILE_UPDATE,
     EPILOG_SANDBOX_REPORT_OVERVIEW,
+    EPILOG_SANDBOX_REPORT_STATIC,
     EPILOG_SANDBOX_SET_PROFILE,
     EPILOG_SANDBOX_STATS,
     EPILOG_SANDBOX_SUBMIT,
@@ -88,6 +90,14 @@ _HELP_REPORT_OVERVIEW = (
     'configs, network IOCs, and per-task results. Default output is the full '
     'report as JSON; use `--pretty` for a summarised human-readable view. '
     'Requires the sample to have finished analysis (status `reported`).'
+)
+_HELP_REPORT_STATIC = (
+    'Fetch the static (pre-detonation) analysis report for a sandbox sample: '
+    'verdict score, tags, the files unpacked from the submission, static '
+    'detection signatures, and extracted malware configs. Available as soon '
+    'as static analysis completes — no need to wait for behavioral tasks to '
+    'finish. Default output is the full report as JSON; use `--pretty` for a '
+    'summarised human-readable view.'
 )
 _HELP_SET_PROFILE = (
     'Assign analysis profiles to a sample paused at static analysis '
@@ -381,6 +391,19 @@ def overview(
     pretty: OPT_PRETTY_PRINT = False,
 ):
     fetch_overview_report(sample_id, pretty=pretty)
+
+
+@banshee_cmd(
+    app=report_app,
+    name='static',
+    help_=_HELP_REPORT_STATIC,
+    epilog=EPILOG_SANDBOX_REPORT_STATIC,
+)
+def static(
+    sample_id: Annotated[str, Argument(help='Sandbox sample ID')],
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    fetch_static_report(sample_id, pretty=pretty)
 
 
 app.add_typer(

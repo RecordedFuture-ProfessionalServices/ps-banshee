@@ -726,6 +726,19 @@ EPILOG_SANDBOX_REPORT_OVERVIEW = """
 
 """
 
+EPILOG_SANDBOX_REPORT_STATIC = """
+## Example Usage
+
+* banshee sandbox report static 260501-h4p7laawme
+
+* banshee sandbox report static 260501-h4p7laawme -p
+
+* banshee sandbox report static 260501-h4p7laawme | jq '.analysis'
+
+* banshee sandbox report static 260501-h4p7laawme | jq '.files[].sha256'
+
+"""
+
 EPILOG_SANDBOX_SET_PROFILE = """
 ## Example Usage
 

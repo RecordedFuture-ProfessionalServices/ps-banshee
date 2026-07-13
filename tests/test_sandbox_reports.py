@@ -12,18 +12,21 @@
 ##############################################################################################
 
 import json
+import os
 from contextlib import contextmanager
 from unittest.mock import MagicMock, patch
 
 import pytest
-from psengine.sandbox import OverviewReport
+from psengine.sandbox import OverviewReport, StaticAnalysisReport
 from psengine.sandbox.errors import (
     SampleOverviewError,
     SampleReportNotAvailableError,
     SampleReportNotFoundError,
+    SampleStaticReportError,
 )
+from requests.exceptions import HTTPError
 
-from banshee.sandbox.reports import fetch_overview_report
+from banshee.sandbox.reports import fetch_overview_report, fetch_static_report
 
 _SPINNER_MOCK = MagicMock(
     return_value=MagicMock(
@@ -229,6 +232,218 @@ class TestOverviewPretty:
         assert 'Signatures' not in out
         assert 'IOCs' not in out
         assert 'Tasks' not in out
+
+
+def _make_static_report(**overrides) -> StaticAnalysisReport:
+    payload = {
+        'sample': {'sample': _SAMPLE_ID, 'kind': 'file', 'size': 483523, 'target': 'invoice.zip'},
+        'task': {'task': 'static1', 'target': 'invoice.zip'},
+        'analysis': {'score': 8, 'tags': ['family:darkcomet', 'rat']},
+        'signatures': [
+            {'name': 'Suspicious packer', 'score': 5},
+            {'name': 'Darkcomet', 'score': 10},
+        ],
+        'files': [
+            {
+                'filename': 'invoice.exe',
+                'kind': 'pe',
+                'filesize': 482000,
+                'sha256': _SHA256,
+                'selected': True,
+            },
+            {'filename': 'readme.txt', 'kind': 'txt', 'filesize': 1200},
+        ],
+        'extracted': [
+            {'config': {'family': 'darkcomet', 'c2': ['kvejo991.ddns.net:1604'], 'botnet': 'AP'}},
+        ],
+        'unpack_count': 2,
+        'error_count': 0,
+    }
+    payload.update(overrides)
+    return StaticAnalysisReport.model_validate(payload)
+
+
+_RICH_STATIC_REPORT = _make_static_report()
+_SPARSE_STATIC_REPORT = StaticAnalysisReport.model_validate(
+    {
+        'sample': {'sample': 'sparse-id', 'kind': 'url'},
+        'task': {'task': 'static1'},
+        'analysis': {},
+        'signatures': None,
+        'files': None,
+        'extracted': None,
+    }
+)
+
+
+def _run_static(capsys, report=_RICH_STATIC_REPORT, pretty=False):
+    with (
+        _patched_mgr() as mock_mgr_cls,
+        patch.dict(os.environ, {'COLUMNS': '250'}),
+    ):
+        mock_mgr_cls.return_value.fetch_sample_static_report.return_value = report
+        fetch_static_report(_SAMPLE_ID, pretty=pretty)
+    return capsys.readouterr().out
+
+
+def _run_static_with_error(capsys, error, sample_id=_SAMPLE_ID):
+    with _patched_mgr() as mock_mgr_cls:
+        mock_mgr_cls.return_value.fetch_sample_static_report.side_effect = error
+        with pytest.raises(SystemExit) as exc_info:
+            fetch_static_report(sample_id, pretty=False)
+    return exc_info.value.code, capsys.readouterr()
+
+
+def _static_error_with_status(status_code) -> SampleStaticReportError:
+    """Build the error as psengine raises it: chained from an HTTPError with a response."""
+    error = SampleStaticReportError('404 Client Error: Not Found for url: …')
+    error.__cause__ = HTTPError(response=MagicMock(status_code=status_code))
+    return error
+
+
+class TestStaticJson:
+    def test_default_outputs_json(self, capsys):
+        data = json.loads(_run_static(capsys))
+        assert data['analysis']['score'] == 8
+        assert data['unpack_count'] == 2
+        assert data['error_count'] == 0
+
+    def test_fetch_called_with_sample_id(self, capsys):
+        with _patched_mgr() as mock_mgr_cls:
+            mock_mgr_cls.return_value.fetch_sample_static_report.return_value = _RICH_STATIC_REPORT
+            fetch_static_report(_SAMPLE_ID, pretty=False)
+        capsys.readouterr()
+        mock_mgr_cls.return_value.fetch_sample_static_report.assert_called_once_with(_SAMPLE_ID)
+
+    def test_json_contains_files(self, capsys):
+        data = json.loads(_run_static(capsys))
+        assert data['files'][0]['filename'] == 'invoice.exe'
+        assert data['files'][0]['sha256'] == _SHA256
+        assert data['files'][0]['selected'] is True
+
+    def test_json_contains_extracted_config(self, capsys):
+        data = json.loads(_run_static(capsys))
+        assert data['extracted'][0]['config']['c2'] == ['kvejo991.ddns.net:1604']
+
+    def test_null_lists_serialise_as_empty(self, capsys):
+        data = json.loads(_run_static(capsys, report=_SPARSE_STATIC_REPORT))
+        assert data['files'] == []
+        assert data['signatures'] == []
+        assert data['extracted'] == []
+
+
+class TestStaticPretty:
+    def test_pretty_shows_verdict_header(self, capsys):
+        out = _run_static(capsys, pretty=True)
+        assert _SAMPLE_ID in out
+        assert 'SCORE 8' in out
+        assert 'MALICIOUS' in out
+
+    def test_pretty_shows_tags(self, capsys):
+        out = _run_static(capsys, pretty=True)
+        assert 'family:darkcomet' in out
+
+    def test_pretty_shows_target_and_counts(self, capsys):
+        out = _run_static(capsys, pretty=True)
+        assert 'invoice.zip' in out
+        assert 'Unpacked: 2' in out
+        assert 'Errors: 0' in out
+
+    def test_pretty_shows_files_with_full_hash_and_raw_size(self, capsys):
+        out = _run_static(capsys, pretty=True)
+        assert 'invoice.exe' in out
+        assert 'readme.txt' in out
+        assert _SHA256 in out
+        assert '482000' in out
+
+    def test_pretty_marks_selected_files(self, capsys):
+        out = _run_static(capsys, pretty=True)
+        assert '✓' in out
+
+    def test_pretty_shows_signatures(self, capsys):
+        out = _run_static(capsys, pretty=True)
+        assert 'Darkcomet' in out
+        assert 'Suspicious packer' in out
+
+    def test_pretty_signatures_sorted_by_score(self, capsys):
+        out = _run_static(capsys, pretty=True)
+        assert out.index('Darkcomet') < out.index('Suspicious packer')
+
+    def test_pretty_shows_extracted_config(self, capsys):
+        out = _run_static(capsys, pretty=True)
+        assert 'kvejo991.ddns.net:1604' in out
+        assert 'AP' in out
+
+    def test_pretty_is_not_json(self, capsys):
+        out = _run_static(capsys, pretty=True)
+        with pytest.raises(json.JSONDecodeError):
+            json.loads(out)
+
+    def test_pretty_truncates_long_file_list(self, capsys):
+        files = [{'filename': f'file-{i:02d}.exe'} for i in range(1, 13)]
+        out = _run_static(capsys, report=_make_static_report(files=files), pretty=True)
+        assert 'file-01.exe' in out
+        assert 'file-10.exe' in out
+        assert 'file-11.exe' not in out
+        assert 'more' in out
+
+    def test_pretty_truncates_long_signature_list(self, capsys):
+        signatures = [{'name': f'signature-{i:02d}', 'score': 20 - i} for i in range(1, 13)]
+        out = _run_static(capsys, report=_make_static_report(signatures=signatures), pretty=True)
+        assert 'signature-01' in out
+        assert 'signature-10' in out
+        assert 'signature-11' not in out
+        assert 'more' in out
+
+    def test_pretty_escapes_markup_in_report_data(self, capsys):
+        report = _make_static_report(
+            analysis={'score': 8, 'tags': ['[red]fake[/red]']},
+            signatures=[{'name': 'bad [/closes] tag', 'score': 5}],
+            files=[{'filename': 'evil[link=http://x]hi[/link].exe'}],
+        )
+        out = _run_static(capsys, report=report, pretty=True)
+        assert '[red]fake[/red]' in out
+        assert 'bad [/closes] tag' in out
+        assert 'evil[link=http://x]hi[/link].exe' in out
+
+    def test_pretty_sparse_report_renders(self, capsys):
+        out = _run_static(capsys, report=_SPARSE_STATIC_REPORT, pretty=True)
+        assert 'sparse-id' in out
+        assert 'UNKNOWN' in out
+
+    def test_pretty_sparse_report_omits_empty_sections(self, capsys):
+        out = _run_static(capsys, report=_SPARSE_STATIC_REPORT, pretty=True)
+        assert 'Files' not in out
+        assert 'Signatures' not in out
+        assert 'Extracted' not in out
+
+
+class TestStaticErrors:
+    def test_404_reports_sample_not_found(self, capsys):
+        code, captured = _run_static_with_error(capsys, _static_error_with_status(404))
+        assert code == 1
+        assert f'Sample not found: {_SAMPLE_ID}' in captured.err
+
+    def test_non_404_http_error_reports_failure(self, capsys):
+        code, captured = _run_static_with_error(capsys, _static_error_with_status(500))
+        assert code == 1
+        assert 'Failed to fetch static report' in captured.err
+
+    def test_error_without_response_reports_failure(self, capsys):
+        code, captured = _run_static_with_error(capsys, SampleStaticReportError('conn refused'))
+        assert code == 1
+        assert 'Failed to fetch static report' in captured.err
+        assert 'conn refused' in captured.err
+
+    def test_error_messages_escape_markup(self, capsys):
+        _, captured = _run_static_with_error(
+            capsys, _static_error_with_status(404), sample_id='odd[/id]'
+        )
+        assert 'Sample not found: odd[/id]' in captured.err
+
+    def test_errors_never_pollute_stdout(self, capsys):
+        _, captured = _run_static_with_error(capsys, _static_error_with_status(500))
+        assert captured.out == ''
 
 
 class TestOverviewErrors:
