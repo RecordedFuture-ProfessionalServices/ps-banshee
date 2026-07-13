@@ -58,7 +58,7 @@ CMD_RICH_HELP = 'Sandbox'
 _PANEL_ANALYTICS = 'Analytics'
 _PANEL_PROFILE_MGMT = 'Profile Management'
 _PANEL_REPORTS = 'Reports'
-_PANEL_SUBMISSION = 'Submission'
+_PANEL_SUBMISSION = 'Samples'
 
 _HELP_STATS = (
     'Aggregate sandbox submissions over a configurable window and print a '
