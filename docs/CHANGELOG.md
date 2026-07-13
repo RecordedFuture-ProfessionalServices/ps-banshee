@@ -1,5 +1,11 @@
 # Release History
 
+## v.1.4.1 - 2026-07-13
+
+### Changed
+- Bump `psengine` dependencies.
+
+
 ## v.1.4.0 - 2026-07-13
 
 ### Added
@@ -8,7 +14,6 @@
 ## v1.3.1 - 2026-06-30
 
 ### Changed
-
 - Bump dependencies.
 
 ## 1.3.0 - 2026-06-15

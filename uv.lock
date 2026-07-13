@@ -460,15 +460,6 @@ wheels = [
 ]
 
 [[package]]
-name = "markdown-strings"
-version = "3.4.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/72/d2/ef65d0f3c150bfc99f5c4a516ae57e7c3acddfaacc1196dd296b1299ea7f/markdown_strings-3.4.0.tar.gz", hash = "sha256:7574de0606160d7291ac2e1933a8ed47d31f0b49b674f128da1f548930c8578b", size = 7869, upload-time = "2024-05-03T15:40:04.784Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/92/aa/aa65cf458a5053d24237902e7a07a2f895f4d515aee53f73636deb4d36ea/markdown_strings-3.4.0-py2.py3-none-any.whl", hash = "sha256:1a7e2a575b2af27482ccbe6a0efc3407f678ac5cece8654c36fd827ac540a631", size = 8424, upload-time = "2024-05-03T15:40:02.713Z" },
-]
-
-[[package]]
 name = "markupsafe"
 version = "3.0.3"
 source = { registry = "https://pypi.org/simple" }
@@ -799,7 +790,7 @@ wheels = [
 
 [[package]]
 name = "ps-banshee"
-version = "1.3.0"
+version = "1.4.0"
 source = { editable = "." }
 dependencies = [
     { name = "polars" },
@@ -833,7 +824,7 @@ docs = [
 [package.metadata]
 requires-dist = [
     { name = "polars", specifier = "~=1.34.0" },
-    { name = "psengine", specifier = "~=2.8.3" },
+    { name = "psengine", specifier = "~=2.8.4" },
     { name = "pyshark", specifier = "==0.6" },
     { name = "typer", specifier = "<0.16.0" },
 ]
@@ -862,12 +853,11 @@ docs = [
 
 [[package]]
 name = "psengine"
-version = "2.8.3"
+version = "2.8.4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "idna" },
     { name = "jsonpath-ng" },
-    { name = "markdown-strings" },
     { name = "more-itertools" },
     { name = "pydantic" },
     { name = "pydantic-settings", extra = ["toml"] },
@@ -877,9 +867,9 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1d/22/e63dc02f9a5860efe2be75f814fc37e05d19d6ef994cbb566c40027aaf2f/psengine-2.8.3.tar.gz", hash = "sha256:e448f3683377544c4d12711cc237a195b8fdbc1a99e708231293b6e656ae771b", size = 145011, upload-time = "2026-06-30T13:18:03.471Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/4d/56/9126de946111082bda3636f50a192d54e29537b5234274a188b0c4c2bd9b/psengine-2.8.4.tar.gz", hash = "sha256:2a36b5f92598c2255dc0653a58e53186f868c5aed946fb3d5700803ef807c65b", size = 146176, upload-time = "2026-07-13T09:01:40.32Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2a/96/1e10780d3f9985fddf3d6caa8c90542fbd0d75299f7a56119490baa894a4/psengine-2.8.3-py3-none-any.whl", hash = "sha256:785ffd8d33b61131bab9a615e6734d80ca4ca3d7860b5398f16ce20fe6fa6ff4", size = 267304, upload-time = "2026-06-30T13:18:02.031Z" },
+    { url = "https://files.pythonhosted.org/packages/cc/18/28e969c0e50eb8e314dc42e86441fd20c13dd5541f28f700deead303e5a0/psengine-2.8.4-py3-none-any.whl", hash = "sha256:53374dc4ae1d08434aa3485ec35baeea95a7124392bf5afaec330efef09a72f2", size = 269419, upload-time = "2026-07-13T09:01:38.876Z" },
 ]
 
 [[package]]
