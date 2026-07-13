@@ -15,8 +15,9 @@ import json
 import sys
 
 from psengine.config import get_config
-from psengine.sandbox import OverviewReport, SandboxMgr, StaticAnalysisReport
+from psengine.sandbox import BehavioralReport, OverviewReport, SandboxMgr, StaticAnalysisReport
 from psengine.sandbox.errors import (
+    SampleBehavioralReportError,
     SampleOverviewError,
     SampleReportNotAvailableError,
     SampleReportNotFoundError,
@@ -47,6 +48,7 @@ _SCORE_LABELS = {
 }
 _HASH_PREVIEW_LEN = 16
 _IOC_PREVIEW_LEN = 60
+_BEHAVIORAL_MAX_WORKERS = 10
 
 
 def _spinner(label: str = 'Fetching overview report…') -> Progress:
@@ -259,11 +261,95 @@ def _print_static_pretty(report: StaticAnalysisReport) -> None:
     _print_extracted(console, report.extracted)
 
 
-def _is_not_found(exc: SampleStaticReportError) -> bool:
-    """A 404 on the static report endpoint means the sample does not exist.
+def _print_behavioral_header(console: Console, report: BehavioralReport) -> None:
+    analysis = report.analysis
+    bucket = _score_bucket(analysis.score)
+    color = _SCORE_COLORS[bucket]
+    score = analysis.score if analysis.score is not None else '—'
+    line = (
+        f'[bold]{escape(report.task_id or "behavioral")}[/bold] — '
+        f'[bold {color}]SCORE {score} {_SCORE_LABELS[bucket]}[/bold {color}]'
+    )
+    if analysis.platform:
+        line += f'   platform: {escape(analysis.platform)}'
+    console.print(line)
+    parts = []
+    if analysis.tags:
+        parts.append(f'Tags: [dim]{_joined_capped(analysis.tags)}[/dim]')
+    counts = [
+        (label, count)
+        for label, count in (
+            ('Requests', len(report.network.requests)),
+            ('IPs', len(report.network.ips)),
+            ('Dumped', len(report.dumped)),
+        )
+        if count
+    ]
+    if counts:
+        parts.append('  '.join(f'[dim]{label}:[/dim] {count}' for label, count in counts))
+    if parts:
+        console.print('   '.join(parts))
+    for error in report.errors:
+        console.print(f'[red]Error: {escape(error.reason or error.task or "unknown")}[/red]')
+    console.print()
 
-    Static reports exist from the moment a sample is submitted, so unlike the
-    overview endpoint there is no separate not-yet-available 404 to distinguish.
+
+def _proc_cmd(proc) -> str:
+    cmd = ' '.join(proc.cmd) if isinstance(proc.cmd, list) else proc.cmd
+    return cmd or proc.image or '—'
+
+
+def _print_behavioral_processes(console: Console, processes: list) -> None:
+    if not processes:
+        return
+    console.print('[dim]Processes[/dim]')
+    for proc in processes[:_DISPLAY_CAP]:
+        pid = proc.pid if proc.pid is not None else '—'
+        console.print(f'  [dim]{pid}[/dim]  {escape(_proc_cmd(proc))}')
+    if len(processes) > _DISPLAY_CAP:
+        console.print(_MORE_MSG.format(len(processes) - _DISPLAY_CAP))
+    console.print()
+
+
+def _print_behavioral_flows(console: Console, flows: list) -> None:
+    if not flows:
+        return
+    tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 0), header_style='dim')
+    tbl.add_column('Network flows')
+    tbl.add_column('Domain')
+    tbl.add_column('Proto')
+    tbl.add_column('TLS SNI')
+    for flow in flows[:_DISPLAY_CAP]:
+        tbl.add_row(
+            escape(flow.dst) if flow.dst else '—',
+            escape(flow.domain) if flow.domain else '—',
+            escape(flow.proto) if flow.proto else '—',
+            escape(flow.tls_sni) if flow.tls_sni else '—',
+        )
+    console.print(tbl)
+    if len(flows) > _DISPLAY_CAP:
+        console.print(_MORE_MSG.format(len(flows) - _DISPLAY_CAP))
+    console.print()
+
+
+def _print_behavioral_pretty(reports: list[BehavioralReport]) -> None:
+    console = Console()
+    for index, report in enumerate(reports):
+        if index:
+            console.print()
+        _print_behavioral_header(console, report)
+        _print_signatures(console, report.signatures)
+        _print_behavioral_processes(console, report.processes)
+        _print_behavioral_flows(console, report.network.flows)
+        _print_extracted(console, report.extracted)
+
+
+def _is_not_found(exc: Exception) -> bool:
+    """A 404 on a sandbox report endpoint means the sample does not exist.
+
+    Static reports exist from the moment a sample is submitted, and the
+    behavioral fetch starts with the sample lookup itself — in both cases
+    there is no separate not-yet-available 404 to distinguish.
     """
     response = getattr(exc.__cause__, 'response', None)
     return response is not None and response.status_code == 404
@@ -316,3 +402,29 @@ def fetch_overview_report(sample_id: str, pretty: bool = False) -> None:
         _print_pretty(report)
     else:
         print_json(json.dumps(report.json()))
+
+
+def fetch_behavioral_reports(sample_id: str, pretty: bool = False) -> None:
+    """Fetch the behavioral (post-detonation) reports for a sample and print them.
+
+    Default output is a JSON array on stdout with one full report per behavioral
+    task; `pretty` renders a summarised human-readable view per task instead.
+    A sample with no behavioral tasks prints an empty array and a note on stderr.
+    """
+    config = get_config()
+    mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
+    try:
+        with _spinner('Fetching behavioral reports…'):
+            reports = mgr.fetch_behavioral_reports(sample_id, max_workers=_BEHAVIORAL_MAX_WORKERS)
+    except SampleBehavioralReportError as exc:
+        if _is_not_found(exc):
+            _ERR_CONSOLE.print(f'Sample not found: {escape(sample_id)}')
+        else:
+            _ERR_CONSOLE.print(f'Failed to fetch behavioral reports: {escape(str(exc))}')
+        sys.exit(1)
+    if not reports:
+        _ERR_CONSOLE.print('No behavioral tasks for this sample.')
+    if pretty:
+        _print_behavioral_pretty(reports)
+    else:
+        print_json(json.dumps([report.json() for report in reports]))

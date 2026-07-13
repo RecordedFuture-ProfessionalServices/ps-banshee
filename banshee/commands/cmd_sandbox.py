@@ -19,6 +19,7 @@ from ..branding import banshee_cmd
 from ..sandbox import (
     create_sandbox_profile,
     delete_sandbox_profile,
+    fetch_behavioral_reports,
     fetch_overview_report,
     fetch_sandbox_stats,
     fetch_static_report,
@@ -42,6 +43,7 @@ from .epilogs import (
     EPILOG_SANDBOX_PROFILE_GET,
     EPILOG_SANDBOX_PROFILE_LIST,
     EPILOG_SANDBOX_PROFILE_UPDATE,
+    EPILOG_SANDBOX_REPORT_BEHAVIORAL,
     EPILOG_SANDBOX_REPORT_OVERVIEW,
     EPILOG_SANDBOX_REPORT_STATIC,
     EPILOG_SANDBOX_SET_PROFILE,
@@ -83,6 +85,14 @@ _HELP_PROFILE_UPDATE = (
     'omitted options keep their current value. Use --unset to clear network, '
     'browser, or geolocation. Updating a non-existent profile prints '
     '{"updated": false} and exits 0.'
+)
+_HELP_REPORT_BEHAVIORAL = (
+    'Fetch the behavioral (post-detonation) reports for a completed sandbox '
+    'sample, one per behavioral task: verdict score, platform, triggered '
+    'signatures, observed processes, network activity, and extracted malware '
+    'configs. Default output is a JSON array of the full reports; use '
+    '`--pretty` for a summarised human-readable view per task. A sample with '
+    'no behavioral tasks prints an empty array and exits 0.'
 )
 _HELP_REPORT_OVERVIEW = (
     'Fetch the overview report for a completed sandbox sample: verdict score, '
@@ -404,6 +414,19 @@ def static(
     pretty: OPT_PRETTY_PRINT = False,
 ):
     fetch_static_report(sample_id, pretty=pretty)
+
+
+@banshee_cmd(
+    app=report_app,
+    name='behavioral',
+    help_=_HELP_REPORT_BEHAVIORAL,
+    epilog=EPILOG_SANDBOX_REPORT_BEHAVIORAL,
+)
+def behavioral(
+    sample_id: Annotated[str, Argument(help='Sandbox sample ID')],
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    fetch_behavioral_reports(sample_id, pretty=pretty)
 
 
 app.add_typer(

@@ -17,8 +17,9 @@ from contextlib import contextmanager
 from unittest.mock import MagicMock, patch
 
 import pytest
-from psengine.sandbox import OverviewReport, StaticAnalysisReport
+from psengine.sandbox import BehavioralReport, OverviewReport, StaticAnalysisReport
 from psengine.sandbox.errors import (
+    SampleBehavioralReportError,
     SampleOverviewError,
     SampleReportNotAvailableError,
     SampleReportNotFoundError,
@@ -26,7 +27,11 @@ from psengine.sandbox.errors import (
 )
 from requests.exceptions import HTTPError
 
-from banshee.sandbox.reports import fetch_overview_report, fetch_static_report
+from banshee.sandbox.reports import (
+    fetch_behavioral_reports,
+    fetch_overview_report,
+    fetch_static_report,
+)
 
 _SPINNER_MOCK = MagicMock(
     return_value=MagicMock(
@@ -443,6 +448,252 @@ class TestStaticErrors:
 
     def test_errors_never_pollute_stdout(self, capsys):
         _, captured = _run_static_with_error(capsys, _static_error_with_status(500))
+        assert captured.out == ''
+
+
+def _make_behavioral_report(task_id='behavioral1', **overrides) -> BehavioralReport:
+    payload = {
+        'task_id': task_id,
+        'sample': {'id': _SAMPLE_ID, 'score': 10, 'target': 'invoice.exe', 'sha256': _SHA256},
+        'task': {'target': 'invoice.exe'},
+        'analysis': {
+            'score': 10,
+            'tags': ['family:darkcomet', 'rat'],
+            'ttp': ['T1547.004'],
+            'platform': 'windows10-2004_x64',
+        },
+        'signatures': [
+            {'name': 'Modifies WinLogon for persistence', 'score': 10, 'ttp': ['T1547.004']},
+            {'name': 'Darkcomet', 'score': 10, 'ttp': ['T1219']},
+        ],
+        'processes': [
+            {'pid': 1204, 'ppid': 8, 'cmd': 'cmd.exe /c start payload.exe'},
+            {'pid': 3320, 'ppid': 1204, 'cmd': ['payload.exe', '-x'], 'image': 'payload.exe'},
+        ],
+        'network': {
+            'flows': [
+                {
+                    'id': 1,
+                    'dst': '45.9.74.12:443',
+                    'proto': 'tcp',
+                    'domain': 'evil.example',
+                    'tls_sni': 'evil.example',
+                },
+            ],
+            'requests': [{'flow': 1, 'dns_request': {'domains': ['evil.example']}}],
+            'ips': {'45.9.74.12': {'cc': 'RU', 'asn': 'AS12345'}},
+        },
+        'dumped': [{'name': 'memory/1204-0.dmp', 'kind': 'region'}],
+        'extracted': [
+            {'config': {'family': 'darkcomet', 'c2': ['kvejo991.ddns.net:1604'], 'botnet': 'AP'}},
+        ],
+    }
+    payload.update(overrides)
+    return BehavioralReport.model_validate(payload)
+
+
+_RICH_BEHAVIORAL_REPORTS = [_make_behavioral_report()]
+_SPARSE_BEHAVIORAL_REPORT = BehavioralReport.model_validate(
+    {
+        'task_id': 'behavioral1',
+        'sample': {'id': 'sparse-id'},
+        'task': {},
+        'analysis': {},
+        'tags': None,
+    }
+)
+
+
+def _run_behavioral(capsys, reports=_RICH_BEHAVIORAL_REPORTS, pretty=False):
+    with (
+        _patched_mgr() as mock_mgr_cls,
+        patch.dict(os.environ, {'COLUMNS': '250'}),
+    ):
+        mock_mgr_cls.return_value.fetch_behavioral_reports.return_value = reports
+        fetch_behavioral_reports(_SAMPLE_ID, pretty=pretty)
+    return capsys.readouterr()
+
+
+def _run_behavioral_with_error(capsys, error, sample_id=_SAMPLE_ID):
+    with _patched_mgr() as mock_mgr_cls:
+        mock_mgr_cls.return_value.fetch_behavioral_reports.side_effect = error
+        with pytest.raises(SystemExit) as exc_info:
+            fetch_behavioral_reports(sample_id, pretty=False)
+    return exc_info.value.code, capsys.readouterr()
+
+
+def _behavioral_error_with_status(status_code) -> SampleBehavioralReportError:
+    """Build the error as psengine raises it: chained from an HTTPError with a response."""
+    error = SampleBehavioralReportError('404 Client Error: Not Found for url: …')
+    error.__cause__ = HTTPError(response=MagicMock(status_code=status_code))
+    return error
+
+
+class TestBehavioralJson:
+    def test_default_outputs_json_array(self, capsys):
+        data = json.loads(_run_behavioral(capsys).out)
+        assert isinstance(data, list)
+        assert len(data) == 1
+        assert data[0]['analysis']['score'] == 10
+
+    def test_task_id_populated_on_each_report(self, capsys):
+        reports = [_make_behavioral_report('behavioral1'), _make_behavioral_report('behavioral2')]
+        data = json.loads(_run_behavioral(capsys, reports=reports).out)
+        assert [r['task_id'] for r in data] == ['behavioral1', 'behavioral2']
+
+    def test_fetch_called_with_sample_id_and_workers(self, capsys):
+        with _patched_mgr() as mock_mgr_cls:
+            mock_mgr_cls.return_value.fetch_behavioral_reports.return_value = (
+                _RICH_BEHAVIORAL_REPORTS
+            )
+            fetch_behavioral_reports(_SAMPLE_ID, pretty=False)
+        capsys.readouterr()
+        mock_mgr_cls.return_value.fetch_behavioral_reports.assert_called_once_with(
+            _SAMPLE_ID, max_workers=10
+        )
+
+    def test_serialises_by_alias(self, capsys):
+        """Sample id_ field must appear as 'id' in JSON output (by_alias=True)."""
+        data = json.loads(_run_behavioral(capsys).out)
+        assert data[0]['sample']['id'] == _SAMPLE_ID
+        assert 'id_' not in data[0]['sample']
+
+    def test_json_contains_network_flows(self, capsys):
+        data = json.loads(_run_behavioral(capsys).out)
+        assert data[0]['network']['flows'][0]['dst'] == '45.9.74.12:443'
+
+    def test_no_tasks_prints_empty_array_and_note(self, capsys):
+        captured = _run_behavioral(capsys, reports=[])
+        assert json.loads(captured.out) == []
+        assert 'No behavioral tasks' in captured.err
+
+
+class TestBehavioralPretty:
+    def test_pretty_shows_task_header(self, capsys):
+        out = _run_behavioral(capsys, pretty=True).out
+        assert 'behavioral1' in out
+        assert 'SCORE 10' in out
+        assert 'MALICIOUS' in out
+        assert 'windows10-2004_x64' in out
+
+    def test_pretty_shows_tags_and_counts(self, capsys):
+        out = _run_behavioral(capsys, pretty=True).out
+        assert 'family:darkcomet' in out
+        assert 'Requests: 1' in out
+        assert 'IPs: 1' in out
+        assert 'Dumped: 1' in out
+
+    def test_pretty_shows_signatures_with_ttp(self, capsys):
+        out = _run_behavioral(capsys, pretty=True).out
+        assert 'Darkcomet' in out
+        assert 'T1547.004' in out
+
+    def test_pretty_shows_processes(self, capsys):
+        out = _run_behavioral(capsys, pretty=True).out
+        assert '1204' in out
+        assert 'cmd.exe /c start payload.exe' in out
+        assert 'payload.exe -x' in out
+
+    def test_pretty_shows_network_flows(self, capsys):
+        out = _run_behavioral(capsys, pretty=True).out
+        assert '45.9.74.12:443' in out
+        assert 'evil.example' in out
+        assert 'tcp' in out
+
+    def test_pretty_shows_extracted_config(self, capsys):
+        out = _run_behavioral(capsys, pretty=True).out
+        assert 'kvejo991.ddns.net:1604' in out
+
+    def test_pretty_renders_block_per_task(self, capsys):
+        reports = [_make_behavioral_report('behavioral1'), _make_behavioral_report('behavioral2')]
+        out = _run_behavioral(capsys, reports=reports, pretty=True).out
+        assert 'behavioral1' in out
+        assert 'behavioral2' in out
+
+    def test_pretty_is_not_json(self, capsys):
+        out = _run_behavioral(capsys, pretty=True).out
+        with pytest.raises(json.JSONDecodeError):
+            json.loads(out)
+
+    def test_pretty_truncates_long_process_list(self, capsys):
+        processes = [{'pid': i, 'cmd': f'proc-{i:02d}.exe'} for i in range(1, 13)]
+        report = _make_behavioral_report(processes=processes)
+        out = _run_behavioral(capsys, reports=[report], pretty=True).out
+        assert 'proc-01.exe' in out
+        assert 'proc-10.exe' in out
+        assert 'proc-11.exe' not in out
+        assert 'more' in out
+
+    def test_pretty_escapes_markup_in_report_data(self, capsys):
+        report = _make_behavioral_report(
+            analysis={'score': 10, 'tags': ['[red]fake[/red]']},
+            signatures=[{'name': 'bad [/closes] tag', 'score': 5}],
+            processes=[{'pid': 1, 'cmd': 'evil [link=http://x]hi[/link].exe'}],
+        )
+        out = _run_behavioral(capsys, reports=[report], pretty=True).out
+        assert '[red]fake[/red]' in out
+        assert 'bad [/closes] tag' in out
+        assert 'evil [link=http://x]hi[/link].exe' in out
+
+    def test_pretty_sparse_report_renders(self, capsys):
+        out = _run_behavioral(capsys, reports=[_SPARSE_BEHAVIORAL_REPORT], pretty=True).out
+        assert 'behavioral1' in out
+        assert 'UNKNOWN' in out
+
+    def test_pretty_sparse_report_omits_empty_sections(self, capsys):
+        out = _run_behavioral(capsys, reports=[_SPARSE_BEHAVIORAL_REPORT], pretty=True).out
+        assert 'Signatures' not in out
+        assert 'Processes' not in out
+        assert 'flows' not in out
+        assert 'Extracted' not in out
+        assert 'Requests:' not in out
+
+    def test_pretty_shows_failed_task_errors(self, capsys):
+        report = BehavioralReport.model_validate(
+            {
+                'task_id': 'behavioral2',
+                'sample': {'id': _SAMPLE_ID},
+                'task': {},
+                'analysis': {},
+                'errors': [{'task': 'behavioral2', 'reason': 'detonation timed out'}],
+            }
+        )
+        out = _run_behavioral(capsys, reports=[report], pretty=True).out
+        assert 'detonation timed out' in out
+
+    def test_pretty_no_tasks_prints_note_only(self, capsys):
+        captured = _run_behavioral(capsys, reports=[], pretty=True)
+        assert captured.out == ''
+        assert 'No behavioral tasks' in captured.err
+
+
+class TestBehavioralErrors:
+    def test_404_reports_sample_not_found(self, capsys):
+        code, captured = _run_behavioral_with_error(capsys, _behavioral_error_with_status(404))
+        assert code == 1
+        assert f'Sample not found: {_SAMPLE_ID}' in captured.err
+
+    def test_non_404_http_error_reports_failure(self, capsys):
+        code, captured = _run_behavioral_with_error(capsys, _behavioral_error_with_status(500))
+        assert code == 1
+        assert 'Failed to fetch behavioral reports' in captured.err
+
+    def test_error_without_response_reports_failure(self, capsys):
+        code, captured = _run_behavioral_with_error(
+            capsys, SampleBehavioralReportError('conn refused')
+        )
+        assert code == 1
+        assert 'Failed to fetch behavioral reports' in captured.err
+        assert 'conn refused' in captured.err
+
+    def test_error_messages_escape_markup(self, capsys):
+        _, captured = _run_behavioral_with_error(
+            capsys, _behavioral_error_with_status(404), sample_id='odd[/id]'
+        )
+        assert 'Sample not found: odd[/id]' in captured.err
+
+    def test_errors_never_pollute_stdout(self, capsys):
+        _, captured = _run_behavioral_with_error(capsys, _behavioral_error_with_status(500))
         assert captured.out == ''
 
 

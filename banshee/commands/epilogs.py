@@ -713,6 +713,19 @@ EPILOG_SANDBOX_PROFILE_LIST = """
 
 """
 
+EPILOG_SANDBOX_REPORT_BEHAVIORAL = """
+## Example Usage
+
+* banshee sandbox report behavioral 260501-h4p7laawme
+
+* banshee sandbox report behavioral 260501-h4p7laawme -p
+
+* banshee sandbox report behavioral 260501-h4p7laawme | jq '.[].analysis.score'
+
+* banshee sandbox report behavioral 260501-h4p7laawme | jq '.[].network.flows'
+
+"""
+
 EPILOG_SANDBOX_REPORT_OVERVIEW = """
 ## Example Usage
 
