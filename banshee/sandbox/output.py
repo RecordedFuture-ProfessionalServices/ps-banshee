@@ -126,13 +126,15 @@ def _sparkline(counts: list, global_max: int) -> str:
 def _summary_lines(stats: SandboxStats) -> list:
     trend = stats.trend_vs_prior_period
     total = trend['total']['current']
-    reported = trend['reported']['current']
-    status_str = '  '.join(f'{k}: {v}' for k, v in stats.by_status.items())
+    analyzed = trend['reported']['current']
     kind_str = '  '.join(f'{k}: {v}' for k, v in stats.by_kind.items())
     lines = [
-        f'[bold]{total:,}[/bold] submissions  [dim]·[/dim]  [bold]{reported:,}[/bold] reported',
+        (
+            f'[bold]{total:,}[/bold] submissions  [dim]·[/dim]'
+            f'  [bold]{analyzed:,}[/bold] analyzed  [dim]·[/dim]'
+            f'  [bold]{stats.pending:,}[/bold] pending'
+        ),
         '',
-        f'[dim]by status[/dim]  {status_str}',
         f'[dim]by kind  [/dim]  {kind_str}',
     ]
     if stats.by_score:
@@ -456,7 +458,6 @@ def _to_json_dict(stats: SandboxStats) -> dict:
         'subset': stats.subset,
         'total': stats.total,
         'pending': stats.pending,
-        'by_status': stats.by_status,
         'by_kind': stats.by_kind,
         'by_platform': stats.by_platform,
         'by_score': stats.by_score,
@@ -516,8 +517,6 @@ def print_sandbox_stats(stats: SandboxStats, pretty: bool = False) -> None:
         if stats.top_iocs.malicious_sha256:
             n = len(stats.top_iocs.malicious_sha256)
             footer_parts.append(f'[bold]{n}[/bold] malicious SHA256s')
-        if stats.pending:
-            footer_parts.append(f'[yellow]{stats.pending}[/yellow] pending (not yet reported)')
         if footer_parts:
             console.print('  ' + '  ·  '.join(footer_parts))
         console.print()

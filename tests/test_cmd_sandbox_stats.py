@@ -628,6 +628,15 @@ class TestPrintChartAndSummary:
         out = self._render(daily)
         assert 'submissions' in out
 
+    def test_summary_shows_analyzed_and_pending(self):
+        out = self._render({}, pending=3)
+        assert 'analyzed' in out
+        assert 'pending' in out
+
+    def test_summary_does_not_show_by_status(self):
+        out = self._render({})
+        assert 'by status' not in out
+
     def test_divider_appears_when_chart_present(self):
         daily = {'vidar': {'2026-07-09': 5}}
         out = self._render(daily)
@@ -701,6 +710,11 @@ class TestToJsonDict:
         assert sha256_entry['sha256'] == 'abc123'
         assert sha256_entry['score'] == 9
         assert sha256_entry['top_tag'] == 'vidar'
+
+    def test_by_status_absent_from_json(self):
+        stats = _make_stats()
+        d = _to_json_dict(stats)
+        assert 'by_status' not in d
 
     def test_by_file_type_in_output(self):
         stats = _make_stats(by_file_type={'.exe': 98, '.js': 92})
