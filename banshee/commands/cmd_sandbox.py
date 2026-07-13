@@ -13,16 +13,24 @@
 
 from typing import Annotated
 
-from typer import Option, Typer
+from typer import Argument, Option, Typer
 
 from ..branding import banshee_cmd
-from ..sandbox import fetch_sandbox_stats, print_sandbox_stats
+from ..sandbox import (
+    fetch_sandbox_stats,
+    get_sandbox_profile,
+    list_sandbox_profiles,
+    print_sandbox_stats,
+)
 from .args import OPT_PRETTY_PRINT, OPT_SANDBOX_SUBSET
-from .epilogs import EPILOG_SANDBOX_STATS
+from .epilogs import EPILOG_SANDBOX_PROFILE_GET, EPILOG_SANDBOX_PROFILE_LIST, EPILOG_SANDBOX_STATS
 
 CMD_NAME = 'sandbox'
-CMD_HELP = 'Sandbox submission analytics'
+CMD_HELP = 'Sandbox submission analytics and profile management'
 CMD_RICH_HELP = 'Sandbox'
+
+_PANEL_ANALYTICS = 'Analytics'
+_PANEL_PROFILE_MGMT = 'Profile Management'
 
 _HELP_STATS = (
     'Aggregate sandbox submissions over a configurable window and print a '
@@ -32,10 +40,16 @@ _HELP_STATS = (
     'Default output is JSON; use `--pretty` for a human-readable Rich layout.'
 )
 
+_HELP_PROFILE_GET = 'Fetch a single analysis profile by ID or name'
+_HELP_PROFILE_LIST = 'List all analysis profiles available in Recorded Future Sandbox'
+
 app = Typer(no_args_is_help=True)
+profile_app = Typer(no_args_is_help=True)
 
 
-@banshee_cmd(app=app, help_=_HELP_STATS, epilog=EPILOG_SANDBOX_STATS)
+@banshee_cmd(
+    app=app, help_=_HELP_STATS, epilog=EPILOG_SANDBOX_STATS, rich_help_panel=_PANEL_ANALYTICS
+)
 def stats(
     days: Annotated[
         int,
@@ -46,3 +60,28 @@ def stats(
 ):
     result = fetch_sandbox_stats(days=days, subset=subset)
     print_sandbox_stats(result, pretty=pretty)
+
+
+@banshee_cmd(
+    app=profile_app, name='get', help_=_HELP_PROFILE_GET, epilog=EPILOG_SANDBOX_PROFILE_GET
+)
+def get_(
+    profile_id_or_name: Annotated[str, Argument(help='Profile ID or name')],
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    get_sandbox_profile(profile_id_or_name, pretty=pretty)
+
+
+@banshee_cmd(
+    app=profile_app, name='list', help_=_HELP_PROFILE_LIST, epilog=EPILOG_SANDBOX_PROFILE_LIST
+)
+def list_(pretty: OPT_PRETTY_PRINT = False):
+    list_sandbox_profiles(pretty=pretty)
+
+
+app.add_typer(
+    profile_app,
+    name='profile',
+    help='Manage analysis profiles',
+    rich_help_panel=_PANEL_PROFILE_MGMT,
+)

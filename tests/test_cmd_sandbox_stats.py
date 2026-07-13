@@ -46,7 +46,7 @@ from banshee.sandbox.stats import (
 
 runner = CliRunner()
 
-# Typer collapses a single-command app: `stats` is invoked directly, no subcommand prefix.
+# Invoke stats via its subcommand name since the sandbox app has multiple commands.
 
 # ---------------------------------------------------------------------------
 # Helpers to build mock psengine objects
@@ -646,6 +646,7 @@ class TestFetchSandboxStats:
     def test_limit_hit_warning(self, mock_mgr_cls, mock_cfg, capsys):
         mock_cfg.return_value = _mock_config()
         from banshee.sandbox.stats import _DEFAULT_MAX_RESULTS
+
         samples = [_make_sample(status='static_analysis') for _ in range(_DEFAULT_MAX_RESULTS)]
         mock_mgr_cls.return_value.fetch_samples.return_value = samples
 
@@ -1302,14 +1303,14 @@ class TestPrintHashes:
 
 class TestCmdSandboxStats:
     def test_no_args_shows_help(self):
-        result = runner.invoke(app, args=['--help'])
+        result = runner.invoke(app, args=['stats', '--help'])
         assert result.exit_code == 0
         assert '--days' in result.output
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_json_output(self, mock_fetch):
         mock_fetch.return_value = _make_stats()
-        result = runner.invoke(app, args=[])
+        result = runner.invoke(app, args=['stats'])
         assert result.exit_code == 0
         data = json.loads(result.output)
         assert data['total'] == 10
@@ -1318,7 +1319,7 @@ class TestCmdSandboxStats:
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_pretty_output(self, mock_fetch):
         mock_fetch.return_value = _make_stats()
-        result = runner.invoke(app, args=['--pretty'])
+        result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
         assert 'Sandbox' in result.output
         with pytest.raises(json.JSONDecodeError):
@@ -1327,14 +1328,14 @@ class TestCmdSandboxStats:
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_days_param(self, mock_fetch):
         mock_fetch.return_value = _make_stats(period_days=14)
-        result = runner.invoke(app, args=['--days', '14'])
+        result = runner.invoke(app, args=['stats', '--days', '14'])
         assert result.exit_code == 0
         mock_fetch.assert_called_once_with(days=14, subset='org')
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_owned_subset(self, mock_fetch):
         mock_fetch.return_value = _make_stats(subset='owned')
-        result = runner.invoke(app, args=['--subset', 'owned'])
+        result = runner.invoke(app, args=['stats', '--subset', 'owned'])
         assert result.exit_code == 0
         mock_fetch.assert_called_once_with(days=7, subset='owned')
 
@@ -1349,7 +1350,7 @@ class TestCmdSandboxStats:
             soar_skipped=True,
         )
         mock_fetch.return_value = stats
-        result = runner.invoke(app, args=['--pretty'])
+        result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
@@ -1362,13 +1363,13 @@ class TestCmdSandboxStats:
             soar_skipped=True,
         )
         mock_fetch.return_value = stats
-        result = runner.invoke(app, args=['--pretty'])
+        result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
         assert 'skipped' in result.output
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_days_out_of_range(self, mock_fetch):
-        result = runner.invoke(app, args=['--days', '0'])
+        result = runner.invoke(app, args=['stats', '--days', '0'])
         assert result.exit_code == 2
         mock_fetch.assert_not_called()
 
@@ -1377,7 +1378,7 @@ class TestCmdSandboxStats:
         # CliRunner strips OSC-8 escape sequences; verify links via unit tests on _fmt_tags/_search_url.
         # Here we just confirm the command renders threat intel and IOC sections without error.
         mock_fetch.return_value = _make_stats(sandbox_choice='eu')
-        result = runner.invoke(app, args=['--pretty'])
+        result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
         assert 'Malware families' in result.output
         assert 'Verified network IOCs' in result.output
@@ -1396,7 +1397,7 @@ class TestCmdSandboxStats:
             ),
         )
         mock_fetch.return_value = stats
-        result = runner.invoke(app, args=['--pretty'])
+        result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
         assert 'SHA256' in result.output
         assert 'abc' * 8 in result.output  # partial check — CliRunner 80-col may truncate
@@ -1412,7 +1413,7 @@ class TestCmdSandboxStats:
             ),
         )
         mock_fetch.return_value = stats
-        result = runner.invoke(app, args=['--pretty'])
+        result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
         assert 'Score' in result.output
         assert 'abc' * 8 in result.output  # partial check — CliRunner 80-col may truncate
@@ -1425,7 +1426,7 @@ class TestCmdSandboxStats:
             top_iocs=TopIocs(extracted_c2=[], verified_network=[], malicious_sha256=hashes),
         )
         mock_fetch.return_value = stats
-        result = runner.invoke(app, args=['--pretty'])
+        result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
         assert '5 more' in result.output
 
@@ -1436,7 +1437,7 @@ class TestCmdSandboxStats:
             top_iocs=TopIocs(extracted_c2=c2s, verified_network=[], malicious_sha256=[])
         )
         mock_fetch.return_value = stats
-        result = runner.invoke(app, args=['--pretty'])
+        result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
         assert '2 more' in result.output
 
@@ -1452,7 +1453,7 @@ class TestCmdSandboxStats:
             top_iocs=TopIocs(extracted_c2=[], verified_network=iocs, malicious_sha256=[])
         )
         mock_fetch.return_value = stats
-        result = runner.invoke(app, args=['--pretty'])
+        result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
         assert '2 more' in result.output
 
@@ -1466,7 +1467,7 @@ class TestCmdSandboxStats:
             )
         )
         mock_fetch.return_value = stats
-        result = runner.invoke(app, args=['--pretty'])
+        result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
         assert 'Risk Score' in result.output
         assert 'Hits' in result.output
@@ -1483,7 +1484,7 @@ class TestCmdSandboxStats:
             )
         )
         mock_fetch.return_value = stats
-        result = runner.invoke(app, args=['--pretty'])
+        result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
         assert '88' in result.output
         assert 'C&C Server' in result.output
@@ -1500,14 +1501,14 @@ class TestCmdSandboxStats:
             )
         )
         mock_fetch.return_value = stats
-        result = runner.invoke(app, args=['--pretty'])
+        result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
         assert '90' in result.output  # RF score value present; header may wrap in 80-col terminal
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_json_always_includes_sha256s(self, mock_fetch):
         mock_fetch.return_value = _make_stats()
-        result = runner.invoke(app, args=[])
+        result = runner.invoke(app, args=['stats'])
         assert result.exit_code == 0
         data = json.loads(result.output)
         assert 'malicious_sha256' in data['top_iocs']
@@ -1516,7 +1517,7 @@ class TestCmdSandboxStats:
     def test_stats_pretty_shows_file_types_histogram(self, mock_fetch):
         stats = _make_stats(by_file_type={'.exe': 200, '.dll': 100, '.pdf': 40})
         mock_fetch.return_value = stats
-        result = runner.invoke(app, args=['--pretty'])
+        result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
         assert 'File types' in result.output
         assert _BAR_CHAR in result.output
@@ -1527,7 +1528,7 @@ class TestCmdSandboxStats:
     def test_stats_pretty_no_file_types_when_empty(self, mock_fetch):
         stats = _make_stats(by_file_type={})
         mock_fetch.return_value = stats
-        result = runner.invoke(app, args=['--pretty'])
+        result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
         assert 'File types' not in result.output
 
@@ -1535,7 +1536,7 @@ class TestCmdSandboxStats:
     def test_stats_pretty_shows_submission_chart_when_data_present(self, mock_fetch):
         stats = _make_stats(daily_by_family={'vidar': {'2026-07-09': 5, '2026-07-10': 10}})
         mock_fetch.return_value = stats
-        result = runner.invoke(app, args=['--pretty'])
+        result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
         assert any(c in result.output for c in '▁▂▃▄▅▆▇█')
 
@@ -1543,14 +1544,14 @@ class TestCmdSandboxStats:
     def test_stats_pretty_no_chart_when_no_family_data(self, mock_fetch):
         stats = _make_stats(daily_by_family={})
         mock_fetch.return_value = stats
-        result = runner.invoke(app, args=['--pretty'])
+        result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
         assert not any(c in result.output for c in '▂▃▄▅▆▇')
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_json_includes_daily_by_family(self, mock_fetch):
         mock_fetch.return_value = _make_stats(daily_by_family={'vidar': {'2026-07-09': 5}})
-        result = runner.invoke(app, args=[])
+        result = runner.invoke(app, args=['stats'])
         assert result.exit_code == 0
         data = json.loads(result.output)
         assert data['daily_by_family'] == {'vidar': {'2026-07-09': 5}}

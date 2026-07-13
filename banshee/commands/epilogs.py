@@ -651,6 +651,30 @@ EPILOG_EMAIL_ENRICH = """
 * banshee email enrich phishing_submission.eml -r 1 -p
 """
 
+EPILOG_SANDBOX_PROFILE_GET = """
+## Example Usage
+
+* banshee sandbox profile get 022b8c4e-22ab-46a4-ac49-a2732b2412b7
+
+* banshee sandbox profile get 'Windows 7 Long'
+
+* banshee sandbox profile get w7-long -p
+
+* banshee sandbox profile get w7-long | jq '.tags'
+
+"""
+
+EPILOG_SANDBOX_PROFILE_LIST = """
+## Example Usage
+
+* banshee sandbox profile list
+
+* banshee sandbox profile list -p
+
+* banshee sandbox profile list | jq '.[].name'
+
+"""
+
 EPILOG_SANDBOX_STATS = """
 ## Score buckets (Triage 1–10 scale)
 

@@ -12,6 +12,13 @@
 ##############################################################################################
 
 from .output import print_sandbox_stats
+from .profiles import get_sandbox_profile, list_sandbox_profiles
 from .stats import SandboxStats, fetch_sandbox_stats
 
-__all__ = ['SandboxStats', 'fetch_sandbox_stats', 'print_sandbox_stats']
+__all__ = [
+    'SandboxStats',
+    'fetch_sandbox_stats',
+    'get_sandbox_profile',
+    'list_sandbox_profiles',
+    'print_sandbox_stats',
+]
