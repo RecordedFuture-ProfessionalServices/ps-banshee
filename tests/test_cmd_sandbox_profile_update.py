@@ -182,6 +182,20 @@ class TestCmdSandboxProfileUpdateValidation:
         mock_update.assert_not_called()
 
     @patch(PATCH_TARGET)
+    def test_empty_name_rejected(self, mock_update):
+        result = runner.invoke(app, ['profile', 'update', 'ernie', '-n', '', '-t', '300'])
+        assert result.exit_code != 0
+        assert 'empty' in result.output.lower()
+        mock_update.assert_not_called()
+
+    @patch(PATCH_TARGET)
+    def test_empty_tag_value_rejected(self, mock_update):
+        result = runner.invoke(app, ['profile', 'update', 'ernie', '-T', ''])
+        assert result.exit_code != 0
+        assert 'empty' in result.output.lower()
+        mock_update.assert_not_called()
+
+    @patch(PATCH_TARGET)
     def test_invalid_unset_field(self, mock_update):
         result = runner.invoke(app, ['profile', 'update', 'ernie', '--unset', 'name'])
         assert result.exit_code != 0

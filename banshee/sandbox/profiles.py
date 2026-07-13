@@ -16,7 +16,7 @@ import sys
 
 from psengine.config import get_config
 from psengine.sandbox import ProfileUpdateOut, SandboxMgr
-from psengine.sandbox.errors import ProfileNotFoundError, ProfileUpdateError
+from psengine.sandbox.errors import ProfileCreateError, ProfileNotFoundError, ProfileUpdateError
 from psengine.sandbox.sandbox import Profile
 from rich import print_json
 from rich.console import Console
@@ -47,6 +47,36 @@ def _profiles_table(profiles: list[Profile]) -> Table:
         browser = (p.options.browser if p.options and p.options.browser else None) or '—'
         tbl.add_row(p.name, p.id_, timeout, network, geolocation, browser, tags)
     return tbl
+
+
+def create_sandbox_profile(
+    name: str,
+    tags: list[str],
+    timeout: int,
+    network: str | None = None,
+    geolocation: list[str] | None = None,
+    browser: str | None = None,
+    pretty: bool = False,
+) -> None:
+    config = get_config()
+    mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
+    try:
+        with _spinner('Creating profile…'):
+            profile = mgr.create_profile(
+                name=name,
+                tags=tags,
+                timeout=timeout,
+                network=network,
+                geolocation=geolocation,
+                browser=browser,
+            )
+    except ProfileCreateError as exc:
+        _ERR_CONSOLE.print(f'[red]Profile creation failed:[/red] {exc}')
+        sys.exit(1)
+    if pretty:
+        Console().print(_profiles_table([profile]))
+    else:
+        print_json(json.dumps(profile.json()))
 
 
 def get_sandbox_profile(profile_id_or_name: str, pretty: bool = False) -> None:

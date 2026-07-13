@@ -651,6 +651,18 @@ EPILOG_EMAIL_ENRICH = """
 * banshee email enrich phishing_submission.eml -r 1 -p
 """
 
+EPILOG_SANDBOX_PROFILE_CREATE = """
+## Example Usage
+
+* banshee sandbox profile create -n w10-quick -T os:windows10-2004-x64 -t 120
+
+* banshee sandbox profile create -n w10-vpn -T os:windows10-2004-x64 -t 300 -N vpn --geolocation se
+
+* banshee sandbox profile create -n w10-ff -T os:windows10-2004-x64 -T locale:en-us -t 120 -b firefox -p
+
+* banshee sandbox profile create -n w10-quick -T os:windows10-2004-x64 -t 120 | jq '.id'
+"""
+
 EPILOG_SANDBOX_PROFILE_DELETE = """
 ## Example Usage
 

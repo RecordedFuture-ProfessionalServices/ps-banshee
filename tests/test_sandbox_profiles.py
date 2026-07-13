@@ -18,6 +18,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 from psengine.sandbox import ProfileUpdateOut
 from psengine.sandbox.errors import (
+    ProfileCreateError,
     ProfileDeleteError,
     ProfileFetchError,
     ProfileNotFoundError,
@@ -28,6 +29,7 @@ from rich.console import Console
 
 from banshee.sandbox.profiles import (
     _profiles_table,
+    create_sandbox_profile,
     delete_sandbox_profile,
     get_sandbox_profile,
     list_sandbox_profiles,
@@ -418,6 +420,78 @@ class TestUpdateSandboxProfile:
         assert 'updated' in out.lower()
         with pytest.raises(json.JSONDecodeError):
             json.loads(out)
+
+
+class TestCreateSandboxProfile:
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_default_outputs_json_with_assigned_id(self, mock_mgr_cls, capsys):
+        created = _make_profile(id='new-id', name='fresh')
+        mock_mgr_cls.return_value.create_profile.return_value = created
+        create_sandbox_profile('fresh', ['os:windows10-2004-x64'], 120)
+        data = json.loads(capsys.readouterr().out)
+        assert data['id'] == 'new-id'
+        assert data['name'] == 'fresh'
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_required_fields_passed_optional_default_none(self, mock_mgr_cls, capsys):
+        mgr = mock_mgr_cls.return_value
+        mgr.create_profile.return_value = _make_profile()
+        create_sandbox_profile('fresh', ['os:windows10-2004-x64'], 120)
+        capsys.readouterr()
+        mgr.create_profile.assert_called_once_with(
+            name='fresh',
+            tags=['os:windows10-2004-x64'],
+            timeout=120,
+            network=None,
+            geolocation=None,
+            browser=None,
+        )
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_optional_fields_passed_through(self, mock_mgr_cls, capsys):
+        mgr = mock_mgr_cls.return_value
+        mgr.create_profile.return_value = _make_profile()
+        create_sandbox_profile(
+            'fresh',
+            ['os:windows10-2004-x64', 'locale:en-us'],
+            300,
+            network='vpn',
+            geolocation=['se', 'us'],
+            browser='firefox',
+        )
+        capsys.readouterr()
+        kwargs = mgr.create_profile.call_args.kwargs
+        assert kwargs['tags'] == ['os:windows10-2004-x64', 'locale:en-us']
+        assert kwargs['network'] == 'vpn'
+        assert kwargs['geolocation'] == ['se', 'us']
+        assert kwargs['browser'] == 'firefox'
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_pretty_renders_table_not_json(self, mock_mgr_cls, capsys):
+        mock_mgr_cls.return_value.create_profile.return_value = _make_profile()
+        create_sandbox_profile('fresh', ['os:windows7-x64'], 300, pretty=True)
+        out = capsys.readouterr().out
+        assert 'Windows 7 Long' in out
+        with pytest.raises(json.JSONDecodeError):
+            json.loads(out)
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_create_error_exits_1(self, mock_mgr_cls, capsys):
+        mock_mgr_cls.return_value.create_profile.side_effect = ProfileCreateError('duplicate name')
+        with pytest.raises(SystemExit) as exc_info:
+            create_sandbox_profile('fresh', ['os:windows7-x64'], 300)
+        assert exc_info.value.code == 1
+        assert 'duplicate name' in capsys.readouterr().err.lower()
 
 
 class TestDeleteSandboxProfile:

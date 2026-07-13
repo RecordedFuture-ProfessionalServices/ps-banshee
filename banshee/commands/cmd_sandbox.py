@@ -17,6 +17,7 @@ from typer import Argument, BadParameter, Option, Typer, confirm
 
 from ..branding import banshee_cmd
 from ..sandbox import (
+    create_sandbox_profile,
     delete_sandbox_profile,
     fetch_sandbox_stats,
     get_sandbox_profile,
@@ -33,6 +34,7 @@ from .args import (
     OPT_SANDBOX_SUBSET,
 )
 from .epilogs import (
+    EPILOG_SANDBOX_PROFILE_CREATE,
     EPILOG_SANDBOX_PROFILE_DELETE,
     EPILOG_SANDBOX_PROFILE_GET,
     EPILOG_SANDBOX_PROFILE_LIST,
@@ -57,6 +59,11 @@ _HELP_STATS = (
     'Default output is JSON; use `--pretty` for a human-readable Rich layout.'
 )
 
+_HELP_PROFILE_CREATE = (
+    'Create a new analysis profile in Recorded Future Sandbox. '
+    'Prints the created profile, including its assigned ID. '
+    'The profile name must be unique within your company.'
+)
 _HELP_PROFILE_DELETE = (
     'Delete an analysis profile by ID or name. Idempotent: deleting a profile '
     'that does not exist prints a warning and exits 0. Prompts for confirmation '
@@ -80,6 +87,13 @@ app = Typer(no_args_is_help=True)
 profile_app = Typer(no_args_is_help=True)
 
 
+def _require_non_empty(**options):
+    for flag, value in options.items():
+        values = [value] if isinstance(value, str) else value or []
+        if any(not v for v in values):
+            raise BadParameter(f'--{flag} must not be empty')
+
+
 @banshee_cmd(
     app=app, help_=_HELP_STATS, epilog=EPILOG_SANDBOX_STATS, rich_help_panel=_PANEL_ANALYTICS
 )
@@ -93,6 +107,47 @@ def stats(
 ):
     result = fetch_sandbox_stats(days=days, subset=subset)
     print_sandbox_stats(result, pretty=pretty)
+
+
+@banshee_cmd(
+    app=profile_app,
+    name='create',
+    help_=_HELP_PROFILE_CREATE,
+    epilog=EPILOG_SANDBOX_PROFILE_CREATE,
+)
+def create(
+    name: Annotated[
+        str,
+        Option('--name', '-n', help='Profile name (must be unique)'),
+    ],
+    tags: Annotated[
+        list[str],
+        Option('--tags', '-T', help='OS/locale tag (repeatable)'),
+    ],
+    timeout: Annotated[
+        int,
+        Option('--timeout', '-t', help='Analysis timeout in seconds', min=1, max=3600),
+    ],
+    network: OPT_SANDBOX_NETWORK = None,
+    geolocation: Annotated[
+        list[str] | None,
+        Option('--geolocation', help='VPN country code; requires a vpn network (repeatable)'),
+    ] = None,
+    browser: OPT_SANDBOX_BROWSER = None,
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    _require_non_empty(name=name, tags=tags)
+    if geolocation and network != 'vpn':
+        raise BadParameter('--geolocation requires --network vpn')
+    create_sandbox_profile(
+        name=name,
+        tags=tags,
+        timeout=timeout,
+        network=network,
+        geolocation=geolocation,
+        browser=browser,
+        pretty=pretty,
+    )
 
 
 @banshee_cmd(
@@ -141,6 +196,7 @@ def update(
     unset: OPT_PROFILE_UNSET = None,
     pretty: OPT_PRETTY_PRINT = False,
 ):
+    _require_non_empty(name=name, tags=tags)
     supplied = {'network': network, 'browser': browser, 'geolocation': geolocation}
     if not any([name, tags, timeout, *supplied.values(), unset]):
         raise BadParameter('nothing to update — supply at least one field option or --unset')
