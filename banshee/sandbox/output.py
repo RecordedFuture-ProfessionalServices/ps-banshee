@@ -31,14 +31,6 @@ _SCORE_COLORS = {
     'unknown': 'grey50',
 }
 
-_SCORE_LABELS = {
-    'malicious': 'malicious (8–10)',
-    'suspicious': 'suspicious (5–7)',
-    'potentially_suspicious': 'potentially suspicious (3–4)',
-    'clean': 'clean (1–2)',
-    'unknown': 'unknown',
-}
-
 _SANDBOX_FRONTEND_URLS = {
     'eu': 'https://sandbox.recordedfuture.com',
     'usa': 'https://us-sandbox.recordedfuture.com',
@@ -288,8 +280,8 @@ _SCORE_BAR_WIDTH = 12
 _SCORE_SHORT_LABELS = {
     'malicious': 'malicious (8–10)',
     'suspicious': 'suspicious (5–7)',
-    'potentially_suspicious': 'likely benign (2–4)',
-    'clean': 'no threat (1)',
+    'potentially_suspicious': 'likely benign (3–4)',
+    'clean': 'no threat (1–2)',
     'unknown': 'unknown',
 }
 

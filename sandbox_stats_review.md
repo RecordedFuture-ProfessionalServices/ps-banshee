@@ -14,15 +14,6 @@ Files in scope: `banshee/commands/cmd_sandbox.py`, `banshee/sandbox/stats.py`, `
 
 Fix: count unique `(sample_id, os)` pairs, or add a note "(task count)" to the Platform table title.
 
----
-
-### [x] 3. `linux` and `upx` land in "Behavioral / TTP" (`stats.py:232–233`)
-
-`linux` is a platform/OS tag and `upx` is a packer. Neither is a TTP. They fall into `behavioral_ttp` because they lack `family:`/`botnet:`/`brand:`/`os:` prefix and aren't in `_ARCH_FILE_TAGS`. `linux` appearing at #6 with 163 hits in the TTP column is actively wrong.
-
-Fix: add `linux`, `macos`, `android`, `windows`, `upx`, `packed`, `obfuscated` (and similar packer/platform strings) to `_ARCH_FILE_TAGS`, or add an explicit `_PLATFORM_TAGS` exclusion set.
-
----
 
 ### [ ] 4. Botnet column shows raw MD5-like internal profile IDs
 
@@ -30,15 +21,6 @@ Fix: add `linux`, `macos`, `android`, `windows`, `upx`, `packed`, `obfuscated` (
 
 Fix: filter out botnet tags whose value looks like a hex hash (matches `^[0-9a-f]{32}$`), or only show botnets with human-readable names. Alternatively rename the section "Network profiles" to set expectations correctly.
 
----
-
-### [x] 5. `subset` is a plain `str` with no validation (`cmd_sandbox.py:48–51`)
-
-`--subset garbage` passes silently to the API. Per project conventions (CLAUDE.md), this must use the psengine `Literal` type so invalid values are rejected at the CLI layer.
-
-Fix: use `SandboxSubset` (or equivalent psengine Literal) as the type annotation, same pattern as `SandboxChoice`.
-
----
 
 ## Actionability problems
 
@@ -84,7 +66,7 @@ Fix: consider showing a delta vs prior period for each TTP (new this period vs b
 
 ## Layout / display issues
 
-### [ ] 11. Score bar labels truncated in pretty output (`output.py:195–204`)
+### [x] 11. Score bar labels truncated in pretty output (`output.py:195–204`)
 
 The terminal output shows `sus…` and `lik…` for the suspicious and likely-benign score rows. Rich is truncating the Stats column content. An analyst reading the brief loses the score labels.
 
@@ -110,14 +92,14 @@ Fix: include a visible `[WARNING] Sample cap hit — data may be incomplete` lin
 
 ## Minor inconsistencies
 
-### [ ] 14. `by_status` field is dead in the pretty path
+### [x] 14. `by_status` field is dead in the pretty path
 
 `by_status` is computed, stored in `SandboxStats`, and emitted in JSON, but never rendered in `--pretty` mode. The pretty header derives `pending` and `failed` directly from the stats object. Either use `by_status` to drive the display or remove the field from the dataclass and JSON if `pending`/`failed` are sufficient.
 
-### [ ] 15. `_SCORE_LABELS` dict is dead code (`output.py:37–41`)
+### [x] 15. `_SCORE_LABELS` dict is dead code (`output.py:37–41`)
 
 `_SCORE_LABELS` is defined but never referenced; only `_SCORE_SHORT_LABELS` is used. Remove it.
 
-### [ ] 16. Epilog score table contradicts the pretty output labels
+### [x] 16. Epilog score table contradicts the pretty output labels
 
 The epilog (`epilogs.py:649–657`) correctly documents `potentially_suspicious | 3–4` and `clean | 1–2`. The `_SCORE_SHORT_LABELS` in the pretty output shows `2–4` and `(1)`. They disagree. After fixing issue #1, verify the epilog stays in sync.

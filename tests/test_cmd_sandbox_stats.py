@@ -116,7 +116,6 @@ def _make_stats(**overrides) -> SandboxStats:
         'total': 10,
         'pending': 2,
         'failed': 0,
-        'by_status': {'reported': 8, 'static_analysis': 2},
         'by_kind': {'file': 6, 'url': 4},
         'by_platform': {'windows10-2004-x64': 5},
         'by_score': {'malicious': 3, 'clean': 5},

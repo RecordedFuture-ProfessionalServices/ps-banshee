@@ -153,7 +153,6 @@ class SandboxStats:
     total: int
     pending: int
     failed: int
-    by_status: dict
     by_kind: dict
     by_platform: dict
     by_score: dict
@@ -442,7 +441,6 @@ def fetch_sandbox_stats(
     reported_current = [s for s in current if s.status == 'reported']
     reported_prev = [s for s in prev if s.status == 'reported']
 
-    by_status = dict(Counter(s.status for s in current).most_common())
     by_kind = dict(Counter(s.kind for s in current).most_common())
     by_kind_prev = dict(Counter(s.kind for s in prev))
     pending = sum(1 for s in current if s.status not in ('reported', 'failed'))
@@ -461,7 +459,6 @@ def fetch_sandbox_stats(
             total=len(current),
             pending=pending,
             failed=failed,
-            by_status=by_status,
             by_kind=by_kind,
             by_kind_prev=by_kind_prev,
             by_platform={},
@@ -510,7 +507,6 @@ def fetch_sandbox_stats(
         total=len(current),
         pending=pending,
         failed=failed,
-        by_status=by_status,
         by_kind=by_kind,
         by_kind_prev=by_kind_prev,
         by_platform=by_platform,
