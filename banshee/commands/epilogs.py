@@ -650,3 +650,23 @@ EPILOG_EMAIL_ENRICH = """
 
 * banshee email enrich phishing_submission.eml -r 1 -p
 """
+
+EPILOG_SANDBOX_STATS = """
+## Score buckets (Triage 1–10 scale)
+
+| Bucket | Range | Meaning |
+|--------|-------|---------|
+| malicious | 8–10 | Known malware, high confidence |
+| suspicious | 5–7 | Strong behavioural indicators |
+| potentially_suspicious | 3–4 | Some indicators |
+| clean | 1–2 | Low risk / benign |
+
+## Examples
+
+```
+banshee sandbox stats
+banshee sandbox stats --days 14 --subset owned --pretty
+banshee sandbox stats --days 30 --limit 500
+banshee sandbox stats --pretty
+```
+"""

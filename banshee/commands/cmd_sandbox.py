@@ -18,6 +18,7 @@ from typer import Option, Typer
 from ..branding import banshee_cmd
 from ..sandbox import fetch_sandbox_stats, print_sandbox_stats
 from .args import OPT_PRETTY_PRINT
+from .epilogs import EPILOG_SANDBOX_STATS
 
 CMD_NAME = 'sandbox'
 CMD_HELP = 'Sandbox submission analytics'
@@ -31,30 +32,10 @@ _HELP_STATS = (
     'Default output is JSON; use `--pretty` for a human-readable Rich layout.'
 )
 
-_EPILOG_STATS = """
-## Score buckets (Triage 1–10 scale)
-
-| Bucket | Range | Meaning |
-|--------|-------|---------|
-| malicious | 8–10 | Known malware, high confidence |
-| suspicious | 5–7 | Strong behavioural indicators |
-| potentially_suspicious | 3–4 | Some indicators |
-| clean | 1–2 | Low risk / benign |
-
-## Examples
-
-```
-banshee sandbox stats
-banshee sandbox stats --days 14 --subset owned --pretty
-banshee sandbox stats --days 30 --limit 500
-banshee sandbox stats --pretty
-```
-"""
-
 app = Typer(no_args_is_help=True)
 
 
-@banshee_cmd(app=app, help_=_HELP_STATS, epilog=_EPILOG_STATS)
+@banshee_cmd(app=app, help_=_HELP_STATS, epilog=EPILOG_SANDBOX_STATS)
 def stats(
     days: Annotated[
         int,
