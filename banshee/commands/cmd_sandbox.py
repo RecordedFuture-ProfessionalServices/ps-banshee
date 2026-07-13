@@ -13,10 +13,11 @@
 
 from typing import Annotated
 
-from typer import Argument, BadParameter, Option, Typer
+from typer import Argument, BadParameter, Option, Typer, confirm
 
 from ..branding import banshee_cmd
 from ..sandbox import (
+    delete_sandbox_profile,
     fetch_sandbox_stats,
     get_sandbox_profile,
     list_sandbox_profiles,
@@ -32,6 +33,7 @@ from .args import (
     OPT_SANDBOX_SUBSET,
 )
 from .epilogs import (
+    EPILOG_SANDBOX_PROFILE_DELETE,
     EPILOG_SANDBOX_PROFILE_GET,
     EPILOG_SANDBOX_PROFILE_LIST,
     EPILOG_SANDBOX_PROFILE_UPDATE,
@@ -55,6 +57,11 @@ _HELP_STATS = (
     'Default output is JSON; use `--pretty` for a human-readable Rich layout.'
 )
 
+_HELP_PROFILE_DELETE = (
+    'Delete an analysis profile by ID or name. Idempotent: deleting a profile '
+    'that does not exist prints a warning and exits 0. Prompts for confirmation '
+    'unless --yes is given.'
+)
 _HELP_PROFILE_GET = 'Fetch a single analysis profile by ID or name'
 _HELP_PROFILE_LIST = 'List all analysis profiles available in Recorded Future Sandbox'
 _HELP_PROFILE_UPDATE = (
@@ -153,6 +160,24 @@ def update(
         unset=unset,
         pretty=pretty,
     )
+
+
+@banshee_cmd(
+    app=profile_app,
+    name='delete',
+    help_=_HELP_PROFILE_DELETE,
+    epilog=EPILOG_SANDBOX_PROFILE_DELETE,
+)
+def delete(
+    profile_id_or_name: Annotated[str, Argument(help='Profile ID or name')],
+    yes: Annotated[
+        bool,
+        Option('--yes', '-y', help='Delete without asking for confirmation'),
+    ] = False,
+):
+    if not yes:
+        confirm(f'Delete profile {profile_id_or_name!r}?', abort=True)
+    delete_sandbox_profile(profile_id_or_name)
 
 
 @banshee_cmd(

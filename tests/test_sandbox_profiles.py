@@ -17,12 +17,18 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 from psengine.sandbox import ProfileUpdateOut
-from psengine.sandbox.errors import ProfileFetchError, ProfileNotFoundError, ProfileUpdateError
-from psengine.sandbox.sandbox import Profile
+from psengine.sandbox.errors import (
+    ProfileDeleteError,
+    ProfileFetchError,
+    ProfileNotFoundError,
+    ProfileUpdateError,
+)
+from psengine.sandbox.sandbox import Profile, ProfileDeleteOut
 from rich.console import Console
 
 from banshee.sandbox.profiles import (
     _profiles_table,
+    delete_sandbox_profile,
     get_sandbox_profile,
     list_sandbox_profiles,
     update_sandbox_profile,
@@ -410,5 +416,53 @@ class TestUpdateSandboxProfile:
         update_sandbox_profile('w7-long', name='x', pretty=True)
         out = capsys.readouterr().out
         assert 'updated' in out.lower()
+        with pytest.raises(json.JSONDecodeError):
+            json.loads(out)
+
+
+class TestDeleteSandboxProfile:
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_deleted_prints_confirmation(self, mock_mgr_cls, capsys):
+        mock_mgr_cls.return_value.delete_profile.return_value = ProfileDeleteOut(deleted=True)
+        delete_sandbox_profile('w7-long')
+        out = capsys.readouterr().out
+        assert out == 'Deleted profile: w7-long\n'
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_not_found_prints_warning_and_returns(self, mock_mgr_cls, capsys):
+        """404 is idempotent: warning on stdout, normal return (exit 0)."""
+        mock_mgr_cls.return_value.delete_profile.return_value = ProfileDeleteOut(deleted=False)
+        delete_sandbox_profile('unknown-id')
+        out = capsys.readouterr().out
+        assert out == 'Profile not found: unknown-id\n'
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_delete_called_with_argument(self, mock_mgr_cls, capsys):
+        mock_mgr_cls.return_value.delete_profile.return_value = ProfileDeleteOut(deleted=True)
+        delete_sandbox_profile('w7-long')
+        capsys.readouterr()
+        mock_mgr_cls.return_value.delete_profile.assert_called_once_with('w7-long')
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_delete_error_propagates(self, mock_mgr_cls):
+        mock_mgr_cls.return_value.delete_profile.side_effect = ProfileDeleteError('API down')
+        with pytest.raises(ProfileDeleteError):
+            delete_sandbox_profile('w7-long')
+
+    @patch('banshee.sandbox.profiles._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.profiles.SandboxMgr')
+    @patch('banshee.sandbox.profiles.get_config', new=MagicMock())
+    def test_output_is_plain_text_not_json(self, mock_mgr_cls, capsys):
+        mock_mgr_cls.return_value.delete_profile.return_value = ProfileDeleteOut(deleted=True)
+        delete_sandbox_profile('w7-long')
+        out = capsys.readouterr().out
         with pytest.raises(json.JSONDecodeError):
             json.loads(out)

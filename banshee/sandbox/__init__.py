@@ -12,12 +12,18 @@
 ##############################################################################################
 
 from .output import print_sandbox_stats
-from .profiles import get_sandbox_profile, list_sandbox_profiles, update_sandbox_profile
+from .profiles import (
+    delete_sandbox_profile,
+    get_sandbox_profile,
+    list_sandbox_profiles,
+    update_sandbox_profile,
+)
 from .stats import SandboxStats, fetch_sandbox_stats
 from .submit import set_sandbox_sample_profile
 
 __all__ = [
     'SandboxStats',
+    'delete_sandbox_profile',
     'fetch_sandbox_stats',
     'get_sandbox_profile',
     'list_sandbox_profiles',

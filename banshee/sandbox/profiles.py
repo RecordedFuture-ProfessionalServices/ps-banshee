@@ -139,6 +139,17 @@ def update_sandbox_profile(
     _print_update_result(result, pretty)
 
 
+def delete_sandbox_profile(profile_id_or_name: str) -> None:
+    config = get_config()
+    mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
+    with _spinner('Deleting profile…'):
+        result = mgr.delete_profile(profile_id_or_name)
+    if result.deleted:
+        print(f'Deleted profile: {profile_id_or_name}')
+    else:
+        print(f'Profile not found: {profile_id_or_name}')
+
+
 def list_sandbox_profiles(pretty: bool = False) -> None:
     config = get_config()
     mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
