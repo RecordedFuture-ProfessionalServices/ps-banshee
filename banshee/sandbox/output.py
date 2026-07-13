@@ -169,7 +169,7 @@ def _summary_lines(stats: SandboxStats) -> list:
     if stats.failed:
         header_parts.append(f'[bold red]{stats.failed:,}[/bold red] failed')
     lines = [
-        f'  [dim]·[/dim]  '.join(header_parts),
+        '  [dim]·[/dim]  '.join(header_parts),
         '',
         f'[dim]by kind  [/dim]  {kind_str}',
     ]

@@ -221,7 +221,7 @@ def _build_score_and_platform(reports: list) -> tuple:
     """Return (by_score dict, by_platform dict) from overview reports."""
     score_counter: Counter = Counter(_score_bucket(r.analysis.score) for _, r in reports)
     platform_counter: Counter = Counter()
-    for sample_id, r in reports:
+    for _, r in reports:
         seen_os: set[str] = set()
         for task in r.tasks.values():
             if task.kind == 'behavioral' and task.os and task.os not in seen_os:
