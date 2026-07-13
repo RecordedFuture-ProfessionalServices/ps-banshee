@@ -254,6 +254,28 @@ class TestBuildTagTaxonomy:
         assert result.malware_families == {}
         assert result.behavioral_ttp == {}
 
+    def test_platform_tags_excluded_from_behavioral_ttp(self):
+        # 'linux' is a platform, not a TTP; it must not appear in behavioral_ttp.
+        r = _make_report(tags=['linux', 'discovery'])
+        result = _build_tag_taxonomy([(MagicMock(), r)])
+        assert 'linux' not in result.behavioral_ttp
+        assert 'discovery' in result.behavioral_ttp
+
+    def test_packer_tags_excluded_from_behavioral_ttp(self):
+        r = _make_report(tags=['upx', 'packed', 'obfuscated', 'collection'])
+        result = _build_tag_taxonomy([(MagicMock(), r)])
+        assert 'upx' not in result.behavioral_ttp
+        assert 'packed' not in result.behavioral_ttp
+        assert 'obfuscated' not in result.behavioral_ttp
+        assert 'collection' in result.behavioral_ttp
+
+    def test_platform_tags_not_in_arch_file_either(self):
+        # Platform/packer tags should be silently dropped, not mis-filed in arch_file.
+        r = _make_report(tags=['linux', 'macos', 'android', 'windows'])
+        result = _build_tag_taxonomy([(MagicMock(), r)])
+        assert result.arch_file == {}
+        assert result.behavioral_ttp == {}
+
 
 class TestBuildFileTypeMap:
     def _make_static_report(self, files_exts: list[list[str]]):

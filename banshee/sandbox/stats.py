@@ -66,6 +66,21 @@ _ARCH_FILE_TAGS = {
     'msg',
 }
 
+_PLATFORM_PACKER_TAGS = {
+    'linux',
+    'macos',
+    'android',
+    'windows',
+    'upx',
+    'packed',
+    'obfuscated',
+    'armv7',
+    'armv8',
+    'arm',
+    'mips',
+    'mipsel',
+}
+
 _OVERVIEW_WORKERS = 50
 _SOAR_WORKERS = 10
 _SOAR_TOP_N = 50
@@ -231,8 +246,9 @@ def _build_tag_taxonomy(reports: list) -> TopTags:
         | {t for t in tag_counter if t.startswith(('brand:', 'os:'))}
     )
     remaining = {t: c for t, c in tag_counter.items() if t not in prefixed}
+    _excluded = _ARCH_FILE_TAGS | _PLATFORM_PACKER_TAGS
     arch_file = {t: c for t, c in remaining.items() if t.lower() in _ARCH_FILE_TAGS}
-    behavioral_ttp = {t: c for t, c in remaining.items() if t.lower() not in _ARCH_FILE_TAGS}
+    behavioral_ttp = {t: c for t, c in remaining.items() if t.lower() not in _excluded}
 
     return TopTags(
         malware_families=dict(Counter(family_tags).most_common(10)),

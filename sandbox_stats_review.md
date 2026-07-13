@@ -16,7 +16,7 @@ Fix: count unique `(sample_id, os)` pairs, or add a note "(task count)" to the P
 
 ---
 
-### [ ] 3. `linux` and `upx` land in "Behavioral / TTP" (`stats.py:232–233`)
+### [x] 3. `linux` and `upx` land in "Behavioral / TTP" (`stats.py:232–233`)
 
 `linux` is a platform/OS tag and `upx` is a packer. Neither is a TTP. They fall into `behavioral_ttp` because they lack `family:`/`botnet:`/`brand:`/`os:` prefix and aren't in `_ARCH_FILE_TAGS`. `linux` appearing at #6 with 163 hits in the TTP column is actively wrong.
 
