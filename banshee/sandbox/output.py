@@ -168,12 +168,16 @@ def _summary_lines(stats: SandboxStats) -> list:
         t = _trend_str(v, stats.by_kind_prev.get(k, 0))
         kind_parts.append(f'{k}: {v}' + (f' {t}' if t else ''))
     kind_str = '  '.join(kind_parts)
+    header_parts = [
+        submissions_cell,
+        f'[bold]{analyzed:,}[/bold] analyzed',
+    ]
+    if stats.pending:
+        header_parts.append(f'[bold]{stats.pending:,}[/bold] pending')
+    if stats.failed:
+        header_parts.append(f'[bold red]{stats.failed:,}[/bold red] failed')
     lines = [
-        (
-            f'{submissions_cell}  [dim]·[/dim]'
-            f'  [bold]{analyzed:,}[/bold] analyzed  [dim]·[/dim]'
-            f'  [bold]{stats.pending:,}[/bold] pending'
-        ),
+        f'  [dim]·[/dim]  '.join(header_parts),
         '',
         f'[dim]by kind  [/dim]  {kind_str}',
     ]
@@ -515,6 +519,7 @@ def _to_json_dict(stats: SandboxStats) -> dict:
         'subset': stats.subset,
         'total': stats.total,
         'pending': stats.pending,
+        'failed': stats.failed,
         'by_kind': stats.by_kind,
         'by_platform': stats.by_platform,
         'by_score': stats.by_score,

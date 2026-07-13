@@ -137,6 +137,7 @@ class SandboxStats:
     subset: str
     total: int
     pending: int
+    failed: int
     by_status: dict
     by_kind: dict
     by_platform: dict
@@ -386,7 +387,6 @@ def _build_daily_by_family(reports: list) -> dict:
 def fetch_sandbox_stats(
     days: int = 7,
     subset: str = 'org',
-    limit: int = 0,
 ) -> SandboxStats:
     """Aggregate sandbox submissions over a configurable time window.
 
@@ -396,8 +396,6 @@ def fetch_sandbox_stats(
     Args:
         days: Lookback window in days (default 7). Prior period = same length before window.
         subset: Sample scope — 'org' (org-wide) or 'owned' (current user).
-        limit: Cap on total samples fetched. 0 means use the default cap (2000).
-            Prints a warning if the cap is reached.
 
     Returns:
         SandboxStats dataclass with all aggregated counts and IOCs.
@@ -409,16 +407,17 @@ def fetch_sandbox_stats(
     cutoff_current = now - timedelta(days=days)
     cutoff_prev = now - timedelta(days=days * 2)
 
-    max_results = limit if limit > 0 else _DEFAULT_MAX_RESULTS
-
     label = 'Fetching sandbox submissions…'
     with _spinner(label) as progress:
         progress.add_task(label)
-        all_samples = mgr.fetch_samples(subset=subset, max_results=max_results)
+        all_samples = mgr.fetch_samples(subset=subset, max_results=_DEFAULT_MAX_RESULTS)
 
-    limit_hit = limit > 0 and len(all_samples) >= limit
+    limit_hit = len(all_samples) >= _DEFAULT_MAX_RESULTS
     if limit_hit:
-        print(f'[WARNING] Hit --limit={limit} cap — stats may be incomplete.', file=sys.stderr)
+        print(
+            f'[WARNING] Hit sample cap ({_DEFAULT_MAX_RESULTS}) — stats may be incomplete.',
+            file=sys.stderr,
+        )
 
     current = [s for s in all_samples if s.submitted >= cutoff_current]
     prev = [s for s in all_samples if cutoff_prev <= s.submitted < cutoff_current]
@@ -428,7 +427,8 @@ def fetch_sandbox_stats(
     by_status = dict(Counter(s.status for s in current).most_common())
     by_kind = dict(Counter(s.kind for s in current).most_common())
     by_kind_prev = dict(Counter(s.kind for s in prev))
-    pending = sum(1 for s in current if s.status != 'reported')
+    pending = sum(1 for s in current if s.status not in ('reported', 'failed'))
+    failed = sum(1 for s in current if s.status == 'failed')
     trend = {
         'total': {'current': len(current), 'prev': len(prev)},
         'reported': {'current': len(reported_current), 'prev': len(reported_prev)},
@@ -442,6 +442,7 @@ def fetch_sandbox_stats(
             subset=subset,
             total=len(current),
             pending=pending,
+            failed=failed,
             by_status=by_status,
             by_kind=by_kind,
             by_kind_prev=by_kind_prev,
@@ -490,6 +491,7 @@ def fetch_sandbox_stats(
         subset=subset,
         total=len(current),
         pending=pending,
+        failed=failed,
         by_status=by_status,
         by_kind=by_kind,
         by_kind_prev=by_kind_prev,

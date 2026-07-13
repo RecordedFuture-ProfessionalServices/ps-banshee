@@ -666,7 +666,6 @@ EPILOG_SANDBOX_STATS = """
 ```
 banshee sandbox stats
 banshee sandbox stats --days 14 --subset owned --pretty
-banshee sandbox stats --days 30 --limit 500
-banshee sandbox stats --pretty
+banshee sandbox stats --days 30 --pretty
 ```
 """

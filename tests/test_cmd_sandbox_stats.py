@@ -115,6 +115,7 @@ def _make_stats(**overrides) -> SandboxStats:
         'subset': 'org',
         'total': 10,
         'pending': 2,
+        'failed': 0,
         'by_status': {'reported': 8, 'static_analysis': 2},
         'by_kind': {'file': 6, 'url': 4},
         'by_platform': {'windows10-2004-x64': 5},
@@ -558,8 +559,23 @@ class TestFetchSandboxStats:
 
         assert result.total == 1
         assert result.pending == 1
+        assert result.failed == 0
         assert result.by_score == {}
         assert result.soar_skipped is True
+
+    @patch('banshee.sandbox.stats.get_config')
+    @patch('banshee.sandbox.stats.SandboxMgr')
+    @patch('banshee.sandbox.stats._spinner', new=_SPINNER_MOCK)
+    def test_failed_samples_excluded_from_pending(self, mock_mgr_cls, mock_cfg):
+        mock_cfg.return_value = _mock_config()
+        running = _make_sample(submitted_delta_days=1, status='running')
+        failed = _make_sample(submitted_delta_days=1, status='failed')
+        mock_mgr_cls.return_value.fetch_samples.return_value = [running, failed]
+
+        result = fetch_sandbox_stats(days=7, subset='org')
+
+        assert result.pending == 1
+        assert result.failed == 1
 
     @patch('banshee.sandbox.stats.get_config')
     @patch('banshee.sandbox.stats.SandboxMgr')
@@ -584,13 +600,16 @@ class TestFetchSandboxStats:
     @patch('banshee.sandbox.stats._spinner', new=_SPINNER_MOCK)
     def test_limit_hit_warning(self, mock_mgr_cls, mock_cfg, capsys):
         mock_cfg.return_value = _mock_config()
-        samples = [_make_sample(status='static_analysis') for _ in range(5)]
+        from banshee.sandbox.stats import _DEFAULT_MAX_RESULTS
+        samples = [_make_sample(status='static_analysis') for _ in range(_DEFAULT_MAX_RESULTS)]
         mock_mgr_cls.return_value.fetch_samples.return_value = samples
 
-        result = fetch_sandbox_stats(days=7, limit=5)
+        result = fetch_sandbox_stats(days=7)
 
         assert result.limit_hit is True
-        assert 'WARNING' in capsys.readouterr().err
+        err = capsys.readouterr().err
+        assert 'WARNING' in err
+        assert str(_DEFAULT_MAX_RESULTS) in err
 
     @patch('banshee.sandbox.stats.get_config')
     @patch('banshee.sandbox.stats.SandboxMgr')
@@ -783,6 +802,18 @@ class TestPrintChartAndSummary:
     def test_summary_does_not_show_by_status(self):
         out = self._render({})
         assert 'by status' not in out
+
+    def test_summary_shows_failed_when_nonzero(self):
+        out = self._render({}, failed=2)
+        assert 'failed' in out
+
+    def test_summary_does_not_show_failed_when_zero(self):
+        out = self._render({}, failed=0)
+        assert 'failed' not in out
+
+    def test_summary_hides_pending_when_zero(self):
+        out = self._render({}, pending=0, failed=0)
+        assert 'pending' not in out
 
     def test_summary_shows_up_trend_arrow(self):
         out = self._render(
@@ -1009,6 +1040,11 @@ class TestToJsonDict:
         stats = _make_stats()
         d = _to_json_dict(stats)
         assert 'by_status' not in d
+
+    def test_failed_present_in_json(self):
+        stats = _make_stats(failed=3)
+        d = _to_json_dict(stats)
+        assert d['failed'] == 3
 
     def test_trend_pct_change_in_json(self):
         stats = _make_stats(
@@ -1243,21 +1279,14 @@ class TestCmdSandboxStats:
         mock_fetch.return_value = _make_stats(period_days=14)
         result = runner.invoke(app, args=['--days', '14'])
         assert result.exit_code == 0
-        mock_fetch.assert_called_once_with(days=14, subset='org', limit=0)
+        mock_fetch.assert_called_once_with(days=14, subset='org')
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_owned_subset(self, mock_fetch):
         mock_fetch.return_value = _make_stats(subset='owned')
         result = runner.invoke(app, args=['--subset', 'owned'])
         assert result.exit_code == 0
-        mock_fetch.assert_called_once_with(days=7, subset='owned', limit=0)
-
-    @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
-    def test_stats_limit_param(self, mock_fetch):
-        mock_fetch.return_value = _make_stats()
-        result = runner.invoke(app, args=['--limit', '100'])
-        assert result.exit_code == 0
-        mock_fetch.assert_called_once_with(days=7, subset='org', limit=100)
+        mock_fetch.assert_called_once_with(days=7, subset='owned')
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_pretty_no_reported(self, mock_fetch):
@@ -1286,12 +1315,6 @@ class TestCmdSandboxStats:
         result = runner.invoke(app, args=['--pretty'])
         assert result.exit_code == 0
         assert 'skipped' in result.output
-
-    @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
-    def test_stats_limit_out_of_range(self, mock_fetch):
-        result = runner.invoke(app, args=['--limit', '0'])
-        assert result.exit_code == 2
-        mock_fetch.assert_not_called()
 
     @patch('banshee.commands.cmd_sandbox.fetch_sandbox_stats')
     def test_stats_days_out_of_range(self, mock_fetch):

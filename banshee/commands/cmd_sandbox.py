@@ -11,7 +11,7 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-from typing import Annotated, Optional
+from typing import Annotated
 
 from typer import Option, Typer
 
@@ -49,16 +49,7 @@ def stats(
             help="Sample scope: 'org' (org-wide) or 'owned' (current user)",
         ),
     ] = 'org',
-    limit: Annotated[
-        Optional[int],
-        Option(
-            '--limit',
-            '-l',
-            help='Cap on total samples fetched (default: 2000). Prints a warning if hit.',
-            min=1,
-        ),
-    ] = None,
     pretty: OPT_PRETTY_PRINT = False,
 ):
-    result = fetch_sandbox_stats(days=days, subset=subset, limit=limit or 0)
+    result = fetch_sandbox_stats(days=days, subset=subset)
     print_sandbox_stats(result, pretty=pretty)
