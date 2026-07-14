@@ -13,6 +13,7 @@
 
 import json
 import sys
+import time
 
 from psengine.config import get_config
 from psengine.sandbox import BehavioralReport, OverviewReport, SandboxMgr, StaticAnalysisReport
@@ -49,10 +50,19 @@ _SCORE_LABELS = {
 _HASH_PREVIEW_LEN = 16
 _IOC_PREVIEW_LEN = 60
 _BEHAVIORAL_MAX_WORKERS = 10
+_WAIT_INTERVAL = 20
+_WAIT_TIMEOUT = 600
+_WAIT_MESSAGES = (
+    'Waiting for static analysis…',
+    'Still analysing…',
+    'Almost there — checking again…',
+)
 
 
 def _spinner(label: str = 'Fetching overview report…') -> Progress:
-    return Progress(SpinnerColumn(), TextColumn(label), transient=True, console=_ERR_CONSOLE)
+    progress = Progress(SpinnerColumn(), TextColumn(label), transient=True, console=_ERR_CONSOLE)
+    progress.add_task('')  # a Progress with zero tasks renders nothing
+    return progress
 
 
 def _score_bucket(score: int | None) -> str:
@@ -345,33 +355,48 @@ def _print_behavioral_pretty(reports: list[BehavioralReport]) -> None:
 
 
 def _is_not_found(exc: Exception) -> bool:
-    """A 404 on a sandbox report endpoint means the sample does not exist.
+    """A 404 on the behavioral fetch means the sample does not exist.
 
-    Static reports exist from the moment a sample is submitted, and the
-    behavioral fetch starts with the sample lookup itself — in both cases
-    there is no separate not-yet-available 404 to distinguish.
+    The behavioral fetch starts with the sample lookup itself, so there is
+    no separate not-yet-available 404 to distinguish.
     """
     response = getattr(exc.__cause__, 'response', None)
     return response is not None and response.status_code == 404
 
 
-def fetch_static_report(sample_id: str, pretty: bool = False) -> None:
+def fetch_static_report(sample_id: str, pretty: bool = False, wait: bool = False) -> None:
     """Fetch the static (pre-detonation) analysis report for a sample and print it.
 
     Default output is the full report as JSON on stdout; `pretty` renders a
-    summarised human-readable view instead.
+    summarised human-readable view instead. With `wait`, a report that is not
+    yet available is retried every _WAIT_INTERVAL seconds for up to
+    _WAIT_TIMEOUT seconds before giving up.
     """
     config = get_config()
     mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
-    try:
-        with _spinner('Fetching static report…'):
-            report = mgr.fetch_sample_static_report(sample_id)
-    except SampleStaticReportError as exc:
-        if _is_not_found(exc):
+    retries = _WAIT_TIMEOUT // _WAIT_INTERVAL if wait else 0
+    for attempt in range(retries + 1):
+        try:
+            with _spinner('Fetching static report…'):
+                report = mgr.fetch_sample_static_report(sample_id)
+            break
+        except SampleReportNotAvailableError:
+            if not wait:
+                _ERR_CONSOLE.print('Static report not available yet. Retry shortly or pass --wait.')
+                sys.exit(1)
+            if attempt == retries:
+                _ERR_CONSOLE.print(
+                    f'Static report still not ready after {_WAIT_TIMEOUT // 60} minutes.'
+                )
+                sys.exit(1)
+            with _spinner(_WAIT_MESSAGES[attempt % len(_WAIT_MESSAGES)]):
+                time.sleep(_WAIT_INTERVAL)
+        except SampleReportNotFoundError:
             _ERR_CONSOLE.print(f'Sample not found: {escape(sample_id)}')
-        else:
+            sys.exit(1)
+        except SampleStaticReportError as exc:
             _ERR_CONSOLE.print(f'Failed to fetch static report: {escape(str(exc))}')
-        sys.exit(1)
+            sys.exit(1)
     if pretty:
         _print_static_pretty(report)
     else:

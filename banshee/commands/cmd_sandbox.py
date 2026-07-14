@@ -437,10 +437,19 @@ def overview(
     epilog=EPILOG_SANDBOX_REPORT_STATIC,
 )
 def static(
-    sample_id: Annotated[str, Argument(help='Sandbox sample ID')],
+    sample_id: Annotated[str, Argument(help='Sandbox sample ID', show_default=False)],
+    wait: Annotated[
+        bool,
+        Option(
+            '--wait',
+            '-w',
+            help='Wait for the static report, retrying for up to 10 minutes; '
+            'exits non-zero if it is still not ready by then',
+        ),
+    ] = False,
     pretty: OPT_PRETTY_PRINT = False,
 ):
-    fetch_static_report(sample_id, pretty=pretty)
+    fetch_static_report(sample_id, pretty=pretty, wait=wait)
 
 
 @banshee_cmd(

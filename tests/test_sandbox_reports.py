@@ -14,7 +14,7 @@
 import json
 import os
 from contextlib import contextmanager
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, call, patch
 
 import pytest
 from psengine.sandbox import BehavioralReport, OverviewReport, StaticAnalysisReport
@@ -28,6 +28,7 @@ from psengine.sandbox.errors import (
 from requests.exceptions import HTTPError
 
 from banshee.sandbox.reports import (
+    _spinner,
     fetch_behavioral_reports,
     fetch_overview_report,
     fetch_static_report,
@@ -299,13 +300,6 @@ def _run_static_with_error(capsys, error, sample_id=_SAMPLE_ID):
     return exc_info.value.code, capsys.readouterr()
 
 
-def _static_error_with_status(status_code) -> SampleStaticReportError:
-    """Build the error as psengine raises it: chained from an HTTPError with a response."""
-    error = SampleStaticReportError('404 Client Error: Not Found for url: …')
-    error.__cause__ = HTTPError(response=MagicMock(status_code=status_code))
-    return error
-
-
 class TestStaticJson:
     def test_default_outputs_json(self, capsys):
         data = json.loads(_run_static(capsys))
@@ -424,17 +418,18 @@ class TestStaticPretty:
 
 
 class TestStaticErrors:
-    def test_404_reports_sample_not_found(self, capsys):
-        code, captured = _run_static_with_error(capsys, _static_error_with_status(404))
+    def test_not_found_reports_sample_not_found(self, capsys):
+        code, captured = _run_static_with_error(capsys, SampleReportNotFoundError('no sample'))
         assert code == 1
         assert f'Sample not found: {_SAMPLE_ID}' in captured.err
 
-    def test_non_404_http_error_reports_failure(self, capsys):
-        code, captured = _run_static_with_error(capsys, _static_error_with_status(500))
+    def test_not_available_reports_retry_not_missing_sample(self, capsys):
+        code, captured = _run_static_with_error(capsys, SampleReportNotAvailableError('not ready'))
         assert code == 1
-        assert 'Failed to fetch static report' in captured.err
+        assert 'not available yet' in captured.err
+        assert 'Sample not found' not in captured.err
 
-    def test_error_without_response_reports_failure(self, capsys):
+    def test_other_static_error_reports_failure(self, capsys):
         code, captured = _run_static_with_error(capsys, SampleStaticReportError('conn refused'))
         assert code == 1
         assert 'Failed to fetch static report' in captured.err
@@ -442,13 +437,89 @@ class TestStaticErrors:
 
     def test_error_messages_escape_markup(self, capsys):
         _, captured = _run_static_with_error(
-            capsys, _static_error_with_status(404), sample_id='odd[/id]'
+            capsys, SampleReportNotFoundError('no sample'), sample_id='odd[/id]'
         )
         assert 'Sample not found: odd[/id]' in captured.err
 
-    def test_errors_never_pollute_stdout(self, capsys):
-        _, captured = _run_static_with_error(capsys, _static_error_with_status(500))
+    @pytest.mark.parametrize(
+        'error',
+        [
+            SampleReportNotFoundError('no sample'),
+            SampleReportNotAvailableError('not ready'),
+            SampleStaticReportError('conn refused'),
+        ],
+    )
+    def test_errors_never_pollute_stdout(self, capsys, error):
+        _, captured = _run_static_with_error(capsys, error)
         assert captured.out == ''
+
+
+class TestSpinner:
+    def test_spinner_has_a_task_so_it_renders(self):
+        """A Progress with zero tasks renders nothing — the spinner would be invisible."""
+        assert _spinner('Waiting for static analysis…').tasks
+
+
+class TestStaticWait:
+    def test_wait_retries_until_report_ready(self, capsys):
+        with (
+            _patched_mgr() as mock_mgr_cls,
+            patch('banshee.sandbox.reports.time') as mock_time,
+        ):
+            mock_mgr_cls.return_value.fetch_sample_static_report.side_effect = [
+                SampleReportNotAvailableError('not ready'),
+                SampleReportNotAvailableError('not ready'),
+                _RICH_STATIC_REPORT,
+            ]
+            fetch_static_report(_SAMPLE_ID, pretty=False, wait=True)
+        data = json.loads(capsys.readouterr().out)
+        assert data['analysis']['score'] == 8
+        assert mock_time.sleep.call_args_list == [call(20), call(20)]
+
+    def test_wait_times_out_when_never_ready(self, capsys):
+        with (
+            _patched_mgr() as mock_mgr_cls,
+            patch('banshee.sandbox.reports.time') as mock_time,
+        ):
+            mock_mgr_cls.return_value.fetch_sample_static_report.side_effect = (
+                SampleReportNotAvailableError('not ready')
+            )
+            with pytest.raises(SystemExit) as exc_info:
+                fetch_static_report(_SAMPLE_ID, pretty=False, wait=True)
+        assert exc_info.value.code == 1
+        captured = capsys.readouterr()
+        assert 'still not ready' in captured.err
+        assert captured.out == ''
+        assert mock_time.sleep.call_count == 30  # 10-minute budget at a 20 s interval
+
+    def test_wait_not_found_exits_immediately(self, capsys):
+        with (
+            _patched_mgr() as mock_mgr_cls,
+            patch('banshee.sandbox.reports.time') as mock_time,
+        ):
+            mock_mgr_cls.return_value.fetch_sample_static_report.side_effect = (
+                SampleReportNotFoundError('no sample')
+            )
+            with pytest.raises(SystemExit) as exc_info:
+                fetch_static_report(_SAMPLE_ID, pretty=False, wait=True)
+        assert exc_info.value.code == 1
+        assert f'Sample not found: {_SAMPLE_ID}' in capsys.readouterr().err
+        mock_time.sleep.assert_not_called()
+
+    def test_no_wait_does_not_retry_and_hints_at_flag(self, capsys):
+        with (
+            _patched_mgr() as mock_mgr_cls,
+            patch('banshee.sandbox.reports.time') as mock_time,
+        ):
+            mock_mgr_cls.return_value.fetch_sample_static_report.side_effect = (
+                SampleReportNotAvailableError('not ready')
+            )
+            with pytest.raises(SystemExit) as exc_info:
+                fetch_static_report(_SAMPLE_ID, pretty=False)
+        assert exc_info.value.code == 1
+        assert '--wait' in capsys.readouterr().err
+        mock_mgr_cls.return_value.fetch_sample_static_report.assert_called_once()
+        mock_time.sleep.assert_not_called()
 
 
 def _make_behavioral_report(task_id='behavioral1', **overrides) -> BehavioralReport:

@@ -761,6 +761,8 @@ EPILOG_SANDBOX_REPORT_STATIC = """
 
 * banshee sandbox report static 260501-h4p7laawme -p
 
+* banshee sandbox report static 260501-h4p7laawme --wait
+
 * banshee sandbox report static 260501-h4p7laawme | jq '.analysis'
 
 * banshee sandbox report static 260501-h4p7laawme | jq '.files[].sha256'
