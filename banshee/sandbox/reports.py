@@ -16,7 +16,14 @@ import sys
 import time
 
 from psengine.config import get_config
-from psengine.sandbox import BehavioralReport, OverviewReport, SandboxMgr, StaticAnalysisReport
+from psengine.sandbox import (
+    BehavioralReport,
+    BehavioralReportFailure,
+    BehavioralReportsResult,
+    OverviewReport,
+    SandboxMgr,
+    StaticAnalysisReport,
+)
 from psengine.sandbox.errors import (
     SampleBehavioralReportError,
     SampleOverviewError,
@@ -53,13 +60,14 @@ _BEHAVIORAL_MAX_WORKERS = 10
 _WAIT_INTERVAL = 20
 _WAIT_TIMEOUT = 600
 _WAIT_MESSAGES = (
-    'Waiting for static analysis…',
-    'Still analysing…',
-    'Almost there — checking again…',
+    'Waiting for analysis to finish',
+    'Still analysing',
+    'Almost there — checking again',
 )
+_BEHAVIORAL_WAIT_TIMEOUT = 1800
 
 
-def _spinner(label: str = 'Fetching overview report…') -> Progress:
+def _spinner(label: str = 'Fetching overview report') -> Progress:
     progress = Progress(SpinnerColumn(), TextColumn(label), transient=True, console=_ERR_CONSOLE)
     progress.add_task('')  # a Progress with zero tasks renders nothing
     return progress
@@ -354,16 +362,6 @@ def _print_behavioral_pretty(reports: list[BehavioralReport]) -> None:
         _print_extracted(console, report.extracted)
 
 
-def _is_not_found(exc: Exception) -> bool:
-    """A 404 on the behavioral fetch means the sample does not exist.
-
-    The behavioral fetch starts with the sample lookup itself, so there is
-    no separate not-yet-available 404 to distinguish.
-    """
-    response = getattr(exc.__cause__, 'response', None)
-    return response is not None and response.status_code == 404
-
-
 def fetch_static_report(sample_id: str, pretty: bool = False, wait: bool = False) -> None:
     """Fetch the static (pre-detonation) analysis report for a sample and print it.
 
@@ -377,7 +375,7 @@ def fetch_static_report(sample_id: str, pretty: bool = False, wait: bool = False
     retries = _WAIT_TIMEOUT // _WAIT_INTERVAL if wait else 0
     for attempt in range(retries + 1):
         try:
-            with _spinner('Fetching static report…'):
+            with _spinner('Fetching static report'):
                 report = mgr.fetch_sample_static_report(sample_id)
             break
         except SampleReportNotAvailableError:
@@ -429,27 +427,92 @@ def fetch_overview_report(sample_id: str, pretty: bool = False) -> None:
         print_json(json.dumps(report.json()))
 
 
-def fetch_behavioral_reports(sample_id: str, pretty: bool = False) -> None:
+def _fetch_behavioral_once(mgr: SandboxMgr, sample_id: str) -> BehavioralReportsResult:
+    try:
+        with _spinner('Fetching behavioral reports'):
+            return mgr.fetch_behavioral_reports(sample_id, max_workers=_BEHAVIORAL_MAX_WORKERS)
+    except SampleReportNotFoundError:
+        _ERR_CONSOLE.print(f'Sample not found: {escape(sample_id)}')
+        sys.exit(1)
+    except SampleBehavioralReportError as exc:
+        _ERR_CONSOLE.print(f'Failed to fetch behavioral reports: {escape(str(exc))}')
+        sys.exit(1)
+
+
+def _behavioral_wait_message(result: BehavioralReportsResult, attempt: int) -> str:
+    message = _WAIT_MESSAGES[attempt % len(_WAIT_MESSAGES)]
+    if result.reports:
+        total = len(result.reports) + len(result.not_ready)
+        message += f' ({len(result.reports)} of {total} reports ready)'
+    return message
+
+
+def _wait_for_behavioral(mgr: SandboxMgr, sample_id: str) -> BehavioralReportsResult:
+    """Re-fetch until every behavioral task has a report or the deadline passes."""
+    deadline = time.monotonic() + _BEHAVIORAL_WAIT_TIMEOUT
+    result = _fetch_behavioral_once(mgr, sample_id)
+    attempt = 0
+    while not result.complete:
+        if time.monotonic() >= deadline:
+            _ERR_CONSOLE.print(f'Gave up waiting after {_BEHAVIORAL_WAIT_TIMEOUT // 60} minutes.')
+            break
+        with _spinner(_behavioral_wait_message(result, attempt)):
+            time.sleep(_WAIT_INTERVAL)
+        attempt += 1
+        result = _fetch_behavioral_once(mgr, sample_id)
+    return result
+
+
+def _print_behavioral_failures(failed: list[BehavioralReportFailure]) -> None:
+    for failure in failed:
+        parts = []
+        if failure.status_code is not None:
+            parts.append(f'HTTP {failure.status_code}')
+        if failure.error:
+            parts.append(escape(failure.error))
+        detail = ' '.join(parts) or 'unknown error'
+        _ERR_CONSOLE.print(f'Report fetch failed for {escape(failure.task_id)} ({detail}).')
+
+
+def _print_behavioral_not_ready(not_ready: list[str], waited: bool) -> None:
+    ids = ', '.join(escape(task_id) for task_id in not_ready)
+    hint = '' if waited else ', or pass --wait'
+    _ERR_CONSOLE.print(
+        f'{len(not_ready)} behavioral report(s) not available yet ({ids}). '
+        f'Retry once the sample status is `reported`{hint}.'
+    )
+
+
+def fetch_behavioral_reports(sample_id: str, pretty: bool = False, wait: bool = False) -> None:
     """Fetch the behavioral (post-detonation) reports for a sample and print them.
 
-    Default output is a JSON array on stdout with one full report per behavioral
-    task; `pretty` renders a summarised human-readable view per task instead.
-    A sample with no behavioral tasks prints an empty array and a note on stderr.
+    Default output is a JSON array on stdout with one full report per finished
+    behavioral task; `pretty` renders a summarised human-readable view per task
+    instead. Tasks still being analysed are omitted from the output and noted on
+    stderr; with `wait`, they are re-checked every _WAIT_INTERVAL seconds for up
+    to _BEHAVIORAL_WAIT_TIMEOUT seconds first. Task reports that failed to fetch
+    for a terminal reason are noted on stderr without failing the command, as
+    long as at least one report was fetched. Exits non-zero when any report is
+    still pending at print time or when every fetch failed terminally; ready
+    reports are always printed, even when others are pending. A sample with no
+    behavioral tasks prints an empty array and a note on stderr.
     """
     config = get_config()
     mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
-    try:
-        with _spinner('Fetching behavioral reports…'):
-            reports = mgr.fetch_behavioral_reports(sample_id, max_workers=_BEHAVIORAL_MAX_WORKERS)
-    except SampleBehavioralReportError as exc:
-        if _is_not_found(exc):
-            _ERR_CONSOLE.print(f'Sample not found: {escape(sample_id)}')
-        else:
-            _ERR_CONSOLE.print(f'Failed to fetch behavioral reports: {escape(str(exc))}')
-        sys.exit(1)
-    if not reports:
-        _ERR_CONSOLE.print('No behavioral tasks for this sample.')
-    if pretty:
-        _print_behavioral_pretty(reports)
+    if wait:
+        result = _wait_for_behavioral(mgr, sample_id)
     else:
-        print_json(json.dumps([report.json() for report in reports]))
+        result = _fetch_behavioral_once(mgr, sample_id)
+    _print_behavioral_failures(result.failed)
+    if result.not_ready:
+        _print_behavioral_not_ready(result.not_ready, waited=wait)
+    elif not result.reports and not result.failed:
+        _ERR_CONSOLE.print('No behavioral tasks for this sample.')
+    if result.reports or result.complete:
+        if pretty:
+            _print_behavioral_pretty(result.reports)
+        else:
+            print_json(json.dumps([report.json() for report in result.reports]))
+    all_failed = result.failed and not result.reports
+    if not result.complete or all_failed:
+        sys.exit(1)

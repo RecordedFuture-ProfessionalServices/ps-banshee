@@ -100,8 +100,12 @@ _HELP_REPORT_BEHAVIORAL = (
     'sample, one per behavioral task: verdict score, platform, triggered '
     'signatures, observed processes, network activity, and extracted malware '
     'configs. Default output is a JSON array of the full reports; use '
-    '`--pretty` for a summarised human-readable view per task. A sample with '
-    'no behavioral tasks prints an empty array and exits 0.'
+    '`--pretty` for a summarised human-readable view per task. Reports for '
+    'tasks still being analysed are omitted and noted on stderr, and the '
+    'command exits non-zero until every behavioral task has finished — rerun '
+    'once the sample status is `reported`, or pass `--wait` to block until '
+    'then (giving up, exit non-zero, after 30 minutes). A sample with no '
+    'behavioral tasks prints an empty array and exits 0.'
 )
 _HELP_REPORT_OVERVIEW = (
     'Fetch the overview report for a completed sandbox sample: verdict score, '
@@ -459,10 +463,19 @@ def static(
     epilog=EPILOG_SANDBOX_REPORT_BEHAVIORAL,
 )
 def behavioral(
-    sample_id: Annotated[str, Argument(help='Sandbox sample ID')],
+    sample_id: Annotated[str, Argument(help='Sandbox sample ID', show_default=False)],
+    wait: Annotated[
+        bool,
+        Option(
+            '--wait',
+            '-w',
+            help='Wait for reports still being analysed, retrying for up to 30 minutes; '
+            'exits non-zero if any is still not ready by then',
+        ),
+    ] = False,
     pretty: OPT_PRETTY_PRINT = False,
 ):
-    fetch_behavioral_reports(sample_id, pretty=pretty)
+    fetch_behavioral_reports(sample_id, pretty=pretty, wait=wait)
 
 
 app.add_typer(

@@ -26,7 +26,7 @@ _ERR_CONSOLE = Console(stderr=True)
 _DATETIME_FMT = '%Y-%m-%d %H:%M'
 
 
-def _spinner(label: str = 'Fetching samples…') -> Progress:
+def _spinner(label: str = 'Fetching samples') -> Progress:
     return Progress(SpinnerColumn(), TextColumn(label), transient=True, console=_ERR_CONSOLE)
 
 

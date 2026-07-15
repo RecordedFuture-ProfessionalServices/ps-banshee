@@ -25,24 +25,37 @@ class TestCmdSandboxReportBehavioral:
     def test_behavioral_default(self, mock_fetch):
         result = runner.invoke(app, ['report', 'behavioral', '251114-py23jaavtp'])
         assert result.exit_code == 0
-        mock_fetch.assert_called_once_with('251114-py23jaavtp', pretty=False)
+        mock_fetch.assert_called_once_with('251114-py23jaavtp', pretty=False, wait=False)
 
     @patch('banshee.commands.cmd_sandbox.fetch_behavioral_reports')
     def test_behavioral_pretty_long_flag(self, mock_fetch):
         result = runner.invoke(app, ['report', 'behavioral', '251114-py23jaavtp', '--pretty'])
         assert result.exit_code == 0
-        mock_fetch.assert_called_once_with('251114-py23jaavtp', pretty=True)
+        mock_fetch.assert_called_once_with('251114-py23jaavtp', pretty=True, wait=False)
 
     @patch('banshee.commands.cmd_sandbox.fetch_behavioral_reports')
     def test_behavioral_pretty_short_flag(self, mock_fetch):
         result = runner.invoke(app, ['report', 'behavioral', '251114-py23jaavtp', '-p'])
         assert result.exit_code == 0
-        mock_fetch.assert_called_once_with('251114-py23jaavtp', pretty=True)
+        mock_fetch.assert_called_once_with('251114-py23jaavtp', pretty=True, wait=False)
+
+    @patch('banshee.commands.cmd_sandbox.fetch_behavioral_reports')
+    def test_behavioral_wait_long_flag(self, mock_fetch):
+        result = runner.invoke(app, ['report', 'behavioral', '251114-py23jaavtp', '--wait'])
+        assert result.exit_code == 0
+        mock_fetch.assert_called_once_with('251114-py23jaavtp', pretty=False, wait=True)
+
+    @patch('banshee.commands.cmd_sandbox.fetch_behavioral_reports')
+    def test_behavioral_wait_short_flag(self, mock_fetch):
+        result = runner.invoke(app, ['report', 'behavioral', '251114-py23jaavtp', '-w'])
+        assert result.exit_code == 0
+        mock_fetch.assert_called_once_with('251114-py23jaavtp', pretty=False, wait=True)
 
     def test_behavioral_help_available(self):
         result = runner.invoke(app, ['report', 'behavioral', '--help'])
         assert result.exit_code == 0
         assert '--pretty' in result.output
+        assert '--wait' in result.output
 
     def test_report_subcommand_shows_behavioral(self):
         result = runner.invoke(app, ['report', '--help'])

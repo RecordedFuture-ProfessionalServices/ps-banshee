@@ -17,7 +17,13 @@ from contextlib import contextmanager
 from unittest.mock import MagicMock, call, patch
 
 import pytest
-from psengine.sandbox import BehavioralReport, OverviewReport, StaticAnalysisReport
+from psengine.sandbox import (
+    BehavioralReport,
+    BehavioralReportFailure,
+    BehavioralReportsResult,
+    OverviewReport,
+    StaticAnalysisReport,
+)
 from psengine.sandbox.errors import (
     SampleBehavioralReportError,
     SampleOverviewError,
@@ -25,7 +31,6 @@ from psengine.sandbox.errors import (
     SampleReportNotFoundError,
     SampleStaticReportError,
 )
-from requests.exceptions import HTTPError
 
 from banshee.sandbox.reports import (
     _spinner,
@@ -576,13 +581,30 @@ _SPARSE_BEHAVIORAL_REPORT = BehavioralReport.model_validate(
 
 
 def _run_behavioral(capsys, reports=_RICH_BEHAVIORAL_REPORTS, pretty=False):
+    return _run_behavioral_result(capsys, BehavioralReportsResult(reports=reports), pretty=pretty)
+
+
+def _run_behavioral_result(capsys, result, pretty=False):
+    """Run against a complete envelope: the command must not exit non-zero."""
     with (
         _patched_mgr() as mock_mgr_cls,
         patch.dict(os.environ, {'COLUMNS': '250'}),
     ):
-        mock_mgr_cls.return_value.fetch_behavioral_reports.return_value = reports
+        mock_mgr_cls.return_value.fetch_behavioral_reports.return_value = result
         fetch_behavioral_reports(_SAMPLE_ID, pretty=pretty)
     return capsys.readouterr()
+
+
+def _run_behavioral_exit_1(capsys, result, pretty=False):
+    """Run against an envelope that must make the command raise SystemExit."""
+    with (
+        _patched_mgr() as mock_mgr_cls,
+        patch.dict(os.environ, {'COLUMNS': '250'}),
+    ):
+        mock_mgr_cls.return_value.fetch_behavioral_reports.return_value = result
+        with pytest.raises(SystemExit) as exc_info:
+            fetch_behavioral_reports(_SAMPLE_ID, pretty=pretty)
+    return exc_info.value.code, capsys.readouterr()
 
 
 def _run_behavioral_with_error(capsys, error, sample_id=_SAMPLE_ID):
@@ -591,13 +613,6 @@ def _run_behavioral_with_error(capsys, error, sample_id=_SAMPLE_ID):
         with pytest.raises(SystemExit) as exc_info:
             fetch_behavioral_reports(sample_id, pretty=False)
     return exc_info.value.code, capsys.readouterr()
-
-
-def _behavioral_error_with_status(status_code) -> SampleBehavioralReportError:
-    """Build the error as psengine raises it: chained from an HTTPError with a response."""
-    error = SampleBehavioralReportError('404 Client Error: Not Found for url: …')
-    error.__cause__ = HTTPError(response=MagicMock(status_code=status_code))
-    return error
 
 
 class TestBehavioralJson:
@@ -615,7 +630,7 @@ class TestBehavioralJson:
     def test_fetch_called_with_sample_id_and_workers(self, capsys):
         with _patched_mgr() as mock_mgr_cls:
             mock_mgr_cls.return_value.fetch_behavioral_reports.return_value = (
-                _RICH_BEHAVIORAL_REPORTS
+                BehavioralReportsResult(reports=_RICH_BEHAVIORAL_REPORTS)
             )
             fetch_behavioral_reports(_SAMPLE_ID, pretty=False)
         capsys.readouterr()
@@ -739,17 +754,18 @@ class TestBehavioralPretty:
 
 
 class TestBehavioralErrors:
-    def test_404_reports_sample_not_found(self, capsys):
-        code, captured = _run_behavioral_with_error(capsys, _behavioral_error_with_status(404))
+    def test_not_found_reports_sample_not_found(self, capsys):
+        code, captured = _run_behavioral_with_error(capsys, SampleReportNotFoundError('no sample'))
         assert code == 1
         assert f'Sample not found: {_SAMPLE_ID}' in captured.err
 
-    def test_non_404_http_error_reports_failure(self, capsys):
-        code, captured = _run_behavioral_with_error(capsys, _behavioral_error_with_status(500))
-        assert code == 1
-        assert 'Failed to fetch behavioral reports' in captured.err
+    def test_not_found_message_escapes_markup(self, capsys):
+        _, captured = _run_behavioral_with_error(
+            capsys, SampleReportNotFoundError('no sample'), sample_id='odd[/id]'
+        )
+        assert 'Sample not found: odd[/id]' in captured.err
 
-    def test_error_without_response_reports_failure(self, capsys):
+    def test_other_behavioral_error_reports_failure(self, capsys):
         code, captured = _run_behavioral_with_error(
             capsys, SampleBehavioralReportError('conn refused')
         )
@@ -757,15 +773,185 @@ class TestBehavioralErrors:
         assert 'Failed to fetch behavioral reports' in captured.err
         assert 'conn refused' in captured.err
 
-    def test_error_messages_escape_markup(self, capsys):
-        _, captured = _run_behavioral_with_error(
-            capsys, _behavioral_error_with_status(404), sample_id='odd[/id]'
-        )
-        assert 'Sample not found: odd[/id]' in captured.err
-
-    def test_errors_never_pollute_stdout(self, capsys):
-        _, captured = _run_behavioral_with_error(capsys, _behavioral_error_with_status(500))
+    @pytest.mark.parametrize(
+        'error',
+        [
+            SampleReportNotFoundError('no sample'),
+            SampleBehavioralReportError('conn refused'),
+        ],
+    )
+    def test_errors_never_pollute_stdout(self, capsys, error):
+        _, captured = _run_behavioral_with_error(capsys, error)
         assert captured.out == ''
+
+
+class TestBehavioralEnvelope:
+    def test_not_ready_only_notes_and_exits_1(self, capsys):
+        result = BehavioralReportsResult(not_ready=['behavioral1'])
+        code, captured = _run_behavioral_exit_1(capsys, result)
+        assert code == 1
+        assert 'not available yet' in captured.err
+        assert 'behavioral1' in captured.err
+        assert 'Sample not found' not in captured.err
+        assert captured.out == ''
+
+    def test_not_ready_note_hints_at_wait_flag(self, capsys):
+        result = BehavioralReportsResult(not_ready=['behavioral1'])
+        _, captured = _run_behavioral_exit_1(capsys, result)
+        assert '--wait' in captured.err
+
+    def test_no_wait_does_not_retry(self, capsys):
+        with _patched_mgr() as mock_mgr_cls:
+            mock_mgr_cls.return_value.fetch_behavioral_reports.return_value = (
+                BehavioralReportsResult(not_ready=['behavioral1'])
+            )
+            with pytest.raises(SystemExit):
+                fetch_behavioral_reports(_SAMPLE_ID, pretty=False)
+        capsys.readouterr()
+        mock_mgr_cls.return_value.fetch_behavioral_reports.assert_called_once()
+
+    def test_partial_prints_ready_reports_and_exits_1(self, capsys):
+        result = BehavioralReportsResult(
+            reports=[_make_behavioral_report('behavioral1')], not_ready=['behavioral2']
+        )
+        code, captured = _run_behavioral_exit_1(capsys, result)
+        assert code == 1
+        data = json.loads(captured.out)
+        assert [r['task_id'] for r in data] == ['behavioral1']
+        assert 'behavioral2' in captured.err
+
+    def test_failed_alongside_ready_warns_and_exits_0(self, capsys):
+        result = BehavioralReportsResult(
+            reports=[_make_behavioral_report('behavioral1')],
+            failed=[
+                BehavioralReportFailure(task_id='behavioral2', status_code=500, message='boom')
+            ],
+        )
+        captured = _run_behavioral_result(capsys, result)
+        data = json.loads(captured.out)
+        assert [r['task_id'] for r in data] == ['behavioral1']
+        assert 'behavioral2' in captured.err
+
+    def test_all_failed_prints_empty_array_and_exits_1(self, capsys):
+        result = BehavioralReportsResult(
+            failed=[BehavioralReportFailure(task_id='behavioral1', status_code=500)]
+        )
+        code, captured = _run_behavioral_exit_1(capsys, result)
+        assert code == 1
+        assert json.loads(captured.out) == []
+        assert 'behavioral1' in captured.err
+        assert 'No behavioral tasks' not in captured.err
+
+    def test_failure_without_status_code_omits_http(self, capsys):
+        result = BehavioralReportsResult(
+            reports=[_make_behavioral_report('behavioral1')],
+            failed=[BehavioralReportFailure(task_id='behavioral2', error='NOT_FOUND')],
+        )
+        captured = _run_behavioral_result(capsys, result)
+        assert 'HTTP ?' not in captured.err
+        assert 'NOT_FOUND' in captured.err
+
+    def test_failure_without_any_detail_says_unknown_error(self, capsys):
+        result = BehavioralReportsResult(
+            reports=[_make_behavioral_report('behavioral1')],
+            failed=[BehavioralReportFailure(task_id='behavioral2')],
+        )
+        captured = _run_behavioral_result(capsys, result)
+        assert 'HTTP ?' not in captured.err
+        assert 'unknown error' in captured.err
+
+    def test_failed_warning_shown_in_pretty_mode_too(self, capsys):
+        result = BehavioralReportsResult(
+            reports=[_make_behavioral_report('behavioral1')],
+            failed=[
+                BehavioralReportFailure(task_id='behavioral2', status_code=500, message='boom')
+            ],
+        )
+        captured = _run_behavioral_result(capsys, result, pretty=True)
+        assert 'behavioral2' in captured.err
+
+    def test_failure_fields_escape_markup(self, capsys):
+        result = BehavioralReportsResult(
+            reports=[_make_behavioral_report('behavioral1')],
+            failed=[BehavioralReportFailure(task_id='task[/x]', error='[red]x[/red]')],
+        )
+        captured = _run_behavioral_result(capsys, result)
+        assert 'task[/x]' in captured.err
+        assert '[red]x[/red]' in captured.err
+
+    def test_empty_envelope_prints_empty_array_and_note(self, capsys):
+        captured = _run_behavioral_result(capsys, BehavioralReportsResult())
+        assert json.loads(captured.out) == []
+        assert 'No behavioral tasks' in captured.err
+
+
+class TestBehavioralWait:
+    _NOT_READY = BehavioralReportsResult(not_ready=['behavioral1'])
+    _COMPLETE = BehavioralReportsResult(reports=[_make_behavioral_report('behavioral1')])
+
+    def test_wait_refetches_until_complete(self, capsys):
+        with (
+            _patched_mgr() as mock_mgr_cls,
+            patch('banshee.sandbox.reports.time.sleep') as mock_sleep,
+            patch('banshee.sandbox.reports.time.monotonic', side_effect=[0, 10, 20]),
+        ):
+            mock_mgr_cls.return_value.fetch_behavioral_reports.side_effect = [
+                self._NOT_READY,
+                self._COMPLETE,
+            ]
+            fetch_behavioral_reports(_SAMPLE_ID, pretty=False, wait=True)
+        captured = capsys.readouterr()
+        data = json.loads(captured.out)
+        assert [r['task_id'] for r in data] == ['behavioral1']
+        assert mock_sleep.call_args_list == [call(20)]
+
+    def test_wait_complete_first_fetch_never_sleeps(self, capsys):
+        with (
+            _patched_mgr() as mock_mgr_cls,
+            patch('banshee.sandbox.reports.time.sleep') as mock_sleep,
+            patch('banshee.sandbox.reports.time.monotonic', return_value=0),
+        ):
+            mock_mgr_cls.return_value.fetch_behavioral_reports.return_value = self._COMPLETE
+            fetch_behavioral_reports(_SAMPLE_ID, pretty=False, wait=True)
+        assert json.loads(capsys.readouterr().out)
+        mock_mgr_cls.return_value.fetch_behavioral_reports.assert_called_once()
+        mock_sleep.assert_not_called()
+
+    def test_wait_gives_up_at_deadline_with_partial_output(self, capsys):
+        result = BehavioralReportsResult(
+            reports=[_make_behavioral_report('behavioral1')], not_ready=['behavioral2']
+        )
+        with (
+            _patched_mgr() as mock_mgr_cls,
+            patch('banshee.sandbox.reports.time.sleep'),
+            patch('banshee.sandbox.reports.time.monotonic', side_effect=[0, 1801]),
+        ):
+            mock_mgr_cls.return_value.fetch_behavioral_reports.return_value = result
+            with pytest.raises(SystemExit) as exc_info:
+                fetch_behavioral_reports(_SAMPLE_ID, pretty=False, wait=True)
+        assert exc_info.value.code == 1
+        captured = capsys.readouterr()
+        assert 'Gave up waiting after 30 minutes' in captured.err
+        assert 'not available yet' in captured.err
+        assert 'behavioral2' in captured.err
+        assert '--wait' not in captured.err
+        data = json.loads(captured.out)
+        assert [r['task_id'] for r in data] == ['behavioral1']
+
+    def test_wait_not_found_exits_immediately(self, capsys):
+        with (
+            _patched_mgr() as mock_mgr_cls,
+            patch('banshee.sandbox.reports.time.sleep') as mock_sleep,
+            patch('banshee.sandbox.reports.time.monotonic', return_value=0),
+        ):
+            mock_mgr_cls.return_value.fetch_behavioral_reports.side_effect = (
+                SampleReportNotFoundError('no sample')
+            )
+            with pytest.raises(SystemExit) as exc_info:
+                fetch_behavioral_reports(_SAMPLE_ID, pretty=False, wait=True)
+        assert exc_info.value.code == 1
+        assert f'Sample not found: {_SAMPLE_ID}' in capsys.readouterr().err
+        mock_sleep.assert_not_called()
 
 
 class TestOverviewErrors:

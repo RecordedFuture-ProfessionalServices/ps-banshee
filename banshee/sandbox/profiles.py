@@ -26,7 +26,7 @@ from rich.table import Table
 _ERR_CONSOLE = Console(stderr=True)
 
 
-def _spinner(label: str = 'Fetching profiles…') -> Progress:
+def _spinner(label: str = 'Fetching profiles') -> Progress:
     return Progress(SpinnerColumn(), TextColumn(label), transient=True, console=_ERR_CONSOLE)
 
 
@@ -61,7 +61,7 @@ def create_sandbox_profile(
     config = get_config()
     mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
     try:
-        with _spinner('Creating profile…'):
+        with _spinner('Creating profile'):
             profile = mgr.create_profile(
                 name=name,
                 tags=tags,
@@ -83,7 +83,7 @@ def get_sandbox_profile(profile_id_or_name: str, pretty: bool = False) -> None:
     config = get_config()
     mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
     try:
-        with _spinner('Fetching profile…'):
+        with _spinner('Fetching profile'):
             profile = mgr.fetch_profile(profile_id_or_name)
     except ProfileNotFoundError as exc:
         _ERR_CONSOLE.print(f'Profile not found: {exc}')
@@ -127,7 +127,7 @@ def update_sandbox_profile(
     config = get_config()
     mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
     try:
-        with _spinner('Fetching profile…'):
+        with _spinner('Fetching profile'):
             profile = mgr.fetch_profile(profile_id_or_name)
     except ProfileNotFoundError:
         _print_update_result(ProfileUpdateOut(updated=False), pretty)
@@ -153,7 +153,7 @@ def update_sandbox_profile(
         sys.exit(1)
 
     try:
-        with _spinner('Updating profile…'):
+        with _spinner('Updating profile'):
             result = mgr.update_profile(
                 profile.id_,
                 name=_merged(name, profile.name),
@@ -172,7 +172,7 @@ def update_sandbox_profile(
 def delete_sandbox_profile(profile_id_or_name: str) -> None:
     config = get_config()
     mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
-    with _spinner('Deleting profile…'):
+    with _spinner('Deleting profile'):
         result = mgr.delete_profile(profile_id_or_name)
     if result.deleted:
         print(f'Deleted profile: {profile_id_or_name}')
