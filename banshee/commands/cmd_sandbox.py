@@ -218,7 +218,7 @@ def create(
     app=profile_app, name='get', help_=_HELP_PROFILE_GET, epilog=EPILOG_SANDBOX_PROFILE_GET
 )
 def get_(
-    profile_id_or_name: Annotated[str, Argument(help='Profile ID or name')],
+    profile_id_or_name: Annotated[str, Argument(help='Profile ID or name', show_default=False)],
     pretty: OPT_PRETTY_PRINT = False,
 ):
     get_sandbox_profile(profile_id_or_name, pretty=pretty)
@@ -238,23 +238,39 @@ def list_(pretty: OPT_PRETTY_PRINT = False):
     epilog=EPILOG_SANDBOX_PROFILE_UPDATE,
 )
 def update(
-    profile_id_or_name: Annotated[str, Argument(help='Profile ID or name')],
+    profile_id_or_name: Annotated[str, Argument(help='Profile ID or name', show_default=False)],
     name: Annotated[
         str | None,
-        Option('--name', '-n', help='New profile name'),
+        Option('--name', '-n', help='New profile name', show_default=False),
     ] = None,
     tags: Annotated[
         list[str] | None,
-        Option('--tags', '-T', help='OS/locale tag; replaces all existing tags (repeatable)'),
+        Option(
+            '--tag',
+            '-T',
+            help='OS/locale tag; replaces all existing tags (repeatable)',
+            show_default=False,
+        ),
     ] = None,
     timeout: Annotated[
         int | None,
-        Option('--timeout', '-t', help='Analysis timeout in seconds', min=1, max=3600),
+        Option(
+            '--timeout',
+            '-t',
+            help='Analysis timeout in seconds',
+            min=1,
+            max=3600,
+            show_default=False,
+        ),
     ] = None,
     network: OPT_SANDBOX_NETWORK = None,
     geolocation: Annotated[
         list[str] | None,
-        Option('--geolocation', help='VPN country code; requires a vpn network (repeatable)'),
+        Option(
+            '--geolocation',
+            help='VPN country code; requires a vpn network (repeatable)',
+            show_default=False,
+        ),
     ] = None,
     browser: OPT_SANDBOX_BROWSER = None,
     unset: OPT_PROFILE_UNSET = None,
@@ -289,7 +305,7 @@ def update(
     epilog=EPILOG_SANDBOX_PROFILE_DELETE,
 )
 def delete(
-    profile_id_or_name: Annotated[str, Argument(help='Profile ID or name')],
+    profile_id_or_name: Annotated[str, Argument(help='Profile ID or name', show_default=False)],
     yes: Annotated[
         bool,
         Option('--yes', '-y', help='Delete without asking for confirmation'),

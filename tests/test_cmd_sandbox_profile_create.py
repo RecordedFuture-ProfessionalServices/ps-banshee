@@ -48,9 +48,9 @@ class TestCmdSandboxProfileCreatePassthrough:
                 'create',
                 '--name',
                 'fresh',
-                '--tags',
+                '--tag',
                 'os:windows10-2004-x64',
-                '--tags',
+                '--tag',
                 'locale:en-us',
                 '--timeout',
                 '300',
@@ -102,6 +102,12 @@ class TestCmdSandboxProfileCreatePassthrough:
         assert result.exit_code == 0
         assert mock_create.call_args.kwargs['geolocation'] == ['se']
 
+    @patch(PATCH_TARGET)
+    def test_missing_timeout_defaults_to_120(self, mock_create):
+        result = runner.invoke(app, ['profile', 'create', '-n', 'fresh', '-T', 'os:windows7-x64'])
+        assert result.exit_code == 0
+        assert mock_create.call_args.kwargs['timeout'] == 120
+
 
 class TestCmdSandboxProfileCreateValidation:
     @patch(PATCH_TARGET)
@@ -113,12 +119,6 @@ class TestCmdSandboxProfileCreateValidation:
     @patch(PATCH_TARGET)
     def test_missing_tags_fails(self, mock_create):
         result = runner.invoke(app, ['profile', 'create', '-n', 'fresh', '-t', '120'])
-        assert result.exit_code != 0
-        mock_create.assert_not_called()
-
-    @patch(PATCH_TARGET)
-    def test_missing_timeout_fails(self, mock_create):
-        result = runner.invoke(app, ['profile', 'create', '-n', 'fresh', '-T', 'os:windows7-x64'])
         assert result.exit_code != 0
         mock_create.assert_not_called()
 
@@ -188,7 +188,7 @@ class TestCmdSandboxProfileCreateHelp:
         result = runner.invoke(app, ['profile', 'create', '--help'])
         assert result.exit_code == 0
         assert '--name' in result.output
-        assert '--tags' in result.output
+        assert '--tag' in result.output
         assert '--timeout' in result.output
 
     def test_help_lists_browser_choices(self):

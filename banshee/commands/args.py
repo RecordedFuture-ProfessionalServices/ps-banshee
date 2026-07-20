@@ -107,6 +107,7 @@ OPT_PROFILE_UNSET = Annotated[
     Option(
         '--unset',
         help='Clear a field on the profile (repeatable).',
+        show_default=False,
         click_type=click.Choice(get_args(UnsetField), case_sensitive=False),
     ),
 ]
