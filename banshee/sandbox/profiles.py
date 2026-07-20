@@ -31,14 +31,14 @@ def _spinner(label: str) -> Progress:
 
 
 def _profiles_table(profiles: list[Profile]) -> Table:
-    tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 0), header_style='bold')
-    tbl.add_column('Name')
+    tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 0), header_style='bold magenta')
+    tbl.add_column('Name', style='bold cyan')
     tbl.add_column('ID', style='dim')
-    tbl.add_column('Timeout', justify='right')
-    tbl.add_column('Network')
-    tbl.add_column('Geolocation')
-    tbl.add_column('Browser')
-    tbl.add_column('Tags')
+    tbl.add_column('Timeout', style='yellow', justify='right')
+    tbl.add_column('Network', style='blue')
+    tbl.add_column('Geolocation', style='magenta')
+    tbl.add_column('Browser', style='green bold')
+    tbl.add_column('Tags', style='white dim')
     for p in profiles:
         tags = ', '.join(p.tags) if p.tags else '—'
         timeout = f'{p.timeout}s' if p.timeout is not None else '—'
@@ -86,7 +86,7 @@ def get_sandbox_profile(profile_id_or_name: str, pretty: bool = False) -> None:
         with _spinner('Fetching profile'):
             profile = mgr.fetch_profile(profile_id_or_name)
     except ProfileNotFoundError as exc:
-        _ERR_CONSOLE.print(f'Profile not found: {exc}')
+        _ERR_CONSOLE.print(f'[red]Profile not found:[/red] {exc}')
         sys.exit(1)
     if pretty:
         console = Console()
@@ -103,7 +103,11 @@ def _merged(supplied, existing, cleared: bool = False):
 
 def _print_update_result(result: ProfileUpdateOut, pretty: bool) -> None:
     if pretty:
-        msg = 'Profile updated' if result.updated else 'Profile not found — nothing updated'
+        msg = (
+            '[green]Profile updated[/green]'
+            if result.updated
+            else '[yellow]Profile not found — nothing updated[/yellow]'
+        )
         Console().print(msg)
     else:
         print_json(json.dumps(result.json()))
