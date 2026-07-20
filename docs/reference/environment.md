@@ -18,6 +18,34 @@ banshee -k API-TOKEN ca search
 ```
 
 
+### `RF_SANDBOX_TOKEN`
+
+To use the `sandbox` commands, a Recorded Future Sandbox API token is needed. The user can either set the token as an environment variable:
+
+```bash
+export RF_SANDBOX_TOKEN=SANDBOX-API-TOKEN
+```
+
+or provide it as an argument `-K` or `--sandbox-key` to the `banshee sandbox` command directly:
+
+```bash
+banshee sandbox -K SANDBOX-API-TOKEN report behavioral <sample-id>
+```
+
+### `RF_SANDBOX_CHOICE`
+
+Sets the Sandbox region used by the `sandbox` commands. Accepted values are `eu`, `usa`, `apj`, `public`, and `private`. Defaults to `eu` if not set.
+
+```bash
+export RF_SANDBOX_CHOICE=usa
+```
+
+or provide it as an argument `--sandbox-choice` to the `banshee sandbox` command directly:
+
+```bash
+banshee sandbox --sandbox-choice usa report behavioral <sample-id>
+```
+
 ### `HTTP_PROXY`
 
 If your organisation requires you to use a proxy then ensure you set `HTTP_PROXY`, for example:
