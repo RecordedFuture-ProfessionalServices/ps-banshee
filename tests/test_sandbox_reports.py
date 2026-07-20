@@ -14,7 +14,7 @@
 import json
 import os
 from contextlib import contextmanager
-from unittest.mock import MagicMock, call, patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 from psengine.sandbox import (
@@ -625,7 +625,7 @@ class TestBehavioralJson:
             fetch_behavioral_reports(_SAMPLE_ID, pretty=False)
         capsys.readouterr()
         mock_mgr_cls.return_value.fetch_behavioral_reports.assert_called_once_with(
-            _SAMPLE_ID, max_workers=10
+            _SAMPLE_ID, max_workers=10, wait_until_ready=False, timeout=1800
         )
 
     def test_serialises_by_alias(self, capsys):
@@ -876,52 +876,28 @@ class TestBehavioralEnvelope:
 
 
 class TestBehavioralWait:
-    _NOT_READY = BehavioralReportsResult(not_ready=['behavioral1'])
-    _COMPLETE = BehavioralReportsResult(reports=[_make_behavioral_report('behavioral1')])
-
-    def test_wait_refetches_until_complete(self, capsys):
-        with (
-            _patched_mgr() as mock_mgr_cls,
-            patch('banshee.sandbox.reports.time.sleep') as mock_sleep,
-            patch('banshee.sandbox.reports.time.monotonic', side_effect=[0, 10, 20]),
-        ):
-            mock_mgr_cls.return_value.fetch_behavioral_reports.side_effect = [
-                self._NOT_READY,
-                self._COMPLETE,
-            ]
+    def test_wait_delegates_polling_to_sdk(self, capsys):
+        result = BehavioralReportsResult(reports=[_make_behavioral_report('behavioral1')])
+        with _patched_mgr() as mock_mgr_cls:
+            mock_mgr_cls.return_value.fetch_behavioral_reports.return_value = result
             fetch_behavioral_reports(_SAMPLE_ID, pretty=False, wait=True)
-        captured = capsys.readouterr()
-        data = json.loads(captured.out)
+        data = json.loads(capsys.readouterr().out)
         assert [r['task_id'] for r in data] == ['behavioral1']
-        assert mock_sleep.call_args_list == [call(20)]
+        mock_mgr_cls.return_value.fetch_behavioral_reports.assert_called_once_with(
+            _SAMPLE_ID, max_workers=10, wait_until_ready=True, timeout=1800
+        )
 
-    def test_wait_complete_first_fetch_never_sleeps(self, capsys):
-        with (
-            _patched_mgr() as mock_mgr_cls,
-            patch('banshee.sandbox.reports.time.sleep') as mock_sleep,
-            patch('banshee.sandbox.reports.time.monotonic', return_value=0),
-        ):
-            mock_mgr_cls.return_value.fetch_behavioral_reports.return_value = self._COMPLETE
-            fetch_behavioral_reports(_SAMPLE_ID, pretty=False, wait=True)
-        assert json.loads(capsys.readouterr().out)
-        mock_mgr_cls.return_value.fetch_behavioral_reports.assert_called_once()
-        mock_sleep.assert_not_called()
-
-    def test_wait_gives_up_at_deadline_with_partial_output(self, capsys):
+    def test_wait_incomplete_at_timeout_reports_not_ready_no_hint(self, capsys):
+        """SDK gives up silently on timeout; banshee just sees an incomplete result."""
         result = BehavioralReportsResult(
             reports=[_make_behavioral_report('behavioral1')], not_ready=['behavioral2']
         )
-        with (
-            _patched_mgr() as mock_mgr_cls,
-            patch('banshee.sandbox.reports.time.sleep'),
-            patch('banshee.sandbox.reports.time.monotonic', side_effect=[0, 1801]),
-        ):
+        with _patched_mgr() as mock_mgr_cls:
             mock_mgr_cls.return_value.fetch_behavioral_reports.return_value = result
             with pytest.raises(SystemExit) as exc_info:
                 fetch_behavioral_reports(_SAMPLE_ID, pretty=False, wait=True)
         assert exc_info.value.code == 1
         captured = capsys.readouterr()
-        assert 'Gave up waiting after 30 minutes' in captured.err
         assert 'not available yet' in captured.err
         assert 'behavioral2' in captured.err
         assert '--wait' not in captured.err
@@ -929,11 +905,7 @@ class TestBehavioralWait:
         assert [r['task_id'] for r in data] == ['behavioral1']
 
     def test_wait_not_found_exits_immediately(self, capsys):
-        with (
-            _patched_mgr() as mock_mgr_cls,
-            patch('banshee.sandbox.reports.time.sleep') as mock_sleep,
-            patch('banshee.sandbox.reports.time.monotonic', return_value=0),
-        ):
+        with _patched_mgr() as mock_mgr_cls:
             mock_mgr_cls.return_value.fetch_behavioral_reports.side_effect = (
                 SampleReportNotFoundError('no sample')
             )
@@ -941,7 +913,6 @@ class TestBehavioralWait:
                 fetch_behavioral_reports(_SAMPLE_ID, pretty=False, wait=True)
         assert exc_info.value.code == 1
         assert f'Sample not found: {_SAMPLE_ID}' in capsys.readouterr().err
-        mock_sleep.assert_not_called()
 
 
 class TestOverviewErrors:
