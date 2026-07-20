@@ -367,34 +367,29 @@ def fetch_static_report(sample_id: str, pretty: bool = False, wait: bool = False
 
     Default output is the full report as JSON on stdout; `pretty` renders a
     summarised human-readable view instead. With `wait`, a report that is not
-    yet available is retried every _WAIT_INTERVAL seconds for up to
-    _WAIT_TIMEOUT seconds before giving up.
+    yet available is polled internally for up to _WAIT_TIMEOUT seconds before
+    giving up.
     """
     config = get_config()
     mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
-    retries = _WAIT_TIMEOUT // _WAIT_INTERVAL if wait else 0
-    for attempt in range(retries + 1):
-        try:
-            with _spinner('Fetching static report'):
-                report = mgr.fetch_sample_static_report(sample_id)
-            break
-        except SampleReportNotAvailableError:
-            if not wait:
-                _ERR_CONSOLE.print('Static report not available yet. Retry shortly or pass --wait.')
-                sys.exit(1)
-            if attempt == retries:
-                _ERR_CONSOLE.print(
-                    f'Static report still not ready after {_WAIT_TIMEOUT // 60} minutes.'
-                )
-                sys.exit(1)
-            with _spinner(_WAIT_MESSAGES[attempt % len(_WAIT_MESSAGES)]):
-                time.sleep(_WAIT_INTERVAL)
-        except SampleReportNotFoundError:
-            _ERR_CONSOLE.print(f'Sample not found: {escape(sample_id)}')
-            sys.exit(1)
-        except SampleStaticReportError as exc:
-            _ERR_CONSOLE.print(f'Failed to fetch static report: {escape(str(exc))}')
-            sys.exit(1)
+    label = 'Waiting for static report' if wait else 'Fetching static report'
+    try:
+        with _spinner(label):
+            report = mgr.fetch_sample_static_report(
+                sample_id, wait_until_ready=wait, timeout=_WAIT_TIMEOUT
+            )
+    except SampleReportNotAvailableError as exc:
+        if wait:
+            _ERR_CONSOLE.print(escape(str(exc)))
+        else:
+            _ERR_CONSOLE.print('Static report not available yet. Retry shortly or pass --wait.')
+        sys.exit(1)
+    except SampleReportNotFoundError:
+        _ERR_CONSOLE.print(f'Sample not found: {escape(sample_id)}')
+        sys.exit(1)
+    except SampleStaticReportError as exc:
+        _ERR_CONSOLE.print(f'Failed to fetch static report: {escape(str(exc))}')
+        sys.exit(1)
     if pretty:
         _print_static_pretty(report)
     else:

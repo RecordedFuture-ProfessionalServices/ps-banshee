@@ -317,7 +317,9 @@ class TestStaticJson:
             mock_mgr_cls.return_value.fetch_sample_static_report.return_value = _RICH_STATIC_REPORT
             fetch_static_report(_SAMPLE_ID, pretty=False)
         capsys.readouterr()
-        mock_mgr_cls.return_value.fetch_sample_static_report.assert_called_once_with(_SAMPLE_ID)
+        mock_mgr_cls.return_value.fetch_sample_static_report.assert_called_once_with(
+            _SAMPLE_ID, wait_until_ready=False, timeout=600
+        )
 
     def test_json_contains_files(self, capsys):
         data = json.loads(_run_static(capsys))
@@ -466,42 +468,33 @@ class TestSpinner:
 
 
 class TestStaticWait:
-    def test_wait_retries_until_report_ready(self, capsys):
-        with (
-            _patched_mgr() as mock_mgr_cls,
-            patch('banshee.sandbox.reports.time') as mock_time,
-        ):
-            mock_mgr_cls.return_value.fetch_sample_static_report.side_effect = [
-                SampleReportNotAvailableError('not ready'),
-                SampleReportNotAvailableError('not ready'),
-                _RICH_STATIC_REPORT,
-            ]
+    def test_wait_delegates_polling_to_sdk(self, capsys):
+        with _patched_mgr() as mock_mgr_cls:
+            mock_mgr_cls.return_value.fetch_sample_static_report.return_value = _RICH_STATIC_REPORT
             fetch_static_report(_SAMPLE_ID, pretty=False, wait=True)
         data = json.loads(capsys.readouterr().out)
         assert data['analysis']['score'] == 8
-        assert mock_time.sleep.call_args_list == [call(20), call(20)]
+        mock_mgr_cls.return_value.fetch_sample_static_report.assert_called_once_with(
+            _SAMPLE_ID, wait_until_ready=True, timeout=600
+        )
 
-    def test_wait_times_out_when_never_ready(self, capsys):
-        with (
-            _patched_mgr() as mock_mgr_cls,
-            patch('banshee.sandbox.reports.time') as mock_time,
-        ):
+    def test_wait_times_out_surfaces_sdk_message(self, capsys):
+        with _patched_mgr() as mock_mgr_cls:
             mock_mgr_cls.return_value.fetch_sample_static_report.side_effect = (
-                SampleReportNotAvailableError('not ready')
+                SampleReportNotAvailableError(
+                    f'Static report for sample {_SAMPLE_ID} still not available after waiting 601s.'
+                )
             )
             with pytest.raises(SystemExit) as exc_info:
                 fetch_static_report(_SAMPLE_ID, pretty=False, wait=True)
         assert exc_info.value.code == 1
         captured = capsys.readouterr()
-        assert 'still not ready' in captured.err
+        assert 'still not available after waiting' in captured.err.replace('\n', ' ')
+        assert '601s' in captured.err
         assert captured.out == ''
-        assert mock_time.sleep.call_count == 30  # 10-minute budget at a 20 s interval
 
     def test_wait_not_found_exits_immediately(self, capsys):
-        with (
-            _patched_mgr() as mock_mgr_cls,
-            patch('banshee.sandbox.reports.time') as mock_time,
-        ):
+        with _patched_mgr() as mock_mgr_cls:
             mock_mgr_cls.return_value.fetch_sample_static_report.side_effect = (
                 SampleReportNotFoundError('no sample')
             )
@@ -509,13 +502,9 @@ class TestStaticWait:
                 fetch_static_report(_SAMPLE_ID, pretty=False, wait=True)
         assert exc_info.value.code == 1
         assert f'Sample not found: {_SAMPLE_ID}' in capsys.readouterr().err
-        mock_time.sleep.assert_not_called()
 
-    def test_no_wait_does_not_retry_and_hints_at_flag(self, capsys):
-        with (
-            _patched_mgr() as mock_mgr_cls,
-            patch('banshee.sandbox.reports.time') as mock_time,
-        ):
+    def test_no_wait_does_not_pass_wait_until_ready_and_hints_at_flag(self, capsys):
+        with _patched_mgr() as mock_mgr_cls:
             mock_mgr_cls.return_value.fetch_sample_static_report.side_effect = (
                 SampleReportNotAvailableError('not ready')
             )
@@ -523,8 +512,9 @@ class TestStaticWait:
                 fetch_static_report(_SAMPLE_ID, pretty=False)
         assert exc_info.value.code == 1
         assert '--wait' in capsys.readouterr().err
-        mock_mgr_cls.return_value.fetch_sample_static_report.assert_called_once()
-        mock_time.sleep.assert_not_called()
+        mock_mgr_cls.return_value.fetch_sample_static_report.assert_called_once_with(
+            _SAMPLE_ID, wait_until_ready=False, timeout=600
+        )
 
 
 def _make_behavioral_report(task_id='behavioral1', **overrides) -> BehavioralReport:
