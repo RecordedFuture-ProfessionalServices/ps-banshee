@@ -26,7 +26,7 @@ from rich.table import Table
 _ERR_CONSOLE = Console(stderr=True)
 
 
-def _spinner(label: str = 'Fetching profiles') -> Progress:
+def _spinner(label: str) -> Progress:
     return Progress(SpinnerColumn(), TextColumn(label), transient=True, console=_ERR_CONSOLE)
 
 
@@ -183,7 +183,7 @@ def delete_sandbox_profile(profile_id_or_name: str) -> None:
 def list_sandbox_profiles(pretty: bool = False) -> None:
     config = get_config()
     mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
-    with _spinner():
+    with _spinner('Fetching profiles'):
         profiles = mgr.fetch_profiles()
     if pretty:
         console = Console()

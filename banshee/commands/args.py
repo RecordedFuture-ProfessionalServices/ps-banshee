@@ -85,7 +85,8 @@ OPT_SANDBOX_NETWORK = Annotated[
     Option(
         '--network',
         '-N',
-        help='Network mode applied to analysis VMs.',
+        help='The type of networking that should be used when running the sample.',
+        show_default=False,
         click_type=click.Choice(get_args(NetworkMode), case_sensitive=False),
     ),
 ]
@@ -96,6 +97,7 @@ OPT_SANDBOX_BROWSER = Annotated[
         '--browser',
         '-b',
         help='Browser used by analyses.',
+        show_default=False,
         click_type=click.Choice(get_args(Browser), case_sensitive=False),
     ),
 ]

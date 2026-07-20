@@ -78,9 +78,7 @@ _HELP_LIST = (
 )
 
 _HELP_PROFILE_CREATE = (
-    'Create a new analysis profile in Recorded Future Sandbox. '
-    'Prints the created profile, including its assigned ID. '
-    'The profile name must be unique within your company.'
+    'Create a new analysis profile. The profile name must be unique within your company.'
 )
 _HELP_PROFILE_DELETE = (
     'Delete an analysis profile by ID or name. Idempotent: deleting a profile '
@@ -173,20 +171,31 @@ def stats(
 def create(
     name: Annotated[
         str,
-        Option('--name', '-n', help='Profile name (must be unique)'),
+        Option('--name', '-n', help='Profile name (must be unique)', show_default=False),
     ],
     tags: Annotated[
         list[str],
-        Option('--tags', '-T', help='OS/locale tag (repeatable)'),
+        Option(
+            '--tag',
+            '-T',
+            help='The set of tags that is used to match this profile to samples. A '
+            'locale tag must always be accompanied by at least one os tag, for '
+            'example: `-T locale:en-us -T os:windows10-2004-x64`',
+            show_default=False,
+        ),
     ],
     timeout: Annotated[
         int,
         Option('--timeout', '-t', help='Analysis timeout in seconds', min=1, max=3600),
-    ],
+    ] = 120,
     network: OPT_SANDBOX_NETWORK = None,
     geolocation: Annotated[
         list[str] | None,
-        Option('--geolocation', help='VPN country code; requires a vpn network (repeatable)'),
+        Option(
+            '--geolocation',
+            help='VPN country code; requires a vpn network (repeatable)',
+            show_default=False,
+        ),
     ] = None,
     browser: OPT_SANDBOX_BROWSER = None,
     pretty: OPT_PRETTY_PRINT = False,
