@@ -142,7 +142,9 @@ class TestOverviewJson:
             mock_mgr_cls.return_value.fetch_sample_overview_report.return_value = _RICH_REPORT
             fetch_overview_report(_SAMPLE_ID, pretty=False)
         capsys.readouterr()
-        mock_mgr_cls.return_value.fetch_sample_overview_report.assert_called_once_with(_SAMPLE_ID)
+        mock_mgr_cls.return_value.fetch_sample_overview_report.assert_called_once_with(
+            _SAMPLE_ID, wait_until_ready=False, timeout=1800
+        )
 
     def test_serialises_by_alias(self, capsys):
         """Sample id_ field must appear as 'id' in JSON output (by_alias=True)."""
@@ -921,6 +923,7 @@ class TestOverviewErrors:
         assert code == 1
         assert 'Analysis not complete' in captured.err
         assert 'reported' in captured.err
+        assert '--wait' in captured.err
 
     def test_sample_not_found_exits_1_with_message(self, capsys):
         code, captured = _run_with_error(capsys, SampleReportNotFoundError('no sample'))
@@ -946,3 +949,54 @@ class TestOverviewErrors:
     def test_errors_never_pollute_stdout(self, capsys):
         _, captured = _run_with_error(capsys, SampleOverviewError('API down'))
         assert captured.out == ''
+
+
+class TestOverviewWait:
+    def test_wait_delegates_polling_to_sdk(self, capsys):
+        with _patched_mgr() as mock_mgr_cls:
+            mock_mgr_cls.return_value.fetch_sample_overview_report.return_value = _RICH_REPORT
+            fetch_overview_report(_SAMPLE_ID, pretty=False, wait=True)
+        data = json.loads(capsys.readouterr().out)
+        assert data['analysis']['score'] == 10
+        mock_mgr_cls.return_value.fetch_sample_overview_report.assert_called_once_with(
+            _SAMPLE_ID, wait_until_ready=True, timeout=1800
+        )
+
+    def test_wait_times_out_surfaces_sdk_message(self, capsys):
+        with _patched_mgr() as mock_mgr_cls:
+            mock_mgr_cls.return_value.fetch_sample_overview_report.side_effect = (
+                SampleReportNotAvailableError(
+                    f'Overview report for sample {_SAMPLE_ID} still not available after '
+                    'waiting 1801s.'
+                )
+            )
+            with pytest.raises(SystemExit) as exc_info:
+                fetch_overview_report(_SAMPLE_ID, pretty=False, wait=True)
+        assert exc_info.value.code == 1
+        captured = capsys.readouterr()
+        assert 'still not available after waiting' in captured.err.replace('\n', ' ')
+        assert '1801s' in captured.err
+        assert captured.out == ''
+
+    def test_wait_not_found_exits_immediately(self, capsys):
+        with _patched_mgr() as mock_mgr_cls:
+            mock_mgr_cls.return_value.fetch_sample_overview_report.side_effect = (
+                SampleReportNotFoundError('no sample')
+            )
+            with pytest.raises(SystemExit) as exc_info:
+                fetch_overview_report(_SAMPLE_ID, pretty=False, wait=True)
+        assert exc_info.value.code == 1
+        assert f'Sample not found: {_SAMPLE_ID}' in capsys.readouterr().err
+
+    def test_no_wait_does_not_pass_wait_until_ready_and_hints_at_flag(self, capsys):
+        with _patched_mgr() as mock_mgr_cls:
+            mock_mgr_cls.return_value.fetch_sample_overview_report.side_effect = (
+                SampleReportNotAvailableError('not ready')
+            )
+            with pytest.raises(SystemExit) as exc_info:
+                fetch_overview_report(_SAMPLE_ID, pretty=False)
+        assert exc_info.value.code == 1
+        assert '--wait' in capsys.readouterr().err
+        mock_mgr_cls.return_value.fetch_sample_overview_report.assert_called_once_with(
+            _SAMPLE_ID, wait_until_ready=False, timeout=1800
+        )

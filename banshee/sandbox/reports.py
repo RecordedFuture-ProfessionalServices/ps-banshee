@@ -57,6 +57,7 @@ _HASH_PREVIEW_LEN = 16
 _IOC_PREVIEW_LEN = 60
 _BEHAVIORAL_MAX_WORKERS = 10
 _WAIT_TIMEOUT = 600
+_OVERVIEW_WAIT_TIMEOUT = 1800
 _BEHAVIORAL_WAIT_TIMEOUT = 1800
 
 
@@ -389,19 +390,29 @@ def fetch_static_report(sample_id: str, pretty: bool = False, wait: bool = False
         print_json(json.dumps(report.json()))
 
 
-def fetch_overview_report(sample_id: str, pretty: bool = False) -> None:
+def fetch_overview_report(sample_id: str, pretty: bool = False, wait: bool = False) -> None:
     """Fetch the overview report for a completed sample and print it.
 
     Default output is the full report as JSON on stdout; `pretty` renders a
-    summarised human-readable view instead.
+    summarised human-readable view instead. With `wait`, a report that is not
+    yet available is polled internally for up to _OVERVIEW_WAIT_TIMEOUT seconds
+    before giving up.
     """
     config = get_config()
     mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
+    label = 'Waiting for overview report' if wait else 'Fetching overview report'
     try:
-        with _spinner():
-            report = mgr.fetch_sample_overview_report(sample_id)
-    except SampleReportNotAvailableError:
-        _ERR_CONSOLE.print('Analysis not complete. Retry once the sample status is `reported`.')
+        with _spinner(label):
+            report = mgr.fetch_sample_overview_report(
+                sample_id, wait_until_ready=wait, timeout=_OVERVIEW_WAIT_TIMEOUT
+            )
+    except SampleReportNotAvailableError as exc:
+        if wait:
+            _ERR_CONSOLE.print(escape(str(exc)))
+        else:
+            _ERR_CONSOLE.print(
+                'Analysis not complete. Retry once the sample status is `reported`, or pass --wait.'
+            )
         sys.exit(1)
     except SampleReportNotFoundError:
         _ERR_CONSOLE.print(f'Sample not found: {escape(sample_id)}')

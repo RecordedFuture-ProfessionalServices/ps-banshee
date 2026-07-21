@@ -106,28 +106,32 @@ _HELP_REPORT_BEHAVIORAL = (
     'Fetch the behavioral (post-detonation) reports for a completed sandbox '
     'sample, one per behavioral task: verdict score, platform, triggered '
     'signatures, observed processes, network activity, and extracted malware '
-    'configs. Default output is a JSON array of the full reports; use '
-    '`--pretty` for a summarised human-readable view per task. Reports for '
-    'tasks still being analysed are omitted and noted on stderr, and the '
-    'command exits non-zero until every behavioral task has finished — rerun '
-    'once the sample status is `reported`, or pass `--wait` to block until '
-    'then (giving up, exit non-zero, after 30 minutes). A sample with no '
-    'behavioral tasks prints an empty array and exits 0.'
+    'configs. Prints a JSON array of the full reports by default, or a '
+    'summarised view per task with `--pretty`. Tasks still being analysed are '
+    'left out of the output and noted on stderr, and the command exits '
+    'non-zero until every behavioral task has finished. Rerun once the sample '
+    'status is `reported`, or add `--wait` to keep polling for up to 30 '
+    'minutes before giving up. A sample with no behavioral tasks prints an '
+    'empty array and exits 0.'
 )
 _HELP_REPORT_OVERVIEW = (
     'Fetch the overview report for a completed sandbox sample: verdict score, '
     'malware family, tags, hashes, detection signatures, extracted malware '
-    'configs, network IOCs, and per-task results. Default output is the full '
-    'report as JSON; use `--pretty` for a summarised human-readable view. '
-    'Requires the sample to have finished analysis (status `reported`).'
+    'configs, network IOCs, and per-task results. Prints the full report as '
+    'JSON by default, or a summarised view with `--pretty`. The sample must '
+    'have finished analysis (status `reported`), or the command exits '
+    'non-zero; add `--wait` to keep polling for up to 30 minutes before '
+    'giving up instead.'
 )
 _HELP_REPORT_STATIC = (
     'Fetch the static (pre-detonation) analysis report for a sandbox sample: '
     'verdict score, tags, the files unpacked from the submission, static '
-    'detection signatures, and extracted malware configs. Available as soon '
-    'as static analysis completes — no need to wait for behavioral tasks to '
-    'finish. Default output is the full report as JSON; use `--pretty` for a '
-    'summarised human-readable view.'
+    'detection signatures, and extracted malware configs. This report is '
+    'ready as soon as static analysis finishes, so there is no need to wait '
+    'for the behavioral tasks. If it is not ready yet the command exits '
+    'non-zero; retry shortly, or add `--wait` to keep polling for up to 10 '
+    'minutes before giving up. Prints the full report as JSON by default, or '
+    'a summarised view with `--pretty`.'
 )
 _HELP_SET_PROFILE = (
     'Assign analysis profiles to a sample paused at static analysis '
@@ -462,10 +466,19 @@ def set_profile(
     epilog=EPILOG_SANDBOX_REPORT_OVERVIEW,
 )
 def overview(
-    sample_id: Annotated[str, Argument(help='Sandbox sample ID')],
+    sample_id: Annotated[str, Argument(help='Sandbox sample ID', show_default=False)],
+    wait: Annotated[
+        bool,
+        Option(
+            '--wait',
+            '-w',
+            help='Wait for the overview report, retrying for up to 30 minutes; '
+            'exits non-zero if it is still not ready by then',
+        ),
+    ] = False,
     pretty: OPT_PRETTY_PRINT = False,
 ):
-    fetch_overview_report(sample_id, pretty=pretty)
+    fetch_overview_report(sample_id, pretty=pretty, wait=wait)
 
 
 @banshee_cmd(

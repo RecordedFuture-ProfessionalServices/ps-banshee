@@ -750,6 +750,8 @@ EPILOG_SANDBOX_REPORT_OVERVIEW = """
 
 * banshee sandbox report overview 260501-h4p7laawme -p
 
+* banshee sandbox report overview 260501-h4p7laawme --wait
+
 * banshee sandbox report overview 260501-h4p7laawme | jq '.analysis'
 
 * banshee sandbox report overview 260501-h4p7laawme | jq '.targets[].iocs'
