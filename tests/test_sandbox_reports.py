@@ -170,9 +170,10 @@ class TestOverviewPretty:
         assert 'darkcomet' in out
 
     def test_pretty_shows_hashes(self, capsys):
+        """Hash values render in full -- never truncated."""
         out = _run(capsys, pretty=True)
-        assert _SHA256[:16] in out
-        assert _MD5[:16] in out
+        assert _SHA256 in out
+        assert _MD5 in out
 
     def test_pretty_shows_signatures(self, capsys):
         out = _run(capsys, pretty=True)
@@ -182,11 +183,6 @@ class TestOverviewPretty:
     def test_pretty_shows_extracted_config(self, capsys):
         out = _run(capsys, pretty=True)
         assert 'kvejo991.ddns.net:1604' in out
-
-    def test_pretty_shows_iocs(self, capsys):
-        out = _run(capsys, pretty=True)
-        assert '8.8.8.8' in out
-        assert '208.89.74.23' in out
 
     def test_pretty_shows_tasks(self, capsys):
         out = _run(capsys, pretty=True)
@@ -215,20 +211,12 @@ class TestOverviewPretty:
         out = _run(capsys, report=_make_report(signatures=signatures), pretty=True)
         assert out.index('top-scorer') < out.index('low-scorer') < out.index('unscored')
 
-    def test_pretty_elides_long_ioc_values(self, capsys):
-        long_url = 'https://example.com/' + 'a' * 200
-        report = _make_report(targets=[{'iocs': {'urls': [long_url]}}])
-        out = _run(capsys, report=report, pretty=True)
-        assert 'example.com' in out
-        assert '…' in out
-        assert 'a' * 45 not in out
-
     def test_pretty_escapes_markup_in_report_data(self, capsys):
         """Bracket-laden report values must render literally, not as Rich markup."""
         report = _make_report(
             analysis={'score': 10, 'family': ['[red]fake[/red]'], 'tags': []},
             signatures=[{'name': 'bad [/closes] tag', 'score': 5}],
-            targets=[{'iocs': {'urls': ['http://evil.example/[link=http://x]hi[/link]']}}],
+            targets=[{'target': '[link=http://x]hi[/link]', 'score': 1}],
         )
         out = _run(capsys, report=report, pretty=True)
         assert '[red]fake[/red]' in out
@@ -245,6 +233,112 @@ class TestOverviewPretty:
         assert 'Signatures' not in out
         assert 'IOCs' not in out
         assert 'Tasks' not in out
+        assert 'Targets' not in out
+        assert 'Malware Config' not in out
+
+    def test_pretty_shows_section_headers(self, capsys):
+        out = _run(capsys, pretty=True)
+        assert 'General' in out
+        assert 'Signatures' in out
+        assert 'Malware Config' in out
+        assert 'Targets' in out
+        assert 'Tasks' in out
+
+    def test_pretty_shows_score_bar(self, capsys):
+        """The overall score renders as a coloured block-character bar, not just a number."""
+        out = _run(capsys, pretty=True)
+        assert '█' in out
+
+    def test_pretty_shows_family_and_tag_badges(self, capsys):
+        out = _run(capsys, pretty=True)
+        assert 'darkcomet' in out
+        assert 'botnet:ap' in out
+
+    def test_pretty_shows_per_target_score_and_notable_signature(self, capsys):
+        report = _make_report(
+            targets=[
+                {
+                    'target': 'payload.exe',
+                    'score': 5,
+                    'family': ['xworm'],
+                    'tags': ['discovery'],
+                    'signatures': [
+                        {
+                            'name': 'Drops file in System32 directory',
+                            'score': 3,
+                            'desc': 'Suspicious placement in a protected system directory.',
+                        }
+                    ],
+                }
+            ]
+        )
+        out = _run(capsys, report=report, pretty=True)
+        assert 'payload.exe' in out
+        assert 'xworm' in out
+        assert 'Drops file in System32 directory' in out
+        assert 'Suspicious placement in a protected system directory.' in out
+
+    def test_pretty_single_target_matching_sample_is_skipped_entirely(self, capsys):
+        """A lone target that's just the submitted sample itself duplicates the General/
+        Signatures sections almost entirely, so it's dropped rather than repeated under a
+        'Targets' heading.
+        """
+        report = _make_report(
+            sample={
+                'id': _SAMPLE_ID,
+                'score': 10,
+                'target': 'http://evil.example/mal',
+            },
+            targets=[
+                {
+                    'target': 'http://evil.example/mal',
+                    'score': 10,
+                    'signatures': [
+                        {
+                            'name': 'Darkcomet',
+                            'score': 10,
+                            'desc': 'Duplicate of the top-level signature entry.',
+                        }
+                    ],
+                }
+            ],
+        )
+        out = _run(capsys, report=report, pretty=True)
+        assert 'Targets' not in out
+        assert 'Duplicate of the top-level signature entry.' not in out
+
+    def test_pretty_tasks_shown_without_sample_id_prefix(self, capsys):
+        report = _make_report(
+            tasks={f'{_SAMPLE_ID}-behavioral1': {'kind': 'behavioral', 'status': 'reported'}}
+        )
+        out = _run(capsys, report=report, pretty=True)
+        assert 'behavioral1' in out
+        assert f'{_SAMPLE_ID}-behavioral1' not in out
+
+    def test_pretty_tasks_sorted_naturally_static_first(self, capsys):
+        report = _make_report(
+            tasks={
+                'behavioral10': {'kind': 'behavioral', 'status': 'reported'},
+                'behavioral2': {'kind': 'behavioral', 'status': 'reported'},
+                'static1': {'kind': 'static', 'status': 'reported'},
+            }
+        )
+        out = _run(capsys, report=report, pretty=True)
+        assert out.index('static1') < out.index('behavioral2') < out.index('behavioral10')
+
+    def test_pretty_shows_task_tags(self, capsys):
+        report = _make_report(
+            tasks={
+                'behavioral1': {
+                    'kind': 'behavioral',
+                    'status': 'reported',
+                    'score': 10,
+                    'tags': ['execution'],
+                },
+            }
+        )
+        out = _run(capsys, report=report, pretty=True)
+        assert 'execution' in out
 
 
 def _make_static_report(**overrides) -> StaticAnalysisReport:
