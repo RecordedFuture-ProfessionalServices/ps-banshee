@@ -85,7 +85,7 @@ OPT_SANDBOX_NETWORK = Annotated[
     Option(
         '--network',
         '-N',
-        help='The type of networking that should be used when running the sample.',
+        help='The type of networking used during analysis.',
         show_default=False,
         click_type=click.Choice(get_args(NetworkMode), case_sensitive=False),
     ),

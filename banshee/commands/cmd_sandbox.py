@@ -78,20 +78,29 @@ _HELP_LIST = (
 )
 
 _HELP_PROFILE_CREATE = (
-    'Create a new analysis profile. The profile name must be unique within your company.'
+    'Create a new analysis profile. The profile name must be unique within your company. '
+    'Default output is the created profile as JSON; use `--pretty` for a human-readable table.'
 )
 _HELP_PROFILE_DELETE = (
-    'Delete an analysis profile by ID or name. Idempotent: deleting a profile '
-    'that does not exist prints a warning and exits 0. Prompts for confirmation '
-    'unless --yes is given.'
+    'Delete an analysis profile by ID or name. Safe to repeat: deleting a profile '
+    'that no longer exists prints a warning and exits 0 rather than failing. '
+    'Prompts for confirmation unless --yes is given.'
 )
-_HELP_PROFILE_GET = 'Fetch a single analysis profile by ID or name'
-_HELP_PROFILE_LIST = 'List all analysis profiles available in Recorded Future Sandbox'
+_HELP_PROFILE_GET = (
+    'Fetch a single analysis profile by ID or name. Default output is the profile '
+    'as JSON; use `--pretty` for a human-readable table.'
+)
+_HELP_PROFILE_LIST = (
+    'List all analysis profiles available in Recorded Future Sandbox. Default output '
+    'is a JSON array of profiles; use `--pretty` for a human-readable table. An empty '
+    'result prints `[]` and exits 0.'
+)
 _HELP_PROFILE_UPDATE = (
     'Update an existing analysis profile. Only the options you supply change — '
     'omitted options keep their current value. Use --unset to clear network, '
-    'browser, or geolocation. Updating a non-existent profile prints '
-    '{"updated": false} and exits 0.'
+    'browser, or geolocation. Default output is `{"updated": true}` (or '
+    '`{"updated": false}` if the profile does not exist) as JSON, exiting 0 either '
+    'way; use `--pretty` for a short human-readable status message instead.'
 )
 _HELP_REPORT_BEHAVIORAL = (
     'Fetch the behavioral (post-detonation) reports for a completed sandbox '
@@ -163,6 +172,23 @@ def stats(
 
 
 @banshee_cmd(
+    app=profile_app, name='list', help_=_HELP_PROFILE_LIST, epilog=EPILOG_SANDBOX_PROFILE_LIST
+)
+def list_(pretty: OPT_PRETTY_PRINT = False):
+    list_sandbox_profiles(pretty=pretty)
+
+
+@banshee_cmd(
+    app=profile_app, name='get', help_=_HELP_PROFILE_GET, epilog=EPILOG_SANDBOX_PROFILE_GET
+)
+def get_(
+    profile_id_or_name: Annotated[str, Argument(help='Profile ID or name', show_default=False)],
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    get_sandbox_profile(profile_id_or_name, pretty=pretty)
+
+
+@banshee_cmd(
     app=profile_app,
     name='create',
     help_=_HELP_PROFILE_CREATE,
@@ -193,7 +219,7 @@ def create(
         list[str] | None,
         Option(
             '--geolocation',
-            help='VPN country code; requires a vpn network (repeatable)',
+            help='VPN exit country code; requires --network vpn (repeatable)',
             show_default=False,
         ),
     ] = None,
@@ -212,23 +238,6 @@ def create(
         browser=browser,
         pretty=pretty,
     )
-
-
-@banshee_cmd(
-    app=profile_app, name='get', help_=_HELP_PROFILE_GET, epilog=EPILOG_SANDBOX_PROFILE_GET
-)
-def get_(
-    profile_id_or_name: Annotated[str, Argument(help='Profile ID or name', show_default=False)],
-    pretty: OPT_PRETTY_PRINT = False,
-):
-    get_sandbox_profile(profile_id_or_name, pretty=pretty)
-
-
-@banshee_cmd(
-    app=profile_app, name='list', help_=_HELP_PROFILE_LIST, epilog=EPILOG_SANDBOX_PROFILE_LIST
-)
-def list_(pretty: OPT_PRETTY_PRINT = False):
-    list_sandbox_profiles(pretty=pretty)
 
 
 @banshee_cmd(
@@ -268,7 +277,7 @@ def update(
         list[str] | None,
         Option(
             '--geolocation',
-            help='VPN country code; requires a vpn network (repeatable)',
+            help='VPN exit country code; requires --network vpn (repeatable)',
             show_default=False,
         ),
     ] = None,
