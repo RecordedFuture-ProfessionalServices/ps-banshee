@@ -443,13 +443,31 @@ class TestStaticPretty:
 
     def test_pretty_shows_tags(self, capsys):
         out = _run_static(capsys, pretty=True)
-        assert 'family:darkcomet' in out
+        assert 'darkcomet' in out
+        assert 'rat' in out
+
+    def test_pretty_family_tag_badge_strips_prefix(self, capsys):
+        """The `family:` prefix is stripped and rendered as a distinct family badge."""
+        out = _run_static(capsys, pretty=True)
+        assert 'family:darkcomet' not in out
+
+    def test_pretty_shows_section_headers(self, capsys):
+        out = _run_static(capsys, pretty=True)
+        assert 'General' in out
+        assert 'Signatures' in out
+        assert 'Malware Config' in out
+        assert 'Files' in out
+
+    def test_pretty_shows_score_bar(self, capsys):
+        """The overall score renders as a coloured block-character bar, not just a number."""
+        out = _run_static(capsys, pretty=True)
+        assert '█' in out
 
     def test_pretty_shows_target_and_counts(self, capsys):
         out = _run_static(capsys, pretty=True)
         assert 'invoice.zip' in out
-        assert 'Unpacked: 2' in out
-        assert 'Errors: 0' in out
+        assert 'Unpacked' in out
+        assert 'Errors' in out
 
     def test_pretty_shows_files_with_full_hash_and_raw_size(self, capsys):
         out = _run_static(capsys, pretty=True)

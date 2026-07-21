@@ -284,46 +284,72 @@ def _print_pretty(report: OverviewReport) -> None:
 
 
 def _print_static_header(console: Console, report: StaticAnalysisReport) -> None:
+    console.print(_section('General'))
+    sample = report.sample
     analysis = report.analysis
+    target = sample.target or report.task.target
+    if target:
+        console.print(f'[bold cyan]Target[/bold cyan]  {escape(target)}')
+    if sample.size is not None:
+        console.print(f'[bold cyan]Size[/bold cyan]    {sample.size:,} bytes')
     bucket = _score_bucket(analysis.score)
     color = _SCORE_COLORS[bucket]
     score = analysis.score if analysis.score is not None else '—'
     console.print(
-        f'[bold]Sample {escape(report.sample.sample)}[/bold] — '
-        f'[bold {color}]SCORE {score} {_SCORE_LABELS[bucket]}[/bold {color}]'
+        f'[bold]Sample {escape(sample.sample)}[/bold] — '
+        f'[bold {color}]SCORE {score} {_SCORE_LABELS[bucket]}[/bold {color}]  '
+        f'{_score_bar(analysis.score)}'
     )
     if analysis.tags:
-        console.print(f'Tags: [dim]{_joined_capped(analysis.tags)}[/dim]')
-    parts = []
-    target = report.sample.target or report.task.target
-    if target:
-        parts.append(f'Target: {escape(target)}')
+        badges = [
+            _badge(tag.removeprefix('family:'), bg=_FAMILY_BADGE_BG)
+            if tag.startswith('family:')
+            else _badge(tag)
+            for tag in analysis.tags[:_DISPLAY_CAP]
+        ]
+        extra = len(analysis.tags) - _DISPLAY_CAP
+        line = '  '.join(badges)
+        if extra > 0:
+            line += f' [dim]+{extra} more[/dim]'
+        console.print(line)
+    submitted = next((f for f in report.files if f.depth == 0), None)
+    if submitted:
+        hashes = [
+            (name, value)
+            for name, value in (
+                ('SHA256', submitted.sha256),
+                ('MD5', submitted.md5),
+                ('SHA1', submitted.sha1),
+            )
+            if value
+        ]
+        for name, value in hashes:
+            console.print(f'[dim]{name}[/dim] {escape(value)}')
     if report.unpack_count is not None:
-        parts.append(f'Unpacked: {report.unpack_count}')
+        console.print(f'[dim]Unpacked[/dim] {report.unpack_count}')
     if report.error_count is not None:
         err_color = 'red' if report.error_count else 'dim'
-        parts.append(f'Errors: [{err_color}]{report.error_count}[/{err_color}]')
-    if parts:
-        console.print('   '.join(parts))
+        console.print(f'[dim]Errors[/dim] [{err_color}]{report.error_count}[/{err_color}]')
     console.print()
 
 
 def _print_static_files(console: Console, files: list) -> None:
     if not files:
         return
-    tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 0), header_style='dim')
-    tbl.add_column('Files')
-    tbl.add_column('Kind')
-    tbl.add_column('Size', justify='right')
-    tbl.add_column('SHA256', overflow='fold')
-    tbl.add_column('Sel')
+    console.print(_section('Files'))
+    tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 0), header_style='bold magenta')
+    tbl.add_column('Files', style='bold cyan')
+    tbl.add_column('Kind', style='dim')
+    tbl.add_column('Size', justify='right', style='bold')
+    tbl.add_column('SHA256', style='dim', overflow='fold')
+    tbl.add_column('Sel', justify='center')
     for file in files[:_DISPLAY_CAP]:
         tbl.add_row(
             escape(file.filename),
             escape(file.kind) if file.kind else '—',
             str(file.filesize) if file.filesize is not None else '—',
             escape(file.sha256) if file.sha256 else '—',
-            '✓' if file.selected else '',
+            '[green]✓[/green]' if file.selected else '',
         )
     console.print(tbl)
     if len(files) > _DISPLAY_CAP:
@@ -334,12 +360,15 @@ def _print_static_files(console: Console, files: list) -> None:
 def _print_static_signatures(console: Console, signatures: list) -> None:
     if not signatures:
         return
+    console.print(_section('Signatures'))
     ordered = sorted(signatures, key=lambda s: s.score if s.score is not None else -1, reverse=True)
-    tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 0), header_style='dim')
-    tbl.add_column('Signatures')
+    tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 0), header_style='bold magenta')
+    tbl.add_column('Signatures', style='bold cyan')
     tbl.add_column('Score', justify='right')
     for sig in ordered[:_DISPLAY_CAP]:
-        score = str(sig.score) if sig.score is not None else '—'
+        bucket = _score_bucket(sig.score)
+        color = _SCORE_COLORS[bucket]
+        score = f'[{color}]{sig.score}[/{color}]' if sig.score is not None else '—'
         tbl.add_row(escape(sig.name), score)
     console.print(tbl)
     if len(ordered) > _DISPLAY_CAP:
@@ -348,11 +377,11 @@ def _print_static_signatures(console: Console, signatures: list) -> None:
 
 
 def _print_static_pretty(report: StaticAnalysisReport) -> None:
-    console = Console()
+    console = Console(highlight=False)
     _print_static_header(console, report)
-    _print_static_files(console, report.files)
-    _print_static_signatures(console, report.signatures)
     _print_extracted(console, report.extracted)
+    _print_static_signatures(console, report.signatures)
+    _print_static_files(console, report.files)
 
 
 def _print_behavioral_header(console: Console, report: BehavioralReport) -> None:
