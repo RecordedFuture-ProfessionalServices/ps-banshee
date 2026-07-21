@@ -71,10 +71,8 @@ _HELP_STATS = (
 )
 
 _HELP_LIST = (
-    'List sandbox samples: your own submissions, all submissions in your '
-    'organisation (default), or the public feed. Default output is a JSON '
-    'array of samples; use `--pretty` for a human-readable table. '
-    'An empty result prints `[]` and exits 0.'
+    "List sandbox samples — your own, your organisation's (default), or the public feed. "
+    'Prints a JSON array by default; use `--pretty` for a table.'
 )
 
 _HELP_PROFILE_CREATE = (
@@ -139,13 +137,11 @@ _HELP_SET_PROFILE = (
     'automatically, or --pick FILE:PROFILE for manual per-file mapping.'
 )
 _HELP_SUBMIT = (
-    'Submit a sample to Recorded Future Sandbox for analysis. The submission '
-    'kind is detected from the target: an existing local file is uploaded, a '
-    'URL is detonated in a browser (or downloaded first with --fetch), and '
-    '--import brings in a public sample by ID. Default output is the submitted '
-    'sample as JSON; --wait polls until analysis completes and prints the '
-    'overview report instead. --interactive pauses at static analysis and '
-    'prompts for file and profile selection before detonation.'
+    'Submit a sample for analysis — a local file is uploaded, a URL is detonated in a '
+    'browser (or downloaded first with `--fetch`), and `--import` brings in a public '
+    'sample by ID. Prints the submitted sample as JSON; add `--wait` to poll until '
+    'analysis finishes and print the overview report instead, or `--interactive` to '
+    'pause at static analysis and choose files and profiles before detonation.'
 )
 
 app = Typer(no_args_is_help=True)
@@ -357,7 +353,7 @@ def list_samples(
 def submit(
     target: Annotated[
         str,
-        Argument(help='File path, URL, or public sample ID (with --import)'),
+        Argument(help='File path, URL, or public sample ID (with --import)', show_default=False),
     ],
     fetch: Annotated[
         bool,
@@ -369,24 +365,40 @@ def submit(
     ] = False,
     profile: Annotated[
         list[str] | None,
-        Option('--profile', help='Analysis profile name or ID (repeatable)'),
+        Option('--profile', help='Analysis profile name or ID (repeatable)', show_default=False),
     ] = None,
     timeout: Annotated[
         int | None,
-        Option('--timeout', '-t', help='Analysis timeout in seconds', min=1, max=3600),
+        Option(
+            '--timeout',
+            '-t',
+            help='Analysis timeout in seconds',
+            min=1,
+            max=3600,
+            show_default=False,
+        ),
     ] = None,
     network: OPT_SANDBOX_NETWORK = None,
     geolocation: Annotated[
         str | None,
-        Option('--geolocation', help='VPN exit country code; requires --network vpn'),
+        Option(
+            '--geolocation',
+            help='VPN exit country code; requires --network vpn',
+            show_default=False,
+        ),
     ] = None,
     tags: Annotated[
         list[str] | None,
-        Option('--tags', '-T', help='Custom tag attached to the submission (repeatable)'),
+        Option(
+            '--tags',
+            '-T',
+            help='Custom tag attached to the submission (repeatable)',
+            show_default=False,
+        ),
     ] = None,
     password: Annotated[
         str | None,
-        Option('--password', help='Password for protected archives'),
+        Option('--password', help='Password for protected archives', show_default=False),
     ] = None,
     wait: Annotated[
         bool,

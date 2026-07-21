@@ -792,10 +792,15 @@ EPILOG_SANDBOX_SUBMIT = """
 ## Target kinds
 
 | Target | Kind |
+
 |--------|------|
+
 | Local file path | file |
+
 | URL | url (detonated in a browser) |
+
 | URL + --fetch | fetch (downloaded first, then detonated) |
+
 | Public sample ID + --import | import |
 
 ## Example Usage
@@ -822,10 +827,15 @@ EPILOG_SANDBOX_STATS = """
 ## Score buckets (Triage 1–10 scale)
 
 | Bucket | Range | Meaning |
+
 |--------|-------|---------|
+
 | malicious | 8–10 | Known malware, high confidence |
+
 | suspicious | 5–7 | Strong behavioural indicators |
+
 | potentially_suspicious | 3–4 | Some indicators |
+
 | clean | 1–2 | Low risk / benign |
 
 ## Examples
