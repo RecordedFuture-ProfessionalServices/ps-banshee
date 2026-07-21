@@ -57,7 +57,7 @@ _NOW = datetime(2026, 7, 10, 12, 0, 0, tzinfo=timezone.utc)
 
 def _make_sample(submitted_delta_days: int = 1, status: str = 'reported', kind: str = 'file'):
     s = MagicMock()
-    s.submitted = _NOW - timedelta(days=submitted_delta_days)
+    s.submitted = datetime.now(timezone.utc) - timedelta(days=submitted_delta_days)
     s.status = status
     s.kind = kind
     s.id_ = f'sample-{submitted_delta_days}'
