@@ -30,26 +30,35 @@ def _spinner(label: str = 'Fetching samples') -> Progress:
     return Progress(SpinnerColumn(), TextColumn(label), transient=True, console=_ERR_CONSOLE)
 
 
+def _status_color(status: str) -> str:
+    if status == 'reported':
+        return 'green'
+    if status == 'failed':
+        return 'red'
+    return 'yellow'
+
+
 def _samples_table(samples: list[Sample]) -> Table:
-    tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 0), header_style='bold')
-    tbl.add_column('Target')
+    tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 0), header_style='bold magenta')
+    tbl.add_column('ID', style='dim')
+    tbl.add_column('Target', style='bold cyan')
     tbl.add_column('Status')
-    tbl.add_column('Kind')
+    tbl.add_column('Kind', style='dim')
     tbl.add_column('Submitted')
     tbl.add_column('Completed')
     tbl.add_column('SHA256', style='dim')
-    tbl.add_column('ID', style='dim')
     for s in samples:
         target = s.filename or s.url or '—'
         completed = s.completed.strftime(_DATETIME_FMT) if s.completed else '—'
+        color = _status_color(s.status)
         tbl.add_row(
+            s.id_,
             target,
-            s.status,
+            f'[{color}]{s.status}[/{color}]',
             s.kind,
             s.submitted.strftime(_DATETIME_FMT),
             completed,
             s.sha256 or '—',
-            s.id_,
         )
     return tbl
 
