@@ -2,6 +2,7 @@ import json
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from io import StringIO
+from itertools import count
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -28,6 +29,8 @@ from banshee.sandbox.output import (
     _trend_str,
 )
 from banshee.sandbox.stats import (
+    _SAMPLES_INITIAL_MAX_RESULTS,
+    _SAMPLES_PAGE_SIZE,
     SandboxStats,
     TopIocs,
     TopTags,
@@ -37,6 +40,8 @@ from banshee.sandbox.stats import (
     _build_score_and_platform,
     _build_tag_taxonomy,
     _extract_raw_iocs,
+    _fetch_samples_covering_window,
+    _rank_c2_by_risk_score,
     _score_bucket,
     _soar_enrich,
     _soar_enrich_c2_urls,
@@ -55,12 +60,15 @@ runner = CliRunner()
 _NOW = datetime(2026, 7, 10, 12, 0, 0, tzinfo=timezone.utc)
 
 
+_sample_id_seq = count(1)
+
+
 def _make_sample(submitted_delta_days: int = 1, status: str = 'reported', kind: str = 'file'):
     s = MagicMock()
     s.submitted = datetime.now(timezone.utc) - timedelta(days=submitted_delta_days)
     s.status = status
     s.kind = kind
-    s.id_ = f'sample-{submitted_delta_days}'
+    s.id_ = f'sample-{next(_sample_id_seq)}'
     return s
 
 
@@ -142,7 +150,6 @@ def _make_stats(**overrides) -> SandboxStats:
             'reported': {'current': 8, 'prev': 12},
         },
         'by_kind_prev': {'file': 4, 'url': 5},
-        'limit_hit': False,
         'soar_skipped': False,
         'by_file_type': {'.exe': 50, '.dll': 20},
     }
@@ -431,6 +438,34 @@ class TestSoarEnrich:
         assert verified[0].indicator == '1.2.3.4'
         assert verified[0].rf_score == 75
 
+    def test_sorted_by_score_descending(self):
+        with (
+            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
+            patch('banshee.sandbox.stats._spinner'),
+        ):
+            token = MagicMock()
+            token.get_secret_value.return_value = 'tok'
+            mock_cfg.return_value.rf_token = token
+
+            def _entry(entity, score):
+                r = MagicMock()
+                r.entity = entity
+                r.content.risk.score = score
+                r.content.entity.type_ = 'IpAddress'
+                r.content.risk.rule.most_critical = 'rule'
+                return r
+
+            mid = _entry('1.1.1.1', 40)
+            highest = _entry('2.2.2.2', 90)
+            lowest = _entry('3.3.3.3', 25)
+            mock_soar.return_value.soar.return_value = [mid, highest, lowest]
+
+            verified, _ = _soar_enrich(
+                Counter({'1.1.1.1': 1, '2.2.2.2': 1, '3.3.3.3': 1}), Counter()
+            )
+        assert [v.rf_score for v in verified] == [90, 40, 25]
+
 
 # ---------------------------------------------------------------------------
 # Integration tests — fetch_sandbox_stats with full mocking
@@ -591,6 +626,41 @@ class TestSoarEnrichC2Urls:
         assert call_kwargs.get('url') == ['http://c2.bad', 'http://dropper.bad']
 
 
+class TestRankC2ByRiskScore:
+    def test_sorted_by_rf_score_descending(self):
+        extracted_c2 = Counter({'http://a.bad': 1, 'http://b.bad': 1, 'http://c.bad': 1})
+        c2_soar = {
+            'http://a.bad': {'rf_score': 40},
+            'http://b.bad': {'rf_score': 90},
+            'http://c.bad': {'rf_score': 10},
+        }
+        ranked = _rank_c2_by_risk_score(extracted_c2, c2_soar)
+        assert [url for url, _ in ranked] == ['http://b.bad', 'http://a.bad', 'http://c.bad']
+
+    def test_unscored_urls_sort_after_scored(self):
+        extracted_c2 = Counter({'http://scored.bad': 1, 'http://unscored.bad': 100})
+        c2_soar = {'http://scored.bad': {'rf_score': 5}}
+        ranked = _rank_c2_by_risk_score(extracted_c2, c2_soar)
+        assert [url for url, _ in ranked] == ['http://scored.bad', 'http://unscored.bad']
+
+    def test_ties_broken_by_hit_count(self):
+        extracted_c2 = Counter({'http://low-hits.bad': 1, 'http://high-hits.bad': 9})
+        c2_soar = {
+            'http://low-hits.bad': {'rf_score': 50},
+            'http://high-hits.bad': {'rf_score': 50},
+        }
+        ranked = _rank_c2_by_risk_score(extracted_c2, c2_soar)
+        assert [url for url, _ in ranked] == ['http://high-hits.bad', 'http://low-hits.bad']
+
+    def test_no_scores_falls_back_to_hit_count(self):
+        extracted_c2 = Counter({'http://few.bad': 2, 'http://many.bad': 8})
+        ranked = _rank_c2_by_risk_score(extracted_c2, {})
+        assert [url for url, _ in ranked] == ['http://many.bad', 'http://few.bad']
+
+    def test_empty_counter_returns_empty(self):
+        assert _rank_c2_by_risk_score(Counter(), {}) == []
+
+
 class TestFetchSandboxStats:
     @patch('banshee.sandbox.stats.get_config')
     @patch('banshee.sandbox.stats.SandboxMgr')
@@ -643,19 +713,80 @@ class TestFetchSandboxStats:
     @patch('banshee.sandbox.stats.get_config')
     @patch('banshee.sandbox.stats.SandboxMgr')
     @patch('banshee.sandbox.stats._spinner', new=_SPINNER_MOCK)
-    def test_limit_hit_warning(self, mock_mgr_cls, mock_cfg, capsys):
+    def test_fetches_via_covering_window_helper(self, mock_mgr_cls, mock_cfg):
         mock_cfg.return_value = _mock_config()
-        from banshee.sandbox.stats import _DEFAULT_MAX_RESULTS
+        mock_mgr_cls.return_value.fetch_samples.return_value = []
 
-        samples = [_make_sample(status='static_analysis') for _ in range(_DEFAULT_MAX_RESULTS)]
-        mock_mgr_cls.return_value.fetch_samples.return_value = samples
+        fetch_sandbox_stats(days=7)
 
-        result = fetch_sandbox_stats(days=7)
+        _, kwargs = mock_mgr_cls.return_value.fetch_samples.call_args
+        assert kwargs['max_results'] == _SAMPLES_INITIAL_MAX_RESULTS
+        assert kwargs['samples_per_page'] == _SAMPLES_PAGE_SIZE
 
-        assert result.limit_hit is True
-        err = capsys.readouterr().err
-        assert 'WARNING' in err
-        assert str(_DEFAULT_MAX_RESULTS) in err
+
+class TestFetchSamplesCoveringWindow:
+    _CUTOFF = _NOW - timedelta(days=14)
+
+    def test_stops_when_fewer_than_requested_returned(self):
+        mgr = MagicMock()
+        samples = [_make_sample(submitted_delta_days=1) for _ in range(3)]
+        mgr.fetch_samples.return_value = samples
+
+        result = _fetch_samples_covering_window(mgr, 'org', self._CUTOFF)
+
+        assert result == samples
+        mgr.fetch_samples.assert_called_once()
+
+    def test_stops_when_oldest_sample_predates_cutoff(self):
+        mgr = MagicMock()
+        full_page = [
+            _make_sample(submitted_delta_days=1) for _ in range(_SAMPLES_INITIAL_MAX_RESULTS)
+        ]
+        full_page[-1].submitted = self._CUTOFF - timedelta(days=1)
+        mgr.fetch_samples.return_value = full_page
+
+        result = _fetch_samples_covering_window(mgr, 'org', self._CUTOFF)
+
+        assert result == full_page
+        mgr.fetch_samples.assert_called_once()
+
+    def test_doubles_max_results_until_window_covered(self):
+        mgr = MagicMock()
+        first_page = [
+            _make_sample(submitted_delta_days=1) for _ in range(_SAMPLES_INITIAL_MAX_RESULTS)
+        ]
+        second_page = [
+            _make_sample(submitted_delta_days=1) for _ in range(_SAMPLES_INITIAL_MAX_RESULTS * 2)
+        ]
+        second_page[-1].submitted = self._CUTOFF - timedelta(days=1)
+        mgr.fetch_samples.side_effect = [first_page, second_page]
+
+        result = _fetch_samples_covering_window(mgr, 'org', self._CUTOFF)
+
+        assert result == second_page
+        assert mgr.fetch_samples.call_count == 2
+        second_call_kwargs = mgr.fetch_samples.call_args_list[1].kwargs
+        assert second_call_kwargs['max_results'] == _SAMPLES_INITIAL_MAX_RESULTS * 2
+
+    def test_empty_result_stops_immediately(self):
+        mgr = MagicMock()
+        mgr.fetch_samples.return_value = []
+
+        result = _fetch_samples_covering_window(mgr, 'org', self._CUTOFF)
+
+        assert result == []
+        mgr.fetch_samples.assert_called_once()
+
+    def test_deduplicates_samples_by_id(self):
+        mgr = MagicMock()
+        original = _make_sample(submitted_delta_days=1)
+        repeated = _make_sample(submitted_delta_days=2)
+        repeated.id_ = original.id_  # simulate a repeat across a pagination cursor boundary
+        mgr.fetch_samples.return_value = [original, repeated]
+
+        result = _fetch_samples_covering_window(mgr, 'org', self._CUTOFF)
+
+        assert result == [original]
 
     @patch('banshee.sandbox.stats.get_config')
     @patch('banshee.sandbox.stats.SandboxMgr')
@@ -1259,9 +1390,9 @@ class TestPrintHashes:
         out = self._render([{'sha256': 'abc' * 21, 'score': 9, 'top_tag': '', 'rf_score': 55}])
         assert '55' in out
 
-    def test_sandbox_score_before_risk_score(self):
+    def test_risk_score_before_sandbox_score(self):
         out = self._render([{'sha256': 'abc' * 21, 'score': 9, 'top_tag': '', 'rf_score': 55}])
-        assert out.index('Sandbox Score') < out.index('Risk Score')
+        assert out.index('Risk Score') < out.index('Sandbox Score')
 
     def test_truncates_at_10(self):
         hashes = [{'sha256': f'{"b" * 63}{i:x}', 'score': 9, 'top_tag': ''} for i in range(15)]

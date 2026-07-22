@@ -474,8 +474,8 @@ def _print_hashes(console: Console, hashes: list, frontend_base: str) -> None:
     total = len(hashes)
     console.print(Rule('[bold]Malicious SHA256s[/bold]', style='dim'))
     tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 2), header_style='dim')
-    tbl.add_column('Sandbox Score', style='bold', width=13)
     tbl.add_column('Risk Score', style='bold', width=10)
+    tbl.add_column('Sandbox Score', style='bold', width=13)
     tbl.add_column('SHA256', style='cyan', no_wrap=True)
     tbl.add_column('Family', style='dim')
     tbl.add_column('Top Risk Rule', style='dim')
@@ -491,8 +491,8 @@ def _print_hashes(console: Console, hashes: list, frontend_base: str) -> None:
         else:
             family_cell = top_tag
         tbl.add_row(
-            f'[{color}]{score}[/{color}]',
             _rf_score_cell(entry.get('rf_score')),
+            f'[{color}]{score}[/{color}]',
             display,
             family_cell,
             entry.get('top_risk_rule') or '',
@@ -548,7 +548,6 @@ def _to_json_dict(stats: SandboxStats) -> dict:
             k: {**v, 'pct_change': _trend_pct(v['current'], v['prev'])}
             for k, v in stats.trend_vs_prior_period.items()
         },
-        'limit_hit': stats.limit_hit,
         'soar_skipped': stats.soar_skipped,
     }
 

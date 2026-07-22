@@ -85,7 +85,8 @@ _OVERVIEW_WORKERS = 50
 _SOAR_WORKERS = 10
 _SOAR_TOP_N = 50
 _SOAR_MIN_SCORE = 25
-_DEFAULT_MAX_RESULTS = 2000
+_SAMPLES_PAGE_SIZE = 200  # psengine caps samples_per_page at 200; this is the API's hard limit
+_SAMPLES_INITIAL_MAX_RESULTS = 2000
 
 _ERR_CONSOLE = Console(stderr=True)
 
@@ -136,8 +137,8 @@ class VerifiedIoc:
 class TopIocs:
     """Extracted and verified IOCs from malicious samples."""
 
-    extracted_c2: list = field(default_factory=list)  # [(url, count), ...]
-    verified_network: list = field(default_factory=list)  # [VerifiedIoc, ...]
+    extracted_c2: list = field(default_factory=list)  # [(url, count), ...], ranked by rf_score
+    verified_network: list = field(default_factory=list)  # [VerifiedIoc, ...], ranked by rf_score
     malicious_sha256: list = field(default_factory=list)
     c2_soar: dict = field(default_factory=dict)  # {url: {'rf_score': int, 'top_risk_rule': str}}
 
@@ -159,7 +160,6 @@ class SandboxStats:
     top_tags: TopTags
     top_iocs: TopIocs
     trend_vs_prior_period: dict
-    limit_hit: bool = False
     soar_skipped: bool = False
     sandbox_choice: str = 'eu'
     by_kind_prev: dict = field(default_factory=dict)
@@ -303,7 +303,7 @@ def _soar_enrich(ip_counter: Counter, domain_counter: Counter) -> tuple:
     candidate_ips = [ip for ip, _ in ip_counter.most_common(_SOAR_TOP_N)]
     candidate_domains = [d for d, _ in domain_counter.most_common(_SOAR_TOP_N)]
     n_ips, n_dom = len(candidate_ips), len(candidate_domains)
-    label = f'SOAR-enriching {n_ips} IPs + {n_dom} domains…'
+    label = f'Enriching {n_ips + n_dom} network indicators…'
 
     try:
         with _spinner(label) as progress:
@@ -341,7 +341,7 @@ def _soar_enrich_hashes(sha256_list: list) -> dict:
     rf_token = get_config().rf_token
     if not rf_token or not rf_token.get_secret_value():
         return {}
-    label = f'SOAR-enriching {len(sha256_list)} SHA256s…'
+    label = f'Enriching {len(sha256_list)} file hashes…'
     try:
         with _spinner(label) as progress:
             progress.add_task(label)
@@ -369,7 +369,7 @@ def _soar_enrich_c2_urls(url_list: list) -> dict:
     rf_token = get_config().rf_token
     if not rf_token or not rf_token.get_secret_value():
         return {}
-    label = f'SOAR-enriching {len(url_list)} C2 URLs…'
+    label = f'Enriching {len(url_list)} C2 indicators…'
     try:
         with _spinner(label) as progress:
             progress.add_task(label)
@@ -387,6 +387,19 @@ def _soar_enrich_c2_urls(url_list: list) -> dict:
     }
 
 
+def _rank_c2_by_risk_score(extracted_c2: Counter, c2_soar: dict) -> list:
+    """Rank extracted (url, count) pairs by SOAR rf_score descending, hit count as tiebreak.
+
+    URLs without a SOAR score (outside the top `_SOAR_TOP_N` by hit count, or enrichment
+    skipped/failed) sort after every scored URL.
+    """
+    return sorted(
+        extracted_c2.most_common(),
+        key=lambda item: ((c2_soar.get(item[0]) or {}).get('rf_score') or -1, item[1]),
+        reverse=True,
+    )
+
+
 def _build_daily_by_family(reports: list) -> dict:
     """Count daily submissions per malware family from overview reports."""
     from collections import defaultdict
@@ -401,6 +414,41 @@ def _build_daily_by_family(reports: list) -> dict:
     return {f: dict(d) for f, d in daily.items()}
 
 
+def _dedupe_samples(samples: list) -> list:
+    """Drop duplicate samples by id, keeping the first occurrence.
+
+    Pagination is cursor-based on submission timestamp, so samples sharing a
+    timestamp can be repeated across a page boundary.
+    """
+    seen: set = set()
+    deduped = []
+    for s in samples:
+        if s.id_ in seen:
+            continue
+        seen.add(s.id_)
+        deduped.append(s)
+    return deduped
+
+
+def _fetch_samples_covering_window(mgr: SandboxMgr, subset: str, cutoff: datetime) -> list:
+    """Fetch samples newest-first, doubling the page cap until `cutoff` is covered.
+
+    `/samples` returns results newest-first, so once the oldest sample in a batch
+    predates `cutoff` the requested window is fully covered and paging further would
+    only pull older history the caller doesn't need. Stops early (without doubling
+    again) once the API returns fewer samples than requested -- there's nothing older
+    left to fetch.
+    """
+    max_results = _SAMPLES_INITIAL_MAX_RESULTS
+    while True:
+        samples = mgr.fetch_samples(
+            subset=subset, max_results=max_results, samples_per_page=_SAMPLES_PAGE_SIZE
+        )
+        if len(samples) < max_results or any(s.submitted < cutoff for s in samples):
+            return _dedupe_samples(samples)
+        max_results *= 2
+
+
 def fetch_sandbox_stats(
     days: int = 7,
     subset: str = 'org',
@@ -408,7 +456,10 @@ def fetch_sandbox_stats(
     """Aggregate sandbox submissions over a configurable time window.
 
     Fetches 2× the window so the prior period is available for trend comparison
-    without a second API call. Overview reports are fetched in parallel.
+    without a second API call. Samples are paged in newest-first, growing the page
+    cap until the 2× window is covered, so the fetch scales with actual submission
+    volume instead of walking the organisation's entire sandbox history. Overview
+    reports are fetched in parallel.
 
     Args:
         days: Lookback window in days (default 7). Prior period = same length before window.
@@ -427,14 +478,7 @@ def fetch_sandbox_stats(
     label = 'Fetching sandbox submissions…'
     with _spinner(label) as progress:
         progress.add_task(label)
-        all_samples = mgr.fetch_samples(subset=subset, max_results=_DEFAULT_MAX_RESULTS)
-
-    limit_hit = len(all_samples) >= _DEFAULT_MAX_RESULTS
-    if limit_hit:
-        print(
-            f'[WARNING] Hit sample cap ({_DEFAULT_MAX_RESULTS}) — stats may be incomplete.',
-            file=sys.stderr,
-        )
+        all_samples = _fetch_samples_covering_window(mgr, subset, cutoff_prev)
 
     current = [s for s in all_samples if s.submitted >= cutoff_current]
     prev = [s for s in all_samples if cutoff_prev <= s.submitted < cutoff_current]
@@ -466,7 +510,6 @@ def fetch_sandbox_stats(
             top_tags=TopTags(),
             top_iocs=TopIocs(),
             trend_vs_prior_period=trend,
-            limit_hit=limit_hit,
             soar_skipped=True,
             sandbox_choice=config.sandbox_choice,
         )
@@ -493,7 +536,7 @@ def fetch_sandbox_stats(
     c2_soar = _soar_enrich_c2_urls(top_c2_urls)
 
     top_iocs = TopIocs(
-        extracted_c2=extracted_c2.most_common(),
+        extracted_c2=_rank_c2_by_risk_score(extracted_c2, c2_soar),
         verified_network=verified,
         malicious_sha256=sorted(sha256_entries, key=lambda x: x['score'], reverse=True),
         c2_soar=c2_soar,
@@ -514,7 +557,6 @@ def fetch_sandbox_stats(
         top_tags=top_tags,
         top_iocs=top_iocs,
         trend_vs_prior_period=trend,
-        limit_hit=limit_hit,
         soar_skipped=soar_skipped,
         sandbox_choice=config.sandbox_choice,
         by_file_type=by_file_type,
