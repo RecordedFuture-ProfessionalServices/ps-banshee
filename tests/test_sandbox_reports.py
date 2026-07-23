@@ -684,18 +684,20 @@ _SPARSE_BEHAVIORAL_REPORT = BehavioralReport.model_validate(
 )
 
 
-def _run_behavioral(capsys, reports=_RICH_BEHAVIORAL_REPORTS, pretty=False):
-    return _run_behavioral_result(capsys, BehavioralReportsResult(reports=reports), pretty=pretty)
+def _run_behavioral(capsys, reports=_RICH_BEHAVIORAL_REPORTS, pretty=False, full_cmd=False):
+    return _run_behavioral_result(
+        capsys, BehavioralReportsResult(reports=reports), pretty=pretty, full_cmd=full_cmd
+    )
 
 
-def _run_behavioral_result(capsys, result, pretty=False):
+def _run_behavioral_result(capsys, result, pretty=False, full_cmd=False):
     """Run against a complete envelope: the command must not exit non-zero."""
     with (
         _patched_mgr() as mock_mgr_cls,
         patch.dict(os.environ, {'COLUMNS': '250'}),
     ):
         mock_mgr_cls.return_value.fetch_behavioral_reports.return_value = result
-        fetch_behavioral_reports(_SAMPLE_ID, pretty=pretty)
+        fetch_behavioral_reports(_SAMPLE_ID, pretty=pretty, full_cmd=full_cmd)
     return capsys.readouterr()
 
 
@@ -781,8 +783,17 @@ class TestBehavioralPretty:
     def test_pretty_shows_processes(self, capsys):
         out = _run_behavioral(capsys, pretty=True).out
         assert '1204' in out
-        assert 'cmd.exe /c start payload.exe' in out
+        assert 'cmd.exe /c start pay...' in out
         assert 'payload.exe -x' in out
+
+    def test_pretty_truncates_long_cmd_by_default(self, capsys):
+        out = _run_behavioral(capsys, pretty=True).out
+        assert 'cmd.exe /c start payload.exe' not in out
+        assert 'cmd.exe /c start pay...' in out
+
+    def test_pretty_full_cmd_shows_untruncated_command(self, capsys):
+        out = _run_behavioral(capsys, pretty=True, full_cmd=True).out
+        assert 'cmd.exe /c start payload.exe' in out
 
     def test_pretty_shows_network_flows(self, capsys):
         out = _run_behavioral(capsys, pretty=True).out
@@ -820,10 +831,18 @@ class TestBehavioralPretty:
             signatures=[{'name': 'bad [/closes] tag', 'score': 5}],
             processes=[{'pid': 1, 'cmd': 'evil [link=http://x]hi[/link].exe'}],
         )
-        out = _run_behavioral(capsys, reports=[report], pretty=True).out
+        out = _run_behavioral(capsys, reports=[report], pretty=True, full_cmd=True).out
         assert '[red]fake[/red]' in out
         assert 'bad [/closes] tag' in out
         assert 'evil [link=http://x]hi[/link].exe' in out
+
+    def test_pretty_escapes_markup_in_truncated_cmd(self, capsys):
+        report = _make_behavioral_report(
+            processes=[{'pid': 1, 'cmd': 'evil [link=http://x]hi[/link].exe'}],
+        )
+        out = _run_behavioral(capsys, reports=[report], pretty=True).out
+        assert 'evil [link=http://x]...' in out
+        assert '[/link]' not in out
 
     def test_pretty_sparse_report_renders(self, capsys):
         out = _run_behavioral(capsys, reports=[_SPARSE_BEHAVIORAL_REPORT], pretty=True).out

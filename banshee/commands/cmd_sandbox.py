@@ -110,7 +110,10 @@ _HELP_REPORT_BEHAVIORAL = (
     'non-zero until every behavioral task has finished. Rerun once the sample '
     'status is `reported`, or add `--wait` to keep polling for up to 30 '
     'minutes before giving up. A sample with no behavioral tasks prints an '
-    'empty array and exits 0.'
+    'empty array and exits 0. Process command lines in `--pretty` view are '
+    'truncated by default, since these come straight from the malware sample '
+    'and can be long or nasty looking. Pass `--full-cmd` if you need to see '
+    'them in full.'
 )
 _HELP_REPORT_OVERVIEW = (
     'Fetch the overview report for a completed sandbox sample: verdict score, '
@@ -533,8 +536,19 @@ def behavioral(
         ),
     ] = False,
     pretty: OPT_PRETTY_PRINT = False,
+    full_cmd: Annotated[
+        bool,
+        Option(
+            '--full-cmd',
+            help='Show full process command lines instead of truncating them. '
+            'These are taken straight from the malware sample, so treat them '
+            'as untrusted: review before pasting elsewhere or running '
+            'anything based on them.',
+            show_default=False,
+        ),
+    ] = False,
 ):
-    fetch_behavioral_reports(sample_id, pretty=pretty, wait=wait)
+    fetch_behavioral_reports(sample_id, pretty=pretty, wait=wait, full_cmd=full_cmd)
 
 
 app.add_typer(

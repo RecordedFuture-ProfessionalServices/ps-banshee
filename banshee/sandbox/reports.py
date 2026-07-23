@@ -66,6 +66,7 @@ _FAMILY_BADGE_BG = 'magenta'
 _TAG_BADGE_BG = 'grey23'
 _TARGET_SIG_CAP = 5
 _ROW_TAG_CAP = 4
+_CMD_TRUNCATE_LEN = 20
 
 
 def _section(title: str) -> Rule:
@@ -342,7 +343,7 @@ def _print_static_files(console: Console, files: list) -> None:
     tbl.add_column('Kind', style='dim')
     tbl.add_column('Size', justify='right', style='bold')
     tbl.add_column('SHA256', style='dim', overflow='fold')
-    tbl.add_column('Sel', justify='center')
+    tbl.add_column('Selected', justify='center')
     for file in files[:_DISPLAY_CAP]:
         tbl.add_row(
             escape(file.filename),
@@ -417,18 +418,21 @@ def _print_behavioral_header(console: Console, report: BehavioralReport) -> None
     console.print()
 
 
-def _proc_cmd(proc) -> str:
+def _proc_cmd(proc, full_cmd: bool = False) -> str:
     cmd = ' '.join(proc.cmd) if isinstance(proc.cmd, list) else proc.cmd
-    return cmd or proc.image or '—'
+    cmd = cmd or proc.image or '—'
+    if not full_cmd and len(cmd) > _CMD_TRUNCATE_LEN:
+        cmd = f'{cmd[:_CMD_TRUNCATE_LEN]}...'
+    return cmd
 
 
-def _print_behavioral_processes(console: Console, processes: list) -> None:
+def _print_behavioral_processes(console: Console, processes: list, full_cmd: bool = False) -> None:
     if not processes:
         return
     console.print('[dim]Processes[/dim]')
     for proc in processes[:_DISPLAY_CAP]:
         pid = proc.pid if proc.pid is not None else '—'
-        console.print(f'  [dim]{pid}[/dim]  {escape(_proc_cmd(proc))}')
+        console.print(f'  [dim]{pid}[/dim]  {escape(_proc_cmd(proc, full_cmd=full_cmd))}')
     if len(processes) > _DISPLAY_CAP:
         console.print(_MORE_MSG.format(len(processes) - _DISPLAY_CAP))
     console.print()
@@ -455,14 +459,14 @@ def _print_behavioral_flows(console: Console, flows: list) -> None:
     console.print()
 
 
-def _print_behavioral_pretty(reports: list[BehavioralReport]) -> None:
+def _print_behavioral_pretty(reports: list[BehavioralReport], full_cmd: bool = False) -> None:
     console = Console()
     for index, report in enumerate(reports):
         if index:
             console.print()
         _print_behavioral_header(console, report)
         _print_signatures(console, report.signatures)
-        _print_behavioral_processes(console, report.processes)
+        _print_behavioral_processes(console, report.processes, full_cmd=full_cmd)
         _print_behavioral_flows(console, report.network.flows)
         _print_extracted(console, report.extracted)
 
@@ -577,7 +581,9 @@ def _print_behavioral_not_ready(not_ready: list[str], waited: bool) -> None:
     )
 
 
-def fetch_behavioral_reports(sample_id: str, pretty: bool = False, wait: bool = False) -> None:
+def fetch_behavioral_reports(
+    sample_id: str, pretty: bool = False, wait: bool = False, full_cmd: bool = False
+) -> None:
     """Fetch the behavioral (post-detonation) reports for a sample and print them.
 
     Default output is a JSON array on stdout with one full report per finished
@@ -590,7 +596,8 @@ def fetch_behavioral_reports(sample_id: str, pretty: bool = False, wait: bool = 
     any report is still pending at print time or when every fetch failed
     terminally; ready reports are always printed, even when others are pending.
     A sample with no behavioral tasks prints an empty array and a note on
-    stderr.
+    stderr. In `pretty` mode, process commands are truncated to 20 characters
+    unless `full_cmd` is set.
     """
     config = get_config()
     mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
@@ -602,7 +609,7 @@ def fetch_behavioral_reports(sample_id: str, pretty: bool = False, wait: bool = 
         _ERR_CONSOLE.print('No behavioral tasks for this sample.')
     if result.reports or result.complete:
         if pretty:
-            _print_behavioral_pretty(result.reports)
+            _print_behavioral_pretty(result.reports, full_cmd=full_cmd)
         else:
             print_json(json.dumps([report.json() for report in result.reports]))
     all_failed = result.failed and not result.reports

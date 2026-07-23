@@ -737,6 +737,8 @@ EPILOG_SANDBOX_REPORT_BEHAVIORAL = """
 
 * banshee sandbox report behavioral 260501-h4p7laawme --wait
 
+* banshee sandbox report behavioral 260501-h4p7laawme -p --full-cmd
+
 * banshee sandbox report behavioral 260501-h4p7laawme | jq '.[].analysis.score'
 
 * banshee sandbox report behavioral 260501-h4p7laawme | jq '.[].network.flows'
