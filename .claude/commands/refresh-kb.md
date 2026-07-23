@@ -29,8 +29,8 @@ For each item:
 
 | Detected change | Required updates |
 |----|----|
-| New command group `X` | Create `docs/knowledge-base/X.md` (use existing pages as template), add entry to `mkdocs.yml` plugin `sections.Commands` list, add a row to the cmd-group table in `docs/knowledge-base/index.md`. |
-| Removed command group `X` | Delete `docs/knowledge-base/X.md`, remove the corresponding entry from `mkdocs.yml`, drop the row from the cmd-group table. |
+| New command group `X` | Create `docs/knowledge-base/X.md` (use existing pages as template), add entry to `mkdocs.yml` plugin `sections.Commands` list, add a row to the cmd-group table in `docs/knowledge-base/index.md`, add a bullet to the use-case list in `docs/getting-started/llms.md` (see Step 6). |
+| Removed command group `X` | Delete `docs/knowledge-base/X.md`, remove the corresponding entry from `mkdocs.yml`, drop the row from the cmd-group table, remove the corresponding bullet from `docs/getting-started/llms.md`. |
 | New subcommand under existing group | Add a `### \`banshee <group> <sub>\`` section (same shape as existing sections). |
 | Changed options/args on existing subcommand | Update the option table of that subcommand on the existing page. |
 | Renamed subcommand | Update heading + every reference in the page body. |
@@ -61,8 +61,11 @@ Edit files in place using the Edit tool. Allowed file scope:
 
 - `docs/knowledge-base/*.md` (per-command pages + index)
 - `mkdocs.yml` (only the `llmstxt-md` plugin's `sections:` block and `markdown_description`)
+- `docs/getting-started/llms.md` (only the bullet list inside the `## Make \`banshee\` discoverable to your agent` section — see below)
 
-**Do not touch:** `docs/getting-started/llms.md`, `docs/reference/commands.md` (read-only context only), any other docs, source code, CHANGELOG, pyproject.toml, or any git state.
+**`docs/getting-started/llms.md` update rule:** When a new command group is added, append one bullet to the list inside the fenced markdown snippet in the "Make `banshee` discoverable to your agent" section. The bullet must be a plain English phrase describing the user-facing job the group performs (e.g. `- submitting files and URLs to sandbox for malware analysis and retrieving the resulting reports`). Match the existing phrasing style: lowercase, action-oriented, no implementation detail. When a command group is removed, delete its bullet. Do not touch any other part of the file.
+
+**Do not touch:** `docs/reference/commands.md` (read-only context only), any other docs, source code, CHANGELOG, pyproject.toml, or any git state.
 
 ## Conventions to follow (must match existing files)
 

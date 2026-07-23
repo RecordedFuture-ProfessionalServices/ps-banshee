@@ -9,4 +9,5 @@ Below are some of the core use cases to get started:
 - [IOC Enrichment](enrichment/index.md)
 - [Packet Capture Analysis](pcap/index.md)
 - [Risk Lists](risklists/index.md)
+- [Sandbox Analysis](sandbox/index.md)
 - [Watchlist Management](watchlist/index.md)

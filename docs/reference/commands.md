@@ -22,6 +22,7 @@ banshee [OPTIONS] <COMMAND>
     <dt><a href="#banshee-pcap"><code>banshee pcap</code></a></dt><dd><p>Analyze packet capture (pcap) files by enriching them with Recorded Future Intelligence</p></dd>
     <dt><a href="#banshee-risklist"><code>banshee risklist</code></a></dt><dd><p>Manage Risk Lists</p></dd>
     <dt><a href="#banshee-rules"><code>banshee rules</code></a></dt><dd><p>Search for and download detection rules</p></dd>
+    <dt><a href="#banshee-sandbox"><code>banshee sandbox</code></a></dt><dd><p>Sandbox submission analytics and profile management</p></dd>
 </dl>
 
 ## banshee ca
@@ -2027,3 +2028,624 @@ banshee rules search -t snort -t sigma -u 3d -o ./detection_rules
 banshee rules search --title "APT28" -p
 </code></pre>
 
+## banshee sandbox
+
+Sandbox submission analytics and profile management.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee sandbox [OPTIONS] COMMAND [ARGS]...
+```
+
+<h3 class="commands-reference">Commands</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-sandbox-stats"><code>banshee sandbox stats</code></a></dt><dd><p>Aggregate sandbox submissions over a configurable window and print a SOC morning brief</p></dd>
+    <dt><a href="#banshee-sandbox-list"><code>banshee sandbox list</code></a></dt><dd><p>List sandbox samples</p></dd>
+    <dt><a href="#banshee-sandbox-delete"><code>banshee sandbox delete</code></a></dt><dd><p>Delete a sandbox sample by ID</p></dd>
+    <dt><a href="#banshee-sandbox-submit"><code>banshee sandbox submit</code></a></dt><dd><p>Submit a file, URL, or public sample for sandbox analysis</p></dd>
+    <dt><a href="#banshee-sandbox-set-profile"><code>banshee sandbox set-profile</code></a></dt><dd><p>Assign analysis profiles to a sample paused at static analysis</p></dd>
+    <dt><a href="#banshee-sandbox-profile"><code>banshee sandbox profile</code></a></dt><dd><p>Manage analysis profiles</p></dd>
+    <dt><a href="#banshee-sandbox-report"><code>banshee sandbox report</code></a></dt><dd><p>Sample analysis reports</p></dd>
+</dl>
+
+### banshee sandbox stats
+
+Aggregate sandbox submissions over a configurable window and print a "morning brief" suitable for SOC shift handover or daily triage.
+
+By default the command will print the results in JSON format.
+
+<h3 class="commands-reference">Score Buckets</h3>
+
+<p>The sandbox scores samples on a 1–10 triage scale. Results are grouped into the following buckets:</p>
+
+| Bucket | Score Range | Meaning |
+|---|---|---|
+| `malicious` | 8–10 | Known malware, high confidence |
+| `suspicious` | 5–7 | Strong behavioural indicators |
+| `potentially_suspicious` | 3–4 | Some indicators |
+| `clean` | 1–2 | Low risk or benign |
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee sandbox stats [OPTIONS]
+```
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-stats--days"><a href="#banshee-sandbox-stats--days"><code>--days</code></a>, <code>-d</code> <i>days</i></dt><dd>
+    <p>Lookback window in days</p>
+    <p>Defaults to 7</p></dd>
+    <dt id="banshee-sandbox-stats--subset"><a href="#banshee-sandbox-stats--subset"><code>--subset</code></a>, <code>-s</code> <i>subset</i></dt><dd>
+    <p>Sample scope to aggregate</p>
+    <p>Possible values: <code>owned</code>, <code>public</code>, <code>org</code></p>
+    <p>Defaults to <code>org</code></p></dd>
+    <dt id="banshee-sandbox-stats--pretty"><a href="#banshee-sandbox-stats--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p></dd>
+    <dt id="banshee-sandbox-stats--help"><a href="#banshee-sandbox-stats--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee sandbox stats
+banshee sandbox stats --days 14 --subset owned --pretty
+banshee sandbox stats --days 30 --pretty
+</code></pre>
+
+### banshee sandbox list
+
+List sandbox samples — your own, your organisation's (default), or the public feed.
+
+By default the command will print the results in JSON format.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee sandbox list [OPTIONS]
+```
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-list--subset"><a href="#banshee-sandbox-list--subset"><code>--subset</code></a>, <code>-s</code> <i>subset</i></dt><dd>
+    <p>Sample scope to list</p>
+    <p>Possible values: <code>owned</code>, <code>public</code>, <code>org</code></p>
+    <p>Defaults to <code>org</code></p></dd>
+    <dt id="banshee-sandbox-list--limit"><a href="#banshee-sandbox-list--limit"><code>--limit</code></a>, <code>-l</code> <i>limit</i></dt><dd>
+    <p>Maximum number of samples to return</p>
+    <p>Accepted range: 1–4095</p>
+    <p>Defaults to 20</p></dd>
+    <dt id="banshee-sandbox-list--pretty"><a href="#banshee-sandbox-list--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p></dd>
+    <dt id="banshee-sandbox-list--help"><a href="#banshee-sandbox-list--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee sandbox list
+banshee sandbox list --subset owned
+banshee sandbox list -s public -l 50
+banshee sandbox list -p
+banshee sandbox list | jq '.[].sha256'
+</code></pre>
+
+### banshee sandbox delete
+
+Delete a sandbox sample by ID and remove all associated task artifacts.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee sandbox delete [OPTIONS] SAMPLE_ID
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-delete--sample-id"><a href="#banshee-sandbox-delete--sample-id"><code>SAMPLE_ID</code></a></dt><dd><p>Sample ID to delete</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-delete--yes"><a href="#banshee-sandbox-delete--yes"><code>--yes</code></a>, <code>-y</code></dt><dd>
+    <p>Skip the confirmation prompt</p></dd>
+    <dt id="banshee-sandbox-delete--help"><a href="#banshee-sandbox-delete--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee sandbox delete 260501-h4p7laawme
+banshee sandbox delete 260501-h4p7laawme -y
+</code></pre>
+
+### banshee sandbox submit
+
+Submit a sample for analysis. A local file is uploaded, a URL is detonated in a browser (or downloaded first with `--fetch`), and a public sample can be imported by ID with `--import`.
+
+By default the command prints a JSON submission receipt. Use `--wait` to poll until analysis is complete and print the overview report.
+
+<h3 class="commands-reference">Target Kinds</h3>
+
+| Target | Behaviour |
+|---|---|
+| Local file path | Uploaded and analysed |
+| URL | Detonated in a browser |
+| URL + `--fetch` | Downloaded first, then analysed as a file |
+| Public sample ID + `--import` | Imported into your organisation's sandbox |
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee sandbox submit [OPTIONS] TARGET
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-submit--target"><a href="#banshee-sandbox-submit--target"><code>TARGET</code></a></dt><dd><p>File path, URL, or public sample ID (with <code>--import</code>)</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-submit--fetch"><a href="#banshee-sandbox-submit--fetch"><code>--fetch</code></a></dt><dd>
+    <p>Download the URL target first, then analyse the resulting file. Mutually exclusive with <code>--import</code></p></dd>
+    <dt id="banshee-sandbox-submit--import"><a href="#banshee-sandbox-submit--import"><code>--import</code></a></dt><dd>
+    <p>Treat the target as a public sample ID to import into your organisation. Mutually exclusive with <code>--fetch</code></p></dd>
+    <dt id="banshee-sandbox-submit--profile"><a href="#banshee-sandbox-submit--profile"><code>--profile</code></a> <i>profile</i></dt><dd>
+    <p>Analysis profile name or ID. Can be supplied multiple times to assign more than one profile. Mutually exclusive with <code>--interactive</code></p></dd>
+    <dt id="banshee-sandbox-submit--timeout"><a href="#banshee-sandbox-submit--timeout"><code>--timeout</code></a>, <code>-t</code> <i>seconds</i></dt><dd>
+    <p>Analysis timeout in seconds</p>
+    <p>Accepted range: 1–3600</p></dd>
+    <dt id="banshee-sandbox-submit--network"><a href="#banshee-sandbox-submit--network"><code>--network</code></a>, <code>-N</code> <i>mode</i></dt><dd>
+    <p>Network mode for the analysis environment</p>
+    <p>Possible values: <code>internet</code>, <code>drop</code>, <code>tor</code>, <code>vpn</code>, <code>sim200</code>, <code>sim404</code>, <code>simnx</code></p></dd>
+    <dt id="banshee-sandbox-submit--geolocation"><a href="#banshee-sandbox-submit--geolocation"><code>--geolocation</code></a> <i>country-code</i></dt><dd>
+    <p>VPN exit country code. Requires <code>--network vpn</code></p></dd>
+    <dt id="banshee-sandbox-submit--tags"><a href="#banshee-sandbox-submit--tags"><code>--tags</code></a>, <code>-T</code> <i>tag</i></dt><dd>
+    <p>Custom tag to attach to the submission. Can be supplied multiple times</p></dd>
+    <dt id="banshee-sandbox-submit--password"><a href="#banshee-sandbox-submit--password"><code>--password</code></a> <i>password</i></dt><dd>
+    <p>Password for protected archives</p></dd>
+    <dt id="banshee-sandbox-submit--wait"><a href="#banshee-sandbox-submit--wait"><code>--wait</code></a>, <code>-w</code></dt><dd>
+    <p>Poll until analysis finishes, then print the overview report</p></dd>
+    <dt id="banshee-sandbox-submit--interactive"><a href="#banshee-sandbox-submit--interactive"><code>--interactive</code></a>, <code>-i</code></dt><dd>
+    <p>Pause at static analysis to allow file and profile selection via <a href="#banshee-sandbox-set-profile"><code>banshee sandbox set-profile</code></a>. Mutually exclusive with <code>--profile</code></p></dd>
+    <dt id="banshee-sandbox-submit--pretty"><a href="#banshee-sandbox-submit--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p></dd>
+    <dt id="banshee-sandbox-submit--help"><a href="#banshee-sandbox-submit--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee sandbox submit malware.exe
+banshee sandbox submit https://evil.com
+banshee sandbox submit https://cdn.evil.com/payload.exe --fetch
+banshee sandbox submit 250601-abc123 --import
+banshee sandbox submit malware.zip --password infected --profile win10-x64 -T case-42
+banshee sandbox submit malware.exe --network vpn --geolocation us -t 300
+banshee sandbox submit malware.exe --wait | jq '.analysis.score'
+banshee sandbox submit archive.zip --interactive --wait --pretty
+</code></pre>
+
+### banshee sandbox set-profile
+
+Assign analysis profiles to a sample that is paused at static analysis (submitted with `--interactive`). Use `--auto` to let the sandbox choose profiles automatically, or `--pick` to map specific files to specific profiles manually.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee sandbox set-profile [OPTIONS] SAMPLE_ID
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-set-profile--sample-id"><a href="#banshee-sandbox-set-profile--sample-id"><code>SAMPLE_ID</code></a></dt><dd><p>ID of the sample paused at static analysis</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-set-profile--auto"><a href="#banshee-sandbox-set-profile--auto"><code>--auto</code></a>, <code>-a</code></dt><dd>
+    <p>Let the sandbox auto-select profiles for all files. Mutually exclusive with <code>--pick</code></p></dd>
+    <dt id="banshee-sandbox-set-profile--pick"><a href="#banshee-sandbox-set-profile--pick"><code>--pick</code></a> <i>FILE:PROFILE</i></dt><dd>
+    <p>Map a specific file to a specific profile, in <code>FILE:PROFILE</code> format. Can be supplied multiple times. Mutually exclusive with <code>--auto</code></p></dd>
+    <dt id="banshee-sandbox-set-profile--pretty"><a href="#banshee-sandbox-set-profile--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p></dd>
+    <dt id="banshee-sandbox-set-profile--help"><a href="#banshee-sandbox-set-profile--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee sandbox set-profile 260501-h4p7laawme --auto
+banshee sandbox set-profile 260501-h4p7laawme --pick file.exe:win10-x64
+banshee sandbox set-profile 260501-h4p7laawme --pick file.exe:win10-x64 --pick doc.docx:office365
+banshee sandbox set-profile 260501-h4p7laawme --auto -p
+banshee sandbox set-profile 260501-h4p7laawme --pick file.exe:win10-x64 | jq '.success'
+</code></pre>
+
+### banshee sandbox profile
+
+Manage analysis profiles.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee sandbox profile [OPTIONS] COMMAND [ARGS]...
+```
+
+<h3 class="commands-reference">Commands</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-sandbox-profile-list"><code>banshee sandbox profile list</code></a></dt><dd><p>List all available analysis profiles</p></dd>
+    <dt><a href="#banshee-sandbox-profile-get"><code>banshee sandbox profile get</code></a></dt><dd><p>Get details for a specific profile</p></dd>
+    <dt><a href="#banshee-sandbox-profile-create"><code>banshee sandbox profile create</code></a></dt><dd><p>Create a new analysis profile</p></dd>
+    <dt><a href="#banshee-sandbox-profile-update"><code>banshee sandbox profile update</code></a></dt><dd><p>Update an existing analysis profile</p></dd>
+    <dt><a href="#banshee-sandbox-profile-delete"><code>banshee sandbox profile delete</code></a></dt><dd><p>Delete an analysis profile</p></dd>
+</dl>
+
+#### banshee sandbox profile list
+
+List all available analysis profiles.
+
+By default the command will print the results in JSON format.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee sandbox profile list [OPTIONS]
+```
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-profile-list--pretty"><a href="#banshee-sandbox-profile-list--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p></dd>
+    <dt id="banshee-sandbox-profile-list--help"><a href="#banshee-sandbox-profile-list--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee sandbox profile list
+banshee sandbox profile list -p
+banshee sandbox profile list | jq '.[].name'
+</code></pre>
+
+#### banshee sandbox profile get
+
+Get details for a specific analysis profile by its name or ID.
+
+By default the command will print the results in JSON format.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee sandbox profile get [OPTIONS] PROFILE_ID_OR_NAME
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-profile-get--profile-id-or-name"><a href="#banshee-sandbox-profile-get--profile-id-or-name"><code>PROFILE_ID_OR_NAME</code></a></dt><dd><p>Profile UUID or display name</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-profile-get--pretty"><a href="#banshee-sandbox-profile-get--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p></dd>
+    <dt id="banshee-sandbox-profile-get--help"><a href="#banshee-sandbox-profile-get--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee sandbox profile get 022b8c4e-22ab-46a4-ac49-a2732b2412b7
+banshee sandbox profile get 'Windows 7 Long'
+banshee sandbox profile get w7-long -p
+banshee sandbox profile get w7-long | jq '.tags'
+</code></pre>
+
+#### banshee sandbox profile create
+
+Create a new analysis profile.
+
+By default the command will print the results in JSON format.
+
+<h3 class="commands-reference">Profile Tags</h3>
+
+<p>Tags define the operating system and environment for the profile. A locale tag must always be accompanied by at least one <code>os</code> tag.</p>
+
+<pre><code class="language-bash">
+# OS only
+banshee sandbox profile create -n my-profile -T os:windows10-2004-x64
+
+# OS + locale
+banshee sandbox profile create -n my-profile -T os:windows10-2004-x64 -T locale:en-us
+</code></pre>
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee sandbox profile create [OPTIONS]
+```
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-profile-create--name"><a href="#banshee-sandbox-profile-create--name"><code>--name</code></a>, <code>-n</code> <i>name</i></dt><dd>
+    <p>Profile display name. Required</p></dd>
+    <dt id="banshee-sandbox-profile-create--tag"><a href="#banshee-sandbox-profile-create--tag"><code>--tag</code></a>, <code>-T</code> <i>tag</i></dt><dd>
+    <p>Profile tag (e.g. <code>os:windows10-2004-x64</code>, <code>locale:en-us</code>). Can be supplied multiple times. Required</p></dd>
+    <dt id="banshee-sandbox-profile-create--timeout"><a href="#banshee-sandbox-profile-create--timeout"><code>--timeout</code></a>, <code>-t</code> <i>seconds</i></dt><dd>
+    <p>Analysis timeout in seconds</p>
+    <p>Accepted range: 1–3600</p>
+    <p>Defaults to 120</p></dd>
+    <dt id="banshee-sandbox-profile-create--network"><a href="#banshee-sandbox-profile-create--network"><code>--network</code></a>, <code>-N</code> <i>mode</i></dt><dd>
+    <p>Network mode</p>
+    <p>Possible values: <code>internet</code>, <code>drop</code>, <code>tor</code>, <code>vpn</code>, <code>sim200</code>, <code>sim404</code>, <code>simnx</code></p></dd>
+    <dt id="banshee-sandbox-profile-create--geolocation"><a href="#banshee-sandbox-profile-create--geolocation"><code>--geolocation</code></a> <i>country-code</i></dt><dd>
+    <p>VPN exit country code. Can be supplied multiple times. Requires <code>--network vpn</code></p></dd>
+    <dt id="banshee-sandbox-profile-create--browser"><a href="#banshee-sandbox-profile-create--browser"><code>--browser</code></a>, <code>-b</code> <i>browser</i></dt><dd>
+    <p>Browser for URL detonation</p>
+    <p>Possible values: <code>chrome</code>, <code>firefox</code>, <code>ie11</code>, <code>microsoft-edge</code></p></dd>
+    <dt id="banshee-sandbox-profile-create--pretty"><a href="#banshee-sandbox-profile-create--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p></dd>
+    <dt id="banshee-sandbox-profile-create--help"><a href="#banshee-sandbox-profile-create--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee sandbox profile create -n w10-quick -T os:windows10-2004-x64 -t 120
+banshee sandbox profile create -n w10-vpn -T os:windows10-2004-x64 -t 300 -N vpn --geolocation se
+banshee sandbox profile create -n w10-ff -T os:windows10-2004-x64 -T locale:en-us -t 120 -b firefox -p
+banshee sandbox profile create -n w10-quick -T os:windows10-2004-x64 -t 120 | jq '.id'
+</code></pre>
+
+#### banshee sandbox profile update
+
+Update an existing analysis profile by its name or ID. At least one option must be supplied.
+
+Output is `{"updated": true}` or `{"updated": false}` (exits 0 either way).
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee sandbox profile update [OPTIONS] PROFILE_ID_OR_NAME
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-profile-update--profile-id-or-name"><a href="#banshee-sandbox-profile-update--profile-id-or-name"><code>PROFILE_ID_OR_NAME</code></a></dt><dd><p>Profile UUID or display name to update</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-profile-update--name"><a href="#banshee-sandbox-profile-update--name"><code>--name</code></a>, <code>-n</code> <i>name</i></dt><dd>
+    <p>New profile display name</p></dd>
+    <dt id="banshee-sandbox-profile-update--tag"><a href="#banshee-sandbox-profile-update--tag"><code>--tag</code></a>, <code>-T</code> <i>tag</i></dt><dd>
+    <p>Replaces all existing tags. Can be supplied multiple times</p></dd>
+    <dt id="banshee-sandbox-profile-update--timeout"><a href="#banshee-sandbox-profile-update--timeout"><code>--timeout</code></a>, <code>-t</code> <i>seconds</i></dt><dd>
+    <p>Analysis timeout in seconds</p>
+    <p>Accepted range: 1–3600</p></dd>
+    <dt id="banshee-sandbox-profile-update--network"><a href="#banshee-sandbox-profile-update--network"><code>--network</code></a>, <code>-N</code> <i>mode</i></dt><dd>
+    <p>Network mode</p>
+    <p>Possible values: <code>internet</code>, <code>drop</code>, <code>tor</code>, <code>vpn</code>, <code>sim200</code>, <code>sim404</code>, <code>simnx</code></p></dd>
+    <dt id="banshee-sandbox-profile-update--geolocation"><a href="#banshee-sandbox-profile-update--geolocation"><code>--geolocation</code></a> <i>country-code</i></dt><dd>
+    <p>VPN exit country code. Can be supplied multiple times. Requires <code>--network vpn</code></p></dd>
+    <dt id="banshee-sandbox-profile-update--browser"><a href="#banshee-sandbox-profile-update--browser"><code>--browser</code></a>, <code>-b</code> <i>browser</i></dt><dd>
+    <p>Browser for URL detonation</p>
+    <p>Possible values: <code>chrome</code>, <code>firefox</code>, <code>ie11</code>, <code>microsoft-edge</code></p></dd>
+    <dt id="banshee-sandbox-profile-update--unset"><a href="#banshee-sandbox-profile-update--unset"><code>--unset</code></a> <i>field</i></dt><dd>
+    <p>Clear a field. Can be supplied multiple times</p>
+    <p>Possible values: <code>network</code>, <code>browser</code>, <code>geolocation</code></p>
+    <p>Cannot be combined with the corresponding set option for the same field. <code>--unset network</code> conflicts with <code>--geolocation</code></p></dd>
+    <dt id="banshee-sandbox-profile-update--pretty"><a href="#banshee-sandbox-profile-update--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p></dd>
+    <dt id="banshee-sandbox-profile-update--help"><a href="#banshee-sandbox-profile-update--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee sandbox profile update ernie -n ernie-v2
+banshee sandbox profile update ernie -T os:windows10-2004-x64 -T locale:en-us
+banshee sandbox profile update ernie -t 300 -N vpn --geolocation us --geolocation gb
+banshee sandbox profile update ernie --unset browser --unset network
+banshee sandbox profile update ernie -n ernie-v2 | jq '.updated'
+</code></pre>
+
+#### banshee sandbox profile delete
+
+Delete an analysis profile by its name or ID. Deleting a non-existent profile prints a warning and exits 0.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee sandbox profile delete [OPTIONS] PROFILE_ID_OR_NAME
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-profile-delete--profile-id-or-name"><a href="#banshee-sandbox-profile-delete--profile-id-or-name"><code>PROFILE_ID_OR_NAME</code></a></dt><dd><p>Profile UUID or display name to delete</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-profile-delete--yes"><a href="#banshee-sandbox-profile-delete--yes"><code>--yes</code></a>, <code>-y</code></dt><dd>
+    <p>Skip the confirmation prompt</p></dd>
+    <dt id="banshee-sandbox-profile-delete--help"><a href="#banshee-sandbox-profile-delete--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee sandbox profile delete 022b8c4e-22ab-46a4-ac49-a2732b2412b7
+banshee sandbox profile delete 'Windows 7 Long'
+banshee sandbox profile delete w7-long -y
+</code></pre>
+
+### banshee sandbox report
+
+Sample analysis reports.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee sandbox report [OPTIONS] COMMAND [ARGS]...
+```
+
+<h3 class="commands-reference">Commands</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-sandbox-report-overview"><code>banshee sandbox report overview</code></a></dt><dd><p>Full overview report for a completed sample</p></dd>
+    <dt><a href="#banshee-sandbox-report-static"><code>banshee sandbox report static</code></a></dt><dd><p>Static analysis report — available before behavioural tasks finish</p></dd>
+    <dt><a href="#banshee-sandbox-report-behavioral"><code>banshee sandbox report behavioral</code></a></dt><dd><p>Behavioural analysis report — one object per completed task</p></dd>
+</dl>
+
+#### banshee sandbox report overview
+
+Full overview report for a completed sample. Includes verdict score, malware family, tags, hashes, detection signatures, extracted malware configs, network IOCs, and per-task results. The sample must be in `reported` status.
+
+By default the command will print the results in JSON format.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee sandbox report overview [OPTIONS] SAMPLE_ID
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-report-overview--sample-id"><a href="#banshee-sandbox-report-overview--sample-id"><code>SAMPLE_ID</code></a></dt><dd><p>Sample ID to fetch the report for</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-report-overview--wait"><a href="#banshee-sandbox-report-overview--wait"><code>--wait</code></a>, <code>-w</code></dt><dd>
+    <p>Poll until the report is ready (up to 30 minutes). Exits non-zero if still not ready after the timeout</p></dd>
+    <dt id="banshee-sandbox-report-overview--pretty"><a href="#banshee-sandbox-report-overview--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p></dd>
+    <dt id="banshee-sandbox-report-overview--help"><a href="#banshee-sandbox-report-overview--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee sandbox report overview 260501-h4p7laawme
+banshee sandbox report overview 260501-h4p7laawme -p
+banshee sandbox report overview 260501-h4p7laawme --wait
+banshee sandbox report overview 260501-h4p7laawme | jq '.analysis'
+banshee sandbox report overview 260501-h4p7laawme | jq '.targets[].iocs'
+</code></pre>
+
+#### banshee sandbox report static
+
+Static analysis report for a sample. Includes verdict score, tags, unpacked files, static detection signatures, and extracted malware configs. Available before behavioural tasks finish.
+
+By default the command will print the results in JSON format.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee sandbox report static [OPTIONS] SAMPLE_ID
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-report-static--sample-id"><a href="#banshee-sandbox-report-static--sample-id"><code>SAMPLE_ID</code></a></dt><dd><p>Sample ID to fetch the static report for</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-report-static--wait"><a href="#banshee-sandbox-report-static--wait"><code>--wait</code></a>, <code>-w</code></dt><dd>
+    <p>Poll until the report is ready (up to 10 minutes)</p></dd>
+    <dt id="banshee-sandbox-report-static--pretty"><a href="#banshee-sandbox-report-static--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p></dd>
+    <dt id="banshee-sandbox-report-static--help"><a href="#banshee-sandbox-report-static--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee sandbox report static 260501-h4p7laawme
+banshee sandbox report static 260501-h4p7laawme -p
+banshee sandbox report static 260501-h4p7laawme --wait
+banshee sandbox report static 260501-h4p7laawme | jq '.analysis'
+banshee sandbox report static 260501-h4p7laawme | jq '.files[].sha256'
+</code></pre>
+
+#### banshee sandbox report behavioral
+
+Behavioural analysis report for a sample. Returns one JSON object per completed behavioural task, including verdict score, platform, triggered signatures, observed processes, network activity, and extracted malware configs.
+
+Incomplete tasks are omitted from the output and noted on stderr; the command exits non-zero until all tasks are done. An empty array with exit 0 is returned when no behavioural tasks exist for the sample.
+
+By default the command will print the results in JSON format.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee sandbox report behavioral [OPTIONS] SAMPLE_ID
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-report-behavioral--sample-id"><a href="#banshee-sandbox-report-behavioral--sample-id"><code>SAMPLE_ID</code></a></dt><dd><p>Sample ID to fetch the behavioural report for</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-report-behavioral--wait"><a href="#banshee-sandbox-report-behavioral--wait"><code>--wait</code></a>, <code>-w</code></dt><dd>
+    <p>Poll until all tasks are complete (up to 30 minutes)</p></dd>
+    <dt id="banshee-sandbox-report-behavioral--full-cmd"><a href="#banshee-sandbox-report-behavioral--full-cmd"><code>--full-cmd</code></a></dt><dd>
+    <p>Show full, untruncated process command lines. Command line content is taken directly from the malware sample and should be treated as untrusted input</p></dd>
+    <dt id="banshee-sandbox-report-behavioral--pretty"><a href="#banshee-sandbox-report-behavioral--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p></dd>
+    <dt id="banshee-sandbox-report-behavioral--help"><a href="#banshee-sandbox-report-behavioral--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee sandbox report behavioral 260501-h4p7laawme
+banshee sandbox report behavioral 260501-h4p7laawme -p
+banshee sandbox report behavioral 260501-h4p7laawme --wait
+banshee sandbox report behavioral 260501-h4p7laawme -p --full-cmd
+banshee sandbox report behavioral 260501-h4p7laawme | jq '.[].analysis.score'
+banshee sandbox report behavioral 260501-h4p7laawme | jq '.[].network.flows'
+</code></pre>

@@ -14,16 +14,19 @@ Copy the snippet below and paste it into whichever rules/instructions file your 
 ```markdown
 ## Recorded Future (banshee CLI)
 
-When a request involves Recorded Future or threat intelligence, use the
-`banshee` CLI. This covers, for example:
+When the user's request mentions any of the following, use the `banshee` CLI:
 
-- checking or enriching the risk of an IOC (IP, domain, URL, file hash, or CVE)
-- looking up or searching for entities
-- triaging Classic or Playbook alerts
-- managing RF lists and watchlists
-- fetching or building risk lists
-- finding or downloading detection rules (Sigma, YARA, Snort)
-- enriching an email (`.eml`) or packet capture (`.pcap`)
+- **Recorded Future** or **RF** (platform, portal, or API)
+- **Threat intelligence** — enriching, looking up, or scoring any entity
+- **IOC / indicator** — IP address, domain, URL, file hash, or CVE
+- **Sandbox** — submitting a file or URL for malware analysis, or fetching sandbox results
+- **Threat actor** or **malware** — searching, profiling, or attributing
+- **Alert** — triaging, reviewing, or exporting Classic or Playbook alerts
+- **Detection rule** — finding or downloading Sigma, YARA, or Snort rules
+- **Risk list** or **watchlist** — fetching, managing, or building
+- **RF List** — adding, removing, or searching entities
+- **Analyst note** — searching or fetching Insikt notes
+- **PCAP or EML** — enriching a packet capture or email file
 
 First fetch the full command reference, then run `banshee`:
 <https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms-full.txt>

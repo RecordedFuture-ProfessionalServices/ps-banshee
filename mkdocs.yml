@@ -102,6 +102,7 @@ plugins:
           - knowledge-base/pcap.md: "Enrich packet captures with RF intelligence."
           - knowledge-base/risklist.md: "Fetch, create, and inspect risk lists."
           - knowledge-base/rules.md: "Search and download detection rules (Sigma, YARA, Snort)."
+          - knowledge-base/sandbox.md: "Submit files and URLs for sandbox analysis, retrieve static, behavioral, and overview reports, and manage analysis profiles."
         Optional:
           - getting-started/installation.md: "Install the ps-banshee CLI and set RF_TOKEN authentication."
           - getting-started/llms.md: "Wire banshee into an AI agent (CLAUDE.md / AGENTS.md) and authenticate."
@@ -131,6 +132,8 @@ nav:
         - usecases/pcap/index.md
       - Risk Lists:
         - usecases/risklists/index.md
+      - Sandbox Analysis:
+        - usecases/sandbox/index.md
       - Watchlist Management:
         - usecases/watchlist/index.md
   - Reference:

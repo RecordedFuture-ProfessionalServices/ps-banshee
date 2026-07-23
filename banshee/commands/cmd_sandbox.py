@@ -143,7 +143,7 @@ _HELP_REPORT_STATIC = (
 )
 _HELP_SET_PROFILE = (
     'Assign analysis profiles to a sample paused at static analysis '
-    '(submitted with interactive=True). Use --auto to let the sandbox choose '
+    '(submitted with --interactive). Use --auto to let the sandbox choose '
     'automatically, or --pick FILE:PROFILE for manual per-file mapping.'
 )
 _HELP_SUBMIT = (
