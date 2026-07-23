@@ -651,6 +651,15 @@ EPILOG_EMAIL_ENRICH = """
 * banshee email enrich phishing_submission.eml -r 1 -p
 """
 
+EPILOG_SANDBOX_DELETE = """
+## Example Usage
+
+* banshee sandbox delete 260501-h4p7laawme
+
+* banshee sandbox delete 260501-h4p7laawme -y
+
+"""
+
 EPILOG_SANDBOX_LIST = """
 ## Example Usage
 

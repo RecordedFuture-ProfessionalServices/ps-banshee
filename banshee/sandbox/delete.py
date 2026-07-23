@@ -11,34 +11,30 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-from .delete import delete_sandbox_sample
-from .output import print_sandbox_stats
-from .profiles import (
-    create_sandbox_profile,
-    delete_sandbox_profile,
-    get_sandbox_profile,
-    list_sandbox_profiles,
-    update_sandbox_profile,
-)
-from .reports import fetch_behavioral_reports, fetch_overview_report, fetch_static_report
-from .samples_list import list_sandbox_samples
-from .stats import SandboxStats, fetch_sandbox_stats
-from .submit import set_sandbox_sample_profile, submit_sandbox_sample
+import sys
 
-__all__ = [
-    'SandboxStats',
-    'create_sandbox_profile',
-    'delete_sandbox_sample',
-    'delete_sandbox_profile',
-    'fetch_behavioral_reports',
-    'fetch_overview_report',
-    'fetch_sandbox_stats',
-    'fetch_static_report',
-    'get_sandbox_profile',
-    'list_sandbox_profiles',
-    'list_sandbox_samples',
-    'print_sandbox_stats',
-    'set_sandbox_sample_profile',
-    'submit_sandbox_sample',
-    'update_sandbox_profile',
-]
+from psengine.config import get_config
+from psengine.sandbox import SandboxMgr
+from psengine.sandbox.errors import SampleDeleteError
+from rich.console import Console
+from rich.progress import Progress, SpinnerColumn, TextColumn
+
+_OUT_CONSOLE = Console()
+_ERR_CONSOLE = Console(stderr=True)
+
+
+def _spinner(label: str) -> Progress:
+    return Progress(SpinnerColumn(), TextColumn(label), transient=True, console=_ERR_CONSOLE)
+
+
+def delete_sandbox_sample(sample_id: str) -> None:
+    config = get_config()
+    mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
+    try:
+        with _spinner('Deleting sample') as progress:
+            progress.add_task('Deleting sample')
+            mgr.delete_sample(sample_id)
+    except SampleDeleteError as exc:
+        _ERR_CONSOLE.print(f'[red]Delete failed:[/red] {exc}')
+        sys.exit(1)
+    _OUT_CONSOLE.print(f'Deleted: {sample_id}')

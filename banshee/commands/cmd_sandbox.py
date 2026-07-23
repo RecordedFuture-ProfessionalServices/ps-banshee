@@ -19,6 +19,7 @@ from ..branding import banshee_cmd
 from ..sandbox import (
     create_sandbox_profile,
     delete_sandbox_profile,
+    delete_sandbox_sample,
     fetch_behavioral_reports,
     fetch_overview_report,
     fetch_sandbox_stats,
@@ -39,6 +40,7 @@ from .args import (
     OPT_SANDBOX_SUBSET,
 )
 from .epilogs import (
+    EPILOG_SANDBOX_DELETE,
     EPILOG_SANDBOX_LIST,
     EPILOG_SANDBOX_PROFILE_CREATE,
     EPILOG_SANDBOX_PROFILE_DELETE,
@@ -73,6 +75,11 @@ _HELP_STATS = (
 _HELP_LIST = (
     "List sandbox samples — your own, your organisation's (default), or the public feed. "
     'Prints a JSON array by default; use `--pretty` for a table.'
+)
+
+_HELP_DELETE = (
+    'Delete a sandbox sample by ID and remove all associated task artifacts. '
+    'Prompts for confirmation unless `--yes` is given.'
 )
 
 _HELP_PROFILE_CREATE = (
@@ -344,6 +351,25 @@ def list_samples(
     pretty: OPT_PRETTY_PRINT = False,
 ):
     list_sandbox_samples(subset=subset, limit=limit, pretty=pretty)
+
+
+@banshee_cmd(
+    app=app,
+    name='delete',
+    help_=_HELP_DELETE,
+    epilog=EPILOG_SANDBOX_DELETE,
+    rich_help_panel=_PANEL_SUBMISSION,
+)
+def delete_sample(
+    sample_id: Annotated[str, Argument(help='Sample ID', show_default=False)],
+    yes: Annotated[
+        bool,
+        Option('--yes', '-y', help='Delete without asking for confirmation'),
+    ] = False,
+):
+    if not yes:
+        confirm(f'Delete sample {sample_id!r}?', abort=True)
+    delete_sandbox_sample(sample_id)
 
 
 @banshee_cmd(
