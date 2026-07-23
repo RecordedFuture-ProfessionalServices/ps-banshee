@@ -26,6 +26,7 @@ PS Banshee is a command-line tool for fast, efficient access to Recorded Future 
 - Recorded Future List & Watch List management
 - Recorded Future Playbook Alert search, lookup, update and export
 - Recorded Future Risk List download, and creation
+- Recorded Future Sandbox file and URL submission for malware analysis
 
 ## Installation
 
