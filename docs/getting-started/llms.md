@@ -40,4 +40,12 @@ the commands your binary actually supports.
 
 Set the `RF_TOKEN` environment variable in the agent's shell before invoking banshee. The env-var path is strongly preferred for agent workflows — the agent doesn't have to remember to pass `-k` on every call.
 
+To use `sandbox` commands, also set `RF_SANDBOX_TOKEN`. Optionally set `RF_SANDBOX_CHOICE` to one of `eu`, `usa`, `apj`, `public`, or `private` (defaults to `eu`).
+
+```bash
+export RF_TOKEN=<your_api_key>
+export RF_SANDBOX_TOKEN=<your_sandbox_api_key>
+export RF_SANDBOX_CHOICE=eu   # optional
+```
+
 See [Installation → Authorization](installation.md#authorization) for full setup instructions (macOS, Linux, Windows).
