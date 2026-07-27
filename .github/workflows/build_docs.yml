@@ -1,4 +1,4 @@
-name: Documentation Build 
+name: Documentation Build
 on:
   workflow_dispatch:
   push:
@@ -33,13 +33,34 @@ jobs:
       - uses: astral-sh/setup-uv@v6
 
       - name: Set up Python
-        run: uv python install ${{ vars.PYTHON_VERSION }} 
-    
+        run: uv python install ${{ vars.PYTHON_VERSION }}
+
       - name: Set up venv
         run: |
           uv sync --group docs --no-default-groups
 
-      - name: Run Mike build
+      - name: Deploy English docs with mike
         run: |
-          uv run mike deploy -b gh-pages "${{ env.VERSION }}" latest --update-aliases --alias-type=copy --push
-          uv run mike set-default -b gh-pages latest --push
+          uv run mike deploy --config-file mkdocs.en.yml -b gh-pages "${{ env.VERSION }}" latest \
+            --update-aliases --alias-type=copy --push
+
+      - name: Build Japanese docs
+        run: |
+          uv run mkdocs build -f mkdocs.ja.yml -d _site_ja
+
+      - name: Add Japanese docs to gh-pages
+        run: |
+          git fetch origin gh-pages:gh-pages
+          git checkout gh-pages
+
+          mkdir -p "${{ env.VERSION }}/ja"
+          cp -r _site_ja/. "${{ env.VERSION }}/ja/"
+
+          mkdir -p latest/ja
+          cp -r _site_ja/. latest/ja/
+
+          git add .
+          git diff --staged --quiet || git commit -m "ci: add Japanese docs for ${{ env.VERSION }}"
+          git push origin gh-pages
+
+          git checkout main

@@ -3,6 +3,7 @@ site_url: https://recordedfuture-professionalservices.github.io/ps-banshee/lates
 site_description: A Recorded Future CLI for terminal-based threat intelligence investigations.
 repo_url: https://github.com/RecordedFuture-ProfessionalServices/ps-banshee
 repo_name: ps-banshee
+docs_dir: docs/en
 
 exclude_docs: |
   _includes/
@@ -11,6 +12,7 @@ theme:
   logo: assets/favicon.png
   favicon: assets/favicon.png
   name: material
+  language: en
   palette:
     - scheme: default
       primary: indigo
@@ -62,18 +64,25 @@ extra:
     link: https://www.instagram.com/recordedfuture/
   - icon: fontawesome/solid/rss
     link: https://www.recordedfuture.com/feed
+  alternate:
+    - name: English
+      link: /ps-banshee/latest/
+      lang: en
+    - name: 日本語
+      link: /ps-banshee/latest/ja/
+      lang: ja
 
 markdown_extensions:
   - admonition
   - attr_list
   - pymdownx.highlight:
-      anchor_linenums: true        
-      linenums: true             
+      anchor_linenums: true
+      linenums: true
       guess_lang: false
   - pymdownx.superfences
   - pymdownx.inlinehilite
   - pymdownx.snippets:
-      base_path: ['docs']
+      base_path: ['docs/en']
       check_paths: true
   - pymdownx.tabbed:
       alternate_style: true
@@ -139,4 +148,3 @@ nav:
       - Environment variables: reference/environment.md
   - Release History: CHANGELOG.md
   - about.md
-  
