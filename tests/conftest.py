@@ -74,7 +74,7 @@ def _force_sequential_multithread(monkeypatch):
     serially keeps VCR interception deterministic without changing prod code.
     """
 
-    def _serial(max_workers, func, *, iterator, **kwargs):
+    def _serial(max_workers, func, *, iterator, **kwargs):  # noqa: ARG001
         return [func(element, **kwargs) for element in iterator]
 
     monkeypatch.setattr(MultiThreadingHelper, 'multithread_it', staticmethod(_serial))
