@@ -35,6 +35,7 @@ def test_ca_export_invalid_json():
     assert result.exit_code == 2
 
 
+@pytest.mark.vcr
 def test_ca_export_invalid_id():
     result = runner.invoke(app, args=[COMMAND], input=INVALID_ALERT_ID)
     assert result.exit_code == 1
@@ -58,7 +59,7 @@ def test_ca_export_json():
         assert alert['id'] in ['1b6uQY', 'xr8cqL', '1ct-k8']
 
 
-@pytest.mark.vcr(record_mode='new_episodes')
+@pytest.mark.vcr
 def test_ca_export_csv():
     result = runner.invoke(app, args=[COMMAND, '--csv'], input=ALERTS)
     assert result.exit_code == 0

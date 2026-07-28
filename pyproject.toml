@@ -52,7 +52,7 @@ docs = [
     "mkdocstrings[python]>=1.0.4",
     "griffe-typingdoc~=0.2.8",
     "mkdocs-llmstxt-md~=0.2.0",
-    "pymdown-extensions~=10.21.3",
+    "pymdown-extensions>=10.21.3,<11.1.0",
 ]
 
 [project.scripts]
