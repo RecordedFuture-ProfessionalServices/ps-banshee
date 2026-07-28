@@ -12,7 +12,7 @@ from banshee import version
 
 from .vcr_utils import scrub_response
 
-RF_API_KEY = 'PS_RF_TOKEN'
+RF_API_KEY = 'RF_TOKEN'
 APP_ID = f'banshee:tests_/{version}'
 
 ANSI_ESCAPE = re.compile(r'\x1b\[[0-9;]*m')
