@@ -7,6 +7,7 @@ import pyshark
 import pytest
 from psengine.config import Config, get_config
 from psengine.enrich import LookupMgr, SoarMgr
+from psengine.helpers import MultiThreadingHelper
 
 from banshee import version
 
@@ -62,6 +63,21 @@ def vcr(vcr):
     vcr.register_matcher('query_param', customer_query_param_match)
     vcr.match_on = ['method', 'scheme', 'host', 'port', 'path', 'query_param']
     return vcr
+
+
+@pytest.fixture(autouse=True)
+def _force_sequential_multithread(monkeypatch):
+    """Force ``MultiThreadingHelper.multithread_it`` to run sequentially.
+
+    Why: vcrpy is not thread-safe; concurrent requests through a patched
+    urllib3 connection leak past the cassette to the live API. Running
+    serially keeps VCR interception deterministic without changing prod code.
+    """
+
+    def _serial(max_workers, func, *, iterator, **kwargs):
+        return [func(element, **kwargs) for element in iterator]
+
+    monkeypatch.setattr(MultiThreadingHelper, 'multithread_it', staticmethod(_serial))
 
 
 ###############################################################################
