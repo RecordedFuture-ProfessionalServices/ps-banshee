@@ -32,8 +32,8 @@ from psengine.sandbox.errors import (
     SampleStaticReportError,
 )
 
+from banshee.sandbox.helpers import spinner as _spinner
 from banshee.sandbox.reports import (
-    _spinner,
     fetch_behavioral_reports,
     fetch_overview_report,
     fetch_static_report,
@@ -109,9 +109,9 @@ _SPARSE_REPORT = OverviewReport.model_validate(
 @contextmanager
 def _patched_mgr():
     with (
-        patch('banshee.sandbox.reports._spinner', new=_SPINNER_MOCK),
-        patch('banshee.sandbox.reports.get_config', new=MagicMock()),
-        patch('banshee.sandbox.reports.SandboxMgr') as mock_mgr_cls,
+        patch('banshee.sandbox.reports.spinner', new=_SPINNER_MOCK),
+        patch('banshee.sandbox.helpers.get_config', new=MagicMock()),
+        patch('banshee.sandbox.helpers.SandboxMgr') as mock_mgr_cls,
     ):
         yield mock_mgr_cls
 

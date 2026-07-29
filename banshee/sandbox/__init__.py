@@ -12,7 +12,7 @@
 ##############################################################################################
 
 from .delete import delete_sandbox_sample
-from .output import print_sandbox_stats
+from .helpers import SandboxStats
 from .profiles import (
     create_sandbox_profile,
     delete_sandbox_profile,
@@ -22,7 +22,8 @@ from .profiles import (
 )
 from .reports import fetch_behavioral_reports, fetch_overview_report, fetch_static_report
 from .samples_list import list_sandbox_samples
-from .stats import SandboxStats, fetch_sandbox_stats
+from .stats import fetch_sandbox_stats
+from .stats_output import print_sandbox_stats
 from .submit import set_sandbox_sample_profile, submit_sandbox_sample
 
 __all__ = [

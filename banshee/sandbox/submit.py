@@ -16,7 +16,6 @@ import sys
 import time
 from pathlib import Path
 
-from psengine.config import get_config
 from psengine.errors import RecordedFutureError
 from psengine.sandbox import SandboxMgr
 from psengine.sandbox.errors import SampleProfileError, SampleSubmitError
@@ -28,20 +27,12 @@ from rich.markup import escape
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.prompt import Prompt
 
+from .helpers import get_sandbox_mgr, spinner
 from .reports import fetch_overview_report
 
 _POLL_INTERVAL = 10
 _POLL_TIMEOUT = 600
 _TERMINAL_STATUSES = frozenset({'reported', 'failed'})
-
-
-
-def _spinner(label: str = 'Setting profile…') -> Progress:
-    progress = Progress(
-        SpinnerColumn(), TextColumn(label), transient=True, console=Console(stderr=True)
-    )
-    progress.add_task('')
-    return progress
 
 
 def _status_spinner() -> Progress:
@@ -71,11 +62,10 @@ def set_sandbox_sample_profile(
     picks: list[str] | None,
     pretty: bool = False,
 ) -> None:
-    config = get_config()
-    mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
+    mgr = get_sandbox_mgr()
     profiles = _parse_picks(picks) if picks else None
     try:
-        with _spinner():
+        with spinner('Setting profile…'):
             result = mgr.set_sample_profile(sample_id, auto=auto, profiles=profiles)
     except SampleProfileError as exc:
         Console(stderr=True).print(f'[red]Profile assignment failed:[/red] {exc}')
@@ -247,7 +237,7 @@ def interactive_profile_selection(mgr: SandboxMgr, sample_id: str) -> None:
     if auto:
         Console(stderr=True).print('Using automatic profile selection.')
     try:
-        with _spinner():
+        with spinner('Setting profile…'):
             if auto:
                 mgr.set_sample_profile(
                     sample_id, auto=True, pick=[p['path'] for p in picks] or None
@@ -280,10 +270,9 @@ def submit_sandbox_sample(
     static analysis for a prompted file→profile selection before continuing.
     """
     kind_kwargs = _resolve_submission(target, fetch, import_)
-    config = get_config()
-    mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
+    mgr = get_sandbox_mgr()
     try:
-        with _spinner('Submitting sample…'):
+        with spinner('Submitting sample…'):
             sample = mgr.submit_sample(
                 **kind_kwargs,
                 interactive=interactive or None,

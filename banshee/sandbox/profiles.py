@@ -14,22 +14,14 @@
 import json
 import sys
 
-from psengine.config import get_config
-from psengine.sandbox import ProfileUpdateOut, SandboxMgr
+from psengine.sandbox import ProfileUpdateOut
 from psengine.sandbox.errors import ProfileCreateError, ProfileNotFoundError, ProfileUpdateError
 from psengine.sandbox.sandbox import Profile
 from rich import print_json
 from rich.console import Console
-from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
 
-
-def _spinner(label: str) -> Progress:
-    progress = Progress(
-        SpinnerColumn(), TextColumn(label), transient=True, console=Console(stderr=True)
-    )
-    progress.add_task('')
-    return progress
+from .helpers import get_sandbox_mgr, spinner
 
 
 def _profiles_table(profiles: list[Profile]) -> Table:
@@ -60,10 +52,9 @@ def create_sandbox_profile(
     browser: str | None = None,
     pretty: bool = False,
 ) -> None:
-    config = get_config()
-    mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
+    mgr = get_sandbox_mgr()
     try:
-        with _spinner('Creating profile'):
+        with spinner('Creating profile'):
             profile = mgr.create_profile(
                 name=name,
                 tags=tags,
@@ -82,17 +73,15 @@ def create_sandbox_profile(
 
 
 def get_sandbox_profile(profile_id_or_name: str, pretty: bool = False) -> None:
-    config = get_config()
-    mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
+    mgr = get_sandbox_mgr()
     try:
-        with _spinner('Fetching profile'):
+        with spinner('Fetching profile'):
             profile = mgr.fetch_profile(profile_id_or_name)
     except ProfileNotFoundError as exc:
         Console(stderr=True).print(f'[red]Profile not found:[/red] {exc}')
         sys.exit(1)
     if pretty:
-        console = Console()
-        console.print(_profiles_table([profile]))
+        Console().print(_profiles_table([profile]))
     else:
         print_json(json.dumps(profile.json()))
 
@@ -130,10 +119,9 @@ def update_sandbox_profile(
 
     Omitted fields keep their current values; fields listed in `unset` are cleared.
     """
-    config = get_config()
-    mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
+    mgr = get_sandbox_mgr()
     try:
-        with _spinner('Fetching profile'):
+        with spinner('Fetching profile'):
             profile = mgr.fetch_profile(profile_id_or_name)
     except ProfileNotFoundError:
         _print_update_result(ProfileUpdateOut(updated=False), pretty)
@@ -161,7 +149,7 @@ def update_sandbox_profile(
         sys.exit(1)
 
     try:
-        with _spinner('Updating profile'):
+        with spinner('Updating profile'):
             result = mgr.update_profile(
                 profile.id_,
                 name=_resolve_field(name, profile.name),
@@ -178,9 +166,8 @@ def update_sandbox_profile(
 
 
 def delete_sandbox_profile(profile_id_or_name: str) -> None:
-    config = get_config()
-    mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
-    with _spinner('Deleting profile'):
+    mgr = get_sandbox_mgr()
+    with spinner('Deleting profile'):
         result = mgr.delete_profile(profile_id_or_name)
     if result.deleted:
         Console().print(f'Deleted profile: {profile_id_or_name}')
@@ -189,12 +176,10 @@ def delete_sandbox_profile(profile_id_or_name: str) -> None:
 
 
 def list_sandbox_profiles(pretty: bool = False) -> None:
-    config = get_config()
-    mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
-    with _spinner('Fetching profiles'):
+    mgr = get_sandbox_mgr()
+    with spinner('Fetching profiles'):
         profiles = mgr.fetch_profiles()
     if pretty:
-        console = Console()
-        console.print(_profiles_table(profiles))
+        Console().print(_profiles_table(profiles))
     else:
         print_json(json.dumps([p.json() for p in profiles]))

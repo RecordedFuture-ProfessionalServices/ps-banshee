@@ -13,26 +13,16 @@
 
 import sys
 
-from psengine.config import get_config
-from psengine.sandbox import SandboxMgr
 from psengine.sandbox.errors import SampleDeleteError
 from rich.console import Console
-from rich.progress import Progress, SpinnerColumn, TextColumn
 
-
-def _spinner(label: str) -> Progress:
-    progress = Progress(
-        SpinnerColumn(), TextColumn(label), transient=True, console=Console(stderr=True)
-    )
-    progress.add_task('')
-    return progress
+from .helpers import get_sandbox_mgr, spinner
 
 
 def delete_sandbox_sample(sample_id: str) -> None:
-    config = get_config()
-    mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
+    mgr = get_sandbox_mgr()
     try:
-        with _spinner('Deleting sample'):
+        with spinner('Deleting sample'):
             mgr.delete_sample(sample_id)
     except SampleDeleteError as exc:
         Console(stderr=True).print(f'[red]Delete failed:[/red] {exc}')

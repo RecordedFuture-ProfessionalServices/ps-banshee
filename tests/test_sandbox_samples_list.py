@@ -122,9 +122,9 @@ class TestSamplesTable:
 
 
 class TestListSandboxSamples:
-    @patch('banshee.sandbox.samples_list._spinner', new=_SPINNER_MOCK)
-    @patch('banshee.sandbox.samples_list.SandboxMgr')
-    @patch('banshee.sandbox.samples_list.get_config', new=MagicMock())
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
     def test_default_outputs_json(self, mock_mgr_cls, capsys):
         mock_mgr_cls.return_value.fetch_samples.return_value = [_FILE_SAMPLE, _URL_SAMPLE]
         list_sandbox_samples(subset='org', limit=20, pretty=False)
@@ -134,9 +134,9 @@ class TestListSandboxSamples:
         assert data[0]['id'] == '260501-h4p7laawme'
         assert data[1]['id'] == '260502-url9zzbbxx'
 
-    @patch('banshee.sandbox.samples_list._spinner', new=_SPINNER_MOCK)
-    @patch('banshee.sandbox.samples_list.SandboxMgr')
-    @patch('banshee.sandbox.samples_list.get_config', new=MagicMock())
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
     def test_fetch_called_with_subset_and_limit(self, mock_mgr_cls):
         mock_mgr_cls.return_value.fetch_samples.return_value = []
         list_sandbox_samples(subset='public', limit=50, pretty=False)
@@ -144,9 +144,9 @@ class TestListSandboxSamples:
             subset='public', max_results=50
         )
 
-    @patch('banshee.sandbox.samples_list._spinner', new=_SPINNER_MOCK)
-    @patch('banshee.sandbox.samples_list.SandboxMgr')
-    @patch('banshee.sandbox.samples_list.get_config', new=MagicMock())
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
     def test_pretty_renders_table_not_json(self, mock_mgr_cls, capsys):
         mock_mgr_cls.return_value.fetch_samples.return_value = [_FILE_SAMPLE]
         list_sandbox_samples(subset='org', limit=20, pretty=True)
@@ -155,35 +155,35 @@ class TestListSandboxSamples:
         with pytest.raises(json.JSONDecodeError):
             json.loads(out)
 
-    @patch('banshee.sandbox.samples_list._spinner', new=_SPINNER_MOCK)
-    @patch('banshee.sandbox.samples_list.SandboxMgr')
-    @patch('banshee.sandbox.samples_list.get_config', new=MagicMock())
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
     def test_default_empty_list(self, mock_mgr_cls, capsys):
         mock_mgr_cls.return_value.fetch_samples.return_value = []
         list_sandbox_samples(subset='org', limit=20, pretty=False)
         out = capsys.readouterr().out
         assert json.loads(out) == []
 
-    @patch('banshee.sandbox.samples_list._spinner', new=_SPINNER_MOCK)
-    @patch('banshee.sandbox.samples_list.SandboxMgr')
-    @patch('banshee.sandbox.samples_list.get_config', new=MagicMock())
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
     def test_pretty_empty_list_shows_headers(self, mock_mgr_cls, capsys):
         mock_mgr_cls.return_value.fetch_samples.return_value = []
         list_sandbox_samples(subset='org', limit=20, pretty=True)
         out = capsys.readouterr().out
         assert 'Target' in out
 
-    @patch('banshee.sandbox.samples_list._spinner', new=_SPINNER_MOCK)
-    @patch('banshee.sandbox.samples_list.SandboxMgr')
-    @patch('banshee.sandbox.samples_list.get_config', new=MagicMock())
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
     def test_fetch_error_propagates(self, mock_mgr_cls):
         mock_mgr_cls.return_value.fetch_samples.side_effect = SamplesFetchError('API down')
         with pytest.raises(SamplesFetchError):
             list_sandbox_samples(subset='org', limit=20, pretty=False)
 
-    @patch('banshee.sandbox.samples_list._spinner', new=_SPINNER_MOCK)
-    @patch('banshee.sandbox.samples_list.SandboxMgr')
-    @patch('banshee.sandbox.samples_list.get_config', new=MagicMock())
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
     def test_default_serialises_by_alias(self, mock_mgr_cls, capsys):
         """Sample id_ field must appear as 'id' in JSON output (by_alias=True)."""
         mock_mgr_cls.return_value.fetch_samples.return_value = [_FILE_SAMPLE]
@@ -193,9 +193,9 @@ class TestListSandboxSamples:
         assert 'id' in data[0]
         assert 'id_' not in data[0]
 
-    @patch('banshee.sandbox.samples_list._spinner', new=_SPINNER_MOCK)
-    @patch('banshee.sandbox.samples_list.SandboxMgr')
-    @patch('banshee.sandbox.samples_list.get_config', new=MagicMock())
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
     def test_default_none_fields_excluded(self, mock_mgr_cls, capsys):
         """None-valued fields (url, completed) must be omitted from JSON."""
         sample = _make_sample(completed=None)  # url=None by default

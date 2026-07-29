@@ -102,9 +102,9 @@ class TestParsepicks:
 
 
 class TestSetSandboxSampleProfile:
-    @patch('banshee.sandbox.submit._spinner', new=_SPINNER_MOCK)
-    @patch('banshee.sandbox.submit.SandboxMgr')
-    @patch('banshee.sandbox.submit.get_config', new=MagicMock())
+    @patch('banshee.sandbox.submit.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
     def test_auto_mode_calls_mgr_correctly(self, mock_mgr_cls):
         mock_mgr_cls.return_value.set_sample_profile.return_value = _SUCCESS_OUT
         set_sandbox_sample_profile(_SAMPLE_ID, auto=True, picks=None)
@@ -112,9 +112,9 @@ class TestSetSandboxSampleProfile:
             _SAMPLE_ID, auto=True, profiles=None
         )
 
-    @patch('banshee.sandbox.submit._spinner', new=_SPINNER_MOCK)
-    @patch('banshee.sandbox.submit.SandboxMgr')
-    @patch('banshee.sandbox.submit.get_config', new=MagicMock())
+    @patch('banshee.sandbox.submit.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
     def test_auto_mode_outputs_json(self, mock_mgr_cls, capsys):
         mock_mgr_cls.return_value.set_sample_profile.return_value = _SUCCESS_OUT
         set_sandbox_sample_profile(_SAMPLE_ID, auto=True, picks=None)
@@ -122,9 +122,9 @@ class TestSetSandboxSampleProfile:
         data = json.loads(out)
         assert data == {'success': True}
 
-    @patch('banshee.sandbox.submit._spinner', new=_SPINNER_MOCK)
-    @patch('banshee.sandbox.submit.SandboxMgr')
-    @patch('banshee.sandbox.submit.get_config', new=MagicMock())
+    @patch('banshee.sandbox.submit.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
     def test_pick_mode_parses_and_calls_mgr(self, mock_mgr_cls):
         mock_mgr_cls.return_value.set_sample_profile.return_value = _SUCCESS_OUT
         set_sandbox_sample_profile(_SAMPLE_ID, auto=False, picks=['file.exe:win10-x64'])
@@ -132,9 +132,9 @@ class TestSetSandboxSampleProfile:
             _SAMPLE_ID, auto=False, profiles=[{'pick': 'file.exe', 'profile': 'win10-x64'}]
         )
 
-    @patch('banshee.sandbox.submit._spinner', new=_SPINNER_MOCK)
-    @patch('banshee.sandbox.submit.SandboxMgr')
-    @patch('banshee.sandbox.submit.get_config', new=MagicMock())
+    @patch('banshee.sandbox.submit.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
     def test_multi_pick_mode_calls_mgr(self, mock_mgr_cls):
         mock_mgr_cls.return_value.set_sample_profile.return_value = _SUCCESS_OUT
         set_sandbox_sample_profile(
@@ -149,9 +149,9 @@ class TestSetSandboxSampleProfile:
             ],
         )
 
-    @patch('banshee.sandbox.submit._spinner', new=_SPINNER_MOCK)
-    @patch('banshee.sandbox.submit.SandboxMgr')
-    @patch('banshee.sandbox.submit.get_config', new=MagicMock())
+    @patch('banshee.sandbox.submit.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
     def test_pick_mode_outputs_json(self, mock_mgr_cls, capsys):
         mock_mgr_cls.return_value.set_sample_profile.return_value = _SUCCESS_OUT
         set_sandbox_sample_profile(_SAMPLE_ID, auto=False, picks=['file.exe:win10-x64'])
@@ -159,9 +159,9 @@ class TestSetSandboxSampleProfile:
         data = json.loads(out)
         assert data == {'success': True}
 
-    @patch('banshee.sandbox.submit._spinner', new=_SPINNER_MOCK)
-    @patch('banshee.sandbox.submit.SandboxMgr')
-    @patch('banshee.sandbox.submit.get_config', new=MagicMock())
+    @patch('banshee.sandbox.submit.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
     def test_pretty_mode_outputs_text_not_json(self, mock_mgr_cls, capsys):
         mock_mgr_cls.return_value.set_sample_profile.return_value = _SUCCESS_OUT
         set_sandbox_sample_profile(_SAMPLE_ID, auto=True, picks=None, pretty=True)
@@ -170,9 +170,9 @@ class TestSetSandboxSampleProfile:
         with pytest.raises(json.JSONDecodeError):
             json.loads(out)
 
-    @patch('banshee.sandbox.submit._spinner', new=_SPINNER_MOCK)
-    @patch('banshee.sandbox.submit.SandboxMgr')
-    @patch('banshee.sandbox.submit.get_config', new=MagicMock())
+    @patch('banshee.sandbox.submit.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
     def test_sample_profile_error_exits_1(self, mock_mgr_cls):
         mock_mgr_cls.return_value.set_sample_profile.side_effect = SampleProfileError(
             'sample not in static_analysis'
@@ -181,9 +181,9 @@ class TestSetSandboxSampleProfile:
             set_sandbox_sample_profile(_SAMPLE_ID, auto=True, picks=None)
         assert exc_info.value.code == 1
 
-    @patch('banshee.sandbox.submit._spinner', new=_SPINNER_MOCK)
-    @patch('banshee.sandbox.submit.SandboxMgr')
-    @patch('banshee.sandbox.submit.get_config', new=MagicMock())
+    @patch('banshee.sandbox.submit.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
     def test_sample_profile_error_message_to_stderr(self, mock_mgr_cls, capsys):
         mock_mgr_cls.return_value.set_sample_profile.side_effect = SampleProfileError(
             'sample not in static_analysis'
@@ -239,9 +239,9 @@ class TestResolveSubmission:
         assert 'missing.exe' in err
 
 
-@patch('banshee.sandbox.submit._spinner', new=_SPINNER_MOCK)
-@patch('banshee.sandbox.submit.SandboxMgr')
-@patch('banshee.sandbox.submit.get_config', new=MagicMock())
+@patch('banshee.sandbox.submit.spinner', new=_SPINNER_MOCK)
+@patch('banshee.sandbox.helpers.SandboxMgr')
+@patch('banshee.sandbox.helpers.get_config', new=MagicMock())
 class TestSubmitSandboxSample:
     def test_url_submission_calls_mgr(self, mock_mgr_cls):
         mock_mgr_cls.return_value.submit_sample.return_value = _sample(kind='url')
@@ -430,7 +430,7 @@ class TestPollUntilTerminal:
         assert poll_until_terminal(mgr, _SAMPLE_ID) is None
 
 
-@patch('banshee.sandbox.submit._spinner', new=_SPINNER_MOCK)
+@patch('banshee.sandbox.submit.spinner', new=_SPINNER_MOCK)
 @patch('banshee.sandbox.submit._status_spinner', new=_SPINNER_MOCK)
 class TestInteractiveProfileSelection:
     def _mgr(self, status='static_analysis', report=None, profiles=None):

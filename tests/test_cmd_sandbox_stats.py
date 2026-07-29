@@ -10,11 +10,39 @@ from rich.console import Console
 from typer.testing import CliRunner
 
 from banshee.commands.cmd_sandbox import app
-from banshee.sandbox.output import (
-    _SCORE_SHORT_LABELS,
+from banshee.sandbox.constants import BAR_CHAR
+from banshee.sandbox.constants import (
+    SAMPLES_INITIAL_MAX_RESULTS as _SAMPLES_INITIAL_MAX_RESULTS,
+)
+from banshee.sandbox.constants import (
+    SAMPLES_PAGE_SIZE as _SAMPLES_PAGE_SIZE,
+)
+from banshee.sandbox.constants import SCORE_SHORT_LABELS as _SCORE_SHORT_LABELS
+from banshee.sandbox.helpers import (
+    SandboxStats,
+    TopIocs,
+    TopTags,
+    VerifiedIoc,
+)
+from banshee.sandbox.helpers import (
+    score_bucket as _score_bucket,
+)
+from banshee.sandbox.stats import (
+    _build_daily_by_family,
+    _build_file_type_map,
+    _build_score_and_platform,
+    _build_tag_taxonomy,
+    _extract_raw_iocs,
+    _fetch_samples_covering_window,
+    _rank_c2_by_risk_score,
+    _soar_enrich,
+    _soar_enrich_c2_urls,
+    _soar_enrich_hashes,
+    fetch_sandbox_stats,
+)
+from banshee.sandbox.stats_output import (
     _SPARK_CHARS,
     _SPARK_MAX_BUCKETS,
-    BAR_CHAR,
     BAR_WIDTH_HALF,
     _bucket_counts,
     _fmt_tags,
@@ -27,26 +55,6 @@ from banshee.sandbox.output import (
     _to_json_dict,
     _trend_pct,
     _trend_str,
-)
-from banshee.sandbox.stats import (
-    _SAMPLES_INITIAL_MAX_RESULTS,
-    _SAMPLES_PAGE_SIZE,
-    SandboxStats,
-    TopIocs,
-    TopTags,
-    VerifiedIoc,
-    _build_daily_by_family,
-    _build_file_type_map,
-    _build_score_and_platform,
-    _build_tag_taxonomy,
-    _extract_raw_iocs,
-    _fetch_samples_covering_window,
-    _rank_c2_by_risk_score,
-    _score_bucket,
-    _soar_enrich,
-    _soar_enrich_c2_urls,
-    _soar_enrich_hashes,
-    fetch_sandbox_stats,
 )
 
 runner = CliRunner()
@@ -402,7 +410,7 @@ class TestSoarEnrich:
         from psengine.enrich.errors import EnrichmentSoarError
 
         with (
-            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.helpers.get_config') as mock_cfg,
             patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
         ):
             token = MagicMock()
@@ -415,9 +423,9 @@ class TestSoarEnrich:
 
     def test_filters_by_min_score(self):
         with (
-            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.helpers.get_config') as mock_cfg,
             patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
-            patch('banshee.sandbox.stats._spinner'),
+            patch('banshee.sandbox.stats.spinner'),
         ):
             token = MagicMock()
             token.get_secret_value.return_value = 'tok'
@@ -440,9 +448,9 @@ class TestSoarEnrich:
 
     def test_sorted_by_score_descending(self):
         with (
-            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.helpers.get_config') as mock_cfg,
             patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
-            patch('banshee.sandbox.stats._spinner'),
+            patch('banshee.sandbox.stats.spinner'),
         ):
             token = MagicMock()
             token.get_secret_value.return_value = 'tok'
@@ -506,9 +514,9 @@ class TestSoarEnrichHashes:
         from psengine.enrich.errors import EnrichmentSoarError
 
         with (
-            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.helpers.get_config') as mock_cfg,
             patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
-            patch('banshee.sandbox.stats._spinner'),
+            patch('banshee.sandbox.stats.spinner'),
         ):
             token = MagicMock()
             token.get_secret_value.return_value = 'tok'
@@ -518,9 +526,9 @@ class TestSoarEnrichHashes:
 
     def test_returns_score_map(self):
         with (
-            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.helpers.get_config') as mock_cfg,
             patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
-            patch('banshee.sandbox.stats._spinner'),
+            patch('banshee.sandbox.stats.spinner'),
         ):
             token = MagicMock()
             token.get_secret_value.return_value = 'tok'
@@ -535,9 +543,9 @@ class TestSoarEnrichHashes:
 
     def test_skips_unenriched_results(self):
         with (
-            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.helpers.get_config') as mock_cfg,
             patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
-            patch('banshee.sandbox.stats._spinner'),
+            patch('banshee.sandbox.stats.spinner'),
         ):
             token = MagicMock()
             token.get_secret_value.return_value = 'tok'
@@ -551,9 +559,9 @@ class TestSoarEnrichHashes:
 
     def test_calls_soar_with_hash_kwarg(self):
         with (
-            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.helpers.get_config') as mock_cfg,
             patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
-            patch('banshee.sandbox.stats._spinner'),
+            patch('banshee.sandbox.stats.spinner'),
         ):
             token = MagicMock()
             token.get_secret_value.return_value = 'tok'
@@ -584,9 +592,9 @@ class TestSoarEnrichC2Urls:
         from psengine.enrich.errors import EnrichmentSoarError
 
         with (
-            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.helpers.get_config') as mock_cfg,
             patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
-            patch('banshee.sandbox.stats._spinner'),
+            patch('banshee.sandbox.stats.spinner'),
         ):
             token = MagicMock()
             token.get_secret_value.return_value = 'tok'
@@ -596,9 +604,9 @@ class TestSoarEnrichC2Urls:
 
     def test_returns_score_map(self):
         with (
-            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.helpers.get_config') as mock_cfg,
             patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
-            patch('banshee.sandbox.stats._spinner'),
+            patch('banshee.sandbox.stats.spinner'),
         ):
             token = MagicMock()
             token.get_secret_value.return_value = 'tok'
@@ -613,9 +621,9 @@ class TestSoarEnrichC2Urls:
 
     def test_calls_soar_with_url_kwarg(self):
         with (
-            patch('banshee.sandbox.stats.get_config') as mock_cfg,
+            patch('banshee.sandbox.helpers.get_config') as mock_cfg,
             patch('banshee.sandbox.stats.SoarMgr') as mock_soar,
-            patch('banshee.sandbox.stats._spinner'),
+            patch('banshee.sandbox.stats.spinner'),
         ):
             token = MagicMock()
             token.get_secret_value.return_value = 'tok'
@@ -662,9 +670,9 @@ class TestRankC2ByRiskScore:
 
 
 class TestFetchSandboxStats:
-    @patch('banshee.sandbox.stats.get_config')
-    @patch('banshee.sandbox.stats.SandboxMgr')
-    @patch('banshee.sandbox.stats._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.get_config')
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.stats.spinner', new=_SPINNER_MOCK)
     def test_no_reported_samples(self, mock_mgr_cls, mock_cfg):
         mock_cfg.return_value = _mock_config()
         sample = _make_sample(submitted_delta_days=1, status='static_analysis')
@@ -678,9 +686,9 @@ class TestFetchSandboxStats:
         assert result.by_score == {}
         assert result.soar_skipped is True
 
-    @patch('banshee.sandbox.stats.get_config')
-    @patch('banshee.sandbox.stats.SandboxMgr')
-    @patch('banshee.sandbox.stats._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.get_config')
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.stats.spinner', new=_SPINNER_MOCK)
     def test_failed_samples_excluded_from_pending(self, mock_mgr_cls, mock_cfg):
         mock_cfg.return_value = _mock_config()
         running = _make_sample(submitted_delta_days=1, status='running')
@@ -692,10 +700,10 @@ class TestFetchSandboxStats:
         assert result.pending == 1
         assert result.failed == 1
 
-    @patch('banshee.sandbox.stats.get_config')
-    @patch('banshee.sandbox.stats.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config')
+    @patch('banshee.sandbox.helpers.SandboxMgr')
     @patch('banshee.sandbox.stats.MultiThreadingHelper')
-    @patch('banshee.sandbox.stats._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.stats.spinner', new=_SPINNER_MOCK)
     def test_with_reported_samples(self, mock_mt, mock_mgr_cls, mock_cfg):
         mock_cfg.return_value = _mock_config()
         sample = _make_sample(submitted_delta_days=1, status='reported')
@@ -710,9 +718,9 @@ class TestFetchSandboxStats:
         assert result.by_score.get('malicious', 0) == 1
         assert 'family:mirai' in result.top_tags.malware_families
 
-    @patch('banshee.sandbox.stats.get_config')
-    @patch('banshee.sandbox.stats.SandboxMgr')
-    @patch('banshee.sandbox.stats._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.get_config')
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.stats.spinner', new=_SPINNER_MOCK)
     def test_fetches_via_covering_window_helper(self, mock_mgr_cls, mock_cfg):
         mock_cfg.return_value = _mock_config()
         mock_mgr_cls.return_value.fetch_samples.return_value = []
@@ -788,10 +796,10 @@ class TestFetchSamplesCoveringWindow:
 
         assert result == [original]
 
-    @patch('banshee.sandbox.stats.get_config')
-    @patch('banshee.sandbox.stats.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config')
+    @patch('banshee.sandbox.helpers.SandboxMgr')
     @patch('banshee.sandbox.stats.MultiThreadingHelper')
-    @patch('banshee.sandbox.stats._spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.stats.spinner', new=_SPINNER_MOCK)
     def test_trend_computed_from_2x_window(self, mock_mt, mock_mgr_cls, mock_cfg):
         mock_cfg.return_value = _mock_config()
         now = datetime.now(timezone.utc)

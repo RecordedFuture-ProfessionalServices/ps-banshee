@@ -29,9 +29,9 @@ _SPINNER_MOCK = MagicMock(
     )
 )
 
-_PATCH_SPINNER = patch('banshee.sandbox.delete._spinner', _SPINNER_MOCK)
-_PATCH_MGR = patch('banshee.sandbox.delete.SandboxMgr')
-_PATCH_CFG = patch('banshee.sandbox.delete.get_config')
+_PATCH_SPINNER = patch('banshee.sandbox.delete.spinner', _SPINNER_MOCK)
+_PATCH_MGR = patch('banshee.sandbox.helpers.SandboxMgr')
+_PATCH_CFG = patch('banshee.sandbox.helpers.get_config')
 
 
 @_PATCH_SPINNER

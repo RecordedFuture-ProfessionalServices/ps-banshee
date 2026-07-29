@@ -13,23 +13,14 @@
 
 import json
 
-from psengine.config import get_config
-from psengine.sandbox import SandboxMgr
 from psengine.sandbox.sandbox import Sample
 from rich import print_json
 from rich.console import Console
-from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
 
+from .helpers import get_sandbox_mgr, spinner
+
 _DATETIME_FMT = '%Y-%m-%d %H:%M'
-
-
-def _spinner(label: str = 'Fetching samples') -> Progress:
-    progress = Progress(
-        SpinnerColumn(), TextColumn(label), transient=True, console=Console(stderr=True)
-    )
-    progress.add_task('')
-    return progress
 
 
 def _status_color(status: str) -> str:
@@ -66,9 +57,8 @@ def _samples_table(samples: list[Sample]) -> Table:
 
 
 def list_sandbox_samples(subset: str = 'org', limit: int = 20, pretty: bool = False) -> None:
-    config = get_config()
-    mgr = SandboxMgr(sandbox_choice=config.sandbox_choice)
-    with _spinner():
+    mgr = get_sandbox_mgr()
+    with spinner('Fetching samples'):
         samples = mgr.fetch_samples(subset=subset, max_results=limit)
     if pretty:
         Console().print(_samples_table(samples))

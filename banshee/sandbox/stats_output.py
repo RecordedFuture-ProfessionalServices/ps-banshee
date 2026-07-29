@@ -22,40 +22,25 @@ from rich.rule import Rule
 from rich.table import Table
 
 from ..formatters.output_formatters import color_risk_score
-from .stats import SandboxStats, VerifiedIoc
-
-SCORE_COLORS = {
-    'malicious': 'red',
-    'suspicious': 'dark_orange',
-    'potentially_suspicious': 'yellow',
-    'clean': 'green',
-    'unknown': 'grey50',
-}
-
-_SANDBOX_FRONTEND_URLS = {
-    'eu': 'https://sandbox.recordedfuture.com',
-    'usa': 'https://us-sandbox.recordedfuture.com',
-    'apj': 'https://apj-sandbox.recordedfuture.com',
-    'public': 'https://tria.ge',
-    'private': 'https://private.tria.ge',
-}
+from .constants import (
+    BAR_CHAR,
+    DISPLAY_CAP,
+    INTEL_CARD_BASE,
+    INTEL_CARD_TYPE,
+    MORE_MSG,
+    SANDBOX_FRONTEND_URLS,
+    SCORE_COLORS,
+    SCORE_SHORT_LABELS,
+)
+from .helpers import SandboxStats, VerifiedIoc
 
 
 def _search_url(frontend_base: str, query: str) -> str:
     return f'{frontend_base}/s?q={quote_plus(query)}'
 
 
-_INTEL_CARD_BASE = 'https://app.recordedfuture.com/portal/intelligence-card'
-_INTEL_CARD_TYPE = {
-    'IpAddress': 'ip',
-    'InternetDomainName': 'idn',
-    'URL': 'url',
-    'Hash': 'hash',
-}
-
-
 def _intel_card_url(rf_type: str, value: str) -> str:
-    return f'{_INTEL_CARD_BASE}/{quote(f"{rf_type}:{value}", safe="")}'
+    return f'{INTEL_CARD_BASE}/{quote(f"{rf_type}:{value}", safe="")}'
 
 
 def _fmt_tags(
@@ -180,11 +165,11 @@ def _summary_lines(stats: SandboxStats) -> list:
         if buckets:
             max_count = max(c for _, c in buckets)
             count_w = max(len(str(c)) for _, c in buckets)
-            label_w = max(len(_SCORE_SHORT_LABELS[b]) for b, _ in buckets)
+            label_w = max(len(SCORE_SHORT_LABELS[b]) for b, _ in buckets)
             lines.append('')
             for i, (bucket, count) in enumerate(buckets):
                 color = SCORE_COLORS[bucket]
-                label = _SCORE_SHORT_LABELS[bucket].ljust(label_w)
+                label = SCORE_SHORT_LABELS[bucket].ljust(label_w)
                 bar_len = max(1, round(count / max_count * _SCORE_BAR_WIDTH))
                 bar = BAR_CHAR * bar_len
                 prefix = '[dim]by score[/dim]  ' if i == 0 else '          '
@@ -270,18 +255,9 @@ def _print_chart_and_summary(console: Console, stats: SandboxStats) -> None:
     console.print()
 
 
-_BAR_WIDTH = 28
 BAR_WIDTH_HALF = 16
-BAR_CHAR = '█'
 _PANEL_TOP_N = 8
 _SCORE_BAR_WIDTH = 12
-_SCORE_SHORT_LABELS = {
-    'malicious': 'malicious (8–10)',
-    'suspicious': 'suspicious (5–7)',
-    'potentially_suspicious': 'likely benign (3–4)',
-    'clean': 'no threat (1–2)',
-    'unknown': 'unknown',
-}
 
 
 def _platform_table(by_platform: dict) -> Table:
@@ -403,10 +379,6 @@ def _print_threat_intel(console: Console, tags, frontend_base: str) -> None:
         console.print()
 
 
-DISPLAY_CAP = 10
-MORE_MSG = '  [dim]… and {} more (use JSON output for the full list)[/dim]'
-
-
 def _print_iocs(console: Console, iocs, soar_skipped: bool) -> None:
     if iocs.extracted_c2:
         total = len(iocs.extracted_c2)
@@ -441,7 +413,7 @@ def _print_iocs(console: Console, iocs, soar_skipped: bool) -> None:
         for ioc in iocs.verified_network[:DISPLAY_CAP]:
             score = _ioc_rf_score(ioc)
             indicator = _ioc_field(ioc, 'indicator')
-            rf_type = _INTEL_CARD_TYPE.get(_ioc_field(ioc, 'type'), 'ip')
+            rf_type = INTEL_CARD_TYPE.get(_ioc_field(ioc, 'type'), 'ip')
             indicator_cell = f'[link={_intel_card_url(rf_type, indicator)}]{indicator}[/link]'
             tbl.add_row(
                 color_risk_score(score),
@@ -547,8 +519,8 @@ def _to_json_dict(stats: SandboxStats) -> dict:
 def print_sandbox_stats(stats: SandboxStats, pretty: bool = False) -> None:
     if pretty:
         console = Console()
-        frontend_base = _SANDBOX_FRONTEND_URLS.get(
-            stats.sandbox_choice, _SANDBOX_FRONTEND_URLS['eu']
+        frontend_base = SANDBOX_FRONTEND_URLS.get(
+            stats.sandbox_choice, SANDBOX_FRONTEND_URLS['eu']
         )
         period = (
             f'{stats.period_start.strftime("%Y-%m-%d")} → {stats.period_end.strftime("%Y-%m-%d")}'
