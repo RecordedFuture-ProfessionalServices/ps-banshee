@@ -73,7 +73,7 @@ _HELP_STATS = (
 )
 
 _HELP_LIST = (
-    "List sandbox samples — your own, your organisation's (default), or the public feed. "
+    "List sandbox samples, your own, your organisation's (default), or the public feed. "
     'Prints a JSON array by default; use `--pretty` for a table.'
 )
 
@@ -89,7 +89,7 @@ _HELP_PROFILE_CREATE = (
 _HELP_PROFILE_DELETE = (
     'Delete an analysis profile by ID or name. Safe to repeat: deleting a profile '
     'that no longer exists prints a warning and exits 0 rather than failing. '
-    'Prompts for confirmation unless --yes is given.'
+    'Prompts for confirmation unless `--yes` is given.'
 )
 _HELP_PROFILE_GET = (
     'Fetch a single analysis profile by ID or name. Default output is the profile '
@@ -101,8 +101,8 @@ _HELP_PROFILE_LIST = (
     'result prints `[]` and exits 0.'
 )
 _HELP_PROFILE_UPDATE = (
-    'Update an existing analysis profile. Only the options you supply change — '
-    'omitted options keep their current value. Use --unset to clear network, '
+    'Update an existing analysis profile. Only the options you supply change, '
+    'omitted options keep their current value. Use `--unset` to clear network, '
     'browser, or geolocation. Default output is `{"updated": true}` (or '
     '`{"updated": false}` if the profile does not exist) as JSON, exiting 0 either '
     'way; use `--pretty` for a short human-readable status message instead.'
@@ -143,8 +143,8 @@ _HELP_REPORT_STATIC = (
 )
 _HELP_SET_PROFILE = (
     'Assign analysis profiles to a sample paused at static analysis '
-    '(submitted with --interactive). Use --auto to let the sandbox choose '
-    'automatically, or --pick FILE:PROFILE for manual per-file mapping.'
+    '(submitted with `--interactive`). Use `--auto` to let the sandbox choose '
+    'automatically, or `--pick` FILE:PROFILE for manual per-file mapping.'
 )
 _HELP_SUBMIT = (
     'Submit a sample for analysis — a local file is uploaded, a URL is detonated in a '
@@ -229,7 +229,7 @@ def create(
         list[str] | None,
         Option(
             '--geolocation',
-            help='VPN exit country code; requires --network vpn (repeatable)',
+            help='VPN exit country code; requires `--network` vpn (repeatable)',
             show_default=False,
         ),
     ] = None,
@@ -238,7 +238,7 @@ def create(
 ):
     _require_non_empty(name=name, tags=tags)
     if geolocation and network != 'vpn':
-        raise BadParameter('--geolocation requires --network vpn')
+        raise BadParameter('--geolocation requires `--network` vpn')
     create_sandbox_profile(
         name=name,
         tags=tags,
@@ -287,7 +287,7 @@ def update(
         list[str] | None,
         Option(
             '--geolocation',
-            help='VPN exit country code; requires --network vpn (repeatable)',
+            help='VPN exit country code; requires `--network` vpn (repeatable)',
             show_default=False,
         ),
     ] = None,
@@ -298,12 +298,12 @@ def update(
     _require_non_empty(name=name, tags=tags)
     supplied = {'network': network, 'browser': browser, 'geolocation': geolocation}
     if not any([name, tags, timeout, *supplied.values(), unset]):
-        raise BadParameter('nothing to update — supply at least one field option or --unset')
+        raise BadParameter('nothing to update, supply at least one field option or `--unset`')
     conflicts = sorted(f for f, v in supplied.items() if v is not None and f in (unset or []))
     if conflicts:
         raise BadParameter(f'cannot both set and unset: {", ".join(conflicts)}')
     if geolocation and (network is not None and network != 'vpn' or 'network' in (unset or [])):
-        raise BadParameter('--geolocation requires --network vpn')
+        raise BadParameter('--geolocation requires `--network` vpn')
     update_sandbox_profile(
         profile_id_or_name,
         name=name,
@@ -382,7 +382,7 @@ def delete_sample(
 def submit(
     target: Annotated[
         str,
-        Argument(help='File path, URL, or public sample ID (with --import)', show_default=False),
+        Argument(help='File path, URL, or public sample ID (with `--import`)', show_default=False),
     ],
     fetch: Annotated[
         bool,
@@ -412,7 +412,7 @@ def submit(
         str | None,
         Option(
             '--geolocation',
-            help='VPN exit country code; requires --network vpn',
+            help='VPN exit country code; requires `--network` vpn',
             show_default=False,
         ),
     ] = None,
@@ -445,11 +445,11 @@ def submit(
 ):
     _require_non_empty(profile=profile, tags=tags, geolocation=geolocation, password=password)
     if fetch and import_:
-        raise BadParameter('--fetch and --import are mutually exclusive')
+        raise BadParameter('`--fetch` and `--import` are mutually exclusive')
     if interactive and profile:
-        raise BadParameter('--interactive and --profile are mutually exclusive')
+        raise BadParameter('`--interactive` and `--profile` are mutually exclusive')
     if geolocation and network != 'vpn':
-        raise BadParameter('--geolocation requires --network vpn')
+        raise BadParameter('`--geolocation` requires `--network` vpn')
     submit_sandbox_sample(
         target,
         fetch=fetch,
@@ -490,13 +490,13 @@ def set_profile(
     pretty: OPT_PRETTY_PRINT = False,
 ):
     if auto and pick:
-        raise BadParameter('--auto and --pick are mutually exclusive')
+        raise BadParameter('--auto and `--pick` are mutually exclusive')
     if not auto and not pick:
-        raise BadParameter('provide either --auto or at least one --pick FILE:PROFILE')
+        raise BadParameter('provide either `--auto` or at least one `--pick FILE:PROFILE`')
     for raw in pick or []:
         file_, sep, profile = raw.partition(':')
         if not sep or not file_ or not profile:
-            raise BadParameter(f'--pick value must be FILE:PROFILE, got: {raw!r}')
+            raise BadParameter(f'`--pick` value must be FILE:PROFILE, got: {raw!r}')
     set_sandbox_sample_profile(sample_id, auto=auto, picks=pick, pretty=pretty)
 
 

@@ -23,11 +23,13 @@ from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
 
-_ERR_CONSOLE = Console(stderr=True)
-
 
 def _spinner(label: str) -> Progress:
-    return Progress(SpinnerColumn(), TextColumn(label), transient=True, console=_ERR_CONSOLE)
+    progress = Progress(
+        SpinnerColumn(), TextColumn(label), transient=True, console=Console(stderr=True)
+    )
+    progress.add_task('')
+    return progress
 
 
 def _profiles_table(profiles: list[Profile]) -> Table:
@@ -40,11 +42,11 @@ def _profiles_table(profiles: list[Profile]) -> Table:
     tbl.add_column('Browser', style='green bold')
     tbl.add_column('Tags', style='white dim')
     for p in profiles:
-        tags = ', '.join(p.tags) if p.tags else '—'
-        timeout = f'{p.timeout}s' if p.timeout is not None else '—'
-        network = p.network or '—'
-        geolocation = ', '.join(p.geolocation) if p.geolocation else '—'
-        browser = (p.options.browser if p.options and p.options.browser else None) or '—'
+        tags = ', '.join(p.tags) if p.tags else '-'
+        timeout = f'{p.timeout}s' if p.timeout is not None else '-'
+        network = p.network or '-'
+        geolocation = ', '.join(p.geolocation) if p.geolocation else '-'
+        browser = (p.options.browser if p.options and p.options.browser else None) or '-'
         tbl.add_row(p.name, p.id_, timeout, network, geolocation, browser, tags)
     return tbl
 
@@ -71,7 +73,7 @@ def create_sandbox_profile(
                 browser=browser,
             )
     except ProfileCreateError as exc:
-        _ERR_CONSOLE.print(f'[red]Profile creation failed:[/red] {exc}')
+        Console(stderr=True).print(f'[red]Profile creation failed:[/red] {exc}')
         sys.exit(1)
     if pretty:
         Console().print(_profiles_table([profile]))
@@ -86,7 +88,7 @@ def get_sandbox_profile(profile_id_or_name: str, pretty: bool = False) -> None:
         with _spinner('Fetching profile'):
             profile = mgr.fetch_profile(profile_id_or_name)
     except ProfileNotFoundError as exc:
-        _ERR_CONSOLE.print(f'[red]Profile not found:[/red] {exc}')
+        Console(stderr=True).print(f'[red]Profile not found:[/red] {exc}')
         sys.exit(1)
     if pretty:
         console = Console()
@@ -95,7 +97,7 @@ def get_sandbox_profile(profile_id_or_name: str, pretty: bool = False) -> None:
         print_json(json.dumps(profile.json()))
 
 
-def _merged(supplied, existing, cleared: bool = False):
+def _resolve_field(supplied, existing, cleared: bool = False):
     if cleared:
         return None
     return supplied if supplied is not None else existing
@@ -106,7 +108,7 @@ def _print_update_result(result: ProfileUpdateOut, pretty: bool) -> None:
         msg = (
             '[green]Profile updated[/green]'
             if result.updated
-            else '[yellow]Profile not found — nothing updated[/yellow]'
+            else '[yellow]Profile not found, nothing updated[/yellow]'
         )
         Console().print(msg)
     else:
@@ -139,18 +141,20 @@ def update_sandbox_profile(
 
     cleared = set(unset or [])
     existing_browser = profile.options.browser if profile.options else None
-    merged_timeout = _merged(timeout, profile.timeout)
-    merged_network = _merged(network, profile.network, 'network' in cleared)
-    merged_geolocation = _merged(geolocation, profile.geolocation, 'geolocation' in cleared) or None
+    merged_timeout = _resolve_field(timeout, profile.timeout)
+    merged_network = _resolve_field(network, profile.network, 'network' in cleared)
+    merged_geolocation = (
+        _resolve_field(geolocation, profile.geolocation, 'geolocation' in cleared) or None
+    )
     if merged_timeout is None:
-        _ERR_CONSOLE.print('[red]Profile has no stored timeout — supply --timeout[/red]')
+        Console(stderr=True).print('[red]Profile has no stored timeout, supply --timeout[/red]')
         sys.exit(1)
     # Only guard the user's explicit intent: profiles fetched from the server may
     # already hold geolocation with a non-vpn network, and inherited state must
     # not block unrelated updates -- the API stays the authority there.
     if geolocation and merged_network != 'vpn':
-        _ERR_CONSOLE.print(
-            '[red]Geolocation requires a vpn network[/red] — '
+        Console(stderr=True).print(
+            "[red]Geolocation requires a vpn network[/red], "
             f"this profile's network is {merged_network or 'not set'}; "
             'pass --network vpn together with --geolocation'
         )
@@ -160,15 +164,15 @@ def update_sandbox_profile(
         with _spinner('Updating profile'):
             result = mgr.update_profile(
                 profile.id_,
-                name=_merged(name, profile.name),
-                tags=_merged(tags, profile.tags),
+                name=_resolve_field(name, profile.name),
+                tags=_resolve_field(tags, profile.tags),
                 timeout=merged_timeout,
                 network=merged_network,
                 geolocation=merged_geolocation,
-                browser=_merged(browser, existing_browser, 'browser' in cleared),
+                browser=_resolve_field(browser, existing_browser, 'browser' in cleared),
             )
     except ProfileUpdateError as exc:
-        _ERR_CONSOLE.print(f'[red]Profile update failed:[/red] {exc}')
+        Console(stderr=True).print(f'[red]Profile update failed:[/red] {exc}')
         sys.exit(1)
     _print_update_result(result, pretty)
 
@@ -179,9 +183,9 @@ def delete_sandbox_profile(profile_id_or_name: str) -> None:
     with _spinner('Deleting profile'):
         result = mgr.delete_profile(profile_id_or_name)
     if result.deleted:
-        print(f'Deleted profile: {profile_id_or_name}')
+        Console().print(f'Deleted profile: {profile_id_or_name}')
     else:
-        print(f'Profile not found: {profile_id_or_name}')
+        Console().print(f'Profile not found: {profile_id_or_name}')
 
 
 def list_sandbox_profiles(pretty: bool = False) -> None:

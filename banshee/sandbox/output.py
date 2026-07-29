@@ -21,9 +21,10 @@ from rich.console import Console
 from rich.rule import Rule
 from rich.table import Table
 
+from ..formatters.output_formatters import color_risk_score
 from .stats import SandboxStats, VerifiedIoc
 
-_SCORE_COLORS = {
+SCORE_COLORS = {
     'malicious': 'red',
     'suspicious': 'dark_orange',
     'potentially_suspicious': 'yellow',
@@ -66,7 +67,7 @@ def _fmt_tags(
 ) -> str:
     items = list(tag_dict.items())[:top_n]
     if not items:
-        return '[grey50]—[/grey50]'
+        return '[grey50]-[/grey50]'
     parts = []
     for tag, count in items:
         label = tag[len(strip_prefix) :] if strip_prefix else tag
@@ -103,7 +104,6 @@ _FAMILY_COLORS = [
 
 
 def _bucket_counts(counts: list, max_buckets: int) -> list:
-    """Aggregate counts into at most max_buckets by summing consecutive groups."""
     n = len(counts)
     if n <= max_buckets:
         return counts
@@ -129,11 +129,10 @@ def _sparkline(counts: list, global_max: int) -> str:
 
 
 def _trend_str(current: int, prev: int) -> str:
-    """Return a Rich-markup trend indicator, or '' when prior period is unknown."""
     if prev == 0:
         return ''
     if current == prev:
-        return '[dim]—[/dim]'
+        return '[dim]-[/dim]'
     pct = round(abs(current - prev) / prev * 100)
     if current > prev:
         return f'[red]↑ {pct}%[/red]'
@@ -141,7 +140,6 @@ def _trend_str(current: int, prev: int) -> str:
 
 
 def _trend_pct(current: int, prev: int):
-    """Return signed percentage change, or None when prior period is zero."""
     if prev == 0:
         return None
     return round((current - prev) / prev * 100)
@@ -185,10 +183,10 @@ def _summary_lines(stats: SandboxStats) -> list:
             label_w = max(len(_SCORE_SHORT_LABELS[b]) for b, _ in buckets)
             lines.append('')
             for i, (bucket, count) in enumerate(buckets):
-                color = _SCORE_COLORS[bucket]
+                color = SCORE_COLORS[bucket]
                 label = _SCORE_SHORT_LABELS[bucket].ljust(label_w)
                 bar_len = max(1, round(count / max_count * _SCORE_BAR_WIDTH))
-                bar = _BAR_CHAR * bar_len
+                bar = BAR_CHAR * bar_len
                 prefix = '[dim]by score[/dim]  ' if i == 0 else '          '
                 lines.append(
                     f'{prefix}[{color}]{label}[/{color}]'
@@ -273,8 +271,8 @@ def _print_chart_and_summary(console: Console, stats: SandboxStats) -> None:
 
 
 _BAR_WIDTH = 28
-_BAR_WIDTH_HALF = 16
-_BAR_CHAR = '█'
+BAR_WIDTH_HALF = 16
+BAR_CHAR = '█'
 _PANEL_TOP_N = 8
 _SCORE_BAR_WIDTH = 12
 _SCORE_SHORT_LABELS = {
@@ -316,8 +314,8 @@ def _file_type_table(by_file_type: dict) -> Table:
     tbl.add_column('Count', style='bold', justify='right', width=5)
     tbl.add_column('Bar', no_wrap=True)
     for ext, count in by_file_type.items():
-        bar_len = max(1, int(count / max_count * _BAR_WIDTH_HALF))
-        bar = f'[steel_blue1]{_BAR_CHAR * bar_len}[/steel_blue1]'
+        bar_len = max(1, int(count / max_count * BAR_WIDTH_HALF))
+        bar = f'[steel_blue1]{BAR_CHAR * bar_len}[/steel_blue1]'
         tbl.add_row(ext, str(count), bar)
     return tbl
 
@@ -405,8 +403,8 @@ def _print_threat_intel(console: Console, tags, frontend_base: str) -> None:
         console.print()
 
 
-_DISPLAY_CAP = 10
-_MORE_MSG = '  [dim]… and {} more (use JSON output for the full list)[/dim]'
+DISPLAY_CAP = 10
+MORE_MSG = '  [dim]… and {} more (use JSON output for the full list)[/dim]'
 
 
 def _print_iocs(console: Console, iocs, soar_skipped: bool) -> None:
@@ -418,19 +416,19 @@ def _print_iocs(console: Console, iocs, soar_skipped: bool) -> None:
         tbl.add_column('Hits', style='bold', width=7)
         tbl.add_column('URL', style='cyan')
         tbl.add_column('Top Risk Rule', style='dim')
-        for c2_url, count in iocs.extracted_c2[:_DISPLAY_CAP]:
+        for c2_url, count in iocs.extracted_c2[:DISPLAY_CAP]:
             hit_color = 'red' if count >= 5 else 'yellow' if count >= 2 else 'grey50'
             soar = iocs.c2_soar.get(c2_url) or {}
             display = f'[link={_intel_card_url("url", c2_url)}]{c2_url}[/link]'
             tbl.add_row(
-                _rf_score_cell(soar.get('rf_score')),
+                color_risk_score(soar.get('rf_score')),
                 f'[{hit_color}]{count}[/{hit_color}]',
                 display,
                 soar.get('top_risk_rule') or '',
             )
         console.print(tbl)
-        if total > _DISPLAY_CAP:
-            console.print(_MORE_MSG.format(total - _DISPLAY_CAP))
+        if total > DISPLAY_CAP:
+            console.print(MORE_MSG.format(total - DISPLAY_CAP))
         console.print()
 
     if iocs.verified_network:
@@ -440,20 +438,19 @@ def _print_iocs(console: Console, iocs, soar_skipped: bool) -> None:
         tbl.add_column('Risk Score', style='bold', width=10)
         tbl.add_column('Indicator', style='cyan', width=40, no_wrap=True)
         tbl.add_column('Top Risk Rule', style='dim')
-        for ioc in iocs.verified_network[:_DISPLAY_CAP]:
+        for ioc in iocs.verified_network[:DISPLAY_CAP]:
             score = _ioc_rf_score(ioc)
-            color = 'red' if score >= 65 else 'yellow' if score >= 25 else 'grey50'
             indicator = _ioc_field(ioc, 'indicator')
             rf_type = _INTEL_CARD_TYPE.get(_ioc_field(ioc, 'type'), 'ip')
             indicator_cell = f'[link={_intel_card_url(rf_type, indicator)}]{indicator}[/link]'
             tbl.add_row(
-                f'[{color}]{score}[/{color}]',
+                color_risk_score(score),
                 indicator_cell,
                 _ioc_field(ioc, 'most_critical_rule') or '',
             )
         console.print(tbl)
-        if total > _DISPLAY_CAP:
-            console.print(_MORE_MSG.format(total - _DISPLAY_CAP))
+        if total > DISPLAY_CAP:
+            console.print(MORE_MSG.format(total - DISPLAY_CAP))
         console.print()
     elif soar_skipped and iocs.extracted_c2:
         console.print(
@@ -462,15 +459,10 @@ def _print_iocs(console: Console, iocs, soar_skipped: bool) -> None:
         console.print()
 
 
-def _rf_score_cell(rf_score) -> str:
-    if not rf_score:
-        return '[grey50]—[/grey50]'
-    color = 'red' if rf_score >= 65 else 'yellow' if rf_score >= 25 else 'grey50'
-    return f'[{color}]{rf_score}[/{color}]'
 
 
 def _print_hashes(console: Console, hashes: list, frontend_base: str) -> None:
-    shown = hashes[:_DISPLAY_CAP]
+    shown = hashes[:DISPLAY_CAP]
     total = len(hashes)
     console.print(Rule('[bold]Malicious SHA256s[/bold]', style='dim'))
     tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 2), header_style='dim')
@@ -491,15 +483,15 @@ def _print_hashes(console: Console, hashes: list, frontend_base: str) -> None:
         else:
             family_cell = top_tag
         tbl.add_row(
-            _rf_score_cell(entry.get('rf_score')),
+            color_risk_score(entry.get('rf_score')),
             f'[{color}]{score}[/{color}]',
             display,
             family_cell,
             entry.get('top_risk_rule') or '',
         )
     console.print(tbl)
-    if total > _DISPLAY_CAP:
-        console.print(_MORE_MSG.format(total - _DISPLAY_CAP))
+    if total > DISPLAY_CAP:
+        console.print(MORE_MSG.format(total - DISPLAY_CAP))
     console.print()
 
 

@@ -199,7 +199,7 @@ class TestColorRiskScore:
 
     def test_score_zero_renders_dash(self):
         result = self.color_risk_score(0)
-        assert '—' in result
+        assert '-' in result
         assert ']0[' not in result
 
     def test_high_score_red(self):

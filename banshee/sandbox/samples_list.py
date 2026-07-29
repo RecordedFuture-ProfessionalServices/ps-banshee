@@ -21,13 +21,15 @@ from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
 
-_ERR_CONSOLE = Console(stderr=True)
-
 _DATETIME_FMT = '%Y-%m-%d %H:%M'
 
 
 def _spinner(label: str = 'Fetching samples') -> Progress:
-    return Progress(SpinnerColumn(), TextColumn(label), transient=True, console=_ERR_CONSOLE)
+    progress = Progress(
+        SpinnerColumn(), TextColumn(label), transient=True, console=Console(stderr=True)
+    )
+    progress.add_task('')
+    return progress
 
 
 def _status_color(status: str) -> str:
@@ -48,8 +50,8 @@ def _samples_table(samples: list[Sample]) -> Table:
     tbl.add_column('Completed')
     tbl.add_column('SHA256', style='dim')
     for s in samples:
-        target = s.filename or s.url or '—'
-        completed = s.completed.strftime(_DATETIME_FMT) if s.completed else '—'
+        target = s.filename or s.url or '-'
+        completed = s.completed.strftime(_DATETIME_FMT) if s.completed else '-'
         color = _status_color(s.status)
         tbl.add_row(
             s.id_,
@@ -58,7 +60,7 @@ def _samples_table(samples: list[Sample]) -> Table:
             s.kind,
             s.submitted.strftime(_DATETIME_FMT),
             completed,
-            s.sha256 or '—',
+            s.sha256 or '-',
         )
     return tbl
 

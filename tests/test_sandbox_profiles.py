@@ -81,7 +81,7 @@ class TestProfilesTable:
 
     def test_table_dash_for_missing_network(self):
         out = _render_table([_PROFILE_A])  # network=None
-        assert '—' in out
+        assert '-' in out
 
     def test_table_contains_tags(self):
         out = _render_table([_PROFILE_A])
@@ -114,7 +114,7 @@ class TestProfilesTable:
 
     def test_table_dash_for_missing_geolocation(self):
         out = _render_table([_PROFILE_A])  # geolocation=[] by default
-        assert '—' in out
+        assert '-' in out
 
     def test_geolocation_before_browser_column(self):
         out = _render_table([_PROFILE_A])

@@ -11,17 +11,17 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-import sys
-from collections import Counter
-from dataclasses import dataclass, field
+from collections import Counter, defaultdict
 from datetime import datetime, timedelta, timezone
 
+from psengine.common_models import RFBaseModel
 from psengine.config import get_config
 from psengine.enrich import SoarMgr
 from psengine.enrich.errors import EnrichmentSoarError
 from psengine.helpers import MultiThreadingHelper
 from psengine.sandbox import SandboxMgr
 from psengine.sandbox.errors import SampleOverviewError, SampleStaticReportError
+from pydantic import Field
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
@@ -88,7 +88,6 @@ _SOAR_MIN_SCORE = 25
 _SAMPLES_PAGE_SIZE = 200  # psengine caps samples_per_page at 200; this is the API's hard limit
 _SAMPLES_INITIAL_MAX_RESULTS = 2000
 
-_ERR_CONSOLE = Console(stderr=True)
 
 
 def _score_bucket(score) -> str:
@@ -104,27 +103,24 @@ def _score_bucket(score) -> str:
 
 
 def _spinner(_label: str = '') -> Progress:
-    """Create a transient stderr spinner."""
     return Progress(
         SpinnerColumn(),
         TextColumn('[progress.description]{task.description}'),
         transient=True,
-        console=_ERR_CONSOLE,
+        console=Console(stderr=True),
     )
 
 
-@dataclass
-class TopTags:
+class TopTags(RFBaseModel):
     """Classified tag counts from overview reports."""
 
-    malware_families: dict = field(default_factory=dict)
-    botnets: dict = field(default_factory=dict)
-    arch_file: dict = field(default_factory=dict)
-    behavioral_ttp: dict = field(default_factory=dict)
+    malware_families: dict = Field(default_factory=dict)
+    botnets: dict = Field(default_factory=dict)
+    arch_file: dict = Field(default_factory=dict)
+    behavioral_ttp: dict = Field(default_factory=dict)
 
 
-@dataclass
-class VerifiedIoc:
+class VerifiedIoc(RFBaseModel):
     """A SOAR-validated network indicator."""
 
     indicator: str
@@ -133,18 +129,16 @@ class VerifiedIoc:
     most_critical_rule: str
 
 
-@dataclass
-class TopIocs:
+class TopIocs(RFBaseModel):
     """Extracted and verified IOCs from malicious samples."""
 
-    extracted_c2: list = field(default_factory=list)  # [(url, count), ...], ranked by rf_score
-    verified_network: list = field(default_factory=list)  # [VerifiedIoc, ...], ranked by rf_score
-    malicious_sha256: list = field(default_factory=list)
-    c2_soar: dict = field(default_factory=dict)  # {url: {'rf_score': int, 'top_risk_rule': str}}
+    extracted_c2: list = Field(default_factory=list)
+    verified_network: list = Field(default_factory=list)
+    malicious_sha256: list = Field(default_factory=list)
+    c2_soar: dict = Field(default_factory=dict)
 
 
-@dataclass
-class SandboxStats:
+class SandboxStats(RFBaseModel):
     """Aggregated sandbox submission statistics for a time window."""
 
     period_start: datetime
@@ -162,14 +156,12 @@ class SandboxStats:
     trend_vs_prior_period: dict
     soar_skipped: bool = False
     sandbox_choice: str = 'eu'
-    by_kind_prev: dict = field(default_factory=dict)
-    by_file_type: dict = field(default_factory=dict)
-    daily_by_family: dict = field(default_factory=dict)
+    by_kind_prev: dict = Field(default_factory=dict)
+    by_file_type: dict = Field(default_factory=dict)
+    daily_by_family: dict = Field(default_factory=dict)
 
 
 def _fetch_overviews(mgr: SandboxMgr, reported: list) -> list:
-    """Fetch overview reports in parallel; silently skip unavailable ones."""
-
     def _safe(sample_id: str):
         try:
             return mgr.fetch_sample_overview_report(sample_id)
@@ -188,8 +180,6 @@ def _fetch_overviews(mgr: SandboxMgr, reported: list) -> list:
 
 
 def _fetch_static_reports(mgr: SandboxMgr, reported: list) -> list:
-    """Fetch static reports in parallel; silently skip unavailable ones."""
-
     def _safe(sample_id: str):
         try:
             return mgr.fetch_sample_static_report(sample_id)
@@ -208,7 +198,6 @@ def _fetch_static_reports(mgr: SandboxMgr, reported: list) -> list:
 
 
 def _build_file_type_map(static_reports: list) -> dict:
-    """Collect file extensions from StaticReportFile.exts across all static reports."""
     ext_counter: Counter = Counter()
     for sr in static_reports:
         for f in sr.files:
@@ -218,7 +207,6 @@ def _build_file_type_map(static_reports: list) -> dict:
 
 
 def _build_score_and_platform(reports: list) -> tuple:
-    """Return (by_score dict, by_platform dict) from overview reports."""
     score_counter: Counter = Counter(_score_bucket(r.analysis.score) for _, r in reports)
     platform_counter: Counter = Counter()
     for _, r in reports:
@@ -231,7 +219,6 @@ def _build_score_and_platform(reports: list) -> tuple:
 
 
 def _build_tag_taxonomy(reports: list) -> TopTags:
-    """Classify tags into malware families, botnets, arch/file, and behavioral TTPs."""
     all_tags: list[str] = []
     for _, r in reports:
         all_tags.extend(r.analysis.tags)
@@ -258,7 +245,6 @@ def _build_tag_taxonomy(reports: list) -> TopTags:
 
 
 def _extract_raw_iocs(malicious: list) -> tuple:
-    """Extract raw IOCs and SHA256 hashes from malicious samples."""
     ip_counter: Counter = Counter()
     domain_counter: Counter = Counter()
     sha256_map: dict[str, dict] = {}
@@ -291,13 +277,12 @@ def _extract_raw_iocs(malicious: list) -> tuple:
 
 
 def _soar_enrich(ip_counter: Counter, domain_counter: Counter) -> tuple:
-    """SOAR-validate top raw IOCs. Returns (verified_iocs, soar_skipped)."""
     if not ip_counter and not domain_counter:
         return [], True
 
     rf_token = get_config().rf_token
     if not rf_token or not rf_token.get_secret_value():
-        print('NOTE: SOAR validation skipped — RF_TOKEN not set.', file=sys.stderr)
+        Console(stderr=True).print('NOTE: SOAR validation skipped, RF_TOKEN not set.')
         return [], True
 
     candidate_ips = [ip for ip, _ in ip_counter.most_common(_SOAR_TOP_N)]
@@ -314,7 +299,7 @@ def _soar_enrich(ip_counter: Counter, domain_counter: Counter) -> tuple:
                 max_workers=_SOAR_WORKERS,
             )
     except EnrichmentSoarError:
-        print('NOTE: SOAR enrichment failed — skipping network IOC validation.', file=sys.stderr)
+        Console(stderr=True).print('NOTE: SOAR enrichment failed, skipping network IOC validation.')
         return [], True
 
     risky = sorted(
@@ -335,7 +320,6 @@ def _soar_enrich(ip_counter: Counter, domain_counter: Counter) -> tuple:
 
 
 def _soar_enrich_hashes(sha256_list: list) -> dict:
-    """SOAR-enrich SHA256 hashes. Returns {sha256: {'rf_score': int, 'top_risk_rule': str}}."""
     if not sha256_list:
         return {}
     rf_token = get_config().rf_token
@@ -347,9 +331,8 @@ def _soar_enrich_hashes(sha256_list: list) -> dict:
             progress.add_task(label)
             results = SoarMgr().soar(hash_=sha256_list, max_workers=_SOAR_WORKERS)
     except EnrichmentSoarError:
-        print(
-            'NOTE: SHA256 SOAR enrichment failed — skipping RF scores for hashes.',
-            file=sys.stderr,
+        Console(stderr=True).print(
+            'NOTE: SHA256 SOAR enrichment failed, skipping RF scores for hashes.'
         )
         return {}
     return {
@@ -363,7 +346,6 @@ def _soar_enrich_hashes(sha256_list: list) -> dict:
 
 
 def _soar_enrich_c2_urls(url_list: list) -> dict:
-    """SOAR-enrich extracted C2 URLs. Returns {url: {'rf_score': int, 'top_risk_rule': str}}."""
     if not url_list:
         return {}
     rf_token = get_config().rf_token
@@ -375,7 +357,9 @@ def _soar_enrich_c2_urls(url_list: list) -> dict:
             progress.add_task(label)
             results = SoarMgr().soar(url=url_list, max_workers=_SOAR_WORKERS)
     except EnrichmentSoarError:
-        print('NOTE: C2 URL SOAR enrichment failed — skipping RF scores for C2s.', file=sys.stderr)
+        Console(stderr=True).print(
+            'NOTE: C2 URL SOAR enrichment failed, skipping RF scores for C2s.'
+        )
         return {}
     return {
         r.entity: {
@@ -401,9 +385,6 @@ def _rank_c2_by_risk_score(extracted_c2: Counter, c2_soar: dict) -> list:
 
 
 def _build_daily_by_family(reports: list) -> dict:
-    """Count daily submissions per malware family from overview reports."""
-    from collections import defaultdict
-
     daily: dict = defaultdict(lambda: defaultdict(int))
     for sample, report in reports:
         date_str = sample.submitted.strftime('%Y-%m-%d')
@@ -463,7 +444,7 @@ def fetch_sandbox_stats(
 
     Args:
         days: Lookback window in days (default 7). Prior period = same length before window.
-        subset: Sample scope — 'org' (org-wide) or 'owned' (current user).
+        subset: Sample scope, 'org' (org-wide) or 'owned' (current user).
 
     Returns:
         SandboxStats dataclass with all aggregated counts and IOCs.

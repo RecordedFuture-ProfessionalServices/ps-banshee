@@ -76,7 +76,7 @@ class TestSamplesTable:
     def test_target_dash_when_no_filename_or_url(self):
         sample = _make_sample(filename=None, url=None)
         out = _render_table([sample])
-        assert '—' in out
+        assert '-' in out
 
     def test_table_contains_status(self):
         out = _render_table([_FILE_SAMPLE])
@@ -96,7 +96,7 @@ class TestSamplesTable:
 
     def test_table_dash_for_missing_sha256(self):
         out = _render_table([_URL_SAMPLE])
-        assert '—' in out
+        assert '-' in out
 
     def test_table_contains_submitted_date(self):
         out = _render_table([_FILE_SAMPLE])
@@ -109,7 +109,7 @@ class TestSamplesTable:
     def test_table_dash_for_missing_completed(self):
         sample = _make_sample(completed=None)
         out = _render_table([sample])
-        assert '—' in out
+        assert '-' in out
 
     def test_table_multiple_rows(self):
         out = _render_table([_FILE_SAMPLE, _URL_SAMPLE])

@@ -30,15 +30,18 @@ from rich.prompt import Prompt
 
 from .reports import fetch_overview_report
 
-POLL_INTERVAL = 10
-POLL_TIMEOUT = 600
-TERMINAL_STATUSES = frozenset({'reported', 'failed'})
+_POLL_INTERVAL = 10
+_POLL_TIMEOUT = 600
+_TERMINAL_STATUSES = frozenset({'reported', 'failed'})
 
-_ERR_CONSOLE = Console(stderr=True)
 
 
 def _spinner(label: str = 'Setting profile…') -> Progress:
-    return Progress(SpinnerColumn(), TextColumn(label), transient=True, console=_ERR_CONSOLE)
+    progress = Progress(
+        SpinnerColumn(), TextColumn(label), transient=True, console=Console(stderr=True)
+    )
+    progress.add_task('')
+    return progress
 
 
 def _status_spinner() -> Progress:
@@ -46,12 +49,12 @@ def _status_spinner() -> Progress:
         SpinnerColumn(),
         TextColumn('{task.description}'),
         transient=True,
-        console=_ERR_CONSOLE,
+        console=Console(stderr=True),
     )
 
 
 def _fail(message: str) -> None:
-    _ERR_CONSOLE.print(f'[red]{message}[/red]')
+    Console(stderr=True).print(f'[red]{message}[/red]')
     sys.exit(1)
 
 
@@ -75,7 +78,7 @@ def set_sandbox_sample_profile(
         with _spinner():
             result = mgr.set_sample_profile(sample_id, auto=auto, profiles=profiles)
     except SampleProfileError as exc:
-        _ERR_CONSOLE.print(f'[red]Profile assignment failed:[/red] {exc}')
+        Console(stderr=True).print(f'[red]Profile assignment failed:[/red] {exc}')
         sys.exit(1)
     if pretty:
         console = Console()
@@ -86,7 +89,6 @@ def set_sandbox_sample_profile(
 
 
 def _resolve_submission(target: str, fetch: bool, import_: bool) -> dict:
-    """Map the target argument (+ flags) to `submit_sample` kind-specific kwargs."""
     if import_:
         return {'kind': 'import', 'source_id': target}
     if Path(target).is_file():
@@ -108,7 +110,7 @@ def _print_sample(sample: Sample, pretty: bool) -> None:
         print_json(json.dumps(sample.json()))
         return
     console = Console()
-    console.print(f'[bold]Sample {escape(sample.id_)}[/bold] — status [cyan]{sample.status}[/cyan]')
+    console.print(f'[bold]Sample {escape(sample.id_)}[/bold], status [cyan]{sample.status}[/cyan]')
     target = sample.filename or sample.url
     details = [f'kind: {sample.kind}']
     if target:
@@ -118,8 +120,7 @@ def _print_sample(sample: Sample, pretty: bool) -> None:
 
 
 def _poll(mgr: SandboxMgr, sample_id: str, done, label: str) -> SampleTasks | None:
-    """Poll the sample every POLL_INTERVAL s until `done(status)` or POLL_TIMEOUT elapses."""
-    deadline = time.monotonic() + POLL_TIMEOUT
+    deadline = time.monotonic() + _POLL_TIMEOUT
     progress = _status_spinner()
     with progress:
         task = progress.add_task(label)
@@ -133,13 +134,12 @@ def _poll(mgr: SandboxMgr, sample_id: str, done, label: str) -> SampleTasks | No
             progress.update(task, description=f'{label} [dim]status: {sample.status}[/dim]')
             if time.monotonic() >= deadline:
                 return None
-            time.sleep(POLL_INTERVAL)
+            time.sleep(_POLL_INTERVAL)
 
 
 def poll_until_terminal(mgr: SandboxMgr, sample_id: str) -> SampleTasks | None:
-    """Poll until the sample reaches `reported` or `failed`; None if POLL_TIMEOUT elapses."""
     return _poll(
-        mgr, sample_id, lambda s: s in TERMINAL_STATUSES, label='Waiting for analysis to complete…'
+        mgr, sample_id, lambda s: s in _TERMINAL_STATUSES, label='Waiting for analysis to complete…'
     )
 
 
@@ -147,7 +147,7 @@ def _wait_and_report(mgr: SandboxMgr, sample_id: str, pretty: bool) -> None:
     sample = poll_until_terminal(mgr, sample_id)
     if sample is None:
         _fail(
-            f'Analysis still running after {POLL_TIMEOUT}s. Check later with '
+            f'Analysis still running after {_POLL_TIMEOUT}s. Check later with '
             f'`banshee sandbox report overview {escape(sample_id)}`.'
         )
     if sample.status == 'failed':
@@ -156,7 +156,6 @@ def _wait_and_report(mgr: SandboxMgr, sample_id: str, pretty: bool) -> None:
 
 
 def _build_picks(report: StaticAnalysisReport) -> tuple[list[dict], bool]:
-    """Build [{'name', 'path'}] pick candidates; True means fall back to automatic selection."""
     if report.sample.kind == 'url':
         target = report.sample.target or ''
         return [{'name': target, 'path': target}], False
@@ -169,13 +168,13 @@ def _build_picks(report: StaticAnalysisReport) -> tuple[list[dict], bool]:
 
 
 def _prompt_file_picks(files: list) -> tuple[list[dict], bool]:
-    _ERR_CONSOLE.print('Files found in the sample:')
+    Console(stderr=True).print('Files found in the sample:')
     for idx, file in enumerate(files, start=1):
         marker = ' [green](recommended)[/green]' if file.selected else ''
-        _ERR_CONSOLE.print(f'  {idx}) {escape(file.filename)}{marker}')
+        Console(stderr=True).print(f'  {idx}) {escape(file.filename)}{marker}')
     answer = Prompt.ask(
         'Files to analyse (e.g. 1,3; blank = recommended files + automatic profiles)',
-        console=_ERR_CONSOLE,
+        console=Console(stderr=True),
         default='',
         show_default=False,
     ).strip()
@@ -200,15 +199,14 @@ def _parse_selection(answer: str, count: int) -> list[int]:
 
 
 def _prompt_profiles(picks: list[dict], profiles: list) -> tuple[list[dict], bool]:
-    """Prompt a profile per pick; True means fall back to automatic selection."""
-    _ERR_CONSOLE.print('Available profiles:')
+    Console(stderr=True).print('Available profiles:')
     for idx, profile in enumerate(profiles, start=1):
-        _ERR_CONSOLE.print(f'  {idx}) {escape(profile.name)}')
+        Console(stderr=True).print(f'  {idx}) {escape(profile.name)}')
     selections = []
     for pick in picks:
         answer = Prompt.ask(
             f'Profile for {escape(pick["name"])} (blank = automatic for all)',
-            console=_ERR_CONSOLE,
+            console=Console(stderr=True),
             default='',
             show_default=False,
         ).strip()
@@ -224,13 +222,13 @@ def interactive_profile_selection(mgr: SandboxMgr, sample_id: str) -> None:
     sample = _poll(mgr, sample_id, lambda s: s != 'pending', label='Waiting for static analysis…')
     if sample is None:
         _fail(
-            f'Static analysis still running after {POLL_TIMEOUT}s. Assign profiles later with '
+            f'Static analysis still running after {_POLL_TIMEOUT}s. Assign profiles later with '
             f'`banshee sandbox set-profile {escape(sample_id)}`.'
         )
     if sample.status == 'failed':
         _fail(f'Sample {escape(sample_id)} failed during static analysis.')
     if sample.status != 'static_analysis':
-        _ERR_CONSOLE.print(
+        Console(stderr=True).print(
             f'Sample does not need profile selection (status: {escape(sample.status)}).'
         )
         return
@@ -247,7 +245,7 @@ def interactive_profile_selection(mgr: SandboxMgr, sample_id: str) -> None:
         else:
             auto = True
     if auto:
-        _ERR_CONSOLE.print('Using automatic profile selection.')
+        Console(stderr=True).print('Using automatic profile selection.')
     try:
         with _spinner():
             if auto:

@@ -38,9 +38,7 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.rule import Rule
 from rich.table import Table
 
-from .output import _BAR_CHAR, _DISPLAY_CAP, _MORE_MSG, _SCORE_COLORS
-
-_ERR_CONSOLE = Console(stderr=True)
+from .output import BAR_CHAR, DISPLAY_CAP, MORE_MSG, SCORE_COLORS
 
 _SCORE_BUCKETS = (
     (8, 'malicious'),
@@ -56,7 +54,7 @@ _SCORE_LABELS = {
     'unknown': 'UNKNOWN',
 }
 _BEHAVIORAL_MAX_WORKERS = 10
-_WAIT_TIMEOUT = 600
+_STATIC_WAIT_TIMEOUT = 600
 _OVERVIEW_WAIT_TIMEOUT = 1800
 _BEHAVIORAL_WAIT_TIMEOUT = 1800
 _SCORE_BAR_WIDTH = 16
@@ -75,12 +73,12 @@ def _section(title: str) -> Rule:
 
 def _score_bar(score: int | None, width: int = _SCORE_BAR_WIDTH) -> str:
     bucket = _score_bucket(score)
-    color = _SCORE_COLORS[bucket]
+    color = SCORE_COLORS[bucket]
     filled = 0 if not score else min(width, max(1, round(score / 10 * width)))
-    bar = f'[{color}]{_BAR_CHAR * filled}[/{color}]'
+    bar = f'[{color}]{BAR_CHAR * filled}[/{color}]'
     empty = width - filled
     if empty:
-        bar += f'[{_EMPTY_BAR_COLOR}]{_BAR_CHAR * empty}[/{_EMPTY_BAR_COLOR}]'
+        bar += f'[{_EMPTY_BAR_COLOR}]{BAR_CHAR * empty}[/{_EMPTY_BAR_COLOR}]'
     return bar
 
 
@@ -89,7 +87,6 @@ def _badge(text: str, bg: str = _TAG_BADGE_BG) -> str:
 
 
 def _task_sort_key(item: tuple) -> tuple:
-    """Sort tasks static-first, then naturally by task id (behavioral2 before behavioral10)."""
     task_id, task = item
     kind_rank = 0 if task.kind == 'static' else 1
     # Zero-pad digit chunks so the key stays all-strings (safe to compare) while still
@@ -111,8 +108,10 @@ def _joined_badges(tags: list[str], cap: int = _ROW_TAG_CAP) -> str:
 
 
 def _spinner(label: str = 'Fetching overview report') -> Progress:
-    progress = Progress(SpinnerColumn(), TextColumn(label), transient=True, console=_ERR_CONSOLE)
-    progress.add_task('')  # a Progress with zero tasks renders nothing
+    progress = Progress(
+        SpinnerColumn(), TextColumn(label), transient=True, console=Console(stderr=True)
+    )
+    progress.add_task('')
     return progress
 
 
@@ -125,9 +124,8 @@ def _score_bucket(score: int | None) -> str:
 
 
 def _joined_capped(items: list[str], sep: str = ', ') -> str:
-    """Join up to the display cap, markup-escaping each item; note how many were dropped."""
-    text = sep.join(escape(item) for item in items[:_DISPLAY_CAP])
-    extra = len(items) - _DISPLAY_CAP
+    text = sep.join(escape(item) for item in items[:DISPLAY_CAP])
+    extra = len(items) - DISPLAY_CAP
     if extra > 0:
         text += f' [dim]+{extra} more[/dim]'
     return text
@@ -142,16 +140,16 @@ def _print_header(console: Console, report: OverviewReport) -> None:
     if sample.size is not None:
         console.print(f'[bold cyan]Size[/bold cyan]    {sample.size:,} bytes')
     bucket = _score_bucket(analysis.score)
-    color = _SCORE_COLORS[bucket]
-    score = analysis.score if analysis.score is not None else '—'
+    color = SCORE_COLORS[bucket]
+    score = analysis.score if analysis.score is not None else '-'
     console.print(
-        f'[bold]Sample {escape(sample.id_)}[/bold] — '
+        f'[bold]Sample {escape(sample.id_)}[/bold], '
         f'[bold {color}]SCORE {score} {_SCORE_LABELS[bucket]}[/bold {color}]  '
         f'{_score_bar(analysis.score)}'
     )
     badges = [_badge(fam, bg=_FAMILY_BADGE_BG) for fam in analysis.family]
-    badges += [_badge(tag) for tag in analysis.tags[:_DISPLAY_CAP]]
-    extra = len(analysis.tags) - _DISPLAY_CAP
+    badges += [_badge(tag) for tag in analysis.tags[:DISPLAY_CAP]]
+    extra = len(analysis.tags) - DISPLAY_CAP
     if badges:
         line = '  '.join(badges)
         if extra > 0:
@@ -176,14 +174,14 @@ def _print_signatures(console: Console, signatures: list) -> None:
     tbl.add_column('Signatures', style='bold cyan')
     tbl.add_column('Score', justify='right')
     tbl.add_column('ATT&CK', style='dim')
-    for sig in ordered[:_DISPLAY_CAP]:
+    for sig in ordered[:DISPLAY_CAP]:
         bucket = _score_bucket(sig.score)
-        color = _SCORE_COLORS[bucket]
-        score = f'[{color}]{sig.score}[/{color}]' if sig.score is not None else '—'
+        color = SCORE_COLORS[bucket]
+        score = f'[{color}]{sig.score}[/{color}]' if sig.score is not None else '-'
         tbl.add_row(escape(sig.name), score, escape(', '.join(sig.ttp)))
     console.print(tbl)
-    if len(ordered) > _DISPLAY_CAP:
-        console.print(_MORE_MSG.format(len(ordered) - _DISPLAY_CAP))
+    if len(ordered) > DISPLAY_CAP:
+        console.print(MORE_MSG.format(len(ordered) - DISPLAY_CAP))
     console.print()
 
 
@@ -192,15 +190,15 @@ def _print_extracted(console: Console, extracted: list) -> None:
     if not configs:
         return
     console.print(_section('Malware Config'))
-    for cfg in configs[:_DISPLAY_CAP]:
-        line = f'  {_badge(cfg.family, bg=_FAMILY_BADGE_BG)}' if cfg.family else '  —'
+    for cfg in configs[:DISPLAY_CAP]:
+        line = f'  {_badge(cfg.family, bg=_FAMILY_BADGE_BG)}' if cfg.family else '  -'
         if cfg.botnet:
             line += f'  botnet: {escape(cfg.botnet)}'
         if cfg.c2:
             line += f'  C2: {_joined_capped(cfg.c2)}'
         console.print(line)
-    if len(configs) > _DISPLAY_CAP:
-        console.print(_MORE_MSG.format(len(configs) - _DISPLAY_CAP))
+    if len(configs) > DISPLAY_CAP:
+        console.print(MORE_MSG.format(len(configs) - DISPLAY_CAP))
     console.print()
 
 
@@ -208,12 +206,12 @@ def _print_target_signatures(console: Console, signatures: list) -> None:
     ordered = sorted(signatures, key=lambda s: s.score if s.score is not None else -1, reverse=True)
     for sig in ordered[:_TARGET_SIG_CAP]:
         bucket = _score_bucket(sig.score)
-        color = _SCORE_COLORS[bucket]
+        color = SCORE_COLORS[bucket]
         console.print(f'  [{color}]▎[/{color}] [bold]{escape(sig.name)}[/bold]')
         if sig.desc:
             console.print(f'    [dim]{escape(sig.desc)}[/dim]')
     if len(ordered) > _TARGET_SIG_CAP:
-        console.print(f'  {_MORE_MSG.format(len(ordered) - _TARGET_SIG_CAP)}')
+        console.print(f'  {MORE_MSG.format(len(ordered) - _TARGET_SIG_CAP)}')
 
 
 def _print_targets(console: Console, targets: list, sample_target: str | None) -> None:
@@ -232,8 +230,8 @@ def _print_targets(console: Console, targets: list, sample_target: str | None) -
         if target.size is not None:
             console.print(f'[bold cyan]Size[/bold cyan]    {target.size:,} bytes')
         bucket = _score_bucket(target.score)
-        color = _SCORE_COLORS[bucket]
-        score = target.score if target.score is not None else '—'
+        color = SCORE_COLORS[bucket]
+        score = target.score if target.score is not None else '-'
         console.print(
             f'[bold cyan]Score[/bold cyan]   [bold {color}]{score}/10[/bold {color}]  '
             f'{_score_bar(target.score, width=_ROW_BAR_WIDTH)}'
@@ -260,8 +258,8 @@ def _print_tasks(console: Console, tasks: dict, sample_id: str) -> None:
     tbl.add_column('Tags')
     for task_id, task in sorted(tasks.items(), key=_task_sort_key):
         bucket = _score_bucket(task.score)
-        color = _SCORE_COLORS[bucket]
-        score = f'[{color}]{task.score}[/{color}]' if task.score is not None else '—'
+        color = SCORE_COLORS[bucket]
+        score = f'[{color}]{task.score}[/{color}]' if task.score is not None else '-'
         status_color = 'green' if task.status == 'reported' else 'yellow'
         display_id = task_id.removeprefix(prefix)
         tbl.add_row(
@@ -294,10 +292,10 @@ def _print_static_header(console: Console, report: StaticAnalysisReport) -> None
     if sample.size is not None:
         console.print(f'[bold cyan]Size[/bold cyan]    {sample.size:,} bytes')
     bucket = _score_bucket(analysis.score)
-    color = _SCORE_COLORS[bucket]
-    score = analysis.score if analysis.score is not None else '—'
+    color = SCORE_COLORS[bucket]
+    score = analysis.score if analysis.score is not None else '-'
     console.print(
-        f'[bold]Sample {escape(sample.sample)}[/bold] — '
+        f'[bold]Sample {escape(sample.sample)}[/bold], '
         f'[bold {color}]SCORE {score} {_SCORE_LABELS[bucket]}[/bold {color}]  '
         f'{_score_bar(analysis.score)}'
     )
@@ -306,9 +304,9 @@ def _print_static_header(console: Console, report: StaticAnalysisReport) -> None
             _badge(tag.removeprefix('family:'), bg=_FAMILY_BADGE_BG)
             if tag.startswith('family:')
             else _badge(tag)
-            for tag in analysis.tags[:_DISPLAY_CAP]
+            for tag in analysis.tags[:DISPLAY_CAP]
         ]
-        extra = len(analysis.tags) - _DISPLAY_CAP
+        extra = len(analysis.tags) - DISPLAY_CAP
         line = '  '.join(badges)
         if extra > 0:
             line += f' [dim]+{extra} more[/dim]'
@@ -344,17 +342,17 @@ def _print_static_files(console: Console, files: list) -> None:
     tbl.add_column('Size', justify='right', style='bold')
     tbl.add_column('SHA256', style='dim', overflow='fold')
     tbl.add_column('Selected', justify='center')
-    for file in files[:_DISPLAY_CAP]:
+    for file in files[:DISPLAY_CAP]:
         tbl.add_row(
             escape(file.filename),
-            escape(file.kind) if file.kind else '—',
-            str(file.filesize) if file.filesize is not None else '—',
-            escape(file.sha256) if file.sha256 else '—',
+            escape(file.kind) if file.kind else '-',
+            str(file.filesize) if file.filesize is not None else '-',
+            escape(file.sha256) if file.sha256 else '-',
             '[green]✓[/green]' if file.selected else '',
         )
     console.print(tbl)
-    if len(files) > _DISPLAY_CAP:
-        console.print(_MORE_MSG.format(len(files) - _DISPLAY_CAP))
+    if len(files) > DISPLAY_CAP:
+        console.print(MORE_MSG.format(len(files) - DISPLAY_CAP))
     console.print()
 
 
@@ -366,14 +364,14 @@ def _print_static_signatures(console: Console, signatures: list) -> None:
     tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 0), header_style='bold magenta')
     tbl.add_column('Signatures', style='bold cyan')
     tbl.add_column('Score', justify='right')
-    for sig in ordered[:_DISPLAY_CAP]:
+    for sig in ordered[:DISPLAY_CAP]:
         bucket = _score_bucket(sig.score)
-        color = _SCORE_COLORS[bucket]
-        score = f'[{color}]{sig.score}[/{color}]' if sig.score is not None else '—'
+        color = SCORE_COLORS[bucket]
+        score = f'[{color}]{sig.score}[/{color}]' if sig.score is not None else '-'
         tbl.add_row(escape(sig.name), score)
     console.print(tbl)
-    if len(ordered) > _DISPLAY_CAP:
-        console.print(_MORE_MSG.format(len(ordered) - _DISPLAY_CAP))
+    if len(ordered) > DISPLAY_CAP:
+        console.print(MORE_MSG.format(len(ordered) - DISPLAY_CAP))
     console.print()
 
 
@@ -388,10 +386,10 @@ def _print_static_pretty(report: StaticAnalysisReport) -> None:
 def _print_behavioral_header(console: Console, report: BehavioralReport) -> None:
     analysis = report.analysis
     bucket = _score_bucket(analysis.score)
-    color = _SCORE_COLORS[bucket]
-    score = analysis.score if analysis.score is not None else '—'
+    color = SCORE_COLORS[bucket]
+    score = analysis.score if analysis.score is not None else '-'
     line = (
-        f'[bold]{escape(report.task_id or "behavioral")}[/bold] — '
+        f'[bold]{escape(report.task_id or "behavioral")}[/bold], '
         f'[bold {color}]SCORE {score} {_SCORE_LABELS[bucket]}[/bold {color}]'
     )
     if analysis.platform:
@@ -420,7 +418,7 @@ def _print_behavioral_header(console: Console, report: BehavioralReport) -> None
 
 def _proc_cmd(proc, full_cmd: bool = False) -> str:
     cmd = ' '.join(proc.cmd) if isinstance(proc.cmd, list) else proc.cmd
-    cmd = cmd or proc.image or '—'
+    cmd = cmd or proc.image or '-'
     if not full_cmd and len(cmd) > _CMD_TRUNCATE_LEN:
         cmd = f'{cmd[:_CMD_TRUNCATE_LEN]}...'
     return cmd
@@ -430,11 +428,11 @@ def _print_behavioral_processes(console: Console, processes: list, full_cmd: boo
     if not processes:
         return
     console.print('[dim]Processes[/dim]')
-    for proc in processes[:_DISPLAY_CAP]:
-        pid = proc.pid if proc.pid is not None else '—'
+    for proc in processes[:DISPLAY_CAP]:
+        pid = proc.pid if proc.pid is not None else '-'
         console.print(f'  [dim]{pid}[/dim]  {escape(_proc_cmd(proc, full_cmd=full_cmd))}')
-    if len(processes) > _DISPLAY_CAP:
-        console.print(_MORE_MSG.format(len(processes) - _DISPLAY_CAP))
+    if len(processes) > DISPLAY_CAP:
+        console.print(MORE_MSG.format(len(processes) - DISPLAY_CAP))
     console.print()
 
 
@@ -446,16 +444,16 @@ def _print_behavioral_flows(console: Console, flows: list) -> None:
     tbl.add_column('Domain')
     tbl.add_column('Proto')
     tbl.add_column('TLS SNI')
-    for flow in flows[:_DISPLAY_CAP]:
+    for flow in flows[:DISPLAY_CAP]:
         tbl.add_row(
-            escape(flow.dst) if flow.dst else '—',
-            escape(flow.domain) if flow.domain else '—',
-            escape(flow.proto) if flow.proto else '—',
-            escape(flow.tls_sni) if flow.tls_sni else '—',
+            escape(flow.dst) if flow.dst else '-',
+            escape(flow.domain) if flow.domain else '-',
+            escape(flow.proto) if flow.proto else '-',
+            escape(flow.tls_sni) if flow.tls_sni else '-',
         )
     console.print(tbl)
-    if len(flows) > _DISPLAY_CAP:
-        console.print(_MORE_MSG.format(len(flows) - _DISPLAY_CAP))
+    if len(flows) > DISPLAY_CAP:
+        console.print(MORE_MSG.format(len(flows) - DISPLAY_CAP))
     console.print()
 
 
@@ -476,7 +474,7 @@ def fetch_static_report(sample_id: str, pretty: bool = False, wait: bool = False
 
     Default output is the full report as JSON on stdout; `pretty` renders a
     summarised human-readable view instead. With `wait`, a report that is not
-    yet available is polled internally for up to _WAIT_TIMEOUT seconds before
+    yet available is polled internally for up to _STATIC_WAIT_TIMEOUT seconds before
     giving up.
     """
     config = get_config()
@@ -485,19 +483,21 @@ def fetch_static_report(sample_id: str, pretty: bool = False, wait: bool = False
     try:
         with _spinner(label):
             report = mgr.fetch_sample_static_report(
-                sample_id, wait_until_ready=wait, timeout=_WAIT_TIMEOUT
+                sample_id, wait_until_ready=wait, timeout=_STATIC_WAIT_TIMEOUT
             )
     except SampleReportNotAvailableError as exc:
         if wait:
-            _ERR_CONSOLE.print(escape(str(exc)))
+            Console(stderr=True).print(escape(str(exc)))
         else:
-            _ERR_CONSOLE.print('Static report not available yet. Retry shortly or pass --wait.')
+            Console(stderr=True).print(
+                'Static report not available yet. Retry shortly or pass --wait.'
+            )
         sys.exit(1)
     except SampleReportNotFoundError:
-        _ERR_CONSOLE.print(f'Sample not found: {escape(sample_id)}')
+        Console(stderr=True).print(f'Sample not found: {escape(sample_id)}')
         sys.exit(1)
     except SampleStaticReportError as exc:
-        _ERR_CONSOLE.print(f'Failed to fetch static report: {escape(str(exc))}')
+        Console(stderr=True).print(f'Failed to fetch static report: {escape(str(exc))}')
         sys.exit(1)
     if pretty:
         _print_static_pretty(report)
@@ -523,17 +523,17 @@ def fetch_overview_report(sample_id: str, pretty: bool = False, wait: bool = Fal
             )
     except SampleReportNotAvailableError as exc:
         if wait:
-            _ERR_CONSOLE.print(escape(str(exc)))
+            Console(stderr=True).print(escape(str(exc)))
         else:
-            _ERR_CONSOLE.print(
+            Console(stderr=True).print(
                 'Analysis not complete. Retry once the sample status is `reported`, or pass --wait.'
             )
         sys.exit(1)
     except SampleReportNotFoundError:
-        _ERR_CONSOLE.print(f'Sample not found: {escape(sample_id)}')
+        Console(stderr=True).print(f'Sample not found: {escape(sample_id)}')
         sys.exit(1)
     except SampleOverviewError as exc:
-        _ERR_CONSOLE.print(f'Failed to fetch overview report: {escape(str(exc))}')
+        Console(stderr=True).print(f'Failed to fetch overview report: {escape(str(exc))}')
         sys.exit(1)
     if pretty:
         _print_pretty(report)
@@ -554,10 +554,10 @@ def _fetch_behavioral(mgr: SandboxMgr, sample_id: str, wait: bool) -> Behavioral
                 timeout=_BEHAVIORAL_WAIT_TIMEOUT,
             )
     except SampleReportNotFoundError:
-        _ERR_CONSOLE.print(f'Sample not found: {escape(sample_id)}')
+        Console(stderr=True).print(f'Sample not found: {escape(sample_id)}')
         sys.exit(1)
     except SampleBehavioralReportError as exc:
-        _ERR_CONSOLE.print(f'Failed to fetch behavioral reports: {escape(str(exc))}')
+        Console(stderr=True).print(f'Failed to fetch behavioral reports: {escape(str(exc))}')
         sys.exit(1)
 
 
@@ -569,13 +569,13 @@ def _print_behavioral_failures(failed: list[BehavioralReportFailure]) -> None:
         if failure.error:
             parts.append(escape(failure.error))
         detail = ' '.join(parts) or 'unknown error'
-        _ERR_CONSOLE.print(f'Report fetch failed for {escape(failure.task_id)} ({detail}).')
+        Console(stderr=True).print(f'Report fetch failed for {escape(failure.task_id)} ({detail}).')
 
 
 def _print_behavioral_not_ready(not_ready: list[str], waited: bool) -> None:
     ids = ', '.join(escape(task_id) for task_id in not_ready)
     hint = '' if waited else ', or pass --wait'
-    _ERR_CONSOLE.print(
+    Console(stderr=True).print(
         f'{len(not_ready)} behavioral report(s) not available yet ({ids}). '
         f'Retry once the sample status is `reported`{hint}.'
     )
@@ -606,7 +606,7 @@ def fetch_behavioral_reports(
     if result.not_ready:
         _print_behavioral_not_ready(result.not_ready, waited=wait)
     elif not result.reports and not result.failed:
-        _ERR_CONSOLE.print('No behavioral tasks for this sample.')
+        Console(stderr=True).print('No behavioral tasks for this sample.')
     if result.reports or result.complete:
         if pretty:
             _print_behavioral_pretty(result.reports, full_cmd=full_cmd)

@@ -11,11 +11,11 @@ from typer.testing import CliRunner
 
 from banshee.commands.cmd_sandbox import app
 from banshee.sandbox.output import (
-    _BAR_CHAR,
-    _BAR_WIDTH_HALF,
     _SCORE_SHORT_LABELS,
     _SPARK_CHARS,
     _SPARK_MAX_BUCKETS,
+    BAR_CHAR,
+    BAR_WIDTH_HALF,
     _bucket_counts,
     _fmt_tags,
     _intel_card_url,
@@ -1056,7 +1056,7 @@ class TestPrintChartAndSummary:
 
     def test_score_bar_chars_present(self):
         out = self._render({}, by_score={'malicious': 10})
-        assert _BAR_CHAR in out
+        assert BAR_CHAR in out
 
     def test_zero_score_bucket_omitted(self):
         out = self._render({}, by_score={'malicious': 10, 'suspicious': 0})
@@ -1115,7 +1115,7 @@ class TestIntelCardUrl:
 
 class TestFmtTags:
     def test_empty_dict(self):
-        assert '—' in _fmt_tags({})
+        assert '-' in _fmt_tags({})
 
     def test_strip_prefix(self):
         result = _fmt_tags({'botnet:lzrd': 5}, strip_prefix='botnet:')
@@ -1166,7 +1166,7 @@ class TestTrendStr:
 
     def test_equal_returns_dash(self):
         result = _trend_str(100, 100)
-        assert '—' in result
+        assert '-' in result
 
     def test_prev_zero_returns_empty(self):
         assert _trend_str(5, 0) == ''
@@ -1306,18 +1306,18 @@ class TestPrintSubmissionProfile:
 
     def test_renders_file_type_bar_chars(self):
         out = self._render(by_file_type={'.exe': 100, '.dll': 50})
-        assert _BAR_CHAR in out
+        assert BAR_CHAR in out
         assert '.exe' in out
         assert '.dll' in out
 
     def test_max_count_gets_full_half_bar(self):
         out = self._render(by_file_type={'.exe': 100})
-        assert _BAR_CHAR * _BAR_WIDTH_HALF in out
+        assert BAR_CHAR * BAR_WIDTH_HALF in out
 
     def test_shorter_bar_for_smaller_count(self):
         out = self._render(by_file_type={'.exe': 100, '.dll': 50})
-        assert _BAR_CHAR * _BAR_WIDTH_HALF in out
-        assert _BAR_CHAR * (_BAR_WIDTH_HALF // 2) in out
+        assert BAR_CHAR * BAR_WIDTH_HALF in out
+        assert BAR_CHAR * (BAR_WIDTH_HALF // 2) in out
 
     def test_count_appears_in_output(self):
         out = self._render(by_file_type={'.exe': 247})
@@ -1327,7 +1327,7 @@ class TestPrintSubmissionProfile:
         out = self._render(by_platform={'linux': 3}, by_file_type={'.elf': 10})
         assert 'linux' in out
         assert '.elf' in out
-        assert _BAR_CHAR in out
+        assert BAR_CHAR in out
 
     def test_only_platform_renders(self):
         out = self._render(by_platform={'linux': 3})
@@ -1379,11 +1379,11 @@ class TestPrintHashes:
 
     def test_risk_score_dash_when_none(self):
         out = self._render([{'sha256': 'abc' * 21, 'score': 9, 'top_tag': ''}])
-        assert '—' in out
+        assert '-' in out
 
     def test_risk_score_dash_when_zero(self):
         out = self._render([{'sha256': 'abc' * 21, 'score': 9, 'top_tag': '', 'rf_score': 0}])
-        assert '—' in out
+        assert '-' in out
         assert '0' not in out.split('Risk Score')[1]
 
     def test_risk_score_shown_when_present(self):
@@ -1651,7 +1651,7 @@ class TestCmdSandboxStats:
         result = runner.invoke(app, args=['stats', '--pretty'])
         assert result.exit_code == 0
         assert 'File types' in result.output
-        assert _BAR_CHAR in result.output
+        assert BAR_CHAR in result.output
         assert '.exe' in result.output
         assert '.dll' in result.output
 
