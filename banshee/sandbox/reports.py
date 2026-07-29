@@ -134,9 +134,7 @@ def _print_behavioral_failures(failed: list[BehavioralReportFailure]) -> None:
         if failure.error:
             parts.append(escape(failure.error))
         detail = ' '.join(parts) or 'unknown error'
-        Console(stderr=True).print(
-            f'Report fetch failed for {escape(failure.task_id)} ({detail}).'
-        )
+        Console(stderr=True).print(f'Report fetch failed for {escape(failure.task_id)} ({detail}).')
 
 
 def _print_behavioral_not_ready(not_ready: list[str], waited: bool) -> None:

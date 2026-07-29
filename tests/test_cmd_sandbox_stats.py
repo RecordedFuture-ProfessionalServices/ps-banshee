@@ -10,22 +10,18 @@ from rich.console import Console
 from typer.testing import CliRunner
 
 from banshee.commands.cmd_sandbox import app
-from banshee.sandbox.constants import BAR_CHAR
 from banshee.sandbox.constants import (
-    SAMPLES_INITIAL_MAX_RESULTS as _SAMPLES_INITIAL_MAX_RESULTS,
+    BAR_CHAR,
+    SAMPLES_INITIAL_MAX_RESULTS,
+    SAMPLES_PAGE_SIZE,
+    SCORE_SHORT_LABELS,
 )
-from banshee.sandbox.constants import (
-    SAMPLES_PAGE_SIZE as _SAMPLES_PAGE_SIZE,
-)
-from banshee.sandbox.constants import SCORE_SHORT_LABELS as _SCORE_SHORT_LABELS
 from banshee.sandbox.helpers import (
     SandboxStats,
     TopIocs,
     TopTags,
     VerifiedIoc,
-)
-from banshee.sandbox.helpers import (
-    score_bucket as _score_bucket,
+    score_bucket,
 )
 from banshee.sandbox.stats import (
     _build_daily_by_family,
@@ -45,7 +41,6 @@ from banshee.sandbox.stats_output import (
     _SPARK_MAX_BUCKETS,
     BAR_WIDTH_HALF,
     _bucket_counts,
-    _fmt_tags,
     _intel_card_url,
     _print_chart_and_summary,
     _print_hashes,
@@ -172,23 +167,23 @@ def _make_stats(**overrides) -> SandboxStats:
 
 class TestScoreBucket:
     def test_malicious(self):
-        assert _score_bucket(10) == 'malicious'
-        assert _score_bucket(8) == 'malicious'
+        assert score_bucket(10) == 'malicious'
+        assert score_bucket(8) == 'malicious'
 
     def test_suspicious(self):
-        assert _score_bucket(7) == 'suspicious'
-        assert _score_bucket(5) == 'suspicious'
+        assert score_bucket(7) == 'suspicious'
+        assert score_bucket(5) == 'suspicious'
 
     def test_potentially_suspicious(self):
-        assert _score_bucket(4) == 'potentially_suspicious'
-        assert _score_bucket(3) == 'potentially_suspicious'
+        assert score_bucket(4) == 'potentially_suspicious'
+        assert score_bucket(3) == 'potentially_suspicious'
 
     def test_clean(self):
-        assert _score_bucket(2) == 'clean'
-        assert _score_bucket(1) == 'clean'
+        assert score_bucket(2) == 'clean'
+        assert score_bucket(1) == 'clean'
 
     def test_none_returns_unknown(self):
-        assert _score_bucket(None) == 'unknown'
+        assert score_bucket(None) == 'unknown'
 
 
 class TestBuildScoreAndPlatform:
@@ -728,8 +723,8 @@ class TestFetchSandboxStats:
         fetch_sandbox_stats(days=7)
 
         _, kwargs = mock_mgr_cls.return_value.fetch_samples.call_args
-        assert kwargs['max_results'] == _SAMPLES_INITIAL_MAX_RESULTS
-        assert kwargs['samples_per_page'] == _SAMPLES_PAGE_SIZE
+        assert kwargs['max_results'] == SAMPLES_INITIAL_MAX_RESULTS
+        assert kwargs['samples_per_page'] == SAMPLES_PAGE_SIZE
 
 
 class TestFetchSamplesCoveringWindow:
@@ -748,7 +743,7 @@ class TestFetchSamplesCoveringWindow:
     def test_stops_when_oldest_sample_predates_cutoff(self):
         mgr = MagicMock()
         full_page = [
-            _make_sample(submitted_delta_days=1) for _ in range(_SAMPLES_INITIAL_MAX_RESULTS)
+            _make_sample(submitted_delta_days=1) for _ in range(SAMPLES_INITIAL_MAX_RESULTS)
         ]
         full_page[-1].submitted = self._CUTOFF - timedelta(days=1)
         mgr.fetch_samples.return_value = full_page
@@ -761,10 +756,10 @@ class TestFetchSamplesCoveringWindow:
     def test_doubles_max_results_until_window_covered(self):
         mgr = MagicMock()
         first_page = [
-            _make_sample(submitted_delta_days=1) for _ in range(_SAMPLES_INITIAL_MAX_RESULTS)
+            _make_sample(submitted_delta_days=1) for _ in range(SAMPLES_INITIAL_MAX_RESULTS)
         ]
         second_page = [
-            _make_sample(submitted_delta_days=1) for _ in range(_SAMPLES_INITIAL_MAX_RESULTS * 2)
+            _make_sample(submitted_delta_days=1) for _ in range(SAMPLES_INITIAL_MAX_RESULTS * 2)
         ]
         second_page[-1].submitted = self._CUTOFF - timedelta(days=1)
         mgr.fetch_samples.side_effect = [first_page, second_page]
@@ -774,7 +769,7 @@ class TestFetchSamplesCoveringWindow:
         assert result == second_page
         assert mgr.fetch_samples.call_count == 2
         second_call_kwargs = mgr.fetch_samples.call_args_list[1].kwargs
-        assert second_call_kwargs['max_results'] == _SAMPLES_INITIAL_MAX_RESULTS * 2
+        assert second_call_kwargs['max_results'] == SAMPLES_INITIAL_MAX_RESULTS * 2
 
     def test_empty_result_stops_immediately(self):
         mgr = MagicMock()
@@ -1059,8 +1054,8 @@ class TestPrintChartAndSummary:
 
     def test_score_renders_one_row_per_bucket(self):
         out = self._render({}, by_score={'malicious': 10, 'clean': 5})
-        assert _SCORE_SHORT_LABELS['malicious'] in out
-        assert _SCORE_SHORT_LABELS['clean'] in out
+        assert SCORE_SHORT_LABELS['malicious'] in out
+        assert SCORE_SHORT_LABELS['clean'] in out
 
     def test_score_bar_chars_present(self):
         out = self._render({}, by_score={'malicious': 10})
@@ -1068,11 +1063,11 @@ class TestPrintChartAndSummary:
 
     def test_zero_score_bucket_omitted(self):
         out = self._render({}, by_score={'malicious': 10, 'suspicious': 0})
-        assert _SCORE_SHORT_LABELS['suspicious'] not in out
+        assert SCORE_SHORT_LABELS['suspicious'] not in out
 
     def test_unknown_bucket_never_rendered(self):
         out = self._render({}, by_score={'malicious': 5, 'unknown': 10})
-        assert _SCORE_SHORT_LABELS['unknown'] not in out
+        assert SCORE_SHORT_LABELS['unknown'] not in out
 
     def test_score_section_absent_when_no_data(self):
         out = self._render({}, by_score={})
@@ -1119,44 +1114,6 @@ class TestIntelCardUrl:
             'https://app.recordedfuture.com/portal/intelligence-card/'
             'url%3Ahttps%3A%2F%2Ftelegram.me%2Foxffffw'
         )
-
-
-class TestFmtTags:
-    def test_empty_dict(self):
-        assert '-' in _fmt_tags({})
-
-    def test_strip_prefix(self):
-        result = _fmt_tags({'botnet:lzrd': 5}, strip_prefix='botnet:')
-        assert 'lzrd (5)' in result
-        assert 'botnet:' not in result
-
-    def test_top_n_limit(self):
-        tags = {f'tag{i}': i for i in range(20)}
-        result = _fmt_tags(tags, top_n=3)
-        assert result.count('(') == 3
-
-    def test_with_frontend_base_adds_links(self):
-        result = _fmt_tags(
-            {'family:vidar': 5},
-            strip_prefix='family:',
-            frontend_base='https://sandbox.recordedfuture.com',
-        )
-        assert '[link=' in result
-        assert 'family%3Avidar' in result
-        assert 'vidar[/link] (5)' in result
-
-    def test_with_query_prefix(self):
-        result = _fmt_tags(
-            {'discovery': 10},
-            query_prefix='tag:',
-            frontend_base='https://sandbox.recordedfuture.com',
-        )
-        assert 'tag%3Adiscovery' in result
-
-    def test_no_frontend_base_no_links(self):
-        result = _fmt_tags({'family:vidar': 5}, strip_prefix='family:')
-        assert '[link=' not in result
-        assert 'vidar (5)' in result
 
 
 class TestTrendStr:

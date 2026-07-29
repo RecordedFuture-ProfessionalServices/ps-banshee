@@ -53,6 +53,13 @@ def _score_bar(score: int | None, width: int = _SCORE_BAR_WIDTH) -> str:
     return bar
 
 
+def _colored_score(score: int | None) -> str:
+    if score is None:
+        return '-'
+    color = SCORE_COLORS[score_bucket(score)]
+    return f'[{color}]{score}[/{color}]'
+
+
 def _badge(text: str, bg: str = TAG_BADGE_BG) -> str:
     return f'[bold white on {bg}] {escape(text)} [/]'
 
@@ -120,7 +127,7 @@ def _print_header(console: Console, report: OverviewReport) -> None:
     console.print()
 
 
-def _print_signatures(console: Console, signatures: list) -> None:
+def _print_signatures(console: Console, signatures: list, *, include_ttp: bool = True) -> None:
     if not signatures:
         return
     console.print(_section('Signatures'))
@@ -128,12 +135,13 @@ def _print_signatures(console: Console, signatures: list) -> None:
     tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 0), header_style='bold magenta')
     tbl.add_column('Signatures', style='bold cyan')
     tbl.add_column('Score', justify='right')
-    tbl.add_column('ATT&CK', style='dim')
+    if include_ttp:
+        tbl.add_column('ATT&CK', style='dim')
     for sig in ordered[:DISPLAY_CAP]:
-        bucket = score_bucket(sig.score)
-        color = SCORE_COLORS[bucket]
-        score = f'[{color}]{sig.score}[/{color}]' if sig.score is not None else '-'
-        tbl.add_row(escape(sig.name), score, escape(', '.join(sig.ttp)))
+        row = [escape(sig.name), _colored_score(sig.score)]
+        if include_ttp:
+            row.append(escape(', '.join(sig.ttp)))
+        tbl.add_row(*row)
     console.print(tbl)
     if len(ordered) > DISPLAY_CAP:
         console.print(MORE_MSG.format(len(ordered) - DISPLAY_CAP))
@@ -212,16 +220,13 @@ def _print_tasks(console: Console, tasks: dict, sample_id: str) -> None:
     tbl.add_column('Score', justify='right')
     tbl.add_column('Tags')
     for task_id, task in sorted(tasks.items(), key=_task_sort_key):
-        bucket = score_bucket(task.score)
-        color = SCORE_COLORS[bucket]
-        score = f'[{color}]{task.score}[/{color}]' if task.score is not None else '-'
         status_color = 'green' if task.status == 'reported' else 'yellow'
         display_id = task_id.removeprefix(prefix)
         tbl.add_row(
             escape(display_id),
             escape(task.kind),
             f'[{status_color}]{escape(task.status)}[/{status_color}]',
-            score,
+            _colored_score(task.score),
             _joined_badges(task.tags),
         )
     console.print(tbl)
@@ -311,30 +316,11 @@ def _print_static_files(console: Console, files: list) -> None:
     console.print()
 
 
-def _print_static_signatures(console: Console, signatures: list) -> None:
-    if not signatures:
-        return
-    console.print(_section('Signatures'))
-    ordered = sorted(signatures, key=lambda s: s.score if s.score is not None else -1, reverse=True)
-    tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 0), header_style='bold magenta')
-    tbl.add_column('Signatures', style='bold cyan')
-    tbl.add_column('Score', justify='right')
-    for sig in ordered[:DISPLAY_CAP]:
-        bucket = score_bucket(sig.score)
-        color = SCORE_COLORS[bucket]
-        score = f'[{color}]{sig.score}[/{color}]' if sig.score is not None else '-'
-        tbl.add_row(escape(sig.name), score)
-    console.print(tbl)
-    if len(ordered) > DISPLAY_CAP:
-        console.print(MORE_MSG.format(len(ordered) - DISPLAY_CAP))
-    console.print()
-
-
 def print_static_pretty(report: StaticAnalysisReport) -> None:
     console = Console(highlight=False)
     _print_static_header(console, report)
     _print_extracted(console, report.extracted)
-    _print_static_signatures(console, report.signatures)
+    _print_signatures(console, report.signatures, include_ttp=False)
     _print_static_files(console, report.files)
 
 

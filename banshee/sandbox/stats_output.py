@@ -43,28 +43,6 @@ def _intel_card_url(rf_type: str, value: str) -> str:
     return f'{INTEL_CARD_BASE}/{quote(f"{rf_type}:{value}", safe="")}'
 
 
-def _fmt_tags(
-    tag_dict: dict,
-    strip_prefix: str = '',
-    query_prefix: str = '',
-    frontend_base: str = '',
-    top_n: int = 8,
-) -> str:
-    items = list(tag_dict.items())[:top_n]
-    if not items:
-        return '[grey50]-[/grey50]'
-    parts = []
-    for tag, count in items:
-        label = tag[len(strip_prefix) :] if strip_prefix else tag
-        if frontend_base:
-            query = f'{query_prefix}{tag}' if query_prefix else tag
-            url = _search_url(frontend_base, query)
-            parts.append(f'[link={url}]{label}[/link] ({count})')
-        else:
-            parts.append(f'{label} ({count})')
-    return '  '.join(parts)
-
-
 def _ioc_rf_score(ioc) -> int:
     return ioc.rf_score if isinstance(ioc, VerifiedIoc) else ioc['rf_score']
 
@@ -86,6 +64,9 @@ _FAMILY_COLORS = [
     'bright_red',
     'medium_purple',
 ]
+BAR_WIDTH_HALF = 16
+_PANEL_TOP_N = 8
+_SCORE_BAR_WIDTH = 12
 
 
 def _bucket_counts(counts: list, max_buckets: int) -> list:
@@ -253,11 +234,6 @@ def _print_chart_and_summary(console: Console, stats: SandboxStats) -> None:
 
     console.print(tbl)
     console.print()
-
-
-BAR_WIDTH_HALF = 16
-_PANEL_TOP_N = 8
-_SCORE_BAR_WIDTH = 12
 
 
 def _platform_table(by_platform: dict) -> Table:
@@ -431,8 +407,6 @@ def _print_iocs(console: Console, iocs, soar_skipped: bool) -> None:
         console.print()
 
 
-
-
 def _print_hashes(console: Console, hashes: list, frontend_base: str) -> None:
     shown = hashes[:DISPLAY_CAP]
     total = len(hashes)
@@ -519,9 +493,7 @@ def _to_json_dict(stats: SandboxStats) -> dict:
 def print_sandbox_stats(stats: SandboxStats, pretty: bool = False) -> None:
     if pretty:
         console = Console()
-        frontend_base = SANDBOX_FRONTEND_URLS.get(
-            stats.sandbox_choice, SANDBOX_FRONTEND_URLS['eu']
-        )
+        frontend_base = SANDBOX_FRONTEND_URLS.get(stats.sandbox_choice, SANDBOX_FRONTEND_URLS['eu'])
         period = (
             f'{stats.period_start.strftime("%Y-%m-%d")} → {stats.period_end.strftime("%Y-%m-%d")}'
         )

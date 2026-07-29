@@ -142,7 +142,7 @@ def update_sandbox_profile(
     # not block unrelated updates -- the API stays the authority there.
     if geolocation and merged_network != 'vpn':
         Console(stderr=True).print(
-            "[red]Geolocation requires a vpn network[/red], "
+            '[red]Geolocation requires a vpn network[/red], '
             f"this profile's network is {merged_network or 'not set'}; "
             'pass --network vpn together with --geolocation'
         )
