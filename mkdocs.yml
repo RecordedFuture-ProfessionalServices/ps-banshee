@@ -3,6 +3,7 @@ site_url: https://recordedfuture-professionalservices.github.io/ps-banshee/lates
 site_description: A Recorded Future CLI for terminal-based threat intelligence investigations.
 repo_url: https://github.com/RecordedFuture-ProfessionalServices/ps-banshee
 repo_name: ps-banshee
+docs_dir: docs
 
 exclude_docs: |
   _includes/
@@ -11,6 +12,7 @@ theme:
   logo: assets/favicon.png
   favicon: assets/favicon.png
   name: material
+  language: en
   palette:
     - scheme: default
       primary: indigo
@@ -67,21 +69,72 @@ markdown_extensions:
   - admonition
   - attr_list
   - pymdownx.highlight:
-      anchor_linenums: true        
-      linenums: true             
+      anchor_linenums: true
+      linenums: true
       guess_lang: false
   - pymdownx.superfences
   - pymdownx.inlinehilite
   - pymdownx.snippets:
-      base_path: ['docs']
+      base_path: ['.']
       check_paths: true
   - pymdownx.tabbed:
       alternate_style: true
   - toc:
       permalink: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
 
 plugins:
   - search
+  - i18n:
+      docs_structure: folder
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: en
+          default: true
+          name: English
+          build: true
+          site_name: PS Banshee
+        - locale: ja
+          name: 日本語
+          build: true
+          site_name: PS Banshee
+          site_description: ターミナルベースの脅威インテリジェンス調査のための Recorded Future CLI。
+          theme:
+            palette:
+              - scheme: default
+                primary: indigo
+                accent: indigo
+                toggle:
+                  icon: material/weather-night
+                  name: ダークモードに切り替え
+              - scheme: slate
+                primary: indigo
+                accent: indigo
+                toggle:
+                  icon: material/weather-sunny
+                  name: ライトモードに切り替え
+          nav_translations:
+            Getting Started: はじめに
+            Installation: インストール
+            First Steps: 最初のステップ
+            Getting help: ヘルプの取得
+            Using with AI agents: AIエージェントとの使用
+            Use cases: ユースケース
+            Alert Management: アラート管理
+            Detection Rules: 検出ルール
+            Email Enrichment: メール解析
+            Entity Matching: エンティティ照合
+            IOC Enrichment: IOCエンリッチメント
+            Packet Capture Enrichment: パケットキャプチャ解析
+            Risk Lists: リスクリスト
+            Watchlist Management: ウォッチリスト管理
+            Reference: リファレンス
+            Commands: コマンド
+            Environment variables: 環境変数
+            Release History: リリース履歴
   - llmstxt-md:
       enable_copy_button: false
       markdown_description: |
@@ -139,4 +192,3 @@ nav:
       - Environment variables: reference/environment.md
   - Release History: CHANGELOG.md
   - about.md
-  

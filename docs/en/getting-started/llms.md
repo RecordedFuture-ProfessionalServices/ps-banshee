@@ -2,8 +2,8 @@
 
 Banshee is designed to be driven from the terminal — including by AI coding agents such as Claude Code, Codex, and any other LLM that can run shell commands. Two artifacts are published to help an agent learn the CLI:
 
-- **Index** — concise table of contents for selective fetches: [llms.txt](../../llms.txt)
-- **Full bundle** — every command group inlined in a single document: [llms-full.txt](../../llms-full.txt)
+- **Index** — concise table of contents for selective fetches: [llms.txt](https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms.txt)
+- **Full bundle** — every command group inlined in a single document: [llms-full.txt](https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms-full.txt)
 
 Both follow the [llms.txt](https://llmstxt.org/) convention.
 

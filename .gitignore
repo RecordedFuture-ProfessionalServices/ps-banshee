@@ -5,6 +5,7 @@ __pycache__
 **/dist/*
 **/build/*
 **/pkg_build/*
+site/
 *.log
 *.log.*
 *.csv
