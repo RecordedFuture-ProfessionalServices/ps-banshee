@@ -165,6 +165,9 @@ plugins:
           - en/getting-started/llms.md: "Wire banshee into an AI agent (CLAUDE.md / AGENTS.md) and authenticate."
           - en/usecases/index.md: "Worked, end-to-end use-case walkthroughs (alerts, enrichment, risk lists, etc.)."
 
+hooks:
+  - mkdocs_hooks/llmstxt_i18n.py
+
 nav:
   - index.md
   - Getting Started:
