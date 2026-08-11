@@ -3,7 +3,7 @@ site_url: https://recordedfuture-professionalservices.github.io/ps-banshee/
 site_description: A Recorded Future CLI for terminal-based threat intelligence investigations.
 repo_url: https://github.com/RecordedFuture-ProfessionalServices/ps-banshee
 repo_name: ps-banshee
-docs_dir: docs
+docs_dir: en
 
 exclude_docs: |
   _includes/
@@ -48,9 +48,17 @@ theme:
     - toc.follow
 
 extra:
-  version:
-    provider: mike
   generator: false
+  alternate:
+    - name: English
+      link: /ps-banshee/
+      lang: en
+    - name: 日本語
+      link: /ps-banshee/ja/
+      lang: ja
+    - name: 한국어
+      link: /ps-banshee/ko/
+      lang: ko
   social:
   - icon: fontawesome/brands/youtube
     link: https://www.youtube.com/user/RecordedFuture
@@ -75,7 +83,7 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.inlinehilite
   - pymdownx.snippets:
-      base_path: ['.']
+      base_path: ['docs/en']
       check_paths: true
   - pymdownx.tabbed:
       alternate_style: true
@@ -87,83 +95,22 @@ markdown_extensions:
 
 plugins:
   - search
-  - i18n:
-      docs_structure: folder
-      reconfigure_material: true
-      reconfigure_search: true
-      languages:
-        - locale: en
-          default: true
-          name: English
-          build: true
-          site_name: PS Banshee
-          site_description: A Recorded Future CLI for terminal-based threat intelligence investigations.
-        - locale: ja
-          name: 日本語
-          build: true
-          site_name: PS Banshee
-          site_description: ターミナルベースの脅威インテリジェンス調査のための Recorded Future CLI。
-          theme:
-            language: ja
-            font:
-              text: Noto Sans JP
-              code: Roboto Mono
-            palette:
-              - scheme: default
-                primary: indigo
-                accent: indigo
-                toggle:
-                  icon: material/weather-night
-                  name: ダークモードに切り替え
-              - scheme: slate
-                primary: indigo
-                accent: indigo
-                toggle:
-                  icon: material/weather-sunny
-                  name: ライトモードに切り替え
-          nav_translations:
-            Getting Started: はじめに
-            Installation: インストール
-            First Steps: 最初のステップ
-            Getting help: ヘルプの取得
-            Using with AI agents: AIエージェントとの使用
-            Use cases: ユースケース
-            Alert Management: アラート管理
-            Detection Rules: 検出ルール
-            Email Enrichment: メール解析
-            Entity Matching: エンティティ照合
-            IOC Enrichment: IOCエンリッチメント
-            Packet Capture Enrichment: パケットキャプチャ解析
-            Risk Lists: リスクリスト
-            Watchlist Management: ウォッチリスト管理
-            Reference: リファレンス
-            Commands: コマンド
-            Environment variables: 環境変数
-            Release History: リリース履歴
-  - llmstxt-md:
-      enable_copy_button: false
-      markdown_description: |
-        Full single-file bundle (every command group inlined): <https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms-full.txt>
+  - llmstxt:
+      enabled: !ENV [CI, false]
+      full_output: llms-full.txt
+      markdown_description: |-
+        Full single-file bundle (every command group inlined): <https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt>
 
         Set `RF_TOKEN` in the shell environment before invoking any command.
 
         **Alerts:** Recorded Future has two distinct alert systems. Use `ca` for Classic Alerts - legacy rule-based alerts with short opaque IDs (6+ chars, e.g. `tybakN`). Use `pba` for Playbook Alerts - automation-driven alerts with 36-char UUID IDs (the `task:` prefix is optional; `pba search` returns them with the prefix). Categories exclusive to PBA: `domain_abuse`, `cyber_vulnerability`, `third_party_risk`, `code_repo_leakage`, `identity_novel_exposures`, `geopolitics_facility`, `malware_report`. If the user gives you an alert ID, pick the group by ID length; if they describe the category, the categories above route to `pba`.
       sections:
         Commands:
-          - en/knowledge-base/index.md: "Authentication, readiness checks, output conventions, and shared LLM notes for the CLI."
-          - en/knowledge-base/ca.md: "Classic Alerts (legacy rule-based, short opaque IDs of 6+ chars like `tybakN`). Search, lookup, update, export."
-          - en/knowledge-base/email.md: "Enrich EML files with RF intelligence."
-          - en/knowledge-base/entity.md: "Entity search and lookup."
-          - en/knowledge-base/ioc.md: "IOC enrichment, bulk enrichment, search, rules."
-          - en/knowledge-base/list.md: "Manage RF Lists & Watch Lists (create, add/remove entities, entries)."
-          - en/knowledge-base/pba.md: "Playbook Alerts (36-char UUID IDs, `task:` prefix optional; PBA-exclusive categories: domain_abuse, cyber_vulnerability, third_party_risk, code_repo_leakage, identity_novel_exposures, geopolitics_facility, malware_report). Search, lookup, update, export."
-          - en/knowledge-base/pcap.md: "Enrich packet captures with RF intelligence."
-          - en/knowledge-base/risklist.md: "Fetch, create, and inspect risk lists."
-          - en/knowledge-base/rules.md: "Search and download detection rules (Sigma, YARA, Snort)."
+          - knowledge-base/*.md
         Optional:
-          - en/getting-started/installation.md: "Install the ps-banshee CLI and set RF_TOKEN authentication."
-          - en/getting-started/llms.md: "Wire banshee into an AI agent (CLAUDE.md / AGENTS.md) and authenticate."
-          - en/usecases/index.md: "Worked, end-to-end use-case walkthroughs (alerts, enrichment, risk lists, etc.)."
+          - getting-started/installation.md
+          - getting-started/llms.md
+          - usecases/index.md
 
 nav:
   - index.md

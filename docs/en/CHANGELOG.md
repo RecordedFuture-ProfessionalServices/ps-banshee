@@ -1,5 +1,18 @@
 # Release History
 
+## Unreleased
+
+### Changed
+- Docs: dropped `mike` versioned deploys; the site now deploys at the root URL. Previously versioned URLs (`/1.x/…`) no longer resolve; use the root URL instead.
+- Docs: replaced `mkdocs-static-i18n` with a fastapi-style per-language build orchestrated by `scripts/docs.py`. One authoritative `docs/mkdocs.yml`; translated languages own only their translated markdown files.
+- Docs: swapped `noklam/mkdocs-llmstxt-md` for `pawamoy/mkdocs-llmstxt`; `llms.txt` / `llms-full.txt` are English-only and live at the site root.
+
+### Added
+- Docs: Korean (`ko`) language infrastructure. Content ships in a follow-up PR; the missing-translation banner is shown until then.
+- Docs: `scripts/docs.py` — `build`, `build-all`, `serve`, `new-lang`, `check-translations`, `translate` commands.
+- Docs: strict CI drift enforcement for `ja` translations. Contributors run the LLM translator locally (`uv sync --group translations && scripts/docs.py translate --lang ja --all-outdated`); CI never calls an LLM.
+
+
 ## v.1.4.1 - 2026-07-13
 
 ### Changed

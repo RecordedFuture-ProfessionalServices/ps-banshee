@@ -2,8 +2,8 @@
 
 Banshee is designed to be driven from the terminal — including by AI coding agents such as Claude Code, Codex, and any other LLM that can run shell commands. Two artifacts are published to help an agent learn the CLI:
 
-- **Index** — concise table of contents for selective fetches: [llms.txt](https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms.txt)
-- **Full bundle** — every command group inlined in a single document: [llms-full.txt](https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms-full.txt)
+- **Index** — concise table of contents for selective fetches: [llms.txt](https://recordedfuture-professionalservices.github.io/ps-banshee/llms.txt)
+- **Full bundle** — every command group inlined in a single document: [llms-full.txt](https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt)
 
 Both follow the [llms.txt](https://llmstxt.org/) convention.
 
@@ -26,7 +26,7 @@ When a request involves Recorded Future or threat intelligence, use the
 - enriching an email (`.eml`) or packet capture (`.pcap`)
 
 First fetch the full command reference, then run `banshee`:
-<https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms-full.txt>
+<https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt>
 
 If that URL is unreachable, or a command from the reference isn't present in your
 installed version, run `banshee --help` (and `banshee <group> --help`) to confirm
