@@ -142,6 +142,35 @@ banshee ioc lookup --help
 banshee list bulk-add -h
 ```
 
+## Editing documentation
+
+The docs live under `docs/en/` (English source of truth), `docs/ja/`, and
+`docs/ko/`. To preview or build locally:
+
+```bash
+uv sync --group docs --no-default-groups
+uv run python scripts/docs.py dev               # prod-like: all languages + rebuild on save
+uv run python scripts/docs.py build-all         # one-shot build (used by CI)
+```
+
+`dev` mounts `site/` under the same URL subpath as production (derived from
+`site_url` — currently `/ps-banshee/`), so all three languages resolve at
+`/ps-banshee/`, `/ps-banshee/ja/`, `/ps-banshee/ko/` and the language switcher
+points at real pages. Edits under `docs/` trigger a per-language rebuild
+(~0.5s); refresh the browser to see changes.
+
+If you edit an English page, the CI drift check will fail until every
+non-English counterpart is regenerated. Run the LLM translator locally
+with your own API key — CI never calls an LLM:
+
+```bash
+export ANTHROPIC_API_KEY=<your-key>
+uv sync --group translations
+uv run python scripts/docs.py translate --lang ja --all
+```
+
+Then commit the regenerated files.
+
 ## Support
 
 Submit a [support request](https://support.recordedfuture.com/hc/en-us/requests/new) for help alternatively reach out to [support@recordedfuture.com](mailto:support@recordedfuture.com).
