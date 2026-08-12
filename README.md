@@ -160,8 +160,16 @@ points at real pages. Edits under `docs/` trigger a per-language rebuild
 (~0.5s); refresh the browser to see changes.
 
 If you edit an English page, the CI drift check will fail until every
-non-English counterpart is regenerated. Run the LLM translator locally
-with your own API key — CI never calls an LLM:
+non-English counterpart is regenerated. To see what's drifted before
+translating:
+
+```bash
+uv run python scripts/docs.py check-translations --lang ja   # one language
+uv run python scripts/docs.py check-translations --all       # every non-en language (what CI runs)
+```
+
+Run the LLM translator locally with your own API key — CI never calls an
+LLM:
 
 ```bash
 export ANTHROPIC_API_KEY=<your-key>
@@ -169,7 +177,22 @@ uv sync --group translations
 uv run python scripts/docs.py translate --lang ja --all
 ```
 
+Files are translated in parallel (5 at a time by default; tune with
+`--concurrency N` if you hit rate limits). Failures are reported at the
+end so one bad file doesn't stop the rest — re-run the same command to
+retry just the failed set.
+
 Then commit the regenerated files.
+
+### Adding a new language
+
+1. Add an entry to `LANGUAGE_NAMES` in `scripts/docs.py` (e.g. `'fr': 'Français'`).
+2. Add the same code to `extra.alternate` in `docs/mkdocs.yml` so the language switcher picks it up.
+3. Generate the initial translation:
+   ```bash
+   uv run python scripts/docs.py translate --lang fr --all
+   ```
+4. Commit `docs/fr/` and the config changes.
 
 ## Support
 
