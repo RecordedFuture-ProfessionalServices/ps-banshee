@@ -9,8 +9,8 @@
 
 ### Added
 - Docs: Korean (`ko`) language infrastructure. Content ships in a follow-up PR; the missing-translation banner is shown until then.
-- Docs: `scripts/docs.py` — `build`, `build-all`, `serve`, `new-lang`, `check-translations`, `translate` commands.
-- Docs: strict CI drift enforcement for `ja` translations. Contributors run the LLM translator locally (`uv sync --group translations && scripts/docs.py translate --lang ja --all-outdated`); CI never calls an LLM.
+- Docs: `scripts/docs.py` — `build-all`, `dev`, `check-translations`, `translate` commands.
+- Docs: CI drift enforcement for every non-English translation. Contributors run the LLM translator locally (`uv sync --group translations && scripts/docs.py translate --lang <code> --all`); CI never calls an LLM.
 
 
 ## v.1.4.1 - 2026-07-13
