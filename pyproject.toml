@@ -60,6 +60,7 @@ translations = [
     "pydantic-ai>=0.0.14",
     "typer<0.16.0",
     "pyyaml>=6.0",
+    "rich>=13.0",
 ]
 
 [project.scripts]

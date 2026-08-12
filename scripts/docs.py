@@ -248,7 +248,7 @@ def dev(
             super().__init__(*a, directory=str(SITE_ROOT), **kw)
 
         def log_message(self, format: str, *args) -> None:  # noqa: A002, ARG002
-            return
+            del format, args
 
     class _RebuildHandler(FileSystemEventHandler):
         def __init__(self) -> None:
@@ -275,7 +275,10 @@ def dev(
         def on_any_event(self, event) -> None:
             if event.is_directory:
                 return
-            langs = self._classify(event.src_path)
+            src = event.src_path
+            if isinstance(src, bytes):
+                src = src.decode()
+            langs = self._classify(src)
             if not langs:
                 return
             with self.lock:
@@ -458,18 +461,49 @@ def _run_translation(model_spec: str, system_prompt: str, source: str, existing:
     raise RuntimeError(f'Translation failed validation after 3 attempts: {last_err}')
 
 
+def _translate_one(
+    lang: str,
+    rel: Path,
+    model: str,
+    system_prompt: str,
+) -> Path:
+    src_path = EN_ROOT / rel
+    tgt_path = _lang_dir(lang) / rel
+    source = src_path.read_text(encoding='utf-8')
+    existing = tgt_path.read_text(encoding='utf-8') if tgt_path.exists() else None
+    out = _run_translation(model, system_prompt, source, existing)
+    tgt_path.parent.mkdir(parents=True, exist_ok=True)
+    tgt_path.write_text(out, encoding='utf-8')
+    return tgt_path
+
+
 @app.command()
 def translate(
     lang: str = typer.Option(..., '--lang'),
     path: Path | None = typer.Option(None, '--path', help='Translate a single en file.'),
     all_: bool = typer.Option(False, '--all', help='Translate every missing or outdated file.'),
     model: str = typer.Option('anthropic:claude-sonnet-4-6', '--model'),
+    concurrency: int = typer.Option(5, '--concurrency', help='Parallel translations.'),
 ) -> None:
     """Translate en docs to <lang> using a pydantic-ai agent.
 
     Pass either ``--path <en-file>`` for a single file or ``--all`` to
-    translate everything drifted (missing + outdated).
+    translate everything drifted (missing + outdated). Files are translated
+    in parallel; failures are reported at the end so one bad file doesn't
+    stop the rest.
     """
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    from rich.console import Console
+    from rich.progress import (
+        BarColumn,
+        MofNCompleteColumn,
+        Progress,
+        SpinnerColumn,
+        TextColumn,
+        TimeElapsedColumn,
+    )
+
     if lang not in SUPPORTED_LANGS or lang == 'en':
         raise typer.BadParameter(f'Cannot translate to {lang!r}')
     if not path and not all_:
@@ -491,20 +525,42 @@ def translate(
     base = (SHARED / 'translation-prompt.md').read_text(encoding='utf-8')
     system_prompt = base.replace('{{target_language_name}}', LANGUAGE_NAMES.get(lang, lang))
 
-    for rel in targets:
-        src_path = EN_ROOT / rel
-        tgt_path = lang_root / rel
-        source = src_path.read_text(encoding='utf-8')
-        existing = tgt_path.read_text(encoding='utf-8') if tgt_path.exists() else None
-        typer.echo(f'[{lang}] translating {rel}')
-        try:
-            out = _run_translation(model, system_prompt, source, existing)
-        except Exception as exc:  # noqa: BLE001 — surface any translator failure
-            typer.echo(f'  FAILED: {exc}', err=True)
-            raise typer.Exit(1) from exc
-        tgt_path.parent.mkdir(parents=True, exist_ok=True)
-        tgt_path.write_text(out, encoding='utf-8')
-        typer.echo(f'  wrote {tgt_path.relative_to(REPO_ROOT)}')
+    console = Console()
+    failures: list[tuple[Path, str]] = []
+    successes: list[Path] = []
+
+    with Progress(
+        SpinnerColumn(),
+        TextColumn('[bold blue][{task.fields[lang]}][/]'),
+        BarColumn(),
+        MofNCompleteColumn(),
+        TextColumn('{task.description}'),
+        TimeElapsedColumn(),
+        console=console,
+        transient=False,
+    ) as progress:
+        task_id = progress.add_task('translating…', total=len(targets), lang=lang)
+        with ThreadPoolExecutor(max_workers=concurrency) as pool:
+            futures = {
+                pool.submit(_translate_one, lang, rel, model, system_prompt): rel
+                for rel in targets
+            }
+            for fut in as_completed(futures):
+                rel = futures[fut]
+                try:
+                    tgt = fut.result()
+                    successes.append(rel)
+                    progress.console.log(f'[green]✓[/] {rel} → {tgt.relative_to(REPO_ROOT)}')
+                except Exception as exc:  # noqa: BLE001 — surface any translator failure
+                    failures.append((rel, str(exc)))
+                    progress.console.log(f'[red]✗[/] {rel}: {exc}')
+                progress.advance(task_id)
+
+    console.rule(f'[bold]translated {len(successes)}/{len(targets)} — {len(failures)} failed')
+    if failures:
+        for rel, err in failures:
+            console.print(f'  [red]{rel}[/]: {err}')
+        raise typer.Exit(1)
 
 
 # ---------------------------------------------------------------------------
