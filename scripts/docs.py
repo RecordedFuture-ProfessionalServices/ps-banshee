@@ -411,10 +411,12 @@ _SNIPPET_RE = re.compile(r'^--8<--\s+.*$', re.MULTILINE)
 
 
 def _validate_translation(src: str, out: str) -> str | None:
-    if len(_HEADING_RE.findall(src)) != len(_HEADING_RE.findall(out)):
-        return 'heading count mismatch'
-    if len(_FENCE_RE.findall(src)) != len(_FENCE_RE.findall(out)):
-        return 'fenced code block count mismatch'
+    src_h, out_h = len(_HEADING_RE.findall(src)), len(_HEADING_RE.findall(out))
+    if src_h != out_h:
+        return f'heading count mismatch: source has {src_h}, output has {out_h}'
+    src_f, out_f = len(_FENCE_RE.findall(src)), len(_FENCE_RE.findall(out))
+    if src_f != out_f:
+        return f'fenced code block count mismatch: source has {src_f}, output has {out_f}'
     src_snips = set(_SNIPPET_RE.findall(src))
     out_snips = set(_SNIPPET_RE.findall(out))
     if src_snips != out_snips:
@@ -425,6 +427,7 @@ def _validate_translation(src: str, out: str) -> str | None:
 def _run_translation(model_spec: str, system_prompt: str, source: str, existing: str | None) -> str:
     try:
         from pydantic_ai import Agent
+        from pydantic_ai.settings import ModelSettings
     except ImportError as exc:
         raise typer.BadParameter(
             'pydantic-ai is not installed. Run: uv sync --group translations'
@@ -437,6 +440,7 @@ def _run_translation(model_spec: str, system_prompt: str, source: str, existing:
             f'may be outdated):\n\n{existing}'
         )
 
+    settings = ModelSettings(max_tokens=64000)
     last_err: str | None = None
     for _ in range(3):
         prompt = (
@@ -444,7 +448,7 @@ def _run_translation(model_spec: str, system_prompt: str, source: str, existing:
             if not last_err
             else (f'{system_prompt}\n\nPrevious attempt failed validation: {last_err}. Fix it.')
         )
-        agent = Agent(model_spec, system_prompt=prompt)
+        agent = Agent(model_spec, system_prompt=prompt, model_settings=settings)
         result = agent.run_sync(user)
         text = getattr(result, 'data', None) or getattr(result, 'output', None) or str(result)
         err = _validate_translation(source, text)
