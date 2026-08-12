@@ -44,7 +44,20 @@ LANGUAGE_NAMES: dict[str, str] = json.loads(LANGUAGES_CONFIG.read_text(encoding=
 SUPPORTED_LANGS: tuple[str, ...] = tuple(LANGUAGE_NAMES)
 NON_EN_LANGS: tuple[str, ...] = tuple(c for c in SUPPORTED_LANGS if c != 'en')
 
+# Underscore-prefixed path segments are treated as build-time metadata (e.g.
+# ``_nav.yml``) and excluded from the translation/overlay flow. These directories
+# are the exceptions: content deliberately hidden from the nav via ``_`` that
+# still needs to be translated per-language.
+TRANSLATED_UNDERSCORE_DIRS: frozenset[str] = frozenset({'_includes'})
+
 app = typer.Typer(help='Build and translation orchestration for PS Banshee docs.')
+
+
+def _is_metadata(parts) -> bool:
+    """Return True if ``parts`` sit under an untranslated metadata segment."""
+    return any(
+        part.startswith('_') and part not in TRANSLATED_UNDERSCORE_DIRS for part in parts
+    )
 
 
 def _lang_dir(lang: str) -> Path:
@@ -131,8 +144,7 @@ def _overlay_lang(lang: str, content: Path) -> None:
             if path.name == '.gitkeep':
                 continue
             rel = path.relative_to(src)
-            # Files starting with '_' are metadata (e.g. _nav.yml), not docs content.
-            if any(part.startswith('_') for part in rel.parts):
+            if _is_metadata(rel.parts):
                 continue
             dest = content / rel
             dest.parent.mkdir(parents=True, exist_ok=True)
@@ -414,7 +426,7 @@ def _detect_drift(lang: str) -> Drift:
     en_files = {
         p.relative_to(EN_ROOT): p
         for p in EN_ROOT.rglob('*.md')
-        if not any(part.startswith('_') for part in p.relative_to(EN_ROOT).parts[:-1])
+        if not _is_metadata(p.relative_to(EN_ROOT).parts[:-1])
     }
 
     missing: list[str] = []
