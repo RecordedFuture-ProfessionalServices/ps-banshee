@@ -29,7 +29,6 @@ from urllib.parse import urlparse
 
 import typer
 import yaml
-from pydantic_ai import Agent
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DOCS_ROOT = REPO_ROOT / 'docs'
@@ -37,6 +36,7 @@ DOCS_CONFIG = DOCS_ROOT / 'mkdocs.yml'
 STAGE_ROOT = REPO_ROOT / '.docs_stage'
 SITE_ROOT = REPO_ROOT / 'site'
 SHARED = DOCS_ROOT / '_shared'
+EN_ROOT = DOCS_ROOT / 'en'
 
 LANGUAGE_NAMES: dict[str, str] = {
     'en': 'English',
@@ -44,6 +44,7 @@ LANGUAGE_NAMES: dict[str, str] = {
     'ko': '한국어',
 }
 SUPPORTED_LANGS: tuple[str, ...] = tuple(LANGUAGE_NAMES)
+NON_EN_LANGS: tuple[str, ...] = tuple(c for c in SUPPORTED_LANGS if c != 'en')
 
 app = typer.Typer(help='Build and translation orchestration for PS Banshee docs.')
 
@@ -107,7 +108,7 @@ def _stage_lang_docs(lang: str) -> Path:
     content = stage / 'content'
     content.mkdir(parents=True)
 
-    shutil.copytree(_lang_dir('en'), content, dirs_exist_ok=True)
+    shutil.copytree(EN_ROOT, content, dirs_exist_ok=True)
     _overlay_lang(lang, content)
 
     config = _patch_config_for_lang(_load_yaml(DOCS_CONFIG), lang)
@@ -215,9 +216,7 @@ def build_all() -> None:
     if SITE_ROOT.exists():
         shutil.rmtree(SITE_ROOT)
     _build_lang('en')
-    for lang in SUPPORTED_LANGS:
-        if lang == 'en':
-            continue
+    for lang in NON_EN_LANGS:
         _build_lang(lang)
 
 
@@ -270,7 +269,7 @@ def dev(
             if top in SUPPORTED_LANGS:
                 return {top}
             if top == '_shared':
-                return {code for code in SUPPORTED_LANGS if code != 'en'}
+                return set(NON_EN_LANGS)
             return set()
 
         def on_any_event(self, event) -> None:
@@ -342,13 +341,12 @@ class Drift:
 
 
 def _detect_drift(lang: str) -> Drift:
-    en_root = _lang_dir('en')
     lang_root = _lang_dir(lang)
 
     en_files = {
-        p.relative_to(en_root): p
-        for p in en_root.rglob('*.md')
-        if not any(part.startswith('_') for part in p.relative_to(en_root).parts[:-1])
+        p.relative_to(EN_ROOT): p
+        for p in EN_ROOT.rglob('*.md')
+        if not any(part.startswith('_') for part in p.relative_to(EN_ROOT).parts[:-1])
     }
 
     missing: list[str] = []
@@ -379,7 +377,7 @@ def check_translations(
 ) -> None:
     """Report translation drift. Exits non-zero when drift blocks merge."""
     if all_langs:
-        langs = [code for code in SUPPORTED_LANGS if code != 'en']
+        langs = list(NON_EN_LANGS)
     elif lang:
         langs = [lang]
     else:
@@ -425,6 +423,13 @@ def _validate_translation(src: str, out: str) -> str | None:
 
 
 def _run_translation(model_spec: str, system_prompt: str, source: str, existing: str | None) -> str:
+    try:
+        from pydantic_ai import Agent
+    except ImportError as exc:
+        raise typer.BadParameter(
+            'pydantic-ai is not installed. Run: uv sync --group translations'
+        ) from exc
+
     user = f'Translate the following Markdown document.\n\n---\n\n{source}'
     if existing:
         user += (
@@ -466,12 +471,11 @@ def translate(
     if not path and not all_:
         raise typer.BadParameter('Pass --path <en-file> or --all')
 
-    en_root = _lang_dir('en')
     lang_root = _lang_dir(lang)
     lang_root.mkdir(parents=True, exist_ok=True)
 
     if path:
-        targets = [path.resolve().relative_to(en_root)]
+        targets = [path.resolve().relative_to(EN_ROOT)]
     else:
         drift = _detect_drift(lang)
         targets = [Path(t) for t in sorted(set(drift.missing + drift.outdated))]
@@ -484,7 +488,7 @@ def translate(
     system_prompt = base.replace('{{target_language_name}}', LANGUAGE_NAMES.get(lang, lang))
 
     for rel in targets:
-        src_path = en_root / rel
+        src_path = EN_ROOT / rel
         tgt_path = lang_root / rel
         source = src_path.read_text(encoding='utf-8')
         existing = tgt_path.read_text(encoding='utf-8') if tgt_path.exists() else None
