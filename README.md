@@ -186,13 +186,23 @@ Then commit the regenerated files.
 
 ### Adding a new language
 
-1. Add an entry to `LANGUAGE_NAMES` in `scripts/docs.py` (e.g. `'fr': 'Français'`).
-2. Add the same code to `extra.alternate` in `docs/mkdocs.yml` so the language switcher picks it up.
-3. Generate the initial translation:
-   ```bash
-   uv run python scripts/docs.py translate --lang fr --all
-   ```
-4. Commit `docs/fr/` and the config changes.
+Language codes must match one of the locales supported by mkdocs-material — see
+the [list here](https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/).
+Using an unsupported code (e.g. `we` for Welsh instead of `cy`) fails the build
+with `TemplateNotFound: 'partials/languages/<code>.html'`.
+
+Pass `--name "<Native Name>"` on the first `translate` run for a new code and the
+tool will register it automatically in both `scripts/languages.json` and the
+`extra.alternate` block of `docs/mkdocs.yml`:
+
+```bash
+uv run python scripts/docs.py translate --lang fr --name "Français" --all
+```
+
+This produces `docs/fr/` (translated pages) and `docs/fr/_nav.yml` (translated
+sidebar labels). Commit the new directory alongside the auto-edits to
+`scripts/languages.json` and `docs/mkdocs.yml`. On subsequent runs `--name` is
+not needed.
 
 ## Support
 

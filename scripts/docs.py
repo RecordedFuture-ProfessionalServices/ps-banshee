@@ -13,12 +13,13 @@ Commands:
   check-translations  — report drift; CI-blocking for every non-en language.
   translate           — LLM-powered translator (dev-machine only).
 
-Adding a language: add an entry to ``LANGUAGE_NAMES`` below and to
+Adding a language: add an entry to ``scripts/languages.json`` and to
 ``docs/mkdocs.yml`` ``extra.alternate``, then run ``translate --lang <code> --all``.
 """
 
 from __future__ import annotations
 
+import json
 import os
 import re
 import shutil
@@ -37,12 +38,9 @@ STAGE_ROOT = REPO_ROOT / '.docs_stage'
 SITE_ROOT = REPO_ROOT / 'site'
 SHARED = DOCS_ROOT / '_shared'
 EN_ROOT = DOCS_ROOT / 'en'
+LANGUAGES_CONFIG = Path(__file__).resolve().parent / 'languages.json'
 
-LANGUAGE_NAMES: dict[str, str] = {
-    'en': 'English',
-    'ja': '日本語',
-    'ko': '한국어',
-}
+LANGUAGE_NAMES: dict[str, str] = json.loads(LANGUAGES_CONFIG.read_text(encoding='utf-8'))
 SUPPORTED_LANGS: tuple[str, ...] = tuple(LANGUAGE_NAMES)
 NON_EN_LANGS: tuple[str, ...] = tuple(c for c in SUPPORTED_LANGS if c != 'en')
 
@@ -133,6 +131,9 @@ def _overlay_lang(lang: str, content: Path) -> None:
             if path.name == '.gitkeep':
                 continue
             rel = path.relative_to(src)
+            # Files starting with '_' are metadata (e.g. _nav.yml), not docs content.
+            if any(part.startswith('_') for part in rel.parts):
+                continue
             dest = content / rel
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(path, dest)
@@ -172,7 +173,69 @@ def _patch_config_for_lang(config: dict, lang: str) -> dict:
         theme['language'] = lang
     config['theme'] = theme
 
+    mapping = _load_nav_translations(lang)
+    if mapping and config.get('nav') is not None:
+        config['nav'] = _apply_nav_translations(config['nav'], mapping)
+
     return config
+
+
+# ---------------------------------------------------------------------------
+# Nav-label translation
+# ---------------------------------------------------------------------------
+
+
+def _nav_translations_path(lang: str) -> Path:
+    return _lang_dir(lang) / '_nav.yml'
+
+
+def _extract_nav_labels(nav) -> list[str]:
+    """Collect every human-readable label in the nav tree, in first-seen order.
+
+    A label is any dict key encountered while walking the tree. String leaves
+    are file paths, not labels.
+    """
+    seen: set[str] = set()
+    labels: list[str] = []
+
+    def walk(node) -> None:
+        if isinstance(node, dict):
+            for key, val in node.items():
+                if isinstance(key, str) and key not in seen:
+                    seen.add(key)
+                    labels.append(key)
+                walk(val)
+        elif isinstance(node, list):
+            for item in node:
+                walk(item)
+
+    walk(nav)
+    return labels
+
+
+def _apply_nav_translations(nav, mapping: dict[str, str]):
+    if isinstance(nav, dict):
+        return {mapping.get(k, k): _apply_nav_translations(v, mapping) for k, v in nav.items()}
+    if isinstance(nav, list):
+        return [_apply_nav_translations(x, mapping) for x in nav]
+    return nav
+
+
+def _load_nav_translations(lang: str) -> dict[str, str]:
+    path = _nav_translations_path(lang)
+    if not path.exists():
+        return {}
+    with path.open('r', encoding='utf-8') as fh:
+        data = yaml.safe_load(fh) or {}
+    return {str(k): str(v) for k, v in data.items()}
+
+
+def _save_nav_translations(lang: str, mapping: dict[str, str]) -> Path:
+    path = _nav_translations_path(lang)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open('w', encoding='utf-8') as fh:
+        yaml.safe_dump(mapping, fh, allow_unicode=True, sort_keys=False)
+    return path
 
 
 # ---------------------------------------------------------------------------
@@ -341,6 +404,8 @@ class Drift:
     missing: list[str]
     outdated: list[str]
     orphaned: list[str]
+    missing_nav: list[str]
+    orphaned_nav: list[str]
 
 
 def _detect_drift(lang: str) -> Drift:
@@ -370,7 +435,20 @@ def _detect_drift(lang: str) -> Drift:
             if rel not in en_files:
                 orphaned.append(str(rel))
 
-    return Drift(lang=lang, missing=missing, outdated=outdated, orphaned=orphaned)
+    nav = _load_yaml(DOCS_CONFIG).get('nav')
+    nav_labels = _extract_nav_labels(nav) if nav else []
+    nav_translations = _load_nav_translations(lang)
+    missing_nav = [lbl for lbl in nav_labels if lbl not in nav_translations]
+    orphaned_nav = [lbl for lbl in nav_translations if lbl not in nav_labels]
+
+    return Drift(
+        lang=lang,
+        missing=missing,
+        outdated=outdated,
+        orphaned=orphaned,
+        missing_nav=missing_nav,
+        orphaned_nav=orphaned_nav,
+    )
 
 
 @app.command('check-translations')
@@ -390,10 +468,10 @@ def check_translations(
     exit_code = 0
     for d in drifts:
         typer.echo(f'[{d.lang}]')
-        if not (d.missing or d.outdated or d.orphaned):
+        if not (d.missing or d.outdated or d.orphaned or d.missing_nav or d.orphaned_nav):
             typer.echo('  clean')
             continue
-        for kind in ('missing', 'outdated', 'orphaned'):
+        for kind in ('missing', 'outdated', 'orphaned', 'missing_nav', 'orphaned_nav'):
             items = getattr(d, kind)
             if items:
                 typer.echo(f'  {kind}:')
@@ -461,6 +539,116 @@ def _run_translation(model_spec: str, system_prompt: str, source: str, existing:
     raise RuntimeError(f'Translation failed validation after 3 attempts: {last_err}')
 
 
+def _translate_nav(labels: list[str], model_spec: str, lang_name: str) -> dict[str, str]:
+    """Translate a list of short nav labels via LLM. Returns {english: translated}."""
+    try:
+        from pydantic import BaseModel
+        from pydantic_ai import Agent
+        from pydantic_ai.settings import ModelSettings
+    except ImportError as exc:
+        raise typer.BadParameter(
+            'pydantic-ai is not installed. Run: uv sync --group translations'
+        ) from exc
+
+    class NavOut(BaseModel):
+        translations: dict[str, str]
+
+    system = (
+        f'You are translating short sidebar labels for the PS Banshee CLI documentation '
+        f'from English into {lang_name}. Return a JSON object with a single key '
+        f'"translations" mapping every English label (exactly as given) to its translated '
+        f'form.\n\n'
+        f'Rules:\n'
+        f'- Every English label in the input MUST appear as a key in the output.\n'
+        f'- Keep the translations concise — these render as sidebar navigation.\n'
+        f'- Use the formal register standard for technical vendor documentation in '
+        f'{lang_name} (e.g. です・ます in Japanese, 합니다체 in Korean).\n'
+        f'- Preserve brand and product names as-is: Recorded Future, PS Banshee, '
+        f'Playbook Alert, Classic Alert, IOC, PCAP.\n'
+        f'- If a term is a well-established technical English term with no natural '
+        f'equivalent, keep the English term.'
+    )
+    user = 'Translate these labels:\n' + '\n'.join(f'- {lbl}' for lbl in labels)
+    settings = ModelSettings(max_tokens=4000)
+
+    missing: list[str] = list(labels)
+    for _ in range(3):
+        agent = Agent(model_spec, system_prompt=system, model_settings=settings, output_type=NavOut)
+        result = agent.run_sync(user)
+        out = getattr(result, 'output', None) or getattr(result, 'data', None)
+        if out is None:
+            continue
+        mapping = dict(out.translations)
+        missing = [lbl for lbl in labels if lbl not in mapping]
+        if not missing:
+            return mapping
+    raise RuntimeError(f'Nav translation missing labels after 3 attempts: {missing}')
+
+
+def _sync_nav_translations(lang: str, model_spec: str, lang_name: str) -> tuple[Path, int]:
+    """Translate any nav labels not yet in ``docs/<lang>/_nav.yml``. Merges with existing."""
+    nav = _load_yaml(DOCS_CONFIG).get('nav')
+    labels = _extract_nav_labels(nav) if nav else []
+    existing = _load_nav_translations(lang)
+
+    stale = [k for k in existing if k not in labels]
+    for k in stale:
+        existing.pop(k, None)
+
+    todo = [lbl for lbl in labels if lbl not in existing]
+    if not todo and not stale:
+        return _nav_translations_path(lang), 0
+
+    if todo:
+        translated = _translate_nav(todo, model_spec, lang_name)
+        existing.update(translated)
+
+    merged = {lbl: existing[lbl] for lbl in labels if lbl in existing}
+    path = _save_nav_translations(lang, merged)
+    return path, len(todo)
+
+
+_ALTERNATE_BLOCK_RE = re.compile(
+    r'(\n {2}alternate:\n(?: {4}- name: .+\n {6}link: .+\n {6}lang: [\w-]+\n)+)'
+)
+
+
+def _register_language(code: str, name: str) -> tuple[bool, bool]:
+    """Add ``code`` to ``languages.json`` and ``mkdocs.yml`` if missing.
+
+    Returns ``(json_added, mkdocs_added)``. Idempotent — no-op when the code
+    already appears. Reference:
+    https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/
+    """
+    json_added = False
+    if code not in LANGUAGE_NAMES:
+        data = json.loads(LANGUAGES_CONFIG.read_text(encoding='utf-8'))
+        data[code] = name
+        LANGUAGES_CONFIG.write_text(
+            json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+        )
+        LANGUAGE_NAMES[code] = name
+        global SUPPORTED_LANGS, NON_EN_LANGS
+        SUPPORTED_LANGS = tuple(LANGUAGE_NAMES)
+        NON_EN_LANGS = tuple(c for c in SUPPORTED_LANGS if c != 'en')
+        json_added = True
+
+    text = DOCS_CONFIG.read_text(encoding='utf-8')
+    if re.search(rf'^ {{6}}lang: {re.escape(code)}\s*$', text, re.MULTILINE):
+        return json_added, False
+
+    match = _ALTERNATE_BLOCK_RE.search(text)
+    if not match:
+        raise RuntimeError(
+            'Could not locate the extra.alternate block in docs/mkdocs.yml; '
+            'add the entry manually.'
+        )
+    link = f'/{SITE_MOUNT}/{code}/' if SITE_MOUNT else f'/{code}/'
+    entry = f'    - name: {name}\n      link: {link}\n      lang: {code}\n'
+    DOCS_CONFIG.write_text(text[: match.end()] + entry + text[match.end() :], encoding='utf-8')
+    return json_added, True
+
+
 def _translate_one(
     lang: str,
     rel: Path,
@@ -480,6 +668,16 @@ def _translate_one(
 @app.command()
 def translate(
     lang: str = typer.Option(..., '--lang'),
+    name: str | None = typer.Option(
+        None,
+        '--name',
+        help=(
+            'Native name of the language (e.g. "Français"). Required only when '
+            'first registering a new --lang; ignored if the code is already known. '
+            'The --lang code must match a locale supported by mkdocs-material — '
+            'see https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/'
+        ),
+    ),
     path: Path | None = typer.Option(None, '--path', help='Translate a single en file.'),
     all_: bool = typer.Option(False, '--all', help='Translate every missing or outdated file.'),
     model: str = typer.Option('anthropic:claude-sonnet-4-6', '--model'),
@@ -491,6 +689,10 @@ def translate(
     translate everything drifted (missing + outdated). Files are translated
     in parallel; failures are reported at the end so one bad file doesn't
     stop the rest.
+
+    First time onboarding a language: also pass ``--name`` so the tool can
+    register the code in ``scripts/languages.json`` and add an
+    ``extra.alternate`` entry to ``docs/mkdocs.yml``.
     """
     from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -504,8 +706,25 @@ def translate(
         TimeElapsedColumn,
     )
 
-    if lang not in SUPPORTED_LANGS or lang == 'en':
+    if lang == 'en':
         raise typer.BadParameter(f'Cannot translate to {lang!r}')
+    if lang not in SUPPORTED_LANGS:
+        if not name:
+            raise typer.BadParameter(
+                f'Language {lang!r} is not registered. Pass --name "<Native Name>" '
+                f'to add it to scripts/languages.json and docs/mkdocs.yml, or add '
+                f'it manually.'
+            )
+        json_added, mkdocs_added = _register_language(lang, name)
+        if json_added:
+            typer.echo(f'Registered {lang!r} → {name!r} in {LANGUAGES_CONFIG.name}')
+        if mkdocs_added:
+            typer.echo(f'Added {lang!r} to extra.alternate in {DOCS_CONFIG.name}')
+    elif name and name != LANGUAGE_NAMES.get(lang):
+        typer.echo(
+            f'--name {name!r} ignored; {lang!r} is already registered as '
+            f'{LANGUAGE_NAMES[lang]!r}.'
+        )
     if not path and not all_:
         raise typer.BadParameter('Pass --path <en-file> or --all')
 
@@ -517,6 +736,19 @@ def translate(
     else:
         drift = _detect_drift(lang)
         targets = [Path(t) for t in sorted(set(drift.missing + drift.outdated))]
+
+    lang_name = LANGUAGE_NAMES.get(lang, lang)
+    if all_:
+        try:
+            nav_path, added = _sync_nav_translations(lang, model, lang_name)
+            if added:
+                typer.echo(
+                    f'Nav: translated {added} new label(s) → {nav_path.relative_to(REPO_ROOT)}'
+                )
+            else:
+                typer.echo('Nav: up to date.')
+        except Exception as exc:  # noqa: BLE001 — surface any translator failure
+            typer.echo(f'Nav translation failed: {exc}', err=True)
 
     if not targets:
         typer.echo('Nothing to translate.')
@@ -542,8 +774,7 @@ def translate(
         task_id = progress.add_task('translating…', total=len(targets), lang=lang)
         with ThreadPoolExecutor(max_workers=concurrency) as pool:
             futures = {
-                pool.submit(_translate_one, lang, rel, model, system_prompt): rel
-                for rel in targets
+                pool.submit(_translate_one, lang, rel, model, system_prompt): rel for rel in targets
             }
             for fut in as_completed(futures):
                 rel = futures[fut]
