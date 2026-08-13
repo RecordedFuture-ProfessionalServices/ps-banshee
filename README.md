@@ -142,6 +142,68 @@ banshee ioc lookup --help
 banshee list bulk-add -h
 ```
 
+## Editing documentation
+
+The docs live under `docs/en/` (English source of truth), `docs/ja/`, and
+`docs/ko/`. To preview or build locally:
+
+```bash
+uv sync --group docs --no-default-groups
+uv run python scripts/docs.py dev               # prod-like: all languages + rebuild on save
+uv run python scripts/docs.py build-all         # one-shot build (used by CI)
+```
+
+`dev` mounts `site/` under the same URL subpath as production (derived from
+`site_url` — currently `/ps-banshee/`), so all three languages resolve at
+`/ps-banshee/`, `/ps-banshee/ja/`, `/ps-banshee/ko/` and the language switcher
+points at real pages. Edits under `docs/` trigger a per-language rebuild
+(~0.5s); refresh the browser to see changes.
+
+If you edit an English page, the CI drift check will fail until every
+non-English counterpart is regenerated. To see what's drifted before
+translating:
+
+```bash
+uv run python scripts/docs.py check-translations --lang ja   # one language
+uv run python scripts/docs.py check-translations --all       # every non-en language (what CI runs)
+```
+
+Run the LLM translator locally with your own API key — CI never calls an
+LLM:
+
+```bash
+export ANTHROPIC_API_KEY=<your-key>
+uv sync --group translations
+uv run python scripts/docs.py translate --lang ja --all
+```
+
+Files are translated in parallel (5 at a time by default; tune with
+`--concurrency N` if you hit rate limits). Failures are reported at the
+end so one bad file doesn't stop the rest — re-run the same command to
+retry just the failed set.
+
+Then commit the regenerated files.
+
+### Adding a new language
+
+Language codes must match one of the locales supported by mkdocs-material — see
+the [list here](https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/).
+Using an unsupported code (e.g. `we` for Welsh instead of `cy`) fails the build
+with `TemplateNotFound: 'partials/languages/<code>.html'`.
+
+Pass `--name "<Native Name>"` on the first `translate` run for a new code and the
+tool will register it automatically in both `scripts/languages.json` and the
+`extra.alternate` block of `docs/mkdocs.yml`:
+
+```bash
+uv run python scripts/docs.py translate --lang fr --name "Français" --all
+```
+
+This produces `docs/fr/` (translated pages) and `docs/fr/_nav.yml` (translated
+sidebar labels). Commit the new directory alongside the auto-edits to
+`scripts/languages.json` and `docs/mkdocs.yml`. On subsequent runs `--name` is
+not needed.
+
 ## Support
 
 Submit a [support request](https://support.recordedfuture.com/hc/en-us/requests/new) for help alternatively reach out to [support@recordedfuture.com](mailto:support@recordedfuture.com).

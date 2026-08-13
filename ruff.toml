@@ -77,7 +77,6 @@ explicit-preview-rules = true
 max-complexity = 10
 
 [lint.extend-per-file-ignores]
-"mkdocs_hooks/*" = ["ALL"]
 "tests*/*" = [
     "CPY",     # copyright
     "D",       # pydocstyle
@@ -104,6 +103,17 @@ max-complexity = 10
 
 "banshee/commands/epilogs.py" = [
     "E501",   # line too long
+]
+
+"scripts/*" = [
+    "CPY",     # copyright
+    "D",       # pydocstyle
+    "INP001",  # implicit-namespace-package
+    "S506",    # unsafe yaml load — required for pymdownx slug tag in mkdocs.yml
+    "B008",    # typer relies on function-call defaults for Option/Argument
+    "T201",    # print/typer.echo
+    "C901",    # complexity — one-shot orchestration script, not library code
+    "PERF203", # try/except in loop — user-facing rebuild loops
 ]
 
 [lint.pydocstyle]

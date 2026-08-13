@@ -78,7 +78,7 @@ banshee
 
 ### Authorization
 
---8<-- "docs/en/_includes/authorization.md"
+--8<-- "_includes/authorization.md"
 
 ### Proxies
 

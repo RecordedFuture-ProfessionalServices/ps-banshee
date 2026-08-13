@@ -6,13 +6,13 @@
 
 This knowledge base is designed for LLM consumption (Claude Code, Opus, and other agentic CLIs). Three artifacts are published for agents:
 
-- **Index** — concise table of contents: <https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms.txt>
-- **Full bundle** — every command group inlined in one document: <https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms-full.txt>
+- **Index** — concise table of contents: <https://recordedfuture-professionalservices.github.io/ps-banshee/llms.txt>
+- **Full bundle** — every command group inlined in one document: <https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt>
 - **Per-group pages** — for selective fetches, served as raw markdown at `https://.../latest/knowledge-base/<group>/index.md` (e.g. `ca`, `ioc`, `list`). Linked from the index above.
 
 To make `banshee` discoverable to your agent in a project, add an action-phrased line to your `CLAUDE.md`, `AGENTS.md`, or equivalent rules file:
 
-> When working with Recorded Future, fetch <https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms-full.txt> for the full `banshee` CLI reference, then use the `banshee` CLI. If that URL is unreachable, run `banshee --help` instead.
+> When working with Recorded Future, fetch <https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt> for the full `banshee` CLI reference, then use the `banshee` CLI. If that URL is unreachable, run `banshee --help` instead.
 
 Set `RF_TOKEN` in the shell environment before invoking — see [Authentication](#authentication-global-options) below.
 
