@@ -55,9 +55,7 @@ app = typer.Typer(help='Build and translation orchestration for PS Banshee docs.
 
 def _is_metadata(parts) -> bool:
     """Return True if ``parts`` sit under an untranslated metadata segment."""
-    return any(
-        part.startswith('_') and part not in TRANSLATED_UNDERSCORE_DIRS for part in parts
-    )
+    return any(part.startswith('_') and part not in TRANSLATED_UNDERSCORE_DIRS for part in parts)
 
 
 def _lang_dir(lang: str) -> Path:
@@ -640,7 +638,7 @@ def _register_language(code: str, name: str) -> tuple[bool, bool]:
             json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
         )
         LANGUAGE_NAMES[code] = name
-        global SUPPORTED_LANGS, NON_EN_LANGS
+        global SUPPORTED_LANGS, NON_EN_LANGS  # noqa: PLW0603
         SUPPORTED_LANGS = tuple(LANGUAGE_NAMES)
         NON_EN_LANGS = tuple(c for c in SUPPORTED_LANGS if c != 'en')
         json_added = True
@@ -652,8 +650,7 @@ def _register_language(code: str, name: str) -> tuple[bool, bool]:
     match = _ALTERNATE_BLOCK_RE.search(text)
     if not match:
         raise RuntimeError(
-            'Could not locate the extra.alternate block in docs/mkdocs.yml; '
-            'add the entry manually.'
+            'Could not locate the extra.alternate block in docs/mkdocs.yml; add the entry manually.'
         )
     link = f'/{SITE_MOUNT}/{code}/' if SITE_MOUNT else f'/{code}/'
     entry = f'    - name: {name}\n      link: {link}\n      lang: {code}\n'
@@ -734,8 +731,7 @@ def translate(
             typer.echo(f'Added {lang!r} to extra.alternate in {DOCS_CONFIG.name}')
     elif name and name != LANGUAGE_NAMES.get(lang):
         typer.echo(
-            f'--name {name!r} ignored; {lang!r} is already registered as '
-            f'{LANGUAGE_NAMES[lang]!r}.'
+            f'--name {name!r} ignored; {lang!r} is already registered as {LANGUAGE_NAMES[lang]!r}.'
         )
     if not path and not all_:
         raise typer.BadParameter('Pass --path <en-file> or --all')
