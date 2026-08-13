@@ -6,13 +6,13 @@
 
 このナレッジベースは LLM による利用（Claude Code、Opus、その他のエージェント型 CLI）を想定して設計されています。エージェント向けに以下の 3 つのアーティファクトが公開されています。
 
-- **Index** — 簡潔な目次: <https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms.txt>
-- **Full bundle** — すべてのコマンドグループを 1 つのドキュメントにまとめたもの: <https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms-full.txt>
+- **Index** — 簡潔な目次: <https://recordedfuture-professionalservices.github.io/ps-banshee/llms.txt>
+- **Full bundle** — すべてのコマンドグループを 1 つのドキュメントにまとめたもの: <https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt>
 - **Per-group pages** — 選択的なフェッチ用。`https://.../latest/knowledge-base/<group>/index.md` (例: `ca`、`ioc`、`list`) で生のマークダウンとして提供されます。上記インデックスからリンクされています。
 
 プロジェクト内でエージェントが `banshee` を発見できるようにするには、`CLAUDE.md`、`AGENTS.md`、または同等のルールファイルにアクション指向の一行を追加してください。
 
-> Recorded Future を使用する際は、完全な `banshee` CLI リファレンスを取得するために <https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms-full.txt> をフェッチし、その後 `banshee` CLI を使用してください。その URL に到達できない場合は、代わりに `banshee --help` を実行してください。
+> Recorded Future を使用する際は、完全な `banshee` CLI リファレンスを取得するために <https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt> をフェッチし、その後 `banshee` CLI を使用してください。その URL に到達できない場合は、代わりに `banshee --help` を実行してください。
 
 呼び出す前にシェル環境に `RF_TOKEN` を設定してください。詳細は以下の[認証](#認証とグローバルオプション)を参照してください。
 

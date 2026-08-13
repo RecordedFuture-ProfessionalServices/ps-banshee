@@ -2,8 +2,8 @@
 
 Bansheeはターミナルから操作できるように設計されています。Claude Code、Codex、その他シェルコマンドを実行できるLLMなどのAIコーディングエージェントからも利用可能です。エージェントがCLIを学習するために、2つのアーティファクトが公開されています。
 
-- **インデックス** — 選択的な取得のための簡潔な目次: [llms.txt](https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms.txt)
-- **フルバンドル** — すべてのコマンドグループを1つのドキュメントにまとめたもの: [llms-full.txt](https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms-full.txt)
+- **インデックス** — 選択的な取得のための簡潔な目次: [llms.txt](https://recordedfuture-professionalservices.github.io/ps-banshee/llms.txt)
+- **フルバンドル** — すべてのコマンドグループを1つのドキュメントにまとめたもの: [llms-full.txt](https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt)
 
 いずれも [llms.txt](https://llmstxt.org/) の規約に準拠しています。
 
@@ -26,7 +26,7 @@ When a request involves Recorded Future or threat intelligence, use the
 - enriching an email (`.eml`) or packet capture (`.pcap`)
 
 First fetch the full command reference, then run `banshee`:
-<https://recordedfuture-professionalservices.github.io/ps-banshee/latest/llms-full.txt>
+<https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt>
 
 If that URL is unreachable, or a command from the reference isn't present in your
 installed version, run `banshee --help` (and `banshee <group> --help`) to confirm

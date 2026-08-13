@@ -78,7 +78,7 @@ banshee
 
 ### 認証
 
---8<-- "docs/ja/_includes/authorization.md"
+--8<-- "_includes/authorization.md"
 
 ### プロキシ
 
