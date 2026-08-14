@@ -46,21 +46,29 @@ dev = [
 ]
 
 docs = [
-    "mike~=2.1.3",
     "mkdocs~=1.6.1",
     "mkdocs-material~=9.7.6",
     "mkdocstrings[python]>=1.0.4",
     "griffe-typingdoc~=0.2.8",
-    "mkdocs-llmstxt-md~=0.2.0",
-    "pymdown-extensions~=10.21.3",
+    "mkdocs-llmstxt>=0.3.0",
+    "pymdown-extensions>=10.21.3,<11.1.0",
+    "typer<0.16.0",
+    "pyyaml>=6.0",
+]
+
+translations = [
+    "pydantic-ai>=0.0.14",
+    "typer<0.16.0",
+    "pyyaml>=6.0",
+    "rich>=13.0",
 ]
 
 [project.scripts]
 banshee = "banshee.main:app"
 
 [project.urls]
-Homepage = "https://recordedfuture-professionalservices.github.io/ps-banshee/latest/"
-Changelog = "https://recordedfuture-professionalservices.github.io/ps-banshee/latest/CHANGELOG/"
+Homepage = "https://recordedfuture-professionalservices.github.io/ps-banshee/"
+Changelog = "https://recordedfuture-professionalservices.github.io/ps-banshee/CHANGELOG/"
 Source = "https://github.com/recordedfuture-professionalservices/ps-banshee"
 
 [tool.uv]

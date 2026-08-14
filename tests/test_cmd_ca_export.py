@@ -35,6 +35,7 @@ def test_ca_export_invalid_json():
     assert result.exit_code == 2
 
 
+@pytest.mark.vcr
 def test_ca_export_invalid_id():
     result = runner.invoke(app, args=[COMMAND], input=INVALID_ALERT_ID)
     assert result.exit_code == 1

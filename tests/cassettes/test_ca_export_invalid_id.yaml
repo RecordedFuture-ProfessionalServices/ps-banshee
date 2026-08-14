@@ -1,0 +1,64 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - banshee:tests_/1.4.1 (macOS-26.5.1-arm64-arm-64bit) psengine-py/2.8.4
+      X-RFToken:
+      - bmljZSB0cnkgOikpKSk=
+      accept:
+      - application/json
+    method: GET
+    uri: https://api.recordedfuture.com/v3/alerts/bad-alert-id?fields=log%2Cowner_organisation_details%2Chits%2Ctype%2Cenriched_entities%2Ctriggered_by%2Curl%2Cid%2Creview%2Cai_insights%2Ctitle%2Crule
+  response:
+    body:
+      string: '{"error": {"message": "Breakfast", "status": 404}, "traceId": "Buffalo
+        Wings"}'
+    headers:
+      CF-RAY:
+      - a2245f3f4d76cdae-LHR
+      Cache-Control:
+      - no-cache, no-store, private, must-revalidate, max-age=0, no-transform
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 28 Jul 2026 13:53:47 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - JSESSIONID=node012lozm6tdfyh51roe5zol4xu843907228.node0; Path=/alert; Secure;
+        HttpOnly
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      content-security-policy:
+      - 'default-src ''self'' data:; img-src ''self'' https: data: blob:; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval'' cdn.jsdelivr.net; style-src ''self''
+        ''unsafe-inline'' fonts.googleapis.com cdn.jsdelivr.net; font-src ''self''
+        fonts.gstatic.com; worker-src blob:; connect-src ''self'' https://id.recordedfuture.com'
+      expires:
+      - '0'
+      pragma:
+      - no-cache
+      scrubbed: '1'
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - accept-encoding
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+version: 1
