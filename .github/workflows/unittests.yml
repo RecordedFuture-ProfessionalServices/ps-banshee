@@ -39,9 +39,11 @@ jobs:
         run: |
           if command -v tshark >/dev/null; then exit 0; fi
           mkdir -p ~/apt-cache
-          if [ -z "$(ls -A ~/apt-cache 2>/dev/null)" ]; then
+          if ! ls ~/apt-cache/*.deb >/dev/null 2>&1; then
             sudo apt-get update
             sudo apt-get install -y --download-only -o Dir::Cache::Archives="$HOME/apt-cache" tshark
+            sudo rm -rf ~/apt-cache/lock ~/apt-cache/partial
+            sudo chown -R "$USER":"$USER" ~/apt-cache
           fi
           sudo dpkg -i ~/apt-cache/*.deb || sudo apt-get install -y -f --no-download
 
