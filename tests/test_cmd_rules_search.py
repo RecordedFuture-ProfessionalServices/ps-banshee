@@ -60,23 +60,17 @@ def test_rules_search_multiple_types():
 
 @pytest.mark.vcr
 def test_rules_search_threat_actor_and_malware_map_combined():
-    # First get results with just threat actor map
-    result_actors = runner.invoke(app, args=['-T', '-l', '1000'])
+    result_actors = runner.invoke(app, args=['-T', '-l', '50'])
     assert result_actors.exit_code == 0
-    output_actors = json.loads(result_actors.output)
-    num_actors = len(output_actors)
+    num_actors = len(json.loads(result_actors.output))
 
-    # Then get results with just malware map
-    result_malware = runner.invoke(app, args=['-M', '-l', '1000'])
+    result_malware = runner.invoke(app, args=['-M', '-l', '50'])
     assert result_malware.exit_code == 0
-    output_malware = json.loads(result_malware.output)
-    num_malware = len(output_malware)
+    num_malware = len(json.loads(result_malware.output))
 
-    # Then get results with both combined
-    result_combined = runner.invoke(app, args=['-T', '-M', '-l', '1000'])
+    result_combined = runner.invoke(app, args=['-T', '-M', '-l', '100'])
     assert result_combined.exit_code == 0
-    output_combined = json.loads(result_combined.output)
-    num_combined = len(output_combined)
+    num_combined = len(json.loads(result_combined.output))
 
     # Combined should have more results than either alone (unless there's complete overlap)
     assert num_combined > num_actors

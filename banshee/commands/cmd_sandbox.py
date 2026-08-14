@@ -147,7 +147,7 @@ _HELP_SET_PROFILE = (
     'automatically, or `--pick` FILE:PROFILE for manual per-file mapping.'
 )
 _HELP_SUBMIT = (
-    'Submit a sample for analysis — a local file is uploaded, a URL is detonated in a '
+    'Submit a sample for analysis. A local file is uploaded, a URL is detonated in a '
     'browser (or downloaded first with `--fetch`), and `--import` brings in a public '
     'sample by ID. Prints the submitted sample as JSON; add `--wait` to poll until '
     'analysis finishes and print the overview report instead, or `--interactive` to '
@@ -158,13 +158,11 @@ app = Typer(no_args_is_help=True)
 profile_app = Typer(no_args_is_help=True)
 report_app = Typer(no_args_is_help=True)
 
-
 def _require_non_empty(**options):
     for flag, value in options.items():
         values = [value] if isinstance(value, str) else value or []
         if any(not v for v in values):
             raise BadParameter(f'--{flag} must not be empty')
-
 
 @banshee_cmd(
     app=app, help_=_HELP_STATS, epilog=EPILOG_SANDBOX_STATS, rich_help_panel=_PANEL_ANALYTICS
@@ -177,16 +175,16 @@ def stats(
     subset: OPT_SANDBOX_SUBSET = 'org',
     pretty: OPT_PRETTY_PRINT = False,
 ):
+
     result = fetch_sandbox_stats(days=days, subset=subset)
     print_sandbox_stats(result, pretty=pretty)
-
 
 @banshee_cmd(
     app=profile_app, name='list', help_=_HELP_PROFILE_LIST, epilog=EPILOG_SANDBOX_PROFILE_LIST
 )
 def list_(pretty: OPT_PRETTY_PRINT = False):
-    list_sandbox_profiles(pretty=pretty)
 
+    list_sandbox_profiles(pretty=pretty)
 
 @banshee_cmd(
     app=profile_app, name='get', help_=_HELP_PROFILE_GET, epilog=EPILOG_SANDBOX_PROFILE_GET
@@ -195,8 +193,8 @@ def get_(
     profile_id_or_name: Annotated[str, Argument(help='Profile ID or name', show_default=False)],
     pretty: OPT_PRETTY_PRINT = False,
 ):
-    get_sandbox_profile(profile_id_or_name, pretty=pretty)
 
+    get_sandbox_profile(profile_id_or_name, pretty=pretty)
 
 @banshee_cmd(
     app=profile_app,
@@ -236,6 +234,7 @@ def create(
     browser: OPT_SANDBOX_BROWSER = None,
     pretty: OPT_PRETTY_PRINT = False,
 ):
+
     _require_non_empty(name=name, tags=tags)
     if geolocation and network != 'vpn':
         raise BadParameter('--geolocation requires `--network` vpn')
@@ -248,7 +247,6 @@ def create(
         browser=browser,
         pretty=pretty,
     )
-
 
 @banshee_cmd(
     app=profile_app,
@@ -304,6 +302,7 @@ def update(
         raise BadParameter(f'cannot both set and unset: {", ".join(conflicts)}')
     if geolocation and (network is not None and network != 'vpn' or 'network' in (unset or [])):
         raise BadParameter('--geolocation requires `--network` vpn')
+
     update_sandbox_profile(
         profile_id_or_name,
         name=name,
@@ -315,7 +314,6 @@ def update(
         unset=unset,
         pretty=pretty,
     )
-
 
 @banshee_cmd(
     app=profile_app,
@@ -330,10 +328,10 @@ def delete(
         Option('--yes', '-y', help='Delete without asking for confirmation'),
     ] = False,
 ):
+
     if not yes:
         confirm(f'Delete profile {profile_id_or_name!r}?', abort=True)
     delete_sandbox_profile(profile_id_or_name)
-
 
 @banshee_cmd(
     app=app,
@@ -350,8 +348,8 @@ def list_samples(
     ] = 20,
     pretty: OPT_PRETTY_PRINT = False,
 ):
-    list_sandbox_samples(subset=subset, limit=limit, pretty=pretty)
 
+    list_sandbox_samples(subset=subset, limit=limit, pretty=pretty)
 
 @banshee_cmd(
     app=app,
@@ -367,10 +365,10 @@ def delete_sample(
         Option('--yes', '-y', help='Delete without asking for confirmation'),
     ] = False,
 ):
+
     if not yes:
         confirm(f'Delete sample {sample_id!r}?', abort=True)
     delete_sandbox_sample(sample_id)
-
 
 @banshee_cmd(
     app=app,
@@ -450,6 +448,7 @@ def submit(
         raise BadParameter('`--interactive` and `--profile` are mutually exclusive')
     if geolocation and network != 'vpn':
         raise BadParameter('`--geolocation` requires `--network` vpn')
+
     submit_sandbox_sample(
         target,
         fetch=fetch,
@@ -464,7 +463,6 @@ def submit(
         interactive=interactive,
         pretty=pretty,
     )
-
 
 @banshee_cmd(
     app=app,
@@ -497,8 +495,8 @@ def set_profile(
         file_, sep, profile = raw.partition(':')
         if not sep or not file_ or not profile:
             raise BadParameter(f'`--pick` value must be FILE:PROFILE, got: {raw!r}')
-    set_sandbox_sample_profile(sample_id, auto=auto, picks=pick, pretty=pretty)
 
+    set_sandbox_sample_profile(sample_id, auto=auto, picks=pick, pretty=pretty)
 
 @banshee_cmd(
     app=report_app,
@@ -519,8 +517,8 @@ def overview(
     ] = False,
     pretty: OPT_PRETTY_PRINT = False,
 ):
-    fetch_overview_report(sample_id, pretty=pretty, wait=wait)
 
+    fetch_overview_report(sample_id, pretty=pretty, wait=wait)
 
 @banshee_cmd(
     app=report_app,
@@ -541,8 +539,8 @@ def static(
     ] = False,
     pretty: OPT_PRETTY_PRINT = False,
 ):
-    fetch_static_report(sample_id, pretty=pretty, wait=wait)
 
+    fetch_static_report(sample_id, pretty=pretty, wait=wait)
 
 @banshee_cmd(
     app=report_app,
@@ -574,8 +572,8 @@ def behavioral(
         ),
     ] = False,
 ):
-    fetch_behavioral_reports(sample_id, pretty=pretty, wait=wait, full_cmd=full_cmd)
 
+    fetch_behavioral_reports(sample_id, pretty=pretty, wait=wait, full_cmd=full_cmd)
 
 app.add_typer(
     profile_app,

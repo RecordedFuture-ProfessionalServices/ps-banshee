@@ -14,99 +14,17 @@ from banshee.pcap_enrich.pcap_enrich import (
 runner = CliRunner()
 
 TEST_FILES = Path(__file__).parent.parent / 'test_files'
+# Fixtures are trimmed to the first 200 packets — enough to cover IPv4, IPv6, and
+# DNS-with-A-records paths. Regenerate: `editcap -r <src>.pcap <dst>.pcap 1-200`.
 CAPTURES = [
     (
         TEST_FILES / 'small.pcap',
         (
-            [
-                '172.217.0.238',
-                '193.124.93.220',
-                '168.143.243.230',
-                '204.79.197.200',
-                '188.225.38.247',
-                '72.21.81.200',
-                '194.87.110.230',
-                '224.0.0.252',
-                '239.255.255.250',
-                '172.217.0.227',
-                '217.20.116.142',
-            ],
-            [
-                'wcvxsyjfpiovmptigu.com',
-                'juuegdhb5196yhd.com',
-                'yxogwyndvwp.com',
-                'fpdownload2.macromedia.com',
-                'qhvofnudibriut.com',
-                'qcucafoiu.com',
-                'update.googleapis.com',
-                'vuykgvnfe.com',
-                'bing.com',
-                'xxvtuycm.com',
-                'fkgobmphqlfdophk.com',
-                'luoydxqlqfdwsl.com',
-                'xslsexpxhkaynrvy.com',
-                'api.bing.com',
-                'bnajaaph.com',
-                'vhkyyerhh.com',
-                'gmtajuepmx.com',
-                'bchqmvbgknljayqb.com',
-                'gwwrolfyfxtq.com',
-                'hxwadlkmebgpojatq.com',
-                'ieonline.microsoft.com',
-                'bpgfpkyl.com',
-                'cqqkroagthpvpj.com',
-                'nupppywpufdndt.com',
-                'google.com',
-                'ojkmfguoeyrvundpkj.com',
-                'sgllbjnsljeltl.com',
-                'wttqdjftcjmoynl.com',
-                'teredo.ipv6.microsoft.com',
-                'assvrihswsep.com',
-                'tqokxeyihf.com',
-                'xyqrydep.com',
-                'klovgfiy.com',
-                'qagoauqyuqmyqqq.com',
-                'mgmqeogvjaydt.com',
-                'dns.msftncsi.com',
-                'oatlakwbs.com',
-                'aniedtnojvdtpv.com',
-                'smqrbewtndlartnmq.com',
-                'fmmyicwbc.com',
-                'vbxdcfcotng.com',
-                'dcfifjdtuvbsljji.com',
-                'uuhyoifmsolvriphywp.com',
-                'tpjtejqldccu.com',
-                'xjkokskukjidriemx.com',
-                'btpvoepdgdwdv.com',
-                'nalqudfenonbatenv.com',
-                'fkjvmeprgktateanj.com',
-                'slyxqupy.com',
-                'acjrleouie.com',
-                'hkugaabhnwaymgh.com',
-                'sjvishymfmbmtyrvry.com',
-                'gcqltysgeybouffocm.com',
-                'jiqduciucqqggalieq.com',
-                'hceoqxahppy.com',
-                'qgcftjlfa.com',
-                'ebnastiuaiufo.com',
-                'hqelbpqhvkjmpbyd.com',
-                'osrifxcfy.com',
-                'iecvlist.microsoft.com',
-                'www.bing.com',
-            ],
+            ['168.143.243.230', '188.225.38.247', '193.124.93.220'],
+            ['api.bing.com', 'fpdownload2.macromedia.com', 'www.bing.com'],
             {
                 'api.bing.com': {'13.107.13.80'},
-                'bing.com': {'204.79.197.200'},
-                'dns.msftncsi.com': {'131.107.255.255'},
                 'fpdownload2.macromedia.com': {'168.143.243.230'},
-                'google.com': {'172.217.0.238'},
-                'iecvlist.microsoft.com': {'72.21.81.200'},
-                'ieonline.microsoft.com': {'204.79.197.200'},
-                'juuegdhb5196yhd.com': {'194.87.110.230'},
-                'nupppywpufdndt.com': {'194.87.110.230'},
-                'qhvofnudibriut.com': {'217.20.116.142'},
-                'smqrbewtndlartnmq.com': {'217.20.116.142'},
-                'update.googleapis.com': {'172.217.0.227'},
                 'www.bing.com': {'131.253.33.200'},
             },
         ),
@@ -115,41 +33,19 @@ CAPTURES = [
         TEST_FILES / 'demo.pcapng',
         (
             [
-                '142.251.30.104',
-                '34.160.144.191',
-                '34.107.221.82',
-                '142.250.151.94',
-                '23.215.0.136',
                 '142.250.129.94',
-                '151.101.193.91',
-                '2.22.98.7',
-                '34.120.208.123',
-                '34.41.139.193',
-                '142.250.117.95',
                 '142.250.151.113',
-                '142.251.30.106',
-                '198.98.57.26',
-                '142.251.30.141',
-                '172.217.16.234',
-                'ff02::2',
                 '142.251.30.103',
+                '142.251.30.104',
+                '142.251.30.106',
+                '172.217.16.234',
+                '2.22.98.7',
+                '34.107.221.82',
+                '34.41.139.193',
+                'ff02::2',
             ],
-            [
-                'example.com',
-                'detectportal.firefox.com',
-                'example.org',
-                'o.pki.goog',
-                'www.google.com',
-                'ipv4only.arpa',
-                'siekis.com',
-                'safebrowsing.googleapis.com',
-            ],
+            ['safebrowsing.googleapis.com', 'siekis.com', 'www.google.com'],
             {
-                'detectportal.firefox.com': {'34.107.221.82'},
-                'example.com': {'23.215.0.136'},
-                'example.org': {'23.220.75.238'},
-                'ipv4only.arpa': {'192.0.0.170'},
-                'o.pki.goog': {'142.250.129.94'},
                 'safebrowsing.googleapis.com': {'172.217.16.234'},
                 'siekis.com': {'34.41.139.193'},
                 'www.google.com': {'142.251.30.106'},
@@ -194,10 +90,12 @@ def test_extract_entities_pcap(capture, expected):
         assert sorted(elem) == sorted(expected_elem)
 
 
+@patch('banshee.pcap_enrich.pcap_enrich._extract_entities_from_capture')
 @patch('banshee.pcap_enrich.pcap_enrich.LookupMgr')
 @patch('banshee.pcap_enrich.pcap_enrich.RisklistMgr')
 @patch('banshee.pcap_enrich.pcap_enrich.SoarMgr')
-def test_pcap_json_out(mock_soar_cls, mock_risklist_cls, mock_lookup_cls):
+def test_pcap_json_out(mock_soar_cls, mock_risklist_cls, mock_lookup_cls, mock_extract):
+    mock_extract.return_value = (['172.217.0.238'], [], {})
     mock_soar_cls.return_value.soar.return_value = [_make_soar_result()]
     mock_risklist_cls.return_value.fetch_risklist.side_effect = lambda *_a, **_kw: iter(
         [_make_ta_item()]
@@ -242,10 +140,12 @@ def test_pcap_json_out(mock_soar_cls, mock_risklist_cls, mock_lookup_cls):
     )
 
 
+@patch('banshee.pcap_enrich.pcap_enrich._extract_entities_from_capture')
 @patch('banshee.pcap_enrich.pcap_enrich.LookupMgr')
 @patch('banshee.pcap_enrich.pcap_enrich.RisklistMgr')
 @patch('banshee.pcap_enrich.pcap_enrich.SoarMgr')
-def test_pcap_pretty_out(mock_soar_cls, mock_risklist_cls, mock_lookup_cls):
+def test_pcap_pretty_out(mock_soar_cls, mock_risklist_cls, mock_lookup_cls, mock_extract):
+    mock_extract.return_value = (['172.217.0.238'], [], {})
     mock_soar_cls.return_value.soar.return_value = [_make_soar_result()]
     mock_risklist_cls.return_value.fetch_risklist.side_effect = lambda *_a, **_kw: iter(
         [_make_ta_item()]

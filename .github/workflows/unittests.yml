@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      RF_TOKEN: ${{ secrets.RF_TOKEN }}
+      RF_TOKEN: ${{ secrets.RF_TOKEN || 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' }}
       MIN_COVERAGE: 84
     
     steps:
@@ -47,43 +47,5 @@ jobs:
           uv run -p ${{ matrix.python_version}} pytest \
               --cov \
               --cov-fail-under=${{ env.MIN_COVERAGE }} \
-              --cov-report=html:htmlcov --cov-report=term-missing --cov-branch \
-              --cov-report=term \
               --random-order-bucket=module \
-              -v \
-              --md report.md \
-               tests/ > output.txt
-
-      - name: Upload coverage HTML
-        if: always()
-        id: cov_html
-        uses: actions/upload-artifact@v7
-        with:
-          name: coverage-html-${{ matrix.python_version }}
-          path: htmlcov
-          retention-days: 14
-          if-no-files-found: error
-
-      - name: Comment link to coverage HTML
-        if: ${{ always() && github.event_name == 'pull_request' }}
-        uses: mshick/add-pr-comment@v3
-        with:
-          message: |
-            Coverage HTML (Python ${{ matrix.python_version }}): ${{ steps.cov_html.outputs.artifact-url }}
-          message-id: CoverageHTML-${{ matrix.python_version }}
-
-      - name: Generate Test Report
-        if: always()
-        run: |
-          echo "# Tests for Python ${{ matrix.python_version }}" > FINAL_REPORT.md
-          echo "## Coverage" >> FINAL_REPORT.md
-          grep 'Required test coverage of' output.txt >> FINAL_REPORT.md
-          awk '{print} /^[[:space:]]*##[[:space:]]+[0-9]+[[:space:]]+passed[[:space:]]*$/ {exit}' report.md >> FINAL_REPORT.md
-          cat FINAL_REPORT.md >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Post test results to PR
-        if: ${{ always() && github.event_name == 'pull_request'}}
-        uses: mshick/add-pr-comment@v3
-        with:
-          message-path: FINAL_REPORT.md
-          message-id: TestResults-${{ matrix.python_version }}
+              -v 

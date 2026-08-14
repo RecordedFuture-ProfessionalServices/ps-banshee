@@ -12,5 +12,23 @@
 ##############################################################################################
 
 
+from importlib import import_module
+
 from .constants import ThreatActorCategories, get_threat_actor_category_ids
-from .fetch_threat_map import fetch_threat_actor_map, fetch_threat_malware_map
+
+_LAZY = {
+    'fetch_threat_actor_map': '.fetch_threat_map',
+    'fetch_threat_malware_map': '.fetch_threat_map',
+}
+
+
+def __getattr__(name):
+    if name in _LAZY:
+        mod = import_module(_LAZY[name], __name__)
+        val = getattr(mod, name)
+        globals()[name] = val
+        return val
+    raise AttributeError(f'module {__name__!r} has no attribute {name!r}')
+
+
+__all__ = ['ThreatActorCategories', 'get_threat_actor_category_ids', *_LAZY]
