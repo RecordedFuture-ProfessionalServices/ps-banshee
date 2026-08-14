@@ -29,18 +29,21 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Cache apt archives
+      - name: Cache tshark debs
         uses: actions/cache@v4
         with:
-          path: /var/cache/apt/archives
-          key: apt-tshark-${{ runner.os }}-v1
+          path: ~/apt-cache
+          key: apt-tshark-${{ runner.os }}-v2
 
       - name: Install TShark
         run: |
-          if ! command -v tshark >/dev/null; then
+          if command -v tshark >/dev/null; then exit 0; fi
+          mkdir -p ~/apt-cache
+          if [ -z "$(ls -A ~/apt-cache 2>/dev/null)" ]; then
             sudo apt-get update
-            sudo apt-get install -y tshark
+            sudo apt-get install -y --download-only -o Dir::Cache::Archives="$HOME/apt-cache" tshark
           fi
+          sudo dpkg -i ~/apt-cache/*.deb || sudo apt-get install -y -f --no-download
 
       - uses: astral-sh/setup-uv@v7
 
