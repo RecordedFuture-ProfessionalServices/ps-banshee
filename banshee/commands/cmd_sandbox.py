@@ -158,11 +158,13 @@ app = Typer(no_args_is_help=True)
 profile_app = Typer(no_args_is_help=True)
 report_app = Typer(no_args_is_help=True)
 
+
 def _require_non_empty(**options):
     for flag, value in options.items():
         values = [value] if isinstance(value, str) else value or []
         if any(not v for v in values):
             raise BadParameter(f'--{flag} must not be empty')
+
 
 @banshee_cmd(
     app=app, help_=_HELP_STATS, epilog=EPILOG_SANDBOX_STATS, rich_help_panel=_PANEL_ANALYTICS
@@ -179,12 +181,14 @@ def stats(
     result = fetch_sandbox_stats(days=days, subset=subset)
     print_sandbox_stats(result, pretty=pretty)
 
+
 @banshee_cmd(
     app=profile_app, name='list', help_=_HELP_PROFILE_LIST, epilog=EPILOG_SANDBOX_PROFILE_LIST
 )
 def list_(pretty: OPT_PRETTY_PRINT = False):
 
     list_sandbox_profiles(pretty=pretty)
+
 
 @banshee_cmd(
     app=profile_app, name='get', help_=_HELP_PROFILE_GET, epilog=EPILOG_SANDBOX_PROFILE_GET
@@ -195,6 +199,7 @@ def get_(
 ):
 
     get_sandbox_profile(profile_id_or_name, pretty=pretty)
+
 
 @banshee_cmd(
     app=profile_app,
@@ -247,6 +252,7 @@ def create(
         browser=browser,
         pretty=pretty,
     )
+
 
 @banshee_cmd(
     app=profile_app,
@@ -315,6 +321,7 @@ def update(
         pretty=pretty,
     )
 
+
 @banshee_cmd(
     app=profile_app,
     name='delete',
@@ -332,6 +339,7 @@ def delete(
     if not yes:
         confirm(f'Delete profile {profile_id_or_name!r}?', abort=True)
     delete_sandbox_profile(profile_id_or_name)
+
 
 @banshee_cmd(
     app=app,
@@ -351,6 +359,7 @@ def list_samples(
 
     list_sandbox_samples(subset=subset, limit=limit, pretty=pretty)
 
+
 @banshee_cmd(
     app=app,
     name='delete',
@@ -369,6 +378,7 @@ def delete_sample(
     if not yes:
         confirm(f'Delete sample {sample_id!r}?', abort=True)
     delete_sandbox_sample(sample_id)
+
 
 @banshee_cmd(
     app=app,
@@ -464,6 +474,7 @@ def submit(
         pretty=pretty,
     )
 
+
 @banshee_cmd(
     app=app,
     name='set-profile',
@@ -498,6 +509,7 @@ def set_profile(
 
     set_sandbox_sample_profile(sample_id, auto=auto, picks=pick, pretty=pretty)
 
+
 @banshee_cmd(
     app=report_app,
     name='overview',
@@ -520,6 +532,7 @@ def overview(
 
     fetch_overview_report(sample_id, pretty=pretty, wait=wait)
 
+
 @banshee_cmd(
     app=report_app,
     name='static',
@@ -541,6 +554,7 @@ def static(
 ):
 
     fetch_static_report(sample_id, pretty=pretty, wait=wait)
+
 
 @banshee_cmd(
     app=report_app,
@@ -574,6 +588,7 @@ def behavioral(
 ):
 
     fetch_behavioral_reports(sample_id, pretty=pretty, wait=wait, full_cmd=full_cmd)
+
 
 app.add_typer(
     profile_app,
