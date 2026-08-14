@@ -27,14 +27,21 @@ jobs:
       TERM: dumb
     
     steps:
-      - name: Install TShark 4.4.10
-        run: |
-          sudo apt-get update
-          sudo add-apt-repository -y ppa:wireshark-dev/stable
-          sudo apt-get update
-          sudo apt-get install -y tshark
-
       - uses: actions/checkout@v6
+
+      - name: Cache apt archives
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/apt/archives
+          key: apt-tshark-${{ runner.os }}-v1
+
+      - name: Install TShark
+        run: |
+          if ! command -v tshark >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y tshark
+          fi
+
       - uses: astral-sh/setup-uv@v7
 
       - name: Set up Python

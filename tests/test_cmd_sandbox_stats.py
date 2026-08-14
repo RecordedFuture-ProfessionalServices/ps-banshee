@@ -1,5 +1,7 @@
 import json
+import os
 from collections import Counter
+from contextlib import nullcontext
 from datetime import datetime, timedelta, timezone
 from io import StringIO
 from itertools import count
@@ -1315,10 +1317,16 @@ class TestPrintSubmissionProfile:
 class TestPrintHashes:
     def _render(self, hashes: list, frontend_base: str = '', force_terminal: bool = False) -> str:
         buf = StringIO()
-        console = Console(
-            file=buf, highlight=False, markup=True, width=120, force_terminal=force_terminal
+        env_override = (
+            patch.dict(os.environ, {'TERM': 'xterm-256color'})
+            if force_terminal
+            else nullcontext()
         )
-        _print_hashes(console, hashes, frontend_base)
+        with env_override:
+            console = Console(
+                file=buf, highlight=False, markup=True, width=120, force_terminal=force_terminal
+            )
+            _print_hashes(console, hashes, frontend_base)
         return buf.getvalue()
 
     def test_renders_sandbox_score_risk_score_sha256_family(self):
