@@ -1318,9 +1318,7 @@ class TestPrintHashes:
     def _render(self, hashes: list, frontend_base: str = '', force_terminal: bool = False) -> str:
         buf = StringIO()
         env_override = (
-            patch.dict(os.environ, {'TERM': 'xterm-256color'})
-            if force_terminal
-            else nullcontext()
+            patch.dict(os.environ, {'TERM': 'xterm-256color'}) if force_terminal else nullcontext()
         )
         with env_override:
             console = Console(
