@@ -1,0 +1,69 @@
+#################################### TERMS OF USE ###########################################
+# The following code is provided for demonstration purpose only, and should not be used      #
+# without independent verification. Recorded Future makes no representations or warranties,  #
+# express, implied, statutory, or otherwise, regarding any aspect of this code or of the     #
+# information it may retrieve, and provides it both strictly "as-is" and without assuming    #
+# responsibility for any information it may retrieve. Recorded Future shall not be liable    #
+# for, and you assume all risk of using, the foregoing. By using this code, Customer         #
+# represents that it is solely responsible for having all necessary licenses, permissions,   #
+# rights, and/or consents to connect to third party APIs, and that it is solely responsible  #
+# for having all necessary licenses, permissions, rights, and/or consents to any data        #
+# accessed from any third party API.                                                         #
+##############################################################################################
+
+from unittest.mock import patch
+
+from typer.testing import CliRunner
+
+from banshee.commands.cmd_sandbox import app
+
+runner = CliRunner()
+
+_SAMPLE_ID = '260501-h4p7laawme'
+
+
+class TestCmdSandboxDelete:
+    @patch('banshee.commands.cmd_sandbox.delete_sandbox_sample')
+    def test_delete_with_yes_long_flag(self, mock_delete):
+        result = runner.invoke(app, ['delete', _SAMPLE_ID, '--yes'])
+        assert result.exit_code == 0
+        mock_delete.assert_called_once_with(_SAMPLE_ID)
+
+    @patch('banshee.commands.cmd_sandbox.delete_sandbox_sample')
+    def test_delete_with_yes_short_flag(self, mock_delete):
+        result = runner.invoke(app, ['delete', _SAMPLE_ID, '-y'])
+        assert result.exit_code == 0
+        mock_delete.assert_called_once_with(_SAMPLE_ID)
+
+    @patch('banshee.commands.cmd_sandbox.delete_sandbox_sample')
+    def test_delete_prompts_and_proceeds_on_confirm(self, mock_delete):
+        result = runner.invoke(app, ['delete', _SAMPLE_ID], input='y\n')
+        assert result.exit_code == 0
+        mock_delete.assert_called_once_with(_SAMPLE_ID)
+
+    @patch('banshee.commands.cmd_sandbox.delete_sandbox_sample')
+    def test_delete_prompts_and_aborts_on_decline(self, mock_delete):
+        result = runner.invoke(app, ['delete', _SAMPLE_ID], input='n\n')
+        assert result.exit_code != 0
+        mock_delete.assert_not_called()
+
+    @patch('banshee.commands.cmd_sandbox.delete_sandbox_sample')
+    def test_delete_aborts_on_eof_without_yes(self, mock_delete):
+        """Non-interactive use without --yes must abort, not hang or delete."""
+        result = runner.invoke(app, ['delete', _SAMPLE_ID])
+        assert result.exit_code != 0
+        mock_delete.assert_not_called()
+
+    def test_delete_help_available(self):
+        result = runner.invoke(app, ['delete', '--help'])
+        assert result.exit_code == 0
+        assert '--yes' in result.output
+
+    def test_sandbox_subcommand_shows_delete(self):
+        result = runner.invoke(app, ['--help'])
+        assert result.exit_code == 0
+        assert 'delete' in result.output
+
+    def test_delete_missing_argument_fails(self):
+        result = runner.invoke(app, ['delete'])
+        assert result.exit_code != 0

@@ -1,0 +1,412 @@
+##################################### TERMS OF USE ###########################################
+# The following code is provided for demonstration purpose only, and should not be used      #
+# without independent verification. Recorded Future makes no representations or warranties,  #
+# express, implied, statutory, or otherwise, regarding any aspect of this code or of the     #
+# information it may retrieve, and provides it both strictly “as-is” and without assuming    #
+# responsibility for any information it may retrieve. Recorded Future shall not be liable    #
+# for, and you assume all risk of using, the foregoing. By using this code, Customer         #
+# represents that it is solely responsible for having all necessary licenses, permissions,   #
+# rights, and/or consents to connect to third party APIs, and that it is solely responsible  #
+# for having all necessary licenses, permissions, rights, and/or consents to any data        #
+# accessed from any third party API.                                                         #
+##############################################################################################
+
+from collections import Counter, defaultdict
+from datetime import datetime, timedelta, timezone
+
+from psengine.config import get_config
+from psengine.enrich import SoarMgr
+from psengine.enrich.errors import EnrichmentSoarError
+from psengine.helpers import MultiThreadingHelper
+from psengine.sandbox import SandboxMgr
+from psengine.sandbox.errors import SampleOverviewError, SampleStaticReportError
+from rich.console import Console
+
+from .constants import (
+    ARCH_FILE_TAGS,
+    OVERVIEW_WORKERS,
+    PLATFORM_PACKER_TAGS,
+    SAMPLES_INITIAL_MAX_RESULTS,
+    SAMPLES_PAGE_SIZE,
+    SOAR_MIN_SCORE,
+    SOAR_TOP_N,
+    SOAR_WORKERS,
+)
+from .helpers import (
+    SandboxStats,
+    TopIocs,
+    TopTags,
+    VerifiedIoc,
+    get_sandbox_mgr,
+    score_bucket,
+    spinner,
+)
+
+
+def _fetch_overviews(mgr: SandboxMgr, reported: list) -> list:
+    def _safe(sample_id: str):
+        try:
+            return mgr.fetch_sample_overview_report(sample_id)
+        except SampleOverviewError:
+            return None
+
+    with spinner(f'Enriching {len(reported)} overview reports…'):
+        raw = MultiThreadingHelper.multithread_it(
+            OVERVIEW_WORKERS,
+            _safe,
+            iterator=[s.id_ for s in reported],
+        )
+    return [(s, r) for s, r in zip(reported, raw) if r is not None]
+
+
+def _fetch_static_reports(mgr: SandboxMgr, reported: list) -> list:
+    def _safe(sample_id: str):
+        try:
+            return mgr.fetch_sample_static_report(sample_id)
+        except (SampleOverviewError, SampleStaticReportError):
+            return None
+
+    with spinner(f'Fetching {len(reported)} static reports…'):
+        raw = MultiThreadingHelper.multithread_it(
+            OVERVIEW_WORKERS,
+            _safe,
+            iterator=[s.id_ for s in reported],
+        )
+    return [r for r in raw if r is not None]
+
+
+def _build_file_type_map(static_reports: list) -> dict:
+    ext_counter: Counter = Counter()
+    for sr in static_reports:
+        for f in sr.files:
+            for ext in f.exts:
+                ext_counter[ext.lower()] += 1
+    return dict(ext_counter.most_common())
+
+
+def _build_score_and_platform(reports: list) -> tuple:
+    score_counter: Counter = Counter(score_bucket(r.analysis.score) for _, r in reports)
+    platform_counter: Counter = Counter()
+    for _, r in reports:
+        seen_os: set[str] = set()
+        for task in r.tasks.values():
+            if task.kind == 'behavioral' and task.os and task.os not in seen_os:
+                seen_os.add(task.os)
+                platform_counter[task.os] += 1
+    return dict(score_counter), dict(platform_counter.most_common())
+
+
+def _build_tag_taxonomy(reports: list) -> TopTags:
+    all_tags: list[str] = []
+    for _, r in reports:
+        all_tags.extend(r.analysis.tags)
+    tag_counter = Counter(all_tags)
+
+    family_tags = {t: c for t, c in tag_counter.items() if t.startswith('family:')}
+    botnet_tags = {t: c for t, c in tag_counter.items() if t.startswith('botnet:')}
+    prefixed = (
+        set(family_tags)
+        | set(botnet_tags)
+        | {t for t in tag_counter if t.startswith(('brand:', 'os:'))}
+    )
+    remaining = {t: c for t, c in tag_counter.items() if t not in prefixed}
+    excluded = ARCH_FILE_TAGS | PLATFORM_PACKER_TAGS
+    arch_file = {t: c for t, c in remaining.items() if t.lower() in ARCH_FILE_TAGS}
+    behavioral_ttp = {t: c for t, c in remaining.items() if t.lower() not in excluded}
+
+    return TopTags(
+        malware_families=dict(Counter(family_tags).most_common(10)),
+        botnets=dict(Counter(botnet_tags).most_common(10)),
+        arch_file=dict(Counter(arch_file).most_common(5)),
+        behavioral_ttp=dict(Counter(behavioral_ttp).most_common(15)),
+    )
+
+
+def _extract_raw_iocs(malicious: list) -> tuple:
+    ip_counter: Counter = Counter()
+    domain_counter: Counter = Counter()
+    sha256_map: dict[str, dict] = {}
+    extracted_c2: Counter = Counter()
+
+    for _, report in malicious:
+        sha256 = report.sample.sha256
+        if sha256 and sha256 not in sha256_map:
+            top_tag = next(
+                (t[len('family:') :] for t in report.analysis.tags if t.startswith('family:')), ''
+            )
+            sha256_map[sha256] = {
+                'sha256': sha256,
+                'score': report.analysis.score,
+                'top_tag': top_tag,
+            }
+        for target in report.targets:
+            if target.iocs:
+                ip_counter.update(target.iocs.ips)
+                domain_counter.update(target.iocs.domains)
+        for ex in report.extracted:
+            if ex.config and ex.config.c2:
+                extracted_c2.update(ex.config.c2)
+            if ex.dropper:
+                for durl in ex.dropper.urls:
+                    if durl.url:
+                        extracted_c2[durl.url] += 1
+
+    return ip_counter, domain_counter, list(sha256_map.values()), extracted_c2
+
+
+def _soar_enrich(ip_counter: Counter, domain_counter: Counter) -> tuple:
+    if not ip_counter and not domain_counter:
+        return [], True
+
+    rf_token = get_config().rf_token
+    if not rf_token or not rf_token.get_secret_value():
+        Console(stderr=True).print('NOTE: SOAR validation skipped, RF_TOKEN not set.')
+        return [], True
+
+    candidate_ips = [ip for ip, _ in ip_counter.most_common(SOAR_TOP_N)]
+    candidate_domains = [d for d, _ in domain_counter.most_common(SOAR_TOP_N)]
+    n_ips, n_dom = len(candidate_ips), len(candidate_domains)
+
+    try:
+        with spinner(f'Enriching {n_ips + n_dom} network indicators…'):
+            soar_results = SoarMgr().soar(
+                ip=candidate_ips or None,
+                domain=candidate_domains or None,
+                max_workers=SOAR_WORKERS,
+            )
+    except EnrichmentSoarError:
+        Console(stderr=True).print('NOTE: SOAR enrichment failed, skipping network IOC validation.')
+        return [], True
+
+    risky = sorted(
+        [r for r in soar_results if r.is_enriched and r.content.risk.score >= SOAR_MIN_SCORE],
+        key=lambda r: r.content.risk.score,
+        reverse=True,
+    )
+    verified = [
+        VerifiedIoc(
+            indicator=r.entity,
+            type=r.content.entity.type_,
+            rf_score=r.content.risk.score,
+            most_critical_rule=r.content.risk.rule.most_critical,
+        )
+        for r in risky
+    ]
+    return verified, False
+
+
+def _soar_enrich_hashes(sha256_list: list) -> dict:
+    if not sha256_list:
+        return {}
+    rf_token = get_config().rf_token
+    if not rf_token or not rf_token.get_secret_value():
+        return {}
+    try:
+        with spinner(f'Enriching {len(sha256_list)} file hashes…'):
+            results = SoarMgr().soar(hash_=sha256_list, max_workers=SOAR_WORKERS)
+    except EnrichmentSoarError:
+        Console(stderr=True).print(
+            'NOTE: SHA256 SOAR enrichment failed, skipping RF scores for hashes.'
+        )
+        return {}
+    return {
+        r.entity: {
+            'rf_score': r.content.risk.score,
+            'top_risk_rule': r.content.risk.rule.most_critical,
+        }
+        for r in results
+        if r.is_enriched
+    }
+
+
+def _soar_enrich_c2_urls(url_list: list) -> dict:
+    if not url_list:
+        return {}
+    rf_token = get_config().rf_token
+    if not rf_token or not rf_token.get_secret_value():
+        return {}
+    try:
+        with spinner(f'Enriching {len(url_list)} C2 indicators…'):
+            results = SoarMgr().soar(url=url_list, max_workers=SOAR_WORKERS)
+    except EnrichmentSoarError:
+        Console(stderr=True).print(
+            'NOTE: C2 URL SOAR enrichment failed, skipping RF scores for C2s.'
+        )
+        return {}
+    return {
+        r.entity: {
+            'rf_score': r.content.risk.score,
+            'top_risk_rule': r.content.risk.rule.most_critical,
+        }
+        for r in results
+        if r.is_enriched
+    }
+
+
+def _rank_c2_by_risk_score(extracted_c2: Counter, c2_soar: dict) -> list:
+    """Rank (url, count) pairs by SOAR rf_score, then hit count.
+
+    URLs without a SOAR score (outside the top `SOAR_TOP_N` by hit count, or enrichment
+    skipped/failed) sort after every scored URL.
+    """
+    return sorted(
+        extracted_c2.most_common(),
+        key=lambda item: ((c2_soar.get(item[0]) or {}).get('rf_score') or -1, item[1]),
+        reverse=True,
+    )
+
+
+def _build_daily_by_family(reports: list) -> dict:
+    daily: dict = defaultdict(lambda: defaultdict(int))
+    for sample, report in reports:
+        date_str = sample.submitted.strftime('%Y-%m-%d')
+        for tag in report.analysis.tags:
+            if tag.startswith('family:'):
+                family = tag[len('family:') :]
+                daily[family][date_str] += 1
+    return {f: dict(d) for f, d in daily.items()}
+
+
+def _dedupe_samples(samples: list) -> list:
+    """Pagination is cursor-based on submission timestamp, so samples sharing a timestamp
+    can be repeated across a page boundary; drop duplicates by id, keeping first.
+    """
+    seen: set = set()
+    deduped = []
+    for s in samples:
+        if s.id_ in seen:
+            continue
+        seen.add(s.id_)
+        deduped.append(s)
+    return deduped
+
+
+def _fetch_samples_covering_window(mgr: SandboxMgr, subset: str, cutoff: datetime) -> list:
+    """Fetch samples newest-first, doubling the page cap until `cutoff` is covered.
+
+    `/samples` returns results newest-first, so once the oldest sample in a batch
+    predates `cutoff` the requested window is fully covered and paging further would
+    only pull older history the caller doesn't need. Stops early (without doubling
+    again) once the API returns fewer samples than requested -- there's nothing older
+    left to fetch.
+    """
+    max_results = SAMPLES_INITIAL_MAX_RESULTS
+    while True:
+        samples = mgr.fetch_samples(
+            subset=subset, max_results=max_results, samples_per_page=SAMPLES_PAGE_SIZE
+        )
+        if len(samples) < max_results or any(s.submitted < cutoff for s in samples):
+            return _dedupe_samples(samples)
+        max_results *= 2
+
+
+def fetch_sandbox_stats(
+    days: int = 7,
+    subset: str = 'org',
+) -> SandboxStats:
+    """Aggregate sandbox submissions over a configurable time window.
+
+    Fetches 2× the window so the prior period is available for trend comparison
+    without a second API call. Samples are paged in newest-first, growing the page
+    cap until the 2× window is covered, so the fetch scales with actual submission
+    volume instead of walking the organisation's entire sandbox history. Overview
+    reports are fetched in parallel.
+
+    Args:
+        days: Lookback window in days (default 7). Prior period = same length before window.
+        subset: Sample scope, 'org' (org-wide) or 'owned' (current user).
+
+    Returns:
+        SandboxStats with all aggregated counts and IOCs.
+    """
+    mgr = get_sandbox_mgr()
+
+    now = datetime.now(timezone.utc)
+    cutoff_current = now - timedelta(days=days)
+    cutoff_prev = now - timedelta(days=days * 2)
+
+    with spinner('Fetching sandbox submissions…'):
+        all_samples = _fetch_samples_covering_window(mgr, subset, cutoff_prev)
+
+    current = [s for s in all_samples if s.submitted >= cutoff_current]
+    prev = [s for s in all_samples if cutoff_prev <= s.submitted < cutoff_current]
+    reported_current = [s for s in current if s.status == 'reported']
+    reported_prev = [s for s in prev if s.status == 'reported']
+
+    by_kind = dict(Counter(s.kind for s in current).most_common())
+    by_kind_prev = dict(Counter(s.kind for s in prev))
+    pending = sum(1 for s in current if s.status not in ('reported', 'failed'))
+    failed = sum(1 for s in current if s.status == 'failed')
+    trend = {
+        'total': {'current': len(current), 'prev': len(prev)},
+        'reported': {'current': len(reported_current), 'prev': len(reported_prev)},
+    }
+
+    if not reported_current:
+        return SandboxStats(
+            period_start=cutoff_current,
+            period_end=now,
+            period_days=days,
+            subset=subset,
+            total=len(current),
+            pending=pending,
+            failed=failed,
+            by_kind=by_kind,
+            by_kind_prev=by_kind_prev,
+            by_platform={},
+            by_score={},
+            top_tags=TopTags(),
+            top_iocs=TopIocs(),
+            trend_vs_prior_period=trend,
+            soar_skipped=True,
+            sandbox_choice=get_config().sandbox_choice,
+        )
+
+    reports = _fetch_overviews(mgr, reported_current)
+    static_reports = _fetch_static_reports(mgr, reported_current)
+    by_score, by_platform = _build_score_and_platform(reports)
+    top_tags = _build_tag_taxonomy(reports)
+    by_file_type = _build_file_type_map(static_reports)
+    daily_by_family = _build_daily_by_family(reports)
+
+    malicious = [(s, r) for s, r in reports if score_bucket(r.analysis.score) == 'malicious']
+    ip_ctr, dom_ctr, sha256_entries, extracted_c2 = _extract_raw_iocs(malicious)
+    verified, soar_skipped = _soar_enrich(ip_ctr, dom_ctr)
+
+    top_sha256s = [e['sha256'] for e in sha256_entries[:SOAR_TOP_N]]
+    hash_soar = _soar_enrich_hashes(top_sha256s)
+    for entry in sha256_entries:
+        soar = hash_soar.get(entry['sha256']) or {}
+        entry['rf_score'] = soar.get('rf_score')
+        entry['top_risk_rule'] = soar.get('top_risk_rule')
+
+    top_c2_urls = [url for url, _ in extracted_c2.most_common(SOAR_TOP_N)]
+    c2_soar = _soar_enrich_c2_urls(top_c2_urls)
+
+    top_iocs = TopIocs(
+        extracted_c2=_rank_c2_by_risk_score(extracted_c2, c2_soar),
+        verified_network=verified,
+        malicious_sha256=sorted(sha256_entries, key=lambda x: x['score'], reverse=True),
+        c2_soar=c2_soar,
+    )
+
+    return SandboxStats(
+        period_start=cutoff_current,
+        period_end=now,
+        period_days=days,
+        subset=subset,
+        total=len(current),
+        pending=pending,
+        failed=failed,
+        by_kind=by_kind,
+        by_kind_prev=by_kind_prev,
+        by_platform=by_platform,
+        by_score=by_score,
+        top_tags=top_tags,
+        top_iocs=top_iocs,
+        trend_vs_prior_period=trend,
+        soar_skipped=soar_skipped,
+        sandbox_choice=get_config().sandbox_choice,
+        by_file_type=by_file_type,
+        daily_by_family=daily_by_family,
+    )

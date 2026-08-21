@@ -2,7 +2,7 @@
 
 > A Recorded Future CLI for terminal-based threat intelligence investigations.
 > Built by the Cyber Security Engineers at Recorded Future.
-> Validated against `ps-banshee` / `banshee` version 1.3.0.
+> Validated against `ps-banshee` / `banshee` version 1.5.0.
 
 This knowledge base is designed for LLM consumption (Claude Code, Opus, and other agentic CLIs). Three artifacts are published for agents:
 
@@ -66,7 +66,7 @@ If `banshee` is missing, install the Python package `ps-banshee` through your ap
 
 ## Live Validation Snapshot
 
-Last live validation: **2026-06-12** (release 1.3.0 refresh) against `ps-banshee` / `banshee` **1.3.0** with `RF_TOKEN` authentication. 
+Last live validation: **2026-07-23** (release 1.5.0 refresh) against `ps-banshee` / `banshee` **1.5.0** with `RF_TOKEN` and `RF_SANDBOX_TOKEN` authentication.
 
 Validated successfully:
 
@@ -75,6 +75,7 @@ Validated successfully:
 banshee --version
 banshee --help
 test -n "$RF_TOKEN" && echo "RF_TOKEN set"
+test -n "$RF_SANDBOX_TOKEN" && echo "RF_SANDBOX_TOKEN set"
 
 # Read-only API access
 banshee ca rules
@@ -87,6 +88,14 @@ banshee pba search -o uhash:69sKLfTGsS -C 60d -l 3
 banshee pba search -C 60d -l 3 | banshee pba export
 banshee pba search -C 60d -l 3 | banshee pba export --csv
 banshee ioc bulk-lookup ip 8.8.8.8
+
+# Sandbox read-only API access
+banshee sandbox stats --days 7
+banshee sandbox list --limit 3
+banshee sandbox profile list
+banshee sandbox report overview 260722-x8lgjahyvx
+banshee sandbox report static 260722-x8lgjahyvx
+banshee sandbox report behavioral 260722-x8lgjahyvx
 ```
 
 Observed caveats:
@@ -96,6 +105,9 @@ Observed caveats:
 - In `ca export --csv` the `Updated` column is currently always empty (reserved for future API support) - confirmed in this run.
 - The new `pba search --org-id` (`-o`) filter accepts a 10-character ID or the 16-character `uhash:` form and is repeatable.
 - `pcap enrich` was not live-tested because `tshark` was not installed. This is expected: `banshee pcap enrich --help` raises `RuntimeError: tshark is not installed or not in PATH`.
+- `sandbox stats` includes a `soar_skipped` field; when `true`, `.top_iocs.verified_network` is empty (SOAR validation was not run for the period).
+- Sandbox mutating commands (`submit`, `delete`, `set-profile`, `download`, `profile create/update/delete`) were not live-tested in this refresh.
+- `sandbox download` produces AES-encrypted ZIP archives (password `infected`); extract with `7z x -pinfected <file>.zip` — standard `unzip` does not handle AES zips reliably.
 
 ---
 
@@ -127,6 +139,7 @@ Observed caveats:
 | `pba` | [pba.md](pba.md) | Playbook Alerts — search, lookup, update, export |
 | `risklist` | [risklist.md](risklist.md) | Fetch, create, and inspect risk lists |
 | `rules` | [rules.md](rules.md) | Search and download detection rules (Sigma, YARA, Snort) |
+| `sandbox` | [sandbox.md](sandbox.md) | Submit files and URLs for sandbox analysis; retrieve reports; manage profiles; download samples |
 
 ---
 

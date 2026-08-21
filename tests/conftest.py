@@ -10,6 +10,7 @@ from psengine.enrich import LookupMgr, SoarMgr
 from psengine.helpers import MultiThreadingHelper
 
 from banshee import version
+from banshee.app_config import BansheeConfig
 
 from .vcr_utils import scrub_response
 
@@ -88,6 +89,7 @@ def _force_sequential_multithread(monkeypatch):
 @pytest.fixture(scope='session', autouse=True)
 def config():
     Config.init(
+        config_class=BansheeConfig,
         rf_token=os.environ.get(RF_API_KEY),
         app_id=APP_ID,
     )

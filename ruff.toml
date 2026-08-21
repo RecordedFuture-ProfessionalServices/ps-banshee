@@ -62,6 +62,7 @@ ignore = [
     "D401",    # First line of docstring should be in imperative mood: "{first_line}"
     "E266",    # multiple-leading-hashes-for-block-comment
     "ISC001",  # single-line-implicit-string-concatenation, formatter conflict
+    "PLE0604", # all-must-contain-only-strings
     "S603",    # subprocess-without-shell-equals-true 
     "S605",    # start-process-with-a-shell
     "S607",    # start-process-with-partial-path
@@ -138,4 +139,4 @@ notice-rgx = """#################################### TERMS OF USE ##############
 # rights, and/or consents to connect to third party APIs, and that it is solely responsible  #
 # for having all necessary licenses, permissions, rights, and/or consents to any data        #
 # accessed from any third party API.                                                         #
-##############################################################################################""" 
+##############################################################################################"""

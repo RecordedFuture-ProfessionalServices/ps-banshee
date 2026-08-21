@@ -15,6 +15,7 @@
 - Recorded Future List & Watch List management
 - Recorded Future Playbook Alert search, lookup, update and export
 - Recorded Future Risk List download, and creation
+- Recorded Future Sandbox file and URL submission for malware analysis
 
 ## Installation
 
@@ -120,6 +121,28 @@ banshee -k <your_api_key> <command> <sub-command> <arguments>
 
 
 This works on any platform, but is more verbose and the key may land in shell history.
+
+#### Sandbox authorization
+
+To use the `sandbox` commands, PS Banshee also needs a Recorded Future Sandbox API token from the `RF_SANDBOX_TOKEN` environment variable (recommended) or from the `-K` / `--sandbox-key` flag.
+
+**macOS / Linux**
+
+```bash
+export RF_SANDBOX_TOKEN=<your_sandbox_api_key>
+```
+
+**Windows (PowerShell)**
+
+```powershell
+$env:RF_SANDBOX_TOKEN = '<your_sandbox_api_key>'
+```
+
+Optionally set the region with `RF_SANDBOX_CHOICE` (`eu`, `usa`, `apj`, `public`, `private`; defaults to `eu`):
+
+```bash
+export RF_SANDBOX_CHOICE=usa
+```
 
 ### Proxies
 

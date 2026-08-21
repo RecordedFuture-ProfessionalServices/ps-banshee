@@ -12,3 +12,5 @@
 ##############################################################################################
 
 from .detection_rules_search import search_detection_rules
+
+__all__ = ['search_detection_rules']

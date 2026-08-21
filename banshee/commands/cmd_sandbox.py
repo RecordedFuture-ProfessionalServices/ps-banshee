@@ -1,0 +1,808 @@
+#################################### TERMS OF USE ###########################################
+# The following code is provided for demonstration purpose only, and should not be used      #
+# without independent verification. Recorded Future makes no representations or warranties,  #
+# express, implied, statutory, or otherwise, regarding any aspect of this code or of the     #
+# information it may retrieve, and provides it both strictly “as-is” and without assuming    #
+# responsibility for any information it may retrieve. Recorded Future shall not be liable    #
+# for, and you assume all risk of using, the foregoing. By using this code, Customer         #
+# represents that it is solely responsible for having all necessary licenses, permissions,   #
+# rights, and/or consents to connect to third party APIs, and that it is solely responsible  #
+# for having all necessary licenses, permissions, rights, and/or consents to any data        #
+# accessed from any third party API.                                                         #
+##############################################################################################
+
+import re
+import sys
+from pathlib import Path
+from typing import Annotated
+
+from typer import Argument, BadParameter, Option, Typer, confirm
+
+from ..branding import banshee_cmd
+from ..sandbox import (
+    create_sandbox_profile,
+    delete_sandbox_profile,
+    delete_sandbox_sample,
+    download_sandbox_samples,
+    fetch_behavioral_reports,
+    fetch_overview_report,
+    fetch_sandbox_sample_summary,
+    fetch_sandbox_stats,
+    fetch_static_report,
+    get_sandbox_profile,
+    list_sandbox_profiles,
+    list_sandbox_samples,
+    print_sandbox_stats,
+    search_sandbox_samples,
+    set_sandbox_sample_profile,
+    submit_sandbox_sample,
+    update_sandbox_profile,
+)
+from .args import (
+    OPT_PRETTY_PRINT,
+    OPT_PROFILE_UNSET,
+    OPT_SANDBOX_BROWSER,
+    OPT_SANDBOX_NETWORK,
+    OPT_SANDBOX_SUBSET,
+)
+from .epilogs import (
+    EPILOG_SANDBOX_DELETE,
+    EPILOG_SANDBOX_DOWNLOAD,
+    EPILOG_SANDBOX_GET,
+    EPILOG_SANDBOX_LIST,
+    EPILOG_SANDBOX_PROFILE_CREATE,
+    EPILOG_SANDBOX_PROFILE_DELETE,
+    EPILOG_SANDBOX_PROFILE_GET,
+    EPILOG_SANDBOX_PROFILE_LIST,
+    EPILOG_SANDBOX_PROFILE_UPDATE,
+    EPILOG_SANDBOX_REPORT_BEHAVIORAL,
+    EPILOG_SANDBOX_REPORT_OVERVIEW,
+    EPILOG_SANDBOX_REPORT_STATIC,
+    EPILOG_SANDBOX_SEARCH,
+    EPILOG_SANDBOX_SET_PROFILE,
+    EPILOG_SANDBOX_STATS,
+    EPILOG_SANDBOX_SUBMIT,
+)
+
+CMD_NAME = 'sandbox'
+CMD_HELP = 'Sandbox submission analytics and profile management'
+CMD_RICH_HELP = 'Sandbox'
+
+_PANEL_ANALYTICS = 'SOC Brief'
+_PANEL_PROFILE_MGMT = 'Profile Management'
+_PANEL_REPORTS = 'Reports'
+_PANEL_SUBMISSION = 'Sample Management'
+
+_HELP_STATS = (
+    'Aggregate sandbox submissions over a configurable window and print a '
+    '"morning brief" suitable for SOC shift handover or daily triage. '
+    'Shows submission volume, score distribution, top malware families, platform '
+    'coverage, extracted C2s, and SOAR-validated network IOCs. '
+    'Default output is JSON; use `--pretty` for a human-readable Rich layout.'
+)
+
+_HELP_LIST = (
+    "List sandbox samples, your own, your organisation's (default), or the public feed. "
+    'Prints a JSON array by default; use `--pretty` for a table.'
+)
+
+_HELP_SEARCH = (
+    'Search samples matching structured filters (hash, family, tag, botnet, wallet, IP, '
+    'domain, URL, submission-date window) or a raw Triage query. At least one filter '
+    'or `--query` must be provided. Prints a JSON array by default; use `--pretty` for '
+    'a table.'
+)
+
+_HELP_GET = (
+    'Fetch a summary for a sandbox sample by ID: current status, overall score, '
+    'target, creation and completion timestamps, SHA256, and per-task breakdown. '
+    'Prints JSON by default; use `--pretty` for a human-readable Rich layout. '
+    'Works for both in-progress and completed samples.'
+)
+
+_HELP_DELETE = (
+    'Delete a sandbox sample by ID and remove all associated task artifacts. '
+    'Prompts for confirmation unless `--yes` is given.'
+)
+
+_HELP_DOWNLOAD = (
+    'Download the original submitted sample bytes for one or more sample IDs. '
+    'Each sample is wrapped in an AES-encrypted ZIP archive with password '
+    '`infected` to prevent accidental detonation by antivirus or file managers. '
+    'Extract with `7z x -pinfected <sample-id>.zip` (standard `unzip` does not '
+    'handle AES zips). Sample IDs may be passed as positional arguments or '
+    'piped on stdin. Prompts for confirmation unless `--yes` is given. Files '
+    'may still exist briefly in process memory during download and zipping; '
+    'run on an analyst-owned box.'
+)
+
+_HELP_PROFILE_CREATE = (
+    'Create a new analysis profile. The profile name must be unique within your company. '
+    'Default output is the created profile as JSON; use `--pretty` for a human-readable table.'
+)
+_HELP_PROFILE_DELETE = (
+    'Delete an analysis profile by ID or name. Safe to repeat: deleting a profile '
+    'that no longer exists prints a warning and exits 0 rather than failing. '
+    'Prompts for confirmation unless `--yes` is given.'
+)
+_HELP_PROFILE_GET = (
+    'Fetch a single analysis profile by ID or name. Default output is the profile '
+    'as JSON; use `--pretty` for a human-readable table.'
+)
+_HELP_PROFILE_LIST = (
+    'List all analysis profiles available in Recorded Future Sandbox. Default output '
+    'is a JSON array of profiles; use `--pretty` for a human-readable table. An empty '
+    'result prints `[]` and exits 0.'
+)
+_HELP_PROFILE_UPDATE = (
+    'Update an existing analysis profile. Only the options you supply change, '
+    'omitted options keep their current value. Use `--unset` to clear network, '
+    'browser, or geolocation. Default output is `{"updated": true}` (or '
+    '`{"updated": false}` if the profile does not exist) as JSON, exiting 0 either '
+    'way; use `--pretty` for a short human-readable status message instead.'
+)
+_HELP_REPORT_BEHAVIORAL = (
+    'Fetch the behavioral (post-detonation) reports for a completed sandbox '
+    'sample, one per behavioral task: verdict score, platform, triggered '
+    'signatures, observed processes, network activity, and extracted malware '
+    'configs. Prints a JSON array of the full reports by default, or a '
+    'summarised view per task with `--pretty`. Tasks still being analysed are '
+    'left out of the output and noted on stderr, and the command exits '
+    'non-zero until every behavioral task has finished. Rerun once the sample '
+    'status is `reported`, or add `--wait` to keep polling for up to 30 '
+    'minutes before giving up. A sample with no behavioral tasks prints an '
+    'empty array and exits 0. Process command lines in `--pretty` view are '
+    'truncated by default, since these come straight from the malware sample '
+    'and can be long or nasty looking. Pass `--full-cmd` if you need to see '
+    'them in full.'
+)
+_HELP_REPORT_OVERVIEW = (
+    'Fetch the overview report for a completed sandbox sample: verdict score, '
+    'malware family, tags, hashes, detection signatures, extracted malware '
+    'configs, network IOCs, and per-task results. Prints the full report as '
+    'JSON by default, or a summarised view with `--pretty`. The sample must '
+    'have finished analysis (status `reported`), or the command exits '
+    'non-zero; add `--wait` to keep polling for up to 30 minutes before '
+    'giving up instead.'
+)
+_HELP_REPORT_STATIC = (
+    'Fetch the static (pre-detonation) analysis report for a sandbox sample: '
+    'verdict score, tags, the files unpacked from the submission, static '
+    'detection signatures, and extracted malware configs. This report is '
+    'ready as soon as static analysis finishes, so there is no need to wait '
+    'for the behavioral tasks. If it is not ready yet the command exits '
+    'non-zero; retry shortly, or add `--wait` to keep polling for up to 10 '
+    'minutes before giving up. Prints the full report as JSON by default, or '
+    'a summarised view with `--pretty`.'
+)
+_HELP_SET_PROFILE = (
+    'Assign analysis profiles to a sample paused at static analysis '
+    '(submitted with `--interactive`). Use `--auto` to let the sandbox choose '
+    'automatically, or `--pick` FILE:PROFILE for manual per-file mapping.'
+)
+_HELP_SUBMIT = (
+    'Submit a sample for analysis. A local file is uploaded, a URL is detonated in a '
+    'browser (or downloaded first with `--fetch`), and `--import` brings in a public '
+    'sample by ID. Prints the submitted sample as JSON; add `--wait` to poll until '
+    'analysis finishes and print the overview report instead, or `--interactive` to '
+    'pause at static analysis and choose files and profiles before detonation.'
+)
+
+app = Typer(no_args_is_help=True)
+profile_app = Typer(no_args_is_help=True)
+report_app = Typer(no_args_is_help=True)
+
+
+def _require_non_empty(**options):
+    for flag, value in options.items():
+        values = [value] if isinstance(value, str) else value or []
+        if any(not v for v in values):
+            raise BadParameter(f'--{flag} must not be empty')
+
+
+@banshee_cmd(
+    app=app, help_=_HELP_STATS, epilog=EPILOG_SANDBOX_STATS, rich_help_panel=_PANEL_ANALYTICS
+)
+def stats(
+    days: Annotated[
+        int,
+        Option('--days', '-d', help='Lookback window in days', min=1),
+    ] = 7,
+    subset: OPT_SANDBOX_SUBSET = 'org',
+    pretty: OPT_PRETTY_PRINT = False,
+):
+
+    result = fetch_sandbox_stats(days=days, subset=subset)
+    print_sandbox_stats(result, pretty=pretty)
+
+
+@banshee_cmd(
+    app=profile_app, name='list', help_=_HELP_PROFILE_LIST, epilog=EPILOG_SANDBOX_PROFILE_LIST
+)
+def list_(pretty: OPT_PRETTY_PRINT = False):
+
+    list_sandbox_profiles(pretty=pretty)
+
+
+@banshee_cmd(
+    app=profile_app, name='get', help_=_HELP_PROFILE_GET, epilog=EPILOG_SANDBOX_PROFILE_GET
+)
+def get_(
+    profile_id_or_name: Annotated[str, Argument(help='Profile ID or name', show_default=False)],
+    pretty: OPT_PRETTY_PRINT = False,
+):
+
+    get_sandbox_profile(profile_id_or_name, pretty=pretty)
+
+
+@banshee_cmd(
+    app=profile_app,
+    name='create',
+    help_=_HELP_PROFILE_CREATE,
+    epilog=EPILOG_SANDBOX_PROFILE_CREATE,
+)
+def create(
+    name: Annotated[
+        str,
+        Option('--name', '-n', help='Profile name (must be unique)', show_default=False),
+    ],
+    tags: Annotated[
+        list[str],
+        Option(
+            '--tag',
+            '-T',
+            help='The set of tags that is used to match this profile to samples. A '
+            'locale tag must always be accompanied by at least one os tag, for '
+            'example: `-T locale:en-us -T os:windows10-2004-x64`',
+            show_default=False,
+        ),
+    ],
+    timeout: Annotated[
+        int,
+        Option('--timeout', '-t', help='Analysis timeout in seconds', min=1, max=3600),
+    ] = 120,
+    network: OPT_SANDBOX_NETWORK = None,
+    geolocation: Annotated[
+        list[str] | None,
+        Option(
+            '--geolocation',
+            help='VPN exit country code; requires `--network` vpn (repeatable)',
+            show_default=False,
+        ),
+    ] = None,
+    browser: OPT_SANDBOX_BROWSER = None,
+    pretty: OPT_PRETTY_PRINT = False,
+):
+
+    _require_non_empty(name=name, tags=tags)
+    if geolocation and network != 'vpn':
+        raise BadParameter('--geolocation requires `--network` vpn')
+    create_sandbox_profile(
+        name=name,
+        tags=tags,
+        timeout=timeout,
+        network=network,
+        geolocation=geolocation,
+        browser=browser,
+        pretty=pretty,
+    )
+
+
+@banshee_cmd(
+    app=profile_app,
+    name='update',
+    help_=_HELP_PROFILE_UPDATE,
+    epilog=EPILOG_SANDBOX_PROFILE_UPDATE,
+)
+def update(
+    profile_id_or_name: Annotated[str, Argument(help='Profile ID or name', show_default=False)],
+    name: Annotated[
+        str | None,
+        Option('--name', '-n', help='New profile name', show_default=False),
+    ] = None,
+    tags: Annotated[
+        list[str] | None,
+        Option(
+            '--tag',
+            '-T',
+            help='OS/locale tag; replaces all existing tags (repeatable)',
+            show_default=False,
+        ),
+    ] = None,
+    timeout: Annotated[
+        int | None,
+        Option(
+            '--timeout',
+            '-t',
+            help='Analysis timeout in seconds',
+            min=1,
+            max=3600,
+            show_default=False,
+        ),
+    ] = None,
+    network: OPT_SANDBOX_NETWORK = None,
+    geolocation: Annotated[
+        list[str] | None,
+        Option(
+            '--geolocation',
+            help='VPN exit country code; requires `--network` vpn (repeatable)',
+            show_default=False,
+        ),
+    ] = None,
+    browser: OPT_SANDBOX_BROWSER = None,
+    unset: OPT_PROFILE_UNSET = None,
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    _require_non_empty(name=name, tags=tags)
+    supplied = {'network': network, 'browser': browser, 'geolocation': geolocation}
+    if not any([name, tags, timeout, *supplied.values(), unset]):
+        raise BadParameter('nothing to update, supply at least one field option or `--unset`')
+    conflicts = sorted(f for f, v in supplied.items() if v is not None and f in (unset or []))
+    if conflicts:
+        raise BadParameter(f'cannot both set and unset: {", ".join(conflicts)}')
+    if geolocation and (network is not None and network != 'vpn' or 'network' in (unset or [])):
+        raise BadParameter('--geolocation requires `--network` vpn')
+
+    update_sandbox_profile(
+        profile_id_or_name,
+        name=name,
+        tags=tags,
+        timeout=timeout,
+        network=network,
+        geolocation=geolocation,
+        browser=browser,
+        unset=unset,
+        pretty=pretty,
+    )
+
+
+@banshee_cmd(
+    app=profile_app,
+    name='delete',
+    help_=_HELP_PROFILE_DELETE,
+    epilog=EPILOG_SANDBOX_PROFILE_DELETE,
+)
+def delete(
+    profile_id_or_name: Annotated[str, Argument(help='Profile ID or name', show_default=False)],
+    yes: Annotated[
+        bool,
+        Option('--yes', '-y', help='Delete without asking for confirmation'),
+    ] = False,
+):
+
+    if not yes:
+        confirm(f'Delete profile {profile_id_or_name!r}?', abort=True)
+    delete_sandbox_profile(profile_id_or_name)
+
+
+@banshee_cmd(
+    app=app,
+    name='list',
+    help_=_HELP_LIST,
+    epilog=EPILOG_SANDBOX_LIST,
+    rich_help_panel=_PANEL_SUBMISSION,
+)
+def list_samples(
+    subset: OPT_SANDBOX_SUBSET = 'org',
+    limit: Annotated[
+        int,
+        Option('--limit', '-l', help='Maximum number of samples to return', min=1, max=4095),
+    ] = 20,
+    pretty: OPT_PRETTY_PRINT = False,
+):
+
+    list_sandbox_samples(subset=subset, limit=limit, pretty=pretty)
+
+
+@banshee_cmd(
+    app=app,
+    name='search',
+    help_=_HELP_SEARCH,
+    epilog=EPILOG_SANDBOX_SEARCH,
+    rich_help_panel=_PANEL_SUBMISSION,
+)
+def search(
+    file_hash: Annotated[
+        str | None,
+        Option('--hash', help='Filter by file hash (MD5/SHA1/SHA256)', show_default=False),
+    ] = None,
+    family: Annotated[
+        str | None,
+        Option('--family', help='Filter by malware family name', show_default=False),
+    ] = None,
+    tag: Annotated[
+        list[str] | None,
+        Option('--tag', '-T', help='Filter by tag (repeatable)', show_default=False),
+    ] = None,
+    botnet: Annotated[
+        str | None,
+        Option('--botnet', help='Filter by botnet name', show_default=False),
+    ] = None,
+    wallet: Annotated[
+        str | None,
+        Option('--wallet', help='Filter by wallet address', show_default=False),
+    ] = None,
+    ip: Annotated[
+        str | None,
+        Option('--ip', help='Filter by IP address', show_default=False),
+    ] = None,
+    domain: Annotated[
+        str | None,
+        Option('--domain', help='Filter by domain', show_default=False),
+    ] = None,
+    url: Annotated[
+        str | None,
+        Option('--url', help='Filter by URL', show_default=False),
+    ] = None,
+    from_date: Annotated[
+        str | None,
+        Option(
+            '--from-date',
+            help='Submitted on or after this date (YYYY-MM-DD)',
+            show_default=False,
+            metavar='YYYY-MM-DD',
+        ),
+    ] = None,
+    to_date: Annotated[
+        str | None,
+        Option(
+            '--to-date',
+            help='Submitted on or before this date (YYYY-MM-DD)',
+            show_default=False,
+            metavar='YYYY-MM-DD',
+        ),
+    ] = None,
+    query: Annotated[
+        str | None,
+        Option(
+            '--query',
+            '-q',
+            help='Raw Triage query string (combined with structured filters using AND)',
+            show_default=False,
+        ),
+    ] = None,
+    limit: Annotated[
+        int,
+        Option('--limit', '-l', help='Maximum number of samples to return', min=1, max=200),
+    ] = 50,
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    _require_non_empty(
+        hash=file_hash,
+        family=family,
+        tag=tag,
+        botnet=botnet,
+        wallet=wallet,
+        ip=ip,
+        domain=domain,
+        url=url,
+        query=query,
+    )
+    if not any(
+        [file_hash, family, tag, botnet, wallet, ip, domain, url, from_date, to_date, query]
+    ):
+        raise BadParameter('provide at least one filter option or `--query`')
+
+    search_sandbox_samples(
+        file_hash=file_hash,
+        family=family,
+        tag=tag,
+        botnet=botnet,
+        wallet=wallet,
+        ip=ip,
+        domain=domain,
+        url=url,
+        from_date=from_date,
+        to_date=to_date,
+        query=query,
+        limit=limit,
+        pretty=pretty,
+    )
+
+
+@banshee_cmd(
+    app=app,
+    name='get',
+    help_=_HELP_GET,
+    epilog=EPILOG_SANDBOX_GET,
+    rich_help_panel=_PANEL_SUBMISSION,
+)
+def get_sample(
+    sample_id: Annotated[str, Argument(help='Sandbox sample ID', show_default=False)],
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    fetch_sandbox_sample_summary(sample_id, pretty=pretty)
+
+
+@banshee_cmd(
+    app=app,
+    name='delete',
+    help_=_HELP_DELETE,
+    epilog=EPILOG_SANDBOX_DELETE,
+    rich_help_panel=_PANEL_SUBMISSION,
+)
+def delete_sample(
+    sample_id: Annotated[str, Argument(help='Sample ID', show_default=False)],
+    yes: Annotated[
+        bool,
+        Option('--yes', '-y', help='Delete without asking for confirmation'),
+    ] = False,
+):
+
+    if not yes:
+        confirm(f'Delete sample {sample_id!r}?', abort=True)
+    delete_sandbox_sample(sample_id)
+
+
+def _parse_sample_ids(ids: list[str] | None) -> list[str]:
+    if not ids:
+        if sys.stdin.isatty():
+            raise BadParameter('provide one or more sample IDs as arguments or on stdin')
+        ids = [x for x in re.split(r'\s+', sys.stdin.read()) if x]
+    if not ids:
+        raise BadParameter('no sample IDs provided')
+    return ids
+
+
+@banshee_cmd(
+    app=app,
+    name='download',
+    help_=_HELP_DOWNLOAD,
+    epilog=EPILOG_SANDBOX_DOWNLOAD,
+    rich_help_panel=_PANEL_SUBMISSION,
+)
+def download(
+    sample_ids: list[str] = Argument(  # noqa: B008
+        ... if sys.stdin.isatty() else None,  # noqa: B008
+        show_default=False,
+        help='One or more sample IDs (or read from stdin, whitespace-separated)',
+    ),
+    output_dir: Annotated[
+        Path | None,
+        Option(
+            '--output-dir',
+            '-d',
+            help='Directory to save encrypted zip archives into (created if missing)',
+            show_default=False,
+        ),
+    ] = None,
+    yes: Annotated[
+        bool,
+        Option('--yes', '-y', help='Download without asking for confirmation'),
+    ] = False,
+    workers: Annotated[
+        int,
+        Option('--workers', '-w', help='Parallel download workers', min=1, max=16),
+    ] = 1,
+):
+    if output_dir is None:
+        raise BadParameter('`--output-dir` is required')
+    ids = _parse_sample_ids(sample_ids)
+    if not yes:
+        label = f'{len(ids)} sample{"" if len(ids) == 1 else "s"}'
+        confirm(f'Download {label} to {output_dir}?', abort=True)
+    download_sandbox_samples(ids, output_dir=output_dir, workers=workers)
+
+
+@banshee_cmd(
+    app=app,
+    name='submit',
+    help_=_HELP_SUBMIT,
+    epilog=EPILOG_SANDBOX_SUBMIT,
+    rich_help_panel=_PANEL_SUBMISSION,
+)
+def submit(
+    target: Annotated[
+        str,
+        Argument(help='File path, URL, or public sample ID (with `--import`)', show_default=False),
+    ],
+    fetch: Annotated[
+        bool,
+        Option('--fetch', help='Download the URL target first, then analyse the downloaded file'),
+    ] = False,
+    import_: Annotated[
+        bool,
+        Option('--import', help='Treat the target as a public sample ID to import'),
+    ] = False,
+    profile: Annotated[
+        list[str] | None,
+        Option('--profile', help='Analysis profile name or ID (repeatable)', show_default=False),
+    ] = None,
+    timeout: Annotated[
+        int | None,
+        Option(
+            '--timeout',
+            '-t',
+            help='Analysis timeout in seconds',
+            min=1,
+            max=3600,
+            show_default=False,
+        ),
+    ] = None,
+    network: OPT_SANDBOX_NETWORK = None,
+    geolocation: Annotated[
+        str | None,
+        Option(
+            '--geolocation',
+            help='VPN exit country code; requires `--network` vpn',
+            show_default=False,
+        ),
+    ] = None,
+    tags: Annotated[
+        list[str] | None,
+        Option(
+            '--tags',
+            '-T',
+            help='Custom tag attached to the submission (repeatable)',
+            show_default=False,
+        ),
+    ] = None,
+    password: Annotated[
+        str | None,
+        Option('--password', help='Password for protected archives', show_default=False),
+    ] = None,
+    wait: Annotated[
+        bool,
+        Option('--wait', '-w', help='Wait for analysis to finish and print the overview report'),
+    ] = False,
+    interactive: Annotated[
+        bool,
+        Option(
+            '--interactive',
+            '-i',
+            help='Pause at static analysis and prompt for file and profile selection',
+        ),
+    ] = False,
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    _require_non_empty(profile=profile, tags=tags, geolocation=geolocation, password=password)
+    if fetch and import_:
+        raise BadParameter('`--fetch` and `--import` are mutually exclusive')
+    if interactive and profile:
+        raise BadParameter('`--interactive` and `--profile` are mutually exclusive')
+    if geolocation and network != 'vpn':
+        raise BadParameter('`--geolocation` requires `--network` vpn')
+
+    submit_sandbox_sample(
+        target,
+        fetch=fetch,
+        import_=import_,
+        profiles=profile,
+        timeout=timeout,
+        network=network,
+        geolocation=geolocation,
+        tags=tags,
+        password=password,
+        wait=wait,
+        interactive=interactive,
+        pretty=pretty,
+    )
+
+
+@banshee_cmd(
+    app=app,
+    name='set-profile',
+    help_=_HELP_SET_PROFILE,
+    epilog=EPILOG_SANDBOX_SET_PROFILE,
+    rich_help_panel=_PANEL_SUBMISSION,
+)
+def set_profile(
+    sample_id: Annotated[str, Argument(help='Sandbox sample ID')],
+    auto: Annotated[
+        bool,
+        Option('--auto', '-a', help='Let the sandbox auto-select profiles for all files'),
+    ] = False,
+    pick: Annotated[
+        list[str] | None,
+        Option(
+            '--pick',
+            help='Map a file to a profile: FILE:PROFILE (repeatable)',
+            metavar='FILE:PROFILE',
+        ),
+    ] = None,
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    if auto and pick:
+        raise BadParameter('--auto and `--pick` are mutually exclusive')
+    if not auto and not pick:
+        raise BadParameter('provide either `--auto` or at least one `--pick FILE:PROFILE`')
+    for raw in pick or []:
+        file_, sep, profile = raw.partition(':')
+        if not sep or not file_ or not profile:
+            raise BadParameter(f'`--pick` value must be FILE:PROFILE, got: {raw!r}')
+
+    set_sandbox_sample_profile(sample_id, auto=auto, picks=pick, pretty=pretty)
+
+
+@banshee_cmd(
+    app=report_app,
+    name='overview',
+    help_=_HELP_REPORT_OVERVIEW,
+    epilog=EPILOG_SANDBOX_REPORT_OVERVIEW,
+)
+def overview(
+    sample_id: Annotated[str, Argument(help='Sandbox sample ID', show_default=False)],
+    wait: Annotated[
+        bool,
+        Option(
+            '--wait',
+            '-w',
+            help='Wait for the overview report, retrying for up to 30 minutes; '
+            'exits non-zero if it is still not ready by then',
+        ),
+    ] = False,
+    pretty: OPT_PRETTY_PRINT = False,
+):
+
+    fetch_overview_report(sample_id, pretty=pretty, wait=wait)
+
+
+@banshee_cmd(
+    app=report_app,
+    name='static',
+    help_=_HELP_REPORT_STATIC,
+    epilog=EPILOG_SANDBOX_REPORT_STATIC,
+)
+def static(
+    sample_id: Annotated[str, Argument(help='Sandbox sample ID', show_default=False)],
+    wait: Annotated[
+        bool,
+        Option(
+            '--wait',
+            '-w',
+            help='Wait for the static report, retrying for up to 10 minutes; '
+            'exits non-zero if it is still not ready by then',
+        ),
+    ] = False,
+    pretty: OPT_PRETTY_PRINT = False,
+):
+
+    fetch_static_report(sample_id, pretty=pretty, wait=wait)
+
+
+@banshee_cmd(
+    app=report_app,
+    name='behavioral',
+    help_=_HELP_REPORT_BEHAVIORAL,
+    epilog=EPILOG_SANDBOX_REPORT_BEHAVIORAL,
+)
+def behavioral(
+    sample_id: Annotated[str, Argument(help='Sandbox sample ID', show_default=False)],
+    wait: Annotated[
+        bool,
+        Option(
+            '--wait',
+            '-w',
+            help='Wait for reports still being analysed, retrying for up to 30 minutes; '
+            'exits non-zero if any is still not ready by then',
+        ),
+    ] = False,
+    pretty: OPT_PRETTY_PRINT = False,
+    full_cmd: Annotated[
+        bool,
+        Option(
+            '--full-cmd',
+            help='Show full process command lines instead of truncating them. '
+            'These are taken straight from the malware sample, so treat them '
+            'as untrusted: review before pasting elsewhere or running '
+            'anything based on them.',
+            show_default=False,
+        ),
+    ] = False,
+):
+
+    fetch_behavioral_reports(sample_id, pretty=pretty, wait=wait, full_cmd=full_cmd)
+
+
+app.add_typer(
+    profile_app,
+    name='profile',
+    help='Manage analysis profiles',
+    rich_help_panel=_PANEL_PROFILE_MGMT,
+)
+app.add_typer(
+    report_app,
+    name='report',
+    help='Sample analysis reports',
+    rich_help_panel=_PANEL_REPORTS,
+)

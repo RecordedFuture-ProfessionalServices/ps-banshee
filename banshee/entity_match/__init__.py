@@ -15,3 +15,5 @@ from .constants import EntityType
 from .errors import EntityNotFoundError
 from .lookup import entity_lookup
 from .search import entity_search
+
+__all__ = ['EntityNotFoundError', 'EntityType', 'entity_lookup', 'entity_search']

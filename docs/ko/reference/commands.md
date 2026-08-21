@@ -2026,3 +2026,766 @@ banshee rules search -t snort -t sigma -u 3d -o ./detection_rules
 # Insikt Note 제목으로 검색
 banshee rules search --title "APT28" -p
 </code></pre>
+
+## banshee sandbox
+
+샌드박스 제출 분석 및 프로파일 관리.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox [OPTIONS] COMMAND [ARGS]...
+```
+
+<h3 class="commands-reference">명령어</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-sandbox-stats"><code>banshee sandbox stats</code></a></dt><dd><p>설정 가능한 기간 동안의 샌드박스 제출을 집계하여 SOC 모닝 브리핑을 출력</p></dd>
+    <dt><a href="#banshee-sandbox-list"><code>banshee sandbox list</code></a></dt><dd><p>샌드박스 샘플 목록 조회</p></dd>
+    <dt><a href="#banshee-sandbox-search"><code>banshee sandbox search</code></a></dt><dd><p>해시, 패밀리, 태그, 봇넷, 지갑, 네트워크 지표 또는 원시 Triage 쿼리로 샘플 검색</p></dd>
+    <dt><a href="#banshee-sandbox-get"><code>banshee sandbox get</code></a></dt><dd><p>ID로 단일 샌드박스 샘플 요약 조회</p></dd>
+    <dt><a href="#banshee-sandbox-download"><code>banshee sandbox download</code></a></dt><dd><p>하나 이상의 샘플 ID에 대한 원본 제출 바이트를 다운로드 (AES 암호화 ZIP 아카이브로 래핑)</p></dd>
+    <dt><a href="#banshee-sandbox-delete"><code>banshee sandbox delete</code></a></dt><dd><p>ID로 샌드박스 샘플 삭제</p></dd>
+    <dt><a href="#banshee-sandbox-submit"><code>banshee sandbox submit</code></a></dt><dd><p>파일, URL 또는 공개 샘플을 샌드박스 분석을 위해 제출</p></dd>
+    <dt><a href="#banshee-sandbox-set-profile"><code>banshee sandbox set-profile</code></a></dt><dd><p>정적 분석에서 일시 중지된 샘플에 분석 프로파일 할당</p></dd>
+    <dt><a href="#banshee-sandbox-profile"><code>banshee sandbox profile</code></a></dt><dd><p>분석 프로파일 관리</p></dd>
+    <dt><a href="#banshee-sandbox-report"><code>banshee sandbox report</code></a></dt><dd><p>샘플 분석 보고서</p></dd>
+</dl>
+
+### banshee sandbox stats
+
+설정 가능한 기간 동안의 샌드박스 제출을 집계하여 SOC 교대 인수인계 또는 일일 트리아지에 적합한 "모닝 브리핑"을 출력합니다.
+
+기본적으로 결과는 JSON 형식으로 출력됩니다.
+
+<h3 class="commands-reference">점수 버킷</h3>
+
+<p>샌드박스는 샘플을 1–10 트리아지 척도로 점수를 매깁니다. 결과는 다음 버킷으로 그룹화됩니다:</p>
+
+| 버킷 | 점수 범위 | 의미 |
+|---|---|---|
+| `malicious` | 8–10 | 알려진 악성코드, 높은 신뢰도 |
+| `suspicious` | 5–7 | 강한 행위 기반 지표 |
+| `potentially_suspicious` | 3–4 | 일부 지표 존재 |
+| `clean` | 1–2 | 낮은 위험 또는 양성 |
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox stats [OPTIONS]
+```
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-stats--days"><a href="#banshee-sandbox-stats--days"><code>--days</code></a>, <code>-d</code> <i>days</i></dt><dd>
+    <p>조회 기간(일 단위)</p>
+    <p>기본값: 7</p></dd>
+    <dt id="banshee-sandbox-stats--subset"><a href="#banshee-sandbox-stats--subset"><code>--subset</code></a>, <code>-s</code> <i>subset</i></dt><dd>
+    <p>집계할 샘플 범위</p>
+    <p>가능한 값: <code>owned</code>, <code>public</code>, <code>org</code></p>
+    <p>기본값: <code>org</code></p></dd>
+    <dt id="banshee-sandbox-stats--pretty"><a href="#banshee-sandbox-stats--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p></dd>
+    <dt id="banshee-sandbox-stats--help"><a href="#banshee-sandbox-stats--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee sandbox stats
+banshee sandbox stats --days 14 --subset owned --pretty
+banshee sandbox stats --days 30 --pretty
+</code></pre>
+
+### banshee sandbox list
+
+샌드박스 샘플을 나열합니다 — 본인 소유, 조직 소유(기본값), 또는 공개 피드.
+
+기본적으로 결과는 JSON 형식으로 출력됩니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox list [OPTIONS]
+```
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-list--subset"><a href="#banshee-sandbox-list--subset"><code>--subset</code></a>, <code>-s</code> <i>subset</i></dt><dd>
+    <p>나열할 샘플 범위</p>
+    <p>가능한 값: <code>owned</code>, <code>public</code>, <code>org</code></p>
+    <p>기본값: <code>org</code></p></dd>
+    <dt id="banshee-sandbox-list--limit"><a href="#banshee-sandbox-list--limit"><code>--limit</code></a>, <code>-l</code> <i>limit</i></dt><dd>
+    <p>반환할 샘플의 최대 수</p>
+    <p>허용 범위: 1–4095</p>
+    <p>기본값: 20</p></dd>
+    <dt id="banshee-sandbox-list--pretty"><a href="#banshee-sandbox-list--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p></dd>
+    <dt id="banshee-sandbox-list--help"><a href="#banshee-sandbox-list--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee sandbox list
+banshee sandbox list --subset owned
+banshee sandbox list -s public -l 50
+banshee sandbox list -p
+banshee sandbox list | jq '.[].sha256'
+</code></pre>
+
+### banshee sandbox search
+
+구조화된 필터(해시, 패밀리, 태그, 봇넷, 지갑, IP, 도메인, URL, 제출 날짜 범위) 또는 원시 Triage 쿼리에 일치하는 샘플을 검색합니다. 최소 하나의 필터 또는 `--query`를 제공해야 합니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox search [OPTIONS]
+```
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-search--hash"><a href="#banshee-sandbox-search--hash"><code>--hash</code></a> <i>hash</i></dt><dd>
+    <p>파일 해시(MD5/SHA1/SHA256)로 필터링</p></dd>
+    <dt id="banshee-sandbox-search--family"><a href="#banshee-sandbox-search--family"><code>--family</code></a> <i>family</i></dt><dd>
+    <p>악성코드 패밀리 이름으로 필터링</p></dd>
+    <dt id="banshee-sandbox-search--tag"><a href="#banshee-sandbox-search--tag"><code>--tag</code></a>, <code>-T</code> <i>tag</i></dt><dd>
+    <p>태그로 필터링 (반복 가능)</p></dd>
+    <dt id="banshee-sandbox-search--botnet"><a href="#banshee-sandbox-search--botnet"><code>--botnet</code></a> <i>botnet</i></dt><dd>
+    <p>봇넷 이름으로 필터링</p></dd>
+    <dt id="banshee-sandbox-search--wallet"><a href="#banshee-sandbox-search--wallet"><code>--wallet</code></a> <i>wallet</i></dt><dd>
+    <p>지갑 주소로 필터링</p></dd>
+    <dt id="banshee-sandbox-search--ip"><a href="#banshee-sandbox-search--ip"><code>--ip</code></a> <i>ip</i></dt><dd>
+    <p>IP 주소로 필터링</p></dd>
+    <dt id="banshee-sandbox-search--domain"><a href="#banshee-sandbox-search--domain"><code>--domain</code></a> <i>domain</i></dt><dd>
+    <p>도메인으로 필터링</p></dd>
+    <dt id="banshee-sandbox-search--url"><a href="#banshee-sandbox-search--url"><code>--url</code></a> <i>url</i></dt><dd>
+    <p>URL로 필터링</p></dd>
+    <dt id="banshee-sandbox-search--from-date"><a href="#banshee-sandbox-search--from-date"><code>--from-date</code></a> <i>YYYY-MM-DD</i></dt><dd>
+    <p>이 날짜 이후에 제출된 샘플</p></dd>
+    <dt id="banshee-sandbox-search--to-date"><a href="#banshee-sandbox-search--to-date"><code>--to-date</code></a> <i>YYYY-MM-DD</i></dt><dd>
+    <p>이 날짜 이전에 제출된 샘플</p></dd>
+    <dt id="banshee-sandbox-search--query"><a href="#banshee-sandbox-search--query"><code>--query</code></a>, <code>-q</code> <i>query</i></dt><dd>
+    <p>원시 Triage 쿼리 문자열 (구조화된 필터와 AND로 결합)</p></dd>
+    <dt id="banshee-sandbox-search--limit"><a href="#banshee-sandbox-search--limit"><code>--limit</code></a>, <code>-l</code> <i>limit</i></dt><dd>
+    <p>반환할 샘플의 최대 수 (1–200)</p>
+    <p>기본값: 50</p></dd>
+    <dt id="banshee-sandbox-search--pretty"><a href="#banshee-sandbox-search--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p></dd>
+    <dt id="banshee-sandbox-search--help"><a href="#banshee-sandbox-search--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee sandbox search --hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+banshee sandbox search --family emotet
+banshee sandbox search --ip 1.2.3.4 --domain evil.example
+banshee sandbox search -T ransomware -T persistence
+banshee sandbox search --from-date 2026-07-01 --to-date 2026-07-31 --family vidar
+banshee sandbox search -q "NOT family:emotet" -l 100
+banshee sandbox search --family emotet -p
+banshee sandbox search --family emotet | jq '.[].sha256'
+</code></pre>
+
+### banshee sandbox get
+
+단일 샌드박스 샘플의 요약 정보를 ID로 조회합니다: 현재 상태, 전체 점수, 대상, 생성 및 완료 타임스탬프, SHA256, 태스크별 세부 내용. 진행 중이거나 완료된 샘플 모두에 적용됩니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox get [OPTIONS] SAMPLE_ID
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-get--sample-id"><a href="#banshee-sandbox-get--sample-id"><code>SAMPLE_ID</code></a></dt><dd><p>샌드박스 샘플 ID</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-get--pretty"><a href="#banshee-sandbox-get--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p></dd>
+    <dt id="banshee-sandbox-get--help"><a href="#banshee-sandbox-get--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee sandbox get 260501-h4p7laawme
+banshee sandbox get 260501-h4p7laawme -p
+banshee sandbox get 260501-h4p7laawme | jq '.score'
+banshee sandbox get 260501-h4p7laawme | jq '.tasks | keys'
+</code></pre>
+
+### banshee sandbox download
+
+하나 이상의 샘플 ID에 대한 원본 제출 샘플 바이트를 다운로드합니다. 각 샘플은 바이러스 백신, 보안 이메일 게이트웨이, 파일 관리자에 의한 의도치 않은 실행을 방지하기 위해 비밀번호 `infected`로 AES 암호화된 ZIP 아카이브로 래핑됩니다.
+
+압축 해제 시 `7z x -pinfected <sample-id>.zip`을 사용하십시오 — 표준 `unzip`은 AES 암호화 ZIP을 안정적으로 처리하지 못합니다.
+
+샘플 ID는 위치 인수로 전달하거나 stdin에서 파이프로 입력(공백 구분)할 수 있습니다. `--yes`를 지정하지 않으면 확인 프롬프트가 표시됩니다.
+
+> **안전 참고:** 샘플 바이트는 다운로드 및 압축 과정 중 이 프로세스의 메모리에 잠깐 존재합니다. 공격적인 EDR 메모리 스캐닝이 여전히 감지할 수 있습니다. 일반 업무용 기업 노트북이 아닌 분석가 전용 장비에서 실행하십시오.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox download [OPTIONS] [SAMPLE_IDS]...
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-download--sample-ids"><a href="#banshee-sandbox-download--sample-ids"><code>SAMPLE_IDS</code></a></dt><dd><p>하나 이상의 샘플 ID (또는 stdin에서 공백 구분으로 읽기)</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-download--output-dir"><a href="#banshee-sandbox-download--output-dir"><code>--output-dir</code></a>, <code>-d</code> <i>DIR</i></dt><dd>
+    <p>암호화된 ZIP 아카이브를 저장할 디렉토리 (없으면 생성됨). 필수.</p></dd>
+    <dt id="banshee-sandbox-download--yes"><a href="#banshee-sandbox-download--yes"><code>--yes</code></a>, <code>-y</code></dt><dd>
+    <p>확인 프롬프트 건너뛰기</p></dd>
+    <dt id="banshee-sandbox-download--workers"><a href="#banshee-sandbox-download--workers"><code>--workers</code></a>, <code>-w</code> <i>N</i></dt><dd>
+    <p>병렬 다운로드 워커 수 (1–16)</p>
+    <p>기본값: 1</p></dd>
+    <dt id="banshee-sandbox-download--help"><a href="#banshee-sandbox-download--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee sandbox download 260501-h4p7laawme -d ./samples
+banshee sandbox download id1 id2 id3 -d ./samples --yes -w 4
+echo 'id1 id2 id3' | banshee sandbox download -d ./samples --yes
+
+# 압축 해제
+7z x -pinfected ./samples/260501-h4p7laawme.zip
+</code></pre>
+
+### banshee sandbox delete
+
+ID로 샌드박스 샘플을 삭제하고 연관된 모든 태스크 아티팩트를 제거합니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox delete [OPTIONS] SAMPLE_ID
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-delete--sample-id"><a href="#banshee-sandbox-delete--sample-id"><code>SAMPLE_ID</code></a></dt><dd><p>삭제할 샘플 ID</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-delete--yes"><a href="#banshee-sandbox-delete--yes"><code>--yes</code></a>, <code>-y</code></dt><dd>
+    <p>확인 프롬프트 건너뛰기</p></dd>
+    <dt id="banshee-sandbox-delete--help"><a href="#banshee-sandbox-delete--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee sandbox delete 260501-h4p7laawme
+banshee sandbox delete 260501-h4p7laawme -y
+</code></pre>
+
+### banshee sandbox submit
+
+분석을 위해 샘플을 제출합니다. 로컬 파일은 업로드되고, URL은 브라우저에서 실행(detonation)되거나 `--fetch`로 먼저 다운로드되며, 공개 샘플은 `--import`를 사용하여 ID로 가져올 수 있습니다.
+
+기본적으로 JSON 제출 영수증을 출력합니다. `--wait`를 사용하면 분석이 완료될 때까지 폴링한 후 개요 보고서를 출력합니다.
+
+<h3 class="commands-reference">대상 유형</h3>
+
+| 대상 | 동작 |
+|---|---|
+| 로컬 파일 경로 | 업로드 후 분석 |
+| URL | 브라우저에서 실행 |
+| URL + `--fetch` | 먼저 다운로드한 후 파일로 분석 |
+| 공개 샘플 ID + `--import` | 조직의 샌드박스로 가져오기 |
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox submit [OPTIONS] TARGET
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-submit--target"><a href="#banshee-sandbox-submit--target"><code>TARGET</code></a></dt><dd><p>파일 경로, URL 또는 공개 샘플 ID (<code>--import</code> 사용 시)</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-submit--fetch"><a href="#banshee-sandbox-submit--fetch"><code>--fetch</code></a></dt><dd>
+    <p>URL 대상을 먼저 다운로드한 후 결과 파일을 분석합니다. <code>--import</code>와 함께 사용할 수 없습니다.</p></dd>
+    <dt id="banshee-sandbox-submit--import"><a href="#banshee-sandbox-submit--import"><code>--import</code></a></dt><dd>
+    <p>대상을 조직으로 가져올 공개 샘플 ID로 취급합니다. <code>--fetch</code>와 함께 사용할 수 없습니다.</p></dd>
+    <dt id="banshee-sandbox-submit--profile"><a href="#banshee-sandbox-submit--profile"><code>--profile</code></a> <i>profile</i></dt><dd>
+    <p>분석 프로파일 이름 또는 ID. 여러 번 지정하여 둘 이상의 프로파일을 할당할 수 있습니다. <code>--interactive</code>와 함께 사용할 수 없습니다.</p></dd>
+    <dt id="banshee-sandbox-submit--timeout"><a href="#banshee-sandbox-submit--timeout"><code>--timeout</code></a>, <code>-t</code> <i>seconds</i></dt><dd>
+    <p>분석 타임아웃(초 단위)</p>
+    <p>허용 범위: 1–3600</p></dd>
+    <dt id="banshee-sandbox-submit--network"><a href="#banshee-sandbox-submit--network"><code>--network</code></a>, <code>-N</code> <i>mode</i></dt><dd>
+    <p>분석 환경의 네트워크 모드</p>
+    <p>가능한 값: <code>internet</code>, <code>drop</code>, <code>tor</code>, <code>vpn</code>, <code>sim200</code>, <code>sim404</code>, <code>simnx</code></p></dd>
+    <dt id="banshee-sandbox-submit--geolocation"><a href="#banshee-sandbox-submit--geolocation"><code>--geolocation</code></a> <i>country-code</i></dt><dd>
+    <p>VPN 출구 국가 코드. <code>--network vpn</code> 필요</p></dd>
+    <dt id="banshee-sandbox-submit--tags"><a href="#banshee-sandbox-submit--tags"><code>--tags</code></a>, <code>-T</code> <i>tag</i></dt><dd>
+    <p>제출에 첨부할 사용자 지정 태그. 여러 번 지정 가능</p></dd>
+    <dt id="banshee-sandbox-submit--password"><a href="#banshee-sandbox-submit--password"><code>--password</code></a> <i>password</i></dt><dd>
+    <p>보호된 아카이브의 비밀번호</p></dd>
+    <dt id="banshee-sandbox-submit--wait"><a href="#banshee-sandbox-submit--wait"><code>--wait</code></a>, <code>-w</code></dt><dd>
+    <p>분석이 완료될 때까지 폴링한 후 개요 보고서 출력</p></dd>
+    <dt id="banshee-sandbox-submit--interactive"><a href="#banshee-sandbox-submit--interactive"><code>--interactive</code></a>, <code>-i</code></dt><dd>
+    <p>정적 분석에서 일시 중지하여 <a href="#banshee-sandbox-set-profile"><code>banshee sandbox set-profile</code></a>을 통해 파일 및 프로파일을 선택할 수 있도록 합니다. <code>--profile</code>과 함께 사용할 수 없습니다.</p></dd>
+    <dt id="banshee-sandbox-submit--pretty"><a href="#banshee-sandbox-submit--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p></dd>
+    <dt id="banshee-sandbox-submit--help"><a href="#banshee-sandbox-submit--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee sandbox submit malware.exe
+banshee sandbox submit https://evil.com
+banshee sandbox submit https://cdn.evil.com/payload.exe --fetch
+banshee sandbox submit 250601-abc123 --import
+banshee sandbox submit malware.zip --password infected --profile win10-x64 -T case-42
+banshee sandbox submit malware.exe --network vpn --geolocation us -t 300
+banshee sandbox submit malware.exe --wait | jq '.analysis.score'
+banshee sandbox submit archive.zip --interactive --wait --pretty
+</code></pre>
+
+### banshee sandbox set-profile
+
+정적 분석에서 일시 중지된 샘플(`--interactive`로 제출)에 분석 프로파일을 할당합니다. `--auto`를 사용하면 샌드박스가 자동으로 프로파일을 선택하고, `--pick`을 사용하면 특정 파일을 특정 프로파일에 수동으로 매핑할 수 있습니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox set-profile [OPTIONS] SAMPLE_ID
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-set-profile--sample-id"><a href="#banshee-sandbox-set-profile--sample-id"><code>SAMPLE_ID</code></a></dt><dd><p>정적 분석에서 일시 중지된 샘플의 ID</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-set-profile--auto"><a href="#banshee-sandbox-set-profile--auto"><code>--auto</code></a>, <code>-a</code></dt><dd>
+    <p>모든 파일에 대해 샌드박스가 자동으로 프로파일을 선택하도록 합니다. <code>--pick</code>과 함께 사용할 수 없습니다.</p></dd>
+    <dt id="banshee-sandbox-set-profile--pick"><a href="#banshee-sandbox-set-profile--pick"><code>--pick</code></a> <i>FILE:PROFILE</i></dt><dd>
+    <p>특정 파일을 특정 프로파일에 <code>FILE:PROFILE</code> 형식으로 매핑합니다. 여러 번 지정 가능. <code>--auto</code>와 함께 사용할 수 없습니다.</p></dd>
+    <dt id="banshee-sandbox-set-profile--pretty"><a href="#banshee-sandbox-set-profile--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p></dd>
+    <dt id="banshee-sandbox-set-profile--help"><a href="#banshee-sandbox-set-profile--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee sandbox set-profile 260501-h4p7laawme --auto
+banshee sandbox set-profile 260501-h4p7laawme --pick file.exe:win10-x64
+banshee sandbox set-profile 260501-h4p7laawme --pick file.exe:win10-x64 --pick doc.docx:office365
+banshee sandbox set-profile 260501-h4p7laawme --auto -p
+banshee sandbox set-profile 260501-h4p7laawme --pick file.exe:win10-x64 | jq '.success'
+</code></pre>
+
+### banshee sandbox profile
+
+분석 프로파일을 관리합니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox profile [OPTIONS] COMMAND [ARGS]...
+```
+
+<h3 class="commands-reference">명령어</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-sandbox-profile-list"><code>banshee sandbox profile list</code></a></dt><dd><p>사용 가능한 모든 분석 프로파일 목록 조회</p></dd>
+    <dt><a href="#banshee-sandbox-profile-get"><code>banshee sandbox profile get</code></a></dt><dd><p>특정 프로파일의 세부 정보 조회</p></dd>
+    <dt><a href="#banshee-sandbox-profile-create"><code>banshee sandbox profile create</code></a></dt><dd><p>새 분석 프로파일 생성</p></dd>
+    <dt><a href="#banshee-sandbox-profile-update"><code>banshee sandbox profile update</code></a></dt><dd><p>기존 분석 프로파일 업데이트</p></dd>
+    <dt><a href="#banshee-sandbox-profile-delete"><code>banshee sandbox profile delete</code></a></dt><dd><p>분석 프로파일 삭제</p></dd>
+</dl>
+
+#### banshee sandbox profile list
+
+사용 가능한 모든 분석 프로파일을 나열합니다.
+
+기본적으로 결과는 JSON 형식으로 출력됩니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox profile list [OPTIONS]
+```
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-profile-list--pretty"><a href="#banshee-sandbox-profile-list--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p></dd>
+    <dt id="banshee-sandbox-profile-list--help"><a href="#banshee-sandbox-profile-list--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee sandbox profile list
+banshee sandbox profile list -p
+banshee sandbox profile list | jq '.[].name'
+</code></pre>
+
+#### banshee sandbox profile get
+
+이름 또는 ID로 특정 분석 프로파일의 세부 정보를 조회합니다.
+
+기본적으로 결과는 JSON 형식으로 출력됩니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox profile get [OPTIONS] PROFILE_ID_OR_NAME
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-profile-get--profile-id-or-name"><a href="#banshee-sandbox-profile-get--profile-id-or-name"><code>PROFILE_ID_OR_NAME</code></a></dt><dd><p>프로파일 UUID 또는 표시 이름</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-profile-get--pretty"><a href="#banshee-sandbox-profile-get--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p></dd>
+    <dt id="banshee-sandbox-profile-get--help"><a href="#banshee-sandbox-profile-get--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee sandbox profile get 022b8c4e-22ab-46a4-ac49-a2732b2412b7
+banshee sandbox profile get 'Windows 7 Long'
+banshee sandbox profile get w7-long -p
+banshee sandbox profile get w7-long | jq '.tags'
+</code></pre>
+
+#### banshee sandbox profile create
+
+새 분석 프로파일을 생성합니다.
+
+기본적으로 결과는 JSON 형식으로 출력됩니다.
+
+<h3 class="commands-reference">프로파일 태그</h3>
+
+<p>태그는 프로파일의 운영 체제 및 환경을 정의합니다. locale 태그를 사용할 경우 반드시 하나 이상의 <code>os</code> 태그가 함께 있어야 합니다.</p>
+
+<pre><code class="language-bash">
+# OS만 지정
+banshee sandbox profile create -n my-profile -T os:windows10-2004-x64
+
+# OS + locale 지정
+banshee sandbox profile create -n my-profile -T os:windows10-2004-x64 -T locale:en-us
+</code></pre>
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox profile create [OPTIONS]
+```
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-profile-create--name"><a href="#banshee-sandbox-profile-create--name"><code>--name</code></a>, <code>-n</code> <i>name</i></dt><dd>
+    <p>프로파일 표시 이름. 필수</p></dd>
+    <dt id="banshee-sandbox-profile-create--tag"><a href="#banshee-sandbox-profile-create--tag"><code>--tag</code></a>, <code>-T</code> <i>tag</i></dt><dd>
+    <p>프로파일 태그 (예: <code>os:windows10-2004-x64</code>, <code>locale:en-us</code>). 여러 번 지정 가능. 필수</p></dd>
+    <dt id="banshee-sandbox-profile-create--timeout"><a href="#banshee-sandbox-profile-create--timeout"><code>--timeout</code></a>, <code>-t</code> <i>seconds</i></dt><dd>
+    <p>분석 타임아웃(초 단위)</p>
+    <p>허용 범위: 1–3600</p>
+    <p>기본값: 120</p></dd>
+    <dt id="banshee-sandbox-profile-create--network"><a href="#banshee-sandbox-profile-create--network"><code>--network</code></a>, <code>-N</code> <i>mode</i></dt><dd>
+    <p>네트워크 모드</p>
+    <p>가능한 값: <code>internet</code>, <code>drop</code>, <code>tor</code>, <code>vpn</code>, <code>sim200</code>, <code>sim404</code>, <code>simnx</code></p></dd>
+    <dt id="banshee-sandbox-profile-create--geolocation"><a href="#banshee-sandbox-profile-create--geolocation"><code>--geolocation</code></a> <i>country-code</i></dt><dd>
+    <p>VPN 출구 국가 코드. 여러 번 지정 가능. <code>--network vpn</code> 필요</p></dd>
+    <dt id="banshee-sandbox-profile-create--browser"><a href="#banshee-sandbox-profile-create--browser"><code>--browser</code></a>, <code>-b</code> <i>browser</i></dt><dd>
+    <p>URL 실행에 사용할 브라우저</p>
+    <p>가능한 값: <code>chrome</code>, <code>firefox</code>, <code>ie11</code>, <code>microsoft-edge</code></p></dd>
+    <dt id="banshee-sandbox-profile-create--pretty"><a href="#banshee-sandbox-profile-create--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p></dd>
+    <dt id="banshee-sandbox-profile-create--help"><a href="#banshee-sandbox-profile-create--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee sandbox profile create -n w10-quick -T os:windows10-2004-x64 -t 120
+banshee sandbox profile create -n w10-vpn -T os:windows10-2004-x64 -t 300 -N vpn --geolocation se
+banshee sandbox profile create -n w10-ff -T os:windows10-2004-x64 -T locale:en-us -t 120 -b firefox -p
+banshee sandbox profile create -n w10-quick -T os:windows10-2004-x64 -t 120 | jq '.id'
+</code></pre>
+
+#### banshee sandbox profile update
+
+이름 또는 ID로 기존 분석 프로파일을 업데이트합니다. 최소 하나의 옵션을 제공해야 합니다.
+
+출력은 `{"updated": true}` 또는 `{"updated": false}`입니다 (어느 경우든 종료 코드 0).
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox profile update [OPTIONS] PROFILE_ID_OR_NAME
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-profile-update--profile-id-or-name"><a href="#banshee-sandbox-profile-update--profile-id-or-name"><code>PROFILE_ID_OR_NAME</code></a></dt><dd><p>업데이트할 프로파일 UUID 또는 표시 이름</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-profile-update--name"><a href="#banshee-sandbox-profile-update--name"><code>--name</code></a>, <code>-n</code> <i>name</i></dt><dd>
+    <p>새 프로파일 표시 이름</p></dd>
+    <dt id="banshee-sandbox-profile-update--tag"><a href="#banshee-sandbox-profile-update--tag"><code>--tag</code></a>, <code>-T</code> <i>tag</i></dt><dd>
+    <p>기존 태그를 모두 교체합니다. 여러 번 지정 가능</p></dd>
+    <dt id="banshee-sandbox-profile-update--timeout"><a href="#banshee-sandbox-profile-update--timeout"><code>--timeout</code></a>, <code>-t</code> <i>seconds</i></dt><dd>
+    <p>분석 타임아웃(초 단위)</p>
+    <p>허용 범위: 1–3600</p></dd>
+    <dt id="banshee-sandbox-profile-update--network"><a href="#banshee-sandbox-profile-update--network"><code>--network</code></a>, <code>-N</code> <i>mode</i></dt><dd>
+    <p>네트워크 모드</p>
+    <p>가능한 값: <code>internet</code>, <code>drop</code>, <code>tor</code>, <code>vpn</code>, <code>sim200</code>, <code>sim404</code>, <code>simnx</code></p></dd>
+    <dt id="banshee-sandbox-profile-update--geolocation"><a href="#banshee-sandbox-profile-update--geolocation"><code>--geolocation</code></a> <i>country-code</i></dt><dd>
+    <p>VPN 출구 국가 코드. 여러 번 지정 가능. <code>--network vpn</code> 필요</p></dd>
+    <dt id="banshee-sandbox-profile-update--browser"><a href="#banshee-sandbox-profile-update--browser"><code>--browser</code></a>, <code>-b</code> <i>browser</i></dt><dd>
+    <p>URL 실행에 사용할 브라우저</p>
+    <p>가능한 값: <code>chrome</code>, <code>firefox</code>, <code>ie11</code>, <code>microsoft-edge</code></p></dd>
+    <dt id="banshee-sandbox-profile-update--unset"><a href="#banshee-sandbox-profile-update--unset"><code>--unset</code></a> <i>field</i></dt><dd>
+    <p>필드를 초기화합니다. 여러 번 지정 가능</p>
+    <p>가능한 값: <code>network</code>, <code>browser</code>, <code>geolocation</code></p>
+    <p>동일 필드에 대한 설정 옵션과 함께 사용할 수 없습니다. <code>--unset network</code>는 <code>--geolocation</code>과 충돌합니다.</p></dd>
+    <dt id="banshee-sandbox-profile-update--pretty"><a href="#banshee-sandbox-profile-update--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p></dd>
+    <dt id="banshee-sandbox-profile-update--help"><a href="#banshee-sandbox-profile-update--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee sandbox profile update ernie -n ernie-v2
+banshee sandbox profile update ernie -T os:windows10-2004-x64 -T locale:en-us
+banshee sandbox profile update ernie -t 300 -N vpn --geolocation us --geolocation gb
+banshee sandbox profile update ernie --unset browser --unset network
+banshee sandbox profile update ernie -n ernie-v2 | jq '.updated'
+</code></pre>
+
+#### banshee sandbox profile delete
+
+이름 또는 ID로 분석 프로파일을 삭제합니다. 존재하지 않는 프로파일을 삭제하면 경고를 출력하고 종료 코드 0으로 종료됩니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox profile delete [OPTIONS] PROFILE_ID_OR_NAME
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-profile-delete--profile-id-or-name"><a href="#banshee-sandbox-profile-delete--profile-id-or-name"><code>PROFILE_ID_OR_NAME</code></a></dt><dd><p>삭제할 프로파일 UUID 또는 표시 이름</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-profile-delete--yes"><a href="#banshee-sandbox-profile-delete--yes"><code>--yes</code></a>, <code>-y</code></dt><dd>
+    <p>확인 프롬프트 건너뛰기</p></dd>
+    <dt id="banshee-sandbox-profile-delete--help"><a href="#banshee-sandbox-profile-delete--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee sandbox profile delete 022b8c4e-22ab-46a4-ac49-a2732b2412b7
+banshee sandbox profile delete 'Windows 7 Long'
+banshee sandbox profile delete w7-long -y
+</code></pre>
+
+### banshee sandbox report
+
+샘플 분석 보고서.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox report [OPTIONS] COMMAND [ARGS]...
+```
+
+<h3 class="commands-reference">명령어</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-sandbox-report-overview"><code>banshee sandbox report overview</code></a></dt><dd><p>완료된 샘플의 전체 개요 보고서</p></dd>
+    <dt><a href="#banshee-sandbox-report-static"><code>banshee sandbox report static</code></a></dt><dd><p>정적 분석 보고서 — 행위 기반 태스크 완료 전에도 사용 가능</p></dd>
+    <dt><a href="#banshee-sandbox-report-behavioral"><code>banshee sandbox report behavioral</code></a></dt><dd><p>행위 기반 분석 보고서 — 완료된 태스크당 하나의 객체</p></dd>
+</dl>
+
+#### banshee sandbox report overview
+
+완료된 샘플의 전체 개요 보고서. 판정 점수, 악성코드 패밀리, 태그, 해시, 탐지 시그니처, 추출된 악성코드 설정, 네트워크 IOC, 태스크별 결과가 포함됩니다. 샘플은 `reported` 상태여야 합니다.
+
+기본적으로 결과는 JSON 형식으로 출력됩니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox report overview [OPTIONS] SAMPLE_ID
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-report-overview--sample-id"><a href="#banshee-sandbox-report-overview--sample-id"><code>SAMPLE_ID</code></a></dt><dd><p>보고서를 조회할 샘플 ID</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-report-overview--wait"><a href="#banshee-sandbox-report-overview--wait"><code>--wait</code></a>, <code>-w</code></dt><dd>
+    <p>보고서가 준비될 때까지 폴링합니다 (최대 30분). 타임아웃 후에도 준비되지 않으면 비정상 종료</p></dd>
+    <dt id="banshee-sandbox-report-overview--pretty"><a href="#banshee-sandbox-report-overview--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p></dd>
+    <dt id="banshee-sandbox-report-overview--help"><a href="#banshee-sandbox-report-overview--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee sandbox report overview 260501-h4p7laawme
+banshee sandbox report overview 260501-h4p7laawme -p
+banshee sandbox report overview 260501-h4p7laawme --wait
+banshee sandbox report overview 260501-h4p7laawme | jq '.analysis'
+banshee sandbox report overview 260501-h4p7laawme | jq '.targets[].iocs'
+</code></pre>
+
+#### banshee sandbox report static
+
+샘플의 정적 분석 보고서. 판정 점수, 태그, 언패킹된 파일, 정적 탐지 시그니처, 추출된 악성코드 설정이 포함됩니다. 행위 기반 태스크 완료 전에도 사용 가능합니다.
+
+기본적으로 결과는 JSON 형식으로 출력됩니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox report static [OPTIONS] SAMPLE_ID
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-report-static--sample-id"><a href="#banshee-sandbox-report-static--sample-id"><code>SAMPLE_ID</code></a></dt><dd><p>정적 보고서를 조회할 샘플 ID</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-report-static--wait"><a href="#banshee-sandbox-report-static--wait"><code>--wait</code></a>, <code>-w</code></dt><dd>
+    <p>보고서가 준비될 때까지 폴링합니다 (최대 10분)</p></dd>
+    <dt id="banshee-sandbox-report-static--pretty"><a href="#banshee-sandbox-report-static--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p></dd>
+    <dt id="banshee-sandbox-report-static--help"><a href="#banshee-sandbox-report-static--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee sandbox report static 260501-h4p7laawme
+banshee sandbox report static 260501-h4p7laawme -p
+banshee sandbox report static 260501-h4p7laawme --wait
+banshee sandbox report static 260501-h4p7laawme | jq '.analysis'
+banshee sandbox report static 260501-h4p7laawme | jq '.files[].sha256'
+</code></pre>
+
+#### banshee sandbox report behavioral
+
+샘플의 행위 기반 분석 보고서. 완료된 행위 기반 태스크당 하나의 JSON 객체를 반환하며, 판정 점수, 플랫폼, 트리거된 시그니처, 관찰된 프로세스, 네트워크 활동, 추출된 악성코드 설정이 포함됩니다.
+
+미완료 태스크는 출력에서 제외되고 stderr에 기록되며, 모든 태스크가 완료될 때까지 비정상 종료됩니다. 샘플에 행위 기반 태스크가 없으면 빈 배열과 함께 종료 코드 0으로 반환됩니다.
+
+기본적으로 결과는 JSON 형식으로 출력됩니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee sandbox report behavioral [OPTIONS] SAMPLE_ID
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-report-behavioral--sample-id"><a href="#banshee-sandbox-report-behavioral--sample-id"><code>SAMPLE_ID</code></a></dt><dd><p>행위 기반 보고서를 조회할 샘플 ID</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-sandbox-report-behavioral--wait"><a href="#banshee-sandbox-report-behavioral--wait"><code>--wait</code></a>, <code>-w</code></dt><dd>
+    <p>모든 태스크가 완료될 때까지 폴링합니다 (최대 30분)</p></dd>
+    <dt id="banshee-sandbox-report-behavioral--full-cmd"><a href="#banshee-sandbox-report-behavioral--full-cmd"><code>--full-cmd</code></a></dt><dd>
+    <p>프로세스 명령줄을 전체 표시합니다(잘림 없음). 명령줄 내용은 악성코드 샘플에서 직접 가져오므로 신뢰할 수 없는 입력으로 취급해야 합니다.</p></dd>
+    <dt id="banshee-sandbox-report-behavioral--pretty"><a href="#banshee-sandbox-report-behavioral--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p></dd>
+    <dt id="banshee-sandbox-report-behavioral--help"><a href="#banshee-sandbox-report-behavioral--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee sandbox report behavioral 260501-h4p7laawme
+banshee sandbox report behavioral 260501-h4p7laawme -p
+banshee sandbox report behavioral 260501-h4p7laawme --wait
+banshee sandbox report behavioral 260501-h4p7laawme -p --full-cmd
+banshee sandbox report behavioral 260501-h4p7laawme | jq '.[].analysis.score'
+banshee sandbox report behavioral 260501-h4p7laawme | jq '.[].network.flows'
+</code></pre>

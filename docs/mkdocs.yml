@@ -136,6 +136,8 @@ nav:
         - usecases/pcap/index.md
       - Risk Lists:
         - usecases/risklists/index.md
+      - Sandbox Analysis:
+        - usecases/sandbox/index.md
       - Watchlist Management:
         - usecases/watchlist/index.md
   - Reference:

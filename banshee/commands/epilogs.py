@@ -650,3 +650,275 @@ EPILOG_EMAIL_ENRICH = """
 
 * banshee email enrich phishing_submission.eml -r 1 -p
 """
+
+EPILOG_SANDBOX_DELETE = """
+## Example Usage
+
+* banshee sandbox delete 260501-h4p7laawme
+
+* banshee sandbox delete 260501-h4p7laawme -y
+
+"""
+
+EPILOG_SANDBOX_LIST = """
+## Example Usage
+
+* banshee sandbox list
+
+* banshee sandbox list --subset owned
+
+* banshee sandbox list -s public -l 50
+
+* banshee sandbox list -p
+
+* banshee sandbox list | jq '.[].sha256'
+
+"""
+
+EPILOG_SANDBOX_DOWNLOAD = """
+## Safety
+
+Samples may be malicious. Each download is wrapped in a ZIP encrypted with password `infected`
+to prevent accidental detonation by antivirus, secure email gateways, or file managers.
+The convention matches MalwareBazaar, VirusTotal, and Triage.
+
+Note: sample bytes exist briefly in this process's memory during download and zipping.
+Aggressive EDR memory scanning could still fire. Run this on an analyst-owned box, not a
+daily-driver corporate laptop.
+
+## Extracting a Downloaded Sample
+
+Archives use AES encryption. Extract with 7z (or `p7zip` on Linux):
+
+    7z x -pinfected <sample-id>.zip
+
+Standard `unzip` does not support AES-encrypted zips reliably.
+
+## Example Usage
+
+* banshee sandbox download 260501-h4p7laawme -d ./samples
+
+* banshee sandbox download id1 id2 id3 -d ./samples --yes -w 4
+
+* echo 'id1 id2 id3' | banshee sandbox download -d ./samples --yes
+
+* 7z x -pinfected ./samples/260501-h4p7laawme.zip
+
+"""
+
+EPILOG_SANDBOX_GET = """
+## Example Usage
+
+* banshee sandbox get 260501-h4p7laawme
+
+* banshee sandbox get 260501-h4p7laawme -p
+
+* banshee sandbox get 260501-h4p7laawme | jq '.score'
+
+* banshee sandbox get 260501-h4p7laawme | jq '.tasks | keys'
+
+"""
+
+EPILOG_SANDBOX_SEARCH = """
+## Example Usage
+
+* banshee sandbox search --hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+
+* banshee sandbox search --family emotet
+
+* banshee sandbox search --ip 1.2.3.4 --domain evil.example
+
+* banshee sandbox search -T ransomware -T persistence
+
+* banshee sandbox search --from-date 2026-07-01 --to-date 2026-07-31 --family vidar
+
+* banshee sandbox search -q "NOT family:emotet" -l 100
+
+* banshee sandbox search --family emotet -p
+
+* banshee sandbox search --family emotet | jq '.[].sha256'
+
+"""
+
+EPILOG_SANDBOX_PROFILE_CREATE = """
+## Example Usage
+
+* banshee sandbox profile create -n w10-quick -T os:windows10-2004-x64 -t 120
+
+* banshee sandbox profile create -n w10-vpn -T os:windows10-2004-x64 -t 300 -N vpn --geolocation se
+
+* banshee sandbox profile create -n w10-ff -T os:windows10-2004-x64 -T locale:en-us -t 120 -b firefox -p
+
+* banshee sandbox profile create -n w10-quick -T os:windows10-2004-x64 -t 120 | jq '.id'
+"""
+
+EPILOG_SANDBOX_PROFILE_DELETE = """
+## Example Usage
+
+* banshee sandbox profile delete 022b8c4e-22ab-46a4-ac49-a2732b2412b7
+
+* banshee sandbox profile delete 'Windows 7 Long'
+
+* banshee sandbox profile delete w7-long -y
+
+"""
+
+EPILOG_SANDBOX_PROFILE_GET = """
+## Example Usage
+
+* banshee sandbox profile get 022b8c4e-22ab-46a4-ac49-a2732b2412b7
+
+* banshee sandbox profile get 'Windows 7 Long'
+
+* banshee sandbox profile get w7-long -p
+
+* banshee sandbox profile get w7-long | jq '.tags'
+
+"""
+
+EPILOG_SANDBOX_PROFILE_UPDATE = """
+## Example Usage
+
+* banshee sandbox profile update ernie -n ernie-v2
+
+* banshee sandbox profile update ernie -T os:windows10-2004-x64 -T locale:en-us
+
+* banshee sandbox profile update ernie -t 300 -N vpn --geolocation us --geolocation gb
+
+* banshee sandbox profile update ernie --unset browser --unset network
+
+* banshee sandbox profile update ernie -n ernie-v2 | jq '.updated'
+
+"""
+
+EPILOG_SANDBOX_PROFILE_LIST = """
+## Example Usage
+
+* banshee sandbox profile list
+
+* banshee sandbox profile list -p
+
+* banshee sandbox profile list | jq '.[].name'
+
+"""
+
+EPILOG_SANDBOX_REPORT_BEHAVIORAL = """
+## Example Usage
+
+* banshee sandbox report behavioral 260501-h4p7laawme
+
+* banshee sandbox report behavioral 260501-h4p7laawme -p
+
+* banshee sandbox report behavioral 260501-h4p7laawme --wait
+
+* banshee sandbox report behavioral 260501-h4p7laawme -p --full-cmd
+
+* banshee sandbox report behavioral 260501-h4p7laawme | jq '.[].analysis.score'
+
+* banshee sandbox report behavioral 260501-h4p7laawme | jq '.[].network.flows'
+
+"""
+
+EPILOG_SANDBOX_REPORT_OVERVIEW = """
+## Example Usage
+
+* banshee sandbox report overview 260501-h4p7laawme
+
+* banshee sandbox report overview 260501-h4p7laawme -p
+
+* banshee sandbox report overview 260501-h4p7laawme --wait
+
+* banshee sandbox report overview 260501-h4p7laawme | jq '.analysis'
+
+* banshee sandbox report overview 260501-h4p7laawme | jq '.targets[].iocs'
+
+"""
+
+EPILOG_SANDBOX_REPORT_STATIC = """
+## Example Usage
+
+* banshee sandbox report static 260501-h4p7laawme
+
+* banshee sandbox report static 260501-h4p7laawme -p
+
+* banshee sandbox report static 260501-h4p7laawme --wait
+
+* banshee sandbox report static 260501-h4p7laawme | jq '.analysis'
+
+* banshee sandbox report static 260501-h4p7laawme | jq '.files[].sha256'
+
+"""
+
+EPILOG_SANDBOX_SET_PROFILE = """
+## Example Usage
+
+* banshee sandbox set-profile 260501-h4p7laawme --auto
+
+* banshee sandbox set-profile 260501-h4p7laawme --pick file.exe:win10-x64
+
+* banshee sandbox set-profile 260501-h4p7laawme --pick file.exe:win10-x64 --pick doc.docx:office365
+
+* banshee sandbox set-profile 260501-h4p7laawme --auto -p
+
+* banshee sandbox set-profile 260501-h4p7laawme --pick file.exe:win10-x64 | jq '.success'
+
+"""
+
+EPILOG_SANDBOX_SUBMIT = """
+## Target kinds
+
+| Target | Kind |
+
+|--------|------|
+
+| Local file path | file |
+
+| URL | url (detonated in a browser) |
+
+| URL + --fetch | fetch (downloaded first, then detonated) |
+
+| Public sample ID + --import | import |
+
+## Example Usage
+
+* banshee sandbox submit malware.exe
+
+* banshee sandbox submit https://evil.com
+
+* banshee sandbox submit https://cdn.evil.com/payload.exe --fetch
+
+* banshee sandbox submit 250601-abc123 --import
+
+* banshee sandbox submit malware.zip --password infected --profile win10-x64 -T case-42
+
+* banshee sandbox submit malware.exe --network vpn --geolocation us -t 300
+
+* banshee sandbox submit malware.exe --wait | jq '.analysis.score'
+
+* banshee sandbox submit archive.zip --interactive --wait --pretty
+
+"""
+
+EPILOG_SANDBOX_STATS = """
+## Score buckets (Triage 1–10 scale)
+
+| Bucket | Range | Meaning |
+
+|--------|-------|---------|
+
+| malicious | 8–10 | Known malware, high confidence |
+
+| suspicious | 5–7 | Strong behavioural indicators |
+
+| potentially_suspicious | 3–4 | Some indicators |
+
+| clean | 1–2 | Low risk / benign |
+
+## Examples
+
+* banshee sandbox stats
+
+* banshee sandbox stats --days 14 --subset owned --pretty
+
+* banshee sandbox stats --days 30 --pretty
+"""
