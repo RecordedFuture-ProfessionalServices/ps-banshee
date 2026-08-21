@@ -87,6 +87,101 @@ banshee sandbox list | jq '.[].sha256'
 
 ---
 
+### `banshee sandbox search`
+
+Search samples matching structured filters (hash, family, tag, botnet, wallet, IP, domain, URL, submission-date window) or a raw Triage query. At least one filter or `--query` must be provided.
+
+| Option | Short | Default | Description |
+|--------|-------|---------|-------------|
+| `--hash TEXT` | | | Filter by file hash (MD5/SHA1/SHA256) |
+| `--family TEXT` | | | Filter by malware family name |
+| `--tag TEXT` | `-T` | | Filter by tag (repeatable) |
+| `--botnet TEXT` | | | Filter by botnet name |
+| `--wallet TEXT` | | | Filter by wallet address |
+| `--ip TEXT` | | | Filter by IP address |
+| `--domain TEXT` | | | Filter by domain |
+| `--url TEXT` | | | Filter by URL |
+| `--from-date YYYY-MM-DD` | | | Submitted on or after this date |
+| `--to-date YYYY-MM-DD` | | | Submitted on or before this date |
+| `--query TEXT` | `-q` | | Raw Triage query string (combined with structured filters using AND) |
+| `--limit INTEGER` | `-l` | `50` | Max results (1–200) |
+| `--pretty` | `-p` | | Human-readable table |
+
+```bash
+banshee sandbox search --hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+banshee sandbox search --family emotet
+banshee sandbox search --ip 1.2.3.4 --domain evil.example
+banshee sandbox search -T ransomware -T persistence
+banshee sandbox search --from-date 2026-07-01 --to-date 2026-07-31 --family vidar
+banshee sandbox search -q "NOT family:emotet" -l 100
+banshee sandbox search --family emotet -p
+banshee sandbox search --family emotet | jq '.[].sha256'
+```
+
+**Response shape:** Returns a JSON array — same structure as `sandbox list` items.
+
+---
+
+### `banshee sandbox get`
+
+Fetch a summary for a single sandbox sample by ID: current status, overall score, target, creation and completion timestamps, SHA256, and per-task breakdown. Works for both in-progress and completed samples.
+
+| Argument/Option | Short | Description |
+|-----------------|-------|-------------|
+| `SAMPLE_ID` (required) | | Sandbox sample ID |
+| `--pretty` | `-p` | Human-readable Rich layout |
+
+```bash
+banshee sandbox get 260501-h4p7laawme
+banshee sandbox get 260501-h4p7laawme -p
+banshee sandbox get 260501-h4p7laawme | jq '.score'
+banshee sandbox get 260501-h4p7laawme | jq '.tasks | keys'
+```
+
+**Response shape:** Returns a single JSON object:
+
+| Field | Description |
+|-------|-------------|
+| `.sample` | Sample ID |
+| `.status` | Analysis status: `pending`, `running`, `static_analysis`, `reported`, `failed` |
+| `.target` | Primary detonation target (filename or URL) |
+| `.score` | Overall triage score (1–10; `0` while analysis is in progress) |
+| `.created` | Submission timestamp (ISO 8601) |
+| `.completed` | Completion timestamp (ISO 8601; absent while still running) |
+| `.sha256` | SHA-256 of the submitted file (absent for URL submissions) |
+| `.owner` | Submitting user ID |
+| `.tasks` | Object mapping task ID → `{kind, status, score, tags, platform}` |
+
+---
+
+### `banshee sandbox download` *(mutating on disk)*
+
+Download the original submitted sample bytes for one or more sample IDs. Each sample is wrapped in an AES-encrypted ZIP archive with password `infected` to prevent accidental detonation by antivirus, secure email gateways, or file managers. Extract with `7z x -pinfected <sample-id>.zip` — standard `unzip` does not handle AES-encrypted zips reliably.
+
+Sample IDs may be passed as positional arguments or piped on stdin (whitespace-separated). Prompts for confirmation unless `--yes` is given. Bytes exist briefly in this process's memory during download and zipping — aggressive EDR memory scanning could still fire. Run this on an analyst-owned box, not a daily-driver corporate laptop.
+
+| Argument/Option | Short | Default | Description |
+|-----------------|-------|---------|-------------|
+| `SAMPLE_IDS` | | | One or more sample IDs (or read from stdin) |
+| `--output-dir PATH` | `-d` | (required) | Directory to save encrypted zip archives into (created if missing) |
+| `--yes` | `-y` | | Skip confirmation prompt |
+| `--workers INTEGER` | `-w` | `1` | Parallel download workers (1–16) |
+
+```bash
+banshee sandbox download 260501-h4p7laawme -d ./samples
+banshee sandbox download id1 id2 id3 -d ./samples --yes -w 4
+echo 'id1 id2 id3' | banshee sandbox download -d ./samples --yes
+
+# Extract
+7z x -pinfected ./samples/260501-h4p7laawme.zip
+```
+
+**Response:** Warning line printed once on stderr; per-sample `[<id>] Saved: <path> (<bytes> bytes, sha256=<hex>)` lines on stderr for each successful download; `[<id>] ERROR: <msg>` for failures. A partial-failure batch continues to completion and exits 1; a fully successful batch exits 0.
+
+Archive contents: single entry named `<sample-id>` (no extension guessing) containing the raw sample bytes.
+
+---
+
 ### `banshee sandbox delete` *(mutating)*
 
 Delete a sandbox sample by ID and remove all associated task artifacts. Prompts for confirmation unless `--yes` is given.
@@ -219,7 +314,7 @@ Create a new analysis profile. The profile name must be unique within your organ
 | `--tag TEXT` | `-T` | (required) | OS/locale tag (repeatable). A locale tag must be paired with at least one OS tag |
 | `--timeout INTEGER` | `-t` | `120` | Analysis timeout in seconds (1–3600) |
 | `--network` | `-N` | | Network mode: `internet`, `drop`, `tor`, `vpn`, `sim200`, `sim404`, `simnx` |
-| `--geolocation TEXT` | | VPN exit country code; requires `--network vpn` (repeatable) |
+| `--geolocation TEXT` | | | VPN exit country code; requires `--network vpn` (repeatable) |
 | `--browser` | `-b` | | Browser: `chrome`, `firefox`, `ie11`, `microsoft-edge` |
 | `--pretty` | `-p` | | Human-readable table |
 

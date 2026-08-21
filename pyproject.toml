@@ -25,7 +25,8 @@ dependencies = [
     "typer<0.16.0",
     "pyshark==0.6",
     "polars~=1.34.0",
-    "psengine~=2.10.1"
+    "psengine~=2.10.1",
+    "pyzipper>=0.4.0",
 ]
 
 [build-system]
@@ -73,6 +74,9 @@ Source = "https://github.com/recordedfuture-professionalservices/ps-banshee"
 
 [tool.uv]
 default-groups = "all"
+
+[tool.uv.sources]
+psengine = { path = "/Users/moise/git/workspace/psengine.git/main", editable = true }
 
 [tool.uv.build-backend]
 module-root = ""
