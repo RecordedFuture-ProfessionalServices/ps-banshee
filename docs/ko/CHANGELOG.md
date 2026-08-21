@@ -4,26 +4,6 @@
 
 ### Added
 - Recorded Future Sandbox를 위한 새로운 [`sandbox`](reference/commands.md#banshee-sandbox) 명령어 그룹을 추가하였습니다. `RF_SANDBOX_TOKEN`이 필요하며, 지역은 [`--sandbox-choice`](reference/commands.md#banshee--sandbox-choice) 또는 `RF_SANDBOX_CHOICE`로 선택할 수 있습니다(`eu` 기본값, `usa`, `apj`, `public`, `private`).
-- 로컬 파일, URL, 공개 샘플 ID(`--import`), 또는 다운로드할 URL(`--fetch`)을 분석을 위해 제출하는 새로운 [`sandbox submit`](reference/commands.md#banshee-sandbox-submit) 서브 명령어를 추가하였습니다. 프로파일 할당, 커스텀 태그, 타임아웃, 네트워크 모드(지리적 위치를 사용하는 VPN 포함), 아카이브 비밀번호, 분석 완료까지 폴링하고 개요 보고서를 출력하는 [`--wait`](reference/commands.md#banshee-sandbox-submit--wait), 정적 분석 단계에서 일시 중지하고 기폭 전에 파일별 프로파일을 선택하는 [`--interactive`](reference/commands.md#banshee-sandbox-submit--interactive)를 지원합니다.
-- 샘플의 통합 판정 보고서, 기폭 전 정적 분석, 또는 작업별 기폭 후 보고서를 가져오는 새로운 [`sandbox report overview`](reference/commands.md#banshee-sandbox-report-overview), [`sandbox report static`](reference/commands.md#banshee-sandbox-report-static), [`sandbox report behavioral`](reference/commands.md#banshee-sandbox-report-behavioral) 서브 명령어를 추가하였습니다. 각각 보고서가 준비될 때까지 폴링하는 [`--wait`](reference/commands.md#banshee-sandbox-report-overview--wait)를 지원합니다.
-- 자신의 피드, 조직의 피드, 또는 공개 피드의 샘플을 나열하는 새로운 [`sandbox list`](reference/commands.md#banshee-sandbox-list) 서브 명령어를 추가하였습니다.
-- 해시, 악성코드 패밀리, 태그, 봇넷, 지갑, 네트워크 지표(IP, 도메인, URL), 또는 제출 날짜 범위로 과거 제출 이력을 피벗 검색하는 새로운 [`sandbox search`](reference/commands.md#banshee-sandbox-search) 서브 명령어를 추가하였습니다. [`--query`](reference/commands.md#banshee-sandbox-search--query)를 통해 `AND`/`OR`/`NOT` 표현식에 대한 원시 Triage 쿼리 문자열도 허용합니다.
-- 전체 보고서를 가져오지 않고 샘플의 현재 상태, 전체 점수, 작업별 분류를 가져오는 새로운 [`sandbox get`](reference/commands.md#banshee-sandbox-get) 서브 명령어를 추가하였습니다. 진행 중인 샘플과 완료된 샘플 모두에 작동합니다.
-- 하나 이상의 샘플 ID에 대해 원본 제출 바이트를 가져오는 새로운 [`sandbox download`](reference/commands.md#banshee-sandbox-download) 서브 명령어를 추가하였습니다. 각 샘플은 비밀번호 `infected`가 설정된 AES 암호화 ZIP 아카이브로 래핑됩니다(MalwareBazaar/VirusTotal/Triage 관례와 동일). 이는 안티바이러스, 보안 이메일 게이트웨이, 또는 파일 관리자에 의한 우발적 기폭을 방지하기 위함입니다. 샘플 ID는 위치 인수로 전달하거나 stdin으로 파이프할 수 있습니다. `7z x -pinfected <sample-id>.zip`으로 압축을 해제하십시오.
-- 샘플 및 해당 작업 아티팩트를 제거하는 새로운 [`sandbox delete`](reference/commands.md#banshee-sandbox-delete) 서브 명령어를 추가하였습니다(`--yes`가 지정되지 않으면 확인 메시지가 표시됩니다).
-- 정적 분석 단계에서 일시 중지된 샘플에 분석 프로파일을 할당하는 새로운 [`sandbox set-profile`](reference/commands.md#banshee-sandbox-set-profile) 서브 명령어를 추가하였습니다(`--auto` 또는 파일별 `--pick FILE:PROFILE`).
-- 커스텀 기폭 프로파일을 관리하는 새로운 [`sandbox profile`](reference/commands.md#banshee-sandbox-profile) 서브 명령어 그룹을 추가하였습니다: [`list`](reference/commands.md#banshee-sandbox-profile-list), [`get`](reference/commands.md#banshee-sandbox-profile-get), [`create`](reference/commands.md#banshee-sandbox-profile-create), [`update`](reference/commands.md#banshee-sandbox-profile-update)(필드를 초기화하는 `--unset` 포함), [`delete`](reference/commands.md#banshee-sandbox-profile-delete).
-- SOC 모닝 브리핑을 생성하는 새로운 [`sandbox stats`](reference/commands.md#banshee-sandbox-stats) 서브 명령어를 추가하였습니다: 설정 가능한 조회 기간에 걸쳐 제출 볼륨, 점수 분포(악성/의심/잠재적 의심/정상으로 구분된 1~10 Triage 척도), 플랫폼 커버리지, 상위 악성코드 패밀리 및 봇넷, 행동 TTP, 추출된 C2, SOAR 검증 네트워크 IOC를 제공합니다.
-- Docs: 한국어(`ko`) 언어 인프라를 추가하였습니다. 콘텐츠는 후속 PR에서 제공되며, 그 전까지는 번역 미제공 배너가 표시됩니다.
-- Docs: `scripts/docs.py` — `build-all`, `dev`, `check-translations`, `translate` 명령어를 추가하였습니다.
-- Docs: 영어 이외의 모든 번역에 대한 CI 드리프트 검사를 추가하였습니다. 기여자는 LLM 번역기를 로컬에서 실행합니다(`uv sync --group translations && scripts/docs.py translate --lang <code> --all`). CI는 LLM을 호출하지 않습니다.
-
-### Changed
-- Configuration: banshee 전용 전역 필드(`sandbox_choice`)를 포함하는 `BansheeConfig(psengine.ConfigModel)` 서브클래스를 추가하였습니다. 새로운 루트 레벨 [`--sandbox-key`](reference/commands.md#banshee--sandbox-key) / `RF_SANDBOX_TOKEN` 및 [`--sandbox-choice`](reference/commands.md#banshee--sandbox-choice) / `RF_SANDBOX_CHOICE` 옵션을 통해 필요한 모든 명령어에서 sandbox 인증을 사용할 수 있습니다.
-- Docs: `mike` 버전 관리 배포를 제거하였습니다. 사이트는 이제 루트 URL에서 배포됩니다. 이전의 버전 관리 URL(`/1.x/…`)은 더 이상 유효하지 않으니, 루트 URL을 사용하십시오.
-- Docs: `mkdocs-static-i18n`을 fastapi 방식의 언어별 빌드로 대체하였으며, `scripts/docs.py`가 이를 조율합니다. 단일 권위 파일인 `docs/mkdocs.yml`을 사용하며, 번역된 언어는 해당 번역 마크다운 파일만 보유합니다.
-- Docs: `noklam/mkdocs-llmstxt-md`를 `pawamoy/mkdocs-llmstxt`로 교체하였습니다. `llms.txt` / `llms-full.txt`는 영어 전용이며 사이트 루트에 위치합니다.
-
 
 ## v.1.4.1 - 2026-07-13
 
