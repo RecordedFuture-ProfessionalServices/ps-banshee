@@ -11,6 +11,9 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
+import re
+import sys
+from pathlib import Path
 from typing import Annotated
 
 from typer import Argument, BadParameter, Option, Typer, confirm
@@ -20,8 +23,10 @@ from ..sandbox import (
     create_sandbox_profile,
     delete_sandbox_profile,
     delete_sandbox_sample,
+    download_sandbox_samples,
     fetch_behavioral_reports,
     fetch_overview_report,
+    fetch_sandbox_sample_summary,
     fetch_sandbox_stats,
     fetch_static_report,
     get_sandbox_profile,
@@ -42,6 +47,8 @@ from .args import (
 )
 from .epilogs import (
     EPILOG_SANDBOX_DELETE,
+    EPILOG_SANDBOX_DOWNLOAD,
+    EPILOG_SANDBOX_GET,
     EPILOG_SANDBOX_LIST,
     EPILOG_SANDBOX_PROFILE_CREATE,
     EPILOG_SANDBOX_PROFILE_DELETE,
@@ -86,9 +93,27 @@ _HELP_SEARCH = (
     'a table.'
 )
 
+_HELP_GET = (
+    'Fetch a summary for a sandbox sample by ID: current status, overall score, '
+    'target, creation and completion timestamps, SHA256, and per-task breakdown. '
+    'Prints JSON by default; use `--pretty` for a human-readable Rich layout. '
+    'Works for both in-progress and completed samples.'
+)
+
 _HELP_DELETE = (
     'Delete a sandbox sample by ID and remove all associated task artifacts. '
     'Prompts for confirmation unless `--yes` is given.'
+)
+
+_HELP_DOWNLOAD = (
+    'Download the original submitted sample bytes for one or more sample IDs. '
+    'Each sample is wrapped in an AES-encrypted ZIP archive with password '
+    '`infected` to prevent accidental detonation by antivirus or file managers. '
+    'Extract with `7z x -pinfected <sample-id>.zip` (standard `unzip` does not '
+    'handle AES zips). Sample IDs may be passed as positional arguments or '
+    'piped on stdin. Prompts for confirmation unless `--yes` is given. Files '
+    'may still exist briefly in process memory during download and zipping; '
+    'run on an analyst-owned box.'
 )
 
 _HELP_PROFILE_CREATE = (
@@ -477,6 +502,20 @@ def search(
 
 @banshee_cmd(
     app=app,
+    name='get',
+    help_=_HELP_GET,
+    epilog=EPILOG_SANDBOX_GET,
+    rich_help_panel=_PANEL_SUBMISSION,
+)
+def get_sample(
+    sample_id: Annotated[str, Argument(help='Sandbox sample ID', show_default=False)],
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    fetch_sandbox_sample_summary(sample_id, pretty=pretty)
+
+
+@banshee_cmd(
+    app=app,
     name='delete',
     help_=_HELP_DELETE,
     epilog=EPILOG_SANDBOX_DELETE,
@@ -493,6 +532,56 @@ def delete_sample(
     if not yes:
         confirm(f'Delete sample {sample_id!r}?', abort=True)
     delete_sandbox_sample(sample_id)
+
+
+def _parse_sample_ids(ids: list[str] | None) -> list[str]:
+    if not ids:
+        if sys.stdin.isatty():
+            raise BadParameter('provide one or more sample IDs as arguments or on stdin')
+        ids = [x for x in re.split(r'\s+', sys.stdin.read()) if x]
+    if not ids:
+        raise BadParameter('no sample IDs provided')
+    return ids
+
+
+@banshee_cmd(
+    app=app,
+    name='download',
+    help_=_HELP_DOWNLOAD,
+    epilog=EPILOG_SANDBOX_DOWNLOAD,
+    rich_help_panel=_PANEL_SUBMISSION,
+)
+def download(
+    sample_ids: list[str] = Argument(  # noqa: B008
+        ... if sys.stdin.isatty() else None,  # noqa: B008
+        show_default=False,
+        help='One or more sample IDs (or read from stdin, whitespace-separated)',
+    ),
+    output_dir: Annotated[
+        Path | None,
+        Option(
+            '--output-dir',
+            '-d',
+            help='Directory to save encrypted zip archives into (created if missing)',
+            show_default=False,
+        ),
+    ] = None,
+    yes: Annotated[
+        bool,
+        Option('--yes', '-y', help='Download without asking for confirmation'),
+    ] = False,
+    workers: Annotated[
+        int,
+        Option('--workers', '-w', help='Parallel download workers', min=1, max=16),
+    ] = 1,
+):
+    if output_dir is None:
+        raise BadParameter('`--output-dir` is required')
+    ids = _parse_sample_ids(sample_ids)
+    if not yes:
+        label = f'{len(ids)} sample{"" if len(ids) == 1 else "s"}'
+        confirm(f'Download {label} to {output_dir}?', abort=True)
+    download_sandbox_samples(ids, output_dir=output_dir, workers=workers)
 
 
 @banshee_cmd(

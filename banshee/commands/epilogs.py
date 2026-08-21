@@ -675,6 +675,50 @@ EPILOG_SANDBOX_LIST = """
 
 """
 
+EPILOG_SANDBOX_DOWNLOAD = """
+## Safety
+
+Samples may be malicious. Each download is wrapped in a ZIP encrypted with password `infected`
+to prevent accidental detonation by antivirus, secure email gateways, or file managers.
+The convention matches MalwareBazaar, VirusTotal, and Triage.
+
+Note: sample bytes exist briefly in this process's memory during download and zipping.
+Aggressive EDR memory scanning could still fire. Run this on an analyst-owned box, not a
+daily-driver corporate laptop.
+
+## Extracting a Downloaded Sample
+
+Archives use AES encryption. Extract with 7z (or `p7zip` on Linux):
+
+    7z x -pinfected <sample-id>.zip
+
+Standard `unzip` does not support AES-encrypted zips reliably.
+
+## Example Usage
+
+* banshee sandbox download 260501-h4p7laawme -d ./samples
+
+* banshee sandbox download id1 id2 id3 -d ./samples --yes -w 4
+
+* echo 'id1 id2 id3' | banshee sandbox download -d ./samples --yes
+
+* 7z x -pinfected ./samples/260501-h4p7laawme.zip
+
+"""
+
+EPILOG_SANDBOX_GET = """
+## Example Usage
+
+* banshee sandbox get 260501-h4p7laawme
+
+* banshee sandbox get 260501-h4p7laawme -p
+
+* banshee sandbox get 260501-h4p7laawme | jq '.score'
+
+* banshee sandbox get 260501-h4p7laawme | jq '.tasks | keys'
+
+"""
+
 EPILOG_SANDBOX_SEARCH = """
 ## Example Usage
 

@@ -16,12 +16,13 @@ from io import StringIO
 from unittest.mock import MagicMock, patch
 
 import pytest
-from psengine.sandbox.errors import SamplesFetchError
-from psengine.sandbox.sandbox import Sample
+from psengine.sandbox.errors import SamplesFetchError, SampleSummaryError
+from psengine.sandbox.sandbox import Sample, SampleSummary
 from rich.console import Console
 
 from banshee.sandbox.samples_list import (
     _samples_table,
+    fetch_sandbox_sample_summary,
     list_sandbox_samples,
     search_sandbox_samples,
 )
@@ -316,3 +317,113 @@ class TestSearchSandboxSamples:
         mock_mgr_cls.return_value.search_samples.side_effect = SamplesFetchError('API down')
         with pytest.raises(SamplesFetchError):
             search_sandbox_samples(family='emotet')
+
+
+def _make_summary(**kwargs) -> SampleSummary:
+    defaults = {
+        'sample': '260501-h4p7laawme',
+        'status': 'reported',
+        'custom': '',
+        'owner': 'u-1',
+        'target': 'dropper.exe',
+        'created': '2026-07-01T10:00:00Z',
+        'completed': '2026-07-01T10:05:00Z',
+        'score': 9,
+        'sha256': _SHA256,
+        'tasks': {
+            't1': {
+                'kind': 'behavioral',
+                'status': 'reported',
+                'tags': ['discovery'],
+                'score': 9,
+                'target': 'dropper.exe',
+                'backend': 'triage',
+                'resource': 'default',
+                'platform': 'windows10-2004-x64',
+            },
+            't2': {
+                'kind': 'static',
+                'status': 'reported',
+                'tags': [],
+                'score': 3,
+            },
+        },
+    }
+    defaults.update(kwargs)
+    return SampleSummary.model_validate(defaults)
+
+
+class TestFetchSandboxSampleSummary:
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
+    def test_default_outputs_json(self, mock_mgr_cls, capsys):
+        mock_mgr_cls.return_value.fetch_sample_summary.return_value = _make_summary()
+        fetch_sandbox_sample_summary('260501-h4p7laawme')
+        out = capsys.readouterr().out
+        data = json.loads(out)
+        assert data['sample'] == '260501-h4p7laawme'
+        assert data['score'] == 9
+        assert 't1' in data['tasks']
+
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
+    def test_default_in_progress_sample_no_completed(self, mock_mgr_cls, capsys):
+        """`completed=None` (still running) must not error."""
+        mock_mgr_cls.return_value.fetch_sample_summary.return_value = _make_summary(
+            status='pending', completed=None, score=0
+        )
+        fetch_sandbox_sample_summary('260501-h4p7laawme')
+        out = capsys.readouterr().out
+        data = json.loads(out)
+        assert data['status'] == 'pending'
+        assert 'completed' not in data  # None fields excluded
+
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
+    def test_fetch_called_with_sample_id(self, mock_mgr_cls):
+        mock_mgr_cls.return_value.fetch_sample_summary.return_value = _make_summary()
+        fetch_sandbox_sample_summary('some-sample-id')
+        mock_mgr_cls.return_value.fetch_sample_summary.assert_called_once_with('some-sample-id')
+
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.samples_list.get_config')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
+    def test_pretty_renders_layout_not_json(self, mock_get_config, mock_mgr_cls, capsys):
+        mock_get_config.return_value.sandbox_choice = 'eu'
+        mock_mgr_cls.return_value.fetch_sample_summary.return_value = _make_summary()
+        fetch_sandbox_sample_summary('260501-h4p7laawme', pretty=True)
+        out = capsys.readouterr().out
+        assert 'Sandbox sample' in out
+        assert '260501-h4p7laawme' in out
+        assert 'reported' in out
+        assert 'Tasks' in out
+        with pytest.raises(json.JSONDecodeError):
+            json.loads(out)
+
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
+    def test_unknown_sample_id_exits_1(self, mock_mgr_cls):
+        mock_mgr_cls.return_value.fetch_sample_summary.side_effect = SampleSummaryError(
+            '404 sample not found'
+        )
+        with pytest.raises(SystemExit) as exc:
+            fetch_sandbox_sample_summary('nope')
+        assert exc.value.code == 1
+
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
+    def test_error_message_goes_to_stderr(self, mock_mgr_cls, capsys):
+        mock_mgr_cls.return_value.fetch_sample_summary.side_effect = SampleSummaryError(
+            '404 sample not found'
+        )
+        with pytest.raises(SystemExit):
+            fetch_sandbox_sample_summary('nope')
+        captured = capsys.readouterr()
+        assert 'Failed to fetch sample' in captured.err
+        assert captured.out == ''
