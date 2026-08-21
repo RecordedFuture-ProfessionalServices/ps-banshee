@@ -3,26 +3,7 @@
 ## 1.5.0 - 2026-08-21
 
 ### Added
-- New [`sandbox`](reference/commands.md#banshee-sandbox) command group for Recorded Future Sandbox. Requires `RF_SANDBOX_TOKEN`; region selectable via [`--sandbox-choice`](reference/commands.md#banshee--sandbox-choice) or `RF_SANDBOX_CHOICE` (`eu` default, `usa`, `apj`, `public`, `private`).
-- New [`sandbox submit`](reference/commands.md#banshee-sandbox-submit) sub-command to submit a local file, URL, public sample ID (`--import`), or URL-to-download (`--fetch`) for analysis. Supports profile assignment, custom tags, timeout, network mode (including VPN with geolocation), archive password, [`--wait`](reference/commands.md#banshee-sandbox-submit--wait) to poll until analysis completes and print the overview report, and [`--interactive`](reference/commands.md#banshee-sandbox-submit--interactive) to pause at static analysis and pick profiles per file before detonation.
-- New [`sandbox report overview`](reference/commands.md#banshee-sandbox-report-overview), [`sandbox report static`](reference/commands.md#banshee-sandbox-report-static), and [`sandbox report behavioral`](reference/commands.md#banshee-sandbox-report-behavioral) sub-commands to fetch the combined verdict report, the pre-detonation static analysis, or the per-task post-detonation reports for a sample. Each supports [`--wait`](reference/commands.md#banshee-sandbox-report-overview--wait) to poll until the report is ready.
-- New [`sandbox list`](reference/commands.md#banshee-sandbox-list) sub-command to list samples in your own, your organisation's, or the public feed.
-- New [`sandbox search`](reference/commands.md#banshee-sandbox-search) sub-command to pivot across historical submissions by hash, malware family, tag, botnet, wallet, network indicator (IP, domain, URL), or a submission-date window. Also accepts raw Triage query strings via [`--query`](reference/commands.md#banshee-sandbox-search--query) for `AND`/`OR`/`NOT` expressions.
-- New [`sandbox get`](reference/commands.md#banshee-sandbox-get) sub-command to fetch the current status, overall score, and per-task breakdown for a sample without pulling a full report. Works for both in-progress and completed samples.
-- New [`sandbox download`](reference/commands.md#banshee-sandbox-download) sub-command to retrieve the original submitted bytes for one or more sample IDs. Each sample is wrapped in an AES-encrypted ZIP archive with password `infected` (matching the MalwareBazaar/VirusTotal/Triage convention) to prevent accidental detonation by antivirus, secure email gateways, or file managers. Sample IDs may be passed as positional arguments or piped on stdin. Extract with `7z x -pinfected <sample-id>.zip`.
-- New [`sandbox delete`](reference/commands.md#banshee-sandbox-delete) sub-command to remove a sample and its task artifacts (prompts for confirmation unless `--yes` is given).
-- New [`sandbox set-profile`](reference/commands.md#banshee-sandbox-set-profile) sub-command to assign analysis profiles to a sample paused at static analysis (either `--auto` or per-file `--pick FILE:PROFILE`).
-- New [`sandbox profile`](reference/commands.md#banshee-sandbox-profile) sub-command group to manage custom detonation profiles: [`list`](reference/commands.md#banshee-sandbox-profile-list), [`get`](reference/commands.md#banshee-sandbox-profile-get), [`create`](reference/commands.md#banshee-sandbox-profile-create), [`update`](reference/commands.md#banshee-sandbox-profile-update) (with `--unset` to clear fields), and [`delete`](reference/commands.md#banshee-sandbox-profile-delete).
-- New [`sandbox stats`](reference/commands.md#banshee-sandbox-stats) sub-command producing a SOC morning brief: submission volume, score distribution (1–10 triage scale bucketed as malicious / suspicious / potentially suspicious / clean), platform coverage, top malware families and botnets, behavioural TTPs, extracted C2s, and SOAR-validated network IOCs across a configurable lookback window.
-- Docs: Korean (`ko`) language infrastructure. Content ships in a follow-up PR; the missing-translation banner is shown until then.
-- Docs: `scripts/docs.py` — `build-all`, `dev`, `check-translations`, `translate` commands.
-- Docs: CI drift enforcement for every non-English translation. Contributors run the LLM translator locally (`uv sync --group translations && scripts/docs.py translate --lang <code> --all`); CI never calls an LLM.
-
-### Changed
-- Configuration: added `BansheeConfig(psengine.ConfigModel)` subclass to carry banshee-specific global fields (`sandbox_choice`). New root-level [`--sandbox-key`](reference/commands.md#banshee--sandbox-key) / `RF_SANDBOX_TOKEN` and [`--sandbox-choice`](reference/commands.md#banshee--sandbox-choice) / `RF_SANDBOX_CHOICE` options make sandbox authentication available to any command that needs it.
-- Docs: dropped `mike` versioned deploys; the site now deploys at the root URL. Previously versioned URLs (`/1.x/…`) no longer resolve; use the root URL instead.
-- Docs: replaced `mkdocs-static-i18n` with a fastapi-style per-language build orchestrated by `scripts/docs.py`. One authoritative `docs/mkdocs.yml`; translated languages own only their translated markdown files.
-- Docs: swapped `noklam/mkdocs-llmstxt-md` for `pawamoy/mkdocs-llmstxt`; `llms.txt` / `llms-full.txt` are English-only and live at the site root.
+- New [`sandbox`](reference/commands.md#banshee-sandbox) command to interact with the Recorded Future sandbox.
 
 
 ## v.1.4.1 - 2026-07-13
