@@ -2,19 +2,19 @@
 
 > Recorded Future のターミナルベースの脅威インテリジェンス調査のための CLI ツールです。
 > Recorded Future のサイバーセキュリティエンジニアが開発しました。
-> `ps-banshee` / `banshee` バージョン 1.3.0 で検証済み。
+> `ps-banshee` / `banshee` バージョン 1.5.0 で検証済み。
 
 このナレッジベースは LLM による利用（Claude Code、Opus、その他のエージェント型 CLI）を想定して設計されています。エージェント向けに以下の 3 つのアーティファクトが公開されています。
 
 - **Index** — 簡潔な目次: <https://recordedfuture-professionalservices.github.io/ps-banshee/llms.txt>
 - **Full bundle** — すべてのコマンドグループを 1 つのドキュメントにまとめたもの: <https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt>
-- **Per-group pages** — 選択的なフェッチ用。`https://.../latest/knowledge-base/<group>/index.md` (例: `ca`、`ioc`、`list`) で生のマークダウンとして提供されます。上記インデックスからリンクされています。
+- **Per-group pages** — 選択的なフェッチ用。`https://.../latest/knowledge-base/<group>/index.md`（例: `ca`、`ioc`、`list`）で生のマークダウンとして提供されます。上記インデックスからリンクされています。
 
 プロジェクト内でエージェントが `banshee` を発見できるようにするには、`CLAUDE.md`、`AGENTS.md`、または同等のルールファイルにアクション指向の一行を追加してください。
 
 > Recorded Future を使用する際は、完全な `banshee` CLI リファレンスを取得するために <https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt> をフェッチし、その後 `banshee` CLI を使用してください。その URL に到達できない場合は、代わりに `banshee --help` を実行してください。
 
-呼び出す前にシェル環境に `RF_TOKEN` を設定してください。詳細は以下の[認証](#認証とグローバルオプション)を参照してください。
+呼び出す前にシェル環境に `RF_TOKEN` を設定してください。詳細は以下の[認証とグローバルオプション](#authentication-global-options)を参照してください。
 
 ---
 
@@ -66,7 +66,7 @@ command -v tshark
 
 ## ライブ検証スナップショット
 
-最終ライブ検証: **2026-06-12**（リリース 1.3.0 更新）、`ps-banshee` / `banshee` **1.3.0** と `RF_TOKEN` 認証で実施。
+最終ライブ検証: **2026-07-23**（リリース 1.5.0 更新）、`ps-banshee` / `banshee` **1.5.0** と `RF_TOKEN` および `RF_SANDBOX_TOKEN` 認証で実施。
 
 検証成功:
 
@@ -75,6 +75,7 @@ command -v tshark
 banshee --version
 banshee --help
 test -n "$RF_TOKEN" && echo "RF_TOKEN set"
+test -n "$RF_SANDBOX_TOKEN" && echo "RF_SANDBOX_TOKEN set"
 
 # 読み取り専用 API アクセス
 banshee ca rules
@@ -87,6 +88,14 @@ banshee pba search -o uhash:69sKLfTGsS -C 60d -l 3
 banshee pba search -C 60d -l 3 | banshee pba export
 banshee pba search -C 60d -l 3 | banshee pba export --csv
 banshee ioc bulk-lookup ip 8.8.8.8
+
+# Sandbox 読み取り専用 API アクセス
+banshee sandbox stats --days 7
+banshee sandbox list --limit 3
+banshee sandbox profile list
+banshee sandbox report overview 260722-x8lgjahyvx
+banshee sandbox report static 260722-x8lgjahyvx
+banshee sandbox report behavioral 260722-x8lgjahyvx
 ```
 
 確認された注意点:
@@ -96,6 +105,9 @@ banshee ioc bulk-lookup ip 8.8.8.8
 - `ca export --csv` では `Updated` 列が現在常に空になっています（将来の API サポートのために予約済み）— 今回の実行で確認済み。
 - 新しい `pba search --org-id`（`-o`）フィルターは 10 文字の ID または 16 文字の `uhash:` 形式を受け付け、繰り返し指定が可能です。
 - `tshark` がインストールされていなかったため、`pcap enrich` はライブテストされていません。これは想定内です: `banshee pcap enrich --help` は `RuntimeError: tshark is not installed or not in PATH` を発生させます。
+- `sandbox stats` には `soar_skipped` フィールドが含まれます。`true` の場合、`.top_iocs.verified_network` は空になります（対象期間において SOAR 検証は実行されませんでした）。
+- Sandbox の変更系コマンド（`submit`、`delete`、`set-profile`、`download`、`profile create/update/delete`）は今回の更新ではライブテストされていません。
+- `sandbox download` は AES 暗号化された ZIP アーカイブ（パスワード `infected`）を生成します。`7z x -pinfected <file>.zip` で展開してください — 標準の `unzip` は AES ZIP を確実に処理できません。
 
 ---
 
@@ -127,13 +139,14 @@ banshee ioc bulk-lookup ip 8.8.8.8
 | `pba` | [pba.md](pba.md) | Playbook Alerts — 検索、ルックアップ、更新、エクスポート |
 | `risklist` | [risklist.md](risklist.md) | リスクリストの取得、作成、検査 |
 | `rules` | [rules.md](rules.md) | 検出ルールの検索とダウンロード（Sigma、YARA、Snort） |
+| `sandbox` | [sandbox.md](sandbox.md) | ファイルおよび URL のサンドボックス解析への送信、レポートの取得、プロファイルの管理、サンプルのダウンロード |
 
 ---
 
 ## LLM 向け注意事項
 
 - **すべての ID は不透明な短い文字列**です（例: `tybakN`、`1b0s1q`）— 推測しないでください。常に最初に検索で取得してください。
-- **PBA アラート ID** は UUID 形式を使用し、`pba search`（`.data[].playbook_alert_id`）によって既に `task:` プレフィックスが付いた状態で返されます。`pba lookup` と `pba update` にはそのまま渡してください — `task:` を追加しないでください。
+- **PBA アラート ID** は UUID 形式を使用し、`pba search`（`.data[].playbook_alert_id`）によって既に `task:` プレフィックスが付いた状態で返されます。`pba lookup` と `pba update` にはそのまま渡してください — 余分な `task:` を追加しないでください。
 - **`ca update` と `pba update` はプレーンテキストを返します**（JSON ではありません）— 更新されたアラートごとに `SUCCESS:\n<ALERT_ID>` です。`jq` にパイプしないでください。
 - **stdin パイプ** はすべてのバルク/更新コマンドで一貫しています: 改行区切りの ID または IOC を直接パイプしてください。
 - **`--pretty` は JSON ではありません** — 人間が読みやすい形式であり、`jq` でのさらなる解析には適していません。パイプラインでは省略してください。

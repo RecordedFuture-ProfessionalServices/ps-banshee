@@ -1,16 +1,28 @@
 # リリース履歴
 
-## Unreleased
-
-### 変更
-- Docs: `mike` によるバージョン管理デプロイを廃止。サイトはルート URL にデプロイされるようになった。以前のバージョン管理 URL（`/1.x/…`）は解決されなくなったため、ルート URL を使用すること。
-- Docs: `mkdocs-static-i18n` を fastapi スタイルの言語ごとのビルドに置き換え。`scripts/docs.py` により管理される。権威ある `docs/mkdocs.yml` を 1 つ維持し、翻訳済み言語は翻訳済み Markdown ファイルのみを所有する。
-- Docs: `noklam/mkdocs-llmstxt-md` を `pawamoy/mkdocs-llmstxt` に変更。`llms.txt` / `llms-full.txt` は英語のみとなり、サイトルートに配置される。
+## 1.5.0 - 2026-08-21
 
 ### 追加
-- Docs: 韓国語（`ko`）言語インフラストラクチャー。コンテンツはフォローアップ PR で提供され、それまでは未翻訳バナーが表示される。
-- Docs: `scripts/docs.py` — `build-all`、`dev`、`check-translations`、`translate` コマンド。
-- Docs: 英語以外のすべての翻訳に対する CI ドリフト検出。コントリビューターはローカルで LLM 翻訳ツールを実行する（`uv sync --group translations && scripts/docs.py translate --lang <code> --all`）。CI は LLM を呼び出さない。
+- Recorded Future Sandbox 向けの新しい [`sandbox`](reference/commands.md#banshee-sandbox) コマンドグループを追加。`RF_SANDBOX_TOKEN` が必要。リージョンは [`--sandbox-choice`](reference/commands.md#banshee--sandbox-choice) または `RF_SANDBOX_CHOICE` で選択可能（デフォルト: `eu`、その他: `usa`、`apj`、`public`、`private`）。
+- ローカルファイル、URL、公開サンプル ID（`--import`）、またはダウンロード対象 URL（`--fetch`）を解析のために送信する新しい [`sandbox submit`](reference/commands.md#banshee-sandbox-submit) サブコマンドを追加。プロファイルの割り当て、カスタムタグ、タイムアウト、ネットワークモード（ジオロケーション付き VPN を含む）、アーカイブパスワード、解析完了まで待機して概要レポートを表示する [`--wait`](reference/commands.md#banshee-sandbox-submit--wait)、および静的解析で一時停止して起爆前にファイルごとにプロファイルを選択する [`--interactive`](reference/commands.md#banshee-sandbox-submit--interactive) をサポート。
+- サンプルの統合判定レポート、起爆前静的解析、またはタスクごとの起爆後レポートを取得する新しい [`sandbox report overview`](reference/commands.md#banshee-sandbox-report-overview)、[`sandbox report static`](reference/commands.md#banshee-sandbox-report-static)、および [`sandbox report behavioral`](reference/commands.md#banshee-sandbox-report-behavioral) サブコマンドを追加。各コマンドはレポートが準備完了になるまで待機する [`--wait`](reference/commands.md#banshee-sandbox-report-overview--wait) をサポート。
+- 自身、組織、または公開フィードのサンプル一覧を表示する新しい [`sandbox list`](reference/commands.md#banshee-sandbox-list) サブコマンドを追加。
+- ハッシュ、マルウェアファミリー、タグ、ボットネット、ウォレット、ネットワークインジケーター（IP、ドメイン、URL）、または送信日時ウィンドウで過去の送信履歴を横断検索する新しい [`sandbox search`](reference/commands.md#banshee-sandbox-search) サブコマンドを追加。`AND`/`OR`/`NOT` 式向けに [`--query`](reference/commands.md#banshee-sandbox-search--query) でも raw の Triage クエリ文字列を受け入れる。
+- 完全なレポートを取得せずに、サンプルの現在のステータス、総合スコア、およびタスクごとの内訳を取得する新しい [`sandbox get`](reference/commands.md#banshee-sandbox-get) サブコマンドを追加。処理中および完了済みのサンプルの両方で動作する。
+- 1 つ以上のサンプル ID の元の送信バイトデータを取得する新しい [`sandbox download`](reference/commands.md#banshee-sandbox-download) サブコマンドを追加。各サンプルはパスワード `infected` の AES 暗号化 ZIP アーカイブにラップされ（MalwareBazaar/VirusTotal/Triage の慣例に準拠）、ウイルス対策ソフト、セキュアメールゲートウェイ、またはファイルマネージャーによる誤起爆を防止する。サンプル ID は位置引数として渡すか、stdin からパイプ入力できる。`7z x -pinfected <sample-id>.zip` で展開すること。
+- サンプルとそのタスクアーティファクトを削除する新しい [`sandbox delete`](reference/commands.md#banshee-sandbox-delete) サブコマンドを追加（`--yes` を指定しない限り確認プロンプトが表示される）。
+- 静的解析で一時停止中のサンプルに解析プロファイルを割り当てる新しい [`sandbox set-profile`](reference/commands.md#banshee-sandbox-set-profile) サブコマンドを追加（`--auto` またはファイルごとの `--pick FILE:PROFILE` を指定）。
+- カスタム起爆プロファイルを管理する新しい [`sandbox profile`](reference/commands.md#banshee-sandbox-profile) サブコマンドグループを追加: [`list`](reference/commands.md#banshee-sandbox-profile-list)、[`get`](reference/commands.md#banshee-sandbox-profile-get)、[`create`](reference/commands.md#banshee-sandbox-profile-create)、[`update`](reference/commands.md#banshee-sandbox-profile-update)（フィールドをクリアする `--unset` を含む）、および [`delete`](reference/commands.md#banshee-sandbox-profile-delete)。
+- SOC モーニングブリーフを生成する新しい [`sandbox stats`](reference/commands.md#banshee-sandbox-stats) サブコマンドを追加。設定可能なルックバックウィンドウにわたる送信件数、スコア分布（悪意あり / 疑わしい / 疑わしい可能性あり / クリーンにバケット化された 1〜10 の Triage スケール）、プラットフォームカバレッジ、上位マルウェアファミリーおよびボットネット、行動 TTP、抽出済み C2、および SOAR 検証済みネットワーク IOC を出力する。
+- Docs: 韓国語（`ko`）言語インフラストラクチャーを追加。コンテンツはフォローアップ PR で提供され、それまでは未翻訳バナーが表示される。
+- Docs: `scripts/docs.py` — `build-all`、`dev`、`check-translations`、`translate` コマンドを追加。
+- Docs: 英語以外のすべての翻訳に対する CI ドリフト検出を追加。コントリビューターはローカルで LLM 翻訳ツールを実行する（`uv sync --group translations && scripts/docs.py translate --lang <code> --all`）。CI は LLM を呼び出さない。
+
+### 変更
+- 設定: banshee 固有のグローバルフィールド（`sandbox_choice`）を保持する `BansheeConfig(psengine.ConfigModel)` サブクラスを追加。新しいルートレベルの [`--sandbox-key`](reference/commands.md#banshee--sandbox-key) / `RF_SANDBOX_TOKEN` および [`--sandbox-choice`](reference/commands.md#banshee--sandbox-choice) / `RF_SANDBOX_CHOICE` オプションにより、必要なコマンドからサンドボックス認証を利用できるようになった。
+- Docs: `mike` によるバージョン管理デプロイを廃止。サイトはルート URL にデプロイされるようになった。以前のバージョン管理 URL（`/1.x/…`）は解決されなくなったため、ルート URL を使用すること。
+- Docs: `mkdocs-static-i18n` を `scripts/docs.py` によって管理される fastapi スタイルの言語ごとのビルドに置き換え。権威ある `docs/mkdocs.yml` を 1 つ維持し、翻訳済み言語は翻訳済み Markdown ファイルのみを所有する。
+- Docs: `noklam/mkdocs-llmstxt-md` を `pawamoy/mkdocs-llmstxt` に変更。`llms.txt` / `llms-full.txt` は英語のみとなり、サイトルートに配置される。
 
 
 ## v.1.4.1 - 2026-07-13

@@ -2,7 +2,7 @@
 
 > Recorded Future의 터미널 기반 위협 인텔리전스 조사를 위한 CLI입니다.
 > Recorded Future의 사이버 보안 엔지니어가 개발하였습니다.
-> `ps-banshee` / `banshee` 버전 1.3.0을 기준으로 검증되었습니다.
+> `ps-banshee` / `banshee` 버전 1.5.0을 기준으로 검증되었습니다.
 
 이 knowledge base는 LLM(Claude Code, Opus 및 기타 에이전트형 CLI)의 활용을 위해 설계되었습니다. 에이전트를 위해 세 가지 아티팩트가 게시됩니다.
 
@@ -66,7 +66,7 @@ command -v tshark
 
 ## Live Validation Snapshot
 
-마지막 라이브 검증: **2026-06-12** (릴리스 1.3.0 갱신) — `ps-banshee` / `banshee` **1.3.0**, `RF_TOKEN` 인증 사용.
+마지막 라이브 검증: **2026-07-23** (릴리스 1.5.0 갱신) — `ps-banshee` / `banshee` **1.5.0**, `RF_TOKEN` 및 `RF_SANDBOX_TOKEN` 인증 사용.
 
 검증 성공:
 
@@ -75,6 +75,7 @@ command -v tshark
 banshee --version
 banshee --help
 test -n "$RF_TOKEN" && echo "RF_TOKEN set"
+test -n "$RF_SANDBOX_TOKEN" && echo "RF_SANDBOX_TOKEN set"
 
 # 읽기 전용 API 접근
 banshee ca rules
@@ -87,6 +88,14 @@ banshee pba search -o uhash:69sKLfTGsS -C 60d -l 3
 banshee pba search -C 60d -l 3 | banshee pba export
 banshee pba search -C 60d -l 3 | banshee pba export --csv
 banshee ioc bulk-lookup ip 8.8.8.8
+
+# Sandbox 읽기 전용 API 접근
+banshee sandbox stats --days 7
+banshee sandbox list --limit 3
+banshee sandbox profile list
+banshee sandbox report overview 260722-x8lgjahyvx
+banshee sandbox report static 260722-x8lgjahyvx
+banshee sandbox report behavioral 260722-x8lgjahyvx
 ```
 
 확인된 주의 사항:
@@ -96,6 +105,9 @@ banshee ioc bulk-lookup ip 8.8.8.8
 - `ca export --csv`에서 `Updated` 컬럼은 현재 항상 비어 있습니다(향후 API 지원을 위해 예약됨) — 이번 실행에서 확인되었습니다.
 - 신규 `pba search --org-id` (`-o`) 필터는 10자리 ID 또는 16자리 `uhash:` 형식을 허용하며 반복 사용이 가능합니다.
 - `pcap enrich`는 `tshark`가 설치되지 않아 라이브 테스트되지 않았습니다. 이는 예상된 동작입니다: `banshee pcap enrich --help`는 `RuntimeError: tshark is not installed or not in PATH`를 발생시킵니다.
+- `sandbox stats`에는 `soar_skipped` 필드가 포함되어 있으며, 값이 `true`인 경우 `.top_iocs.verified_network`는 비어 있습니다(해당 기간에 SOAR 검증이 실행되지 않음).
+- Sandbox 변경 커맨드(`submit`, `delete`, `set-profile`, `download`, `profile create/update/delete`)는 이번 갱신에서 라이브 테스트되지 않았습니다.
+- `sandbox download`는 AES 암호화된 ZIP 아카이브(비밀번호 `infected`)를 생성합니다. `7z x -pinfected <file>.zip`으로 압축 해제하십시오 — 표준 `unzip`은 AES ZIP을 안정적으로 처리하지 못합니다.
 
 ---
 
@@ -127,6 +139,7 @@ banshee ioc bulk-lookup ip 8.8.8.8
 | `pba` | [pba.md](pba.md) | Playbook Alerts — 검색, 조회, 업데이트, 내보내기 |
 | `risklist` | [risklist.md](risklist.md) | risk list(위험 목록) 조회, 생성 및 검사 |
 | `rules` | [rules.md](rules.md) | 탐지 규칙 검색 및 다운로드(Sigma, YARA, Snort) |
+| `sandbox` | [sandbox.md](sandbox.md) | 파일 및 URL을 sandbox 분석에 제출, 보고서 조회, 프로파일 관리, 샘플 다운로드 |
 
 ---
 
