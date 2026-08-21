@@ -1801,7 +1801,7 @@ translations = [
 [package.metadata]
 requires-dist = [
     { name = "polars", specifier = "~=1.34.0" },
-    { name = "psengine", editable = "/Users/moise/git/workspace/psengine.git/main" },
+    { name = "psengine", specifier = "~=2.11.0" },
     { name = "pyshark", specifier = "==0.6" },
     { name = "pyzipper", specifier = ">=0.4.0" },
     { name = "typer", specifier = "<0.16.0" },
@@ -1839,7 +1839,7 @@ translations = [
 [[package]]
 name = "psengine"
 version = "2.11.0"
-source = { editable = "/Users/moise/git/workspace/psengine.git/main" }
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "idna" },
     { name = "jsonpath-ng" },
@@ -1852,45 +1852,9 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "urllib3" },
 ]
-
-[package.metadata]
-requires-dist = [
-    { name = "idna", specifier = ">=3.15" },
-    { name = "jsonpath-ng", specifier = ">=1.5.3,<=1.8.0" },
-    { name = "more-itertools", specifier = ">=9.0.0,<=11.1.0" },
-    { name = "pydantic", specifier = ">=2.7,<3.0.0" },
-    { name = "pydantic-settings", extras = ["toml"], specifier = ">=2.14.2,<2.16.0" },
-    { name = "python-dateutil", specifier = ">=2.7.0" },
-    { name = "requests", specifier = ">=2.33.1" },
-    { name = "stix2", specifier = "~=3.0.2" },
-    { name = "typing-extensions", specifier = ">=4.8.0" },
-    { name = "urllib3", specifier = ">=2.7.0" },
-]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "freezegun", specifier = ">=1.5.5" },
-    { name = "mimesis", specifier = ">=19.1.0" },
-    { name = "pytest", specifier = "==9.1.1" },
-    { name = "pytest-cov", specifier = "==7.1.0" },
-    { name = "pytest-httpdbg", specifier = "==0.10.3" },
-    { name = "pytest-md", specifier = "==0.2.0" },
-    { name = "pytest-mock", specifier = "==3.15.1" },
-    { name = "pytest-random-order", specifier = "==1.2.0" },
-    { name = "ruff", specifier = ">=0.16.1,<0.17.0" },
-]
-docs = [
-    { name = "griffe-typingdoc", specifier = ">=0.2.8,<0.4.0" },
-    { name = "logging-tree", specifier = "==1.10" },
-    { name = "markdown-include", specifier = "~=0.8.1" },
-    { name = "mike", specifier = ">=2.1.4,<2.3.0" },
-    { name = "mkdocs", specifier = "~=1.6.1" },
-    { name = "mkdocs-codeinclude-plugin", specifier = "~=0.2.1" },
-    { name = "mkdocs-exclude", specifier = "~=1.0.2" },
-    { name = "mkdocs-material", specifier = ">=9.7.6,<9.8.0" },
-    { name = "mkdocstrings", extras = ["python"], specifier = ">=1.0.4" },
-    { name = "pymdown-extensions", specifier = "~=11.0.1" },
-    { name = "rich", specifier = "==15.0.0" },
+sdist = { url = "https://files.pythonhosted.org/packages/8a/c2/019d6f6aea50e352a90fdcbf354d945edb5bb16536d6b78187a22efd7974/psengine-2.11.0.tar.gz", hash = "sha256:652c7c633759dcfbc1585c583af83d59dfbdf8da65ca185664b30fcc78248aad", size = 181617, upload-time = "2026-08-20T09:51:00.262Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/bb/0c/ec7f69aa42713eaf40d1f791ca7472854400f66591566263b057652f015f/psengine-2.11.0-py3-none-any.whl", hash = "sha256:7c56150626a2ef2a85c54ad82c33a542b29cf890603db1550b90f1852d4b669c", size = 329201, upload-time = "2026-08-20T09:50:58.828Z" },
 ]
 
 [[package]]
