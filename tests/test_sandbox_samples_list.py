@@ -20,7 +20,11 @@ from psengine.sandbox.errors import SamplesFetchError
 from psengine.sandbox.sandbox import Sample
 from rich.console import Console
 
-from banshee.sandbox.samples_list import _samples_table, list_sandbox_samples
+from banshee.sandbox.samples_list import (
+    _samples_table,
+    list_sandbox_samples,
+    search_sandbox_samples,
+)
 
 _SPINNER_MOCK = MagicMock(
     return_value=MagicMock(
@@ -205,3 +209,110 @@ class TestListSandboxSamples:
         data = json.loads(out)
         assert 'url' not in data[0]
         assert 'completed' not in data[0]
+
+
+class TestSearchSandboxSamples:
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
+    def test_default_outputs_json(self, mock_mgr_cls, capsys):
+        mock_mgr_cls.return_value.search_samples.return_value = [_FILE_SAMPLE, _URL_SAMPLE]
+        search_sandbox_samples(family='emotet')
+        out = capsys.readouterr().out
+        data = json.loads(out)
+        assert len(data) == 2
+        assert data[0]['id'] == '260501-h4p7laawme'
+
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
+    def test_search_called_with_all_filters(self, mock_mgr_cls):
+        mock_mgr_cls.return_value.search_samples.return_value = []
+        search_sandbox_samples(
+            file_hash='h',
+            family='f',
+            tag=['t1', 't2'],
+            botnet='b',
+            wallet='w',
+            ip='1.2.3.4',
+            domain='d',
+            url='u',
+            from_date='2026-07-01',
+            to_date='2026-07-31',
+            query='NOT family:emotet',
+            limit=100,
+        )
+        mock_mgr_cls.return_value.search_samples.assert_called_once_with(
+            file_hash='h',
+            family='f',
+            tag=['t1', 't2'],
+            botnet='b',
+            wallet='w',
+            ip='1.2.3.4',
+            domain='d',
+            url='u',
+            from_date='2026-07-01',
+            to_date='2026-07-31',
+            query='NOT family:emotet',
+            results_per_page=100,
+            max_results=100,
+        )
+
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
+    def test_results_per_page_capped_at_200(self, mock_mgr_cls):
+        """results_per_page is a hard 200 cap; max_results is the true limit."""
+        mock_mgr_cls.return_value.search_samples.return_value = []
+        search_sandbox_samples(family='emotet', limit=200)
+        kwargs = mock_mgr_cls.return_value.search_samples.call_args.kwargs
+        assert kwargs['results_per_page'] == 200
+        assert kwargs['max_results'] == 200
+
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.samples_list.get_config')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
+    def test_pretty_renders_table_not_json(self, mock_get_config, mock_mgr_cls, capsys):
+        mock_get_config.return_value.sandbox_choice = 'eu'
+        mock_mgr_cls.return_value.search_samples.return_value = [_FILE_SAMPLE]
+        search_sandbox_samples(family='emotet', pretty=True)
+        out = capsys.readouterr().out
+        assert 'Sandbox search' in out
+        assert '1 result' in out
+        assert '260501-h' in out  # ID prefix — survives table width truncation
+        with pytest.raises(json.JSONDecodeError):
+            json.loads(out)
+
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
+    def test_empty_result_json(self, mock_mgr_cls, capsys):
+        mock_mgr_cls.return_value.search_samples.return_value = []
+        search_sandbox_samples(family='emotet')
+        out = capsys.readouterr().out
+        assert json.loads(out) == []
+
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.samples_list.get_config')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
+    def test_empty_result_pretty_shows_no_results_header(
+        self, mock_get_config, mock_mgr_cls, capsys
+    ):
+        mock_get_config.return_value.sandbox_choice = 'eu'
+        mock_mgr_cls.return_value.search_samples.return_value = []
+        search_sandbox_samples(family='emotet', pretty=True)
+        out = capsys.readouterr().out
+        assert 'Sandbox search' in out
+        assert '0 results' in out
+        assert 'family:emotet' in out
+        assert 'No matching samples.' in out
+
+    @patch('banshee.sandbox.samples_list.spinner', new=_SPINNER_MOCK)
+    @patch('banshee.sandbox.helpers.SandboxMgr')
+    @patch('banshee.sandbox.helpers.get_config', new=MagicMock())
+    def test_search_error_propagates(self, mock_mgr_cls):
+        mock_mgr_cls.return_value.search_samples.side_effect = SamplesFetchError('API down')
+        with pytest.raises(SamplesFetchError):
+            search_sandbox_samples(family='emotet')

@@ -11,18 +11,6 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-from importlib import import_module
+from .detection_rules_search import search_detection_rules
 
-_LAZY = {'search_detection_rules': '.detection_rules_search'}
-
-
-def __getattr__(name):
-    if name in _LAZY:
-        mod = import_module(_LAZY[name], __name__)
-        val = getattr(mod, name)
-        globals()[name] = val
-        return val
-    raise AttributeError(f'module {__name__!r} has no attribute {name!r}')
-
-
-__all__ = list(_LAZY)
+__all__ = ['search_detection_rules']

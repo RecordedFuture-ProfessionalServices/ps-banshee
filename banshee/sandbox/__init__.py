@@ -11,38 +11,36 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-from importlib import import_module
+from .delete import delete_sandbox_sample
+from .helpers import SandboxStats
+from .profiles import (
+    create_sandbox_profile,
+    delete_sandbox_profile,
+    get_sandbox_profile,
+    list_sandbox_profiles,
+    update_sandbox_profile,
+)
+from .reports import fetch_behavioral_reports, fetch_overview_report, fetch_static_report
+from .samples_list import list_sandbox_samples, search_sandbox_samples
+from .stats import fetch_sandbox_stats
+from .stats_output import print_sandbox_stats
+from .submit import set_sandbox_sample_profile, submit_sandbox_sample
 
-_LAZY = {
-    'delete_sandbox_sample': '.delete',
-    'SandboxStats': '.helpers',
-    'create_sandbox_profile': '.profiles',
-    'delete_sandbox_profile': '.profiles',
-    'get_sandbox_profile': '.profiles',
-    'list_sandbox_profiles': '.profiles',
-    'update_sandbox_profile': '.profiles',
-    'fetch_behavioral_reports': '.reports',
-    'fetch_overview_report': '.reports',
-    'fetch_static_report': '.reports',
-    'list_sandbox_samples': '.samples_list',
-    'fetch_sandbox_stats': '.stats',
-    'print_sandbox_stats': '.stats_output',
-    'set_sandbox_sample_profile': '.submit',
-    'submit_sandbox_sample': '.submit',
-}
-
-
-def __getattr__(name):
-    if name in _LAZY:
-        mod = import_module(_LAZY[name], __name__)
-        val = getattr(mod, name)
-        globals()[name] = val
-        return val
-    raise AttributeError(f'module {__name__!r} has no attribute {name!r}')
-
-
-def __dir__():
-    return sorted({*globals(), *_LAZY})
-
-
-__all__ = list(_LAZY)
+__all__ = [
+    'SandboxStats',
+    'create_sandbox_profile',
+    'delete_sandbox_profile',
+    'delete_sandbox_sample',
+    'fetch_behavioral_reports',
+    'fetch_overview_report',
+    'fetch_sandbox_stats',
+    'fetch_static_report',
+    'get_sandbox_profile',
+    'list_sandbox_profiles',
+    'list_sandbox_samples',
+    'print_sandbox_stats',
+    'search_sandbox_samples',
+    'set_sandbox_sample_profile',
+    'submit_sandbox_sample',
+    'update_sandbox_profile',
+]

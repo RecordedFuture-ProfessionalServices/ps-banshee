@@ -11,24 +11,9 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-from importlib import import_module
-
 from .constants import EntityType
 from .errors import EntityNotFoundError
+from .lookup import entity_lookup
+from .search import entity_search
 
-_LAZY = {
-    'entity_lookup': '.lookup',
-    'entity_search': '.search',
-}
-
-
-def __getattr__(name):
-    if name in _LAZY:
-        mod = import_module(_LAZY[name], __name__)
-        val = getattr(mod, name)
-        globals()[name] = val
-        return val
-    raise AttributeError(f'module {__name__!r} has no attribute {name!r}')
-
-
-__all__ = ['EntityNotFoundError', 'EntityType', *_LAZY]
+__all__ = ['EntityNotFoundError', 'EntityType', 'entity_lookup', 'entity_search']

@@ -12,22 +12,8 @@
 ##############################################################################################
 
 
-from importlib import import_module
+from .risklist_create import create_risklist
+from .risklist_fetch import fetch_risklist
+from .risklist_stat import stat_risklist
 
-_LAZY = {
-    'create_risklist': '.risklist_create',
-    'fetch_risklist': '.risklist_fetch',
-    'stat_risklist': '.risklist_stat',
-}
-
-
-def __getattr__(name):
-    if name in _LAZY:
-        mod = import_module(_LAZY[name], __name__)
-        val = getattr(mod, name)
-        globals()[name] = val
-        return val
-    raise AttributeError(f'module {__name__!r} has no attribute {name!r}')
-
-
-__all__ = list(_LAZY)
+__all__ = ['create_risklist', 'fetch_risklist', 'stat_risklist']

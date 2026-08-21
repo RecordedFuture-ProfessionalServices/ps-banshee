@@ -11,25 +11,10 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-from importlib import import_module
-
 from .constants import IOCType
+from .lookup import lookup_ioc
+from .rules import search_ioc_rules
+from .search import search_ioc
+from .soar import soar_enrich
 
-_LAZY = {
-    'lookup_ioc': '.lookup',
-    'search_ioc_rules': '.rules',
-    'search_ioc': '.search',
-    'soar_enrich': '.soar',
-}
-
-
-def __getattr__(name):
-    if name in _LAZY:
-        mod = import_module(_LAZY[name], __name__)
-        val = getattr(mod, name)
-        globals()[name] = val
-        return val
-    raise AttributeError(f'module {__name__!r} has no attribute {name!r}')
-
-
-__all__ = ['IOCType', *_LAZY]
+__all__ = ['IOCType', 'lookup_ioc', 'search_ioc', 'search_ioc_rules', 'soar_enrich']

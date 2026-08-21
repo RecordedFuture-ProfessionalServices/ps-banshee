@@ -11,31 +11,30 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-from importlib import import_module
+from .list_add import add_entity
+from .list_bulk_add import bulk_add_entities
+from .list_bulk_remove import bulk_remove_entities
+from .list_clear import clear_list
+from .list_copy import copy_list
+from .list_create import create_list
+from .list_entities import fetch_entities
+from .list_entries import fetch_entries
+from .list_info import fetch_list_info
+from .list_remove import remove_entity
+from .list_search import search_lists
+from .list_status import fetch_list_status
 
-_LAZY = {
-    'add_entity': '.list_add',
-    'bulk_add_entities': '.list_bulk_add',
-    'bulk_remove_entities': '.list_bulk_remove',
-    'clear_list': '.list_clear',
-    'copy_list': '.list_copy',
-    'create_list': '.list_create',
-    'fetch_entities': '.list_entities',
-    'fetch_entries': '.list_entries',
-    'fetch_list_info': '.list_info',
-    'remove_entity': '.list_remove',
-    'search_lists': '.list_search',
-    'fetch_list_status': '.list_status',
-}
-
-
-def __getattr__(name):
-    if name in _LAZY:
-        mod = import_module(_LAZY[name], __name__)
-        val = getattr(mod, name)
-        globals()[name] = val
-        return val
-    raise AttributeError(f'module {__name__!r} has no attribute {name!r}')
-
-
-__all__ = list(_LAZY)
+__all__ = [
+    'add_entity',
+    'bulk_add_entities',
+    'bulk_remove_entities',
+    'clear_list',
+    'copy_list',
+    'create_list',
+    'fetch_entities',
+    'fetch_entries',
+    'fetch_list_info',
+    'fetch_list_status',
+    'remove_entity',
+    'search_lists',
+]

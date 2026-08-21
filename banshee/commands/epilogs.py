@@ -675,6 +675,27 @@ EPILOG_SANDBOX_LIST = """
 
 """
 
+EPILOG_SANDBOX_SEARCH = """
+## Example Usage
+
+* banshee sandbox search --hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+
+* banshee sandbox search --family emotet
+
+* banshee sandbox search --ip 1.2.3.4 --domain evil.example
+
+* banshee sandbox search -T ransomware -T persistence
+
+* banshee sandbox search --from-date 2026-07-01 --to-date 2026-07-31 --family vidar
+
+* banshee sandbox search -q "NOT family:emotet" -l 100
+
+* banshee sandbox search --family emotet -p
+
+* banshee sandbox search --family emotet | jq '.[].sha256'
+
+"""
+
 EPILOG_SANDBOX_PROFILE_CREATE = """
 ## Example Usage
 

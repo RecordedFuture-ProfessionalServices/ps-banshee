@@ -28,6 +28,7 @@ from ..sandbox import (
     list_sandbox_profiles,
     list_sandbox_samples,
     print_sandbox_stats,
+    search_sandbox_samples,
     set_sandbox_sample_profile,
     submit_sandbox_sample,
     update_sandbox_profile,
@@ -50,6 +51,7 @@ from .epilogs import (
     EPILOG_SANDBOX_REPORT_BEHAVIORAL,
     EPILOG_SANDBOX_REPORT_OVERVIEW,
     EPILOG_SANDBOX_REPORT_STATIC,
+    EPILOG_SANDBOX_SEARCH,
     EPILOG_SANDBOX_SET_PROFILE,
     EPILOG_SANDBOX_STATS,
     EPILOG_SANDBOX_SUBMIT,
@@ -75,6 +77,13 @@ _HELP_STATS = (
 _HELP_LIST = (
     "List sandbox samples, your own, your organisation's (default), or the public feed. "
     'Prints a JSON array by default; use `--pretty` for a table.'
+)
+
+_HELP_SEARCH = (
+    'Search samples matching structured filters (hash, family, tag, botnet, wallet, IP, '
+    'domain, URL, submission-date window) or a raw Triage query. At least one filter '
+    'or `--query` must be provided. Prints a JSON array by default; use `--pretty` for '
+    'a table.'
 )
 
 _HELP_DELETE = (
@@ -358,6 +367,112 @@ def list_samples(
 ):
 
     list_sandbox_samples(subset=subset, limit=limit, pretty=pretty)
+
+
+@banshee_cmd(
+    app=app,
+    name='search',
+    help_=_HELP_SEARCH,
+    epilog=EPILOG_SANDBOX_SEARCH,
+    rich_help_panel=_PANEL_SUBMISSION,
+)
+def search(
+    file_hash: Annotated[
+        str | None,
+        Option('--hash', help='Filter by file hash (MD5/SHA1/SHA256)', show_default=False),
+    ] = None,
+    family: Annotated[
+        str | None,
+        Option('--family', help='Filter by malware family name', show_default=False),
+    ] = None,
+    tag: Annotated[
+        list[str] | None,
+        Option('--tag', '-T', help='Filter by tag (repeatable)', show_default=False),
+    ] = None,
+    botnet: Annotated[
+        str | None,
+        Option('--botnet', help='Filter by botnet name', show_default=False),
+    ] = None,
+    wallet: Annotated[
+        str | None,
+        Option('--wallet', help='Filter by wallet address', show_default=False),
+    ] = None,
+    ip: Annotated[
+        str | None,
+        Option('--ip', help='Filter by IP address', show_default=False),
+    ] = None,
+    domain: Annotated[
+        str | None,
+        Option('--domain', help='Filter by domain', show_default=False),
+    ] = None,
+    url: Annotated[
+        str | None,
+        Option('--url', help='Filter by URL', show_default=False),
+    ] = None,
+    from_date: Annotated[
+        str | None,
+        Option(
+            '--from-date',
+            help='Submitted on or after this date (YYYY-MM-DD)',
+            show_default=False,
+            metavar='YYYY-MM-DD',
+        ),
+    ] = None,
+    to_date: Annotated[
+        str | None,
+        Option(
+            '--to-date',
+            help='Submitted on or before this date (YYYY-MM-DD)',
+            show_default=False,
+            metavar='YYYY-MM-DD',
+        ),
+    ] = None,
+    query: Annotated[
+        str | None,
+        Option(
+            '--query',
+            '-q',
+            help='Raw Triage query string (combined with structured filters using AND)',
+            show_default=False,
+        ),
+    ] = None,
+    limit: Annotated[
+        int,
+        Option('--limit', '-l', help='Maximum number of samples to return', min=1, max=200),
+    ] = 50,
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    _require_non_empty(
+        hash=file_hash,
+        family=family,
+        tag=tag,
+        botnet=botnet,
+        wallet=wallet,
+        ip=ip,
+        domain=domain,
+        url=url,
+        query=query,
+    )
+    if not any(
+        [file_hash, family, tag, botnet, wallet, ip, domain, url, from_date, to_date, query]
+    ):
+        raise BadParameter('provide at least one filter option or `--query`')
+
+    search_sandbox_samples(
+        file_hash=file_hash,
+        family=family,
+        tag=tag,
+        botnet=botnet,
+        wallet=wallet,
+        ip=ip,
+        domain=domain,
+        url=url,
+        from_date=from_date,
+        to_date=to_date,
+        query=query,
+        limit=limit,
+        pretty=pretty,
+    )
 
 
 @banshee_cmd(

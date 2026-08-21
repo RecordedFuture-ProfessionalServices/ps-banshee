@@ -11,22 +11,6 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-from importlib import import_module
+from .feed_stat import stat_fusion_file
 
-_LAZY = {'stat_fusion_file': '.feed_stat'}
-
-
-def __getattr__(name):
-    if name in _LAZY:
-        mod = import_module(_LAZY[name], __name__)
-        val = getattr(mod, name)
-        globals()[name] = val
-        return val
-    raise AttributeError(f'module {__name__!r} has no attribute {name!r}')
-
-
-def __dir__():
-    return sorted({*globals(), *_LAZY})
-
-
-__all__ = list(_LAZY)
+__all__ = ['stat_fusion_file']
