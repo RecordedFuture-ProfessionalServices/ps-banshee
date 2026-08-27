@@ -24,7 +24,7 @@ classifiers = [
 dependencies = [
     "typer<0.28.0",
     "pyshark==0.6",
-    "polars~=1.34.0",
+    "polars>=1.34,<1.44",
     "psengine~=2.11.0",
     "pyzipper>=0.4.0",
 ]
