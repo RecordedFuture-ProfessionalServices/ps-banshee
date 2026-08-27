@@ -1,0 +1,2929 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A Recorded Future CLI for terminal-based threat intelligence investigations.">
+      
+      
+      
+        <link rel="canonical" href="https://recordedfuture-professionalservices.github.io/ps-banshee/ja/knowledge-base/sandbox/">
+      
+      
+      
+      
+        
+          <link rel="alternate" href="/ps-banshee/" hreflang="en">
+        
+          <link rel="alternate" href="/ps-banshee/ja/" hreflang="ja">
+        
+          <link rel="alternate" href="/ps-banshee/ko/" hreflang="ko">
+        
+      
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>sandbox - PS Banshee</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sandbox" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../.." title="PS Banshee" class="md-header__button md-logo" aria-label="PS Banshee" data-md-component="logo">
+      
+  <img src="../../assets/favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PS Banshee
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              sandbox
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="言語切り替え">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/ps-banshee/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/ps-banshee/ja/" hreflang="ja" class="md-select__link">
+              日本語
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/ps-banshee/ko/" hreflang="ko" class="md-select__link">
+              한국어
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="共有" aria-label="共有" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/RecordedFuture-ProfessionalServices/ps-banshee" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ps-banshee
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PS Banshee" class="md-nav__button md-logo" aria-label="PS Banshee" data-md-component="logo">
+      
+  <img src="../../assets/favicon.png" alt="logo">
+
+    </a>
+    PS Banshee
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/RecordedFuture-ProfessionalServices/ps-banshee" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ps-banshee
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../getting-started/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    はじめに
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    はじめに
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    インストール
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/first-steps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    最初のステップ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ヘルプの入手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIエージェントとの併用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ユースケース
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ユースケース
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/alerts/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    アラート管理
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    アラート管理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/detection-rules/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検出ルール
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    検出ルール
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/email/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    メールエンリッチメント
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    メールエンリッチメント
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/entity/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    エンティティマッチング
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    エンティティマッチング
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/enrichment/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IOCエンリッチメント
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    IOCエンリッチメント
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/pcap/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PCAP エンリッチメント
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PCAP エンリッチメント
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/risklists/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リスクリスト
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    リスクリスト
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/sandbox/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    サンドボックス分析
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    サンドボックス分析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/watchlist/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ウォッチリスト管理
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ウォッチリスト管理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../reference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リファレンス
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    リファレンス
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    コマンド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    環境変数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    リリース履歴
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox stats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox list
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox search
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox get
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-download-ディスクへの書き込みを伴う操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox download (ディスクへの書き込みを伴う操作)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-delete-変更を伴う操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox delete (変更を伴う操作)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-submit-変更を伴う操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox submit (変更を伴う操作)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-set-profile-変更を伴う操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox set-profile (変更を伴う操作)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-profile-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox profile list
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-profile-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox profile get
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-profile-create-変更を伴う操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox profile create (変更を伴う操作)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-profile-update-変更を伴う操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox profile update (変更を伴う操作)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-profile-delete-変更を伴う操作" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox profile delete (変更を伴う操作)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-report-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox report overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-report-static" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox report static
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-report-behavioral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox report behavioral
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="sandbox">sandbox<a class="headerlink" href="#sandbox" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>認証、準備確認、出力規則、および共有 LLM に関する注意事項については、<a href="../">index.md</a> を参照してください。</p>
+</blockquote>
+<p>Sandbox コマンドには、<code>RF_TOKEN</code> に加えて <code>RF_SANDBOX_TOKEN</code> が必要です。特定のリージョンを対象とするには、<code>RF_SANDBOX_CHOICE</code>（またはグローバルオプション <code>--sandbox-choice</code>）を設定してください。指定可能な値は <code>eu</code>（デフォルト）、<code>usa</code>、<code>apj</code>、<code>public</code>、<code>private</code> です。</p>
+<hr />
+<h3 id="banshee-sandbox-stats"><code>banshee sandbox stats</code><a class="headerlink" href="#banshee-sandbox-stats" title="Permanent link">&para;</a></h3>
+<p>設定可能なルックバックウィンドウ内のサンドボックス送信を集計し、SOC の朝次ブリーフを出力します。出力内容は、送信件数、スコア分布、マルウェアファミリーの上位一覧、プラットフォームのカバレッジ、抽出済み C2、および SOAR 検証済みネットワーク IOC（侵害の指標）です。</p>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>短縮形</th>
+<th>デフォルト</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--days INTEGER</code></td>
+<td><code>-d</code></td>
+<td><code>7</code></td>
+<td>ルックバックウィンドウの日数（最小 1）</td>
+</tr>
+<tr>
+<td><code>--subset</code></td>
+<td><code>-s</code></td>
+<td><code>org</code></td>
+<td>サンプルスコープ: <code>owned</code>、<code>public</code>、<code>org</code></td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td></td>
+<td>人間が読みやすい Rich レイアウト</td>
+</tr>
+</tbody>
+</table>
+<p>スコアバケット（トリアージ 1〜10 スケール）:</p>
+<table>
+<thead>
+<tr>
+<th>バケット</th>
+<th>スコア範囲</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>malicious</code></td>
+<td>8〜10</td>
+<td>既知のマルウェア、高い信頼度</td>
+</tr>
+<tr>
+<td><code>suspicious</code></td>
+<td>5〜7</td>
+<td>強い挙動的指標</td>
+</tr>
+<tr>
+<td><code>potentially_suspicious</code></td>
+<td>3〜4</td>
+<td>一部の指標あり</td>
+</tr>
+<tr>
+<td><code>clean</code></td>
+<td>1〜2</td>
+<td>低リスクまたは無害</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>stats
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>stats<span class="w"> </span>--days<span class="w"> </span><span class="m">14</span><span class="w"> </span>--subset<span class="w"> </span>owned<span class="w"> </span>--pretty
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>stats<span class="w"> </span>-d<span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.by_score&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>レスポンスの形式:</strong> 単一の JSON オブジェクトを返します。</p>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.period_start</code></td>
+<td>集計ウィンドウの開始日時（ISO 8601）</td>
+</tr>
+<tr>
+<td><code>.period_end</code></td>
+<td>集計ウィンドウの終了日時（ISO 8601）</td>
+</tr>
+<tr>
+<td><code>.period_days</code></td>
+<td>ルックバックウィンドウの日数</td>
+</tr>
+<tr>
+<td><code>.subset</code></td>
+<td>使用されたスコープ（<code>owned</code>、<code>public</code>、<code>org</code>）</td>
+</tr>
+<tr>
+<td><code>.total</code></td>
+<td>ウィンドウ内の総送信件数</td>
+</tr>
+<tr>
+<td><code>.pending</code></td>
+<td>分析中の送信件数</td>
+</tr>
+<tr>
+<td><code>.failed</code></td>
+<td>エラーが発生した送信件数</td>
+</tr>
+<tr>
+<td><code>.by_kind</code></td>
+<td>送信種別（<code>file</code>、<code>url</code> など）を件数にマッピングするオブジェクト</td>
+</tr>
+<tr>
+<td><code>.by_platform</code></td>
+<td>プラットフォームタグを件数にマッピングするオブジェクト</td>
+</tr>
+<tr>
+<td><code>.by_score</code></td>
+<td>スコアバケット名を件数にマッピングするオブジェクト</td>
+</tr>
+<tr>
+<td><code>.by_file_type</code></td>
+<td>ファイル拡張子を件数にマッピングするオブジェクト</td>
+</tr>
+<tr>
+<td><code>.top_tags</code></td>
+<td><code>malware_families</code>、<code>botnets</code>、<code>arch_file</code>、<code>behavioral_ttp</code> のキーを持つオブジェクト — それぞれタグ名を件数にマッピング</td>
+</tr>
+<tr>
+<td><code>.top_iocs</code></td>
+<td><code>extracted_c2</code>、<code>verified_network</code>、<code>malicious_sha256</code> のキーを持つオブジェクト — それぞれ IOC 文字列の配列</td>
+</tr>
+<tr>
+<td><code>.daily_by_family</code></td>
+<td>マルウェアファミリーを日別件数にマッピングするオブジェクト</td>
+</tr>
+<tr>
+<td><code>.trend_vs_prior_period</code></td>
+<td><code>total</code> および <code>reported</code> サブオブジェクトを持つオブジェクト。それぞれ <code>current</code>、<code>prev</code>、<code>pct_change</code> を含む</td>
+</tr>
+<tr>
+<td><code>.soar_skipped</code></td>
+<td>SOAR 検証がスキップされた場合に <code>true</code>（<code>.top_iocs.verified_network</code> は空になります）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="banshee-sandbox-list"><code>banshee sandbox list</code><a class="headerlink" href="#banshee-sandbox-list" title="Permanent link">&para;</a></h3>
+<p>サンドボックスサンプルを一覧表示します。対象は自分のサンプル、自組織のサンプル（デフォルト）、またはパブリックフィードです。</p>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>短縮形</th>
+<th>デフォルト</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--subset</code></td>
+<td><code>-s</code></td>
+<td><code>org</code></td>
+<td>サンプルスコープ: <code>owned</code>、<code>public</code>、<code>org</code></td>
+</tr>
+<tr>
+<td><code>--limit INTEGER</code></td>
+<td><code>-l</code></td>
+<td><code>20</code></td>
+<td>最大件数（1〜4095）</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td></td>
+<td>人間が読みやすいテーブル</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>list
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>list<span class="w"> </span>--subset<span class="w"> </span>owned
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>list<span class="w"> </span>-s<span class="w"> </span>public<span class="w"> </span>-l<span class="w"> </span><span class="m">50</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>list<span class="w"> </span>-p
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[].sha256&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>レスポンスの形式:</strong> フラットな JSON 配列を返します。各要素のフィールド:</p>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.id</code></td>
+<td>サンプル ID（例: <code>260722-x8lgjahyvx</code>）</td>
+</tr>
+<tr>
+<td><code>.status</code></td>
+<td>分析ステータス: <code>pending</code>、<code>running</code>、<code>reported</code>、<code>failed</code></td>
+</tr>
+<tr>
+<td><code>.kind</code></td>
+<td>送信種別: <code>file</code>、<code>url</code>、<code>fetch</code>、<code>import</code></td>
+</tr>
+<tr>
+<td><code>.filename</code></td>
+<td>元のファイル名（URL 送信の場合は空になることがあります）</td>
+</tr>
+<tr>
+<td><code>.submitted</code></td>
+<td>送信日時（ISO 8601）</td>
+</tr>
+<tr>
+<td><code>.completed</code></td>
+<td>完了日時（ISO 8601。まだ実行中の場合は存在しません）</td>
+</tr>
+<tr>
+<td><code>.sha256</code></td>
+<td>送信ファイルの SHA-256</td>
+</tr>
+<tr>
+<td><code>.user_id</code></td>
+<td>送信ユーザーの UUID</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="banshee-sandbox-search"><code>banshee sandbox search</code><a class="headerlink" href="#banshee-sandbox-search" title="Permanent link">&para;</a></h3>
+<p>構造化フィルター（ハッシュ、ファミリー、タグ、ボットネット、ウォレット、IP、ドメイン、URL、送信日付ウィンドウ）またはロールの Triage クエリに一致するサンプルを検索します。少なくとも 1 つのフィルターまたは <code>--query</code> の指定が必要です。</p>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>短縮形</th>
+<th>デフォルト</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--hash TEXT</code></td>
+<td></td>
+<td></td>
+<td>ファイルハッシュでフィルター（MD5/SHA1/SHA256）</td>
+</tr>
+<tr>
+<td><code>--family TEXT</code></td>
+<td></td>
+<td></td>
+<td>マルウェアファミリー名でフィルター</td>
+</tr>
+<tr>
+<td><code>--tag TEXT</code></td>
+<td><code>-T</code></td>
+<td></td>
+<td>タグでフィルター（繰り返し指定可）</td>
+</tr>
+<tr>
+<td><code>--botnet TEXT</code></td>
+<td></td>
+<td></td>
+<td>ボットネット名でフィルター</td>
+</tr>
+<tr>
+<td><code>--wallet TEXT</code></td>
+<td></td>
+<td></td>
+<td>ウォレットアドレスでフィルター</td>
+</tr>
+<tr>
+<td><code>--ip TEXT</code></td>
+<td></td>
+<td></td>
+<td>IP アドレスでフィルター</td>
+</tr>
+<tr>
+<td><code>--domain TEXT</code></td>
+<td></td>
+<td></td>
+<td>ドメインでフィルター</td>
+</tr>
+<tr>
+<td><code>--url TEXT</code></td>
+<td></td>
+<td></td>
+<td>URL でフィルター</td>
+</tr>
+<tr>
+<td><code>--from-date YYYY-MM-DD</code></td>
+<td></td>
+<td></td>
+<td>この日付以降に送信されたものを対象</td>
+</tr>
+<tr>
+<td><code>--to-date YYYY-MM-DD</code></td>
+<td></td>
+<td></td>
+<td>この日付以前に送信されたものを対象</td>
+</tr>
+<tr>
+<td><code>--query TEXT</code></td>
+<td><code>-q</code></td>
+<td></td>
+<td>ロールの Triage クエリ文字列（構造化フィルターと AND で結合）</td>
+</tr>
+<tr>
+<td><code>--limit INTEGER</code></td>
+<td><code>-l</code></td>
+<td><code>50</code></td>
+<td>最大件数（1〜200）</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td></td>
+<td>人間が読みやすいテーブル</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>search<span class="w"> </span>--hash<span class="w"> </span>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>search<span class="w"> </span>--family<span class="w"> </span>emotet
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>search<span class="w"> </span>--ip<span class="w"> </span><span class="m">1</span>.2.3.4<span class="w"> </span>--domain<span class="w"> </span>evil.example
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>search<span class="w"> </span>-T<span class="w"> </span>ransomware<span class="w"> </span>-T<span class="w"> </span>persistence
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>search<span class="w"> </span>--from-date<span class="w"> </span><span class="m">2026</span>-07-01<span class="w"> </span>--to-date<span class="w"> </span><span class="m">2026</span>-07-31<span class="w"> </span>--family<span class="w"> </span>vidar
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>search<span class="w"> </span>-q<span class="w"> </span><span class="s2">&quot;NOT family:emotet&quot;</span><span class="w"> </span>-l<span class="w"> </span><span class="m">100</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>search<span class="w"> </span>--family<span class="w"> </span>emotet<span class="w"> </span>-p
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>search<span class="w"> </span>--family<span class="w"> </span>emotet<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[].sha256&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>レスポンスの形式:</strong> JSON 配列を返します。構造は <code>sandbox list</code> の各要素と同一です。</p>
+<hr />
+<h3 id="banshee-sandbox-get"><code>banshee sandbox get</code><a class="headerlink" href="#banshee-sandbox-get" title="Permanent link">&para;</a></h3>
+<p>サンドボックスサンプルの ID を指定して、単一サンプルのサマリーを取得します。取得内容は、現在のステータス、総合スコア、ターゲット、作成および完了日時、SHA256、タスクごとの内訳です。実行中および完了済みのサンプルどちらにも対応しています。</p>
+<table>
+<thead>
+<tr>
+<th>引数/オプション</th>
+<th>短縮形</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SAMPLE_ID</code>（必須）</td>
+<td></td>
+<td>サンドボックスサンプル ID</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>人間が読みやすい Rich レイアウト</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>get<span class="w"> </span><span class="m">260501</span>-h4p7laawme
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>get<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>-p
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>get<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.score&#39;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>get<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.tasks | keys&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>レスポンスの形式:</strong> 単一の JSON オブジェクトを返します。</p>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.sample</code></td>
+<td>サンプル ID</td>
+</tr>
+<tr>
+<td><code>.status</code></td>
+<td>分析ステータス: <code>pending</code>、<code>running</code>、<code>static_analysis</code>、<code>reported</code>、<code>failed</code></td>
+</tr>
+<tr>
+<td><code>.target</code></td>
+<td>主要な実行ターゲット（ファイル名または URL）</td>
+</tr>
+<tr>
+<td><code>.score</code></td>
+<td>総合トリアージスコア（1〜10。分析中は <code>0</code>）</td>
+</tr>
+<tr>
+<td><code>.created</code></td>
+<td>送信日時（ISO 8601）</td>
+</tr>
+<tr>
+<td><code>.completed</code></td>
+<td>完了日時（ISO 8601。まだ実行中の場合は存在しません）</td>
+</tr>
+<tr>
+<td><code>.sha256</code></td>
+<td>送信ファイルの SHA-256（URL 送信の場合は存在しません）</td>
+</tr>
+<tr>
+<td><code>.owner</code></td>
+<td>送信ユーザー ID</td>
+</tr>
+<tr>
+<td><code>.tasks</code></td>
+<td>タスク ID → <code>{kind, status, score, tags, platform}</code> にマッピングするオブジェクト</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="banshee-sandbox-download-ディスクへの書き込みを伴う操作"><code>banshee sandbox download</code> <em>(ディスクへの書き込みを伴う操作)</em><a class="headerlink" href="#banshee-sandbox-download-ディスクへの書き込みを伴う操作" title="Permanent link">&para;</a></h3>
+<p>1 つ以上のサンプル ID に対して、元の送信サンプルのバイトデータをダウンロードします。各サンプルは、アンチウイルス、セキュアメールゲートウェイ、またはファイルマネージャーによる誤った実行を防ぐため、パスワード <code>infected</code> を使用した AES 暗号化 ZIP アーカイブにラップされます。展開には <code>7z x -pinfected &lt;sample-id&gt;.zip</code> を使用してください。標準の <code>unzip</code> は AES 暗号化 ZIP を確実に処理できません。</p>
+<p>サンプル ID は位置引数として渡すか、stdin からパイプ（空白区切り）で渡すことができます。<code>--yes</code> を指定しない場合は確認プロンプトが表示されます。ダウンロードおよび ZIP 化の際、バイトデータは一時的にこのプロセスのメモリ上に存在します。EDR（Endpoint Detection and Response）による積極的なメモリスキャンが反応する可能性があります。日常業務で使用する企業のノート PC ではなく、アナリスト専用のマシンで実行してください。</p>
+<table>
+<thead>
+<tr>
+<th>引数/オプション</th>
+<th>短縮形</th>
+<th>デフォルト</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SAMPLE_IDS</code></td>
+<td></td>
+<td></td>
+<td>1 つ以上のサンプル ID（または stdin から読み取り）</td>
+</tr>
+<tr>
+<td><code>--output-dir PATH</code></td>
+<td><code>-d</code></td>
+<td>（必須）</td>
+<td>暗号化 ZIP アーカイブを保存するディレクトリ（存在しない場合は作成されます）</td>
+</tr>
+<tr>
+<td><code>--yes</code></td>
+<td><code>-y</code></td>
+<td></td>
+<td>確認プロンプトをスキップ</td>
+</tr>
+<tr>
+<td><code>--workers INTEGER</code></td>
+<td><code>-w</code></td>
+<td><code>1</code></td>
+<td>並列ダウンロードのワーカー数（1〜16）</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>download<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>-d<span class="w"> </span>./samples
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>download<span class="w"> </span>id1<span class="w"> </span>id2<span class="w"> </span>id3<span class="w"> </span>-d<span class="w"> </span>./samples<span class="w"> </span>--yes<span class="w"> </span>-w<span class="w"> </span><span class="m">4</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;id1 id2 id3&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>banshee<span class="w"> </span>sandbox<span class="w"> </span>download<span class="w"> </span>-d<span class="w"> </span>./samples<span class="w"> </span>--yes
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="c1"># Extract</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>7z<span class="w"> </span>x<span class="w"> </span>-pinfected<span class="w"> </span>./samples/260501-h4p7laawme.zip
+</code></pre></div></td></tr></table></div>
+<p><strong>レスポンス:</strong> 警告行が stderr に 1 回出力されます。成功したダウンロードごとに、<code>[&lt;id&gt;] Saved: &lt;path&gt; (&lt;bytes&gt; bytes, sha256=&lt;hex&gt;)</code> 形式の行が stderr に出力されます。失敗した場合は <code>[&lt;id&gt;] ERROR: &lt;msg&gt;</code> が出力されます。一部失敗のバッチ処理は最後まで続行され、終了コード 1 で終了します。全件成功の場合は終了コード 0 で終了します。</p>
+<p>アーカイブの内容: <code>&lt;sample-id&gt;</code>（拡張子の推測なし）という名前の単一エントリで、サンプルの生バイトデータを含みます。</p>
+<hr />
+<h3 id="banshee-sandbox-delete-変更を伴う操作"><code>banshee sandbox delete</code> <em>(変更を伴う操作)</em><a class="headerlink" href="#banshee-sandbox-delete-変更を伴う操作" title="Permanent link">&para;</a></h3>
+<p>サンドボックスサンプルを ID で削除し、関連するすべてのタスクのアーティファクトを削除します。<code>--yes</code> を指定しない場合は確認プロンプトが表示されます。</p>
+<table>
+<thead>
+<tr>
+<th>引数/オプション</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SAMPLE_ID</code>（必須）</td>
+<td>削除するサンプル ID</td>
+</tr>
+<tr>
+<td><code>--yes</code> / <code>-y</code></td>
+<td>確認プロンプトをスキップ</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>delete<span class="w"> </span><span class="m">260501</span>-h4p7laawme
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>delete<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>-y
+</code></pre></div></td></tr></table></div>
+<p><strong>レスポンス:</strong> 成功時は出力なし。終了コード 0 で終了します。</p>
+<hr />
+<h3 id="banshee-sandbox-submit-変更を伴う操作"><code>banshee sandbox submit</code> <em>(変更を伴う操作)</em><a class="headerlink" href="#banshee-sandbox-submit-変更を伴う操作" title="Permanent link">&para;</a></h3>
+<p>分析のためにサンプルを送信します。ローカルファイルはアップロードされ、URL はブラウザで実行されます（または <code>--fetch</code> を使用してファイルとしてダウンロードしてから分析します）。<code>--import</code> を使用してパブリックサンプルを ID でインポートすることも可能です。</p>
+<table>
+<thead>
+<tr>
+<th>引数/オプション</th>
+<th>短縮形</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TARGET</code>（必須）</td>
+<td></td>
+<td>ファイルパス、URL、またはパブリックサンプル ID（<code>--import</code> 使用時）</td>
+</tr>
+<tr>
+<td><code>--fetch</code></td>
+<td></td>
+<td>URL を先にダウンロードしてからファイルとして分析。<code>--import</code> と相互排他</td>
+</tr>
+<tr>
+<td><code>--import</code></td>
+<td></td>
+<td>ターゲットをパブリックサンプル ID として扱う。<code>--fetch</code> と相互排他</td>
+</tr>
+<tr>
+<td><code>--profile TEXT</code></td>
+<td></td>
+<td>分析プロファイル名または ID（繰り返し指定可。<code>--interactive</code> と相互排他）</td>
+</tr>
+<tr>
+<td><code>--timeout INTEGER</code></td>
+<td><code>-t</code></td>
+<td>分析タイムアウト（秒単位、1〜3600）</td>
+</tr>
+<tr>
+<td><code>--network</code></td>
+<td><code>-N</code></td>
+<td>ネットワークモード: <code>internet</code>、<code>drop</code>、<code>tor</code>、<code>vpn</code>、<code>sim200</code>、<code>sim404</code>、<code>simnx</code></td>
+</tr>
+<tr>
+<td><code>--geolocation TEXT</code></td>
+<td></td>
+<td>VPN 出口の国コード。<code>--network vpn</code> が必要</td>
+</tr>
+<tr>
+<td><code>--tags TEXT</code></td>
+<td><code>-T</code></td>
+<td>カスタムタグ（繰り返し指定可）</td>
+</tr>
+<tr>
+<td><code>--password TEXT</code></td>
+<td></td>
+<td>保護されたアーカイブのパスワード</td>
+</tr>
+<tr>
+<td><code>--wait</code></td>
+<td><code>-w</code></td>
+<td>分析が完了するまでポーリングし、概要レポートを出力</td>
+</tr>
+<tr>
+<td><code>--interactive</code></td>
+<td><code>-i</code></td>
+<td>静的分析後に一時停止し、<code>set-profile</code> によるプロファイル選択を待機。<code>--profile</code> と相互排他</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>人間が読みやすい出力</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span>
+<span class="normal"><a href="#__codelineno-6-6">6</a></span>
+<span class="normal"><a href="#__codelineno-6-7">7</a></span>
+<span class="normal"><a href="#__codelineno-6-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>submit<span class="w"> </span>malware.exe
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>submit<span class="w"> </span>https://evil.com
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>submit<span class="w"> </span>https://cdn.evil.com/payload.exe<span class="w"> </span>--fetch
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>submit<span class="w"> </span><span class="m">250601</span>-abc123<span class="w"> </span>--import
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>submit<span class="w"> </span>malware.zip<span class="w"> </span>--password<span class="w"> </span>infected<span class="w"> </span>--profile<span class="w"> </span>win10-x64<span class="w"> </span>-T<span class="w"> </span><span class="k">case</span>-42
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>submit<span class="w"> </span>malware.exe<span class="w"> </span>--network<span class="w"> </span>vpn<span class="w"> </span>--geolocation<span class="w"> </span>us<span class="w"> </span>-t<span class="w"> </span><span class="m">300</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>submit<span class="w"> </span>malware.exe<span class="w"> </span>--wait<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.analysis.score&#39;</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>submit<span class="w"> </span>archive.zip<span class="w"> </span>--interactive<span class="w"> </span>--wait<span class="w"> </span>--pretty
+</code></pre></div></td></tr></table></div>
+<p><strong>レスポンスの形式（デフォルト）:</strong> 送信済みサンプルを JSON オブジェクトとして返します。フィールドは <code>sandbox list</code> の各要素と同一です（<code>id</code>、<code>status</code>、<code>kind</code>、<code>filename</code>、<code>submitted</code>、<code>sha256</code>、<code>user_id</code>）。<code>.id</code> を使用して送信をトラッキングまたはレポートしてください。</p>
+<p><strong>レスポンスの形式（<code>--wait</code> 使用時）:</strong> 概要レポートを返します。構造は <code>sandbox report overview</code> と同一です。</p>
+<hr />
+<h3 id="banshee-sandbox-set-profile-変更を伴う操作"><code>banshee sandbox set-profile</code> <em>(変更を伴う操作)</em><a class="headerlink" href="#banshee-sandbox-set-profile-変更を伴う操作" title="Permanent link">&para;</a></h3>
+<p>静的分析で一時停止中のサンプル（<code>--interactive</code> で送信されたもの）に分析プロファイルを割り当てます。<code>--auto</code> を使用するとサンドボックスが自動的に選択し、<code>--pick FILE:PROFILE</code> を使用すると手動でファイルごとにマッピングを指定できます。</p>
+<table>
+<thead>
+<tr>
+<th>引数/オプション</th>
+<th>短縮形</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SAMPLE_ID</code>（必須）</td>
+<td></td>
+<td>静的分析で一時停止中のサンプル ID</td>
+</tr>
+<tr>
+<td><code>--auto</code></td>
+<td><code>-a</code></td>
+<td>すべてのファイルのプロファイルを自動選択。<code>--pick</code> と相互排他</td>
+</tr>
+<tr>
+<td><code>--pick FILE:PROFILE</code></td>
+<td></td>
+<td>1 つのファイルを 1 つのプロファイルにマッピング（繰り返し指定可）。<code>--auto</code> と相互排他</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>人間が読みやすい出力</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>set-profile<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>--auto
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>set-profile<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>--pick<span class="w"> </span>file.exe:win10-x64
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>set-profile<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>--pick<span class="w"> </span>file.exe:win10-x64<span class="w"> </span>--pick<span class="w"> </span>doc.docx:office365
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>set-profile<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>--pick<span class="w"> </span>file.exe:win10-x64<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.success&#39;</span>
+</code></pre></div></td></tr></table></div>
+<hr />
+<h3 id="banshee-sandbox-profile-list"><code>banshee sandbox profile list</code><a class="headerlink" href="#banshee-sandbox-profile-list" title="Permanent link">&para;</a></h3>
+<p>Recorded Future Sandbox で利用可能なすべての分析プロファイルを一覧表示します。</p>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>短縮形</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>人間が読みやすいテーブル</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>list
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>list<span class="w"> </span>-p
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[].name&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>レスポンスの形式:</strong> フラットな JSON 配列を返します。各要素のフィールド:</p>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.id</code></td>
+<td>プロファイルの UUID</td>
+</tr>
+<tr>
+<td><code>.name</code></td>
+<td>プロファイル名</td>
+</tr>
+<tr>
+<td><code>.tags</code></td>
+<td>OS/ロケールタグの配列（例: <code>["os:windows10-2004-x64", "locale:en-us"]</code>）</td>
+</tr>
+<tr>
+<td><code>.network</code></td>
+<td>ネットワークモード（例: <code>"internet"</code>、<code>"tor"</code>、<code>"vpn"</code>）</td>
+</tr>
+<tr>
+<td><code>.geolocation</code></td>
+<td>VPN 出口の国コードの配列（該当しない場合は空）</td>
+</tr>
+<tr>
+<td><code>.timeout</code></td>
+<td>分析タイムアウト（秒単位）</td>
+</tr>
+<tr>
+<td><code>.options</code></td>
+<td><code>browser</code> などのオプションフィールドを持つオブジェクト</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="banshee-sandbox-profile-get"><code>banshee sandbox profile get</code><a class="headerlink" href="#banshee-sandbox-profile-get" title="Permanent link">&para;</a></h3>
+<p>ID または名前で単一の分析プロファイルを取得します。</p>
+<table>
+<thead>
+<tr>
+<th>引数/オプション</th>
+<th>短縮形</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PROFILE_ID_OR_NAME</code>（必須）</td>
+<td></td>
+<td>プロファイルの UUID または名前</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>人間が読みやすいテーブル</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>get<span class="w"> </span>022b8c4e-22ab-46a4-ac49-a2732b2412b7
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>get<span class="w"> </span><span class="s1">&#39;Windows 7 Long&#39;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>get<span class="w"> </span>w7-long<span class="w"> </span>-p
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>get<span class="w"> </span>w7-long<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.tags&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>レスポンスの形式:</strong> 単一のプロファイルオブジェクトを返します。フィールドは <code>sandbox profile list</code> の各要素と同一です。</p>
+<hr />
+<h3 id="banshee-sandbox-profile-create-変更を伴う操作"><code>banshee sandbox profile create</code> <em>(変更を伴う操作)</em><a class="headerlink" href="#banshee-sandbox-profile-create-変更を伴う操作" title="Permanent link">&para;</a></h3>
+<p>新しい分析プロファイルを作成します。プロファイル名は組織内で一意である必要があります。</p>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>短縮形</th>
+<th>デフォルト</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--name TEXT</code></td>
+<td><code>-n</code></td>
+<td>（必須）</td>
+<td>プロファイル名（一意である必要があります）</td>
+</tr>
+<tr>
+<td><code>--tag TEXT</code></td>
+<td><code>-T</code></td>
+<td>（必須）</td>
+<td>OS/ロケールタグ（繰り返し指定可）。ロケールタグには少なくとも 1 つの OS タグとの組み合わせが必要</td>
+</tr>
+<tr>
+<td><code>--timeout INTEGER</code></td>
+<td><code>-t</code></td>
+<td><code>120</code></td>
+<td>分析タイムアウト（秒単位、1〜3600）</td>
+</tr>
+<tr>
+<td><code>--network</code></td>
+<td><code>-N</code></td>
+<td></td>
+<td>ネットワークモード: <code>internet</code>、<code>drop</code>、<code>tor</code>、<code>vpn</code>、<code>sim200</code>、<code>sim404</code>、<code>simnx</code></td>
+</tr>
+<tr>
+<td><code>--geolocation TEXT</code></td>
+<td></td>
+<td></td>
+<td>VPN 出口の国コード。<code>--network vpn</code> が必要（繰り返し指定可）</td>
+</tr>
+<tr>
+<td><code>--browser</code></td>
+<td><code>-b</code></td>
+<td></td>
+<td>ブラウザ: <code>chrome</code>、<code>firefox</code>、<code>ie11</code>、<code>microsoft-edge</code></td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td></td>
+<td>人間が読みやすいテーブル</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>w10-quick<span class="w"> </span>-T<span class="w"> </span>os:windows10-2004-x64<span class="w"> </span>-t<span class="w"> </span><span class="m">120</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>w10-vpn<span class="w"> </span>-T<span class="w"> </span>os:windows10-2004-x64<span class="w"> </span>-t<span class="w"> </span><span class="m">300</span><span class="w"> </span>-N<span class="w"> </span>vpn<span class="w"> </span>--geolocation<span class="w"> </span>se
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>w10-ff<span class="w"> </span>-T<span class="w"> </span>os:windows10-2004-x64<span class="w"> </span>-T<span class="w"> </span>locale:en-us<span class="w"> </span>-t<span class="w"> </span><span class="m">120</span><span class="w"> </span>-b<span class="w"> </span>firefox<span class="w"> </span>-p
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>w10-quick<span class="w"> </span>-T<span class="w"> </span>os:windows10-2004-x64<span class="w"> </span>-t<span class="w"> </span><span class="m">120</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.id&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>レスポンスの形式:</strong> 作成されたプロファイルを JSON オブジェクトとして返します。フィールドは <code>sandbox profile list</code> の各要素と同一です。</p>
+<hr />
+<h3 id="banshee-sandbox-profile-update-変更を伴う操作"><code>banshee sandbox profile update</code> <em>(変更を伴う操作)</em><a class="headerlink" href="#banshee-sandbox-profile-update-変更を伴う操作" title="Permanent link">&para;</a></h3>
+<p>既存の分析プロファイルを更新します。指定したオプションのみが変更され、省略したオプションは現在の値が維持されます。<code>--unset</code> を使用して <code>network</code>、<code>browser</code>、または <code>geolocation</code> をクリアできます。</p>
+<table>
+<thead>
+<tr>
+<th>引数/オプション</th>
+<th>短縮形</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PROFILE_ID_OR_NAME</code>（必須）</td>
+<td></td>
+<td>プロファイルの UUID または名前</td>
+</tr>
+<tr>
+<td><code>--name TEXT</code></td>
+<td><code>-n</code></td>
+<td>新しいプロファイル名</td>
+</tr>
+<tr>
+<td><code>--tag TEXT</code></td>
+<td><code>-T</code></td>
+<td>OS/ロケールタグ。既存のすべてのタグを置き換えます（繰り返し指定可）</td>
+</tr>
+<tr>
+<td><code>--timeout INTEGER</code></td>
+<td><code>-t</code></td>
+<td>分析タイムアウト（秒単位、1〜3600）</td>
+</tr>
+<tr>
+<td><code>--network</code></td>
+<td><code>-N</code></td>
+<td>ネットワークモード: <code>internet</code>、<code>drop</code>、<code>tor</code>、<code>vpn</code>、<code>sim200</code>、<code>sim404</code>、<code>simnx</code></td>
+</tr>
+<tr>
+<td><code>--geolocation TEXT</code></td>
+<td></td>
+<td>VPN 出口の国コード。<code>--network vpn</code> が必要（繰り返し指定可）</td>
+</tr>
+<tr>
+<td><code>--browser</code></td>
+<td><code>-b</code></td>
+<td>ブラウザ: <code>chrome</code>、<code>firefox</code>、<code>ie11</code>、<code>microsoft-edge</code></td>
+</tr>
+<tr>
+<td><code>--unset</code></td>
+<td></td>
+<td>フィールドをクリア: <code>network</code>、<code>browser</code>、または <code>geolocation</code>（繰り返し指定可）</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>人間が読みやすいステータスメッセージ</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>update<span class="w"> </span>ernie<span class="w"> </span>-n<span class="w"> </span>ernie-v2
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>update<span class="w"> </span>ernie<span class="w"> </span>-T<span class="w"> </span>os:windows10-2004-x64<span class="w"> </span>-T<span class="w"> </span>locale:en-us
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>update<span class="w"> </span>ernie<span class="w"> </span>-t<span class="w"> </span><span class="m">300</span><span class="w"> </span>-N<span class="w"> </span>vpn<span class="w"> </span>--geolocation<span class="w"> </span>us<span class="w"> </span>--geolocation<span class="w"> </span>gb
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>update<span class="w"> </span>ernie<span class="w"> </span>--unset<span class="w"> </span>browser<span class="w"> </span>--unset<span class="w"> </span>network
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>update<span class="w"> </span>ernie<span class="w"> </span>-n<span class="w"> </span>ernie-v2<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.updated&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>レスポンスの形式:</strong> プロファイルが存在し更新された場合は <code>{"updated": true}</code> を返し、存在しない場合は <code>{"updated": false}</code> を返します。いずれの場合も終了コード 0 で終了します。</p>
+<hr />
+<h3 id="banshee-sandbox-profile-delete-変更を伴う操作"><code>banshee sandbox profile delete</code> <em>(変更を伴う操作)</em><a class="headerlink" href="#banshee-sandbox-profile-delete-変更を伴う操作" title="Permanent link">&para;</a></h3>
+<p>分析プロファイルを ID または名前で削除します。冪等な操作です。すでに存在しないプロファイルを削除しようとした場合は警告を出力し、終了コード 0 で終了します。</p>
+<table>
+<thead>
+<tr>
+<th>引数/オプション</th>
+<th>短縮形</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PROFILE_ID_OR_NAME</code>（必須）</td>
+<td></td>
+<td>プロファイルの UUID または名前</td>
+</tr>
+<tr>
+<td><code>--yes</code> / <code>-y</code></td>
+<td></td>
+<td>確認プロンプトをスキップ</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>delete<span class="w"> </span>022b8c4e-22ab-46a4-ac49-a2732b2412b7
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>delete<span class="w"> </span><span class="s1">&#39;Windows 7 Long&#39;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>delete<span class="w"> </span>w7-long<span class="w"> </span>-y
+</code></pre></div></td></tr></table></div>
+<p><strong>レスポンス:</strong> 成功時は出力なし。終了コード 0 で終了します。</p>
+<hr />
+<h3 id="banshee-sandbox-report-overview"><code>banshee sandbox report overview</code><a class="headerlink" href="#banshee-sandbox-report-overview" title="Permanent link">&para;</a></h3>
+<p>完了したサンドボックスサンプルの完全な概要レポートを取得します。取得内容は、判定スコア、マルウェアファミリー、タグ、ハッシュ、検出シグネチャ、抽出されたマルウェア設定、ネットワーク IOC、およびタスクごとの結果です。サンプルは <code>reported</code> ステータスである必要があります。</p>
+<table>
+<thead>
+<tr>
+<th>引数/オプション</th>
+<th>短縮形</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SAMPLE_ID</code>（必須）</td>
+<td></td>
+<td>サンドボックスサンプル ID</td>
+</tr>
+<tr>
+<td><code>--wait</code></td>
+<td><code>-w</code></td>
+<td>レポートが準備できるまで最大 30 分間ポーリング</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>人間が読みやすい要約ビュー</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>overview<span class="w"> </span><span class="m">260501</span>-h4p7laawme
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>overview<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>-p
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>overview<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>--wait
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>overview<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.analysis&#39;</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>overview<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.targets[].iocs&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>レスポンスの形式:</strong> 単一の JSON オブジェクトを返します。</p>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.version</code></td>
+<td>レポートフォーマットのバージョン</td>
+</tr>
+<tr>
+<td><code>.build</code></td>
+<td>サンドボックスのビルド情報</td>
+</tr>
+<tr>
+<td><code>.analysis</code></td>
+<td>判定オブジェクト: スコア、マルウェアファミリー、タグ</td>
+</tr>
+<tr>
+<td><code>.sample</code></td>
+<td>サンプルメタデータ: id、kind、filename、sha256、submitted、completed</td>
+</tr>
+<tr>
+<td><code>.signatures</code></td>
+<td>すべてのタスクにわたる検出シグネチャ</td>
+</tr>
+<tr>
+<td><code>.targets</code></td>
+<td>実行ターゲットオブジェクトの配列。各オブジェクトには <code>.iocs</code>（ネットワーク IOC）とマルウェア設定の抽出結果が含まれます</td>
+</tr>
+<tr>
+<td><code>.tasks</code></td>
+<td>タスクごとのサマリーの配列: タスク ID、プラットフォーム、ステータス、判定スコア</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="banshee-sandbox-report-static"><code>banshee sandbox report static</code><a class="headerlink" href="#banshee-sandbox-report-static" title="Permanent link">&para;</a></h3>
+<p>サンドボックスサンプルの静的（実行前）分析レポートを取得します。取得内容は、判定スコア、タグ、展開されたファイル、静的検出シグネチャ、および抽出されたマルウェア設定です。挙動タスクの完了前であっても、静的分析が完了した時点で取得可能です。</p>
+<table>
+<thead>
+<tr>
+<th>引数/オプション</th>
+<th>短縮形</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SAMPLE_ID</code>（必須）</td>
+<td></td>
+<td>サンドボックスサンプル ID</td>
+</tr>
+<tr>
+<td><code>--wait</code></td>
+<td><code>-w</code></td>
+<td>レポートが準備できるまで最大 10 分間ポーリング</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>人間が読みやすい要約ビュー</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span>
+<span class="normal"><a href="#__codelineno-14-3">3</a></span>
+<span class="normal"><a href="#__codelineno-14-4">4</a></span>
+<span class="normal"><a href="#__codelineno-14-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>static<span class="w"> </span><span class="m">260501</span>-h4p7laawme
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>static<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>-p
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>static<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>--wait
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>static<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.analysis&#39;</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>static<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.files[].sha256&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>レスポンスの形式:</strong> 単一の JSON オブジェクトを返します。</p>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.version</code></td>
+<td>レポートフォーマットのバージョン</td>
+</tr>
+<tr>
+<td><code>.build</code></td>
+<td>サンドボックスのビルド情報</td>
+</tr>
+<tr>
+<td><code>.sample</code></td>
+<td>サンプルメタデータ: id、kind、filename、sha256、submitted</td>
+</tr>
+<tr>
+<td><code>.task</code></td>
+<td>静的タスクのメタデータ</td>
+</tr>
+<tr>
+<td><code>.analysis</code></td>
+<td>判定オブジェクト: スコア、タグ、静的シグネチャ</td>
+</tr>
+<tr>
+<td><code>.files</code></td>
+<td>展開されたファイルの配列 — 各要素に <code>sha256</code>、<code>filename</code>、<code>size</code>、および静的分析の詳細が含まれます</td>
+</tr>
+<tr>
+<td><code>.unpack_count</code></td>
+<td>送信ファイルから展開されたファイルの総数</td>
+</tr>
+<tr>
+<td><code>.error_count</code></td>
+<td>展開できなかったファイルの数</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="banshee-sandbox-report-behavioral"><code>banshee sandbox report behavioral</code><a class="headerlink" href="#banshee-sandbox-report-behavioral" title="Permanent link">&para;</a></h3>
+<p>完了したサンドボックスサンプルの挙動（実行後）レポートを取得します。完了した挙動タスクごとに 1 オブジェクトが返されます。未完了のタスクは出力から除外され、stderr に通知されます。すべてのタスクが完了するまで、コマンドは非ゼロの終了コードで終了します。サンプルに挙動タスクがない場合は、終了コード 0 で空の配列が返されます。</p>
+<p><code>--pretty</code> ビューでのプロセスのコマンドラインはデフォルトで省略されます。完全な内容が必要な場合は <code>--full-cmd</code> を使用してください（コマンドラインはマルウェアサンプルからそのまま取得されるため、信頼できない入力として扱ってください）。</p>
+<table>
+<thead>
+<tr>
+<th>引数/オプション</th>
+<th>短縮形</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SAMPLE_ID</code>（必須）</td>
+<td></td>
+<td>サンドボックスサンプル ID</td>
+</tr>
+<tr>
+<td><code>--wait</code></td>
+<td><code>-w</code></td>
+<td>すべてのタスクが完了するまで最大 30 分間ポーリング</td>
+</tr>
+<tr>
+<td><code>--full-cmd</code></td>
+<td></td>
+<td>プロセスのコマンドラインを省略せず完全に表示（信頼できない入力として扱うこと）</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>タスクごとの人間が読みやすい要約ビュー</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
+<span class="normal"><a href="#__codelineno-15-2">2</a></span>
+<span class="normal"><a href="#__codelineno-15-3">3</a></span>
+<span class="normal"><a href="#__codelineno-15-4">4</a></span>
+<span class="normal"><a href="#__codelineno-15-5">5</a></span>
+<span class="normal"><a href="#__codelineno-15-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>behavioral<span class="w"> </span><span class="m">260501</span>-h4p7laawme
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>behavioral<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>-p
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>behavioral<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>--wait
+<a id="__codelineno-15-4" name="__codelineno-15-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>behavioral<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>-p<span class="w"> </span>--full-cmd
+<a id="__codelineno-15-5" name="__codelineno-15-5"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>behavioral<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[].analysis.score&#39;</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>behavioral<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[].network.flows&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>レスポンスの形式:</strong> JSON 配列を返します。各要素は 1 つの挙動タスクに対応します。</p>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.task_id</code></td>
+<td>挙動タスク ID</td>
+</tr>
+<tr>
+<td><code>.version</code></td>
+<td>レポートフォーマットのバージョン</td>
+</tr>
+<tr>
+<td><code>.build</code></td>
+<td>サンドボックスのビルド情報</td>
+</tr>
+<tr>
+<td><code>.sample</code></td>
+<td>サンプルメタデータ: id、kind、filename、sha256</td>
+</tr>
+<tr>
+<td><code>.task</code></td>
+<td>タスクメタデータ: platform、status、started、completed</td>
+</tr>
+<tr>
+<td><code>.analysis</code></td>
+<td>判定オブジェクト: スコア、マルウェアファミリー、タグ</td>
+</tr>
+<tr>
+<td><code>.tags</code></td>
+<td>挙動タグの配列（例: <code>discovery</code>、<code>execution</code>）</td>
+</tr>
+<tr>
+<td><code>.signatures</code></td>
+<td>トリガーされた検出シグネチャの配列</td>
+</tr>
+<tr>
+<td><code>.processes</code></td>
+<td>観測されたプロセスの配列 — 各要素に <code>pid</code>、<code>name</code>、<code>cmd</code>（<code>--full-cmd</code> を指定しない場合は省略）、および子プロセスが含まれます</td>
+</tr>
+<tr>
+<td><code>.network</code></td>
+<td>ネットワークアクティビティ: <code>.flows</code>（接続レコード）、<code>.dns</code>（DNS クエリ）、<code>.http</code>（HTTP リクエスト）</td>
+</tr>
+<tr>
+<td><code>.dumped</code></td>
+<td>ダンプ/抽出されたファイルとその SHA-256 ハッシュの配列</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.youtube.com/user/RecordedFuture" target="_blank" rel="noopener" title="www.youtube.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M549.7 124.1c-6.2-23.7-24.8-42.3-48.3-48.6C458.9 64 288.1 64 288.1 64S117.3 64 74.7 75.5c-23.5 6.3-42 24.9-48.3 48.6C15 167 15 256.4 15 256.4s0 89.4 11.4 132.3c6.3 23.6 24.8 41.5 48.3 47.8C117.3 448 288.1 448 288.1 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zM232.2 337.6V175.2l142.7 81.2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.facebook.com/RecordedFuture" target="_blank" rel="noopener" title="www.facebook.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256c0 120 82.7 220.8 194.2 248.5V334.2h-52.8V256h52.8v-33.7c0-87.1 39.4-127.5 125-127.5 16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287v175.9C413.8 494.8 512 386.9 512 256"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/company/recorded-future" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/recordedfuture" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.instagram.com/recordedfuture/" target="_blank" rel="noopener" title="www.instagram.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M224.3 141a115 115 0 1 0-.6 230 115 115 0 1 0 .6-230m-.6 40.4a74.6 74.6 0 1 1 .6 149.2 74.6 74.6 0 1 1-.6-149.2m93.4-45.1a26.8 26.8 0 1 1 53.6 0 26.8 26.8 0 1 1-53.6 0m129.7 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8M399 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.recordedfuture.com/feed" target="_blank" rel="noopener" title="www.recordedfuture.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M0 64c0-17.7 14.3-32 32-32 229.8 0 416 186.2 416 416 0 17.7-14.3 32-32 32s-32-14.3-32-32C384 253.6 226.4 96 32 96 14.3 96 0 81.7 0 64m0 352a64 64 0 1 1 128 0 64 64 0 1 1-128 0m32-256c159.1 0 288 128.9 288 288 0 17.7-14.3 32-32 32s-32-14.3-32-32c0-123.7-100.3-224-224-224-17.7 0-32-14.3-32-32s14.3-32 32-32"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.annotate", "content.code.copy", "content.code.wrap", "content.footnote.tooltips", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.path", "navigation.top", "navigation.tracking", "navigation.sections", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
