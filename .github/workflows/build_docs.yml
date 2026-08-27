@@ -22,7 +22,7 @@ jobs:
           git config user.name docs-bot[bot]
           git config user.email docs-bot@users.noreply.github.com
 
-      - uses: astral-sh/setup-uv@v6
+      - uses: astral-sh/setup-uv@v7
 
       - name: Set up Python
         run: uv python install ${{ vars.PYTHON_VERSION }}
