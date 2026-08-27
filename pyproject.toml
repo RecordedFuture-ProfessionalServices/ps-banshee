@@ -50,7 +50,7 @@ docs = [
     "mkdocs~=1.6.1",
     "mkdocs-material~=9.7.6",
     "mkdocstrings[python]>=1.0.4",
-    "griffe-typingdoc~=0.2.8",
+    "griffe-typingdoc>=0.2.8,<0.4.0",
     "mkdocs-llmstxt>=0.3.0",
     "pymdown-extensions>=10.21.3,<11.1.0",
     "typer<0.28.0",
