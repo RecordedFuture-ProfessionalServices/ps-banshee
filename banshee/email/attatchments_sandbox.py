@@ -28,11 +28,6 @@ from banshee.sandbox.constants import SANDBOX_FRONTEND_URLS
 from banshee.sandbox.samples_list import _print_sample_summary_pretty
 
 _ZIP_PASSWORD = b"infected"
-_WARNING = (
-    'WARNING: Extracted files may be malicious. Handle with care. '
-    'Extracted files are wrapped in a ZIP archive encrypted with password `infected` '
-    'to prevent accidental detonation.'
-)
 
 def extract_attatchments(eml_path: Path, zip_path: Path) -> list[dict[str, str]]:
     """Extract the attachment from the email file and save to a zip.
@@ -75,7 +70,7 @@ def _empty_error(msg, pretty):
     else:
         print([])
 
-def sandbox_attatchments(file_path, pretty):
+def sandbox_attatchments(file_path, zip_path, pretty):
     with Progress(
         SpinnerColumn(),
         TextColumn('[progress.description]{task.description}'),
@@ -85,7 +80,7 @@ def sandbox_attatchments(file_path, pretty):
         validate_eml(file_path)
 
         task_id = progress.add_task(description="Extracting files")
-        output_path = Path.cwd() / "extracted_files.zip"
+        output_path = Path(zip_path) / "extracted_files.zip"
 
         attatchments = extract_attatchments(file_path, output_path)
 
@@ -116,7 +111,11 @@ def sandbox_attatchments(file_path, pretty):
                 break
             time.sleep(constants.SANDBOX_POLL_RATE)
         else:
-            _empty_error(f"Failed to get report for submission {submission.id_}. Timed out.", pretty)
+            _empty_error(
+                f"Failed to get report for submission {submission.id_}. Timed out.",
+                pretty
+            )
+            return
 
         summary = sandbox_mgr.fetch_sample_summary(submission.id_)
 
