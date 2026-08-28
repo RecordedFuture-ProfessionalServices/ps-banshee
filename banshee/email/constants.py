@@ -23,3 +23,7 @@ URL_TEXT = re.compile(r'\[[^\]\s]*:$')
 
 TA_IP_LIST = '/public/risklists/ta_ip_risklist_v2.csv'
 TA_DOMAIN_LIST = '/public/risklists/ta_domain_risklist_v2.csv'
+
+SANDBOX_TIMEOUT = 600
+SANDBOX_POLL_RATE = 10
+SANDBOX_COMPLETED_STATUS = ["reported", "failed"]
