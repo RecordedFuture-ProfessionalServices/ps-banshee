@@ -656,7 +656,7 @@ EPILOG_EMAIL_ATTACHMENT = """
 
 * banshee email extract-attatchments phishing_email.eml
 
-* banshee email extract-attatchments phishing_email.eml -p
+* banshee email extract-attatchments phishing_email.eml -p -z ../sandbox/files.zip
 """
 
 EPILOG_SANDBOX_DELETE = """

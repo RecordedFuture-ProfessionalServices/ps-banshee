@@ -11,6 +11,7 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
+from pathlib import Path
 from typing import Annotated, Optional
 
 from typer import Argument, Option, Typer
@@ -37,6 +38,8 @@ ATTACHMENT_COMMAND_HELP = (
     "Extract attatchments from an e-mail (EML) file and submit to"
     "Recorded Future Sandbox"
 )
+
+CWD = Path.cwd()
 
 app = Typer(no_args_is_help=True)
 
@@ -70,7 +73,15 @@ def enrich(
 
 @banshee_cmd(app=app, help_=ATTACHMENT_COMMAND_HELP, epilog=EPILOG_EMAIL_ATTACHMENT)
 def extract_attatchments(
-    file_path: Annotated[str, Argument(help="Path to eml file", show_default=False)],
+    file_path: Annotated[str, Argument(help="Path to eml file", show_default=True)],
+    zip_path: Annotated[
+        Optional[Path],
+        Option(
+            "-z",
+            "--zip-path",
+            help="Specify a custom path to save the archive containing the extracted files."
+        )
+    ]= CWD,
     pretty: OPT_PRETTY_PRINT = False
 ):
-    sandbox_attatchments(file_path, pretty)
+    sandbox_attatchments(file_path, zip_path, pretty)
