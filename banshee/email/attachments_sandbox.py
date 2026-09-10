@@ -27,9 +27,10 @@ from banshee.email.helpers import validate_eml
 from banshee.sandbox.constants import SANDBOX_FRONTEND_URLS
 from banshee.sandbox.samples_list import _print_sample_summary_pretty
 
-_ZIP_PASSWORD = b"infected"
+_ZIP_PASSWORD = b'infected'
 
-def extract_attatchments(eml_path: Path, zip_path: Path) -> list[dict[str, str]]:
+
+def extract_attachments(eml_path: Path, zip_path: Path) -> list[dict[str, str]]:
     """Extract the attachment from the email file and save to a zip.
 
     Args:
@@ -39,30 +40,28 @@ def extract_attatchments(eml_path: Path, zip_path: Path) -> list[dict[str, str]]
     Returns:
         dict of extracted filenames
     """
-    attatchments = []
+    attachments = []
 
-    with Path(eml_path).open("rb") as f:
+    with Path(eml_path).open('rb') as f:
         parsed_email = BytesParser().parse(f)
 
     with pyzipper.AESZipFile(
         zip_path,
-        mode="w",
+        mode='w',
         compression=pyzipper.ZIP_DEFLATED,
         encryption=pyzipper.WZ_AES,
     ) as zip_file:
-       zip_file.setpassword(_ZIP_PASSWORD)
+        zip_file.setpassword(_ZIP_PASSWORD)
 
-       for part in parsed_email.walk():
-           content_disposition = part.get_content_disposition()
+        for part in parsed_email.walk():
+            content_disposition = part.get_content_disposition()
 
-           if content_disposition == "attachment" and part.get_filename() not in attatchments:
-                attatchments.append(part.get_filename())
-                zip_file.writestr(
-                    part.get_filename(),
-                    part.get_payload(decode=True)
-                )
+            if content_disposition == 'attachment' and part.get_filename() not in attachments:
+                attachments.append(part.get_filename())
+                zip_file.writestr(part.get_filename(), part.get_payload(decode=True))
 
-    return attatchments
+    return attachments
+
 
 def _empty_error(msg, pretty):
     if pretty:
@@ -70,40 +69,37 @@ def _empty_error(msg, pretty):
     else:
         print([])
 
-def sandbox_attatchments(file_path, zip_path, pretty):
+
+def sandbox_attachments(file_path, zip_path, pretty):
     with Progress(
         SpinnerColumn(),
         TextColumn('[progress.description]{task.description}'),
         transient=True,
-        console=Console(stderr=True)
+        console=Console(stderr=True),
     ) as progress:
         validate_eml(file_path)
 
-        task_id = progress.add_task(description="Extracting files")
-        output_path = Path(zip_path) / "extracted_files.zip"
+        task_id = progress.add_task(description='Extracting files')
+        output_path = Path(zip_path) / 'extracted_files.zip'
 
-        attatchments = extract_attatchments(file_path, output_path)
+        attachments = extract_attachments(file_path, output_path)
 
-        if not attatchments:
-            _empty_error(
-                f"No files were extracted from {file_path}",
-                pretty
-            )
+        if not attachments:
+            _empty_error(f'No files were extracted from {file_path}', pretty)
             return
 
         progress.update(
-            task_id,
-            description=f"Submitting ZIP file with {len(attatchments)} files to sandbox"
+            task_id, description=f'Submitting ZIP file with {len(attachments)} files to sandbox'
         )
         sandbox_mgr = SandboxMgr()
         submission = sandbox_mgr.submit_sample(
-            kind="file",
+            kind='file',
             file_path=output_path,
             password=str(_ZIP_PASSWORD),
-            user_tags="Banshee EML Extraction"
+            user_tags='Banshee EML Extraction',
         )
 
-        progress.update(task_id, description="Waiting for Sandbox Analysis...")
+        progress.update(task_id, description='Waiting for Sandbox Analysis...')
         deadline = time.monotonic() + constants.SANDBOX_TIMEOUT
         while time.monotonic() < deadline:
             report = sandbox_mgr.fetch_sample(submission.id_)
@@ -112,8 +108,7 @@ def sandbox_attatchments(file_path, zip_path, pretty):
             time.sleep(constants.SANDBOX_POLL_RATE)
         else:
             _empty_error(
-                f"Failed to get report for submission {submission.id_}. Timed out.",
-                pretty
+                f'Failed to get report for submission {submission.id_}. Timed out.', pretty
             )
             return
 

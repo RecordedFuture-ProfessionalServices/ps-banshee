@@ -20,7 +20,7 @@ from banshee.commands.args import OPT_PRETTY_PRINT
 from banshee.email.constants import MIN_RISK_SCORE
 
 from ..branding import banshee_cmd
-from ..email.attatchments_sandbox import sandbox_attatchments
+from ..email.attachments_sandbox import sandbox_attachments
 from ..email.email_enrich import email_enrich
 from .epilogs import EPILOG_EMAIL_ATTACHMENT, EPILOG_EMAIL_ENRICH
 
@@ -35,8 +35,7 @@ ENRICH_COMMAND_HELP = (
 )
 
 ATTACHMENT_COMMAND_HELP = (
-    "Extract attatchments from an e-mail (EML) file and submit to"
-    "Recorded Future Sandbox"
+    'Extract attachments from an e-mail (EML) file and submit to Recorded Future Sandbox'
 )
 
 CWD = Path.cwd()
@@ -72,16 +71,16 @@ def enrich(
 
 
 @banshee_cmd(app=app, help_=ATTACHMENT_COMMAND_HELP, epilog=EPILOG_EMAIL_ATTACHMENT)
-def extract_attatchments(
-    file_path: Annotated[str, Argument(help="Path to eml file", show_default=True)],
+def extract_attachments(
+    file_path: Annotated[str, Argument(help='Path to eml file', show_default=True)],
     zip_path: Annotated[
         Optional[Path],
         Option(
-            "-z",
-            "--zip-path",
-            help="Specify a custom path to save the archive containing the extracted files."
-        )
-    ]= CWD,
-    pretty: OPT_PRETTY_PRINT = False
+            '-z',
+            '--zip-path',
+            help='Specify a custom path to save the archive containing the extracted files.',
+        ),
+    ] = CWD,
+    pretty: OPT_PRETTY_PRINT = False,
 ):
-    sandbox_attatchments(file_path, zip_path, pretty)
+    sandbox_attachments(file_path, zip_path, pretty)

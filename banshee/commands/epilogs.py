@@ -654,9 +654,9 @@ EPILOG_EMAIL_ENRICH = """
 EPILOG_EMAIL_ATTACHMENT = """
 ## Example Usage
 
-* banshee email extract-attatchments phishing_email.eml
+* banshee email extract-attachments phishing_email.eml
 
-* banshee email extract-attatchments phishing_email.eml -p -z ../sandbox/files.zip
+* banshee email extract-attachments phishing_email.eml -p -z ../sandbox/files.zip
 """
 
 EPILOG_SANDBOX_DELETE = """
