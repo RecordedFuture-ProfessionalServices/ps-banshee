@@ -59,6 +59,12 @@ extra:
     - name: 한국어
       link: /ps-banshee/ko/
       lang: ko
+    - name: 中文(繁體) 
+      link: /ps-banshee/zh-TW/
+      lang: zh-TW
+    - name: ภาษาไทย
+      link: /ps-banshee/th/
+      lang: th
   social:
   - icon: fontawesome/brands/youtube
     link: https://www.youtube.com/user/RecordedFuture
