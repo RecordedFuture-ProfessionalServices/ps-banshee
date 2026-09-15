@@ -1,0 +1,30 @@
+# PS Banshee
+
+> A Recorded Future CLI for terminal-based threat intelligence investigations.
+
+Full single-file bundle (every command group inlined): <https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt>
+
+Set `RF_TOKEN` in the shell environment before invoking any command.
+
+**Alerts:** Recorded Future has two distinct alert systems. Use `ca` for Classic Alerts - legacy rule-based alerts with short opaque IDs (6+ chars, e.g. `tybakN`). Use `pba` for Playbook Alerts - automation-driven alerts with 36-char UUID IDs (the `task:` prefix is optional; `pba search` returns them with the prefix). Categories exclusive to PBA: `domain_abuse`, `cyber_vulnerability`, `third_party_risk`, `code_repo_leakage`, `identity_novel_exposures`, `geopolitics_facility`, `malware_report`. If the user gives you an alert ID, pick the group by ID length; if they describe the category, the categories above route to `pba`.
+
+## Commands
+
+- [Banshee CLI Knowledge Base](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/index.md)
+- [ca](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/ca/index.md)
+- [email](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/email/index.md)
+- [entity](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/entity/index.md)
+- [ioc](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/ioc/index.md)
+- [list](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/list/index.md)
+- [pba](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/pba/index.md)
+- [pcap](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/pcap/index.md)
+- [risklist](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/risklist/index.md)
+- [rules](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/rules/index.md)
+- [sandbox](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/sandbox/index.md)
+
+## Optional
+
+- [Installation](https://recordedfuture-professionalservices.github.io/ps-banshee/getting-started/installation/index.md)
+- [Using with AI agents](https://recordedfuture-professionalservices.github.io/ps-banshee/getting-started/llms/index.md)
+- [PS Banshee use cases overview](https://recordedfuture-professionalservices.github.io/ps-banshee/usecases/index.md)
+
