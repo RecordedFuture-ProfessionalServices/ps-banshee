@@ -1,9 +1,14 @@
 # 릴리스 히스토리
 
+## 1.6.0 - 2026-09-15
+### Added
+- EML 파일에서 첨부 파일을 추출하고, 비밀번호로 보호된 아카이브에 저장한 후 분석을 위해 Recorded Future Sandbox에 제출하는 새로운 [`email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) 서브 명령어를 추가하였습니다.
+
 ## 1.5.0 - 2026-08-21
 
 ### Added
-- Recorded Future Sandbox를 위한 새로운 [`sandbox`](reference/commands.md#banshee-sandbox) 명령어 그룹을 추가하였습니다. `RF_SANDBOX_TOKEN`이 필요하며, 지역은 [`--sandbox-choice`](reference/commands.md#banshee--sandbox-choice) 또는 `RF_SANDBOX_CHOICE`로 선택할 수 있습니다(`eu` 기본값, `usa`, `apj`, `public`, `private`).
+- Recorded Future Sandbox와 상호작용하는 새로운 [`sandbox`](reference/commands.md#banshee-sandbox) 명령어를 추가하였습니다.
+
 
 ## v.1.4.1 - 2026-07-13
 

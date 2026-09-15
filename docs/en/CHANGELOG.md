@@ -1,5 +1,9 @@
 # Release History
 
+## 1.6.0 - 2026-09-15
+### Added
+- New ['email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) sub-command to extract attachments from EML files, save to a password protected archive and then submit to Recorded Future Sandbox for analysis.
+
 ## 1.5.0 - 2026-08-21
 
 ### Added

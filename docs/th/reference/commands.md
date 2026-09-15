@@ -570,6 +570,43 @@ banshee email enrich phishing_submission.eml -r 1 -p
 banshee email enrich suspicious.eml --threat-hunt
 </code></pre>
 
+### banshee email extract-attachments
+
+แยก attachment จากไฟล์อีเมล (EML) บีบอัดเข้า ZIP ที่มีรหัสผ่าน (รหัสผ่าน `infected`) และส่ง archive ดังกล่าวไปยัง Recorded Future Sandbox เพื่อวิเคราะห์ รอจนกว่าการวิเคราะห์ใน sandbox จะเสร็จสมบูรณ์ก่อนแสดงสรุป ได้แก่ สถานะปัจจุบัน คะแนนรวม เป้าหมาย timestamps การสร้างและเสร็จสิ้น SHA256 และรายละเอียดแต่ละ task
+
+โดยค่าเริ่มต้น คำสั่งจะแสดงผลลัพธ์ในรูปแบบ JSON
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee email extract-attachments [OPTIONS] FILE_PATH
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-email-extract-attachments--file-path"><a href="#banshee-email-extract-attachments--file-path"><code>FILE_PATH</code></a></dt><dd><p>Path ของไฟล์ EML ที่ต้องการแยก attachment</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-email-extract-attachments--zip-path"><a href="#banshee-email-extract-attachments--zip-path"><code>--zip-path</code></a>, <code>-z</code> <i>zip-path</i></dt><dd>
+    <p>ระบุ path แบบกำหนดเองสำหรับบันทึก archive ที่มีไฟล์ที่แยกออกมา</p>
+    <p>ค่าเริ่มต้นคือ directory ปัจจุบัน</p></dd>
+    <dt id="banshee-email-extract-attachments--pretty"><a href="#banshee-email-extract-attachments--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>แสดงผลลัพธ์ในรูปแบบที่อ่านง่ายสำหรับมนุษย์</p></dd>
+    <dt id="banshee-email-extract-attachments--help"><a href="#banshee-email-extract-attachments--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee email extract-attachments phishing_email.eml
+banshee email extract-attachments phishing_email.eml -p -z ../sandbox/files.zip
+</code></pre>
+
 ## banshee ioc
 
 ค้นหาและดูข้อมูล Indicators of Compromise (IOC)
@@ -691,7 +728,7 @@ cat test_ips.csv| banshee ioc lookup ip -p
 
 เสริมข้อมูลแบบ bulk อย่างรวดเร็วสำหรับ IOC จำนวนเท่าใดก็ได้ในประเภทเดียว คำสั่งจะแบ่งกลุ่มสูงสุด 1,000 IOC ต่อการเรียก API และจัดการการแบ่งกลุ่มโดยอัตโนมัติ ทำให้เร็วกว่า [`banshee ioc lookup`](#banshee-ioc-lookup) อย่างมากสำหรับปริมาณข้อมูลจำนวนมาก
 
-ส่งคืนชุดฟิลด์ที่กำหนดไว้สำหรับแต่ละ indicator: risk score และ risk rules ที่ถูก trigger ใช้สำหรับการ triage ปริมาณสูง
+ส่งคืนชุดฟิลด์ที่กำหนดไว้สำหรับแต่ละ indicator ได้แก่ risk score และ risk rules ที่ถูก trigger เหมาะสำหรับการ triage ปริมาณสูง
 
 โดยค่าเริ่มต้น คำสั่งจะแสดงผลลัพธ์ในรูปแบบ JSON
 
@@ -2197,7 +2234,7 @@ banshee sandbox search --family emotet | jq '.[].sha256'
 
 ### banshee sandbox get
 
-ดึงสรุปสำหรับ sandbox sample รายการเดียวตาม ID: สถานะปัจจุบัน คะแนนรวม เป้าหมาย timestamps การสร้างและเสร็จสิ้น SHA256 และรายละเอียดแต่ละ task ใช้ได้กับทั้ง sample ที่กำลังดำเนินการและที่เสร็จสมบูรณ์แล้ว
+ดึงสรุปสำหรับ sandbox sample รายการเดียวตาม ID ได้แก่ สถานะปัจจุบัน คะแนนรวม เป้าหมาย timestamps การสร้างและเสร็จสิ้น SHA256 และรายละเอียดแต่ละ task ใช้ได้กับทั้ง sample ที่กำลังดำเนินการและที่เสร็จสมบูรณ์แล้ว
 
 <h3 class="commands-reference">Usage</h3>
 
@@ -2772,20 +2809,4 @@ banshee sandbox report behavioral [OPTIONS] SAMPLE_ID
     <dt id="banshee-sandbox-report-behavioral--wait"><a href="#banshee-sandbox-report-behavioral--wait"><code>--wait</code></a>, <code>-w</code></dt><dd>
     <p>Poll จนกว่า task ทั้งหมดจะเสร็จสมบูรณ์ (สูงสุด 30 นาที)</p></dd>
     <dt id="banshee-sandbox-report-behavioral--full-cmd"><a href="#banshee-sandbox-report-behavioral--full-cmd"><code>--full-cmd</code></a></dt><dd>
-    <p>แสดง command line ของ process แบบเต็มโดยไม่ตัดทอน เนื้อหา command line นำมาโดยตรงจาก malware sample และควรถือว่าเป็น input ที่ไม่น่าเชื่อถือ</p></dd>
-    <dt id="banshee-sandbox-report-behavioral--pretty"><a href="#banshee-sandbox-report-behavioral--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
-    <p>แสดงผลลัพธ์ในรูปแบบที่อ่านง่ายสำหรับมนุษย์</p></dd>
-    <dt id="banshee-sandbox-report-behavioral--help"><a href="#banshee-sandbox-report-behavioral--help"><code>--help</code></a>, <code>-h</code></dt><dd>
-    <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>
-</dl>
-
-<h3 class="commands-reference">Example Usage</h3>
-
-<pre><code class="language-bash">
-banshee sandbox report behavioral 260501-h4p7laawme
-banshee sandbox report behavioral 260501-h4p7laawme -p
-banshee sandbox report behavioral 260501-h4p7laawme --wait
-banshee sandbox report behavioral 260501-h4p7laawme -p --full-cmd
-banshee sandbox report behavioral 260501-h4p7laawme | jq '.[].analysis.score'
-banshee sandbox report behavioral 260501-h4p7laawme | jq '.[].network.flows'
-</code></pre>
+    <p>แสดง command line ของ process แบบเต็มโดยไม่ตัดทอน เนื้อหา command line นำมาโด
