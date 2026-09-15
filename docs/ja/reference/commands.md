@@ -570,6 +570,43 @@ banshee email enrich phishing_submission.eml -r 1 -p
 banshee email enrich suspicious.eml --threat-hunt
 </code></pre>
 
+### banshee email extract-attachments
+
+EML ファイルから添付ファイルを抽出し、パスワード保護された ZIP アーカイブ（パスワード `infected`）にまとめて、Recorded Future Sandbox に提出して解析します。サンドボックス解析が完了するまで待機した後、現在のステータス、総合スコア、ターゲット、作成・完了タイムスタンプ、SHA256、タスクごとの内訳のサマリーを返します。
+
+デフォルトでは、結果を JSON 形式で出力します。
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee email extract-attachments [OPTIONS] FILE_PATH
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-email-extract-attachments--file-path"><a href="#banshee-email-extract-attachments--file-path"><code>FILE_PATH</code></a></dt><dd><p>添付ファイルを抽出する EML ファイルへのパス</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-email-extract-attachments--zip-path"><a href="#banshee-email-extract-attachments--zip-path"><code>--zip-path</code></a>, <code>-z</code> <i>zip-path</i></dt><dd>
+    <p>抽出したファイルを含むアーカイブの保存先パスを指定します</p>
+    <p>デフォルトはカレントディレクトリです</p></dd>
+    <dt id="banshee-email-extract-attachments--pretty"><a href="#banshee-email-extract-attachments--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>人間が読みやすい形式で結果を整形して表示する</p></dd>
+    <dt id="banshee-email-extract-attachments--help"><a href="#banshee-email-extract-attachments--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>このコマンドのヘルプを表示する</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee email extract-attachments phishing_email.eml
+banshee email extract-attachments phishing_email.eml -p -z ../sandbox/files.zip
+</code></pre>
+
 ## banshee ioc
 
 侵害インジケーター（IOC）の検索と参照を行います。

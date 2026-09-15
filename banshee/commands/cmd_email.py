@@ -35,7 +35,9 @@ ENRICH_COMMAND_HELP = (
 )
 
 ATTACHMENT_COMMAND_HELP = (
-    'Extract attachments from an e-mail (EML) file and submit to Recorded Future Sandbox'
+    'Extract attachments from an e-mail (EML) file, archive them into a '
+    'password-protected ZIP (password: "infected") and submit to '
+    'Recorded Future Sandbox for analysis.'
 )
 
 CWD = Path.cwd()

@@ -1,9 +1,14 @@
 # リリース履歴
 
+## 1.6.0 - 2026-09-15
+### 追加
+- EML ファイルから添付ファイルを抽出し、パスワード保護されたアーカイブに保存した後、Recorded Future Sandbox に分析のために送信するための新しい [`email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) サブコマンドを追加。
+
 ## 1.5.0 - 2026-08-21
 
 ### 追加
-- Recorded Future Sandbox 向けの新しい [`sandbox`](reference/commands.md#banshee-sandbox) コマンドグループを追加。`RF_SANDBOX_TOKEN` が必要。リージョンは [`--sandbox-choice`](reference/commands.md#banshee--sandbox-choice) または `RF_SANDBOX_CHOICE` で選択可能（デフォルト: `eu`、その他: `usa`、`apj`、`public`、`private`）。
+- Recorded Future Sandbox と連携するための新しい [`sandbox`](reference/commands.md#banshee-sandbox) コマンドを追加。
+
 
 ## v.1.4.1 - 2026-07-13
 
@@ -14,7 +19,7 @@
 ## v.1.4.0 - 2026-07-13
 
 ### 追加
-- [`risklist stat`](reference/commands.md#banshee-risklist-stat) コマンドに、リスクリストをダウンロードしてリスクスコアごとのインジケーター数のテーブルを表示する新しい [`-C`/`--count`](reference/commands.md#banshee-risklist-stat--count) オプションを追加。
+- [`risklist stat`](reference/commands.md#banshee-risklist-stat) コマンドに、リスクリストをダウンロードしてリスクスコアごとのインジケーター数のテーブルを表示するための新しい [`-C`/`--count`](reference/commands.md#banshee-risklist-stat--count) オプションを追加。
 
 ## v1.3.1 - 2026-06-30
 
