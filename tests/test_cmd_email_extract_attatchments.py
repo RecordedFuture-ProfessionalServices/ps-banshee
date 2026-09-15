@@ -3,14 +3,14 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 import pyzipper
+from typer.testing import CliRunner
+
+from banshee.commands.cmd_email import app
 from banshee.email.attachments_sandbox import (
     _ZIP_PASSWORD,
     extract_attachments,
     sandbox_attachments,
 )
-from typer.testing import CliRunner
-
-from banshee.commands.cmd_email import app
 
 runner = CliRunner()
 
