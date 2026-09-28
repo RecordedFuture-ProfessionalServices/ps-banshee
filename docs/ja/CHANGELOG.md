@@ -1,9 +1,25 @@
 # リリース履歴
 
+## 1.5.1 - 2026-09-28
+- [`list entities`](reference/commands.md#banshee-list-entities) の新しいオプション：
+    - アノテーションテキストに文字列を含むエンティティをフィルタリングする [`-n`/`--note`](reference/commands.md#banshee-list-entities--note) オプション
+    - アノテーションテキストの否定マッチングでエンティティをフィルタリングする [`-i`/`--invert`](reference/commands.md#banshee-list-entities--invert) オプション
+    - アノテーションテキストを持たないエンティティをフィルタリングする [`-e`/`--empty`](reference/commands.md#banshee-list-entities--empty) オプション
+- [` list clear`](reference/commands.md#banshee-list-clear) の新しいオプション：
+    - アノテーションテキストに文字列を含むエンティティをクリアする [`-n`/`--note`](reference/commands.md#banshee-list-clear--note) オプション
+    - アノテーションテキストの否定マッチングでエンティティをクリアする [`-i`/`--invert`](reference/commands.md#banshee-list-clear--invert) オプション
+    - アノテーションテキストを持たないエンティティをクリアする [`-e`/`--empty`](reference/commands.md#banshee-list-clear--empty) オプション
+- [` list bulk-add`](reference/commands.md#banshee-bulk-add) の新しいオプション：すべてのエンティティにアノテーションテキストを追加する [`-n`/`--note`](reference/commands.md#banshee-list-bulk-add--note) オプション
+- [` list copy`](reference/commands.md#banshee-list-copy) の新しいオプション：コピー先リストにコピーされるすべてのエンティティにアノテーションテキストを追加する [`-n`/`--note`](reference/commands.md#banshee-list-copy--note) オプション
+### 変更
+- [`list add`](reference/commands.md#banshee-list-add)：アノテーションテキストに明示的な `annotation=<text>` の指定が不要になった。
+
+
 ## 1.5.0 - 2026-08-21
 
 ### 追加
-- Recorded Future Sandbox 向けの新しい [`sandbox`](reference/commands.md#banshee-sandbox) コマンドグループを追加。`RF_SANDBOX_TOKEN` が必要。リージョンは [`--sandbox-choice`](reference/commands.md#banshee--sandbox-choice) または `RF_SANDBOX_CHOICE` で選択可能（デフォルト: `eu`、その他: `usa`、`apj`、`public`、`private`）。
+- Recorded Future sandbox と連携するための新しい [`sandbox`](reference/commands.md#banshee-sandbox) コマンドを追加。
+
 
 ## v.1.4.1 - 2026-07-13
 
@@ -14,7 +30,7 @@
 ## v.1.4.0 - 2026-07-13
 
 ### 追加
-- [`risklist stat`](reference/commands.md#banshee-risklist-stat) コマンドに、リスクリストをダウンロードしてリスクスコアごとのインジケーター数のテーブルを表示する新しい [`-C`/`--count`](reference/commands.md#banshee-risklist-stat--count) オプションを追加。
+- [`risklist stat`](reference/commands.md#banshee-risklist-stat) コマンドに、risk list をダウンロードしてリスクスコアごとのインジケーター数のテーブルを表示する新しい [`-C`/`--count`](reference/commands.md#banshee-risklist-stat--count) オプションを追加。
 
 ## v1.3.1 - 2026-06-30
 

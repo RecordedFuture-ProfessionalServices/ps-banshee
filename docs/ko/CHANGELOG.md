@@ -1,9 +1,25 @@
 # 릴리스 히스토리
 
+## 1.5.1 - 2026-09-28
+- [`list entities`](reference/commands.md#banshee-list-entities)의 새로운 옵션:
+    - [`-n`/`--note`](reference/commands.md#banshee-list-entities--note) 옵션: 어노테이션 텍스트에 특정 문자열이 포함된 엔터티를 필터링합니다.
+    - [`-i`/`--invert`](reference/commands.md#banshee-list-entities--invert) 옵션: 어노테이션 텍스트에서 부정 일치(negative matching)를 통해 엔터티를 필터링합니다.
+    - [`-e`/`--empty`](reference/commands.md#banshee-list-entities--empty) 옵션: 어노테이션 텍스트가 없는 엔터티를 필터링합니다.
+- [` list clear`](reference/commands.md#banshee-list-clear)의 새로운 옵션:
+    - [`-n`/`--note`](reference/commands.md#banshee-list-clear--note) 옵션: 어노테이션 텍스트에 특정 문자열이 포함된 엔터티를 삭제합니다.
+    - [`-i`/`--invert`](reference/commands.md#banshee-list-clear--invert) 옵션: 어노테이션 텍스트에서 부정 일치를 통해 엔터티를 삭제합니다.
+    - [`-e`/`--empty`](reference/commands.md#banshee-list-clear--empty) 옵션: 어노테이션 텍스트가 없는 엔터티를 삭제합니다.
+- [` list bulk-add`](reference/commands.md#banshee-bulk-add)의 새로운 옵션: [`-n`/`--note`](reference/commands.md#banshee-list-bulk-add--note) 옵션으로 모든 엔터티에 어노테이션 텍스트를 추가합니다.
+- [` list copy`](reference/commands.md#banshee-list-copy)의 새로운 옵션: [`-n`/`--note`](reference/commands.md#banshee-list-copy--note) 옵션으로 대상 목록으로 복사되는 모든 엔터티에 어노테이션 텍스트를 추가합니다.
+### Changed
+- [`list add`](reference/commands.md#banshee-list-add): 어노테이션 텍스트에 더 이상 명시적인 `annotation=<text>` 형식이 필요하지 않습니다.
+
+
 ## 1.5.0 - 2026-08-21
 
 ### Added
-- Recorded Future Sandbox를 위한 새로운 [`sandbox`](reference/commands.md#banshee-sandbox) 명령어 그룹을 추가하였습니다. `RF_SANDBOX_TOKEN`이 필요하며, 지역은 [`--sandbox-choice`](reference/commands.md#banshee--sandbox-choice) 또는 `RF_SANDBOX_CHOICE`로 선택할 수 있습니다(`eu` 기본값, `usa`, `apj`, `public`, `private`).
+- Recorded Future 샌드박스와 상호작용하는 새로운 [`sandbox`](reference/commands.md#banshee-sandbox) 명령어를 추가하였습니다.
+
 
 ## v.1.4.1 - 2026-07-13
 
