@@ -1,5 +1,20 @@
 # Release History
 
+## 1.5.1 - 2026-09-28
+- New options for [`list entities`](reference/commands.md#banshee-list-entities):
+    - [`-n`/`--note`](reference/commands.md#banshee-list-entities--note) option to filter entities containing a string in annotation text 
+    - [`-i`/`--invert`](reference/commands.md#banshee-list-entities--invert) option to filter entities via negative matching in annotation text
+    - [`-e`/`--empty`](reference/commands.md#banshee-list-entities--empty) option to filter entities that does not have annotation text 
+- New options for [` list clear`](reference/commands.md#banshee-list-clear):
+    - [`-n`/`--note`](reference/commands.md#banshee-list-clear--note) option to clear entities containing a string in annotation text 
+    - [`-i`/`--invert`](reference/commands.md#banshee-list-clear--invert) option to clear entities via negative matching in annotation text
+    - [`-e`/`--empty`](reference/commands.md#banshee-list-clear--empty) option to clear entities that does not have annotation text  
+- New option for [` list bulk-add`](reference/commands.md#banshee-bulk-add): [`-n`/`--note`](reference/commands.md#banshee-list-bulk-add--note) option add annotation text to all entities
+- New option for [` list copy`](reference/commands.md#banshee-list-copy): [`-n`/`--note`](reference/commands.md#banshee-list-copy--note) option add annotation text to all entities being copied to destination list
+### Changed
+- [`list add`](reference/commands.md#banshee-list-add): annotation text no longer requires an explicit `annotation=<text>`
+
+
 ## 1.5.0 - 2026-08-21
 
 ### Added

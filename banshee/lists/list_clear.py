@@ -17,13 +17,33 @@ from .fetch_list import fetch_list
 from .list_bulk_remove import bulk_remove_entities
 
 
-def clear_list(list_id: str):
+def clear_list(list_id: str, note: str = None, invert: str = None, empty: bool = False):
     """Clears the list of all entities (text entries can't be removed via API)."""
     entities_list = fetch_list(list_id)
-    entities_to_remove = [entity.entity.id_ for entity in entities_list.entities()]
+    all_entities = entities_list.entities()
 
-    if len(entities_to_remove) > 0:
+    if note:
+        note_lower = note.lower()
+        entities_to_remove = [
+            e.entity.id_ for e in all_entities
+            if e.context and any(note_lower in str(v).lower() for v in e.context.values())
+        ]
+    elif invert:
+        invert_lower = invert.lower()
+        entities_to_remove = [
+            e.entity.id_ for e in all_entities
+            if not e.context or not any(invert_lower in str(v).lower() for v in e.context.values())
+        ]
+    elif empty:
+        entities_to_remove = [
+            e.entity.id_ for e in all_entities
+            if not e.context or not any(e.context.values())
+        ]
+    else:
+        entities_to_remove = [e.entity.id_ for e in all_entities]
+
+    if entities_to_remove:
         bulk_remove_entities(list_id, entities_to_remove)
     else:
         console = Console()
-        console.print(f"The list '{entities_list.name}' is already empty!")
+        console.print(f"No matching entities found in '{entities_list.name}'.")

@@ -32,6 +32,18 @@ ERROR_MULTIPLE_MATCHES = 'error_multiple_matches'
 LIST_MAX_SIZE_REACHED = 'list_max_size_reached'
 
 
+def parse_note(note: str) -> dict:
+    if not note:
+        return {}
+    if '=' not in note:
+        return {'annotation': note}
+    context = {}
+    for prop in note.split(','):
+        key, value = prop.split('=', 1)
+        context[key] = value
+    return context
+
+
 def print_list_results(final_results: Mapping[str, Sequence[Union[str, tuple[str, str]]]]) -> None:
     """Print grouped operation results in a stable, readable format."""
     console = Console()

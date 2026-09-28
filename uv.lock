@@ -1762,6 +1762,7 @@ name = "ps-banshee"
 version = "1.5.0"
 source = { editable = "." }
 dependencies = [
+    { name = "click" },
     { name = "polars" },
     { name = "psengine" },
     { name = "pyshark" },
@@ -1800,6 +1801,7 @@ translations = [
 
 [package.metadata]
 requires-dist = [
+    { name = "click" },
     { name = "polars", specifier = ">=1.34,<1.44" },
     { name = "psengine", specifier = "~=2.11.0" },
     { name = "pyshark", specifier = "==0.6" },

@@ -17,10 +17,10 @@ from psengine.entity_lists import ListApiError
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from .fetch_list import fetch_list
-from .list_helpers import api_error_cause
+from .list_helpers import api_error_cause, parse_note
 
 
-def add_entity(list_id: str, entity: Union[str, tuple[str, str]], properties: str):
+def add_entity(list_id: str, entity: Union[str, tuple[str, str]], note: str):
     entity_list = fetch_list(list_id)
     with Progress(
         SpinnerColumn(),
@@ -28,11 +28,7 @@ def add_entity(list_id: str, entity: Union[str, tuple[str, str]], properties: st
         transient=True,
     ) as progress:
         progress.add_task(description='Adding entity')
-        context = {}
-        if properties:
-            for prop in properties.split(','):
-                key, value = prop.split('=')
-                context[key] = value
+        context = parse_note(note)
         try:
             result = entity_list.add(entity=entity, context=context)
         except ListApiError as err:
