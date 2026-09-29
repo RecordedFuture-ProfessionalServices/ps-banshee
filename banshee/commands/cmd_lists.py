@@ -190,11 +190,11 @@ def entities(
     list_id: Annotated[str, Argument(show_default=False, help='ID of the list')],
     note: Annotated[
         list[str],
-        Option('--note', '-n', show_default=False, help='Filter for entities whose annotation contains this text.'),
+        Option('--note', '-n', show_default=False, help='Filter for entities whose annotation contains this text.'),  # noqa: E501
     ] = None,
     invert: Annotated[
         list[str],
-        Option('--invert', '-i', show_default=False, help='Filter for entities whose annotation does not contain this text.'),
+        Option('--invert', '-i', show_default=False, help='Filter for entities whose annotation does not contain this text.'),  # noqa: E501
     ] = None,
     empty: Annotated[
         bool,
@@ -343,11 +343,11 @@ def copy(
     ] = False,
     note: Annotated[
         str,
-        Option('--note', '-n', show_default=False, help='Annotation text to attach to all entities being copied.', callback=_non_empty_str),
+        Option('--note', '-n', show_default=False, help='Annotation text to attach to all entities being copied.', callback=_non_empty_str),  # noqa: E501
     ] = None,
 ):
     copy_list(
-        source_list_id=source_list_id, destination_list_id=destination_list_id, overwrite=overwrite, note=note
+        source_list_id=source_list_id, destination_list_id=destination_list_id, overwrite=overwrite, note=note  # noqa: E501
     )
 
 
@@ -361,15 +361,15 @@ def clear(
     list_id: Annotated[str, Argument(show_default=False, help='ID of the list')],
     note: Annotated[
         list[str],
-        Option('--note', '-n', show_default=False, help='Only remove entities whose annotation contains this text.'),
+        Option('--note', '-n', show_default=False, help='Only remove entities whose annotation contains this text.'),  # noqa: E501
     ] = None,
     invert: Annotated[
         list[str],
-        Option('--invert', '-i', show_default=False, help='Only remove entities whose annotation does not contain this text.'),
+        Option('--invert', '-i', show_default=False, help='Only remove entities whose annotation does not contain this text.'),  # noqa: E501
     ] = None,
     empty: Annotated[
         bool,
-        Option('--empty', '-e', show_default=False, help='Only remove entities with no annotation.'),
+        Option('--empty', '-e', show_default=False, help='Only remove entities with no annotation.'),  # noqa: E501
     ] = False,
 ):
     if note and len(note) > 1:
