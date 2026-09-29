@@ -1,0 +1,2945 @@
+
+<!doctype html>
+<html lang="zh-TW" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A Recorded Future CLI for terminal-based threat intelligence investigations.">
+      
+      
+      
+        <link rel="canonical" href="https://recordedfuture-professionalservices.github.io/ps-banshee/zh-TW/knowledge-base/sandbox/">
+      
+      
+      
+      
+        
+          <link rel="alternate" href="/ps-banshee/" hreflang="en">
+        
+          <link rel="alternate" href="/ps-banshee/ja/" hreflang="ja">
+        
+          <link rel="alternate" href="/ps-banshee/ko/" hreflang="ko">
+        
+          <link rel="alternate" href="/ps-banshee/zh-TW/" hreflang="zh-TW">
+        
+          <link rel="alternate" href="/ps-banshee/th/" hreflang="th">
+        
+      
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>sandbox - PS Banshee</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sandbox" class="md-skip">
+          跳轉到
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="頁首">
+    <a href="../.." title="PS Banshee" class="md-header__button md-logo" aria-label="PS Banshee" data-md-component="logo">
+      
+  <img src="../../assets/favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PS Banshee
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              sandbox
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="選擇語言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/ps-banshee/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/ps-banshee/ja/" hreflang="ja" class="md-select__link">
+              日本語
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/ps-banshee/ko/" hreflang="ko" class="md-select__link">
+              한국어
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/ps-banshee/zh-TW/" hreflang="zh-TW" class="md-select__link">
+              中文(繁體)
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/ps-banshee/th/" hreflang="th" class="md-select__link">
+              ภาษาไทย
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜尋" placeholder="搜尋" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="搜尋">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清除" aria-label="清除" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜尋引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/RecordedFuture-ProfessionalServices/ps-banshee" title="前往倉庫" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ps-banshee
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="導覽列" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PS Banshee" class="md-nav__button md-logo" aria-label="PS Banshee" data-md-component="logo">
+      
+  <img src="../../assets/favicon.png" alt="logo">
+
+    </a>
+    PS Banshee
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/RecordedFuture-ProfessionalServices/ps-banshee" title="前往倉庫" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ps-banshee
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../getting-started/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    入門指南
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    入門指南
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    安裝
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/first-steps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    初始步驟
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    取得協助
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    與 AI 代理程式搭配使用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用案例
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    使用案例
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/alerts/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    警報管理
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    警報管理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/detection-rules/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    偵測規則
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    偵測規則
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/email/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    電子郵件情報擴充
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    電子郵件情報擴充
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/entity/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    實體比對
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    實體比對
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/enrichment/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IOC 情報擴充
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    IOC 情報擴充
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/pcap/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PCAP 情報擴充
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PCAP 情報擴充
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/risklists/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    風險清單
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    風險清單
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/sandbox/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    沙箱分析
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    沙箱分析
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../usecases/watchlist/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    監控清單管理
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    監控清單管理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../reference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    參考資料
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    參考資料
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    環境變數
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    版本歷程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    關於
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox stats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox list
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox search
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox get
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-download-對磁碟具有變更效果" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox download (對磁碟具有變更效果)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-delete-具有變更效果" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox delete (具有變更效果)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-submit-具有變更效果" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox submit (具有變更效果)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-set-profile-具有變更效果" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox set-profile (具有變更效果)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-profile-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox profile list
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-profile-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox profile get
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-profile-create-具有變更效果" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox profile create (具有變更效果)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-profile-update-具有變更效果" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox profile update (具有變更效果)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-profile-delete-具有變更效果" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox profile delete (具有變更效果)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-report-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox report overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-report-static" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox report static
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#banshee-sandbox-report-behavioral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        banshee sandbox report behavioral
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="sandbox">sandbox<a class="headerlink" href="#sandbox" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>請參閱 <a href="../">index.md</a> 了解驗證方式、就緒狀態檢查、輸出規範及共用 LLM 說明。</p>
+</blockquote>
+<p>Sandbox 指令除 <code>RF_TOKEN</code> 外，還需要 <code>RF_SANDBOX_TOKEN</code>。設定 <code>RF_SANDBOX_CHOICE</code>（或全域的 <code>--sandbox-choice</code>）以指定目標區域：<code>eu</code>（預設）、<code>usa</code>、<code>apj</code>、<code>public</code> 或 <code>private</code>。</p>
+<hr />
+<h3 id="banshee-sandbox-stats"><code>banshee sandbox stats</code><a class="headerlink" href="#banshee-sandbox-stats" title="Permanent link">&para;</a></h3>
+<p>在可設定的回顧時間窗口內彙整 sandbox 提交記錄，並輸出 SOC 晨間簡報：提交量、分數分布、熱門惡意軟體家族、平台覆蓋率、萃取的 C2 及經 SOAR 驗證的網路 IOC（網路入侵指標）。</p>
+<table>
+<thead>
+<tr>
+<th>選項</th>
+<th>縮寫</th>
+<th>預設值</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--days INTEGER</code></td>
+<td><code>-d</code></td>
+<td><code>7</code></td>
+<td>回顧時間窗口（天數，最少 1 天）</td>
+</tr>
+<tr>
+<td><code>--subset</code></td>
+<td><code>-s</code></td>
+<td><code>org</code></td>
+<td>樣本範圍：<code>owned</code>、<code>public</code>、<code>org</code></td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td></td>
+<td>人類可讀的 Rich 排版</td>
+</tr>
+</tbody>
+</table>
+<p>分數區間（分類評分 1–10 級）：</p>
+<table>
+<thead>
+<tr>
+<th>區間</th>
+<th>分數範圍</th>
+<th>含義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>malicious</code></td>
+<td>8–10</td>
+<td>已知惡意軟體，高信賴度</td>
+</tr>
+<tr>
+<td><code>suspicious</code></td>
+<td>5–7</td>
+<td>強烈行為指標</td>
+</tr>
+<tr>
+<td><code>potentially_suspicious</code></td>
+<td>3–4</td>
+<td>部分指標</td>
+</tr>
+<tr>
+<td><code>clean</code></td>
+<td>1–2</td>
+<td>低風險或無害</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>stats
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>stats<span class="w"> </span>--days<span class="w"> </span><span class="m">14</span><span class="w"> </span>--subset<span class="w"> </span>owned<span class="w"> </span>--pretty
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>stats<span class="w"> </span>-d<span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.by_score&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>回應結構：</strong> 回傳單一 JSON 物件：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.period_start</code></td>
+<td>彙整時間窗口的起始時間（ISO 8601）</td>
+</tr>
+<tr>
+<td><code>.period_end</code></td>
+<td>彙整時間窗口的結束時間（ISO 8601）</td>
+</tr>
+<tr>
+<td><code>.period_days</code></td>
+<td>回顧時間窗口（天數）</td>
+</tr>
+<tr>
+<td><code>.subset</code></td>
+<td>使用的範圍（<code>owned</code>、<code>public</code>、<code>org</code>）</td>
+</tr>
+<tr>
+<td><code>.total</code></td>
+<td>時間窗口內的總提交數</td>
+</tr>
+<tr>
+<td><code>.pending</code></td>
+<td>仍在分析中的提交數</td>
+</tr>
+<tr>
+<td><code>.failed</code></td>
+<td>發生錯誤的提交數</td>
+</tr>
+<tr>
+<td><code>.by_kind</code></td>
+<td>以提交類型（<code>file</code>、<code>url</code> 等）為鍵、件數為值的物件</td>
+</tr>
+<tr>
+<td><code>.by_platform</code></td>
+<td>以平台標籤為鍵、件數為值的物件</td>
+</tr>
+<tr>
+<td><code>.by_score</code></td>
+<td>以分數區間名稱為鍵、件數為值的物件</td>
+</tr>
+<tr>
+<td><code>.by_file_type</code></td>
+<td>以副檔名為鍵、件數為值的物件</td>
+</tr>
+<tr>
+<td><code>.top_tags</code></td>
+<td>包含 <code>malware_families</code>、<code>botnets</code>、<code>arch_file</code>、<code>behavioral_ttp</code> 等鍵的物件，每個鍵映射標籤名稱至件數</td>
+</tr>
+<tr>
+<td><code>.top_iocs</code></td>
+<td>包含 <code>extracted_c2</code>、<code>verified_network</code>、<code>malicious_sha256</code> 等鍵的物件，每個值為 IOC 字串陣列</td>
+</tr>
+<tr>
+<td><code>.daily_by_family</code></td>
+<td>以惡意軟體家族為鍵、每日件數為值的物件</td>
+</tr>
+<tr>
+<td><code>.trend_vs_prior_period</code></td>
+<td>包含 <code>total</code> 與 <code>reported</code> 子物件的物件，各子物件含 <code>current</code>、<code>prev</code> 及 <code>pct_change</code></td>
+</tr>
+<tr>
+<td><code>.soar_skipped</code></td>
+<td>當 SOAR 驗證被略過時為 <code>true</code>（<code>.top_iocs.verified_network</code> 將為空）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="banshee-sandbox-list"><code>banshee sandbox list</code><a class="headerlink" href="#banshee-sandbox-list" title="Permanent link">&para;</a></h3>
+<p>列出 sandbox 樣本——您自己的、您所屬組織的（預設）或公開資料。</p>
+<table>
+<thead>
+<tr>
+<th>選項</th>
+<th>縮寫</th>
+<th>預設值</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--subset</code></td>
+<td><code>-s</code></td>
+<td><code>org</code></td>
+<td>樣本範圍：<code>owned</code>、<code>public</code>、<code>org</code></td>
+</tr>
+<tr>
+<td><code>--limit INTEGER</code></td>
+<td><code>-l</code></td>
+<td><code>20</code></td>
+<td>最大結果數（1–4095）</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td></td>
+<td>人類可讀的表格</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>list
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>list<span class="w"> </span>--subset<span class="w"> </span>owned
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>list<span class="w"> </span>-s<span class="w"> </span>public<span class="w"> </span>-l<span class="w"> </span><span class="m">50</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>list<span class="w"> </span>-p
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[].sha256&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>回應結構：</strong> 回傳一個扁平 JSON 陣列，每個項目包含：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.id</code></td>
+<td>樣本 ID（例如 <code>260722-x8lgjahyvx</code>）</td>
+</tr>
+<tr>
+<td><code>.status</code></td>
+<td>分析狀態：<code>pending</code>、<code>running</code>、<code>reported</code>、<code>failed</code></td>
+</tr>
+<tr>
+<td><code>.kind</code></td>
+<td>提交類型：<code>file</code>、<code>url</code>、<code>fetch</code>、<code>import</code></td>
+</tr>
+<tr>
+<td><code>.filename</code></td>
+<td>原始檔案名稱（URL 提交時可能為空）</td>
+</tr>
+<tr>
+<td><code>.submitted</code></td>
+<td>提交時間戳記（ISO 8601）</td>
+</tr>
+<tr>
+<td><code>.completed</code></td>
+<td>完成時間戳記（ISO 8601；仍在執行時不存在）</td>
+</tr>
+<tr>
+<td><code>.sha256</code></td>
+<td>提交檔案的 SHA-256 雜湊值</td>
+</tr>
+<tr>
+<td><code>.user_id</code></td>
+<td>提交使用者的 UUID</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="banshee-sandbox-search"><code>banshee sandbox search</code><a class="headerlink" href="#banshee-sandbox-search" title="Permanent link">&para;</a></h3>
+<p>依結構化篩選條件（雜湊值、家族、標籤、殭屍網路、錢包、IP、網域、URL、提交日期範圍）或原始 Triage 查詢字串搜尋樣本。至少須提供一個篩選條件或 <code>--query</code>。</p>
+<table>
+<thead>
+<tr>
+<th>選項</th>
+<th>縮寫</th>
+<th>預設值</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--hash TEXT</code></td>
+<td></td>
+<td></td>
+<td>依檔案雜湊值篩選（MD5/SHA1/SHA256）</td>
+</tr>
+<tr>
+<td><code>--family TEXT</code></td>
+<td></td>
+<td></td>
+<td>依惡意軟體家族名稱篩選</td>
+</tr>
+<tr>
+<td><code>--tag TEXT</code></td>
+<td><code>-T</code></td>
+<td></td>
+<td>依標籤篩選（可重複）</td>
+</tr>
+<tr>
+<td><code>--botnet TEXT</code></td>
+<td></td>
+<td></td>
+<td>依殭屍網路名稱篩選</td>
+</tr>
+<tr>
+<td><code>--wallet TEXT</code></td>
+<td></td>
+<td></td>
+<td>依錢包地址篩選</td>
+</tr>
+<tr>
+<td><code>--ip TEXT</code></td>
+<td></td>
+<td></td>
+<td>依 IP 位址篩選</td>
+</tr>
+<tr>
+<td><code>--domain TEXT</code></td>
+<td></td>
+<td></td>
+<td>依網域篩選</td>
+</tr>
+<tr>
+<td><code>--url TEXT</code></td>
+<td></td>
+<td></td>
+<td>依 URL 篩選</td>
+</tr>
+<tr>
+<td><code>--from-date YYYY-MM-DD</code></td>
+<td></td>
+<td></td>
+<td>篩選此日期（含）之後提交的樣本</td>
+</tr>
+<tr>
+<td><code>--to-date YYYY-MM-DD</code></td>
+<td></td>
+<td></td>
+<td>篩選此日期（含）之前提交的樣本</td>
+</tr>
+<tr>
+<td><code>--query TEXT</code></td>
+<td><code>-q</code></td>
+<td></td>
+<td>原始 Triage 查詢字串（與結構化篩選條件以 AND 合併）</td>
+</tr>
+<tr>
+<td><code>--limit INTEGER</code></td>
+<td><code>-l</code></td>
+<td><code>50</code></td>
+<td>最大結果數（1–200）</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td></td>
+<td>人類可讀的表格</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>search<span class="w"> </span>--hash<span class="w"> </span>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>search<span class="w"> </span>--family<span class="w"> </span>emotet
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>search<span class="w"> </span>--ip<span class="w"> </span><span class="m">1</span>.2.3.4<span class="w"> </span>--domain<span class="w"> </span>evil.example
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>search<span class="w"> </span>-T<span class="w"> </span>ransomware<span class="w"> </span>-T<span class="w"> </span>persistence
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>search<span class="w"> </span>--from-date<span class="w"> </span><span class="m">2026</span>-07-01<span class="w"> </span>--to-date<span class="w"> </span><span class="m">2026</span>-07-31<span class="w"> </span>--family<span class="w"> </span>vidar
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>search<span class="w"> </span>-q<span class="w"> </span><span class="s2">&quot;NOT family:emotet&quot;</span><span class="w"> </span>-l<span class="w"> </span><span class="m">100</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>search<span class="w"> </span>--family<span class="w"> </span>emotet<span class="w"> </span>-p
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>search<span class="w"> </span>--family<span class="w"> </span>emotet<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[].sha256&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>回應結構：</strong> 回傳 JSON 陣列——結構與 <code>sandbox list</code> 的項目相同。</p>
+<hr />
+<h3 id="banshee-sandbox-get"><code>banshee sandbox get</code><a class="headerlink" href="#banshee-sandbox-get" title="Permanent link">&para;</a></h3>
+<p>依 ID 擷取單一 sandbox 樣本的摘要：目前狀態、整體分數、目標、建立與完成時間戳記、SHA256 及各任務細項。對進行中及已完成的樣本均適用。</p>
+<table>
+<thead>
+<tr>
+<th>引數/選項</th>
+<th>縮寫</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SAMPLE_ID</code>（必填）</td>
+<td></td>
+<td>Sandbox 樣本 ID</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>人類可讀的 Rich 排版</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>get<span class="w"> </span><span class="m">260501</span>-h4p7laawme
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>get<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>-p
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>get<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.score&#39;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>get<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.tasks | keys&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>回應結構：</strong> 回傳單一 JSON 物件：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.sample</code></td>
+<td>樣本 ID</td>
+</tr>
+<tr>
+<td><code>.status</code></td>
+<td>分析狀態：<code>pending</code>、<code>running</code>、<code>static_analysis</code>、<code>reported</code>、<code>failed</code></td>
+</tr>
+<tr>
+<td><code>.target</code></td>
+<td>主要引爆目標（檔案名稱或 URL）</td>
+</tr>
+<tr>
+<td><code>.score</code></td>
+<td>整體分類評分（1–10；分析進行中時為 <code>0</code>）</td>
+</tr>
+<tr>
+<td><code>.created</code></td>
+<td>提交時間戳記（ISO 8601）</td>
+</tr>
+<tr>
+<td><code>.completed</code></td>
+<td>完成時間戳記（ISO 8601；仍在執行時不存在）</td>
+</tr>
+<tr>
+<td><code>.sha256</code></td>
+<td>提交檔案的 SHA-256 雜湊值（URL 提交時不存在）</td>
+</tr>
+<tr>
+<td><code>.owner</code></td>
+<td>提交使用者 ID</td>
+</tr>
+<tr>
+<td><code>.tasks</code></td>
+<td>以任務 ID 為鍵、值為 <code>{kind, status, score, tags, platform}</code> 的物件</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="banshee-sandbox-download-對磁碟具有變更效果"><code>banshee sandbox download</code> <em>(對磁碟具有變更效果)</em><a class="headerlink" href="#banshee-sandbox-download-對磁碟具有變更效果" title="Permanent link">&para;</a></h3>
+<p>下載一個或多個樣本 ID 的原始提交樣本位元組。每個樣本會被封裝於以 AES 加密的 ZIP 壓縮檔中，密碼為 <code>infected</code>，以防止防毒軟體、安全電子郵件閘道或檔案管理員意外引爆。請使用 <code>7z x -pinfected &lt;sample-id&gt;.zip</code> 解壓縮——標準的 <code>unzip</code> 無法可靠地處理 AES 加密的 zip 檔案。</p>
+<p>樣本 ID 可作為位置引數傳入，或透過 stdin 以管道輸入（以空白字元分隔）。除非指定 <code>--yes</code>，否則會提示確認。位元組在下載與壓縮過程中會短暫存在於此程序的記憶體中——積極的 EDR 記憶體掃描仍可能觸發警報。請在分析人員專屬的機器上執行此指令，而非日常使用的公司筆記型電腦。</p>
+<table>
+<thead>
+<tr>
+<th>引數/選項</th>
+<th>縮寫</th>
+<th>預設值</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SAMPLE_IDS</code></td>
+<td></td>
+<td></td>
+<td>一個或多個樣本 ID（或從 stdin 讀取）</td>
+</tr>
+<tr>
+<td><code>--output-dir PATH</code></td>
+<td><code>-d</code></td>
+<td>（必填）</td>
+<td>儲存加密 zip 壓縮檔的目錄（不存在時自動建立）</td>
+</tr>
+<tr>
+<td><code>--yes</code></td>
+<td><code>-y</code></td>
+<td></td>
+<td>略過確認提示</td>
+</tr>
+<tr>
+<td><code>--workers INTEGER</code></td>
+<td><code>-w</code></td>
+<td><code>1</code></td>
+<td>平行下載的執行緒數（1–16）</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>download<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>-d<span class="w"> </span>./samples
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>download<span class="w"> </span>id1<span class="w"> </span>id2<span class="w"> </span>id3<span class="w"> </span>-d<span class="w"> </span>./samples<span class="w"> </span>--yes<span class="w"> </span>-w<span class="w"> </span><span class="m">4</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;id1 id2 id3&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>banshee<span class="w"> </span>sandbox<span class="w"> </span>download<span class="w"> </span>-d<span class="w"> </span>./samples<span class="w"> </span>--yes
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="c1"># Extract</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>7z<span class="w"> </span>x<span class="w"> </span>-pinfected<span class="w"> </span>./samples/260501-h4p7laawme.zip
+</code></pre></div></td></tr></table></div>
+<p><strong>回應：</strong> stderr 輸出一次警告訊息；每個成功下載的樣本在 stderr 輸出 <code>[&lt;id&gt;] Saved: &lt;path&gt; (&lt;bytes&gt; bytes, sha256=&lt;hex&gt;)</code> 訊息；失敗時輸出 <code>[&lt;id&gt;] ERROR: &lt;msg&gt;</code>。部分失敗的批次會繼續執行至完成並以退出碼 1 結束；完全成功的批次以退出碼 0 結束。</p>
+<p>壓縮檔內容：包含單一項目，命名為 <code>&lt;sample-id&gt;</code>（不猜測副檔名），內含原始樣本位元組。</p>
+<hr />
+<h3 id="banshee-sandbox-delete-具有變更效果"><code>banshee sandbox delete</code> <em>(具有變更效果)</em><a class="headerlink" href="#banshee-sandbox-delete-具有變更效果" title="Permanent link">&para;</a></h3>
+<p>依 ID 刪除 sandbox 樣本並移除所有相關任務產出物。除非指定 <code>--yes</code>，否則會提示確認。</p>
+<table>
+<thead>
+<tr>
+<th>引數/選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SAMPLE_ID</code>（必填）</td>
+<td>要刪除的樣本 ID</td>
+</tr>
+<tr>
+<td><code>--yes</code> / <code>-y</code></td>
+<td>略過確認提示</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>delete<span class="w"> </span><span class="m">260501</span>-h4p7laawme
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>delete<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>-y
+</code></pre></div></td></tr></table></div>
+<p><strong>回應：</strong> 成功時無輸出；以退出碼 0 結束。</p>
+<hr />
+<h3 id="banshee-sandbox-submit-具有變更效果"><code>banshee sandbox submit</code> <em>(具有變更效果)</em><a class="headerlink" href="#banshee-sandbox-submit-具有變更效果" title="Permanent link">&para;</a></h3>
+<p>提交樣本進行分析。本機檔案會被上傳；URL 會在瀏覽器中引爆（或使用 <code>--fetch</code> 先行下載）；公開樣本可透過 <code>--import</code> 以 ID 匯入。</p>
+<table>
+<thead>
+<tr>
+<th>引數/選項</th>
+<th>縮寫</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TARGET</code>（必填）</td>
+<td></td>
+<td>檔案路徑、URL 或公開樣本 ID（搭配 <code>--import</code>）</td>
+</tr>
+<tr>
+<td><code>--fetch</code></td>
+<td></td>
+<td>先下載 URL，再分析檔案。與 <code>--import</code> 互斥</td>
+</tr>
+<tr>
+<td><code>--import</code></td>
+<td></td>
+<td>將目標視為公開樣本 ID。與 <code>--fetch</code> 互斥</td>
+</tr>
+<tr>
+<td><code>--profile TEXT</code></td>
+<td></td>
+<td>分析設定檔名稱或 ID（可重複；與 <code>--interactive</code> 互斥）</td>
+</tr>
+<tr>
+<td><code>--timeout INTEGER</code></td>
+<td><code>-t</code></td>
+<td>分析逾時時間（秒，1–3600）</td>
+</tr>
+<tr>
+<td><code>--network</code></td>
+<td><code>-N</code></td>
+<td>網路模式：<code>internet</code>、<code>drop</code>、<code>tor</code>、<code>vpn</code>、<code>sim200</code>、<code>sim404</code>、<code>simnx</code></td>
+</tr>
+<tr>
+<td><code>--geolocation TEXT</code></td>
+<td></td>
+<td>VPN 出口國家代碼；需搭配 <code>--network vpn</code></td>
+</tr>
+<tr>
+<td><code>--tags TEXT</code></td>
+<td><code>-T</code></td>
+<td>自訂標籤（可重複）</td>
+</tr>
+<tr>
+<td><code>--password TEXT</code></td>
+<td></td>
+<td>受保護壓縮檔的密碼</td>
+</tr>
+<tr>
+<td><code>--wait</code></td>
+<td><code>-w</code></td>
+<td>輪詢直至分析完成，然後輸出概覽報告</td>
+</tr>
+<tr>
+<td><code>--interactive</code></td>
+<td><code>-i</code></td>
+<td>在靜態分析階段暫停，以便透過 <code>set-profile</code> 選擇設定檔；與 <code>--profile</code> 互斥</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>人類可讀的輸出</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span>
+<span class="normal"><a href="#__codelineno-6-6">6</a></span>
+<span class="normal"><a href="#__codelineno-6-7">7</a></span>
+<span class="normal"><a href="#__codelineno-6-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>submit<span class="w"> </span>malware.exe
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>submit<span class="w"> </span>https://evil.com
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>submit<span class="w"> </span>https://cdn.evil.com/payload.exe<span class="w"> </span>--fetch
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>submit<span class="w"> </span><span class="m">250601</span>-abc123<span class="w"> </span>--import
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>submit<span class="w"> </span>malware.zip<span class="w"> </span>--password<span class="w"> </span>infected<span class="w"> </span>--profile<span class="w"> </span>win10-x64<span class="w"> </span>-T<span class="w"> </span><span class="k">case</span>-42
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>submit<span class="w"> </span>malware.exe<span class="w"> </span>--network<span class="w"> </span>vpn<span class="w"> </span>--geolocation<span class="w"> </span>us<span class="w"> </span>-t<span class="w"> </span><span class="m">300</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>submit<span class="w"> </span>malware.exe<span class="w"> </span>--wait<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.analysis.score&#39;</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>submit<span class="w"> </span>archive.zip<span class="w"> </span>--interactive<span class="w"> </span>--wait<span class="w"> </span>--pretty
+</code></pre></div></td></tr></table></div>
+<p><strong>回應結構（預設）：</strong> 回傳已提交的樣本 JSON 物件，欄位與 <code>sandbox list</code> 項目相同（<code>id</code>、<code>status</code>、<code>kind</code>、<code>filename</code>、<code>submitted</code>、<code>sha256</code>、<code>user_id</code>）。使用 <code>.id</code> 追蹤或查詢提交狀態。</p>
+<p><strong>回應結構（搭配 <code>--wait</code>）：</strong> 回傳概覽報告——結構與 <code>sandbox report overview</code> 相同。</p>
+<hr />
+<h3 id="banshee-sandbox-set-profile-具有變更效果"><code>banshee sandbox set-profile</code> <em>(具有變更效果)</em><a class="headerlink" href="#banshee-sandbox-set-profile-具有變更效果" title="Permanent link">&para;</a></h3>
+<p>為暫停於靜態分析階段的樣本（以 <code>--interactive</code> 提交）指派分析設定檔。使用 <code>--auto</code> 讓 sandbox 自動選擇，或使用 <code>--pick FILE:PROFILE</code> 手動逐檔對應。</p>
+<table>
+<thead>
+<tr>
+<th>引數/選項</th>
+<th>縮寫</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SAMPLE_ID</code>（必填）</td>
+<td></td>
+<td>暫停於靜態分析階段的樣本 ID</td>
+</tr>
+<tr>
+<td><code>--auto</code></td>
+<td><code>-a</code></td>
+<td>自動為所有檔案選擇設定檔。與 <code>--pick</code> 互斥</td>
+</tr>
+<tr>
+<td><code>--pick FILE:PROFILE</code></td>
+<td></td>
+<td>將一個檔案對應至一個設定檔（可重複）。與 <code>--auto</code> 互斥</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>人類可讀的輸出</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>set-profile<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>--auto
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>set-profile<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>--pick<span class="w"> </span>file.exe:win10-x64
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>set-profile<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>--pick<span class="w"> </span>file.exe:win10-x64<span class="w"> </span>--pick<span class="w"> </span>doc.docx:office365
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>set-profile<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>--pick<span class="w"> </span>file.exe:win10-x64<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.success&#39;</span>
+</code></pre></div></td></tr></table></div>
+<hr />
+<h3 id="banshee-sandbox-profile-list"><code>banshee sandbox profile list</code><a class="headerlink" href="#banshee-sandbox-profile-list" title="Permanent link">&para;</a></h3>
+<p>列出 Recorded Future Sandbox 中所有可用的分析設定檔。</p>
+<table>
+<thead>
+<tr>
+<th>選項</th>
+<th>縮寫</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>人類可讀的表格</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>list
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>list<span class="w"> </span>-p
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[].name&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>回應結構：</strong> 回傳一個扁平 JSON 陣列，每個項目包含：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.id</code></td>
+<td>設定檔 UUID</td>
+</tr>
+<tr>
+<td><code>.name</code></td>
+<td>設定檔名稱</td>
+</tr>
+<tr>
+<td><code>.tags</code></td>
+<td>OS/地區標籤陣列（例如 <code>["os:windows10-2004-x64", "locale:en-us"]</code>）</td>
+</tr>
+<tr>
+<td><code>.network</code></td>
+<td>網路模式（例如 <code>"internet"</code>、<code>"tor"</code>、<code>"vpn"</code>）</td>
+</tr>
+<tr>
+<td><code>.geolocation</code></td>
+<td>VPN 出口國家代碼陣列（不適用時為空）</td>
+</tr>
+<tr>
+<td><code>.timeout</code></td>
+<td>分析逾時時間（秒）</td>
+</tr>
+<tr>
+<td><code>.options</code></td>
+<td>包含選用欄位（如 <code>browser</code>）的物件</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="banshee-sandbox-profile-get"><code>banshee sandbox profile get</code><a class="headerlink" href="#banshee-sandbox-profile-get" title="Permanent link">&para;</a></h3>
+<p>依 ID 或名稱擷取單一分析設定檔。</p>
+<table>
+<thead>
+<tr>
+<th>引數/選項</th>
+<th>縮寫</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PROFILE_ID_OR_NAME</code>（必填）</td>
+<td></td>
+<td>設定檔 UUID 或名稱</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>人類可讀的表格</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>get<span class="w"> </span>022b8c4e-22ab-46a4-ac49-a2732b2412b7
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>get<span class="w"> </span><span class="s1">&#39;Windows 7 Long&#39;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>get<span class="w"> </span>w7-long<span class="w"> </span>-p
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>get<span class="w"> </span>w7-long<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.tags&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>回應結構：</strong> 單一設定檔物件——欄位與 <code>sandbox profile list</code> 的項目相同。</p>
+<hr />
+<h3 id="banshee-sandbox-profile-create-具有變更效果"><code>banshee sandbox profile create</code> <em>(具有變更效果)</em><a class="headerlink" href="#banshee-sandbox-profile-create-具有變更效果" title="Permanent link">&para;</a></h3>
+<p>建立新的分析設定檔。設定檔名稱在您的組織內必須唯一。</p>
+<table>
+<thead>
+<tr>
+<th>選項</th>
+<th>縮寫</th>
+<th>預設值</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--name TEXT</code></td>
+<td><code>-n</code></td>
+<td>（必填）</td>
+<td>設定檔名稱（必須唯一）</td>
+</tr>
+<tr>
+<td><code>--tag TEXT</code></td>
+<td><code>-T</code></td>
+<td>（必填）</td>
+<td>OS/地區標籤（可重複）。地區標籤必須搭配至少一個 OS 標籤</td>
+</tr>
+<tr>
+<td><code>--timeout INTEGER</code></td>
+<td><code>-t</code></td>
+<td><code>120</code></td>
+<td>分析逾時時間（秒，1–3600）</td>
+</tr>
+<tr>
+<td><code>--network</code></td>
+<td><code>-N</code></td>
+<td></td>
+<td>網路模式：<code>internet</code>、<code>drop</code>、<code>tor</code>、<code>vpn</code>、<code>sim200</code>、<code>sim404</code>、<code>simnx</code></td>
+</tr>
+<tr>
+<td><code>--geolocation TEXT</code></td>
+<td></td>
+<td></td>
+<td>VPN 出口國家代碼；需搭配 <code>--network vpn</code>（可重複）</td>
+</tr>
+<tr>
+<td><code>--browser</code></td>
+<td><code>-b</code></td>
+<td></td>
+<td>瀏覽器：<code>chrome</code>、<code>firefox</code>、<code>ie11</code>、<code>microsoft-edge</code></td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td></td>
+<td>人類可讀的表格</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>w10-quick<span class="w"> </span>-T<span class="w"> </span>os:windows10-2004-x64<span class="w"> </span>-t<span class="w"> </span><span class="m">120</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>w10-vpn<span class="w"> </span>-T<span class="w"> </span>os:windows10-2004-x64<span class="w"> </span>-t<span class="w"> </span><span class="m">300</span><span class="w"> </span>-N<span class="w"> </span>vpn<span class="w"> </span>--geolocation<span class="w"> </span>se
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>w10-ff<span class="w"> </span>-T<span class="w"> </span>os:windows10-2004-x64<span class="w"> </span>-T<span class="w"> </span>locale:en-us<span class="w"> </span>-t<span class="w"> </span><span class="m">120</span><span class="w"> </span>-b<span class="w"> </span>firefox<span class="w"> </span>-p
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>w10-quick<span class="w"> </span>-T<span class="w"> </span>os:windows10-2004-x64<span class="w"> </span>-t<span class="w"> </span><span class="m">120</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.id&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>回應結構：</strong> 回傳已建立的設定檔 JSON 物件——欄位與 <code>sandbox profile list</code> 的項目相同。</p>
+<hr />
+<h3 id="banshee-sandbox-profile-update-具有變更效果"><code>banshee sandbox profile update</code> <em>(具有變更效果)</em><a class="headerlink" href="#banshee-sandbox-profile-update-具有變更效果" title="Permanent link">&para;</a></h3>
+<p>更新現有的分析設定檔。僅您所提供的選項會被更新——未指定的選項保留原有值。使用 <code>--unset</code> 清除 <code>network</code>、<code>browser</code> 或 <code>geolocation</code>。</p>
+<table>
+<thead>
+<tr>
+<th>引數/選項</th>
+<th>縮寫</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PROFILE_ID_OR_NAME</code>（必填）</td>
+<td></td>
+<td>設定檔 UUID 或名稱</td>
+</tr>
+<tr>
+<td><code>--name TEXT</code></td>
+<td><code>-n</code></td>
+<td>新的設定檔名稱</td>
+</tr>
+<tr>
+<td><code>--tag TEXT</code></td>
+<td><code>-T</code></td>
+<td>OS/地區標籤；取代所有現有標籤（可重複）</td>
+</tr>
+<tr>
+<td><code>--timeout INTEGER</code></td>
+<td><code>-t</code></td>
+<td>分析逾時時間（秒，1–3600）</td>
+</tr>
+<tr>
+<td><code>--network</code></td>
+<td><code>-N</code></td>
+<td>網路模式：<code>internet</code>、<code>drop</code>、<code>tor</code>、<code>vpn</code>、<code>sim200</code>、<code>sim404</code>、<code>simnx</code></td>
+</tr>
+<tr>
+<td><code>--geolocation TEXT</code></td>
+<td></td>
+<td>VPN 出口國家代碼；需搭配 <code>--network vpn</code>（可重複）</td>
+</tr>
+<tr>
+<td><code>--browser</code></td>
+<td><code>-b</code></td>
+<td>瀏覽器：<code>chrome</code>、<code>firefox</code>、<code>ie11</code>、<code>microsoft-edge</code></td>
+</tr>
+<tr>
+<td><code>--unset</code></td>
+<td></td>
+<td>清除欄位：<code>network</code>、<code>browser</code> 或 <code>geolocation</code>（可重複）</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>人類可讀的狀態訊息</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>update<span class="w"> </span>ernie<span class="w"> </span>-n<span class="w"> </span>ernie-v2
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>update<span class="w"> </span>ernie<span class="w"> </span>-T<span class="w"> </span>os:windows10-2004-x64<span class="w"> </span>-T<span class="w"> </span>locale:en-us
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>update<span class="w"> </span>ernie<span class="w"> </span>-t<span class="w"> </span><span class="m">300</span><span class="w"> </span>-N<span class="w"> </span>vpn<span class="w"> </span>--geolocation<span class="w"> </span>us<span class="w"> </span>--geolocation<span class="w"> </span>gb
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>update<span class="w"> </span>ernie<span class="w"> </span>--unset<span class="w"> </span>browser<span class="w"> </span>--unset<span class="w"> </span>network
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>update<span class="w"> </span>ernie<span class="w"> </span>-n<span class="w"> </span>ernie-v2<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.updated&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>回應結構：</strong> 設定檔存在且已更新時回傳 <code>{"updated": true}</code>；不存在時回傳 <code>{"updated": false}</code>。兩種情況均以退出碼 0 結束。</p>
+<hr />
+<h3 id="banshee-sandbox-profile-delete-具有變更效果"><code>banshee sandbox profile delete</code> <em>(具有變更效果)</em><a class="headerlink" href="#banshee-sandbox-profile-delete-具有變更效果" title="Permanent link">&para;</a></h3>
+<p>依 ID 或名稱刪除分析設定檔。操作可安全重複執行：刪除不存在的設定檔時會輸出警告並以退出碼 0 結束。</p>
+<table>
+<thead>
+<tr>
+<th>引數/選項</th>
+<th>縮寫</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PROFILE_ID_OR_NAME</code>（必填）</td>
+<td></td>
+<td>設定檔 UUID 或名稱</td>
+</tr>
+<tr>
+<td><code>--yes</code> / <code>-y</code></td>
+<td></td>
+<td>略過確認提示</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>delete<span class="w"> </span>022b8c4e-22ab-46a4-ac49-a2732b2412b7
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>delete<span class="w"> </span><span class="s1">&#39;Windows 7 Long&#39;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>profile<span class="w"> </span>delete<span class="w"> </span>w7-long<span class="w"> </span>-y
+</code></pre></div></td></tr></table></div>
+<p><strong>回應：</strong> 成功時無輸出；以退出碼 0 結束。</p>
+<hr />
+<h3 id="banshee-sandbox-report-overview"><code>banshee sandbox report overview</code><a class="headerlink" href="#banshee-sandbox-report-overview" title="Permanent link">&para;</a></h3>
+<p>擷取已完成 sandbox 樣本的完整概覽報告：判決分數、惡意軟體家族、標籤、雜湊值、偵測簽章、萃取的惡意軟體設定、網路 IOC 及各任務結果。樣本必須處於 <code>reported</code> 狀態。</p>
+<table>
+<thead>
+<tr>
+<th>引數/選項</th>
+<th>縮寫</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SAMPLE_ID</code>（必填）</td>
+<td></td>
+<td>Sandbox 樣本 ID</td>
+</tr>
+<tr>
+<td><code>--wait</code></td>
+<td><code>-w</code></td>
+<td>輪詢最長 30 分鐘，直至報告就緒</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>人類可讀的摘要檢視</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>overview<span class="w"> </span><span class="m">260501</span>-h4p7laawme
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>overview<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>-p
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>overview<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>--wait
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>overview<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.analysis&#39;</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>overview<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.targets[].iocs&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>回應結構：</strong> 回傳單一 JSON 物件：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.version</code></td>
+<td>報告格式版本</td>
+</tr>
+<tr>
+<td><code>.build</code></td>
+<td>Sandbox 建置資訊</td>
+</tr>
+<tr>
+<td><code>.analysis</code></td>
+<td>判決物件：分數、惡意軟體家族、標籤</td>
+</tr>
+<tr>
+<td><code>.sample</code></td>
+<td>樣本中繼資料：id、kind、filename、sha256、submitted、completed</td>
+</tr>
+<tr>
+<td><code>.signatures</code></td>
+<td>所有任務的偵測簽章</td>
+</tr>
+<tr>
+<td><code>.targets</code></td>
+<td>引爆目標物件陣列，每個物件含 <code>.iocs</code>（網路 IOC）及惡意軟體設定萃取結果</td>
+</tr>
+<tr>
+<td><code>.tasks</code></td>
+<td>各任務摘要陣列：任務 ID、平台、狀態、判決分數</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="banshee-sandbox-report-static"><code>banshee sandbox report static</code><a class="headerlink" href="#banshee-sandbox-report-static" title="Permanent link">&para;</a></h3>
+<p>擷取 sandbox 樣本的靜態（引爆前）分析報告：判決分數、標籤、解包檔案、靜態偵測簽章及萃取的惡意軟體設定。此報告於靜態分析完成後即可取得——無需等待行為任務完成。</p>
+<table>
+<thead>
+<tr>
+<th>引數/選項</th>
+<th>縮寫</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SAMPLE_ID</code>（必填）</td>
+<td></td>
+<td>Sandbox 樣本 ID</td>
+</tr>
+<tr>
+<td><code>--wait</code></td>
+<td><code>-w</code></td>
+<td>輪詢最長 10 分鐘，直至報告就緒</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>人類可讀的摘要檢視</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span>
+<span class="normal"><a href="#__codelineno-14-3">3</a></span>
+<span class="normal"><a href="#__codelineno-14-4">4</a></span>
+<span class="normal"><a href="#__codelineno-14-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>static<span class="w"> </span><span class="m">260501</span>-h4p7laawme
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>static<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>-p
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>static<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>--wait
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>static<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.analysis&#39;</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>static<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.files[].sha256&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>回應結構：</strong> 回傳單一 JSON 物件：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.version</code></td>
+<td>報告格式版本</td>
+</tr>
+<tr>
+<td><code>.build</code></td>
+<td>Sandbox 建置資訊</td>
+</tr>
+<tr>
+<td><code>.sample</code></td>
+<td>樣本中繼資料：id、kind、filename、sha256、submitted</td>
+</tr>
+<tr>
+<td><code>.task</code></td>
+<td>靜態任務中繼資料</td>
+</tr>
+<tr>
+<td><code>.analysis</code></td>
+<td>判決物件：分數、標籤、靜態簽章</td>
+</tr>
+<tr>
+<td><code>.files</code></td>
+<td>解包檔案陣列——每個項目含 <code>sha256</code>、<code>filename</code>、<code>size</code> 及靜態分析詳情</td>
+</tr>
+<tr>
+<td><code>.unpack_count</code></td>
+<td>從提交樣本中解包的檔案總數</td>
+</tr>
+<tr>
+<td><code>.error_count</code></td>
+<td>無法解包的檔案數量</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="banshee-sandbox-report-behavioral"><code>banshee sandbox report behavioral</code><a class="headerlink" href="#banshee-sandbox-report-behavioral" title="Permanent link">&para;</a></h3>
+<p>擷取已完成 sandbox 樣本的行為（引爆後）報告，每個已完成的行為任務對應一個物件。未完成的任務會從輸出中省略並於 stderr 中注記；指令在所有任務完成前會以非零退出碼結束。當樣本無行為任務時，回傳空陣列並以退出碼 0 結束。</p>
+<p><code>--pretty</code> 檢視中的程序命令列預設會被截斷——若需要完整內容，請傳入 <code>--full-cmd</code>（命令列直接取自惡意軟體樣本，請視為不受信任的輸入）。</p>
+<table>
+<thead>
+<tr>
+<th>引數/選項</th>
+<th>縮寫</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SAMPLE_ID</code>（必填）</td>
+<td></td>
+<td>Sandbox 樣本 ID</td>
+</tr>
+<tr>
+<td><code>--wait</code></td>
+<td><code>-w</code></td>
+<td>輪詢最長 30 分鐘，直至所有任務完成</td>
+</tr>
+<tr>
+<td><code>--full-cmd</code></td>
+<td></td>
+<td>顯示完整未截斷的程序命令列（請視為不受信任的輸入）</td>
+</tr>
+<tr>
+<td><code>--pretty</code></td>
+<td><code>-p</code></td>
+<td>每個任務的人類可讀摘要檢視</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
+<span class="normal"><a href="#__codelineno-15-2">2</a></span>
+<span class="normal"><a href="#__codelineno-15-3">3</a></span>
+<span class="normal"><a href="#__codelineno-15-4">4</a></span>
+<span class="normal"><a href="#__codelineno-15-5">5</a></span>
+<span class="normal"><a href="#__codelineno-15-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>behavioral<span class="w"> </span><span class="m">260501</span>-h4p7laawme
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>behavioral<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>-p
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>behavioral<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>--wait
+<a id="__codelineno-15-4" name="__codelineno-15-4"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>behavioral<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span>-p<span class="w"> </span>--full-cmd
+<a id="__codelineno-15-5" name="__codelineno-15-5"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>behavioral<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[].analysis.score&#39;</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6"></a>banshee<span class="w"> </span>sandbox<span class="w"> </span>report<span class="w"> </span>behavioral<span class="w"> </span><span class="m">260501</span>-h4p7laawme<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[].network.flows&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>回應結構：</strong> 回傳 JSON 陣列，每個項目對應一個行為任務：</p>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.task_id</code></td>
+<td>行為任務 ID</td>
+</tr>
+<tr>
+<td><code>.version</code></td>
+<td>報告格式版本</td>
+</tr>
+<tr>
+<td><code>.build</code></td>
+<td>Sandbox 建置資訊</td>
+</tr>
+<tr>
+<td><code>.sample</code></td>
+<td>樣本中繼資料：id、kind、filename、sha256</td>
+</tr>
+<tr>
+<td><code>.task</code></td>
+<td>任務中繼資料：platform、status、started、completed</td>
+</tr>
+<tr>
+<td><code>.analysis</code></td>
+<td>判決物件：分數、惡意軟體家族、標籤</td>
+</tr>
+<tr>
+<td><code>.tags</code></td>
+<td>行為標籤陣列（例如 <code>discovery</code>、<code>execution</code>）</td>
+</tr>
+<tr>
+<td><code>.signatures</code></td>
+<td>已觸發的偵測簽章陣列</td>
+</tr>
+<tr>
+<td><code>.processes</code></td>
+<td>觀察到的程序陣列——每個項目含 <code>pid</code>、<code>name</code>、<code>cmd</code>（除非使用 <code>--full-cmd</code> 否則截斷）及子程序</td>
+</tr>
+<tr>
+<td><code>.network</code></td>
+<td>網路活動：<code>.flows</code>（連線記錄）、<code>.dns</code>（DNS 查詢）、<code>.http</code>（HTTP 請求）</td>
+</tr>
+<tr>
+<td><code>.dumped</code></td>
+<td>已傾印/萃取的檔案陣列，含各自的 SHA-256 雜湊值</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到頂端
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.youtube.com/user/RecordedFuture" target="_blank" rel="noopener" title="www.youtube.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M549.7 124.1c-6.2-23.7-24.8-42.3-48.3-48.6C458.9 64 288.1 64 288.1 64S117.3 64 74.7 75.5c-23.5 6.3-42 24.9-48.3 48.6C15 167 15 256.4 15 256.4s0 89.4 11.4 132.3c6.3 23.6 24.8 41.5 48.3 47.8C117.3 448 288.1 448 288.1 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zM232.2 337.6V175.2l142.7 81.2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.facebook.com/RecordedFuture" target="_blank" rel="noopener" title="www.facebook.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256c0 120 82.7 220.8 194.2 248.5V334.2h-52.8V256h52.8v-33.7c0-87.1 39.4-127.5 125-127.5 16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287v175.9C413.8 494.8 512 386.9 512 256"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/company/recorded-future" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/recordedfuture" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.instagram.com/recordedfuture/" target="_blank" rel="noopener" title="www.instagram.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M224.3 141a115 115 0 1 0-.6 230 115 115 0 1 0 .6-230m-.6 40.4a74.6 74.6 0 1 1 .6 149.2 74.6 74.6 0 1 1-.6-149.2m93.4-45.1a26.8 26.8 0 1 1 53.6 0 26.8 26.8 0 1 1-53.6 0m129.7 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8M399 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.recordedfuture.com/feed" target="_blank" rel="noopener" title="www.recordedfuture.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M0 64c0-17.7 14.3-32 32-32 229.8 0 416 186.2 416 416 0 17.7-14.3 32-32 32s-32-14.3-32-32C384 253.6 226.4 96 32 96 14.3 96 0 81.7 0 64m0 352a64 64 0 1 1 128 0 64 64 0 1 1-128 0m32-256c159.1 0 288 128.9 288 288 0 17.7-14.3 32-32 32s-32-14.3-32-32c0-123.7-100.3-224-224-224-17.7 0-32-14.3-32-32s14.3-32 32-32"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.annotate", "content.code.copy", "content.code.wrap", "content.footnote.tooltips", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.path", "navigation.top", "navigation.tracking", "navigation.sections", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u8907\u88fd", "clipboard.copy": "\u8907\u88fd", "search.result.more.one": "\u6b64\u9801\u5c1a\u6709 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.more.other": "\u6b64\u9801\u5c1a\u6709 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.none": "\u6c92\u6709\u7b26\u5408\u7684\u9805\u76ee", "search.result.one": "\u627e\u5230 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.other": "\u627e\u5230 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.placeholder": "\u6253\u5b57\u9032\u884c\u641c\u5c0b", "search.result.term.missing": "\u7f3a\u5c11\u5b57\u8a5e", "select.version": "\u9078\u64c7\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
