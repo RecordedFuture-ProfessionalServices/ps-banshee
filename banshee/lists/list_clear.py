@@ -25,19 +25,20 @@ def clear_list(list_id: str, note: str = None, invert: str = None, empty: bool =
     if note:
         note_lower = note.lower()
         entities_to_remove = [
-            e.entity.id_ for e in all_entities
+            e.entity.id_
+            for e in all_entities
             if e.context and any(note_lower in str(v).lower() for v in e.context.values())
         ]
     elif invert:
         invert_lower = invert.lower()
         entities_to_remove = [
-            e.entity.id_ for e in all_entities
+            e.entity.id_
+            for e in all_entities
             if not e.context or not any(invert_lower in str(v).lower() for v in e.context.values())
         ]
     elif empty:
         entities_to_remove = [
-            e.entity.id_ for e in all_entities
-            if not e.context or not any(e.context.values())
+            e.entity.id_ for e in all_entities if not e.context or not any(e.context.values())
         ]
     else:
         entities_to_remove = [e.entity.id_ for e in all_entities]

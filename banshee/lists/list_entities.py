@@ -27,7 +27,8 @@ def fetch_entities(list_id: str, pretty: bool, note: str, empty: bool, invert: s
     if note:
         note_lower = note.lower()
         entities = [
-            e for e in entities
+            e
+            for e in entities
             if e.context and any(note_lower in str(v).lower() for v in e.context.values())
         ]
     elif empty:
@@ -35,7 +36,8 @@ def fetch_entities(list_id: str, pretty: bool, note: str, empty: bool, invert: s
     elif invert:
         invert_lower = invert.lower()
         entities = [
-            e for e in entities
+            e
+            for e in entities
             if not e.context or not any(invert_lower in str(v).lower() for v in e.context.values())
         ]
 

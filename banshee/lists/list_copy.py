@@ -18,7 +18,9 @@ from .fetch_list import fetch_list
 from .list_bulk_add import bulk_add_entities
 
 
-def copy_list(source_list_id: str, destination_list_id: str, overwrite: bool = False, note: str = None):
+def copy_list(
+    source_list_id: str, destination_list_id: str, overwrite: bool = False, note: str = None
+):
     """Copies entities from one list to another."""
     with Progress(
         SpinnerColumn(),
