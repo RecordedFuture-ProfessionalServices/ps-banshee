@@ -11,6 +11,7 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
+from pathlib import Path
 from typing import Annotated, Optional
 
 from typer import Argument, Option, Typer
@@ -19,8 +20,9 @@ from banshee.commands.args import OPT_PRETTY_PRINT
 from banshee.email.constants import MIN_RISK_SCORE
 
 from ..branding import banshee_cmd
+from ..email.attachments_sandbox import sandbox_attachments
 from ..email.email_enrich import email_enrich
-from .epilogs import EPILOG_EMAIL_ENRICH
+from .epilogs import EPILOG_EMAIL_ATTACHMENT, EPILOG_EMAIL_ENRICH
 
 CMD_NAME = 'email'
 CMD_HELP = 'Enrich e-mail files (EML) with Recorded Future intelligence'
@@ -31,6 +33,14 @@ ENRICH_COMMAND_HELP = (
     "This command parses the eml file to extract IP's from the header, "
     "URL's (prefixed with http/https) found in the body"
 )
+
+ATTACHMENT_COMMAND_HELP = (
+    'Extract attachments from an e-mail (EML) file, archive them into a '
+    'password-protected ZIP (password: "infected") and submit to '
+    'Recorded Future Sandbox for analysis.'
+)
+
+CWD = Path.cwd()
 
 app = Typer(no_args_is_help=True)
 
@@ -60,3 +70,19 @@ def enrich(
     pretty: OPT_PRETTY_PRINT = False,
 ):
     email_enrich(file_path, pretty, hunt, min_risk_score)
+
+
+@banshee_cmd(app=app, help_=ATTACHMENT_COMMAND_HELP, epilog=EPILOG_EMAIL_ATTACHMENT)
+def extract_attachments(
+    file_path: Annotated[str, Argument(help='Path to eml file', show_default=True)],
+    zip_path: Annotated[
+        Optional[Path],
+        Option(
+            '-z',
+            '--zip-path',
+            help='Specify a custom path to save the archive containing the extracted files.',
+        ),
+    ] = CWD,
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    sandbox_attachments(file_path, zip_path, pretty)

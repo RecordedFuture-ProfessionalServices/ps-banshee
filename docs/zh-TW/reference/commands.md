@@ -570,6 +570,43 @@ banshee email enrich phishing_submission.eml -r 1 -p
 banshee email enrich suspicious.eml --threat-hunt
 </code></pre>
 
+### banshee email extract-attachments
+
+從電子郵件（EML）檔案中提取附件，以密碼保護的 ZIP 壓縮檔（密碼為 `infected`）封裝，並將壓縮檔提交至 Recorded Future Sandbox 進行分析。等待沙箱分析完成後回傳摘要：目前狀態、整體分數、目標、建立和完成時間戳記、SHA256，以及各任務的詳細資訊。
+
+預設情況下，此命令將以 JSON 格式輸出結果。
+
+<h3 class="commands-reference">用法</h3>
+
+```
+banshee email extract-attachments [OPTIONS] FILE_PATH
+```
+
+<h3 class="commands-reference">引數</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-email-extract-attachments--file-path"><a href="#banshee-email-extract-attachments--file-path"><code>FILE_PATH</code></a></dt><dd><p>要提取附件的 EML 檔案路徑</p></dd>
+</dl>
+
+<h3 class="commands-reference">選項</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-email-extract-attachments--zip-path"><a href="#banshee-email-extract-attachments--zip-path"><code>--zip-path</code></a>, <code>-z</code> <i>zip-path</i></dt><dd>
+    <p>指定儲存包含提取檔案的壓縮檔的自訂路徑</p>
+    <p>預設為當前目錄</p></dd>
+    <dt id="banshee-email-extract-attachments--pretty"><a href="#banshee-email-extract-attachments--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>以人類可讀的格式美化輸出結果</p></dd>
+    <dt id="banshee-email-extract-attachments--help"><a href="#banshee-email-extract-attachments--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>顯示此命令的說明</p>
+</dl>
+
+<h3 class="commands-reference">使用範例</h3>
+
+<pre><code class="language-bash">
+banshee email extract-attachments phishing_email.eml
+banshee email extract-attachments phishing_email.eml -p -z ../sandbox/files.zip
+</code></pre>
+
 ## banshee ioc
 
 搜尋及查詢入侵指標（IOC）

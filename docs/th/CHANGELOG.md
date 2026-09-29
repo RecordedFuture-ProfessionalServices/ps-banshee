@@ -1,5 +1,9 @@
 # ประวัติการเผยแพร่
 
+## 1.6.0 - 2026-09-15
+### เพิ่มใหม่
+- คำสั่งย่อย ['email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) ใหม่สำหรับแยกไฟล์แนบจากไฟล์ EML, บันทึกลงในไฟล์เก็บถาวรที่ป้องกันด้วยรหัสผ่าน จากนั้นส่งไปยัง Recorded Future Sandbox เพื่อวิเคราะห์
+
 ## 1.5.0 - 2026-08-21
 
 ### เพิ่มใหม่

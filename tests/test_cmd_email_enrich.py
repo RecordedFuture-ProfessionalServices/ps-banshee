@@ -203,7 +203,7 @@ def test_email_json_out(mock_lookup_cls, mock_risklist_cls):
 
     mock_lookup_cls.return_value.lookup_bulk.side_effect = fake_lookup_bulk
     mock_risklist_cls.return_value.fetch_risklist.side_effect = fake_fetch_risklist
-    result = runner.invoke(app, args=[EML_FILES[0][0].as_posix(), '-r', '50'])
+    result = runner.invoke(app, args=['enrich', EML_FILES[0][0].as_posix(), '-r', '50'])
     assert result.exit_code == 0
     data = json.loads(result.output)
 
