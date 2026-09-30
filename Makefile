@@ -38,7 +38,7 @@ help:
 ##########################################
 setup:
 	uv venv --python $(PYTHON_VERSION)
-	uv sync --system-certs
+	uv pip install -e ".[dev,docs]"
 	@echo "Run > source .venv/bin/activate"
 
 ##########################################

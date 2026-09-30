@@ -1,19 +1,8 @@
 # ประวัติการเผยแพร่
 
-## 1.5.1 - 2026-09-28
-- ตัวเลือกใหม่สำหรับ [`list entities`](reference/commands.md#banshee-list-entities):
-    - ตัวเลือก [`-n`/`--note`](reference/commands.md#banshee-list-entities--note) สำหรับกรอง entity ที่มีข้อความที่ระบุในข้อความ annotation
-    - ตัวเลือก [`-i`/`--invert`](reference/commands.md#banshee-list-entities--invert) สำหรับกรอง entity โดยใช้การจับคู่เชิงลบในข้อความ annotation
-    - ตัวเลือก [`-e`/`--empty`](reference/commands.md#banshee-list-entities--empty) สำหรับกรอง entity ที่ไม่มีข้อความ annotation
-- ตัวเลือกใหม่สำหรับ [` list clear`](reference/commands.md#banshee-list-clear):
-    - ตัวเลือก [`-n`/`--note`](reference/commands.md#banshee-list-clear--note) สำหรับล้าง entity ที่มีข้อความที่ระบุในข้อความ annotation
-    - ตัวเลือก [`-i`/`--invert`](reference/commands.md#banshee-list-clear--invert) สำหรับล้าง entity โดยใช้การจับคู่เชิงลบในข้อความ annotation
-    - ตัวเลือก [`-e`/`--empty`](reference/commands.md#banshee-list-clear--empty) สำหรับล้าง entity ที่ไม่มีข้อความ annotation
-- ตัวเลือกใหม่สำหรับ [` list bulk-add`](reference/commands.md#banshee-bulk-add): ตัวเลือก [`-n`/`--note`](reference/commands.md#banshee-list-bulk-add--note) สำหรับเพิ่มข้อความ annotation ให้กับ entity ทั้งหมด
-- ตัวเลือกใหม่สำหรับ [` list copy`](reference/commands.md#banshee-list-copy): ตัวเลือก [`-n`/`--note`](reference/commands.md#banshee-list-copy--note) สำหรับเพิ่มข้อความ annotation ให้กับ entity ทั้งหมดที่กำลังคัดลอกไปยังรายการปลายทาง
-### เปลี่ยนแปลง
-- [`list add`](reference/commands.md#banshee-list-add): ข้อความ annotation ไม่จำเป็นต้องระบุ `annotation=<text>` อย่างชัดเจนอีกต่อไป
-
+## 1.6.0 - 2026-09-15
+### เพิ่มใหม่
+- คำสั่งย่อย ['email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) ใหม่สำหรับแยกไฟล์แนบจากไฟล์ EML, บันทึกลงในไฟล์เก็บถาวรที่ป้องกันด้วยรหัสผ่าน จากนั้นส่งไปยัง Recorded Future Sandbox เพื่อวิเคราะห์
 
 ## 1.5.0 - 2026-08-21
 

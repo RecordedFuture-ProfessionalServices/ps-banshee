@@ -570,6 +570,43 @@ banshee email enrich phishing_submission.eml -r 1 -p
 banshee email enrich suspicious.eml --threat-hunt
 </code></pre>
 
+### banshee email extract-attachments
+
+แยก attachment จากไฟล์อีเมล (EML) บีบอัดเข้า ZIP ที่มีรหัสผ่าน (รหัสผ่าน `infected`) และส่ง archive ดังกล่าวไปยัง Recorded Future Sandbox เพื่อวิเคราะห์ รอจนกว่าการวิเคราะห์ใน sandbox จะเสร็จสมบูรณ์ก่อนแสดงสรุป ได้แก่ สถานะปัจจุบัน คะแนนรวม เป้าหมาย timestamps การสร้างและเสร็จสิ้น SHA256 และรายละเอียดแต่ละ task
+
+โดยค่าเริ่มต้น คำสั่งจะแสดงผลลัพธ์ในรูปแบบ JSON
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee email extract-attachments [OPTIONS] FILE_PATH
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-email-extract-attachments--file-path"><a href="#banshee-email-extract-attachments--file-path"><code>FILE_PATH</code></a></dt><dd><p>Path ของไฟล์ EML ที่ต้องการแยก attachment</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-email-extract-attachments--zip-path"><a href="#banshee-email-extract-attachments--zip-path"><code>--zip-path</code></a>, <code>-z</code> <i>zip-path</i></dt><dd>
+    <p>ระบุ path แบบกำหนดเองสำหรับบันทึก archive ที่มีไฟล์ที่แยกออกมา</p>
+    <p>ค่าเริ่มต้นคือ directory ปัจจุบัน</p></dd>
+    <dt id="banshee-email-extract-attachments--pretty"><a href="#banshee-email-extract-attachments--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>แสดงผลลัพธ์ในรูปแบบที่อ่านง่ายสำหรับมนุษย์</p></dd>
+    <dt id="banshee-email-extract-attachments--help"><a href="#banshee-email-extract-attachments--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee email extract-attachments phishing_email.eml
+banshee email extract-attachments phishing_email.eml -p -z ../sandbox/files.zip
+</code></pre>
+
 ## banshee ioc
 
 ค้นหาและดูข้อมูล Indicators of Compromise (IOC)
@@ -691,7 +728,7 @@ cat test_ips.csv| banshee ioc lookup ip -p
 
 เสริมข้อมูลแบบ bulk อย่างรวดเร็วสำหรับ IOC จำนวนเท่าใดก็ได้ในประเภทเดียว คำสั่งจะแบ่งกลุ่มสูงสุด 1,000 IOC ต่อการเรียก API และจัดการการแบ่งกลุ่มโดยอัตโนมัติ ทำให้เร็วกว่า [`banshee ioc lookup`](#banshee-ioc-lookup) อย่างมากสำหรับปริมาณข้อมูลจำนวนมาก
 
-ส่งคืนชุดฟิลด์ที่กำหนดไว้สำหรับแต่ละ indicator: risk score และ risk rules ที่ถูก trigger ใช้สำหรับการ triage ปริมาณสูง
+ส่งคืนชุดฟิลด์ที่กำหนดไว้สำหรับแต่ละ indicator ได้แก่ risk score และ risk rules ที่ถูก trigger เหมาะสำหรับการ triage ปริมาณสูง
 
 โดยค่าเริ่มต้น คำสั่งจะแสดงผลลัพธ์ในรูปแบบ JSON
 
@@ -1108,15 +1145,9 @@ banshee list entities [OPTIONS] LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>กรองเฉพาะ entity ที่ annotation มีข้อความนี้</p><dd></dd>
-    <dt id="banshee-list-entities--invert"><a href="#banshee-list-entities--invert"><code>--invert</code></a>,  <code>-i</code></dt><dd>
-    <p>กรองเฉพาะ entity ที่ annotation ไม่มีข้อความนี้</p><dd></dd>
-    <dt id="banshee-list-entities--empty"><a href="#banshee-list-entities--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
-    <p>กรองเฉพาะ entity ที่ไม่มี annotation</p><dd></dd>
-    <dt id="banshee-list-entities--pretty"><a href="#banshee-list-entities--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>แสดงผลลัพธ์ในรูปแบบที่อ่านง่ายสำหรับมนุษย์</p><dd></dd>
-    <dt id="banshee-list-entities--help"><a href="#banshee-list-entities--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>
 </dl>
 
@@ -1173,12 +1204,6 @@ banshee list clear [OPTIONS] LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>ลบ entity ที่ annotation มีข้อความนี้</p><dd></dd>
-    <dt id="banshee-list-clear--invert"><a href="#banshee-list-clear--invert"><code>--invert</code></a>,  <code>-i</code></dt><dd>
-    <p>ลบ entity ที่ annotation ไม่มีข้อความนี้</p><dd></dd>
-    <dt id="banshee-list-clear--empty"><a href="#banshee-list-clear--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
-    <p>ลบ entity ที่ไม่มีข้อความ annotation</p><dd></dd>
     <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>
 </dl>
@@ -1269,8 +1294,6 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-bulk-add--note"><a href="#banshee-list-bulk-add--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>เพิ่มข้อความ annotation สำหรับ entity ทั้งหมด</p><dd></dd>
     <dt id="banshee-list-bulk-add--overwrite"><a href="#banshee-list-bulk-add--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>เปิดใช้งานโหมด overwrite เมื่อตั้งค่านี้ คำสั่งจะ:</p>
     <ul>
@@ -1429,8 +1452,6 @@ banshee list copy [OPTIONS] SOURCE_LIST_ID DESTINATION_LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-copy--note"><a href="#banshee-list-copy--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>เพิ่มข้อความ annotation สำหรับ entity ใน list ปลายทาง</p><dd></dd>
     <dt id="banshee-list-copy--overwrite"><a href="#banshee-list-copy--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>โหมด Overwrite: คงไว้ซึ่ง entity ที่มีอยู่ใน list ปลายทางแล้ว เพิ่ม entity ใหม่ และลบ entity ใดก็ตามที่อยู่ใน list ปลายทางแต่ไม่อยู่ใน list ต้นทาง โดยค่าเริ่มต้น คำสั่งจะ append entity ใหม่โดยไม่ลบที่มีอยู่</p></dd>
     <dt id="banshee-list-copy--help"><a href="#banshee-list-copy--help"><code>--help</code></a>, <code>-h</code></dt><dd>
@@ -2213,7 +2234,7 @@ banshee sandbox search --family emotet | jq '.[].sha256'
 
 ### banshee sandbox get
 
-ดึงสรุปสำหรับ sandbox sample รายการเดียวตาม ID: สถานะปัจจุบัน คะแนนรวม เป้าหมาย timestamps การสร้างและเสร็จสิ้น SHA256 และรายละเอียดแต่ละ task ใช้ได้กับทั้ง sample ที่กำลังดำเนินการและที่เสร็จสมบูรณ์แล้ว
+ดึงสรุปสำหรับ sandbox sample รายการเดียวตาม ID ได้แก่ สถานะปัจจุบัน คะแนนรวม เป้าหมาย timestamps การสร้างและเสร็จสิ้น SHA256 และรายละเอียดแต่ละ task ใช้ได้กับทั้ง sample ที่กำลังดำเนินการและที่เสร็จสมบูรณ์แล้ว
 
 <h3 class="commands-reference">Usage</h3>
 
@@ -2788,7 +2809,4 @@ banshee sandbox report behavioral [OPTIONS] SAMPLE_ID
     <dt id="banshee-sandbox-report-behavioral--wait"><a href="#banshee-sandbox-report-behavioral--wait"><code>--wait</code></a>, <code>-w</code></dt><dd>
     <p>Poll จนกว่า task ทั้งหมดจะเสร็จสมบูรณ์ (สูงสุด 30 นาที)</p></dd>
     <dt id="banshee-sandbox-report-behavioral--full-cmd"><a href="#banshee-sandbox-report-behavioral--full-cmd"><code>--full-cmd</code></a></dt><dd>
-    <p>แสดง command line ของ process แบบเต็มโดยไม่ตัดทอน เนื้อหา command line นำมาโดยตรงจาก malware sample และควรถือว่าเป็น input ที่ไม่น่าเชื่อถือ</p></dd>
-    <dt id="banshee-sandbox-report-behavioral--pretty"><a href="#banshee-sandbox-report-behavioral--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
-    <p>แสดงผลลัพธ์ในรูปแบบที่อ่านง่ายสำหรับมนุษย์</p></dd>
-    <dt id="banshee-sandbox-report-behavioral--help"><a href="#banshee-sandbox-report-behavioral--help"><code>--
+    <p>แสดง command line ของ process แบบเต็มโดยไม่ตัดทอน เนื้อหา command line นำมาโด

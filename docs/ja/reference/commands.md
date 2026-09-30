@@ -570,6 +570,43 @@ banshee email enrich phishing_submission.eml -r 1 -p
 banshee email enrich suspicious.eml --threat-hunt
 </code></pre>
 
+### banshee email extract-attachments
+
+EML ファイルから添付ファイルを抽出し、パスワード保護された ZIP アーカイブ（パスワード `infected`）にまとめて、Recorded Future Sandbox に提出して解析します。サンドボックス解析が完了するまで待機した後、現在のステータス、総合スコア、ターゲット、作成・完了タイムスタンプ、SHA256、タスクごとの内訳のサマリーを返します。
+
+デフォルトでは、結果を JSON 形式で出力します。
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee email extract-attachments [OPTIONS] FILE_PATH
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-email-extract-attachments--file-path"><a href="#banshee-email-extract-attachments--file-path"><code>FILE_PATH</code></a></dt><dd><p>添付ファイルを抽出する EML ファイルへのパス</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-email-extract-attachments--zip-path"><a href="#banshee-email-extract-attachments--zip-path"><code>--zip-path</code></a>, <code>-z</code> <i>zip-path</i></dt><dd>
+    <p>抽出したファイルを含むアーカイブの保存先パスを指定します</p>
+    <p>デフォルトはカレントディレクトリです</p></dd>
+    <dt id="banshee-email-extract-attachments--pretty"><a href="#banshee-email-extract-attachments--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>人間が読みやすい形式で結果を整形して表示する</p></dd>
+    <dt id="banshee-email-extract-attachments--help"><a href="#banshee-email-extract-attachments--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>このコマンドのヘルプを表示する</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee email extract-attachments phishing_email.eml
+banshee email extract-attachments phishing_email.eml -p -z ../sandbox/files.zip
+</code></pre>
+
 ## banshee ioc
 
 侵害インジケーター（IOC）の検索と参照を行います。
@@ -1108,15 +1145,9 @@ banshee list entities [OPTIONS] LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>このテキストを注釈に含むエンティティでフィルタリングします。</p><dd></dd>
-    <dt id="banshee-list-entities--invert"><a href="#banshee-list-entities--invert"><code>--invert</code></a>,  <code>-i</code></dt><dd>
-    <p>このテキストを注釈に含まないエンティティでフィルタリングします。</p><dd></dd>
-    <dt id="banshee-list-entities--empty"><a href="#banshee-list-entities--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
-    <p>注釈がないエンティティでフィルタリングします。</p><dd></dd>
-    <dt id="banshee-list-entities--pretty"><a href="#banshee-list-entities--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>人間が読みやすい形式で結果を整形して表示する</p><dd></dd>
-    <dt id="banshee-list-entities--help"><a href="#banshee-list-entities--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>このコマンドのヘルプを表示する</p>
 </dl>
 
@@ -1173,12 +1204,6 @@ banshee list clear [OPTIONS] LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>このテキストを注釈に含むエンティティを削除します。</p><dd></dd>
-    <dt id="banshee-list-clear--invert"><a href="#banshee-list-clear--invert"><code>--invert</code></a>,  <code>-i</code></dt><dd>
-    <p>このテキストを注釈に含まないエンティティを削除します。</p><dd></dd>
-    <dt id="banshee-list-clear--empty"><a href="#banshee-list-clear--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
-    <p>注釈テキストがないエンティティを削除します。</p><dd></dd>
     <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>このコマンドのヘルプを表示する</p>
 </dl>
@@ -1269,8 +1294,6 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-bulk-add--note"><a href="#banshee-list-bulk-add--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>すべてのエンティティに注釈テキストを追加します</p><dd></dd>
     <dt id="banshee-list-bulk-add--overwrite"><a href="#banshee-list-bulk-add--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>上書きモードを有効にします。このオプションを指定すると、コマンドは以下の動作をします:</p>
     <ul>
@@ -1429,8 +1452,6 @@ banshee list copy [OPTIONS] SOURCE_LIST_ID DESTINATION_LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-copy--note"><a href="#banshee-list-copy--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>コピー先リストのエンティティに注釈テキストを追加します</p><dd></dd>
     <dt id="banshee-list-copy--overwrite"><a href="#banshee-list-copy--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>上書きモード: コピー先リストにすでに存在するエンティティは保持し、新しいエンティティを追加し、コピー元リストにないコピー先のエンティティを削除します。デフォルトでは、既存のエンティティを削除せずに新しいエンティティを追記します。</p></dd>
     <dt id="banshee-list-copy--help"><a href="#banshee-list-copy--help"><code>--help</code></a>, <code>-h</code></dt><dd>

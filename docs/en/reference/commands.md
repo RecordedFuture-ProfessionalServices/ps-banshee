@@ -570,6 +570,43 @@ banshee email enrich phishing_submission.eml -r 1 -p
 banshee email enrich suspicious.eml --threat-hunt
 </code></pre>
 
+### banshee email extract-attachments
+
+Extract attachments from an e-mail (EML) file, archive them in a password-protected ZIP (password `infected`), and submit the archive to Recorded Future Sandbox for analysis. Waits for the sandbox analysis to complete before returning a summary: current status, overall score, target, creation and completion timestamps, SHA256, and per-task breakdown.
+
+By default the command will print the results in JSON format.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee email extract-attachments [OPTIONS] FILE_PATH
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-email-extract-attachments--file-path"><a href="#banshee-email-extract-attachments--file-path"><code>FILE_PATH</code></a></dt><dd><p>Path to the EML file to extract attachments from</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-email-extract-attachments--zip-path"><a href="#banshee-email-extract-attachments--zip-path"><code>--zip-path</code></a>, <code>-z</code> <i>zip-path</i></dt><dd>
+    <p>Specify a custom path to save the archive containing the extracted files</p>
+    <p>Defaults to the current directory</p></dd>
+    <dt id="banshee-email-extract-attachments--pretty"><a href="#banshee-email-extract-attachments--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p></dd>
+    <dt id="banshee-email-extract-attachments--help"><a href="#banshee-email-extract-attachments--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee email extract-attachments phishing_email.eml
+banshee email extract-attachments phishing_email.eml -p -z ../sandbox/files.zip
+</code></pre>
+
 ## banshee ioc
 
 Search and lookup Indicators of Compromise (IOCs)
@@ -1108,15 +1145,9 @@ banshee list entities [OPTIONS] LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>Filter for entities whose annotation contains this text.</p><dd></dd>
-    <dt id="banshee-list-entities--invert"><a href="#banshee-list-entities--invert"><code>--invert</code></a>,  <code>-i</code></dt><dd>
-    <p>Filter for entities whose annotation does not contain this text.</p><dd></dd>
-    <dt id="banshee-list-entities--empty"><a href="#banshee-list-entities--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
-    <p>Filter for entities with no annotation.</p><dd></dd>
-    <dt id="banshee-list-entities--pretty"><a href="#banshee-list-entities--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>Pretty print the results in a human readable format</p><dd></dd>
-    <dt id="banshee-list-entities--help"><a href="#banshee-list-entities--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>Show help for this command</p>
 </dl>
 
@@ -1173,12 +1204,6 @@ banshee list clear [OPTIONS] LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>Remove entities whose annotation contains this text.</p><dd></dd>
-    <dt id="banshee-list-clear--invert"><a href="#banshee-list-clear--invert"><code>--invert</code></a>,  <code>-i</code></dt><dd>
-    <p>Remove entities whose annotation does not contain this text.</p><dd></dd>
-    <dt id="banshee-list-clear--empty"><a href="#banshee-list-clear--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
-    <p>Remove entities with no annotation text.</p><dd></dd>
     <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>Show help for this command</p>
 </dl>
@@ -1269,8 +1294,6 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-bulk-add--note"><a href="#banshee-list-bulk-add--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>Add annotation text for all entities</p><dd></dd>
     <dt id="banshee-list-bulk-add--overwrite"><a href="#banshee-list-bulk-add--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>Enable overwrite mode. When set, the command will:</p>
     <ul>
@@ -1429,8 +1452,6 @@ banshee list copy [OPTIONS] SOURCE_LIST_ID DESTINATION_LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-copy--note"><a href="#banshee-list-copy--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>Add annotation text for entities on destination list</p><dd></dd>
     <dt id="banshee-list-copy--overwrite"><a href="#banshee-list-copy--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>Overwrite mode: keeps entities that are already in the destination list, adds new ones, and removes any entities on the destination that are not in the source list. By default the command appends new entities without removing existing ones.</p></dd>
     <dt id="banshee-list-copy--help"><a href="#banshee-list-copy--help"><code>--help</code></a>, <code>-h</code></dt><dd>

@@ -570,6 +570,43 @@ banshee email enrich phishing_submission.eml -r 1 -p
 banshee email enrich suspicious.eml --threat-hunt
 </code></pre>
 
+### banshee email extract-attachments
+
+이메일(EML) 파일에서 첨부 파일을 추출하고, 비밀번호 `infected`로 보호된 ZIP 아카이브로 압축한 후 분석을 위해 Recorded Future Sandbox에 제출합니다. 샌드박스 분석이 완료될 때까지 기다린 후 요약 정보(현재 상태, 전체 점수, 대상, 생성 및 완료 타임스탬프, SHA256, 태스크별 세부 내용)를 반환합니다.
+
+기본적으로 결과는 JSON 형식으로 출력됩니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee email extract-attachments [OPTIONS] FILE_PATH
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-email-extract-attachments--file-path"><a href="#banshee-email-extract-attachments--file-path"><code>FILE_PATH</code></a></dt><dd><p>첨부 파일을 추출할 EML 파일 경로</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-email-extract-attachments--zip-path"><a href="#banshee-email-extract-attachments--zip-path"><code>--zip-path</code></a>, <code>-z</code> <i>zip-path</i></dt><dd>
+    <p>추출된 파일이 담긴 아카이브를 저장할 사용자 지정 경로 지정</p>
+    <p>기본값: 현재 디렉토리</p></dd>
+    <dt id="banshee-email-extract-attachments--pretty"><a href="#banshee-email-extract-attachments--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p></dd>
+    <dt id="banshee-email-extract-attachments--help"><a href="#banshee-email-extract-attachments--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee email extract-attachments phishing_email.eml
+banshee email extract-attachments phishing_email.eml -p -z ../sandbox/files.zip
+</code></pre>
+
 ## banshee ioc
 
 침해 지표(IOC) 검색 및 조회
@@ -1108,15 +1145,9 @@ banshee list entities [OPTIONS] LIST_ID
 <h3 class="commands-reference">옵션</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>이 텍스트가 주석에 포함된 엔티티를 필터링합니다.</p><dd></dd>
-    <dt id="banshee-list-entities--invert"><a href="#banshee-list-entities--invert"><code>--invert</code></a>,  <code>-i</code></dt><dd>
-    <p>이 텍스트가 주석에 포함되지 않은 엔티티를 필터링합니다.</p><dd></dd>
-    <dt id="banshee-list-entities--empty"><a href="#banshee-list-entities--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
-    <p>주석이 없는 엔티티를 필터링합니다.</p><dd></dd>
-    <dt id="banshee-list-entities--pretty"><a href="#banshee-list-entities--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p><dd></dd>
-    <dt id="banshee-list-entities--help"><a href="#banshee-list-entities--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>이 명령어의 도움말 표시</p>
 </dl>
 
@@ -1173,12 +1204,6 @@ banshee list clear [OPTIONS] LIST_ID
 <h3 class="commands-reference">옵션</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>이 텍스트가 주석에 포함된 엔티티를 제거합니다.</p><dd></dd>
-    <dt id="banshee-list-clear--invert"><a href="#banshee-list-clear--invert"><code>--invert</code></a>,  <code>-i</code></dt><dd>
-    <p>이 텍스트가 주석에 포함되지 않은 엔티티를 제거합니다.</p><dd></dd>
-    <dt id="banshee-list-clear--empty"><a href="#banshee-list-clear--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
-    <p>주석 텍스트가 없는 엔티티를 제거합니다.</p><dd></dd>
     <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>이 명령어의 도움말 표시</p>
 </dl>
@@ -1269,8 +1294,6 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
 <h3 class="commands-reference">옵션</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-bulk-add--note"><a href="#banshee-list-bulk-add--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>모든 엔티티에 대한 주석 텍스트 추가</p><dd></dd>
     <dt id="banshee-list-bulk-add--overwrite"><a href="#banshee-list-bulk-add--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>덮어쓰기 모드를 활성화합니다. 설정 시 다음 작업이 수행됩니다:</p>
     <ul>
@@ -1429,8 +1452,6 @@ banshee list copy [OPTIONS] SOURCE_LIST_ID DESTINATION_LIST_ID
 <h3 class="commands-reference">옵션</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-copy--note"><a href="#banshee-list-copy--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>대상 목록의 엔티티에 주석 텍스트 추가</p><dd></dd>
     <dt id="banshee-list-copy--overwrite"><a href="#banshee-list-copy--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>덮어쓰기 모드: 대상 목록에 이미 있는 엔티티는 유지하고, 새 엔티티는 추가하며, 소스 목록에 없는 대상 엔티티는 제거합니다. 기본적으로 명령어는 기존 엔티티를 제거하지 않고 새 엔티티를 추가합니다.</p></dd>
     <dt id="banshee-list-copy--help"><a href="#banshee-list-copy--help"><code>--help</code></a>, <code>-h</code></dt><dd>
