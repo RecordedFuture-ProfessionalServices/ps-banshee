@@ -32,13 +32,13 @@ ERROR_MULTIPLE_MATCHES = 'error_multiple_matches'
 LIST_MAX_SIZE_REACHED = 'list_max_size_reached'
 
 
-def parse_note(note: str) -> dict:
-    if not note:
+def parse_note(properties: str) -> dict:
+    if not properties:
         return {}
-    if '=' not in note:
-        return {'annotation': note}
+    if '=' not in properties:
+        return {'annotation': properties}
     context = {}
-    for prop in note.split(','):
+    for prop in properties.split(','):
         key, value = prop.split('=', 1)
         context[key] = value
     return context

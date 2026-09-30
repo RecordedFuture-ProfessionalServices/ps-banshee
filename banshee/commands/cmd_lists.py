@@ -227,7 +227,7 @@ def add(
         show_default=False,
         help='Entity ID or name with type to add, for example: 1. SoA6SP, 2. wannacry,Malware',
     ),
-    note: Annotated[
+    properties: Annotated[
         str,
         Argument(
             show_default=False,
@@ -237,7 +237,7 @@ def add(
 ):
     if ',' in entity_id:
         entity_id = entity_id.split(',')
-    add_entity(list_id=list_id, entity=entity_id, note=note)
+    add_entity(list_id=list_id, entity=entity_id, properties=properties)
 
 @banshee_cmd(
     app=app,
