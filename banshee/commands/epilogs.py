@@ -446,8 +446,6 @@ EPILOG_LIST_ADD = """
 
 * banshee list add 1b0s1q lYNvCK
 
-* banshee list add 1b0s1q lYNvCK 'C2 server seen during incident X-1234'
-
 * banshee list add 1b0s1q lYNvCK 'annotation=C2 server seen during incident X-1234'
 
 """
@@ -651,6 +649,14 @@ EPILOG_EMAIL_ENRICH = """
 * banshee email enrich phishing_email.eml
 
 * banshee email enrich phishing_submission.eml -r 1 -p
+"""
+
+EPILOG_EMAIL_ATTACHMENT = """
+## Example Usage
+
+* banshee email extract-attachments phishing_email.eml
+
+* banshee email extract-attachments phishing_email.eml -p -z ../sandbox/files.zip
 """
 
 EPILOG_SANDBOX_DELETE = """
