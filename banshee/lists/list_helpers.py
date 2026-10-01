@@ -39,6 +39,8 @@ def parse_note(properties: str) -> dict:
         return {'annotation': properties}
     context = {}
     for prop in properties.split(','):
+        if '=' not in prop:
+            raise ValueError(f"Invalid note format '{prop}', expected 'key=value'")
         key, value = prop.split('=', 1)
         context[key] = value
     return context

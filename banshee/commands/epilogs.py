@@ -446,6 +446,8 @@ EPILOG_LIST_ADD = """
 
 * banshee list add 1b0s1q lYNvCK
 
+* banshee list add 1b0s1q lYNvCK 'C2 server seen during incident X-1234'
+
 * banshee list add 1b0s1q lYNvCK 'annotation=C2 server seen during incident X-1234'
 
 """
@@ -466,7 +468,7 @@ Accepts both entity ID and name,type pairs.
 
 * banshee list bulk-add 21YKUC ip:8.8.8.8 www.duckdns.org,InternetDomainName
 
-* banshee list bulk-add 21YKUC -n 'added by banshee'
+* banshee list bulk-add 21YKUC ip:1.1.1.1 one.one.one.one,InternetDomainName -n 'added by banshee'
 
 ### Standard Input / File Input
 

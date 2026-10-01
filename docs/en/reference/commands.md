@@ -1145,6 +1145,12 @@ banshee list entities [OPTIONS] LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
+    <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
+    <p>Filter for entities whose annotation contains this text.</p><dd></dd>
+    <dt id="banshee-list-entities--invert"><a href="#banshee-list-entities--invert"><code>--invert</code></a>,  <code>-i</code></dt><dd>
+    <p>Filter for entities whose annotation does not contain this text.</p><dd></dd>
+    <dt id="banshee-list-entities--empty"><a href="#banshee-list-entities--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
+    <p>Filter for entities with no annotation.</p><dd></dd>
     <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>Pretty print the results in a human readable format</p><dd></dd>
     <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
@@ -1204,6 +1210,12 @@ banshee list clear [OPTIONS] LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
+    <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
+    <p>Only remove entities whose annotation contains this text.</p><dd></dd>
+    <dt id="banshee-list-clear--invert"><a href="#banshee-list-clear--invert"><code>--invert</code></a>,  <code>-i</code></dt><dd>
+    <p>Only remove entities whose annotation does not contain this text.</p><dd></dd>
+    <dt id="banshee-list-clear--empty"><a href="#banshee-list-clear--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
+    <p>Only remove entities with no annotation.</p><dd></dd>
     <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>Show help for this command</p>
 </dl>
@@ -1247,6 +1259,7 @@ banshee list add [OPTIONS] LIST_ID ENTITY_ID [PROPERTIES]
 
 <pre><code class="language-bash">
 banshee list add 1b0s1q lYNvCK
+banshee list add 1b0s1q lYNvCK 'C2 server seen during incident X-1234'
 banshee list add 1b0s1q lYNvCK 'annotation=C2 server seen during incident X-1234'
 </code></pre>
 
@@ -1294,6 +1307,8 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
+    <dt id="banshee-list-bulk-add--note"><a href="#banshee-list-bulk-add--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
+    <p>Use <code>annotation=&lt;text&gt;</code> to attach a note to all entities being added. For multiple properties: <code>key1=val1,key2=val2</code>.<br>Note: will not update entities already on the list. Quote the value if it contains spaces.</p><dd></dd>
     <dt id="banshee-list-bulk-add--overwrite"><a href="#banshee-list-bulk-add--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>Enable overwrite mode. When set, the command will:</p>
     <ul>
@@ -1452,6 +1467,8 @@ banshee list copy [OPTIONS] SOURCE_LIST_ID DESTINATION_LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
+    <dt id="banshee-list-copy--note"><a href="#banshee-list-copy--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
+    <p>Use <code>annotation=&lt;text&gt;</code> to attach a note to all entities being copied. For multiple properties: <code>key1=val1,key2=val2</code>. Note: will not update entities already on the destination list. Quote the value if it contains spaces.</p><dd></dd>
     <dt id="banshee-list-copy--overwrite"><a href="#banshee-list-copy--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>Overwrite mode: keeps entities that are already in the destination list, adds new ones, and removes any entities on the destination that are not in the source list. By default the command appends new entities without removing existing ones.</p></dd>
     <dt id="banshee-list-copy--help"><a href="#banshee-list-copy--help"><code>--help</code></a>, <code>-h</code></dt><dd>
