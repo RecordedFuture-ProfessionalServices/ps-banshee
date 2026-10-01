@@ -20,26 +20,9 @@ from ..formatters.output_formatters import format_line, format_time
 from .fetch_list import fetch_list
 
 
-def fetch_entities(list_id: str, pretty: bool, note: str, empty: bool, invert: str):
+def fetch_entities(list_id: str, pretty: bool):
     entity_list = fetch_list(list_id)
     entities = entity_list.entities()
-
-    if note:
-        note_lower = note.lower()
-        entities = [
-            e
-            for e in entities
-            if e.context and any(note_lower in str(v).lower() for v in e.context.values())
-        ]
-    elif empty:
-        entities = [e for e in entities if not e.context or not any(e.context.values())]
-    elif invert:
-        invert_lower = invert.lower()
-        entities = [
-            e
-            for e in entities
-            if not e.context or not any(invert_lower in str(v).lower() for v in e.context.values())
-        ]
 
     if pretty:
         _pretty_print(entities)

@@ -24,7 +24,6 @@ from .list_bulk_remove import produce_results as produce_remove_results
 from .list_helpers import (
     UNCHANGED,
     handle_list_api_error,
-    parse_note,
     print_list_results,
     process_result,
 )
@@ -33,9 +32,9 @@ MAX_WORKERS = 50
 CHUNK_SIZE = 100
 
 
-def add_helper(entity: Union[str, tuple[str, str]], entity_list: EntityList, context: dict):
+def add_helper(entity: Union[str, tuple[str, str]], entity_list: EntityList):
     try:
-        result = entity_list.add(entity=entity, context=context)
+        result = entity_list.add(entity=entity)
     except ListApiError as err:
         return handle_list_api_error(err, entity)
     return process_result(result, entity, 'add')
@@ -45,10 +44,9 @@ def produce_results(
     chunk: list[Union[str, tuple[str, str]]],
     entity_list: EntityList,
     final_results: dict[str, list[Union[str, tuple[str, str]]]],
-    context: dict,
 ):
     results = MultiThreadingHelper.multithread_it(
-        MAX_WORKERS, add_helper, iterator=chunk, entity_list=entity_list, context=context
+        MAX_WORKERS, add_helper, iterator=chunk, entity_list=entity_list
     )
     for result in results:
         if result[0] not in final_results:
@@ -106,12 +104,8 @@ def _find_entities_to_add(
 
 
 def bulk_add_entities(
-    list_id: str,
-    entities: list[Union[str, tuple[str, str]]],
-    overwrite: bool = False,
-    note: str = None,
+    list_id: str, entities: list[Union[str, tuple[str, str]]], overwrite: bool = False
 ):
-    context = parse_note(note)
     entity_list = fetch_list(list_id)
     pre_existing_entities = entity_list.entities()
 
@@ -138,7 +132,7 @@ def bulk_add_entities(
             description=f'Adding {len(entities_to_add)} entities', total=len(add_chunks)
         )
         for chunk in add_chunks:
-            final_results = produce_results(chunk, entity_list, final_results, context)
+            final_results = produce_results(chunk, entity_list, final_results)
 
         if overwrite and pre_existing_entities:
             entities_to_remove = _find_entities_to_remove(pre_existing_entities, entities)
