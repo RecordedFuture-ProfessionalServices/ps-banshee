@@ -62,7 +62,8 @@ def test_list_copy_copies_entities_to_empty_destination():
 
     assert result.exit_code == 0
     dest.add.assert_has_calls(
-        [call(entity='ip:1.1.1.1'), call(entity='ip:2.2.2.2')], any_order=True
+        [call(entity='ip:1.1.1.1'), call(entity='ip:2.2.2.2')],
+        any_order=True,
     )
     assert dest.add.call_count == 2
     dest.remove.assert_not_called()

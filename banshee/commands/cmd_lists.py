@@ -59,6 +59,12 @@ PANEL_TEXT_MATCH_MGMT = 'Text Match Management'
 app = Typer(no_args_is_help=True)
 
 
+def _non_empty_str(value: str) -> str:
+    if value is not None and value.strip() == '':
+        raise BadParameter('Value cannot be empty.')
+    return value
+
+
 def parse_entity_input(entities: Union[list, str]):
     parsed_entities = []
     for entity in entities:
@@ -233,6 +239,16 @@ def bulk_add(
             help='Overwrite mode: keeps entities present in the supplied file, adds new ones, and removes any entities currently on the list that are not in the file. By default the command appends new entities without removing existing ones.',  # noqa: E501
         ),
     ] = False,  # noqa: E501
+    note: Annotated[
+        str,
+        Option(
+            '--note',
+            '-n',
+            show_default=False,
+            help="Annotation text to attach to all entities being added. Quote the value if it contains spaces. Example: `--note 'some note'` or `--note 'annotation=some note'`",  # noqa: E501
+            callback=_non_empty_str,
+        ),
+    ] = None,  # noqa: E501
 ):
     if entity_input is None:
         entity_input = sys.stdin.read()
@@ -240,7 +256,7 @@ def bulk_add(
         entity_input = list(filter(lambda x: x, entity_input))
 
     entities = parse_entity_input(entity_input)
-    bulk_add_entities(list_id=list_id, entities=entities, overwrite=overwrite)
+    bulk_add_entities(list_id=list_id, entities=entities, overwrite=overwrite, note=note)
 
 
 @banshee_cmd(

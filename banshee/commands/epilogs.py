@@ -466,6 +466,8 @@ Accepts both entity ID and name,type pairs.
 
 * banshee list bulk-add 21YKUC ip:8.8.8.8 www.duckdns.org,InternetDomainName
 
+* banshee list bulk-add 21YKUC -n 'added by banshee'
+
 ### Standard Input / File Input
 
 The command also accepts input from stdin. Each entity must be on a separate line. Assume 'entities.txt' is a newline-separated file of entities, for example:
