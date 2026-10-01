@@ -1,5 +1,19 @@
 # 릴리스 히스토리
 
+## 1.6.1 - 2026-10-01
+- [`list entities`](reference/commands.md#banshee-list-entities)의 새로운 옵션:
+    - 주석 텍스트에 특정 문자열이 포함된 엔터티를 필터링하는 [`-n`/`--note`](reference/commands.md#banshee-list-entities--note) 옵션
+    - 주석 텍스트에서 부정 매칭으로 엔터티를 필터링하는 [`-i`/`--invert`](reference/commands.md#banshee-list-entities--invert) 옵션
+    - 주석 텍스트가 없는 엔터티를 필터링하는 [`-e`/`--empty`](reference/commands.md#banshee-list-entities--empty) 옵션
+- [` list clear`](reference/commands.md#banshee-list-clear)의 새로운 옵션:
+    - 주석 텍스트에 특정 문자열이 포함된 엔터티를 삭제하는 [`-n`/`--note`](reference/commands.md#banshee-list-clear--note) 옵션
+    - 주석 텍스트에서 부정 매칭으로 엔터티를 삭제하는 [`-i`/`--invert`](reference/commands.md#banshee-list-clear--invert) 옵션
+    - 주석 텍스트가 없는 엔터티를 삭제하는 [`-e`/`--empty`](reference/commands.md#banshee-list-clear--empty) 옵션
+- [` list bulk-add`](reference/commands.md#banshee-bulk-add)의 새로운 옵션: 모든 엔터티에 주석 텍스트를 추가하는 [`-n`/`--note`](reference/commands.md#banshee-list-bulk-add--note)
+- [` list copy`](reference/commands.md#banshee-list-copy)의 새로운 옵션: 대상 목록으로 복사되는 모든 엔터티에 주석 텍스트를 추가하는 [`-n`/`--note`](reference/commands.md#banshee-list-copy--note)
+### Changed
+- [`list add`](reference/commands.md#banshee-list-add): 주석 텍스트에 더 이상 명시적인 `annotation=<text>` 형식이 필요하지 않습니다.
+
 ## 1.6.0 - 2026-09-15
 ### Added
 - EML 파일에서 첨부 파일을 추출하고, 비밀번호로 보호된 아카이브에 저장한 후 분석을 위해 Recorded Future Sandbox에 제출하는 새로운 [`email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) 서브 명령어를 추가하였습니다.
@@ -161,7 +175,7 @@
 - 엔터티를 검색하고 조회하는 새로운 [`entity`](reference/commands.md#banshee-entity) 명령어를 추가하였습니다.
 - Recorded Future 목록 및 감시 목록을 관리하는 새로운 [`list`](reference/commands.md#banshee-list) 명령어를 추가하였습니다.
 - IOC 규칙을 검색하고 필터링하는 새로운 [`ioc rules`](reference/commands.md#banshee-ioc-rules) 서브 명령어를 추가하였습니다.
-- 향상된 문제 해결을 위한 새로운 `--debug` 옵션을 추가하였습니다.
+- 향상된 문제 해결을 위한 새로운 ``--debug`` 옵션을 추가하였습니다.
 
 
 ### Changed

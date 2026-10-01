@@ -1,5 +1,19 @@
 # 發行歷程
 
+## 1.6.1 - 2026-10-01
+- [`list entities`](reference/commands.md#banshee-list-entities) 的新選項：
+    - [`-n`/`--note`](reference/commands.md#banshee-list-entities--note) 選項，可依註解文字中包含的字串篩選實體
+    - [`-i`/`--invert`](reference/commands.md#banshee-list-entities--invert) 選項，可透過反向比對註解文字篩選實體
+    - [`-e`/`--empty`](reference/commands.md#banshee-list-entities--empty) 選項，可篩選不含註解文字的實體
+- [` list clear`](reference/commands.md#banshee-list-clear) 的新選項：
+    - [`-n`/`--note`](reference/commands.md#banshee-list-clear--note) 選項，可清除註解文字中包含指定字串的實體
+    - [`-i`/`--invert`](reference/commands.md#banshee-list-clear--invert) 選項，可透過反向比對註解文字清除實體
+    - [`-e`/`--empty`](reference/commands.md#banshee-list-clear--empty) 選項，可清除不含註解文字的實體
+- [` list bulk-add`](reference/commands.md#banshee-bulk-add) 的新選項：[`-n`/`--note`](reference/commands.md#banshee-list-bulk-add--note)，可為所有實體新增註解文字
+- [` list copy`](reference/commands.md#banshee-list-copy) 的新選項：[`-n`/`--note`](reference/commands.md#banshee-list-copy--note)，可為所有複製至目標清單的實體新增註解文字
+### 變更
+- [`list add`](reference/commands.md#banshee-list-add)：註解文字不再需要明確指定 `annotation=<text>` 格式
+
 ## 1.6.0 - 2026-09-15
 ### 新增
 - 新增 [`email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) 子指令，可從 EML 檔案中擷取附件、儲存至受密碼保護的壓縮檔，並提交至 Recorded Future Sandbox 進行分析。

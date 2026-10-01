@@ -87,12 +87,12 @@ banshee ca search [OPTIONS]
 
 <dl class="commands-reference">
     <dt id="banshee-ca-search--triggered"><a href="#banshee-ca-search--triggered"><code>--triggered</code>, <code>-t</code></a> <i>triggered</i></dt><dd>
-    <p>トリガー日時でフィルタします。例: 1d; 12h; [2024-08-01, 2024-08-14]; [2024-09-23 12:03:58.000, 2024-09-23 12:03:58.567)</p>
+    <p>トリガー日時でフィルタリングします。例: 1d; 12h; [2024-08-01, 2024-08-14]; [2024-09-23 12:03:58.000, 2024-09-23 12:03:58.567)</p>
     <p>デフォルト値は 1d です。</p><dd></dd>
     <dt id="banshee-ca-search--rule"><a href="#banshee-ca-search--rule"><code>--rule</code></a> <i>rule-name</i></dt><dd>
-    <p>アラートルール名でフィルタします（フリーテキスト）。</p><dd></dd>
+    <p>アラートルール名でフィルタリングします（フリーテキスト）。</p><dd></dd>
     <dt id="banshee-ca-search--status"><a href="#banshee-ca-search--status"><code>--status</code></a>,  <code>-s</code> <i>alert-status</i></dt><dd>
-    <p>アラートのステータスでフィルタします。</p>
+    <p>アラートのステータスでフィルタリングします。</p>
     <p>指定可能な値: <code>New</code>, <code>Pending</code>, <code>Dismissed</code>, <code>Resolved</code></p><dd></dd>
     <dt id="banshee-ca-search--pretty"><a href="#banshee-ca-search--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>人間が読みやすい形式で結果を整形して表示する</p><dd></dd>
@@ -115,7 +115,7 @@ banshee ca rules [OPTIONS] [FREETEXT]
 <h3 class="commands-reference">Arguments</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-ca-rules--freetext"><a href="#banshee-ca-rules--freetext"><code>FREETEXT</code></a></dt><dd><p>省略可能。アラートルールを名前でフィルタするために使用するフリーテキスト。</p></dd>
+    <dt id="banshee-ca-rules--freetext"><a href="#banshee-ca-rules--freetext"><code>FREETEXT</code></a></dt><dd><p>省略可能。アラートルールを名前でフィルタリングするために使用するフリーテキスト。</p></dd>
 </dl>
 
 <h3 class="commands-reference">Options</h3>
@@ -1145,6 +1145,12 @@ banshee list entities [OPTIONS] LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
+    <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
+    <p>アノテーションにこのテキストを含むエンティティでフィルタリングします。</p><dd></dd>
+    <dt id="banshee-list-entities--invert"><a href="#banshee-list-entities--invert"><code>--invert</code></a>,  <code>-i</code></dt><dd>
+    <p>アノテーションにこのテキストを含まないエンティティでフィルタリングします。</p><dd></dd>
+    <dt id="banshee-list-entities--empty"><a href="#banshee-list-entities--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
+    <p>アノテーションが存在しないエンティティでフィルタリングします。</p><dd></dd>
     <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>人間が読みやすい形式で結果を整形して表示する</p><dd></dd>
     <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
@@ -1204,6 +1210,12 @@ banshee list clear [OPTIONS] LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
+    <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
+    <p>アノテーションにこのテキストを含むエンティティのみ削除します。</p><dd></dd>
+    <dt id="banshee-list-clear--invert"><a href="#banshee-list-clear--invert"><code>--invert</code></a>,  <code>-i</code></dt><dd>
+    <p>アノテーションにこのテキストを含まないエンティティのみ削除します。</p><dd></dd>
+    <dt id="banshee-list-clear--empty"><a href="#banshee-list-clear--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
+    <p>アノテーションが存在しないエンティティのみ削除します。</p><dd></dd>
     <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>このコマンドのヘルプを表示する</p>
 </dl>
@@ -1247,6 +1259,7 @@ banshee list add [OPTIONS] LIST_ID ENTITY_ID [PROPERTIES]
 
 <pre><code class="language-bash">
 banshee list add 1b0s1q lYNvCK
+banshee list add 1b0s1q lYNvCK 'C2 server seen during incident X-1234'
 banshee list add 1b0s1q lYNvCK 'annotation=C2 server seen during incident X-1234'
 </code></pre>
 
@@ -1294,6 +1307,8 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
+    <dt id="banshee-list-bulk-add--note"><a href="#banshee-list-bulk-add--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
+    <p>追加するすべてのエンティティにメモを付与するには <code>annotation=&lt;text&gt;</code> を使用します。複数のプロパティを指定する場合: <code>key1=val1,key2=val2</code>。<br>注意: すでにリスト上に存在するエンティティは更新されません。値にスペースが含まれる場合は引用符で囲んでください。</p><dd></dd>
     <dt id="banshee-list-bulk-add--overwrite"><a href="#banshee-list-bulk-add--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>上書きモードを有効にします。このオプションを指定すると、コマンドは以下の動作をします:</p>
     <ul>
@@ -1452,6 +1467,8 @@ banshee list copy [OPTIONS] SOURCE_LIST_ID DESTINATION_LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
+    <dt id="banshee-list-copy--note"><a href="#banshee-list-copy--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
+    <p>コピーするすべてのエンティティにメモを付与するには <code>annotation=&lt;text&gt;</code> を使用します。複数のプロパティを指定する場合: <code>key1=val1,key2=val2</code>。注意: コピー先リストにすでに存在するエンティティは更新されません。値にスペースが含まれる場合は引用符で囲んでください。</p><dd></dd>
     <dt id="banshee-list-copy--overwrite"><a href="#banshee-list-copy--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>上書きモード: コピー先リストにすでに存在するエンティティは保持し、新しいエンティティを追加し、コピー元リストにないコピー先のエンティティを削除します。デフォルトでは、既存のエンティティを削除せずに新しいエンティティを追記します。</p></dd>
     <dt id="banshee-list-copy--help"><a href="#banshee-list-copy--help"><code>--help</code></a>, <code>-h</code></dt><dd>
