@@ -1,19 +1,5 @@
 # リリース履歴
 
-## 1.6.1 - 2026-10-01
-- [`list entities`](reference/commands.md#banshee-list-entities) の新しいオプション：
-    - アノテーションテキストに特定の文字列を含むエンティティをフィルタリングするための [`-n`/`--note`](reference/commands.md#banshee-list-entities--note) オプション
-    - アノテーションテキストの否定マッチングでエンティティをフィルタリングするための [`-i`/`--invert`](reference/commands.md#banshee-list-entities--invert) オプション
-    - アノテーションテキストを持たないエンティティをフィルタリングするための [`-e`/`--empty`](reference/commands.md#banshee-list-entities--empty) オプション
-- [` list clear`](reference/commands.md#banshee-list-clear) の新しいオプション：
-    - アノテーションテキストに特定の文字列を含むエンティティをクリアするための [`-n`/`--note`](reference/commands.md#banshee-list-clear--note) オプション
-    - アノテーションテキストの否定マッチングでエンティティをクリアするための [`-i`/`--invert`](reference/commands.md#banshee-list-clear--invert) オプション
-    - アノテーションテキストを持たないエンティティをクリアするための [`-e`/`--empty`](reference/commands.md#banshee-list-clear--empty) オプション
-- [` list bulk-add`](reference/commands.md#banshee-bulk-add) の新しいオプション：すべてのエンティティにアノテーションテキストを追加するための [`-n`/`--note`](reference/commands.md#banshee-list-bulk-add--note)
-- [` list copy`](reference/commands.md#banshee-list-copy) の新しいオプション：コピー先リストにコピーされるすべてのエンティティにアノテーションテキストを追加するための [`-n`/`--note`](reference/commands.md#banshee-list-copy--note)
-### 変更
-- [`list add`](reference/commands.md#banshee-list-add)：アノテーションテキストに明示的な `annotation=<text>` の指定が不要になった。
-
 ## 1.6.0 - 2026-09-15
 ### 追加
 - EML ファイルから添付ファイルを抽出し、パスワード保護されたアーカイブに保存した後、Recorded Future Sandbox に分析のために送信するための新しい [`email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) サブコマンドを追加。

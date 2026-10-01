@@ -1145,12 +1145,6 @@ banshee list entities [OPTIONS] LIST_ID
 <h3 class="commands-reference">옵션</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>이 텍스트를 포함하는 주석(annotation)이 있는 엔티티를 필터링합니다.</p><dd></dd>
-    <dt id="banshee-list-entities--invert"><a href="#banshee-list-entities--invert"><code>--invert</code></a>,  <code>-i</code></dt><dd>
-    <p>이 텍스트를 포함하지 않는 주석이 있는 엔티티를 필터링합니다.</p><dd></dd>
-    <dt id="banshee-list-entities--empty"><a href="#banshee-list-entities--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
-    <p>주석이 없는 엔티티를 필터링합니다.</p><dd></dd>
     <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p><dd></dd>
     <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
@@ -1210,12 +1204,6 @@ banshee list clear [OPTIONS] LIST_ID
 <h3 class="commands-reference">옵션</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>이 텍스트를 포함하는 주석이 있는 엔티티만 제거합니다.</p><dd></dd>
-    <dt id="banshee-list-clear--invert"><a href="#banshee-list-clear--invert"><code>--invert</code></a>,  <code>-i</code></dt><dd>
-    <p>이 텍스트를 포함하지 않는 주석이 있는 엔티티만 제거합니다.</p><dd></dd>
-    <dt id="banshee-list-clear--empty"><a href="#banshee-list-clear--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
-    <p>주석이 없는 엔티티만 제거합니다.</p><dd></dd>
     <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>이 명령어의 도움말 표시</p>
 </dl>
@@ -1259,7 +1247,6 @@ banshee list add [OPTIONS] LIST_ID ENTITY_ID [PROPERTIES]
 
 <pre><code class="language-bash">
 banshee list add 1b0s1q lYNvCK
-banshee list add 1b0s1q lYNvCK 'C2 server seen during incident X-1234'
 banshee list add 1b0s1q lYNvCK 'annotation=C2 server seen during incident X-1234'
 </code></pre>
 
@@ -1307,8 +1294,6 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
 <h3 class="commands-reference">옵션</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-bulk-add--note"><a href="#banshee-list-bulk-add--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>추가되는 모든 엔티티에 노트를 첨부하려면 <code>annotation=&lt;text&gt;</code>를 사용합니다. 여러 속성의 경우: <code>key1=val1,key2=val2</code>.<br>참고: 이미 목록에 있는 엔티티는 업데이트되지 않습니다. 값에 공백이 포함된 경우 따옴표로 감싸십시오.</p><dd></dd>
     <dt id="banshee-list-bulk-add--overwrite"><a href="#banshee-list-bulk-add--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>덮어쓰기 모드를 활성화합니다. 설정 시 다음 작업이 수행됩니다:</p>
     <ul>
@@ -1467,8 +1452,6 @@ banshee list copy [OPTIONS] SOURCE_LIST_ID DESTINATION_LIST_ID
 <h3 class="commands-reference">옵션</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-copy--note"><a href="#banshee-list-copy--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>복사되는 모든 엔티티에 노트를 첨부하려면 <code>annotation=&lt;text&gt;</code>를 사용합니다. 여러 속성의 경우: <code>key1=val1,key2=val2</code>. 참고: 이미 대상 목록에 있는 엔티티는 업데이트되지 않습니다. 값에 공백이 포함된 경우 따옴표로 감싸십시오.</p><dd></dd>
     <dt id="banshee-list-copy--overwrite"><a href="#banshee-list-copy--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>덮어쓰기 모드: 대상 목록에 이미 있는 엔티티는 유지하고, 새 엔티티는 추가하며, 소스 목록에 없는 대상 엔티티는 제거합니다. 기본적으로 명령어는 기존 엔티티를 제거하지 않고 새 엔티티를 추가합니다.</p></dd>
     <dt id="banshee-list-copy--help"><a href="#banshee-list-copy--help"><code>--help</code></a>, <code>-h</code></dt><dd>

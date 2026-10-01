@@ -1145,12 +1145,6 @@ banshee list entities [OPTIONS] LIST_ID
 <h3 class="commands-reference">選項</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>篩選備註中包含此文字的實體。</p><dd></dd>
-    <dt id="banshee-list-entities--invert"><a href="#banshee-list-entities--invert"><code>--invert</code></a>,  <code>-i</code></dt><dd>
-    <p>篩選備註中不包含此文字的實體。</p><dd></dd>
-    <dt id="banshee-list-entities--empty"><a href="#banshee-list-entities--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
-    <p>篩選無備註的實體。</p><dd></dd>
     <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>以人類可讀的格式美化輸出結果</p><dd></dd>
     <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
@@ -1210,12 +1204,6 @@ banshee list clear [OPTIONS] LIST_ID
 <h3 class="commands-reference">選項</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>僅移除備註中包含此文字的實體。</p><dd></dd>
-    <dt id="banshee-list-clear--invert"><a href="#banshee-list-clear--invert"><code>--invert</code></a>,  <code>-i</code></dt><dd>
-    <p>僅移除備註中不包含此文字的實體。</p><dd></dd>
-    <dt id="banshee-list-clear--empty"><a href="#banshee-list-clear--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
-    <p>僅移除無備註的實體。</p><dd></dd>
     <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>顯示此命令的說明</p>
 </dl>
@@ -1259,7 +1247,6 @@ banshee list add [OPTIONS] LIST_ID ENTITY_ID [PROPERTIES]
 
 <pre><code class="language-bash">
 banshee list add 1b0s1q lYNvCK
-banshee list add 1b0s1q lYNvCK 'C2 server seen during incident X-1234'
 banshee list add 1b0s1q lYNvCK 'annotation=C2 server seen during incident X-1234'
 </code></pre>
 
@@ -1307,8 +1294,6 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
 <h3 class="commands-reference">選項</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-bulk-add--note"><a href="#banshee-list-bulk-add--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>使用 <code>annotation=&lt;text&gt;</code> 為所有正在新增的實體附加備註。若有多個屬性：<code>key1=val1,key2=val2</code>。<br>注意：不會更新已在清單中的實體。若值包含空格，請以引號包覆。</p><dd></dd>
     <dt id="banshee-list-bulk-add--overwrite"><a href="#banshee-list-bulk-add--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>啟用覆寫模式。啟用後，命令將：</p>
     <ul>
@@ -1467,8 +1452,6 @@ banshee list copy [OPTIONS] SOURCE_LIST_ID DESTINATION_LIST_ID
 <h3 class="commands-reference">選項</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-copy--note"><a href="#banshee-list-copy--note"><code>--note</code></a>,  <code>-n</code></dt><dd>
-    <p>使用 <code>annotation=&lt;text&gt;</code> 為所有正在複製的實體附加備註。若有多個屬性：<code>key1=val1,key2=val2</code>。注意：不會更新已在目標清單中的實體。若值包含空格，請以引號包覆。</p><dd></dd>
     <dt id="banshee-list-copy--overwrite"><a href="#banshee-list-copy--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>覆寫模式：保留目標清單中已存在的實體，新增未存在的實體，並移除目標清單中不在來源清單中的任何實體。預設情況下，命令僅附加新實體，不移除現有實體。</p></dd>
     <dt id="banshee-list-copy--help"><a href="#banshee-list-copy--help"><code>--help</code></a>, <code>-h</code></dt><dd>
