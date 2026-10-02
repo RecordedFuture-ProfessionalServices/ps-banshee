@@ -11,11 +11,12 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-"""Widgets that can be used within the GUI."""
+"""Functions that assist with the rendering of the GUI."""
 
 import tkinter as tk
+from tkinter import ttk
 
-from .theme import Palette
+from .style import Palette
 
 
 class ToolTip:
@@ -31,7 +32,7 @@ class ToolTip:
         widget.bind('<Leave>', self._hide, add='+')
         widget.bind('<ButtonPress>', self._hide, add='+')
 
-    def _schedule(self):
+    def _schedule(self, _event=None):
         self._cancel()
         self._after = self.widget.after(self.delay, self._show)
 
@@ -61,3 +62,47 @@ class ToolTip:
             font=('TkDefaultFont',),
         )
         label.pack()
+
+    def _hide(self, _=None):
+        self._cancel()
+        if self._tip:
+            self._tip.destroy()
+            self._tip = None
+
+
+def card(parent, title: str):
+    """A white 'card' panel with a coloured title."""
+    return ttk.LabelFrame(parent, text=title, style='Card.TLabelframe', padding=14)
+
+
+def field_row(parent, label: str, widget_class, **kw):
+    """A labelled control laid out on one row, on a card surface."""
+    frame = ttk.Frame(parent, style='Card.TFrame')
+    frame.pack(fill='x', pady=4)
+    ttk.Label(frame, text=label, width=20, anchor='w', style='FieldLabel.TLabel').pack(side='left')
+    w = widget_class(frame, **kw)
+    w.pack(side='left', fill='x', expand=True)
+    return w
+
+
+def combo_row(parent, label: str, values: list[str], default: str = ''):
+    cb = field_row(parent, label, ttk.Combobox, values=values, state='readonly')
+    if default:
+        cb.set(default)
+    return cb
+
+
+def multiline(parent, height=4):
+    return tk.Text(parent, height=height, font=('TkFixedFont',), wrap='word', bd=0, padx=8, pady=6)
+
+
+def action_bar(parent) -> ttk.Frame:
+    f = ttk.Frame(parent, style='Card.TFrame')
+    f.pack(fill='x', pady=(12, 0))
+    return f
+
+
+def primary_btn(parent, text, command):
+    button = ttk.Button(parent, text=text, command=command, style='Primary.TButton')
+    button.pack(side='left', padx=(0, 8))
+    return button

@@ -45,6 +45,8 @@ class Palette:
     GREEN = '#1F9D55'
     AMBER = '#D9822B'
 
+    PADDING = 10
+
 
 def _pick_font(root: tk.Misc, font_list: list[str], default_font: str):
     """Return the first font in the font_list that is installed on this system."""

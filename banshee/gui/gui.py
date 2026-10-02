@@ -18,11 +18,12 @@ import tkinter as tk
 from tkinter import ttk
 
 from banshee.gui import constants
-from banshee.gui.helpers import theme
-from banshee.gui.helpers.generic_helpers import load_image, test_api_token
-from banshee.gui.helpers.widgets import ToolTip
+from banshee.gui.helpers import load_image, test_api_token
+from banshee.gui.tabs.ioc_enrichment import IocTab
+from banshee.gui.theme import style
+from banshee.gui.theme.ui_elements import ToolTip
 
-TAB_CLASSES = []
+TAB_CLASSES = [IocTab]
 
 NAV_GROUPS = []
 
@@ -46,7 +47,7 @@ def _build_header(root: tk.Tk):
     rf_header = load_image('favicon.png', max_height=44, max_width=260)
     if rf_header:
         root._logo_refs.append(rf_header)
-        tk.Label(header, image=rf_header, background=theme.Palette.NAVY, bd=0).place(
+        tk.Label(header, image=rf_header, background=style.Palette.NAVY, bd=0).place(
             relx=0.5, rely=0.5, anchor='center'
         )
 
@@ -56,7 +57,7 @@ def _build_header(root: tk.Tk):
         text=('RF_TOKEN active' if test_api_token() else 'RF_TOKEN missing - see Settings'),
         style='StatusOk.TLabel' if test_api_token() else 'StatusBad.TLabel',
     )
-    stripe = tk.Frame(root, height=3, bg=theme.Palette.ELECTRIC_BLUE)
+    stripe = tk.Frame(root, height=3, bg=style.Palette.ELECTRIC_BLUE)
     stripe.pack(fill='x')
 
 
@@ -130,7 +131,7 @@ def gui():
     with contextlib.suppress(tk.TclError):
         root.tk.call('tk', 'appname', constants.APP_NAME)
 
-    theme.apply_theme(root)
+    style.apply_theme(root)
     root._logo_refs = []
 
     _build_header(root)
@@ -139,8 +140,8 @@ def gui():
     body = ttk.Frame(root, style='TFrame')
     body.pack(fill='both', expand=True)
 
-    sidebar = _build_side_bar(root)
-    content = ttk.Frame(style='TFrame')
+    sidebar = _build_side_bar(body)
+    content = ttk.Frame(body, style='TFrame')
     content.pack(side='left', fill='both', expand=True)
 
     _build_navigation(sidebar, content)

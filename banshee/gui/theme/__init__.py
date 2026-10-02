@@ -10,5 +10,3 @@
 # for having all necessary licenses, permissions, rights, and/or consents to any data        #
 # accessed from any third party API.                                                         #
 ##############################################################################################
-
-APP_NAME = 'Banshee GUI'
