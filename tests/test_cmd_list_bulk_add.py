@@ -518,3 +518,21 @@ def test_overwrite_multiple_stale_entities_all_removed():
     assert 'REMOVED' in result.output
     assert 'ip:9.9.9.9' in result.output
     assert 'ip:8.8.8.8' in result.output
+
+
+def test_bulk_add_with_note():
+    mock_entity_list = MagicMock(spec=EntityList)
+    mock_entity_list.entities.return_value = []
+    mock_entity_list.add.return_value = _make_add_mock('added')
+
+    with patch.object(EntityListMgr, 'fetch', return_value=mock_entity_list):
+        result = runner.invoke(
+            app, args=[COMMAND, 'report:wpHivJ', 'ip:1.1.1.1', '--note', 'annotation=test']
+        )
+
+    assert result.exit_code == 0
+    mock_entity_list.add.assert_called_once_with(
+        entity='ip:1.1.1.1', context={'annotation': 'test'}
+    )
+    assert 'ADDED' in result.output
+    assert 'ip:1.1.1.1' in result.output

@@ -59,6 +59,12 @@ PANEL_TEXT_MATCH_MGMT = 'Text Match Management'
 app = Typer(no_args_is_help=True)
 
 
+def _non_empty_str(value: str) -> str:
+    if value is not None and value.strip() == '':
+        raise BadParameter('Value cannot be empty.')
+    return value
+
+
 def parse_entity_input(entities: Union[list, str]):
     parsed_entities = []
     for entity in entities:
@@ -182,9 +188,41 @@ def status(
 )
 def entities(
     list_id: Annotated[str, Argument(show_default=False, help='ID of the list')],
+    note: Annotated[
+        list[str],
+        Option(
+            '--note',
+            '-n',
+            show_default=False,
+            help='Only include entities with any context value containing `text`. Quote the value if it contains spaces.',  # noqa: E501
+        ),
+    ] = None,
+    invert: Annotated[
+        list[str],
+        Option(
+            '--invert',
+            '-i',
+            show_default=False,
+            help='Only include entities with no context value containing `text`. Quote the value if it contains spaces.',  # noqa: E501
+        ),
+    ] = None,
+    empty: Annotated[
+        bool,
+        Option('--empty', '-e', show_default=False, help='Only include entities with no context'),
+    ] = False,
     pretty: OPT_PRETTY_PRINT = False,
 ):
-    fetch_entities(list_id=list_id, pretty=pretty)
+    if note and len(note) > 1:
+        raise BadParameter('--note may only be used once.')
+    if invert and len(invert) > 1:
+        raise BadParameter('--invert may only be used once.')
+    note_val = note[0] if note else None
+    invert_val = invert[0] if invert else None
+    _non_empty_str(note_val)
+    _non_empty_str(invert_val)
+    if sum([bool(note_val), bool(invert_val), empty]) > 1:
+        raise BadParameter('Only one of --note, --invert, or --empty may be used at a time.')
+    fetch_entities(list_id=list_id, pretty=pretty, note=note_val, empty=empty, invert=invert_val)
 
 
 @banshee_cmd(
@@ -203,7 +241,7 @@ def add(
         str,
         Argument(
             show_default=False,
-            help='Use `annotation=<text>` to attach a note that appears on the Recorded Future platform for this entity. Quote the value if it contains spaces.',  # noqa: E501
+            help='Use `annotation=<text>` or `text` to attach a note that appears on the Recorded Future platform for this entity. Quote the value if it contains spaces.',  # noqa: E501
         ),
     ] = None,
 ):
@@ -233,6 +271,16 @@ def bulk_add(
             help='Overwrite mode: keeps entities present in the supplied file, adds new ones, and removes any entities currently on the list that are not in the file. By default the command appends new entities without removing existing ones.',  # noqa: E501
         ),
     ] = False,  # noqa: E501
+    note: Annotated[
+        str,
+        Option(
+            '--note',
+            '-n',
+            show_default=False,
+            help='Use `annotation=<text>` or `text` to attach a note that appears on the Recorded Future platform for all entities. Quote the value if it contains spaces. Entities already on the list will not be updated with the annotation.',  # noqa: E501
+            callback=_non_empty_str,
+        ),
+    ] = None,  # noqa: E501
 ):
     if entity_input is None:
         entity_input = sys.stdin.read()
@@ -240,7 +288,7 @@ def bulk_add(
         entity_input = list(filter(lambda x: x, entity_input))
 
     entities = parse_entity_input(entity_input)
-    bulk_add_entities(list_id=list_id, entities=entities, overwrite=overwrite)
+    bulk_add_entities(list_id=list_id, entities=entities, overwrite=overwrite, note=note)
 
 
 @banshee_cmd(
@@ -304,9 +352,22 @@ def copy(
             help='Overwrite mode: keeps entities that are already in the destination list, adds new ones, and removes any entities on the list that are not in the source list. By default the command appends new entities without removing existing ones.',  # noqa: E501
         ),
     ] = False,
+    note: Annotated[
+        str,
+        Option(
+            '--note',
+            '-n',
+            show_default=False,
+            help='Use `annotation=<text>` or `text` to attach a note that appears on the Recorded Future platform for all entities being copied. Quote the value if it contains spaces. Entities already on the destination list will not be updated with the annotation.',  # noqa: E501
+            callback=_non_empty_str,
+        ),  # noqa: E501
+    ] = None,
 ):
     copy_list(
-        source_list_id=source_list_id, destination_list_id=destination_list_id, overwrite=overwrite
+        source_list_id=source_list_id,
+        destination_list_id=destination_list_id,
+        overwrite=overwrite,
+        note=note,
     )
 
 
@@ -318,8 +379,40 @@ def copy(
 )
 def clear(
     list_id: Annotated[str, Argument(show_default=False, help='ID of the list')],
+    note: Annotated[
+        list[str],
+        Option(
+            '--note',
+            '-n',
+            show_default=False,
+            help='Remove entities with any context value containing `text`. Quote the value if it contains spaces.',  # noqa: E501
+        ),
+    ] = None,
+    invert: Annotated[
+        list[str],
+        Option(
+            '--invert',
+            '-i',
+            show_default=False,
+            help='Remove entities with no context value that contains `text`. Quote the value if it contains spaces.',  # noqa: E501
+        ),
+    ] = None,
+    empty: Annotated[
+        bool,
+        Option('--empty', '-e', show_default=False, help='Remove entities with no context'),  # noqa: E501
+    ] = False,
 ):
-    clear_list(list_id=list_id)
+    if note and len(note) > 1:
+        raise BadParameter('--note may only be used once.')
+    if invert and len(invert) > 1:
+        raise BadParameter('--invert may only be used once.')
+    note_val = note[0] if note else None
+    invert_val = invert[0] if invert else None
+    _non_empty_str(note_val)
+    _non_empty_str(invert_val)
+    if sum([bool(note_val), bool(invert_val), empty]) > 1:
+        raise BadParameter('Only one of --note, --invert, or --empty may be used at a time.')
+    clear_list(list_id=list_id, note=note_val, invert=invert_val, empty=empty)
 
 
 @banshee_cmd(

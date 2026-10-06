@@ -1,5 +1,16 @@
 # Release History
 
+## 1.6.1 - 2026-10-06
+
+### Added
+- New [`-n`/`--note`](reference/commands.md#banshee-list-bulk-add--note) option for [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) to attach a note to all entities being added.
+- New [`-n`/`--note`](reference/commands.md#banshee-list-copy--note) option for [`list copy`](reference/commands.md#banshee-list-copy) to attach a note to all entities being copied.
+- New [`-n`/`--note`](reference/commands.md#banshee-list-entities--note), [`-i`/`--invert`](reference/commands.md#banshee-list-entities--invert), and [`-e`/`--empty`](reference/commands.md#banshee-list-entities--empty) options for [`list entities`](reference/commands.md#banshee-list-entities) to filter entities by context value.
+- New [`-n`/`--note`](reference/commands.md#banshee-list-clear--note), [`-i`/`--invert`](reference/commands.md#banshee-list-clear--invert), and [`-e`/`--empty`](reference/commands.md#banshee-list-clear--empty) options for [`list clear`](reference/commands.md#banshee-list-clear) to selectively remove entities by context value.
+
+### Changed
+- [`list add`](reference/commands.md#banshee-list-add) `PROPERTIES` argument now accepts plain text in addition to `annotation=<text>`. The `annotation=` prefix is no longer required.
+
 ## 1.6.0 - 2026-09-15
 ### Added
 - New ['email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) sub-command to extract attachments from EML files, save to a password protected archive and then submit to Recorded Future Sandbox for analysis.
