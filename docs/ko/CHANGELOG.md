@@ -1,5 +1,16 @@
 # 릴리스 히스토리
 
+## 1.6.1 - 2026-10-06
+
+### Added
+- [`list bulk-add`](reference/commands.md#banshee-list-bulk-add)에서 추가되는 모든 엔터티에 노트를 첨부하는 새로운 [`-n`/`--note`](reference/commands.md#banshee-list-bulk-add--note) 옵션을 추가하였습니다.
+- [`list copy`](reference/commands.md#banshee-list-copy)에서 복사되는 모든 엔터티에 노트를 첨부하는 새로운 [`-n`/`--note`](reference/commands.md#banshee-list-copy--note) 옵션을 추가하였습니다.
+- [`list entities`](reference/commands.md#banshee-list-entities)에서 컨텍스트 값으로 엔터티를 필터링하는 새로운 [`-n`/`--note`](reference/commands.md#banshee-list-entities--note), [`-i`/`--invert`](reference/commands.md#banshee-list-entities--invert), [`-e`/`--empty`](reference/commands.md#banshee-list-entities--empty) 옵션을 추가하였습니다.
+- [`list clear`](reference/commands.md#banshee-list-clear)에서 컨텍스트 값으로 엔터티를 선택적으로 제거하는 새로운 [`-n`/`--note`](reference/commands.md#banshee-list-clear--note), [`-i`/`--invert`](reference/commands.md#banshee-list-clear--invert), [`-e`/`--empty`](reference/commands.md#banshee-list-clear--empty) 옵션을 추가하였습니다.
+
+### Changed
+- [`list add`](reference/commands.md#banshee-list-add)의 `PROPERTIES` 인수가 이제 `annotation=<text>` 외에 일반 텍스트도 허용합니다. `annotation=` 접두사는 더 이상 필요하지 않습니다.
+
 ## 1.6.0 - 2026-09-15
 ### Added
 - EML 파일에서 첨부 파일을 추출하고, 비밀번호로 보호된 아카이브에 저장한 후 분석을 위해 Recorded Future Sandbox에 제출하는 새로운 [`email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) 서브 명령어를 추가하였습니다.
@@ -161,7 +172,7 @@
 - 엔터티를 검색하고 조회하는 새로운 [`entity`](reference/commands.md#banshee-entity) 명령어를 추가하였습니다.
 - Recorded Future 목록 및 감시 목록을 관리하는 새로운 [`list`](reference/commands.md#banshee-list) 명령어를 추가하였습니다.
 - IOC 규칙을 검색하고 필터링하는 새로운 [`ioc rules`](reference/commands.md#banshee-ioc-rules) 서브 명령어를 추가하였습니다.
-- 향상된 문제 해결을 위한 새로운 `--debug` 옵션을 추가하였습니다.
+- 향상된 문제 해결을 위한 새로운 ``--debug`` 옵션을 추가하였습니다.
 
 
 ### Changed

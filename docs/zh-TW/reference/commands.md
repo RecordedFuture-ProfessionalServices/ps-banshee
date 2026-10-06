@@ -1145,9 +1145,15 @@ banshee list entities [OPTIONS] LIST_ID
 <h3 class="commands-reference">選項</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p>僅包含任一情境值含有 <code>text</code> 的實體。若值包含空格，請以引號包覆。</p></dd>
+    <dt id="banshee-list-entities--invert"><a href="#banshee-list-entities--invert"><code>--invert</code></a>,  <code>-i</code> <i>invert</i></dt><dd>
+    <p>僅包含沒有任何情境值含有 <code>text</code> 的實體。若值包含空格，請以引號包覆。</p></dd>
+    <dt id="banshee-list-entities--empty"><a href="#banshee-list-entities--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
+    <p>僅包含沒有情境的實體。</p></dd>
+    <dt id="banshee-list-entities--pretty"><a href="#banshee-list-entities--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>以人類可讀的格式美化輸出結果</p><dd></dd>
-    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <dt id="banshee-list-entities--help"><a href="#banshee-list-entities--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>顯示此命令的說明</p>
 </dl>
 
@@ -1204,7 +1210,13 @@ banshee list clear [OPTIONS] LIST_ID
 <h3 class="commands-reference">選項</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p>移除任一情境值含有 <code>text</code> 的實體。若值包含空格，請以引號包覆。</p></dd>
+    <dt id="banshee-list-clear--invert"><a href="#banshee-list-clear--invert"><code>--invert</code></a>,  <code>-i</code> <i>invert</i></dt><dd>
+    <p>移除沒有任何情境值含有 <code>text</code> 的實體。若值包含空格，請以引號包覆。</p></dd>
+    <dt id="banshee-list-clear--empty"><a href="#banshee-list-clear--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
+    <p>移除沒有情境的實體。</p></dd>
+    <dt id="banshee-list-clear--help"><a href="#banshee-list-clear--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>顯示此命令的說明</p>
 </dl>
 
@@ -1232,8 +1244,7 @@ banshee list add [OPTIONS] LIST_ID ENTITY_ID [PROPERTIES]
         <li>www.duckdns.org,InternetDomainName</li>
     </ul></dd>
     <dt id="banshee-list-add--properties"><a href="#banshee-list-add--properties"><code>PROPERTIES</code></a></dt><dd>
-    <p>選用。使用 <code>annotation=&lt;text&gt;</code> 為此實體附加一則備註，該備註將顯示於 Recorded Future 平台上。</p>
-    <p>若值包含空格，請以引號包覆。</p></dd>
+    <p>選用。使用 <code>annotation=&lt;text&gt;</code> 或 <code>text</code> 為此實體附加一則備註，該備註將顯示於 Recorded Future 平台上。若值包含空格，請以引號包覆。</p></dd>
 </dl>
 
 <h3 class="commands-reference">選項</h3>
@@ -1303,6 +1314,8 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
     </ul>
     <p>預設情況下（未使用此旗標），命令會將新實體附加至現有清單，不移除任何內容。</p>
     </dd>
+    <dt id="banshee-list-bulk-add--note"><a href="#banshee-list-bulk-add--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p>使用 <code>annotation=&lt;text&gt;</code> 或 <code>text</code> 為所有實體附加一則備註，該備註將顯示於 Recorded Future 平台上。若值包含空格，請以引號包覆。已在清單中的實體將不會更新備註。</p></dd>
     <dt id="banshee-list-bulk-add--help"><a href="#banshee-list-bulk-add--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>顯示此命令的說明</p>
 </dl>
@@ -1454,6 +1467,8 @@ banshee list copy [OPTIONS] SOURCE_LIST_ID DESTINATION_LIST_ID
 <dl class="commands-reference">
     <dt id="banshee-list-copy--overwrite"><a href="#banshee-list-copy--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>覆寫模式：保留目標清單中已存在的實體，新增未存在的實體，並移除目標清單中不在來源清單中的任何實體。預設情況下，命令僅附加新實體，不移除現有實體。</p></dd>
+    <dt id="banshee-list-copy--note"><a href="#banshee-list-copy--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p>使用 <code>annotation=&lt;text&gt;</code> 或 <code>text</code> 為所有被複製的實體附加一則備註，該備註將顯示於 Recorded Future 平台上。若值包含空格，請以引號包覆。已在目標清單中的實體將不會更新備註。</p></dd>
     <dt id="banshee-list-copy--help"><a href="#banshee-list-copy--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>顯示此命令的說明</p>
 </dl>

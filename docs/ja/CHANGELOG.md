@@ -1,5 +1,16 @@
 # リリース履歴
 
+## 1.6.1 - 2026-10-06
+
+### 追加
+- [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) コマンドに、追加するすべてのエンティティにノートを付与するための新しい [`-n`/`--note`](reference/commands.md#banshee-list-bulk-add--note) オプションを追加。
+- [`list copy`](reference/commands.md#banshee-list-copy) コマンドに、コピーするすべてのエンティティにノートを付与するための新しい [`-n`/`--note`](reference/commands.md#banshee-list-copy--note) オプションを追加。
+- [`list entities`](reference/commands.md#banshee-list-entities) コマンドに、コンテキスト値でエンティティをフィルタリングするための新しい [`-n`/`--note`](reference/commands.md#banshee-list-entities--note)、[`-i`/`--invert`](reference/commands.md#banshee-list-entities--invert)、および [`-e`/`--empty`](reference/commands.md#banshee-list-entities--empty) オプションを追加。
+- [`list clear`](reference/commands.md#banshee-list-clear) コマンドに、コンテキスト値に基づいてエンティティを選択的に削除するための新しい [`-n`/`--note`](reference/commands.md#banshee-list-clear--note)、[`-i`/`--invert`](reference/commands.md#banshee-list-clear--invert)、および [`-e`/`--empty`](reference/commands.md#banshee-list-clear--empty) オプションを追加。
+
+### 変更
+- [`list add`](reference/commands.md#banshee-list-add) の `PROPERTIES` 引数が `annotation=<text>` に加えてプレーンテキストを受け入れるようになった。`annotation=` プレフィックスは不要になった。
+
 ## 1.6.0 - 2026-09-15
 ### 追加
 - EML ファイルから添付ファイルを抽出し、パスワード保護されたアーカイブに保存した後、Recorded Future Sandbox に分析のために送信するための新しい [`email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) サブコマンドを追加。
