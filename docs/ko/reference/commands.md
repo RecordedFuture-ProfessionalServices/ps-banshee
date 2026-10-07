@@ -1145,9 +1145,15 @@ banshee list entities [OPTIONS] LIST_ID
 <h3 class="commands-reference">옵션</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p><code>text</code>를 포함하는 컨텍스트 값이 있는 엔티티만 포함합니다. 값에 공백이 있으면 따옴표로 감싸십시오.</p></dd>
+    <dt id="banshee-list-entities--exclude-note"><a href="#banshee-list-entities--exclude-note"><code>--exclude-note</code></a>,  <code>-e</code> <i>exclude-note</i></dt><dd>
+    <p><code>text</code>를 포함하는 컨텍스트 값이 없는 엔티티만 포함합니다. 값에 공백이 있으면 따옴표로 감싸십시오.</p></dd>
+    <dt id="banshee-list-entities--no-note"><a href="#banshee-list-entities--no-note"><code>--no-note</code></a>,  <code>-N</code></dt><dd>
+    <p>컨텍스트가 없는 엔티티만 포함합니다.</p></dd>
+    <dt id="banshee-list-entities--pretty"><a href="#banshee-list-entities--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p><dd></dd>
-    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <dt id="banshee-list-entities--help"><a href="#banshee-list-entities--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>이 명령어의 도움말 표시</p>
 </dl>
 
@@ -1204,7 +1210,13 @@ banshee list clear [OPTIONS] LIST_ID
 <h3 class="commands-reference">옵션</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p><code>text</code>를 포함하는 컨텍스트 값이 있는 엔티티를 제거합니다. 값에 공백이 있으면 따옴표로 감싸십시오.</p></dd>
+    <dt id="banshee-list-clear--exclude-note"><a href="#banshee-list-clear--exclude-note"><code>--exclude-note</code></a>,  <code>-e</code> <i>exclude-note</i></dt><dd>
+    <p><code>text</code>를 포함하는 컨텍스트 값이 없는 엔티티를 제거합니다. 값에 공백이 있으면 따옴표로 감싸십시오.</p></dd>
+    <dt id="banshee-list-clear--no-note"><a href="#banshee-list-clear--no-note"><code>--no-note</code></a>,  <code>-N</code></dt><dd>
+    <p>컨텍스트가 없는 엔티티를 제거합니다.</p></dd>
+    <dt id="banshee-list-clear--help"><a href="#banshee-list-clear--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>이 명령어의 도움말 표시</p>
 </dl>
 
@@ -1232,8 +1244,7 @@ banshee list add [OPTIONS] LIST_ID ENTITY_ID [PROPERTIES]
         <li>www.duckdns.org,InternetDomainName</li>
     </ul></dd>
     <dt id="banshee-list-add--properties"><a href="#banshee-list-add--properties"><code>PROPERTIES</code></a></dt><dd>
-    <p>선택 사항. <code>annotation=&lt;text&gt;</code>를 사용하여 이 엔티티에 대해 Recorded Future 플랫폼에 표시되는 노트를 첨부합니다.</p>
-    <p>값에 공백이 포함된 경우 따옴표로 감싸십시오.</p></dd>
+    <p>선택 사항. <code>annotation=&lt;text&gt;</code> 또는 <code>text</code>를 사용하여 이 엔티티에 대해 Recorded Future 플랫폼에 표시되는 노트를 첨부합니다. 값에 공백이 포함된 경우 따옴표로 감싸십시오.</p></dd>
 </dl>
 
 <h3 class="commands-reference">옵션</h3>
@@ -1303,6 +1314,8 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
     </ul>
     <p>기본적으로(이 플래그 없이) 명령어는 기존 목록에 새 엔티티를 추가하며 아무것도 제거하지 않습니다.</p>
     </dd>
+    <dt id="banshee-list-bulk-add--note"><a href="#banshee-list-bulk-add--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p><code>annotation=&lt;text&gt;</code> 또는 <code>text</code>를 사용하여 모든 엔티티에 대해 Recorded Future 플랫폼에 표시되는 노트를 첨부합니다. 값에 공백이 있으면 따옴표로 감싸십시오. 이미 목록에 있는 엔티티에는 어노테이션이 업데이트되지 않습니다.</p></dd>
     <dt id="banshee-list-bulk-add--help"><a href="#banshee-list-bulk-add--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>이 명령어의 도움말 표시</p>
 </dl>
@@ -1454,6 +1467,8 @@ banshee list copy [OPTIONS] SOURCE_LIST_ID DESTINATION_LIST_ID
 <dl class="commands-reference">
     <dt id="banshee-list-copy--overwrite"><a href="#banshee-list-copy--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>덮어쓰기 모드: 대상 목록에 이미 있는 엔티티는 유지하고, 새 엔티티는 추가하며, 소스 목록에 없는 대상 엔티티는 제거합니다. 기본적으로 명령어는 기존 엔티티를 제거하지 않고 새 엔티티를 추가합니다.</p></dd>
+    <dt id="banshee-list-copy--note"><a href="#banshee-list-copy--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p><code>annotation=&lt;text&gt;</code> 또는 <code>text</code>를 사용하여 복사되는 모든 엔티티에 대해 Recorded Future 플랫폼에 표시되는 노트를 첨부합니다. 값에 공백이 있으면 따옴표로 감싸십시오. 이미 대상 목록에 있는 엔티티에는 어노테이션이 업데이트되지 않습니다.</p></dd>
     <dt id="banshee-list-copy--help"><a href="#banshee-list-copy--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>이 명령어의 도움말 표시</p>
 </dl>
@@ -1757,7 +1772,7 @@ JSON 배열의 각 결과 객체에는 다음 필드가 포함됩니다:
 | `count` | 이 위험 규칙에 대한 참조를 제공한 소스 수 |
 | `description` | 증거에 대한 사람이 읽을 수 있는 요약 |
 | `level` | 이 규칙의 심각도 수준 — 숫자가 높을수록 더 심각 |
-| `mitigation` | IOC가 포함될 수 있는 화이트리스트를 설명하며, 이는 관련 위험을 줄이거나 완화합니다. |
+| `mitigation` | IOC가 포함될 수 있는 화이트리스트를 설명하며, 이는 관련 위험을 줄이거나 완화합니다 |
 | `rule` | 트리거된 특정 Recorded Future 위험 규칙의 이름 |
 | `sightings` | 기록된 개별 관측 수 |
 | `timestamp` | 이 규칙에 대한 가장 최근 관측 시각의 ISO 8601 타임스탬프 |

@@ -1,5 +1,16 @@
 # 發行歷程
 
+## 1.6.1 - 2026-10-06
+
+### 新增
+- 為 [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) 新增 [`-n`/`--note`](reference/commands.md#banshee-list-bulk-add--note) 選項，可為所有正在新增的實體附加備註。
+- 為 [`list copy`](reference/commands.md#banshee-list-copy) 新增 [`-n`/`--note`](reference/commands.md#banshee-list-copy--note) 選項，可為所有正在複製的實體附加備註。
+- 為 [`list entities`](reference/commands.md#banshee-list-entities) 新增 [`-n`/`--note`](reference/commands.md#banshee-list-entities--note)、[`-e`/`--exclude-note`](reference/commands.md#banshee-list-entities--exclude-note) 及 [`-N`/`--no-note`](reference/commands.md#banshee-list-entities--no-note) 選項，可依上下文值篩選實體。所有選項均可重複使用以比對多個值。
+- 為 [`list clear`](reference/commands.md#banshee-list-clear) 新增 [`-n`/`--note`](reference/commands.md#banshee-list-clear--note)、[`-e`/`--exclude-note`](reference/commands.md#banshee-list-clear--exclude-note) 及 [`-N`/`--no-note`](reference/commands.md#banshee-list-clear--no-note) 選項，可依上下文值選擇性移除實體。所有選項均可重複使用以比對多個值。
+
+### 變更
+- [`list add`](reference/commands.md#banshee-list-add) 的 `PROPERTIES` 引數現在除了 `annotation=<text>` 之外，亦接受純文字輸入。`annotation=` 前綴不再為必要。
+
 ## 1.6.0 - 2026-09-15
 ### 新增
 - 新增 [`email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) 子指令，可從 EML 檔案中擷取附件、儲存至受密碼保護的壓縮檔，並提交至 Recorded Future Sandbox 進行分析。

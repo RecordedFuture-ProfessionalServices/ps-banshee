@@ -572,7 +572,7 @@ banshee email enrich suspicious.eml --threat-hunt
 
 ### banshee email extract-attachments
 
-แยก attachment จากไฟล์อีเมล (EML) บีบอัดเข้า ZIP ที่มีรหัสผ่าน (รหัสผ่าน `infected`) และส่ง archive ดังกล่าวไปยัง Recorded Future Sandbox เพื่อวิเคราะห์ รอจนกว่าการวิเคราะห์ใน sandbox จะเสร็จสมบูรณ์ก่อนแสดงสรุป ได้แก่ สถานะปัจจุบัน คะแนนรวม เป้าหมาย timestamps การสร้างและเสร็จสิ้น SHA256 และรายละเอียดแต่ละ task
+แยก attachment จากไฟล์อีเมล (EML) บีบอัดเข้า ZIP ที่มีการป้องกันด้วยรหัสผ่าน (รหัสผ่าน `infected`) และส่ง archive ดังกล่าวไปยัง Recorded Future Sandbox เพื่อวิเคราะห์ รอจนกว่าการวิเคราะห์ใน sandbox จะเสร็จสมบูรณ์ก่อนแสดงสรุป ได้แก่ สถานะปัจจุบัน คะแนนรวม เป้าหมาย timestamps การสร้างและเสร็จสิ้น SHA256 และรายละเอียดแต่ละ task
 
 โดยค่าเริ่มต้น คำสั่งจะแสดงผลลัพธ์ในรูปแบบ JSON
 
@@ -1145,9 +1145,15 @@ banshee list entities [OPTIONS] LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p>แสดงเฉพาะ entity ที่มีค่า context ใด ๆ ที่มีข้อความ <code>text</code> อยู่ ล้อมรอบค่าด้วยเครื่องหมายคำพูดหากมีช่องว่าง</p></dd>
+    <dt id="banshee-list-entities--exclude-note"><a href="#banshee-list-entities--exclude-note"><code>--exclude-note</code></a>,  <code>-e</code> <i>exclude-note</i></dt><dd>
+    <p>แสดงเฉพาะ entity ที่ไม่มีค่า context ใด ๆ ที่มีข้อความ <code>text</code> อยู่ ล้อมรอบค่าด้วยเครื่องหมายคำพูดหากมีช่องว่าง</p></dd>
+    <dt id="banshee-list-entities--no-note"><a href="#banshee-list-entities--no-note"><code>--no-note</code></a>,  <code>-N</code></dt><dd>
+    <p>แสดงเฉพาะ entity ที่ไม่มี context</p></dd>
+    <dt id="banshee-list-entities--pretty"><a href="#banshee-list-entities--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>แสดงผลลัพธ์ในรูปแบบที่อ่านง่ายสำหรับมนุษย์</p><dd></dd>
-    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <dt id="banshee-list-entities--help"><a href="#banshee-list-entities--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>
 </dl>
 
@@ -1204,7 +1210,13 @@ banshee list clear [OPTIONS] LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p>ลบ entity ที่มีค่า context ใด ๆ ที่มีข้อความ <code>text</code> อยู่ ล้อมรอบค่าด้วยเครื่องหมายคำพูดหากมีช่องว่าง</p></dd>
+    <dt id="banshee-list-clear--exclude-note"><a href="#banshee-list-clear--exclude-note"><code>--exclude-note</code></a>,  <code>-e</code> <i>exclude-note</i></dt><dd>
+    <p>ลบ entity ที่ไม่มีค่า context ที่มีข้อความ <code>text</code> อยู่ ล้อมรอบค่าด้วยเครื่องหมายคำพูดหากมีช่องว่าง</p></dd>
+    <dt id="banshee-list-clear--no-note"><a href="#banshee-list-clear--no-note"><code>--no-note</code></a>,  <code>-N</code></dt><dd>
+    <p>ลบ entity ที่ไม่มี context</p></dd>
+    <dt id="banshee-list-clear--help"><a href="#banshee-list-clear--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>
 </dl>
 
@@ -1232,8 +1244,7 @@ banshee list add [OPTIONS] LIST_ID ENTITY_ID [PROPERTIES]
         <li>www.duckdns.org,InternetDomainName</li>
     </ul></dd>
     <dt id="banshee-list-add--properties"><a href="#banshee-list-add--properties"><code>PROPERTIES</code></a></dt><dd>
-    <p>ไม่บังคับ ใช้ <code>annotation=&lt;text&gt;</code> เพื่อแนบบันทึกที่จะแสดงบน Recorded Future platform สำหรับ entity นี้</p>
-    <p>ล้อมรอบค่าด้วยเครื่องหมายคำพูดหากมีช่องว่าง</p></dd>
+    <p>ไม่บังคับ ใช้ <code>annotation=&lt;text&gt;</code> หรือ <code>text</code> เพื่อแนบบันทึกที่จะแสดงบน Recorded Future platform สำหรับ entity นี้ ล้อมรอบค่าด้วยเครื่องหมายคำพูดหากมีช่องว่าง</p></dd>
 </dl>
 
 <h3 class="commands-reference">Options</h3>
@@ -1303,13 +1314,15 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
     </ul>
     <p>โดยค่าเริ่มต้น (ไม่มี flag นี้) คำสั่งจะเพิ่ม entity ใหม่เข้า list ที่มีอยู่โดยไม่ลบสิ่งใด</p>
     </dd>
+    <dt id="banshee-list-bulk-add--note"><a href="#banshee-list-bulk-add--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p>ใช้ <code>annotation=&lt;text&gt;</code> หรือ <code>text</code> เพื่อแนบบันทึกที่จะแสดงบน Recorded Future platform สำหรับ entity ทั้งหมด ล้อมรอบค่าด้วยเครื่องหมายคำพูดหากมีช่องว่าง Entity ที่มีอยู่ใน list แล้วจะไม่ถูกอัปเดตด้วย annotation</p></dd>
     <dt id="banshee-list-bulk-add--help"><a href="#banshee-list-bulk-add--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>
 </dl>
 
 <h3 class="commands-reference">Result Status Output</h3>
 
-<p><code>banshee list bulk-add</code> จัดกลุ่ม output ตามสถานะและแสดง entity ที่ตรงกันใต้สถานะนั้น เช่น:</p>
+<p><code>banshee list bulk-add</code> จัดกลุ่ม output ตามสถานะและแสดง entity input ที่ตรงกันใต้สถานะนั้น เช่น:</p>
 
 <pre><code class="language-text">
 ADDED:
@@ -1454,6 +1467,8 @@ banshee list copy [OPTIONS] SOURCE_LIST_ID DESTINATION_LIST_ID
 <dl class="commands-reference">
     <dt id="banshee-list-copy--overwrite"><a href="#banshee-list-copy--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>โหมด Overwrite: คงไว้ซึ่ง entity ที่มีอยู่ใน list ปลายทางแล้ว เพิ่ม entity ใหม่ และลบ entity ใดก็ตามที่อยู่ใน list ปลายทางแต่ไม่อยู่ใน list ต้นทาง โดยค่าเริ่มต้น คำสั่งจะ append entity ใหม่โดยไม่ลบที่มีอยู่</p></dd>
+    <dt id="banshee-list-copy--note"><a href="#banshee-list-copy--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p>ใช้ <code>annotation=&lt;text&gt;</code> หรือ <code>text</code> เพื่อแนบบันทึกที่จะแสดงบน Recorded Future platform สำหรับ entity ทั้งหมดที่ถูกคัดลอก ล้อมรอบค่าด้วยเครื่องหมายคำพูดหากมีช่องว่าง Entity ที่มีอยู่ใน list ปลายทางแล้วจะไม่ถูกอัปเดตด้วย annotation</p></dd>
     <dt id="banshee-list-copy--help"><a href="#banshee-list-copy--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>
 </dl>
@@ -2809,4 +2824,20 @@ banshee sandbox report behavioral [OPTIONS] SAMPLE_ID
     <dt id="banshee-sandbox-report-behavioral--wait"><a href="#banshee-sandbox-report-behavioral--wait"><code>--wait</code></a>, <code>-w</code></dt><dd>
     <p>Poll จนกว่า task ทั้งหมดจะเสร็จสมบูรณ์ (สูงสุด 30 นาที)</p></dd>
     <dt id="banshee-sandbox-report-behavioral--full-cmd"><a href="#banshee-sandbox-report-behavioral--full-cmd"><code>--full-cmd</code></a></dt><dd>
-    <p>แสดง command line ของ process แบบเต็มโดยไม่ตัดทอน เนื้อหา command line นำมาโด
+    <p>แสดง command line ของ process แบบเต็มโดยไม่ตัดทอน เนื้อหา command line นำมาโดยตรงจาก malware sample และควรถือว่าเป็น input ที่ไม่น่าเชื่อถือ</p></dd>
+    <dt id="banshee-sandbox-report-behavioral--pretty"><a href="#banshee-sandbox-report-behavioral--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
+    <p>แสดงผลลัพธ์ในรูปแบบที่อ่านง่ายสำหรับมนุษย์</p></dd>
+    <dt id="banshee-sandbox-report-behavioral--help"><a href="#banshee-sandbox-report-behavioral--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee sandbox report behavioral 260501-h4p7laawme
+banshee sandbox report behavioral 260501-h4p7laawme -p
+banshee sandbox report behavioral 260501-h4p7laawme --wait
+banshee sandbox report behavioral 260501-h4p7laawme -p --full-cmd
+banshee sandbox report behavioral 260501-h4p7laawme | jq '.[].analysis.score'
+banshee sandbox report behavioral 260501-h4p7laawme | jq '.[].network.flows'
+</code></pre>
