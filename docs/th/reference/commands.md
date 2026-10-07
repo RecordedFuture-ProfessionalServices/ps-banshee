@@ -572,7 +572,7 @@ banshee email enrich suspicious.eml --threat-hunt
 
 ### banshee email extract-attachments
 
-แยก attachment จากไฟล์อีเมล (EML) บีบอัดเข้า ZIP ที่มีรหัสผ่าน (รหัสผ่าน `infected`) และส่ง archive ดังกล่าวไปยัง Recorded Future Sandbox เพื่อวิเคราะห์ รอจนกว่าการวิเคราะห์ใน sandbox จะเสร็จสมบูรณ์ก่อนแสดงสรุป ได้แก่ สถานะปัจจุบัน คะแนนรวม เป้าหมาย timestamps การสร้างและเสร็จสิ้น SHA256 และรายละเอียดแต่ละ task
+แยก attachment จากไฟล์อีเมล (EML) บีบอัดเข้า ZIP ที่มีการป้องกันด้วยรหัสผ่าน (รหัสผ่าน `infected`) และส่ง archive ดังกล่าวไปยัง Recorded Future Sandbox เพื่อวิเคราะห์ รอจนกว่าการวิเคราะห์ใน sandbox จะเสร็จสมบูรณ์ก่อนแสดงสรุป ได้แก่ สถานะปัจจุบัน คะแนนรวม เป้าหมาย timestamps การสร้างและเสร็จสิ้น SHA256 และรายละเอียดแต่ละ task
 
 โดยค่าเริ่มต้น คำสั่งจะแสดงผลลัพธ์ในรูปแบบ JSON
 
@@ -1147,9 +1147,9 @@ banshee list entities [OPTIONS] LIST_ID
 <dl class="commands-reference">
     <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
     <p>แสดงเฉพาะ entity ที่มีค่า context ใด ๆ ที่มีข้อความ <code>text</code> อยู่ ล้อมรอบค่าด้วยเครื่องหมายคำพูดหากมีช่องว่าง</p></dd>
-    <dt id="banshee-list-entities--invert"><a href="#banshee-list-entities--invert"><code>--invert</code></a>,  <code>-i</code> <i>invert</i></dt><dd>
+    <dt id="banshee-list-entities--exclude-note"><a href="#banshee-list-entities--exclude-note"><code>--exclude-note</code></a>,  <code>-e</code> <i>exclude-note</i></dt><dd>
     <p>แสดงเฉพาะ entity ที่ไม่มีค่า context ใด ๆ ที่มีข้อความ <code>text</code> อยู่ ล้อมรอบค่าด้วยเครื่องหมายคำพูดหากมีช่องว่าง</p></dd>
-    <dt id="banshee-list-entities--empty"><a href="#banshee-list-entities--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
+    <dt id="banshee-list-entities--no-note"><a href="#banshee-list-entities--no-note"><code>--no-note</code></a>,  <code>-N</code></dt><dd>
     <p>แสดงเฉพาะ entity ที่ไม่มี context</p></dd>
     <dt id="banshee-list-entities--pretty"><a href="#banshee-list-entities--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>แสดงผลลัพธ์ในรูปแบบที่อ่านง่ายสำหรับมนุษย์</p><dd></dd>
@@ -1212,9 +1212,9 @@ banshee list clear [OPTIONS] LIST_ID
 <dl class="commands-reference">
     <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
     <p>ลบ entity ที่มีค่า context ใด ๆ ที่มีข้อความ <code>text</code> อยู่ ล้อมรอบค่าด้วยเครื่องหมายคำพูดหากมีช่องว่าง</p></dd>
-    <dt id="banshee-list-clear--invert"><a href="#banshee-list-clear--invert"><code>--invert</code></a>,  <code>-i</code> <i>invert</i></dt><dd>
+    <dt id="banshee-list-clear--exclude-note"><a href="#banshee-list-clear--exclude-note"><code>--exclude-note</code></a>,  <code>-e</code> <i>exclude-note</i></dt><dd>
     <p>ลบ entity ที่ไม่มีค่า context ที่มีข้อความ <code>text</code> อยู่ ล้อมรอบค่าด้วยเครื่องหมายคำพูดหากมีช่องว่าง</p></dd>
-    <dt id="banshee-list-clear--empty"><a href="#banshee-list-clear--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
+    <dt id="banshee-list-clear--no-note"><a href="#banshee-list-clear--no-note"><code>--no-note</code></a>,  <code>-N</code></dt><dd>
     <p>ลบ entity ที่ไม่มี context</p></dd>
     <dt id="banshee-list-clear--help"><a href="#banshee-list-clear--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>

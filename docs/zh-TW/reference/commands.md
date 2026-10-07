@@ -1147,9 +1147,9 @@ banshee list entities [OPTIONS] LIST_ID
 <dl class="commands-reference">
     <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
     <p>僅包含任一情境值含有 <code>text</code> 的實體。若值包含空格，請以引號包覆。</p></dd>
-    <dt id="banshee-list-entities--invert"><a href="#banshee-list-entities--invert"><code>--invert</code></a>,  <code>-i</code> <i>invert</i></dt><dd>
+    <dt id="banshee-list-entities--exclude-note"><a href="#banshee-list-entities--exclude-note"><code>--exclude-note</code></a>,  <code>-e</code> <i>exclude-note</i></dt><dd>
     <p>僅包含沒有任何情境值含有 <code>text</code> 的實體。若值包含空格，請以引號包覆。</p></dd>
-    <dt id="banshee-list-entities--empty"><a href="#banshee-list-entities--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
+    <dt id="banshee-list-entities--no-note"><a href="#banshee-list-entities--no-note"><code>--no-note</code></a>,  <code>-N</code></dt><dd>
     <p>僅包含沒有情境的實體。</p></dd>
     <dt id="banshee-list-entities--pretty"><a href="#banshee-list-entities--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>以人類可讀的格式美化輸出結果</p><dd></dd>
@@ -1212,9 +1212,9 @@ banshee list clear [OPTIONS] LIST_ID
 <dl class="commands-reference">
     <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
     <p>移除任一情境值含有 <code>text</code> 的實體。若值包含空格，請以引號包覆。</p></dd>
-    <dt id="banshee-list-clear--invert"><a href="#banshee-list-clear--invert"><code>--invert</code></a>,  <code>-i</code> <i>invert</i></dt><dd>
+    <dt id="banshee-list-clear--exclude-note"><a href="#banshee-list-clear--exclude-note"><code>--exclude-note</code></a>,  <code>-e</code> <i>exclude-note</i></dt><dd>
     <p>移除沒有任何情境值含有 <code>text</code> 的實體。若值包含空格，請以引號包覆。</p></dd>
-    <dt id="banshee-list-clear--empty"><a href="#banshee-list-clear--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
+    <dt id="banshee-list-clear--no-note"><a href="#banshee-list-clear--no-note"><code>--no-note</code></a>,  <code>-N</code></dt><dd>
     <p>移除沒有情境的實體。</p></dd>
     <dt id="banshee-list-clear--help"><a href="#banshee-list-clear--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>顯示此命令的說明</p>

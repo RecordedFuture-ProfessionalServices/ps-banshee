@@ -5,8 +5,8 @@
 ### 追加
 - [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) コマンドに、追加するすべてのエンティティにノートを付与するための新しい [`-n`/`--note`](reference/commands.md#banshee-list-bulk-add--note) オプションを追加。
 - [`list copy`](reference/commands.md#banshee-list-copy) コマンドに、コピーするすべてのエンティティにノートを付与するための新しい [`-n`/`--note`](reference/commands.md#banshee-list-copy--note) オプションを追加。
-- [`list entities`](reference/commands.md#banshee-list-entities) コマンドに、コンテキスト値でエンティティをフィルタリングするための新しい [`-n`/`--note`](reference/commands.md#banshee-list-entities--note)、[`-i`/`--invert`](reference/commands.md#banshee-list-entities--invert)、および [`-e`/`--empty`](reference/commands.md#banshee-list-entities--empty) オプションを追加。
-- [`list clear`](reference/commands.md#banshee-list-clear) コマンドに、コンテキスト値に基づいてエンティティを選択的に削除するための新しい [`-n`/`--note`](reference/commands.md#banshee-list-clear--note)、[`-i`/`--invert`](reference/commands.md#banshee-list-clear--invert)、および [`-e`/`--empty`](reference/commands.md#banshee-list-clear--empty) オプションを追加。
+- [`list entities`](reference/commands.md#banshee-list-entities) コマンドに、コンテキスト値でエンティティをフィルタリングするための新しい [`-n`/`--note`](reference/commands.md#banshee-list-entities--note)、[`-e`/`--exclude-note`](reference/commands.md#banshee-list-entities--exclude-note)、および [`-N`/`--no-note`](reference/commands.md#banshee-list-entities--no-note) オプションを追加。各オプションは複数の値に対してマッチさせるために繰り返し指定できます。
+- [`list clear`](reference/commands.md#banshee-list-clear) コマンドに、コンテキスト値に基づいてエンティティを選択的に削除するための新しい [`-n`/`--note`](reference/commands.md#banshee-list-clear--note)、[`-e`/`--exclude-note`](reference/commands.md#banshee-list-clear--exclude-note)、および [`-N`/`--no-note`](reference/commands.md#banshee-list-clear--no-note) オプションを追加。各オプションは複数の値に対してマッチさせるために繰り返し指定できます。
 
 ### 変更
 - [`list add`](reference/commands.md#banshee-list-add) の `PROPERTIES` 引数が `annotation=<text>` に加えてプレーンテキストを受け入れるようになった。`annotation=` プレフィックスは不要になった。
@@ -40,19 +40,19 @@
 ## 1.3.0 - 2026-06-15
 
 ### 追加
-- EML ファイルをエンリッチするための新しい [`email enrich`](reference/commands.md#banshee-email-enrich) サブコマンドを追加。ヘッダーの IP とボディの URL を抽出し、リスクスコア、脅威アクターの関連付け、マルウェアのリンク、リスクルールの根拠を含む Recorded Future インテリジェンスを返す。
-- Classic Alert を完全な JSON またはサマリー CSV としてエクスポートするための新しい [`ca export`](reference/commands.md#banshee-ca-export) サブコマンドを追加。[`ca search`](reference/commands.md#banshee-ca-search) からパイプされたアラート ID を読み込む。
-- Playbook Alert を完全な JSON またはサマリー CSV としてエクスポートするための新しい [`pba export`](reference/commands.md#banshee-pba-export) サブコマンドを追加。[`pba search`](reference/commands.md#banshee-pba-search) からパイプされた検索結果を読み込む。
+- EML ファイルをエンリッチするための新しい [`email enrich`](reference/commands.md#banshee-email-enrich) サブコマンドを追加。ヘッダーの IP とボディの URL を抽出し、リスクスコア、脅威アクターの関連付け、マルウェアのリンク、リスクルールの根拠を含む Recorded Future インテリジェンスを返します。
+- Classic Alert を完全な JSON またはサマリー CSV としてエクスポートするための新しい [`ca export`](reference/commands.md#banshee-ca-export) サブコマンドを追加。[`ca search`](reference/commands.md#banshee-ca-search) からパイプされたアラート ID を読み込みます。
+- Playbook Alert を完全な JSON またはサマリー CSV としてエクスポートするための新しい [`pba export`](reference/commands.md#banshee-pba-export) サブコマンドを追加。[`pba search`](reference/commands.md#banshee-pba-search) からパイプされた検索結果を読み込みます。
 - [`pba search`](reference/commands.md#banshee-pba-search) コマンドに、Playbook Alert を所有組織 ID でフィルタリングするための新しい [`-o`/`--org-id`](reference/commands.md#banshee-pba-search--org-id) オプションを追加（繰り返し指定可能）。
 - [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) コマンドに、指定したエンティティとリストを完全に一致させる（新しいエンティティを追加し、指定されなかった既存のエンティティを削除する）新しい [`-o`/`--overwrite`](reference/commands.md#banshee-list-bulk-add--overwrite) オプションを追加。
-- あるリストから別のリストへエンティティをコピーするための新しい [`list copy`](reference/commands.md#banshee-list-copy) サブコマンドを追加。デフォルトでは追加モードで動作し、[`-o`/`--overwrite`](reference/commands.md#banshee-list-copy--overwrite) を使用するとコピー先をコピー元と完全に一致させることができる。
+- あるリストから別のリストへエンティティをコピーするための新しい [`list copy`](reference/commands.md#banshee-list-copy) サブコマンドを追加。デフォルトでは追加モードで動作し、[`-o`/`--overwrite`](reference/commands.md#banshee-list-copy--overwrite) を使用するとコピー先をコピー元と完全に一致させることができます。
 - コーディングアシスタントが CLI を検出・実行できるよう、[AI エージェントでの banshee の使用](getting-started/llms.md)のサポートを追加。
 
 ### 変更
-- [`list clear`](reference/commands.md#banshee-list-clear) が [`list bulk-remove`](reference/commands.md#banshee-list-bulk-remove) と同様に並列でエンティティを削除するようになった（大きなリストでは大幅に高速化）。削除内容を結果ごとにグループ化（`REMOVED` および削除できなかったもの）して報告し、可読性のためにソートする。
-- [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) が、すでにリストに存在するエンティティの再追加を試みる代わりにスキップし、`UNCHANGED` として報告するようになった。同じ入力ファイルを繰り返し実行してエンティティを追加・削除する場合に大幅な速度向上となる。
+- [`list clear`](reference/commands.md#banshee-list-clear) が [`list bulk-remove`](reference/commands.md#banshee-list-bulk-remove) と同様に並列でエンティティを削除するようになった（大きなリストでは大幅に高速化）。削除内容を結果ごとにグループ化（`REMOVED` および削除できなかったもの）して報告し、可読性のためにソートします。
+- [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) が、すでにリストに存在するエンティティの再追加を試みる代わりにスキップし、`UNCHANGED` として報告するようになった。同じ入力ファイルを繰り返し実行してエンティティを追加・削除する場合に大幅な速度向上となります。
 - [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) と [`list bulk-remove`](reference/commands.md#banshee-list-bulk-remove) が、出力を結果ごとにグループ化（`ADDED`、`REMOVED`、`UNCHANGED`）して可読性のためにソートするようになった。
-- [`ca search`](reference/commands.md#banshee-ca-search) と [`pba search`](reference/commands.md#banshee-pba-search) が進捗インジケーターを stderr に出力するようになり、新しい `export` コマンドへのパイプ用に stdout をクリーンな状態に保つ。
+- [`ca search`](reference/commands.md#banshee-ca-search) と [`pba search`](reference/commands.md#banshee-pba-search) が進捗インジケーターを stderr に出力するようになり、新しい `export` コマンドへのパイプ用に stdout をクリーンな状態に保ちます。
 - [`ioc lookup`](reference/commands.md#banshee-ioc-lookup) と [`ioc bulk-lookup`](reference/commands.md#banshee-ioc-bulk-lookup) のプリティ出力（`-p`、`--pretty`）が、悪意のレベルに基づいてリスクスコアを色分け表示するようになった。
 - PSEngine を ~v2.8.1 にアップグレード。
 
@@ -62,14 +62,14 @@
 ## 1.1.3 - 2026-03-18
 
 ### 修正
-- [`pcap enrich`](reference/commands.md#banshee-pcap-enrich) において、SOAR エンリッチメントでマルチスレッドが使用されていなかった問題を修正。大規模なキャプチャでのリスクスコアエンリッチメントが高速化された。
+- [`pcap enrich`](reference/commands.md#banshee-pcap-enrich) において、SOAR エンリッチメントでマルチスレッドが使用されていなかった問題を修正。大規模なキャプチャでのリスクスコアエンリッチメントが高速化されました。
 
 
 ## 1.1.0 - 2026-03-13
 
 ### 追加
 - 1 つ以上の Recorded Future リスクルールを単一の重複排除済みファイルにマージしてカスタムリスクリストを構築するための新しい [`risklist create`](reference/commands.md#banshee-risklist-create) サブコマンドを追加。CSV、JSON、EDL 出力フォーマット、オプションの最低リスクスコアフィルタリング、Recorded Future Fusion への直接アップロードをサポート。
-- IOC (Indicator of Compromise) の高速バルクエンリッチメントのための新しい [`ioc bulk-lookup`](reference/commands.md#banshee-ioc-bulk-lookup) サブコマンドを追加。API 呼び出しごとに最大 1,000 件のインジケーターをバッチ処理し、各インジケーターのリスクスコアとトリガーされたリスクルールを返す。IP、ドメイン、URL、ハッシュ、脆弱性のすべての IOC タイプをサポート。
+- IOC (Indicator of Compromise) の高速バルクエンリッチメントのための新しい [`ioc bulk-lookup`](reference/commands.md#banshee-ioc-bulk-lookup) サブコマンドを追加。API 呼び出しごとに最大 1,000 件のインジケーターをバッチ処理し、各インジケーターのリスクスコアとトリガーされたリスクルールを返します。IP、ドメイン、URL、ハッシュ、脆弱性のすべての IOC タイプをサポート。
 - [`pcap enrich`](reference/commands.md#banshee-pcap-enrich) の JSON 出力に、リスクルールがトリガーされた原因となった具体的な根拠を詳述するリスクルール根拠の詳細を追加。
 
 ### 変更
@@ -80,7 +80,7 @@
 - [`pcap enrich`](reference/commands.md#banshee-pcap-enrich) が最低 1 のリスクスコアを受け入れるようになった。
 
 ### 修正
-- [`ioc lookup`](reference/commands.md#banshee-ioc-lookup) においてマルチスレッドが使用されておらず、バルクルックアップが順次実行されていた問題を修正。複数のインジケーターをエンリッチする際のルックアップが最大 20 倍高速化された。
+- [`ioc lookup`](reference/commands.md#banshee-ioc-lookup) においてマルチスレッドが使用されておらず、バルクルックアップが順次実行されていた問題を修正。複数のインジケーターをエンリッチする際のルックアップが最大 20 倍高速化されました。
 - [`risklist fetch`](reference/commands.md#banshee-risklist-fetch) において、CSV ファイル内の異常に大きな列の値を解析する際にコマンドが失敗していた問題を修正。
 - [`pcap enrich`](reference/commands.md#banshee-pcap-enrich) において、空の IOC リンクを解析する際に失敗していた問題を修正。
 - [`list`](reference/commands.md#banshee-list) コマンドにおいて、API エラー発生時にエラー原因が常に正しく表示されない問題を修正。

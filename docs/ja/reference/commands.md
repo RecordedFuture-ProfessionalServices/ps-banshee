@@ -1085,8 +1085,8 @@ banshee list search [OPTIONS] LIST_ID
     </p><dd></dd>
     <dt id="banshee-list-search--limit"><a href="#banshee-list-search--limit"><code>--limit</code>, <code>-l</code></a> <i>limit</i></dt><dd>
     <p>結果件数を制限します</p>
-    <p>最大件数は 3,000 件です</p>
-    <p>デフォルトは 1,000 件です</p><dd></dd>
+    <p>最大件数は 3 000 件です</p>
+    <p>デフォルトは 1 000 件です</p><dd></dd>
     <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>人間が読みやすい形式で結果を整形して表示する</p><dd></dd>
     <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
@@ -1147,9 +1147,9 @@ banshee list entities [OPTIONS] LIST_ID
 <dl class="commands-reference">
     <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
     <p><code>text</code> を含むコンテキスト値を持つエンティティのみを含めます。値にスペースが含まれる場合は引用符で囲んでください。</p></dd>
-    <dt id="banshee-list-entities--invert"><a href="#banshee-list-entities--invert"><code>--invert</code></a>,  <code>-i</code> <i>invert</i></dt><dd>
+    <dt id="banshee-list-entities--exclude-note"><a href="#banshee-list-entities--exclude-note"><code>--exclude-note</code></a>,  <code>-e</code> <i>exclude-note</i></dt><dd>
     <p><code>text</code> を含むコンテキスト値を持たないエンティティのみを含めます。値にスペースが含まれる場合は引用符で囲んでください。</p></dd>
-    <dt id="banshee-list-entities--empty"><a href="#banshee-list-entities--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
+    <dt id="banshee-list-entities--no-note"><a href="#banshee-list-entities--no-note"><code>--no-note</code></a>,  <code>-N</code></dt><dd>
     <p>コンテキストを持たないエンティティのみを含めます。</p></dd>
     <dt id="banshee-list-entities--pretty"><a href="#banshee-list-entities--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>人間が読みやすい形式で結果を整形して表示する</p><dd></dd>
@@ -1212,9 +1212,9 @@ banshee list clear [OPTIONS] LIST_ID
 <dl class="commands-reference">
     <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
     <p><code>text</code> を含むコンテキスト値を持つエンティティを削除します。値にスペースが含まれる場合は引用符で囲んでください。</p></dd>
-    <dt id="banshee-list-clear--invert"><a href="#banshee-list-clear--invert"><code>--invert</code></a>,  <code>-i</code> <i>invert</i></dt><dd>
+    <dt id="banshee-list-clear--exclude-note"><a href="#banshee-list-clear--exclude-note"><code>--exclude-note</code></a>,  <code>-e</code> <i>exclude-note</i></dt><dd>
     <p><code>text</code> を含むコンテキスト値を持たないエンティティを削除します。値にスペースが含まれる場合は引用符で囲んでください。</p></dd>
-    <dt id="banshee-list-clear--empty"><a href="#banshee-list-clear--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
+    <dt id="banshee-list-clear--no-note"><a href="#banshee-list-clear--no-note"><code>--no-note</code></a>,  <code>-N</code></dt><dd>
     <p>コンテキストを持たないエンティティを削除します。</p></dd>
     <dt id="banshee-list-clear--help"><a href="#banshee-list-clear--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>このコマンドのヘルプを表示する</p>
@@ -1575,7 +1575,7 @@ banshee pba search [OPTIONS]
     <p>10 文字の ID または 16 文字の <code>uhash:</code> 形式を受け付けます。例: <code>-o 69sKLfTGsS -o uhash:5zQaSyRpA1</code></p><dd></dd>
     <dt id="banshee-pba-search--limit"><a href="#banshee-pba-search--limit"><code>--limit</code>, <code>-l</code></a> <i>limit</i></dt><dd>
     <p>結果の件数を制限します</p>
-    <p>最大件数は 10,000 件です</p>
+    <p>最大件数は 10 000 件です</p>
     <p>デフォルトは 100 件です</p><dd></dd>
     <dt id="banshee-pba-search--pretty"><a href="#banshee-pba-search--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>人間が読みやすい形式で結果を整形して表示する</p><dd></dd>
