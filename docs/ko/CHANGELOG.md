@@ -5,8 +5,8 @@
 ### Added
 - [`list bulk-add`](reference/commands.md#banshee-list-bulk-add)에서 추가되는 모든 엔터티에 노트를 첨부하는 새로운 [`-n`/`--note`](reference/commands.md#banshee-list-bulk-add--note) 옵션을 추가하였습니다.
 - [`list copy`](reference/commands.md#banshee-list-copy)에서 복사되는 모든 엔터티에 노트를 첨부하는 새로운 [`-n`/`--note`](reference/commands.md#banshee-list-copy--note) 옵션을 추가하였습니다.
-- [`list entities`](reference/commands.md#banshee-list-entities)에서 컨텍스트 값으로 엔터티를 필터링하는 새로운 [`-n`/`--note`](reference/commands.md#banshee-list-entities--note), [`-i`/`--invert`](reference/commands.md#banshee-list-entities--invert), [`-e`/`--empty`](reference/commands.md#banshee-list-entities--empty) 옵션을 추가하였습니다.
-- [`list clear`](reference/commands.md#banshee-list-clear)에서 컨텍스트 값으로 엔터티를 선택적으로 제거하는 새로운 [`-n`/`--note`](reference/commands.md#banshee-list-clear--note), [`-i`/`--invert`](reference/commands.md#banshee-list-clear--invert), [`-e`/`--empty`](reference/commands.md#banshee-list-clear--empty) 옵션을 추가하였습니다.
+- [`list entities`](reference/commands.md#banshee-list-entities)에서 컨텍스트 값으로 엔터티를 필터링하는 새로운 [`-n`/`--note`](reference/commands.md#banshee-list-entities--note), [`-e`/`--exclude-note`](reference/commands.md#banshee-list-entities--exclude-note), [`-N`/`--no-note`](reference/commands.md#banshee-list-entities--no-note) 옵션을 추가하였습니다. 모든 옵션은 반복 사용하여 여러 값과 매칭할 수 있습니다.
+- [`list clear`](reference/commands.md#banshee-list-clear)에서 컨텍스트 값으로 엔터티를 선택적으로 제거하는 새로운 [`-n`/`--note`](reference/commands.md#banshee-list-clear--note), [`-e`/`--exclude-note`](reference/commands.md#banshee-list-clear--exclude-note), [`-N`/`--no-note`](reference/commands.md#banshee-list-clear--no-note) 옵션을 추가하였습니다. 모든 옵션은 반복 사용하여 여러 값과 매칭할 수 있습니다.
 
 ### Changed
 - [`list add`](reference/commands.md#banshee-list-add)의 `PROPERTIES` 인수가 이제 `annotation=<text>` 외에 일반 텍스트도 허용합니다. `annotation=` 접두사는 더 이상 필요하지 않습니다.

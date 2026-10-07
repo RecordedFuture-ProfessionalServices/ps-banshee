@@ -1147,9 +1147,9 @@ banshee list entities [OPTIONS] LIST_ID
 <dl class="commands-reference">
     <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
     <p><code>text</code>를 포함하는 컨텍스트 값이 있는 엔티티만 포함합니다. 값에 공백이 있으면 따옴표로 감싸십시오.</p></dd>
-    <dt id="banshee-list-entities--invert"><a href="#banshee-list-entities--invert"><code>--invert</code></a>,  <code>-i</code> <i>invert</i></dt><dd>
+    <dt id="banshee-list-entities--exclude-note"><a href="#banshee-list-entities--exclude-note"><code>--exclude-note</code></a>,  <code>-e</code> <i>exclude-note</i></dt><dd>
     <p><code>text</code>를 포함하는 컨텍스트 값이 없는 엔티티만 포함합니다. 값에 공백이 있으면 따옴표로 감싸십시오.</p></dd>
-    <dt id="banshee-list-entities--empty"><a href="#banshee-list-entities--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
+    <dt id="banshee-list-entities--no-note"><a href="#banshee-list-entities--no-note"><code>--no-note</code></a>,  <code>-N</code></dt><dd>
     <p>컨텍스트가 없는 엔티티만 포함합니다.</p></dd>
     <dt id="banshee-list-entities--pretty"><a href="#banshee-list-entities--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p><dd></dd>
@@ -1212,9 +1212,9 @@ banshee list clear [OPTIONS] LIST_ID
 <dl class="commands-reference">
     <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
     <p><code>text</code>를 포함하는 컨텍스트 값이 있는 엔티티를 제거합니다. 값에 공백이 있으면 따옴표로 감싸십시오.</p></dd>
-    <dt id="banshee-list-clear--invert"><a href="#banshee-list-clear--invert"><code>--invert</code></a>,  <code>-i</code> <i>invert</i></dt><dd>
+    <dt id="banshee-list-clear--exclude-note"><a href="#banshee-list-clear--exclude-note"><code>--exclude-note</code></a>,  <code>-e</code> <i>exclude-note</i></dt><dd>
     <p><code>text</code>를 포함하는 컨텍스트 값이 없는 엔티티를 제거합니다. 값에 공백이 있으면 따옴표로 감싸십시오.</p></dd>
-    <dt id="banshee-list-clear--empty"><a href="#banshee-list-clear--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
+    <dt id="banshee-list-clear--no-note"><a href="#banshee-list-clear--no-note"><code>--no-note</code></a>,  <code>-N</code></dt><dd>
     <p>컨텍스트가 없는 엔티티를 제거합니다.</p></dd>
     <dt id="banshee-list-clear--help"><a href="#banshee-list-clear--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>이 명령어의 도움말 표시</p>
@@ -1772,7 +1772,7 @@ JSON 배열의 각 결과 객체에는 다음 필드가 포함됩니다:
 | `count` | 이 위험 규칙에 대한 참조를 제공한 소스 수 |
 | `description` | 증거에 대한 사람이 읽을 수 있는 요약 |
 | `level` | 이 규칙의 심각도 수준 — 숫자가 높을수록 더 심각 |
-| `mitigation` | IOC가 포함될 수 있는 화이트리스트를 설명하며, 이는 관련 위험을 줄이거나 완화합니다. |
+| `mitigation` | IOC가 포함될 수 있는 화이트리스트를 설명하며, 이는 관련 위험을 줄이거나 완화합니다 |
 | `rule` | 트리거된 특정 Recorded Future 위험 규칙의 이름 |
 | `sightings` | 기록된 개별 관측 수 |
 | `timestamp` | 이 규칙에 대한 가장 최근 관측 시각의 ISO 8601 타임스탬프 |
