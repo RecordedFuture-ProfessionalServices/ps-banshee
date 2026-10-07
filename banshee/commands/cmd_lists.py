@@ -197,32 +197,34 @@ def entities(
             help='Only include entities with any context value containing `text`. Quote the value if it contains spaces.',  # noqa: E501
         ),
     ] = None,
-    invert: Annotated[
+    exclude_note: Annotated[
         list[str],
         Option(
-            '--invert',
-            '-i',
+            '--exclude-note',
+            '-e',
             show_default=False,
             help='Only include entities with no context value containing `text`. Quote the value if it contains spaces.',  # noqa: E501
         ),
     ] = None,
-    empty: Annotated[
+    no_note: Annotated[
         bool,
-        Option('--empty', '-e', show_default=False, help='Only include entities with no context'),
+        Option('--no-note', '-N', show_default=False, help='Only include entities with no context'),
     ] = False,
     pretty: OPT_PRETTY_PRINT = False,
 ):
-    if note and len(note) > 1:
-        raise BadParameter('--note may only be used once.')
-    if invert and len(invert) > 1:
-        raise BadParameter('--invert may only be used once.')
-    note_val = note[0] if note else None
-    invert_val = invert[0] if invert else None
-    _non_empty_str(note_val)
-    _non_empty_str(invert_val)
-    if sum([bool(note_val), bool(invert_val), empty]) > 1:
-        raise BadParameter('Only one of --note, --invert, or --empty may be used at a time.')
-    fetch_entities(list_id=list_id, pretty=pretty, note=note_val, empty=empty, invert=invert_val)
+    note = note or []
+    exclude_note = exclude_note or []
+    for v in note:
+        _non_empty_str(v)
+    for v in exclude_note:
+        _non_empty_str(v)
+    if sum([bool(note), bool(exclude_note), no_note]) > 1:
+        raise BadParameter(
+            'Only one of --note, --exclude-note, or --no-note may be used at a time.'
+        )
+    fetch_entities(
+        list_id=list_id, pretty=pretty, note=note, no_note=no_note, exclude_note=exclude_note
+    )
 
 
 @banshee_cmd(
@@ -388,31 +390,31 @@ def clear(
             help='Remove entities with any context value containing `text`. Quote the value if it contains spaces.',  # noqa: E501
         ),
     ] = None,
-    invert: Annotated[
+    exclude_note: Annotated[
         list[str],
         Option(
-            '--invert',
-            '-i',
+            '--exclude-note',
+            '-e',
             show_default=False,
             help='Remove entities with no context value that contains `text`. Quote the value if it contains spaces.',  # noqa: E501
         ),
     ] = None,
-    empty: Annotated[
+    no_note: Annotated[
         bool,
-        Option('--empty', '-e', show_default=False, help='Remove entities with no context'),  # noqa: E501
+        Option('--no-note', '-N', show_default=False, help='Remove entities with no context'),  # noqa: E501
     ] = False,
 ):
-    if note and len(note) > 1:
-        raise BadParameter('--note may only be used once.')
-    if invert and len(invert) > 1:
-        raise BadParameter('--invert may only be used once.')
-    note_val = note[0] if note else None
-    invert_val = invert[0] if invert else None
-    _non_empty_str(note_val)
-    _non_empty_str(invert_val)
-    if sum([bool(note_val), bool(invert_val), empty]) > 1:
-        raise BadParameter('Only one of --note, --invert, or --empty may be used at a time.')
-    clear_list(list_id=list_id, note=note_val, invert=invert_val, empty=empty)
+    note = note or []
+    exclude_note = exclude_note or []
+    for v in note:
+        _non_empty_str(v)
+    for v in exclude_note:
+        _non_empty_str(v)
+    if sum([bool(note), bool(exclude_note), no_note]) > 1:
+        raise BadParameter(
+            'Only one of --note, --exclude-note, or --no-note may be used at a time.'
+        )
+    clear_list(list_id=list_id, note=note, exclude_note=exclude_note, no_note=no_note)
 
 
 @banshee_cmd(

@@ -1147,9 +1147,9 @@ banshee list entities [OPTIONS] LIST_ID
 <dl class="commands-reference">
     <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
     <p>Only include entities with any context value containing <code>text</code>. Quote the value if it contains spaces.</p></dd>
-    <dt id="banshee-list-entities--invert"><a href="#banshee-list-entities--invert"><code>--invert</code></a>,  <code>-i</code> <i>invert</i></dt><dd>
+    <dt id="banshee-list-entities--exclude-note"><a href="#banshee-list-entities--exclude-note"><code>--exclude-note</code></a>,  <code>-e</code> <i>exclude-note</i></dt><dd>
     <p>Only include entities with no context value containing <code>text</code>. Quote the value if it contains spaces.</p></dd>
-    <dt id="banshee-list-entities--empty"><a href="#banshee-list-entities--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
+    <dt id="banshee-list-entities--no-note"><a href="#banshee-list-entities--no-note"><code>--no-note</code></a>,  <code>-N</code></dt><dd>
     <p>Only include entities with no context.</p></dd>
     <dt id="banshee-list-entities--pretty"><a href="#banshee-list-entities--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>Pretty print the results in a human readable format</p><dd></dd>
@@ -1212,9 +1212,9 @@ banshee list clear [OPTIONS] LIST_ID
 <dl class="commands-reference">
     <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
     <p>Remove entities with any context value containing <code>text</code>. Quote the value if it contains spaces.</p></dd>
-    <dt id="banshee-list-clear--invert"><a href="#banshee-list-clear--invert"><code>--invert</code></a>,  <code>-i</code> <i>invert</i></dt><dd>
+    <dt id="banshee-list-clear--exclude-note"><a href="#banshee-list-clear--exclude-note"><code>--exclude-note</code></a>,  <code>-e</code> <i>exclude-note</i></dt><dd>
     <p>Remove entities with no context value that contains <code>text</code>. Quote the value if it contains spaces.</p></dd>
-    <dt id="banshee-list-clear--empty"><a href="#banshee-list-clear--empty"><code>--empty</code></a>,  <code>-e</code></dt><dd>
+    <dt id="banshee-list-clear--no-note"><a href="#banshee-list-clear--no-note"><code>--no-note</code></a>,  <code>-N</code></dt><dd>
     <p>Remove entities with no context.</p></dd>
     <dt id="banshee-list-clear--help"><a href="#banshee-list-clear--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>Show help for this command</p>
