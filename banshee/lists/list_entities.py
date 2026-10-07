@@ -62,6 +62,8 @@ def _pretty_print(entities: list[ListEntity]):
         print(format_line('Name', entity.entity.name))
         print(format_line('Type', entity.entity.type_))
         print(format_line('Added', format_time(entity.added)))
+        if entity.context:
+            print(format_line('Note', entity.context['annotation']))
         print()
     print()
     print(f'Total entities: {len(entities)}')
