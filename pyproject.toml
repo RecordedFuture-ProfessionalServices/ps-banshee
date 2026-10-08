@@ -25,7 +25,7 @@ dependencies = [
     "typer<0.28.0",
     "pyshark==0.6",
     "polars>=1.34,<1.45",
-    "psengine~=2.11.0",
+    "psengine>=2.11,<2.14",
     "pyzipper>=0.4.0",
 ]
 
