@@ -1,8 +1,13 @@
 # リリース履歴
 
+## 1.6.1 - 2026-10-08
+
+### 変更
+- `psengine` の依存関係を更新。
+
 ## 1.6.0 - 2026-09-15
 ### 追加
-- EML ファイルから添付ファイルを抽出し、パスワード保護されたアーカイブに保存した後、Recorded Future Sandbox に分析のために送信するための新しい [`email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) サブコマンドを追加。
+- EML ファイルから添付ファイルを抽出し、パスワード保護されたアーカイブに保存した後、Recorded Future Sandbox に分析のために送信するための新しい ['email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) サブコマンドを追加。
 
 ## 1.5.0 - 2026-08-21
 

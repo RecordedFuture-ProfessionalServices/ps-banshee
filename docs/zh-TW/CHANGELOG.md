@@ -1,8 +1,13 @@
 # 發行歷程
 
+## 1.6.1 - 2026-10-08
+
+### 變更
+- 更新 `psengine` 相依套件版本。
+
 ## 1.6.0 - 2026-09-15
 ### 新增
-- 新增 [`email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) 子指令，可從 EML 檔案中擷取附件、儲存至受密碼保護的壓縮檔，並提交至 Recorded Future Sandbox 進行分析。
+- 新增 ['email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) 子指令，可從 EML 檔案中擷取附件、儲存至受密碼保護的壓縮檔，並提交至 Recorded Future Sandbox 進行分析。
 
 ## 1.5.0 - 2026-08-21
 

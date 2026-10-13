@@ -1,5 +1,10 @@
 # 릴리스 히스토리
 
+## 1.6.1 - 2026-10-08
+
+### Changed
+- `psengine` 의존성을 업그레이드하였습니다.
+
 ## 1.6.0 - 2026-09-15
 ### Added
 - EML 파일에서 첨부 파일을 추출하고, 비밀번호로 보호된 아카이브에 저장한 후 분석을 위해 Recorded Future Sandbox에 제출하는 새로운 [`email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) 서브 명령어를 추가하였습니다.
