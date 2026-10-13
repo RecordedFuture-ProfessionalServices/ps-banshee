@@ -15,7 +15,7 @@ resolution-markers = [
     "python_full_version < '3.11'",
 ]
 dependencies = [
-    { name = "caio", version = "0.9.25", source = { registry = "https://pypi.org/simple" } },
+    { name = "caio", version = "0.9.25", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/67/e2/d7cb819de8df6b5c1968a2756c3cb4122d4fa2b8fc768b53b7c9e5edb646/aiofile-3.9.0.tar.gz", hash = "sha256:e5ad718bb148b265b6df1b3752c4d1d83024b93da9bd599df74b9d9ffcf7919b", size = 17943, upload-time = "2024-10-08T10:39:35.846Z" }
 wheels = [
@@ -31,7 +31,7 @@ resolution-markers = [
     "(python_full_version >= '3.11' and sys_platform != 'emscripten') or (python_full_version == '3.11.*' and sys_platform == 'emscripten')",
 ]
 dependencies = [
-    { name = "caio", version = "0.12.2", source = { registry = "https://pypi.org/simple" } },
+    { name = "caio", version = "0.12.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/14/31/edb06aabd8f8f0b56d659f30800795f40b93cba96be946ce179f6931e3a5/aiofile-3.12.3.tar.gz", hash = "sha256:caa6aa746b5e47e2165f7abd741b6415e49cf4d44fddc0f61844612cc3924d41", size = 21600, upload-time = "2026-08-04T22:59:27.171Z" }
 wheels = [
@@ -790,8 +790,8 @@ name = "httpcore2"
 version = "2.12.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "h11" },
-    { name = "truststore" },
+    { name = "h11", marker = "python_full_version < '3.12' or sys_platform != 'emscripten'" },
+    { name = "truststore", marker = "python_full_version < '3.12' or sys_platform != 'emscripten'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/be/ad/f4f0e57345f1870f3e8cb624e058d7eca6e5a27d33bcc3311d9b618734cd/httpcore2-2.12.0.tar.gz", hash = "sha256:9293522bba0aa7c4c8e9e3f040c16575bd8868e155a77fa30c7a9085a5eae648", size = 67548, upload-time = "2026-08-18T13:22:08.211Z" }
 wheels = [
@@ -862,7 +862,7 @@ name = "importlib-metadata"
 version = "9.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "zipp" },
+    { name = "zipp", marker = "python_full_version < '3.12' or sys_platform != 'emscripten'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/a9/01/15bb152d77b21318514a96f43af312635eb2500c96b55398d020c93d86ea/importlib_metadata-9.0.0.tar.gz", hash = "sha256:a4f57ab599e6a2e3016d7595cfd72eb4661a5106e787a95bcc90c7105b831efc", size = 56405, upload-time = "2026-03-20T06:42:56.999Z" }
 wheels = [
@@ -1759,7 +1759,7 @@ wheels = [
 
 [[package]]
 name = "ps-banshee"
-version = "1.5.0"
+version = "1.6.1"
 source = { editable = "." }
 dependencies = [
     { name = "polars" },
@@ -1800,8 +1800,8 @@ translations = [
 
 [package.metadata]
 requires-dist = [
-    { name = "polars", specifier = ">=1.34,<1.44" },
-    { name = "psengine", specifier = "~=2.11.0" },
+    { name = "polars", specifier = ">=1.34,<1.45" },
+    { name = "psengine", specifier = "~=2.14.0" },
     { name = "pyshark", specifier = "==0.6" },
     { name = "pyzipper", specifier = ">=0.4.0" },
     { name = "typer", specifier = "<0.28.0" },
@@ -1813,7 +1813,7 @@ dev = [
     { name = "pytest", specifier = "==9.1.1" },
     { name = "pytest-cov", specifier = "==7.1.0" },
     { name = "pytest-md", specifier = "==0.2.0" },
-    { name = "pytest-mock", specifier = "==3.15.1" },
+    { name = "pytest-mock", specifier = "==3.16.0" },
     { name = "pytest-random-order", specifier = "==1.2.0" },
     { name = "pytest-vcr", specifier = "==1.0.2" },
     { name = "ruff", specifier = ">=0.16.1,<0.17.0" },
@@ -1825,7 +1825,7 @@ docs = [
     { name = "mkdocs-llmstxt", specifier = ">=0.3.0" },
     { name = "mkdocs-material", specifier = "~=9.7.6" },
     { name = "mkdocstrings", extras = ["python"], specifier = ">=1.0.4" },
-    { name = "pymdown-extensions", specifier = ">=10.21.3,<11.1.0" },
+    { name = "pymdown-extensions", specifier = ">=10.21.3,<12.2.0" },
     { name = "pyyaml", specifier = ">=6.0" },
     { name = "typer", specifier = "<0.28.0" },
 ]
@@ -1838,7 +1838,7 @@ translations = [
 
 [[package]]
 name = "psengine"
-version = "2.11.0"
+version = "2.14.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "idna" },
@@ -1852,9 +1852,9 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/8a/c2/019d6f6aea50e352a90fdcbf354d945edb5bb16536d6b78187a22efd7974/psengine-2.11.0.tar.gz", hash = "sha256:652c7c633759dcfbc1585c583af83d59dfbdf8da65ca185664b30fcc78248aad", size = 181617, upload-time = "2026-08-20T09:51:00.262Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/5e/fc/c3994ae66eb0bfd64bd2431f014cac3d70636d30a5b1f2a48e125db53b28/psengine-2.14.0.tar.gz", hash = "sha256:508911475b30517d2b6240f87be32fbfb6c652cd35c8de21ded8a86e9f621bcc", size = 188336, upload-time = "2026-10-07T08:39:42.248Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/bb/0c/ec7f69aa42713eaf40d1f791ca7472854400f66591566263b057652f015f/psengine-2.11.0-py3-none-any.whl", hash = "sha256:7c56150626a2ef2a85c54ad82c33a542b29cf890603db1550b90f1852d4b669c", size = 329201, upload-time = "2026-08-20T09:50:58.828Z" },
+    { url = "https://files.pythonhosted.org/packages/3b/68/13e288fd6f6e52e3918762cb95e76cecef514b495982a0b729ed8b765186/psengine-2.14.0-py3-none-any.whl", hash = "sha256:937c060237f05deacd14d49f01ac28ba752a43a395607463ebbb68477b2a6a25", size = 340811, upload-time = "2026-10-07T08:39:40.717Z" },
 ]
 
 [[package]]
@@ -2283,14 +2283,14 @@ wheels = [
 
 [[package]]
 name = "pytest-mock"
-version = "3.15.1"
+version = "3.16.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pytest" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/68/14/eb014d26be205d38ad5ad20d9a80f7d201472e08167f0bb4361e251084a9/pytest_mock-3.15.1.tar.gz", hash = "sha256:1849a238f6f396da19762269de72cb1814ab44416fa73a8686deac10b0d87a0f", size = 34036, upload-time = "2025-09-16T16:37:27.081Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/7a/7f/6ed29931d5c8cd396e7c0a55412e6cc88020373365c8685985dea53d26d7/pytest_mock-3.16.0.tar.gz", hash = "sha256:5a8395528b8f498205f3718f575228d0edaed7425fff638f87d1a6c3e0383636", size = 35362, upload-time = "2026-09-27T14:57:55.46Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5a/cc/06253936f4a7fa2e0f48dfe6d851d9c56df896a9ab09ac019d70b760619c/pytest_mock-3.15.1-py3-none-any.whl", hash = "sha256:0a25e2eb88fe5168d535041d09a4529a188176ae608a6d249ee65abc0949630d", size = 10095, upload-time = "2025-09-16T16:37:25.734Z" },
+    { url = "https://files.pythonhosted.org/packages/db/5b/b83a9bf1a3b4ec222f9fa083147ff6816245223da0ab92370e7e056f113f/pytest_mock-3.16.0-py3-none-any.whl", hash = "sha256:007cfeb257801d88d9c0b2a7b5a15a15e73b71968dfd72e7bf8c4a2f8393aec8", size = 10016, upload-time = "2026-09-27T14:57:54.283Z" },
 ]
 
 [[package]]
@@ -2782,8 +2782,8 @@ name = "secretstorage"
 version = "3.5.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "cryptography" },
-    { name = "jeepney" },
+    { name = "cryptography", marker = "python_full_version < '3.12' or sys_platform != 'emscripten'" },
+    { name = "jeepney", marker = "python_full_version < '3.12' or sys_platform != 'emscripten'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/1c/03/e834bcd866f2f8a49a85eaff47340affa3bfa391ee9912a952a1faa68c7b/secretstorage-3.5.0.tar.gz", hash = "sha256:f04b8e4689cbce351744d5537bf6b1329c6fc68f91fa666f60a380edddcd11be", size = 19884, upload-time = "2025-11-23T19:02:53.191Z" }
 wheels = [
