@@ -1145,9 +1145,15 @@ banshee list entities [OPTIONS] LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <dt id="banshee-list-entities--note"><a href="#banshee-list-entities--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p>Only include entities with any context value containing <code>text</code>. Quote the value if it contains spaces.</p></dd>
+    <dt id="banshee-list-entities--exclude-note"><a href="#banshee-list-entities--exclude-note"><code>--exclude-note</code></a>,  <code>-e</code> <i>exclude-note</i></dt><dd>
+    <p>Only include entities with no context value containing <code>text</code>. Quote the value if it contains spaces.</p></dd>
+    <dt id="banshee-list-entities--no-note"><a href="#banshee-list-entities--no-note"><code>--no-note</code></a>,  <code>-N</code></dt><dd>
+    <p>Only include entities with no context.</p></dd>
+    <dt id="banshee-list-entities--pretty"><a href="#banshee-list-entities--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>Pretty print the results in a human readable format</p><dd></dd>
-    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <dt id="banshee-list-entities--help"><a href="#banshee-list-entities--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>Show help for this command</p>
 </dl>
 
@@ -1204,7 +1210,13 @@ banshee list clear [OPTIONS] LIST_ID
 <h3 class="commands-reference">Options</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <dt id="banshee-list-clear--note"><a href="#banshee-list-clear--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p>Remove entities with any context value containing <code>text</code>. Quote the value if it contains spaces.</p></dd>
+    <dt id="banshee-list-clear--exclude-note"><a href="#banshee-list-clear--exclude-note"><code>--exclude-note</code></a>,  <code>-e</code> <i>exclude-note</i></dt><dd>
+    <p>Remove entities with no context value that contains <code>text</code>. Quote the value if it contains spaces.</p></dd>
+    <dt id="banshee-list-clear--no-note"><a href="#banshee-list-clear--no-note"><code>--no-note</code></a>,  <code>-N</code></dt><dd>
+    <p>Remove entities with no context.</p></dd>
+    <dt id="banshee-list-clear--help"><a href="#banshee-list-clear--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>Show help for this command</p>
 </dl>
 
@@ -1232,8 +1244,7 @@ banshee list add [OPTIONS] LIST_ID ENTITY_ID [PROPERTIES]
         <li>www.duckdns.org,InternetDomainName</li>
     </ul></dd>
     <dt id="banshee-list-add--properties"><a href="#banshee-list-add--properties"><code>PROPERTIES</code></a></dt><dd>
-    <p>Optional. Use <code>annotation=&lt;text&gt;</code> to attach a note that appears on the Recorded Future platform for this entity.</p>
-    <p>Quote the value if it contains spaces.</p></dd>
+    <p>Optional. Use <code>annotation=&lt;text&gt;</code> or <code>text</code> to attach a note that appears on the Recorded Future platform for this entity. Quote the value if it contains spaces.</p></dd>
 </dl>
 
 <h3 class="commands-reference">Options</h3>
@@ -1303,6 +1314,8 @@ banshee list bulk-add [OPTIONS] LIST_ID ENTITY_INPUT...
     </ul>
     <p>By default (without this flag) the command appends new entities to the existing list without removing anything.</p>
     </dd>
+    <dt id="banshee-list-bulk-add--note"><a href="#banshee-list-bulk-add--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p>Use <code>annotation=&lt;text&gt;</code> or <code>text</code> to attach a note that appears on the Recorded Future platform for all entities. Quote the value if it contains spaces. Entities already on the list will not be updated with the annotation.</p></dd>
     <dt id="banshee-list-bulk-add--help"><a href="#banshee-list-bulk-add--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>Show help for this command</p>
 </dl>
@@ -1454,6 +1467,8 @@ banshee list copy [OPTIONS] SOURCE_LIST_ID DESTINATION_LIST_ID
 <dl class="commands-reference">
     <dt id="banshee-list-copy--overwrite"><a href="#banshee-list-copy--overwrite"><code>--overwrite</code></a>, <code>-o</code></dt><dd>
     <p>Overwrite mode: keeps entities that are already in the destination list, adds new ones, and removes any entities on the destination that are not in the source list. By default the command appends new entities without removing existing ones.</p></dd>
+    <dt id="banshee-list-copy--note"><a href="#banshee-list-copy--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
+    <p>Use <code>annotation=&lt;text&gt;</code> or <code>text</code> to attach a note that appears on the Recorded Future platform for all entities being copied. Quote the value if it contains spaces. Entities already on the destination list will not be updated with the annotation.</p></dd>
     <dt id="banshee-list-copy--help"><a href="#banshee-list-copy--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>Show help for this command</p>
 </dl>

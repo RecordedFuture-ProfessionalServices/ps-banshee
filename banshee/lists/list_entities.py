@@ -20,9 +20,34 @@ from ..formatters.output_formatters import format_line, format_time
 from .fetch_list import fetch_list
 
 
-def fetch_entities(list_id: str, pretty: bool):
+def fetch_entities(
+    list_id: str,
+    pretty: bool,
+    note: list[str] | None,
+    no_note: bool,
+    exclude_note: list[str] | None,
+):
     entity_list = fetch_list(list_id)
     entities = entity_list.entities()
+
+    if note:
+        notes_lower = [n.lower() for n in note]
+        entities = [
+            e
+            for e in entities
+            if e.context
+            and any(n in str(v).lower() for n in notes_lower for v in e.context.values())
+        ]
+    elif no_note:
+        entities = [e for e in entities if not e.context or not any(e.context.values())]
+    elif exclude_note:
+        exclude_lower = [n.lower() for n in exclude_note]
+        entities = [
+            e
+            for e in entities
+            if not e.context
+            or not any(n in str(v).lower() for n in exclude_lower for v in e.context.values())
+        ]
 
     if pretty:
         _pretty_print(entities)
@@ -37,6 +62,8 @@ def _pretty_print(entities: list[ListEntity]):
         print(format_line('Name', entity.entity.name))
         print(format_line('Type', entity.entity.type_))
         print(format_line('Added', format_time(entity.added)))
+        if entity.context:
+            print(format_line('Note', entity.context['annotation']))
         print()
     print()
     print(f'Total entities: {len(entities)}')

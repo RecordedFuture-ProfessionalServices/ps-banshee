@@ -1,6 +1,9 @@
 import json
+from datetime import datetime, timezone
+from unittest.mock import MagicMock, patch
 
 import pytest
+from psengine.entity_lists import EntityList, EntityListMgr, ListEntity
 from typer.testing import CliRunner
 
 from banshee.commands.cmd_lists import app
@@ -47,3 +50,115 @@ def test_list_entities_dne():
         result.exception.message
         == 'Failed to fetch list "meow". 404 Client Error: Not Found for url: https://api.recordedfuture.com/list/meow/info, Cause: The syntax {D1,D2,...,Dn} denotes '
     )
+
+
+def _make_entity(id_: str, name: str, type_: str, context: dict = None) -> ListEntity:
+    return ListEntity(
+        entity={'id': id_, 'name': name, 'type': type_},
+        status='active',
+        added=datetime.now(timezone.utc),
+        context=context,
+    )
+
+
+def test_list_entities_filter_by_note():
+    annotated = _make_entity(
+        'ip:1.1.1.1', '1.1.1.1', 'IpAddress', context={'annotation': 'malware'}
+    )
+    no_annotation = _make_entity('ip:2.2.2.2', '2.2.2.2', 'IpAddress')
+
+    mock_entity_list = MagicMock(spec=EntityList)
+    mock_entity_list.entities.return_value = [annotated, no_annotation]
+
+    with patch.object(EntityListMgr, 'fetch', return_value=mock_entity_list):
+        result = runner.invoke(app, args=[COMMAND, 'report:wpHivJ', '-n', 'malware'])
+
+    assert result.exit_code == 0
+    assert 'ip:1.1.1.1' in result.output
+    assert 'ip:2.2.2.2' not in result.output
+
+
+def test_list_entities_filter_by_multiple_notes():
+    malware = _make_entity('ip:1.1.1.1', '1.1.1.1', 'IpAddress', context={'annotation': 'malware'})
+    phishing = _make_entity(
+        'ip:3.3.3.3', '3.3.3.3', 'IpAddress', context={'annotation': 'phishing'}
+    )
+    no_annotation = _make_entity('ip:2.2.2.2', '2.2.2.2', 'IpAddress')
+
+    mock_entity_list = MagicMock(spec=EntityList)
+    mock_entity_list.entities.return_value = [malware, phishing, no_annotation]
+
+    with patch.object(EntityListMgr, 'fetch', return_value=mock_entity_list):
+        result = runner.invoke(
+            app, args=[COMMAND, 'report:wpHivJ', '-n', 'malware', '-n', 'phishing']
+        )
+
+    assert result.exit_code == 0
+    assert 'ip:1.1.1.1' in result.output
+    assert 'ip:3.3.3.3' in result.output
+    assert 'ip:2.2.2.2' not in result.output
+
+
+def test_list_entities_filter_by_exclude_note():
+    annotated = _make_entity(
+        'ip:1.1.1.1', '1.1.1.1', 'IpAddress', context={'annotation': 'malware'}
+    )
+    no_annotation = _make_entity('ip:2.2.2.2', '2.2.2.2', 'IpAddress')
+
+    mock_entity_list = MagicMock(spec=EntityList)
+    mock_entity_list.entities.return_value = [annotated, no_annotation]
+
+    with patch.object(EntityListMgr, 'fetch', return_value=mock_entity_list):
+        result = runner.invoke(app, args=[COMMAND, 'report:wpHivJ', '-e', 'malware'])
+
+    assert result.exit_code == 0
+    assert 'ip:1.1.1.1' not in result.output
+    assert 'ip:2.2.2.2' in result.output
+
+
+def test_list_entities_filter_by_multiple_exclude_notes():
+    malware = _make_entity('ip:1.1.1.1', '1.1.1.1', 'IpAddress', context={'annotation': 'malware'})
+    phishing = _make_entity(
+        'ip:3.3.3.3', '3.3.3.3', 'IpAddress', context={'annotation': 'phishing'}
+    )
+    no_annotation = _make_entity('ip:2.2.2.2', '2.2.2.2', 'IpAddress')
+
+    mock_entity_list = MagicMock(spec=EntityList)
+    mock_entity_list.entities.return_value = [malware, phishing, no_annotation]
+
+    with patch.object(EntityListMgr, 'fetch', return_value=mock_entity_list):
+        result = runner.invoke(
+            app, args=[COMMAND, 'report:wpHivJ', '-e', 'malware', '-e', 'phishing']
+        )
+
+    assert result.exit_code == 0
+    assert 'ip:1.1.1.1' not in result.output
+    assert 'ip:3.3.3.3' not in result.output
+    assert 'ip:2.2.2.2' in result.output
+
+
+def test_list_entities_filter_by_no_note():
+    annotated = _make_entity(
+        'ip:1.1.1.1', '1.1.1.1', 'IpAddress', context={'annotation': 'malware'}
+    )
+    no_annotation = _make_entity('ip:2.2.2.2', '2.2.2.2', 'IpAddress')
+
+    mock_entity_list = MagicMock(spec=EntityList)
+    mock_entity_list.entities.return_value = [annotated, no_annotation]
+
+    with patch.object(EntityListMgr, 'fetch', return_value=mock_entity_list):
+        result = runner.invoke(app, args=[COMMAND, 'report:wpHivJ', '-N'])
+
+    assert result.exit_code == 0
+    assert 'ip:1.1.1.1' not in result.output
+    assert 'ip:2.2.2.2' in result.output
+
+
+def test_list_entities_note_and_exclude_note_mutually_exclusive():
+    result = runner.invoke(app, args=[COMMAND, 'report:wpHivJ', '-n', 'malware', '-e', 'malware'])
+    assert result.exit_code == 2
+
+
+def test_list_entities_note_and_no_note_mutually_exclusive():
+    result = runner.invoke(app, args=[COMMAND, 'report:wpHivJ', '-n', 'malware', '-N'])
+    assert result.exit_code == 2
