@@ -13,8 +13,9 @@
 
 from typing import Annotated
 
-from typer import Option, Typer
+from typer import Argument, BadParameter, Option, Typer
 
+from ..analyst_notes.note_lookup import lookup_note
 from ..analyst_notes.note_search import search_notes
 from ..branding import banshee_cmd
 from .args import OPT_PRETTY_PRINT
@@ -22,6 +23,8 @@ from .args import OPT_PRETTY_PRINT
 CMD_NAME = 'analyst-notes'
 CMD_HELP = 'Fetch and create Analyst Notes'
 CMD_RICH_HELP = 'Recorded Future Analyst Notes'
+
+NOTE_ID_INVALID_MSG = "Note ID '{}' is not valid. Alert ID should be at least 6 characters long."  # noqa: E501
 
 app = Typer(no_args_is_help=True)
 
@@ -33,6 +36,13 @@ def parse_triggered(value: str):
     return value
 
 
+def validate_note_id(note_id: str):
+    if len(note_id) < 6:
+        raise BadParameter(NOTE_ID_INVALID_MSG.format(note_id))
+
+    return note_id
+
+
 @banshee_cmd(app=app, help_='Search for analyst Notes', epilog='')
 def search(
     published: Annotated[
@@ -41,7 +51,7 @@ def search(
             '--published',
             '-p',
             callback=parse_triggered,
-            help='Filter based on published time, e.g. 1d; 12h; [2024-08-01, 2024-08-14]; [2024-09-23 12:03:58.000, 2024-09-23 12:03:58.567)', # noqa: E501
+            help='Filter based on published time, e.g. 1d; 12h; [2024-08-01, 2024-08-14]; [2024-09-23 12:03:58.000, 2024-09-23 12:03:58.567)',  # noqa: E501
             show_default=True,
         ),
     ] = '1d',
@@ -116,3 +126,22 @@ def search(
         limit=limit,
         pretty=pretty,
     )
+
+
+@banshee_cmd(app=app, help_='Lookup a single Analyst Note', epilog='')
+def lookup(
+    note_id: Annotated[
+        str, Argument(help='Note ID to lookup', callback=validate_note_id, show_default=False)
+    ],
+    tagged_text: Annotated[
+        bool,
+        Option(
+            '--tagged-text',
+            '-t',
+            help="Show Recorded Future ID's for entities within the note.",
+            show_default=False,
+        ),
+    ] = False,
+    pretty: OPT_PRETTY_PRINT = False,
+):
+    lookup_note(note_id=note_id, tagged_text=tagged_text, pretty=pretty)

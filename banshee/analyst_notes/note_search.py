@@ -19,10 +19,7 @@ from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from ..formatters.output_formatters import format_line, format_time
-
-
-def _print_pretty_note(note_text):
-    return note_text.replace('\n', ' ')
+from .helpers import format_note
 
 
 def search_notes(
@@ -65,5 +62,5 @@ def search_notes(
             print(format_line('Title', note.attributes.title))
             print(format_line('Published', format_time(note.attributes.published)))
             print(format_line('Source', note.source.name))
-            print(format_line('Note', _print_pretty_note(note.attributes.text)))
+            print(format_line('Note', format_note(note.attributes.text)))
             print()
