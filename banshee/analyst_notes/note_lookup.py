@@ -11,7 +11,6 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-
 from psengine.analyst_notes import AnalystNoteLookupError, AnalystNoteMgr
 from rich import print_json
 
@@ -36,6 +35,7 @@ def lookup_note(
         print_json(data=note.json(), indent=2)
 
     else:
+        print(format_line('Id', note.id_))
         print(format_line('Title', note.attributes.title))
         print(format_line('Published', format_time(note.attributes.published)))
         print(format_line('Source', note.source.name))

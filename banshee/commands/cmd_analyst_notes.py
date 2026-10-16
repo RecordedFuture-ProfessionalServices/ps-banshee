@@ -11,10 +11,12 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
+from pathlib import Path
 from typing import Annotated
 
 from typer import Argument, BadParameter, Option, Typer
 
+from ..analyst_notes.note_attachment import fetch_note_attachment
 from ..analyst_notes.note_lookup import lookup_note
 from ..analyst_notes.note_search import search_notes
 from ..branding import banshee_cmd
@@ -23,6 +25,8 @@ from .args import OPT_PRETTY_PRINT
 CMD_NAME = 'analyst-notes'
 CMD_HELP = 'Fetch and create Analyst Notes'
 CMD_RICH_HELP = 'Recorded Future Analyst Notes'
+
+CWD = Path.cwd()
 
 NOTE_ID_INVALID_MSG = "Note ID '{}' is not valid. Alert ID should be at least 6 characters long."  # noqa: E501
 
@@ -145,3 +149,21 @@ def lookup(
     pretty: OPT_PRETTY_PRINT = False,
 ):
     lookup_note(note_id=note_id, tagged_text=tagged_text, pretty=pretty)
+
+
+@banshee_cmd(app=app, help_='Save attachments from an Analyst Notes', epilog='')
+def fetch_attachments(
+    note_id: Annotated[
+        str, Argument(help='Note ID to lookup', callback=validate_note_id, show_default=False)
+    ],
+    output_path: Annotated[
+        Path,
+        Option(
+            '--output-path',
+            '-o',
+            help='Path to save attachments',
+            show_default=True,
+        ),
+    ] = CWD / 'attachments',
+):
+    fetch_note_attachment(note_id=note_id, output_path=output_path)
