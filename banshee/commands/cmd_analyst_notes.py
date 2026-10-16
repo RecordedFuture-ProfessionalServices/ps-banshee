@@ -12,6 +12,7 @@
 ##############################################################################################
 
 from pathlib import Path
+import sys
 from typing import Annotated
 
 from typer import Argument, BadParameter, Option, Typer
@@ -19,6 +20,8 @@ from typer import Argument, BadParameter, Option, Typer
 from ..analyst_notes.note_attachment import fetch_note_attachment
 from ..analyst_notes.note_lookup import lookup_note
 from ..analyst_notes.note_search import search_notes
+from ..analyst_notes.note_write import write_note
+from ..analyst_notes.helpers import URL
 from ..branding import banshee_cmd
 from .args import OPT_PRETTY_PRINT
 
@@ -45,6 +48,13 @@ def validate_note_id(note_id: str):
         raise BadParameter(NOTE_ID_INVALID_MSG.format(note_id))
 
     return note_id
+
+def validate_urls(urls: list[str]):
+    for this_url in urls:
+        try:
+             URL(this_url)
+        except ValueError:
+            raise BadParameter(NOTE_ID_INVALID_MSG.format(this_url))
 
 
 @banshee_cmd(app=app, help_='Search for analyst Notes', epilog='')
@@ -167,3 +177,66 @@ def fetch_attachments(
     ] = CWD / 'attachments',
 ):
     fetch_note_attachment(note_id=note_id, output_path=output_path)
+
+@banshee_cmd(app=app, help_='Publish a new Analyst Note', epilog='')
+def publish(
+        title: Annotated[str, Argument(show_default=False, help="Title for the Note")],
+        note_text: str = Argument(
+            ... if sys.stdin.isatty() else None,
+            show_default=False,
+            help="Note Body"
+        ),
+        topic: Annotated[
+            list[str],
+            Option(
+                '--topic',
+                '-t',
+                help='One or more topics to associate with the note',
+                show_default=False,
+            )
+        ] = None,
+        context_entities: Annotated[
+            list[str],
+            Option(
+                '--context-entities',
+                '-c',
+                help='One or more context entities to associate with the note',
+                show_default=False,
+            )
+        ] = None,
+        note_entities: Annotated[
+            list[str],
+            Option(
+                '--note-entities',
+                '-e',
+                help='One or more entities to associate with the note',
+                show_default=False,
+            )
+        ] = None,
+        validation_urls: Annotated[
+            list[str],
+            Option(
+                '--validation-urls',
+                '-v',
+                help='One or more URLs to associate with the note',
+                show_default=False,
+            )
+        ] = None
+):
+    if note_text == None:
+        note_text = sys.stdin.read()
+
+    if note_entities == None and context_entities == None:
+        raise BadParameter("Either \"note-entities\" or \"context-entities\" must be provided")
+
+    if validation_urls != None:
+        validate_urls(validation_urls)
+
+    write_note(
+        title=title,
+        note_text=note_text,
+        topic=topic,
+        context_entities=context_entities,
+        note_entities=note_entities,
+        validation_urls=validation_urls
+    )

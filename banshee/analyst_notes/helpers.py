@@ -11,7 +11,15 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
+from psengine.common_models import RFBaseModel
+from pydantic import HttpUrl
+
 
 def format_note(note_text: str):
     """Take note text and format for printing to console."""
     return note_text.replace('\n', ' ')
+
+
+class URL(RFBaseModel):
+    """Model to validate URL."""
+    url: HttpUrl
