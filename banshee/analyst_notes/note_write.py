@@ -15,6 +15,7 @@ from psengine.analyst_notes import AnalystNoteMgr, AnalystNotePublishError
 
 from ..formatters.output_formatters import format_line
 
+
 def write_note(
     title: str,
     note_text: str,

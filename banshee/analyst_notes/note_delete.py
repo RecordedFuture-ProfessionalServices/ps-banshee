@@ -11,7 +11,7 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-from psengine.analyst_notes import AnalystNoteMgr, AnalystNoteDeleteError
+from psengine.analyst_notes import AnalystNoteDeleteError, AnalystNoteMgr
 
 from ..formatters.output_formatters import format_line
 
@@ -28,4 +28,4 @@ def delete_note(note_id: str):
     if delete_note:
         print(format_line('Deleted Note', note_id))
     else:
-        print(format_line('Unable to Delete Note', note_id))
+        print(format_line('Unable to Delete Note', deleted_note.note_id))

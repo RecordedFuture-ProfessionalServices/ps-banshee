@@ -11,18 +11,18 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-from pathlib import Path
 import sys
+from pathlib import Path
 from typing import Annotated
 
 from typer import Argument, BadParameter, Option, Typer
 
+from ..analyst_notes.helpers import URL
 from ..analyst_notes.note_attachment import fetch_note_attachment
 from ..analyst_notes.note_delete import delete_note
 from ..analyst_notes.note_lookup import lookup_note
 from ..analyst_notes.note_search import search_notes
 from ..analyst_notes.note_write import write_note
-from ..analyst_notes.helpers import URL
 from ..branding import banshee_cmd
 from .args import OPT_PRETTY_PRINT
 
@@ -50,12 +50,17 @@ def validate_note_id(note_id: str):
 
     return note_id
 
-def validate_urls(urls: list[str]):
+
+def validate_url(url: str):
+    try:
+        URL(url)
+    except ValueError as err:
+        raise BadParameter(NOTE_ID_INVALID_MSG.format(url)) from err
+
+
+def validate_list_urls(urls: list[str]):
     for this_url in urls:
-        try:
-             URL(this_url)
-        except ValueError:
-            raise BadParameter(NOTE_ID_INVALID_MSG.format(this_url))
+        validate_url(this_url)
 
 
 @banshee_cmd(app=app, help_='Search for analyst Notes', epilog='')
@@ -111,7 +116,7 @@ def search(
         Option(
             '--label',
             '-l',
-            help='Recorded Future Note topics (repetable)',
+            help='Recorded Future Note topics (repeatable)',
             show_default=False,
         ),
     ] = None,
@@ -224,14 +229,14 @@ def publish(
             )
         ] = None
 ):
-    if note_text == None:
+    if note_text:
         note_text = sys.stdin.read()
 
-    if note_entities == None and context_entities == None:
+    if note_entities and context_entities:
         raise BadParameter("Either \"note-entities\" or \"context-entities\" must be provided")
 
-    if validation_urls != None:
-        validate_urls(validation_urls)
+    if not validation_urls:
+        validate_list_urls(validation_urls)
 
     write_note(
         title=title,
