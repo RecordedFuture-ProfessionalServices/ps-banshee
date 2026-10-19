@@ -11,15 +11,54 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
+import csv
+import sys
+
+from psengine.analyst_notes import AnalystNote
 from psengine.common_models import RFBaseModel
 from pydantic import HttpUrl
 
+CSV_FIELDNAMES = ['ID', 'Title', 'Note Text', 'Published', 'Topics','Source Name', 'Portal Url']
 
-def format_note(note_text: str):
-    """Take note text and format for printing to console."""
-    return note_text.replace('\n', ' ')
+
+def sanitize_csv_field(text):
+    """Sanitise a CSV field for writing to the console. Remove line breaks and commas."""
+    if text is None:
+        return ''
+
+    return str(text).replace('\r\n', ' ').replace('\r', ' ').replace('\n', ' ').replace(',', ' ').strip()
+
+
+def _parse_topics(topics: list):
+    """Parse topics from an Analyst Note and return an array."""
+    if topics is None:
+        return []
+    else:
+        topics = []
+        for topic in topics:
+            topics.append(topic.name)
+        return topics
+
+
+def format_as_csv(notes: list[AnalystNote]):
+    """Take a list of analyst notes and format them for printing in a CSV format to the conosle."""
+    writer = csv.DictWriter(sys.stdout, fieldnames=CSV_FIELDNAMES)
+    writer.writeheader()
+    for note in notes:
+        writer.writerow(
+            {
+                'ID': note.id_,
+                'Title': note.attributes.title,
+                'Note Text': sanitize_csv_field(note.attributes.text),
+                'Published': note.attributes.published,
+                'Topics': ' '.join(_parse_topics(note.attributes.topic)),
+                'Source Name': note.source.name,
+                'Portal Url': note.portal_url,
+            }
+        )
 
 
 class URL(RFBaseModel):
     """Model to validate URL."""
+
     url: HttpUrl

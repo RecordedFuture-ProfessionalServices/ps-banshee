@@ -34,7 +34,7 @@ def write_note(
             topic=topic,
             context_entities=context_entities,
             note_entities=note_entities,
-            validation_urls=validation_urls
+            validation_urls=validation_urls,
         )
     except AnalystNotePublishError as err:
         raise err

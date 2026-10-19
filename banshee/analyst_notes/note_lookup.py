@@ -15,7 +15,7 @@ from psengine.analyst_notes import AnalystNoteLookupError, AnalystNoteMgr
 from rich import print_json
 
 from ..formatters.output_formatters import format_line, format_time
-from .helpers import format_note
+from .helpers import sanitize_csv_field
 
 
 def lookup_note(
@@ -38,6 +38,6 @@ def lookup_note(
         print(format_line('Id', note.id_))
         print(format_line('Title', note.attributes.title))
         print(format_line('Published', format_time(note.attributes.published)))
-        print(format_line('Source', note.source.name))
-        print(format_line('Note', format_note(note.attributes.text)))
+        print(format_line('Source Name', note.source.name))
+        print(format_line('Note', sanitize_csv_field(note.attributes.text)))
         print()

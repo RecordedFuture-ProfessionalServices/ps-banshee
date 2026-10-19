@@ -19,7 +19,7 @@ from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from ..formatters.output_formatters import format_line, format_time
-from .helpers import format_note
+from .helpers import sanitize_csv_field
 
 
 def search_notes(
@@ -62,5 +62,5 @@ def search_notes(
             print(format_line('Title', note.attributes.title))
             print(format_line('Published', format_time(note.attributes.published)))
             print(format_line('Source', note.source.name))
-            print(format_line('Note', format_note(note.attributes.text)))
+            print(format_line('Note', sanitize_csv_field(note.attributes.text)))
             print()
