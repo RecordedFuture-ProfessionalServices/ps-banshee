@@ -11,8 +11,9 @@
 # accessed from any third party API.                                                         #
 ##############################################################################################
 
-from psengine.analyst_notes import AnalystNoteMgr
-from rich import print_json
+from psengine.analyst_notes import AnalystNoteMgr, AnalystNotePublishError
+
+from ..formatters.output_formatters import format_line
 
 def write_note(
     title: str,
@@ -25,13 +26,16 @@ def write_note(
     """Publish an Analyst Note."""
     note_mgr = AnalystNoteMgr()
 
-    published_note = note_mgr.publish(
-        title=title,
-        text=note_text,
-        topic=topic,
-        context_entities=context_entities,
-        note_entities=note_entities,
-        validation_urls=validation_urls
-    )
+    try:
+        published_note = note_mgr.publish(
+            title=title,
+            text=note_text,
+            topic=topic,
+            context_entities=context_entities,
+            note_entities=note_entities,
+            validation_urls=validation_urls
+        )
+    except AnalystNotePublishError as err:
+        raise err
 
-    print(f'Note published with ID {published_note.note_id}')
+    print(format_line('Note published', published_note.note_id))

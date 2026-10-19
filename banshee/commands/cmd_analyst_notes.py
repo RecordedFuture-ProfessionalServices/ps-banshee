@@ -18,6 +18,7 @@ from typing import Annotated
 from typer import Argument, BadParameter, Option, Typer
 
 from ..analyst_notes.note_attachment import fetch_note_attachment
+from ..analyst_notes.note_delete import delete_note
 from ..analyst_notes.note_lookup import lookup_note
 from ..analyst_notes.note_search import search_notes
 from ..analyst_notes.note_write import write_note
@@ -26,7 +27,7 @@ from ..branding import banshee_cmd
 from .args import OPT_PRETTY_PRINT
 
 CMD_NAME = 'analyst-notes'
-CMD_HELP = 'Fetch and create Analyst Notes'
+CMD_HELP = 'Fetch, Create and Search Analyst Notes'
 CMD_RICH_HELP = 'Recorded Future Analyst Notes'
 
 CWD = Path.cwd()
@@ -63,7 +64,7 @@ def search(
         str,
         Option(
             '--published',
-            '-p',
+            '-P',
             callback=parse_triggered,
             help='Filter based on published time, e.g. 1d; 12h; [2024-08-01, 2024-08-14]; [2024-09-23 12:03:58.000, 2024-09-23 12:03:58.567)',  # noqa: E501
             show_default=True,
@@ -100,7 +101,7 @@ def search(
         str,
         Option(
             '--topic',
-            '-t',
+            '-T',
             help='Filter for alerts with specific topics',
             show_default=False,
         ),
@@ -240,3 +241,12 @@ def publish(
         note_entities=note_entities,
         validation_urls=validation_urls
     )
+
+
+@banshee_cmd(app=app, help_='Delete an Analyst Note', epilog='')
+def delete(
+        note_id: Annotated[
+            str, Argument(help='Note ID to lookup', callback=validate_note_id, show_default=False)
+        ]
+):
+    delete_note(note_id)
