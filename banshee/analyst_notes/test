@@ -1,0 +1,119 @@
+{
+  "data": {
+    "vpnHistory": [
+      {
+        "ip": "ip:110.238.109.146",
+        "removed": null,
+        "service": "Unspecified",
+        "added": "2026-01-27T00:00:00.000Z",
+        "first_seen": "2026-01-27T00:00:00.000Z",
+        "service_entity": null
+      }
+    ],
+    "vpnCurrent": [
+      {
+        "first_seen": "2026-01-27T00:00:00.000Z",
+        "service": "Unspecified",
+        "ip": "ip:110.238.109.146",
+        "service_entity": ""
+      }
+    ],
+    "risk": {
+      "criticalityLabel": "Very Malicious",
+      "riskString": "8/117",
+      "rules": 8,
+      "criticality": 4,
+      "riskSummary": "8 of 117 Risk Rules currently observed.",
+      "score": 99,
+      "evidenceDetails": [
+        {
+          "mitigationString": "",
+          "evidenceString": "4 sightings on 1 source: Insikt Group Command & Control Validation. Insikt Group analysis validated IP 110.238.109.146 as category C2, malware family CyberStrikeAI. Validated as of October 19, 2026 at 12:20 UTC.",
+          "rule": "Recently Validated C&C Server",
+          "criticality": 4,
+          "timestamp": "2026-10-19T12:20:41.318Z",
+          "criticalityLabel": "Very Malicious"
+        },
+        {
+          "mitigationString": "",
+          "evidenceString": "10 sightings on 2 sources: Insikt Group Command & Control Validation, Recorded Future Command & Control Reports. 110.238.109.146:2130 was reported as a command and control server for CyberStrikeAI on Oct 19, 2026",
+          "rule": "Recently Reported C&C Server",
+          "criticality": 3,
+          "timestamp": "2026-10-20T08:20:38.578Z",
+          "criticalityLabel": "Malicious"
+        },
+        {
+          "mitigationString": "",
+          "evidenceString": "4 sightings on 1 source: Insikt Group Command & Control Validation. Insikt Group analysis validated IP 110.238.109.146 as category C2, malware family CyberStrikeAI. Validated as of October 17, 2026 at 21:16 UTC.",
+          "rule": "Previously Validated C&C Server",
+          "criticality": 2,
+          "timestamp": "2026-10-17T21:16:58.101Z",
+          "criticalityLabel": "Suspicious"
+        },
+        {
+          "mitigationString": "",
+          "evidenceString": "4 sightings on 3 sources: BlackHatWorld Forum, XSS (ex DamageLab) Forum, Image OCR. 9 related intrusion methods including CWE-22, CWE-434, CVE-2017-14537, CWE-502, 0 Days.",
+          "rule": "Historically Linked to Intrusion Method",
+          "criticality": 1,
+          "timestamp": "2025-10-19T08:05:52.000Z",
+          "criticalityLabel": "Unusual"
+        },
+        {
+          "mitigationString": "",
+          "evidenceString": "1 sighting on 1 source: Bitdefender Feed. Bitdefender identified 110.238.109.146 as Spam on January 22, 2024",
+          "rule": "Historical Spam Source",
+          "criticality": 1,
+          "timestamp": "2024-01-22T23:08:58.671Z",
+          "criticalityLabel": "Unusual"
+        },
+        {
+          "mitigationString": "",
+          "evidenceString": "416 sightings on 4 sources: Nulled Forum (Seized), BlackHatWorld Forum, Samair Proxy Lists, @ProxyRotator. Most recent tweet: 110.238.109.146 2080 #proxy #proxies. Most recent link (Jan 22, 2023): https://twitter.com/ProxyRotator/statuses/1617251260763176960",
+          "rule": "Historical Open Proxies",
+          "criticality": 1,
+          "timestamp": "2023-01-22T20:02:02.000Z",
+          "criticalityLabel": "Unusual"
+        },
+        {
+          "mitigationString": "",
+          "evidenceString": "1 sighting on 1 source: Shodan: Honeypot Hosts.",
+          "rule": "Honeypot Host",
+          "criticality": 1,
+          "timestamp": "2026-10-20T08:34:22.232Z",
+          "criticalityLabel": "Unusual"
+        },
+        {
+          "mitigationString": "",
+          "evidenceString": "Previous sightings on 4 sources: Proxies: SOCKS Open Proxies, Shodan: Honeypot Hosts, Shodan: CVE-2013-1391 Vulnerable CCTV Hosts, CVE-2022-41040 and CVE-2022-41082 Vulnerable IPs. Observed between Oct 21, 2022, and Aug 17, 2026.",
+          "rule": "Historically Reported in Threat List",
+          "criticality": 1,
+          "timestamp": "2026-10-20T08:34:22.323Z",
+          "criticalityLabel": "Unusual"
+        }
+      ]
+    },
+    "intelCard": "https://app.recordedfuture.com/portal/intelligence-card/ip%3A110.238.109.146",
+    "links": {
+      "technical": {
+        "start_date": "2026-10-16",
+        "stop_date": "2026-10-19",
+        "entities": [
+          {
+            "type": "MitreAttackIdentifier",
+            "name": "TA0011",
+            "score": null,
+            "category": "Actors, Tools & TTPs"
+          },
+          {
+            "type": "Malware",
+            "name": "CyberStrikeAI",
+            "score": null,
+            "category": "Actors, Tools & TTPs"
+          }
+        ]
+      },
+      "research": {}
+    },
+    "html_response": "<p><span style=\"font-size: 14px\"><img src=\"https://raw.githubusercontent.com/Azure/Azure-Sentinel/master/Solutions/Recorded%20Future/Playbooks/RecordedFuture-IOC_Enrichment-IP_Domain_URL_Hash/images/RecordedFuture.png\" /><br/>Enriched IP: <strong>110.238.109.146</strong><br/>Risk score: <strong>99</strong> of 99<br/><a target=\"_blank\" href=\"https://app.recordedfuture.com/portal/intelligence-card/ip%3A110.238.109.146?utm_source=microsoft_sentinel\">Open Intelligence Card (Portal)</a><hr/><strong>Risk Rules:</strong><br/><table><tr><th>Risk Rule</th><th>Severity</th><th>Evidence Details</th></tr><tr><td>Recently Validated C&C Server</td><td>Very Malicious</td><td>4 sightings on 1 source: Insikt Group Command & Control Validation. Insikt Group analysis validated IP 110.238.109.146 as category C2, malware family CyberStrikeAI. Validated as of October 19, 2026 at 12:20 UTC.</td></tr><tr><td>Recently Reported C&C Server</td><td>Malicious</td><td>10 sightings on 2 sources: Insikt Group Command & Control Validation, Recorded Future Command & Control Reports. 110.238.109.146:2130 was reported as a command and control server for CyberStrikeAI on Oct 19, 2026</td></tr><tr><td>Previously Validated C&C Server</td><td>Suspicious</td><td>4 sightings on 1 source: Insikt Group Command & Control Validation. Insikt Group analysis validated IP 110.238.109.146 as category C2, malware family CyberStrikeAI. Validated as of October 17, 2026 at 21:16 UTC.</td></tr><tr><td>Historically Linked to Intrusion Method</td><td>Unusual</td><td>4 sightings on 3 sources: BlackHatWorld Forum, XSS (ex DamageLab) Forum, Image OCR. 9 related intrusion methods including CWE-22, CWE-434, CVE-2017-14537, CWE-502, 0 Days.</td></tr><tr><td>Historical Spam Source</td><td>Unusual</td><td>1 sighting on 1 source: Bitdefender Feed. Bitdefender identified 110.238.109.146 as Spam on January 22, 2024</td></tr><tr><td>Historical Open Proxies</td><td>Unusual</td><td>416 sightings on 4 sources: Nulled Forum (Seized), BlackHatWorld Forum, Samair Proxy Lists, @ProxyRotator. Most recent tweet: 110.238.109.146 2080 #proxy #proxies. Most recent link (Jan 22, 2023): https://twitter.com/ProxyRotator/statuses/1617251260763176960</td></tr><tr><td>Honeypot Host</td><td>Unusual</td><td>1 sighting on 1 source: Shodan: Honeypot Hosts.</td></tr><tr><td>Historically Reported in Threat List</td><td>Unusual</td><td>Previous sightings on 4 sources: Proxies: SOCKS Open Proxies, Shodan: Honeypot Hosts, Shodan: CVE-2013-1391 Vulnerable CCTV Hosts, CVE-2022-41040 and CVE-2022-41082 Vulnerable IPs. Observed between Oct 21, 2022, and Aug 17, 2026.</td></tr></table><strong>Technical Links:</strong><br/><table><tr><th>Entity Type</th><th>Entity</th><th>Evidence Details</th><th>Risk Score</th></tr><tr><td>MitreAttackIdentifier</td><td>TA0011</td><td>Actors, Tools & TTPs</td><td>None</td></tr><tr><td>Malware</td><td>CyberStrikeAI</td><td>Actors, Tools & TTPs</td><td>None</td></tr></table></span></p>"
+  }
+}
