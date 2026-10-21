@@ -30,7 +30,7 @@ def search_notes(
     topic: list[str],
     label: str,
     source: str,
-    limit: int,
+    max_results: int,
     pretty: bool,
 ):
     """Search for analyst notes."""
@@ -50,7 +50,7 @@ def search_notes(
             topic=topic,
             label=label,
             source=source,
-            max_results=limit,
+            max_results=max_results,
         )
 
     if not pretty:

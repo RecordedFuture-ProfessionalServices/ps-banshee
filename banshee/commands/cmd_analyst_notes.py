@@ -89,7 +89,7 @@ def search(
         Option(
             '--entity',
             '-e',
-            help='Filter for notes associated with an entity',
+            help='Filter for notes associated with an entity using a Recorded Future ID',
             show_default=False,
         ),
     ] = None,
@@ -112,36 +112,36 @@ def search(
         ),
     ] = None,
     topic: Annotated[
-        str,
+        list[str],
         Option(
             '--topic',
             '-T',
-            help='Filter for alerts with specific topics using Recorded Future ID',
+            help='Filter for alerts with specific topics using Recorded Future ID (repeatable)',
             show_default=False,
         ),
     ] = None,
     label: Annotated[
-        list[str],
+        str,
         Option(
             '--label',
             '-l',
-            help='Recorded Future Note topics (repeatable) using Recorded Future IDs',
+            help='Recorded Future Note topics using Recorded Future IDs',
             show_default=False,
         ),
     ] = None,
     source: Annotated[
         str, Option('--source', '-s', help='Recorded Future Sources.', show_default=False)
     ] = None,
-    limit: Annotated[
+    max_results: Annotated[
         int,
         Option(
-            '--limit',
-            '-l',
-            help='Limit the number of alerts to return.',
+            '--max_results',
+            '-m',
+            help='Limit the number of notes to return.',
             min=1,
             max=10_000,
         ),
-    ] = 100,
+    ] = 50,
     pretty: OPT_PRETTY_PRINT = False,
 ):
     search_notes(
@@ -152,7 +152,7 @@ def search(
         topic=topic,
         label=label,
         source=source,
-        limit=limit,
+        max_results=max_results,
         pretty=pretty,
     )
 

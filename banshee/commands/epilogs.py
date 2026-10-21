@@ -938,7 +938,7 @@ EPILOG_ANALYST_NOTE_SEARCH = """
 
 * banshee analyst-notes search -P 7d -p
 
-* banshee analyst-notes search -P '[2025-05-01, 2025-05-05]' --limit 50
+* banshee analyst-notes search -P '[2025-05-01, 2025-05-05]' --max-results 50
 
 * banshee analyst-notes search -e idn:recordedfuture.com -P 30d
 
