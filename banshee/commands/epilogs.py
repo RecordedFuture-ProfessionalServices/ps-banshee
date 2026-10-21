@@ -930,3 +930,53 @@ EPILOG_SANDBOX_STATS = """
 
 * banshee sandbox stats --days 30 --pretty
 """
+
+EPILOG_ANALYST_NOTE_SEARCH = """
+## Example Usage
+
+* banshee analyst-notes search
+
+* banshee analyst-notes search -P 7d -p
+
+* banshee analyst-notes search -P '[2025-05-01, 2025-05-05]' --limit 50
+
+* banshee analyst-notes search -e idn:recordedfuture.com -P 30d
+
+* banshee analyst-notes search -a source:e40Ulk -P 7d
+
+* banshee analyst-notes search -t "TXSFt1" -T "irEim2" -p
+
+* banshee analyst-notes search -P 1d | jq -r '.[].id'
+
+"""
+
+EPILOG_ANALYST_NOTE_LOOKUP = """
+## Example Usage
+
+* banshee analyst-notes lookup doc:BTxHaal -p
+
+* banshee analyst-notes lookup BTxHaal --tagged-text
+
+"""
+
+EPILOG_ANALYST_NOTE_PUBLISH = """
+## Example Usage
+
+* banshee analyst-notes publish "A note example" "An example to show how the command can be used" -e "idn:test.com"
+
+* cat note.txt | banshee analyst-notes publish "Note from a file" -c "idn:recordedfuture"
+"""
+
+EPILOG_ANALYST_NOTE_DELETE = """
+## Example Usage
+
+* banshee analyst-notes delete BTxHaap
+"""
+
+EPILOG_ANALYST_NOTE_EXPORT = """
+## Example Usage
+
+* banshee analyst-notes search -P 1d -l 5 | banshee analyst-notes export > notes.json
+
+* banshee analyst-notes search -T "TXSFt1" -P 1w | banshee analyst-notes export --csv > notes.csv"
+"""

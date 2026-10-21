@@ -18,7 +18,16 @@ from psengine.analyst_notes import AnalystNote
 from psengine.common_models import RFBaseModel
 from pydantic import HttpUrl
 
-CSV_FIELDNAMES = ['ID', 'Title', 'Note Text', 'Note Entities', 'Published', 'Topics','Source Name', 'Portal Url']
+CSV_FIELDNAMES = [
+    'ID',
+    'Title',
+    'Note Text',
+    'Note Entities',
+    'Published',
+    'Topics',
+    'Source Name',
+    'Portal Url',
+]
 
 
 def sanitize_csv_field(text):
@@ -26,29 +35,26 @@ def sanitize_csv_field(text):
     if text is None:
         return ''
 
-    return str(text).replace('\r\n', ' ').replace('\r', ' ').replace('\n', ' ').replace(',', ' ').strip()
+    return str(text).replace('\r\n', ' ').replace('\r', ' ').replace('\n', ' ').replace(',', ' ')
 
 
 def _parse_note_entities(note_entities: list):
-    """Return the note entities as a formatted string"""
+    """Return the note entities as a formatted string."""
     if note_entities is None:
         return ''
-    else:
-        entities = []
-        for entity in note_entities:
-            entities.append(f"{entity.id}:{entity.name}")
-        return ' '.join(entities)
+    entities = [f'{entity.id}:{entity.name}' for entity in note_entities]
+
+    return ' '.join(entities)
 
 
 def _parse_topics(topics: list):
     """Parse topics from an Analyst Note and return an array."""
     if topics is None:
         return []
-    else:
-        topics = []
-        for topic in topics:
-            topics.append(topic.name)
-        return ' '.join(topics)
+    topics = []
+    for topic in topics:
+        topics.append(topic.name)
+    return ' '.join(topics)
 
 
 def format_as_csv(notes: list[AnalystNote]):

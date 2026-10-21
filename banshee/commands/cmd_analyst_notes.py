@@ -20,13 +20,20 @@ from typer import Argument, BadParameter, Option, Typer
 
 from ..analyst_notes.helpers import URL
 from ..analyst_notes.note_attachment import fetch_note_attachment
-from ..analyst_notes.note_export import export_notes
 from ..analyst_notes.note_delete import delete_note
+from ..analyst_notes.note_export import export_notes
 from ..analyst_notes.note_lookup import lookup_note
 from ..analyst_notes.note_search import search_notes
 from ..analyst_notes.note_write import write_note
 from ..branding import banshee_cmd
 from .args import OPT_PRETTY_PRINT
+from .epilogs import (
+    EPILOG_ANALYST_NOTE_DELETE,
+    EPILOG_ANALYST_NOTE_EXPORT,
+    EPILOG_ANALYST_NOTE_LOOKUP,
+    EPILOG_ANALYST_NOTE_PUBLISH,
+    EPILOG_ANALYST_NOTE_SEARCH,
+)
 
 CMD_NAME = 'analyst-notes'
 CMD_HELP = 'Fetch, Create and Search Analyst Notes'
@@ -65,7 +72,7 @@ def validate_list_urls(urls: list[str]):
         validate_url(this_url)
 
 
-@banshee_cmd(app=app, help_='Search for analyst Notes', epilog='')
+@banshee_cmd(app=app, help_='Search for analyst Notes', epilog=EPILOG_ANALYST_NOTE_SEARCH)
 def search(
     published: Annotated[
         str,
@@ -91,7 +98,7 @@ def search(
         Option(
             '--author',
             '-a',
-            help='Filter notes based on the author',
+            help='Filter notes based on the author ID',
             show_default=False,
         ),
     ] = None,
@@ -109,7 +116,7 @@ def search(
         Option(
             '--topic',
             '-T',
-            help='Filter for alerts with specific topics',
+            help='Filter for alerts with specific topics using Recorded Future ID',
             show_default=False,
         ),
     ] = None,
@@ -118,7 +125,7 @@ def search(
         Option(
             '--label',
             '-l',
-            help='Recorded Future Note topics (repeatable)',
+            help='Recorded Future Note topics (repeatable) using Recorded Future IDs',
             show_default=False,
         ),
     ] = None,
@@ -150,7 +157,7 @@ def search(
     )
 
 
-@banshee_cmd(app=app, help_='Lookup a single Analyst Note', epilog='')
+@banshee_cmd(app=app, help_='Lookup a single Analyst Note', epilog=EPILOG_ANALYST_NOTE_LOOKUP)
 def lookup(
     note_id: Annotated[
         str, Argument(help='Note ID to lookup', callback=validate_note_id, show_default=False)
@@ -187,7 +194,7 @@ def fetch_attachments(
     fetch_note_attachment(note_id=note_id, output_path=output_path)
 
 
-@banshee_cmd(app=app, help_='Publish a new Analyst Note', epilog='')
+@banshee_cmd(app=app, help_='Publish a new Analyst Note', epilog=EPILOG_ANALYST_NOTE_PUBLISH)
 def publish(
     title: Annotated[str, Argument(show_default=False, help='Title for the Note')],
     note_text: str = Argument(
@@ -249,7 +256,7 @@ def publish(
     )
 
 
-@banshee_cmd(app=app, help_='Delete an Analyst Note', epilog='')
+@banshee_cmd(app=app, help_='Delete an Analyst Note', epilog=EPILOG_ANALYST_NOTE_DELETE)
 def delete(
     note_id: Annotated[
         str, Argument(help='Note ID to lookup', callback=validate_note_id, show_default=False)
@@ -257,10 +264,12 @@ def delete(
 ):
     delete_note(note_id)
 
+
 _PIPED_INPUT_HINT = (
     "Expected piped JSON output from 'banshee analyst-notes search' "
     "(e.g. 'banshee analyst-notes search -t 1d | banshee analyst-notes export')."
 )
+
 
 def _parse_search_notes(value: str):
     if not value:
@@ -291,16 +300,17 @@ def _parse_search_notes(value: str):
 
     return note_ids
 
-@banshee_cmd(app=app, help_="Export Analyst Notes as JSON or CSV", epilog='')
+
+@banshee_cmd(app=app, help_='Export Analyst Notes', epilog=EPILOG_ANALYST_NOTE_EXPORT)
 def export(
-        csv_flag: Annotated[
-            bool,
-            Option(
-                '--csv',
-                help='Export as CSV (Fixed column set) instead of JSON (Full note details).',
-                show_default=False
-            )
-        ] = False,
+    csv_flag: Annotated[
+        bool,
+        Option(
+            '--csv',
+            help='Export as CSV (Fixed column set) instead of JSON (Full note details).',
+            show_default=False,
+        ),
+    ] = False,
 ):
     if sys.stdin.isatty():
         raise BadParameter(f'No Input received. {_PIPED_INPUT_HINT}')

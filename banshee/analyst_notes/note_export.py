@@ -28,6 +28,7 @@ def _get_note(note_id: str, manager: AnalystNoteMgr):
     except AnalystNoteLookupError as err:
         raise err from note_id
 
+
 def export_notes(
     note_ids: list[str],
     csv_flag: bool,
