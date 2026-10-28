@@ -964,7 +964,21 @@ EPILOG_ANALYST_NOTE_PUBLISH = """
 
 * banshee analyst-notes publish "A note example" "An example to show how the command can be used" -e "idn:test.com"
 
-* cat note.txt | banshee analyst-notes publish "Note from a file" -c "idn:recordedfuture"
+## File / Stdin Input
+
+Note text can be piped in or redirected:
+
+```
+
+> cat note_text.txt
+
+An example note from a text file.
+
+```
+
+* banshee analyst-notes publish "Note from a file" -c "idn:example_2.com" < note.txt
+
+* cat note.txt | banshee analyst-notes publish "Note from a file" -c "idn:example_3.com"
 """
 
 EPILOG_ANALYST_NOTE_DELETE = """

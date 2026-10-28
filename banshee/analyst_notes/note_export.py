@@ -26,7 +26,7 @@ def _get_note(note_id: str, manager: AnalystNoteMgr):
     try:
         return manager.lookup(note_id)
     except AnalystNoteLookupError as err:
-        raise err from note_id
+        raise err
 
 
 def export_notes(

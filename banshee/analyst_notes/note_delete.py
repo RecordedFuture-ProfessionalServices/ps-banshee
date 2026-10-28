@@ -28,4 +28,4 @@ def delete_note(note_id: str):
     if deleted_note:
         print(format_line('Deleted Note', note_id))
     else:
-        print(format_line('Unable to Delete Note', deleted_note.note_id))
+        print(format_line('Unable to Delete Note', note_id))

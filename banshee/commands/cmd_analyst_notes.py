@@ -50,6 +50,12 @@ NOTE_ID_INVALID_MSG = (
     "Note ID '{}' is not valid. Note ID should be 7 characters long or 11 with 'doc:' prefix."  # noqa: E501
 )
 
+_PIPED_PUBLISH_HINT = (
+    'Expected note text to be passed via command or piped in.'
+    ' (e.g. \'banshee analyst-note publish "A Note" -e idn:exmple.url < note_text.txt\' or '
+    ' \'banshee analyst-note publish "A Note" "Note Text" -e idn:exmple.url\''
+)
+
 
 def validate_time_search(value: str):
     if not value.startswith('-'):
@@ -225,9 +231,10 @@ def publish(
         str,
         Argument(help='Title for the created analyst note', show_default=False),
     ],
-    note_text: str = Argument(
-        ... if sys.stdin.isatty() else None, show_default=False, help='Note Text to publish'
-    ),
+    note_text: Annotated[
+        str,
+        Argument(help='The note text to publish', show_default=False),
+    ] = None,
     topic: Annotated[
         list[str],
         Option(
@@ -267,6 +274,14 @@ def publish(
 ):
     if not context_entities and not note_entities:
         raise BadParameter('Either `--context_entities` or `--note_entities` must be provided')
+
+    if note_text is None:
+        if sys.stdin.isatty():
+            raise BadParameter(f'No note text supplied. {_PIPED_PUBLISH_HINT}')
+        note_text = sys.stdin.read().strip()
+
+    if not note_text:
+        raise BadParameter(f'No note text supplied. {_PIPED_PUBLISH_HINT}')
 
     publish_note(
         title=title,
