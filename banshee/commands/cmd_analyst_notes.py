@@ -36,8 +36,8 @@ from .epilogs import (
 )
 
 CMD_NAME = 'analyst-notes'
-CMD_HELP = 'Fetch and manage Analyst notes.'
-CMD_RICH_HELP = 'Recorded Future Analyst notes.'
+CMD_HELP = 'Fetch and manage Analyst notes'
+CMD_RICH_HELP = 'Recorded Future Analyst notes'
 
 app = Typer(no_args_is_help=True)
 
@@ -52,8 +52,8 @@ NOTE_ID_INVALID_MSG = (
 
 _PIPED_PUBLISH_HINT = (
     'Expected note text to be passed via command or piped in.'
-    ' (e.g. \'banshee analyst-note publish "A Note" -e idn:exmple.url < note_text.txt\' or '
-    ' \'banshee analyst-note publish "A Note" "Note Text" -e idn:exmple.url\''
+    ' (e.g. \'banshee analyst-note publish "A Note" -e idn:example.url < note_text.txt\' or '
+    ' \'banshee analyst-note publish "A Note" "Note Text" -e idn:example.url\''
 )
 
 

@@ -1004,7 +1004,7 @@ EPILOG_ANALYST_NOTE_ATTACHMENT = """
 
 ## File / Stdin Input
 
-Pipe or redirect a newline-seperated file of note ID's (one per line):
+Pipe or redirect a newline-separated file of note ID's (one per line):
 
 ```
 

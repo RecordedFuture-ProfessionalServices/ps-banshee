@@ -58,7 +58,7 @@ def _parse_topics(topics: list):
 
 
 def format_as_csv(notes: list[AnalystNote]):
-    """Take a list of analyst notes and format them for printing in a CSV format to the conosle."""
+    """Take a list of analyst notes and format them for printing in a CSV format to the console."""
     writer = csv.DictWriter(sys.stdout, fieldnames=CSV_FIELDNAMES)
     writer.writeheader()
     for note in notes:
