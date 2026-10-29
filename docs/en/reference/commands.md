@@ -13,6 +13,7 @@ banshee [OPTIONS] <COMMAND>
 <h3 class="commands-reference">Commands</h3>
 
 <dl class="commands-reference">
+    <dt><a href="#banshee-analyst-notes"><code>banshee analyst-notes</code></a></dt><dd><p>Fetch and manage Recorded Future Analyst Notes</p></dd>
     <dt><a href="#banshee-ca"><code>banshee ca</code></a></dt><dd><p>Search, lookup and update Recorded Future Classic Alerts</p></dd>
     <dt><a href="#banshee-email"><code>banshee email</code></a></dt><dd><p>Enrich e-mail files (EML) with Recorded Future intelligence</p></dd>
     <dt><a href="#banshee-entity"><code>banshee entity</code></a></dt><dd><p>Search and lookup Recorded Future entities</p></dd>
@@ -23,6 +24,304 @@ banshee [OPTIONS] <COMMAND>
     <dt><a href="#banshee-risklist"><code>banshee risklist</code></a></dt><dd><p>Manage Risk Lists</p></dd>
     <dt><a href="#banshee-rules"><code>banshee rules</code></a></dt><dd><p>Search for and download detection rules</p></dd>
 </dl>
+
+## banshee analyst-notes
+
+Fetch and manage Recorded Future Analyst Notes
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes [OPTIONS] COMMAND [ARGS]...
+```
+
+<h3 class="commands-reference">Commands</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-analyst-notes-search"><code>banshee analyst-notes search</code></a></dt><dd><p>Search for Analyst Notes</p></dd>
+    <dt><a href="#banshee-analyst-notes-lookup"><code>banshee analyst-notes lookup</code></a></dt><dd><p>Lookup a single Analyst Note</p></dd>
+    <dt><a href="#banshee-analyst-notes-publish"><code>banshee analyst-notes publish</code></a></dt><dd><p>Publish an Analyst Note</p></dd>
+    <dt><a href="#banshee-analyst-notes-delete"><code>banshee analyst-notes delete</code></a></dt><dd><p>Delete an Analyst Note</p></dd>
+    <dt><a href="#banshee-analyst-notes-attachment"><code>banshee analyst-notes attachment</code></a></dt><dd><p>Save Attachments associated with a note</p></dd>
+    <dt><a href="#banshee-analyst-notes-export"><code>banshee analyst-notes export</code></a></dt><dd><p>Export Analyst Notes as JSON or CSV</p></dd>
+</dl>
+
+### banshee analyst-notes search
+
+Search for Analyst Notes.
+
+By default the command will print the results in JSON format.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes search [OPTIONS]
+```
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-search--published"><a href="#banshee-analyst-notes-search--published"><code>--published</code>, <code>-P</code></a> <i>published</i></dt><dd>
+    <p>Filter on published time, for example: 1d; 12h</p>
+    <p>The leading <code>-</code> is optional, <code>-1d</code> and <code>1d</code> are equivalent</p>
+    <p>Defaults to -1d</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--entity"><a href="#banshee-analyst-notes-search--entity"><code>--entity</code>, <code>-e</code></a> <i>entity</i></dt><dd>
+    <p>Filter notes by associated entity, for example: <code>-e idn:recordedfuture.com</code></p><dd></dd>
+    <dt id="banshee-analyst-notes-search--author"><a href="#banshee-analyst-notes-search--author"><code>--author</code>, <code>-a</code></a> <i>author</i></dt><dd>
+    <p>Filter notes by author, for example: <code>-a source:e40Ulk</code></p><dd></dd>
+    <dt id="banshee-analyst-notes-search--title"><a href="#banshee-analyst-notes-search--title"><code>--title</code>, <code>-t</code></a> <i>title</i></dt><dd>
+    <p>Filter notes for specific titles</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--topic"><a href="#banshee-analyst-notes-search--topic"><code>--topic</code>, <code>-T</code></a> <i>topic</i></dt><dd>
+    <p>Filter notes by topic (repeatable)</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--label"><a href="#banshee-analyst-notes-search--label"><code>--label</code>, <code>-l</code></a> <i>label</i></dt><dd>
+    <p>Filter notes for specific labels</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--source"><a href="#banshee-analyst-notes-search--source"><code>--source</code>, <code>-s</code></a> <i>source</i></dt><dd>
+    <p>Filter notes for specific sources</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--max-results"><a href="#banshee-analyst-notes-search--max-results"><code>--max_results</code>, <code>-r</code></a> <i>max-results</i></dt><dd>
+    <p>Limit the number of results</p>
+    <p>The maximum limit is 1000</p>
+    <p>Defaults to 100</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--pretty"><a href="#banshee-analyst-notes-search--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--help"><a href="#banshee-analyst-notes-search--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+### banshee analyst-notes lookup
+
+Lookup a single Analyst Note.
+
+By default the command will print the results in JSON format.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes lookup [OPTIONS] NOTE_ID
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-lookup--note-id"><a href="#banshee-analyst-notes-lookup--note-id"><code>NOTE_ID</code></a></dt><dd><p>Note ID to lookup</p>
+    <p>Note ID can be supplied with or without the '<strong>doc:</strong>' prefix</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-lookup--tagged-text"><a href="#banshee-analyst-notes-lookup--tagged-text"><code>--tagged_text</code></a>, <code>-t</code></dt><dd>
+    <p>Add Recorded Future IDs to entities in the note text</p><dd></dd>
+    <dt id="banshee-analyst-notes-lookup--pretty"><a href="#banshee-analyst-notes-lookup--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p><dd></dd>
+    <dt id="banshee-analyst-notes-lookup--help"><a href="#banshee-analyst-notes-lookup--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+### banshee analyst-notes publish
+
+Publish an Analyst Note. At least one of `--note_entities` or `--context_entities` is required.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes publish [OPTIONS] TITLE [NOTE_TEXT]
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-publish--title"><a href="#banshee-analyst-notes-publish--title"><code>TITLE</code></a></dt><dd><p>Title for the created Analyst Note</p></dd>
+    <dt id="banshee-analyst-notes-publish--note-text"><a href="#banshee-analyst-notes-publish--note-text"><code>NOTE_TEXT</code></a></dt><dd><p>Optional. The note text to publish. If omitted, the text is read from stdin</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-publish--topic"><a href="#banshee-analyst-notes-publish--topic"><code>--topic</code></a>, <code>-t</code> <i>topic</i></dt><dd>
+    <p>Topic to associate with the created note (repeatable)</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--note-entities"><a href="#banshee-analyst-notes-publish--note-entities"><code>--note_entities</code></a>, <code>-e</code> <i>entity</i></dt><dd>
+    <p>Entities within the created note (repeatable)</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--context-entities"><a href="#banshee-analyst-notes-publish--context-entities"><code>--context_entities</code></a>, <code>-c</code> <i>entity</i></dt><dd>
+    <p>Context entities to associate with the created note (repeatable)</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--validation-urls"><a href="#banshee-analyst-notes-publish--validation-urls"><code>--validation_urls</code></a>, <code>-v</code> <i>url</i></dt><dd>
+    <p>Validation URLs to associate with the created note (repeatable)</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--help"><a href="#banshee-analyst-notes-publish--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<p>Provide a title and the note text, along with at least one note or context entity:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes publish "A note example" "An example to show how the command can be used" -e "idn:test.com"
+banshee analyst-notes publish "A note example" "Note text" -c "idn:example.com" -t "TXSFt1" -v "https://example.com/report"
+</code></pre>
+
+<h3 class="commands-reference">Supplying Note Text</h3>
+
+<h4>1. Directly as an argument:</h4>
+
+<pre><code class="language-bash">
+banshee analyst-notes publish "A note example" "Note text" -e "idn:test.com"
+</code></pre>
+
+<h4>2. From a file or standard input:</h4>
+
+<p>If you have a file (e.g., <code>note.txt</code>) containing the note text:</p>
+
+<pre><code class="language-text">
+An example note from a text file.
+</code></pre>
+
+<p>You can publish it using:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes publish "Note from a file" -c "idn:example.com" &lt; note.txt
+cat note.txt | banshee analyst-notes publish "Note from a file" -c "idn:example.com"
+</code></pre>
+
+### banshee analyst-notes delete
+
+Delete an Analyst Note.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes delete [OPTIONS] NOTE_ID
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-delete--note-id"><a href="#banshee-analyst-notes-delete--note-id"><code>NOTE_ID</code></a></dt><dd><p>Note ID to delete</p>
+    <p>Note ID can be supplied with or without the '<strong>doc:</strong>' prefix</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-delete--help"><a href="#banshee-analyst-notes-delete--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+### banshee analyst-notes attachment
+
+Save attachments associated with one or more Analyst Notes to disk.
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes attachment [OPTIONS] [NOTE_IDS]...
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-attachment--note-ids"><a href="#banshee-analyst-notes-attachment--note-ids"><code>NOTE_IDS</code></a></dt><dd><p>One or more whitespace separated Note IDs to fetch</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-attachment--output-dir"><a href="#banshee-analyst-notes-attachment--output-dir"><code>--output-dir</code></a>, <code>-d</code> <i>directory</i></dt><dd>
+    <p>Directory to save the note attachments (created if missing)</p>
+    <p>This option is required</p><dd></dd>
+    <dt id="banshee-analyst-notes-attachment--help"><a href="#banshee-analyst-notes-attachment--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<p>Provide one or more Note IDs (whitespace separated) and the directory to save the attachments to:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes attachment doc:BVL5hdB -d ./note_attachments
+banshee analyst-notes attachment doc:BVL5hdB doc:e40Ulk -d ./note_attachments
+</code></pre>
+
+<p>If any of the notes has no attachment, a warning is printed and the command exits with a non-zero status.</p>
+
+<h3 class="commands-reference">Supplying Note IDs</h3>
+
+<h4>1. Directly as arguments (single or multiple):</h4>
+
+<pre><code class="language-bash">
+banshee analyst-notes attachment NOTE_ID -d ./note_attachments
+banshee analyst-notes attachment NOTE_ID_1 NOTE_ID_2 -d ./note_attachments
+</code></pre>
+
+<h4>2. From a file or standard input:</h4>
+
+<p>If you have a file (e.g., <code>notes.txt</code>) with one Note ID per line:</p>
+
+<pre><code class="language-text">
+doc:BVL8-ZX
+doc:BVMThf2
+doc:BVMKAYV
+</code></pre>
+
+<p>You can fetch all listed attachments using:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes attachment -d ./note_attachments &lt; notes.txt
+cat notes.txt | banshee analyst-notes attachment -d ./note_attachments
+</code></pre>
+
+<h4>3. By piping from a search command:</h4>
+
+<p>The JSON array produced by <a href="#banshee-analyst-notes-search"><code>banshee analyst-notes search</code></a> can be piped in directly:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes search -P 1d | banshee analyst-notes attachment -d ./note_attachments
+</code></pre>
+
+### banshee analyst-notes export
+
+Export Analyst Notes as JSON or CSV. Reads note IDs from stdin — typically piped from [`banshee analyst-notes search`](#banshee-analyst-notes-search).
+
+<h3 class="commands-reference">Output Formats</h3>
+
+<p><b>JSON (default)</b> — emits the <i>full</i> note object for each ID as returned by the Recorded Future API: all top-level fields plus attributes, entities, topics, source details, and so on. Best for downstream tooling, <code>jq</code> pipelines, or re-ingestion.</p>
+
+<p><b>CSV (<a href="#banshee-analyst-notes-export--csv"><code>--csv</code></a>)</b> — emits a high-level summary intended for spreadsheets and reporting. Only the eight columns listed below are written (header row first); every other field present in the JSON response is omitted. Commas and line breaks in the note text are replaced with spaces.</p>
+
+| Field | Description |
+|---|---|
+| `ID` | Analyst Note ID (includes the `doc:` prefix) |
+| `Title` | Title of the note |
+| `Note Text` | Text of the note |
+| `Note Entities` | Entities in the note as `id:name`, space-separated |
+| `Published` | Published timestamp |
+| `Topics` | Note topics, space-separated |
+| `Source Name` | Name of the note's source |
+| `Portal Url` | Link to the note in the Recorded Future portal |
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes search [SEARCH_OPTIONS] | banshee analyst-notes export [OPTIONS]
+```
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-export--csv"><a href="#banshee-analyst-notes-export--csv"><code>--csv</code></a></dt><dd>
+    <p>Output as CSV with the fixed column set described above. Without this flag the command emits JSON.</p><dd></dd>
+    <dt id="banshee-analyst-notes-export--help"><a href="#banshee-analyst-notes-export--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Piped Input</h3>
+
+<p><code>banshee analyst-notes export</code> only accepts piped input. It consumes the JSON array produced by <a href="#banshee-analyst-notes-search"><code>banshee analyst-notes search</code></a>, extracts each note's <code>id</code>, and fetches every note in full. Running the command without a pipe is rejected with an error.</p>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee analyst-notes search -P 1d | banshee analyst-notes export > notes.json
+banshee analyst-notes search -T "TXSFt1" -P 1w | banshee analyst-notes export --csv > notes.csv
+</code></pre>
 
 ## banshee ca
 
