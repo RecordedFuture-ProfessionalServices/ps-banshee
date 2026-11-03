@@ -1,5 +1,10 @@
 # Release History
 
+## 1.8.0 - 2026-10-29
+
+### Added
+- New ['analyst-notes'](reference/commands.md#banshee-analyst-notes) commands to interact with Recorded Future Analyst Notes.
+
 ## 1.7.0 - 2026-10-14
 
 ### Added
