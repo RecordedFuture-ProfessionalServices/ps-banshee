@@ -1,0 +1,1901 @@
+# PS Banshee
+
+> A Recorded Future CLI for terminal-based threat intelligence investigations.
+
+Full single-file bundle (every command group inlined): <https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt>
+
+Set `RF_TOKEN` in the shell environment before invoking any command.
+
+**Alerts:** Recorded Future has two distinct alert systems. Use `ca` for Classic Alerts - legacy rule-based alerts with short opaque IDs (6+ chars, e.g. `tybakN`). Use `pba` for Playbook Alerts - automation-driven alerts with 36-char UUID IDs (the `task:` prefix is optional; `pba search` returns them with the prefix). Categories exclusive to PBA: `domain_abuse`, `cyber_vulnerability`, `third_party_risk`, `code_repo_leakage`, `identity_novel_exposures`, `geopolitics_facility`, `malware_report`. If the user gives you an alert ID, pick the group by ID length; if they describe the category, the categories above route to `pba`.
+
+# Commands
+
+# Banshee CLI Knowledge Base
+
+> A Recorded Future CLI for terminal-based threat intelligence investigations. Built by the Cyber Security Engineers at Recorded Future. Validated against `ps-banshee` / `banshee` version 1.5.0.
+
+This knowledge base is designed for LLM consumption (Claude Code, Opus, and other agentic CLIs). Three artifacts are published for agents:
+
+- **Index** — concise table of contents: <https://recordedfuture-professionalservices.github.io/ps-banshee/llms.txt>
+- **Full bundle** — every command group inlined in one document: <https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt>
+- **Per-group pages** — for selective fetches, served as raw markdown at `https://.../latest/knowledge-base/<group>/index.md` (e.g. `ca`, `ioc`, `list`). Linked from the index above.
+
+To make `banshee` discoverable to your agent in a project, add an action-phrased line to your `CLAUDE.md`, `AGENTS.md`, or equivalent rules file:
+
+> When working with Recorded Future, fetch <https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt> for the full `banshee` CLI reference, then use the `banshee` CLI. If that URL is unreachable, run `banshee --help` instead.
+
+Set `RF_TOKEN` in the shell environment before invoking — see [Authentication](#authentication-global-options) below.
+
+______________________________________________________________________
+
+## Authentication & Global Options
+
+```
+banshee [OPTIONS] COMMAND [ARGS]...
+```
+
+| Flag                   | Short | Description                                                                   |
+| ---------------------- | ----- | ----------------------------------------------------------------------------- |
+| `--api-key TEXT`       | `-k`  | Recorded Future API key. Preferred: set `RF_TOKEN` env var instead.           |
+| `--no-ssl-verify`      | `-s`  | Disable SSL verification (use with proxies via `HTTP_PROXY` / `HTTPS_PROXY`). |
+| `--debug`              |       | Enable debug mode.                                                            |
+| `--version`            |       | Show version.                                                                 |
+| `--install-completion` |       | Install shell tab completion.                                                 |
+| `--show-completion`    |       | Print completion config for manual install.                                   |
+
+**Best practice:** Export `RF_TOKEN=<your_api_key>` so you never pass `-k` on every call.
+
+______________________________________________________________________
+
+## Readiness Checks
+
+Before running workflows, verify the local toolchain and authentication path.
+
+```
+# CLI is installed and reachable
+banshee --version
+banshee --help
+
+# Recorded Future API token is present
+test -n "$RF_TOKEN" && echo "RF_TOKEN set"
+
+# jq is required for most pipeline examples
+jq --version
+
+# Read-only API smoke tests
+banshee entity search wannacry -l 1
+banshee ioc bulk-lookup ip 8.8.8.8 | jq '.[0] | {ioc: .entity.name, score: .risk.score}'
+
+# Required only for pcap workflows; without tshark, even `banshee pcap enrich --help` can fail
+command -v tshark
+```
+
+If `banshee` is missing, install the Python package `ps-banshee` through your approved Python package workflow, then re-run the checks above.
+
+______________________________________________________________________
+
+## Live Validation Snapshot
+
+Last live validation: **2026-07-23** (release 1.5.0 refresh) against `ps-banshee` / `banshee` **1.5.0** with `RF_TOKEN` and `RF_SANDBOX_TOKEN` authentication.
+
+Validated successfully:
+
+```
+# Local toolchain and auth presence
+banshee --version
+banshee --help
+test -n "$RF_TOKEN" && echo "RF_TOKEN set"
+test -n "$RF_SANDBOX_TOKEN" && echo "RF_SANDBOX_TOKEN set"
+
+# Read-only API access
+banshee ca rules
+banshee ca rules leaked
+banshee ca search -t 7d
+banshee ca search -t 12h | banshee ca export
+banshee ca search -t 12h | banshee ca export --csv
+banshee pba search -C 60d -l 3
+banshee pba search -o uhash:69sKLfTGsS -C 60d -l 3
+banshee pba search -C 60d -l 3 | banshee pba export
+banshee pba search -C 60d -l 3 | banshee pba export --csv
+banshee ioc bulk-lookup ip 8.8.8.8
+
+# Sandbox read-only API access
+banshee sandbox stats --days 7
+banshee sandbox list --limit 3
+banshee sandbox profile list
+banshee sandbox report overview 260722-x8lgjahyvx
+banshee sandbox report static 260722-x8lgjahyvx
+banshee sandbox report behavioral 260722-x8lgjahyvx
+```
+
+Observed caveats:
+
+- `ca export` and `pba export` read **only** from stdin and take no positional arguments. Pipe `banshee ca search` / `banshee pba search` into them.
+- `pba export` consumes the full `pba search` JSON object (it reads `.data[]`), whereas `ca export` consumes the `ca search` JSON array.
+- In `ca export --csv` the `Updated` column is currently always empty (reserved for future API support) - confirmed in this run.
+- The new `pba search --org-id` (`-o`) filter accepts a 10-character ID or the 16-character `uhash:` form and is repeatable.
+- `pcap enrich` was not live-tested because `tshark` was not installed. This is expected: `banshee pcap enrich --help` raises `RuntimeError: tshark is not installed or not in PATH`.
+- `sandbox stats` includes a `soar_skipped` field; when `true`, `.top_iocs.verified_network` is empty (SOAR validation was not run for the period).
+- Sandbox mutating commands (`submit`, `delete`, `set-profile`, `download`, `profile create/update/delete`) were not live-tested in this refresh.
+- `sandbox download` produces AES-encrypted ZIP archives (password `infected`); extract with `7z x -pinfected <file>.zip` — standard `unzip` does not handle AES zips reliably.
+
+______________________________________________________________________
+
+## Output Conventions
+
+- All commands default to **JSON output** to stdout — pipe-friendly by design.
+- Add `--pretty` / `-p` to any command for human-readable formatted output.
+- Most commands support piping via stdin (newline- or whitespace-separated IDs/IOCs).
+- Combine with `jq` for advanced filtering (examples throughout).
+- Response shapes differ by endpoint. Notable patterns:
+- `ioc lookup` returns a JSON array and uses `.risk.evidenceDetails[]` for detailed risk evidence.
+- `ioc bulk-lookup` returns a JSON array and uses `.risk.rule.evidence[]` for bulk risk evidence.
+- `ioc search` returns an object with results under `.data.results[]`.
+- `pba search` returns an object with alert records under `.data[]`.
+- `pcap enrich` and `email enrich` return flat records such as `.ioc`, `.risk_score`, and `.rule_evidence[]`.
+
+______________________________________________________________________
+
+## Command Groups
+
+| Group      | Page                                                                                                             | Description                                                                                     |
+| ---------- | ---------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `ca`       | [ca.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/ca/index.md)             | Classic Alerts — search, lookup, update, export                                                 |
+| `email`    | [email.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/email/index.md)       | Enrich EML files with RF intelligence                                                           |
+| `entity`   | [entity.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/entity/index.md)     | Entity search and lookup                                                                        |
+| `ioc`      | [ioc.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/ioc/index.md)           | IOC enrichment, bulk enrichment, search, rules                                                  |
+| `list`     | [list.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/list/index.md)         | Manage RF Lists & Watch Lists (create, add/remove entities, entries)                            |
+| `pcap`     | [pcap.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/pcap/index.md)         | Enrich packet captures with RF intelligence                                                     |
+| `pba`      | [pba.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/pba/index.md)           | Playbook Alerts — search, lookup, update, export                                                |
+| `risklist` | [risklist.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/risklist/index.md) | Fetch, create, and inspect risk lists                                                           |
+| `rules`    | [rules.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/rules/index.md)       | Search and download detection rules (Sigma, YARA, Snort)                                        |
+| `sandbox`  | [sandbox.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/sandbox/index.md)   | Submit files and URLs for sandbox analysis; retrieve reports; manage profiles; download samples |
+
+______________________________________________________________________
+
+## Notes for LLMs
+
+- **All IDs are opaque short strings** (e.g. `tybakN`, `1b0s1q`) — never guess them; always retrieve via search first.
+- **PBA alert IDs** use UUID format and are returned with the `task:` prefix already included by `pba search` (`.data[].playbook_alert_id`). Pass them as-is to `pba lookup` and `pba update` — do not add an extra `task:`.
+- **`ca update` and `pba update` return plain text**, not JSON — `SUCCESS:\n<ALERT_ID>` per updated alert. Do not pipe to `jq`.
+- **stdin piping** is consistent across all bulk/update commands: pipe newline-separated IDs or IOCs directly.
+- **`--pretty` is not JSON** — it's human-readable and unsuitable for further parsing with `jq`. Omit it in pipelines.
+- **Risk rules** (used in `ioc rules`, `risklist fetch`, `risklist create`) are named strings like `recentValidatedCnc`, `analystNote`, `recentPhishing`. Discover available rule names with `banshee ioc rules <entity_type>`.
+- **Entity IDs vs. name,type pairs**: `list bulk-add` / `list bulk-remove` accept both — use `SoA6SP` (RF ID) or `wannacry,Malware` (name + type) or `ip:8.8.8.8` (type-prefixed value).
+- **`risklist create --fusion`** uploads the result directly to RF Fusion; `--output-path` is then interpreted as a Fusion destination path, not a local path.
+- **`ioc lookup` vs `ioc bulk-lookup` evidence paths differ**: `ioc lookup` uses `.risk.evidenceDetails[]`; `ioc bulk-lookup` uses `.risk.rule.evidence[]`. They are not interchangeable.
+
+# ca
+
+> **Classic Alerts** - legacy rule-based alerts. IDs are short opaque strings of 6+ chars (e.g. `tybakN`). For automation/playbook-driven alerts (36-char UUID IDs with optional `task:` prefix, categories like `domain_abuse` / `third_party_risk` / etc.), use [`pba`](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/pba/index.md) instead.
+>
+> See [index.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/index.md) for authentication, readiness checks, output conventions, and shared LLM notes.
+
+### `banshee ca lookup ALERT_ID`
+
+Retrieve a single Classic Alert by ID.
+
+| Argument/Option       | Description             |
+| --------------------- | ----------------------- |
+| `ALERT_ID` (required) | Alert ID, e.g. `tybakN` |
+| `--pretty` / `-p`     | Pretty print            |
+
+```
+banshee ca lookup tybakN
+banshee ca lookup tybakN -p
+```
+
+**Response shape:** Returns a single JSON object.
+
+| Field                                    | Description                                                      |
+| ---------------------------------------- | ---------------------------------------------------------------- |
+| `.id`                                    | Alert ID                                                         |
+| `.title`                                 | Alert title                                                      |
+| `.type`                                  | Alert type string (e.g. `"EVENT"`)                               |
+| `.log.triggered`                         | Trigger timestamp (ISO 8601)                                     |
+| `.review.status_in_portal`               | Human-readable status: `New`, `Pending`, `Dismissed`, `Resolved` |
+| `.review.assignee`                       | Assigned analyst email                                           |
+| `.rule.id`                               | Alert rule ID                                                    |
+| `.rule.name`                             | Alert rule name                                                  |
+| `.url.portal`                            | Direct link to alert in RF portal                                |
+| `.ai_insights.text`                      | RF AI-generated summary string                                   |
+| `.hits[]`                                | Documents that triggered the alert                               |
+| `.hits[].id`                             | Hit document ID                                                  |
+| `.hits[].fragment`                       | Text snippet that matched                                        |
+| `.hits[].language`                       | Language code (e.g. `"eng"`)                                     |
+| `.hits[].entities[]`                     | Entities found in the hit: `{id, name, type}`                    |
+| `.hits[].document.title`                 | Source document title                                            |
+| `.hits[].document.url`                   | Source document URL                                              |
+| `.hits[].document.source`                | Source name string                                               |
+| `.hits[].document.authors`               | Array of author strings (may be empty)                           |
+| `.triggered_by[]`                        | Entities/rules that triggered the alert (may be empty)           |
+| `.triggered_by[].reference_id`           | Reference document ID                                            |
+| `.triggered_by[].triggered_by_strings[]` | Human-readable trigger descriptions                              |
+| `.enriched_entities[]`                   | Pre-enriched entity objects with RF context (may be empty)       |
+
+```
+# Extract all entities from alert hits for enrichment
+banshee ca lookup tybakN | jq '[.hits[].entities[] | {id, name, type}] | unique_by(.id)'
+
+# Get the AI summary
+banshee ca lookup tybakN | jq -r '.ai_insights.text'
+
+# Get portal link
+banshee ca lookup tybakN | jq -r '.url.portal'
+```
+
+______________________________________________________________________
+
+### `banshee ca search`
+
+Search Classic Alerts with optional filters.
+
+| Option             | Short | Default | Description                                                                           |
+| ------------------ | ----- | ------- | ------------------------------------------------------------------------------------- |
+| `--triggered TEXT` | `-t`  | `1d`    | Time range. Relative (`1d`, `12h`) or absolute interval (`[2024-08-01, 2024-08-14]`). |
+| `--rule TEXT`      | `-r`  |         | Filter by alert rule name (freetext, repeatable).                                     |
+| `--status`         | `-s`  |         | One of: `New`, `Pending`, `Dismissed`, `Resolved`                                     |
+| `--pretty`         | `-p`  |         | Pretty print                                                                          |
+
+```
+banshee ca search -t 1d
+banshee ca search -t "[2025-05-01, 2025-05-05]" -s Pending
+banshee ca search -t 12h -p
+banshee ca search -r "Leaked Credential Monitoring" -r "Brand Mentions with Cyber entities" -t 1d
+banshee ca search -r leaked -t 12h -p
+```
+
+**Response shape:** Returns a JSON array. Each alert object has the following top-level fields:
+
+| Field                      | Description                                                              |
+| -------------------------- | ------------------------------------------------------------------------ |
+| `.id`                      | Alert ID (e.g. `tybakN`)                                                 |
+| `.title`                   | Alert title                                                              |
+| `.log.triggered`           | Trigger timestamp (ISO 8601)                                             |
+| `.review.status_in_portal` | Human-readable status: `New`, `Pending`, `Dismissed`, `Resolved`         |
+| `.review.status`           | Internal status string (`no-action`, etc.) — not useful for jq filtering |
+| `.rule.name`               | Name of the alert rule that fired                                        |
+| `.rule.id`                 | Alert rule ID                                                            |
+
+**Note:** There is no top-level `priority` field on `ca search` alert records. Use `.review.status_in_portal` (not `.review.status`) when filtering by status in jq pipelines.
+
+```
+# Extract IDs of New alerts (use status_in_portal for jq filtering)
+banshee ca search -t 1d | jq -r '.[] | select(.review.status_in_portal == "New") | .id'
+
+# When using the -s flag, status filtering happens server-side — no jq select needed
+banshee ca search -t 1d -s New | jq -r '.[].id'
+```
+
+______________________________________________________________________
+
+### `banshee ca rules [FREETEXT]`
+
+List all Classic Alert rules, optionally filtered by freetext.
+
+| Argument/Option       | Description                      |
+| --------------------- | -------------------------------- |
+| `FREETEXT` (optional) | Search term to filter rule names |
+| `--pretty` / `-p`     | Pretty print                     |
+
+```
+banshee ca rules
+banshee ca rules -p
+```
+
+**Response shape:** Returns a flat JSON array. Each item has the following fields:
+
+| Field                    | Description                                                                                                                                                                                                  |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `.id`                    | Rule ID (e.g. `k_TnPe`)                                                                                                                                                                                      |
+| `.title`                 | Rule name                                                                                                                                                                                                    |
+| `.enabled`               | `true`/`false` — whether the rule is active                                                                                                                                                                  |
+| `.priority`              | `true` = alerts from this rule are severity **High**; `false` = severity **Informational**. To triage by priority, fetch rules first and join to alerts via `.rule.id` (see Priority triage workflow below). |
+| `.tags`                  | Array of tag strings                                                                                                                                                                                         |
+| `.created`               | Creation timestamp (ISO 8601)                                                                                                                                                                                |
+| `.owner`                 | Object with `id` and `name` — rule owner                                                                                                                                                                     |
+| `.intelligence_goals`    | Array of `{id, name}` objects — associated intelligence goals                                                                                                                                                |
+| `.notification_settings` | Object with `email_subscribers` array                                                                                                                                                                        |
+
+Use `.title` and `.id` when constructing pipelines. `.priority` maps directly to alert severity: `true` is High, `false` is Informational.
+
+______________________________________________________________________
+
+### Priority triage workflow
+
+`ca search` and `ca lookup` do not return a per-alert severity field. To triage alerts by severity, fetch the rules list first, filter to rules where `.priority == true`, and intersect against alert `.rule.id` values:
+
+```
+# High-priority alert IDs in the last day
+PRIORITY_RULES=$(banshee ca rules | jq -r '.[] | select(.priority == true) | .id' | paste -sd'|' -)
+banshee ca search -t 1d | jq --arg rules "$PRIORITY_RULES" -r '.[] | select(.rule.id | test("^(" + $rules + ")$")) | .id'
+```
+
+Pipe the resulting IDs straight into `banshee ca update` to status-change only the high-priority alerts.
+
+______________________________________________________________________
+
+### `banshee ca update [ALERT_IDS]...`
+
+Update one or more Classic Alerts. IDs can be passed as arguments, space-separated, or piped via stdin.
+
+| Option            | Short | Description                                                      |
+| ----------------- | ----- | ---------------------------------------------------------------- |
+| `--status`        | `-s`  | New status: `New`, `Pending`, `Dismissed`, `Resolved`            |
+| `--note TEXT`     | `-n`  | Add a text note                                                  |
+| `--append`        | `-A`  | Append to existing note instead of overwriting                   |
+| `--assignee TEXT` | `-a`  | Reassign alert. Accepts `uhash:3aXZxdkM12` or `analyst@acme.com` |
+
+**Input methods:**
+
+```
+# Single ID
+banshee ca update 8cORlQ -s Resolved
+
+# Multiple IDs (space-separated)
+banshee ca update 8cORlQ 8biCIG -s Pending
+
+# Pipe IDs from file
+cat alerts.txt | banshee ca update -s Dismissed
+
+# Pipe from search via jq
+banshee ca search | jq -r '.[].id' | banshee ca update -n "Investigation started"
+
+# stdin redirect
+banshee ca update -s Dismissed < alerts.txt
+```
+
+**Response:** Returns plain text, not JSON — one line per updated alert: `SUCCESS:\n<ALERT_ID>`. Do not pipe to `jq`.
+
+______________________________________________________________________
+
+### `banshee ca export`
+
+Fetch full alert details for the alerts produced by `ca search` and emit them as JSON or CSV. Input is **stdin only** — pipe the JSON array from `banshee ca search`; there are no positional arguments.
+
+| Option  | Short | Default | Description                                                            |
+| ------- | ----- | ------- | ---------------------------------------------------------------------- |
+| `--csv` |       | JSON    | Output as CSV (fixed column set) instead of JSON (full alert details). |
+
+```
+banshee ca search -t 1d | banshee ca export
+banshee ca search -t 1d -r "Leaked Credential Monitoring" | banshee ca export > credential_alerts.json
+banshee ca search -t 12h -s Pending | banshee ca export --csv > alerts.csv
+```
+
+**Input:** Expects the JSON array emitted by `banshee ca search` on stdin; every element must have an `id`. Running with no piped input (a TTY) raises a `BadParameter` error.
+
+**Response shape (default):** A JSON array of full alert objects — the same per-alert structure returned by `banshee ca lookup` (`.id`, `.title`, `.log.triggered`, `.review`, `.rule`, `.hits[]`, etc.).
+
+**Response shape (`--csv`):** CSV with a header row and these fixed columns: `ID`, `Priority`, `Alert Rule`, `Status`, `Created`, `Updated`, `Title`, `Assignee`, `URL`, `Entities`, `Recorded Future AI Insights`. `Priority` is derived from the alert rule (`High` when the rule is a priority rule, otherwise `Informational`); commas inside field values are replaced with spaces.
+
+# email
+
+> See [index.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/index.md) for authentication, readiness checks, output conventions, and shared LLM notes.
+
+### `banshee email enrich FILE_PATH`
+
+Parse an EML file, extract IPs from headers, URLs/domains from the body, and attachment hashes, then enrich the indicators with RF threat intelligence. By default, only shows indicators above the risk score threshold (65).
+
+| Option                 | Short | Default | Description                                                                       |
+| ---------------------- | ----- | ------- | --------------------------------------------------------------------------------- |
+| `--risk-score INTEGER` | `-r`  | `65`    | Show only indicators above this score (0–99)                                      |
+| `--threat-hunt`        | `-t`  | `false` | Also include indicators linked to threat actors even if below the score threshold |
+| `--pretty`             | `-p`  |         | Pretty print                                                                      |
+
+Default JSON output is a flat array of records with fields such as `ioc`, `type`, `location`, `risk_score`, `first_seen`, `last_seen`, `rule_evidence`, `analyst_notes`, `malwares`, `count_of_analyst_notes`, and `ta_names`.
+
+```
+banshee email enrich phishing_email.eml
+banshee email enrich phishing_submission.eml -r 1 -p
+
+# Extract the highest-risk indicators from an enriched EML
+banshee email enrich phishing_email.eml -r 1 | jq '[.[] | {ioc, type, location, score: .risk_score, top_rule: (.rule_evidence[0].rule // "")}] | sort_by(-.score)'
+```
+
+# entity
+
+> See [index.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/index.md) for authentication, readiness checks, output conventions, and shared LLM notes.
+
+### `banshee entity lookup ENTITY_ID`
+
+Look up a Recorded Future entity by its ID.
+
+| Argument/Option        | Description                 |
+| ---------------------- | --------------------------- |
+| `ENTITY_ID` (required) | RF entity ID, e.g. `qf0H03` |
+| `--pretty` / `-p`      | Pretty print                |
+
+```
+banshee entity lookup qf0H03
+banshee entity lookup qf0H03 -p
+```
+
+**Response shape:** Returns a single JSON object with top-level keys `id`, `type`, and `attributes`. The entity name is nested under `.attributes.name`, not at the top level.
+
+```
+# Correct jq to extract id, type, and name:
+banshee entity lookup qf0H03 | jq '{id, type, name: .attributes.name}'
+```
+
+______________________________________________________________________
+
+### `banshee entity search NAME`
+
+Search entities by name, optionally filtered by type.
+
+| Argument/Option   | Short | Default | Description                                                      |
+| ----------------- | ----- | ------- | ---------------------------------------------------------------- |
+| `NAME` (required) |       |         | Entity name to search                                            |
+| `--type`          | `-t`  |         | One or more entity types (repeatable). See full type list below. |
+| `--limit INTEGER` | `-l`  | `100`   | Max results (1–100)                                              |
+| `--pretty`        | `-p`  |         | Pretty print                                                     |
+
+**Common entity types (partial list):** `Malware`, `IpAddress`, `InternetDomainName`, `URL`, `Hash`, `CyberVulnerability`, `CyberThreatActorCategory`, `Organization`, `Person`, `Country`, `MitreAttackIdentifier`, `YaraDetectionRule`, `SnortDetectionRule`, `SigmaDetectionRule` (plus 100+ more).
+
+```
+banshee entity search wannacry
+banshee entity search "Cobalt Strike" -p
+banshee entity search "Cobalt Strike" -t Malware -t Username -p -l 20
+```
+
+**Response shape:** Returns a flat JSON array. Each item has exactly three fields:
+
+| Field   | Description                                               |
+| ------- | --------------------------------------------------------- |
+| `.id`   | RF entity ID (e.g. `SoA6SP`)                              |
+| `.name` | Entity display name                                       |
+| `.type` | Entity type string (e.g. `Malware`, `InternetDomainName`) |
+
+```
+# Extract all IDs matching a name
+banshee entity search "Cobalt Strike" -t Malware | jq -r '.[].id'
+
+# Build a lookup table of id → name
+banshee entity search wannacry | jq '[.[] | {(.id): .name}] | add'
+```
+
+# ioc
+
+> See [index.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/index.md) for authentication, readiness checks, output conventions, and shared LLM notes.
+
+### `banshee ioc lookup ENTITY_TYPE [IOC]...`
+
+Rich, per-IOC enrichment. One API call per indicator. Use for deep context.
+
+**Entity types:** `ip`, `domain`, `url`, `hash`, `vulnerability`
+
+| Option                | Short | Default | Description                                  |
+| --------------------- | ----- | ------- | -------------------------------------------- |
+| `--verbosity INTEGER` | `-v`  | `1`     | Detail level 1–5 (see verbosity table below) |
+| `--ai-insights`       | `-a`  |         | Include AI-generated summaries of risk rules |
+| `--pretty`            | `-p`  |         | Pretty print                                 |
+
+**Verbosity levels by entity type:**
+
+| Level | ip                                                     | domain                                                 | hash                                                   | url                                       | vulnerability                                                                |
+| ----- | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ----------------------------------------- | ---------------------------------------------------------------------------- |
+| 1     | entity, risk, timestamps                               | entity, risk, timestamps                               | entity, hashAlgorithm, risk, timestamps                | entity, risk, timestamps                  | entity, lifecycleStage, risk, timestamps                                     |
+| 2     | + intelCard, location                                  | + intelCard                                            | + fileHashes, intelCard                                | + intelCard                               | + intelCard                                                                  |
+| 3     | + analystNotes, links                                  | + analystNotes, links                                  | + analystNotes, links                                  | + analystNotes, links                     | + analystNotes, links                                                        |
+| 4     | + enterpriseLists, riskMapping, sightings, threatLists | + enterpriseLists, riskMapping, sightings, threatLists | + enterpriseLists, riskMapping, sightings, threatLists | + enterpriseLists, riskMapping, sightings | + cvss, cvssv3, cvssv4, enterpriseLists, riskMapping, sightings, threatLists |
+| 5     | + dnsPortCert, scanner                                 | same as 4                                              | same as 4                                              | same as 4                                 | + cpe, cpe22uri, nvdDescription, nvdReferences                               |
+
+```
+banshee ioc lookup ip 139.224.189.177
+banshee ioc lookup domain overafazg.org
+banshee ioc lookup ip 8.140.135.23 -v 3
+banshee ioc lookup ip 8.140.135.23 139.224.189.177 -p
+
+# Pipe from CSV file
+cat test_ips.csv | banshee ioc lookup ip -p
+```
+
+**Response shape (verbosity 1):** Returns a JSON array. Each item has `entity`, `risk`, `timestamps`. Higher verbosity levels add: v2 `+intelCard, location`; v3 `+analystNotes, links`; v4 `+enterpriseLists, riskMapping, sightings, threatLists`; v5 `+dnsPortCert, scanner` (ip only).
+
+`.risk.evidenceDetails[]` item fields:
+
+| Field               | Description                                            |
+| ------------------- | ------------------------------------------------------ |
+| `.rule`             | Rule name string                                       |
+| `.criticality`      | Integer 0–4 (0–5 for vulnerabilities)                  |
+| `.criticalityLabel` | Human-readable label (e.g. `"Unusual"`, `"Malicious"`) |
+| `.evidenceString`   | Human-readable evidence description                    |
+| `.mitigationString` | Mitigation guidance (may be empty string)              |
+| `.timestamp`        | Most recent evidence timestamp (ISO 8601)              |
+
+**Advanced jq recipes:**
+
+```
+# Most critical rule
+banshee ioc lookup ip 1.2.3.4 | jq '[ .[].risk.evidenceDetails[] ] | group_by(.criticality) | max_by(.[0].criticality) | .[].rule'
+
+# All triggered rules
+banshee ioc lookup ip 1.2.3.4 | jq '.[].risk.evidenceDetails[].rule'
+
+# Risk score + most critical rule
+banshee ioc lookup ip 1.2.3.4 | jq '[ .[] | ( [ .risk.evidenceDetails[].criticality ] | max ) as $max_crit | { score: .risk.score, rules: [ .risk.evidenceDetails[] | select(.criticality == $max_crit) | .rule ] } ]'
+
+# Risk score + all rules with criticality labels
+banshee ioc lookup ip 1.2.3.4 | jq '[ .[] | { score: .risk.score, rules: [.risk.evidenceDetails[] | {rule, label: .criticalityLabel}] } ]'
+```
+
+______________________________________________________________________
+
+### `banshee ioc bulk-lookup ENTITY_TYPE [IOC]...`
+
+Fast bulk enrichment — batches up to 1000 IOCs per API call. Returns risk score and triggered risk rules only. Use for high-volume triage.
+
+| Option            | Description  |
+| ----------------- | ------------ |
+| `--pretty` / `-p` | Pretty print |
+
+**Response shape:** Returns a JSON array. Each item has `entity` (`id`, `name`, `type`) and `risk`. Note: no `timestamps` key (unlike `ioc lookup`).
+
+`.risk` fields:
+
+| Field                     | Description                                                                   |
+| ------------------------- | ----------------------------------------------------------------------------- |
+| `.risk.score`             | Integer risk score 0–99                                                       |
+| `.risk.level`             | Integer criticality level                                                     |
+| `.risk.context`           | Context object grouped by risk domain (`phishing`, `public`, `c2`, `malware`) |
+| `.risk.rule.count`        | Number of triggered rules                                                     |
+| `.risk.rule.maxCount`     | Max possible rules                                                            |
+| `.risk.rule.mostCritical` | Most critical rule name                                                       |
+| `.risk.rule.summary`      | Array of summary strings                                                      |
+| `.risk.rule.evidence[]`   | Array of triggered rule objects                                               |
+
+`.risk.rule.evidence[]` item fields:
+
+| Field          | Description                                                       |
+| -------------- | ----------------------------------------------------------------- |
+| `.rule`        | Rule name string                                                  |
+| `.level`       | Integer criticality 0–4                                           |
+| `.description` | HTML-tagged evidence string (entity refs use `<e id=...>` markup) |
+| `.count`       | Hit count                                                         |
+| `.sightings`   | Sighting count                                                    |
+| `.timestamp`   | Most recent evidence timestamp (ISO 8601)                         |
+| `.mitigation`  | Mitigation guidance (may be empty string)                         |
+| `.type`        | Rule type string (e.g. `linkedIntrusion`)                         |
+
+Bulk risk rule evidence is under `.risk.rule.evidence[]`; this differs from `ioc lookup`, which uses `.risk.evidenceDetails[]`.
+
+```
+banshee ioc bulk-lookup ip 92.38.178.133 203.0.113.17
+banshee ioc bulk-lookup domain overafazg.org coolbeans.org -p
+banshee ioc bulk-lookup hash e3f236e4aeb73f8f8f0caebe46f53abbb2f71fa4b266a34ab50e01933709e877
+
+# From file (one IOC per line)
+banshee ioc bulk-lookup vulnerability < cves.txt
+cat cves.txt | banshee ioc bulk-lookup vulnerability
+
+# Extract names and scores
+banshee ioc bulk-lookup vulnerability CVE-2021-22204 CVE-2016-4557 | jq '[.[] | {ioc: .entity.name, risk_score: .risk.score}]'
+
+# Extract names, scores, and triggered rule names
+banshee ioc bulk-lookup ip 92.38.178.133 | jq '[.[] | {ioc: .entity.name, score: .risk.score, rules: [(.risk.rule.evidence // [])[].rule]}]'
+```
+
+______________________________________________________________________
+
+### `banshee ioc search ENTITY_TYPE`
+
+Search the RF IOC corpus with filters.
+
+| Option                | Short | Default | Description                                   |
+| --------------------- | ----- | ------- | --------------------------------------------- |
+| `--limit INTEGER`     | `-l`  | `5`     | Max results (1–1000)                          |
+| `--risk-score TEXT`   | `-r`  |         | Risk score range (interval notation)          |
+| `--risk-rule TEXT`    | `-R`  |         | Filter by risk rule name                      |
+| `--verbosity INTEGER` | `-v`  | `1`     | Detail level 1–5 (same table as `ioc lookup`) |
+| `--pretty`            | `-p`  |         | Pretty print                                  |
+
+**Risk score interval notation:**
+
+| Syntax      | Meaning         |
+| ----------- | --------------- |
+| `'[20,90]'` | 20 ≤ score ≤ 90 |
+| `'(20,90)'` | 20 < score < 90 |
+| `'[20,90)'` | 20 ≤ score < 90 |
+| `'[20,)'`   | score ≥ 20      |
+| `'[,90)'`   | score < 90      |
+
+Default JSON output is an object. Search results are under `.data.results[]`, and total/returned counts are under `.counts`.
+
+```
+banshee ioc search ip -l 10 -r '(,80]'
+banshee ioc search domain -r '[90,)'
+banshee ioc search hash -r '[80,81]' -p
+banshee ioc search vulnerability --limit 1 -v 3
+
+# Extract IOC names from search results
+banshee ioc search ip -r '[90,)' -l 100 | jq -r '.data.results[].entity.name'
+```
+
+______________________________________________________________________
+
+### `banshee ioc rules ENTITY_TYPE`
+
+List risk rules for an entity type, with optional filters.
+
+| Option                  | Short | Description                                    |
+| ----------------------- | ----- | ---------------------------------------------- |
+| `--freetext TEXT`       | `-F`  | Filter rules by name/description               |
+| `--mitre-code TEXT`     | `-M`  | Filter by MITRE ATT&CK code (e.g. `T1587.004`) |
+| `--criticality INTEGER` | `-C`  | Filter by criticality 0–5                      |
+| `--pretty`              | `-p`  | Pretty print                                   |
+
+**Criticality reference (IP, Domain, URL, Hash):**
+
+| Level | Label               | Risk Score Band |
+| ----- | ------------------- | --------------- |
+| 4     | Very Malicious      | 90–99           |
+| 3     | Malicious           | 65–89           |
+| 2     | Suspicious          | 25–64           |
+| 1     | Unusual             | 5–24            |
+| 0     | No evidence of risk | 0               |
+
+**Criticality reference (Vulnerability):**
+
+| Level | Label               | Risk Score Band |
+| ----- | ------------------- | --------------- |
+| 5     | Very Critical       | 90–99           |
+| 4     | Critical            | 80–89           |
+| 3     | High                | 65–79           |
+| 2     | Medium              | 25–64           |
+| 1     | Low                 | 5–24            |
+| 0     | No evidence of risk | 0               |
+
+```
+banshee ioc rules ip
+banshee ioc rules domain -p
+banshee ioc rules hash -C 3
+banshee ioc rules vulnerability -M T1587.004 -C 2 -F concept
+```
+
+**Response shape:** Returns a flat JSON array. Each item represents one risk rule:
+
+| Field                | Description                                                                                                             |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `.name`              | Rule name string — use this value with `--risk-rule` in `ioc search` and `risklist` commands (e.g. `"recentActiveCnc"`) |
+| `.criticalityLabel`  | Human-readable label (e.g. `"Very Malicious"`)                                                                          |
+| `.criticality`       | Integer criticality level                                                                                               |
+| `.description`       | Rule description string                                                                                                 |
+| `.categories[]`      | Array of `{name, framework}` objects — MITRE ATT&CK categories (e.g. `{name: "TA0011", framework: "MITRE"}`)            |
+| `.relatedEntities[]` | Array of RF entity ID strings referenced by this rule                                                                   |
+| `.count`             | Number of IOCs currently matching this rule                                                                             |
+
+```
+# List all rule names for an entity type
+banshee ioc rules ip | jq -r '.[].name'
+
+# Find rules above criticality 3 with their descriptions
+banshee ioc rules ip | jq '[.[] | select(.criticality >= 3) | {name, criticalityLabel, description}]'
+```
+
+# list
+
+> See [index.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/index.md) for authentication, readiness checks, output conventions, and shared LLM notes.
+
+### `banshee list create NAME [LIST_TYPE]`
+
+Create a new list.
+
+| Argument/Option   | Default  | Description                        |
+| ----------------- | -------- | ---------------------------------- |
+| `NAME` (required) |          | Name of the list                   |
+| `LIST_TYPE`       | `entity` | One of: `entity`, `source`, `text` |
+| `--pretty` / `-p` |          | Pretty print                       |
+
+```
+banshee list create coolbeans
+banshee list create coolsources source -p
+```
+
+______________________________________________________________________
+
+### `banshee list search [NAME]`
+
+Search for lists by name and/or type.
+
+| Option            | Short | Default | Description                                                                                                                                                                                                                                       |
+| ----------------- | ----- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `NAME` (optional) |       |         | Filter by list name                                                                                                                                                                                                                               |
+| `--list-type`     | `-t`  |         | One of: `entity`, `source`, `text`, `custom`, `ip`, `domain`, `tech_stack`, `industry`, `brand`, `partner`, `industry_peer`, `location`, `supplier`, `vulnerability`, `company`, `hash`, `operation`, `attacker`, `target`, `method`, `executive` |
+| `--limit INTEGER` | `-l`  | `1000`  | Max results (1–3000)                                                                                                                                                                                                                              |
+| `--pretty`        | `-p`  |         | Pretty print                                                                                                                                                                                                                                      |
+
+```
+banshee list search -l 1500 -p
+banshee list search -t vulnerability
+banshee list search Attacker
+banshee list search ernest -t entity -p -l 3
+```
+
+**Response shape:** Returns a flat JSON array. Each item has:
+
+| Field                         | Description                                 |
+| ----------------------------- | ------------------------------------------- |
+| `.id`                         | List ID (e.g. `report:-19oM7`)              |
+| `.name`                       | List name                                   |
+| `.type`                       | List type: `entity`, `source`, `text`, etc. |
+| `.created`                    | Creation timestamp (ISO 8601)               |
+| `.updated`                    | Last updated timestamp (ISO 8601)           |
+| `.owner_id`                   | Owner uhash ID                              |
+| `.owner_name`                 | Owner display name                          |
+| `.owner_organisation_details` | Organisation ownership info                 |
+
+______________________________________________________________________
+
+### `banshee list info LIST_ID`
+
+Get metadata about a list.
+
+```
+banshee list info 1b0tFN
+banshee list info 1b0tFN -p
+```
+
+**Response shape:** Returns a single JSON object — same field set as items in `list search`: `id`, `name`, `type`, `created`, `updated`, `owner_id`, `owner_name`, `organisation_id`, `organisation_name`, `owner_organisation_details`.
+
+______________________________________________________________________
+
+### `banshee list status LIST_ID`
+
+Get processing/sync status of a list.
+
+```
+banshee list status 1b0tFN
+```
+
+**Response shape:** Returns a single JSON object with two fields:
+
+| Field     | Description                               |
+| --------- | ----------------------------------------- |
+| `.status` | Processing status string (e.g. `"ready"`) |
+| `.size`   | Number of entities currently on the list  |
+
+______________________________________________________________________
+
+### `banshee list entities LIST_ID`
+
+Retrieve all entities currently on a list.
+
+```
+banshee list entities 1b0s1q
+```
+
+**Response shape:** Returns a flat JSON array. Each item has:
+
+| Field          | Description                                |
+| -------------- | ------------------------------------------ |
+| `.entity.id`   | RF entity ID                               |
+| `.entity.name` | Entity display name                        |
+| `.entity.type` | Entity type string                         |
+| `.status`      | Entity status on the list (e.g. `"ready"`) |
+| `.added`       | Timestamp when entity was added (ISO 8601) |
+
+```
+# Extract all entity IDs on a list
+banshee list entities report:6P8708 | jq -r '.[].entity.id'
+
+# Get entity names and types
+banshee list entities report:6P8708 | jq '[.[] | {name: .entity.name, type: .entity.type}]'
+```
+
+______________________________________________________________________
+
+### `banshee list entries LIST_ID`
+
+Retrieve text match entries on a list (for `text`-type lists).
+
+```
+banshee list entries 1b0s1q
+```
+
+______________________________________________________________________
+
+### `banshee list add LIST_ID ENTITY_ID [PROPERTIES]`
+
+Add a single entity to a list.
+
+| Argument                | Description                                                                                                                                   |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `LIST_ID` (required)    | List ID                                                                                                                                       |
+| `ENTITY_ID` (required)  | RF entity ID (e.g. `SoA6SP`) OR `name,type` pair (e.g. `wannacry,Malware`)                                                                    |
+| `PROPERTIES` (optional) | Use `annotation=<text>` to attach a note that appears on the Recorded Future platform for this entity. Quote the value if it contains spaces. |
+
+```
+banshee list add 1b0s1q lYNvCK
+banshee list add 1b0s1q lYNvCK 'annotation=C2 server seen during incident X-1234'
+```
+
+______________________________________________________________________
+
+### `banshee list bulk-add LIST_ID [ENTITY_INPUT]...`
+
+Add multiple entities to a list. Accepts entity IDs, `name,type` pairs, or `type:value` pairs.
+
+| Option        | Short | Default | Description                                                                                                                                                                                                                                |
+| ------------- | ----- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--overwrite` | `-o`  | off     | Overwrite mode: keep entities present in the supplied input, add new ones, and remove any entities currently on the list that are **not** in the input. Without it, the command only appends new entities and never removes existing ones. |
+
+**Input formats:**
+
+- RF entity ID: `SoA6SP`
+- Name + type: `wannacry,Malware` or `www.duckdns.org,InternetDomainName`
+- Type-prefixed value: `ip:8.8.8.8`
+
+```
+banshee list bulk-add report:21YKUC SoA6SP lYNvCK
+banshee list bulk-add 21YKUC ip:8.8.8.8 www.duckdns.org,InternetDomainName
+
+# Overwrite mode: make the list match exactly the entities supplied (adds missing, removes stale)
+banshee list bulk-add 21YKUC SoA6SP lYNvCK --overwrite
+
+# From file (one entity per line)
+banshee list bulk-add 21YKUC < entities.txt
+cat entities.txt | banshee list bulk-add 21YKUC
+```
+
+**Response:** Plain text grouped by outcome — `ADDED:`, `REMOVED:` (overwrite only), and `UNCHANGED:` blocks listing the affected entities. Not JSON; do not pipe to `jq`.
+
+______________________________________________________________________
+
+### `banshee list remove LIST_ID ENTITY_ID`
+
+Remove a single entity from a list.
+
+```
+banshee list remove 1b0s1q lYNvCK
+```
+
+______________________________________________________________________
+
+### `banshee list bulk-remove LIST_ID [ENTITY_INPUT]...`
+
+Remove multiple entities from a list. Same input formats as `bulk-add`.
+
+```
+banshee list bulk-remove 21YKUC JLHNoH lYNvCK
+banshee list bulk-remove 21YKUC ip:8.8.8.8 www.duckdns.org,InternetDomainName
+
+# From file
+banshee list bulk-remove 21YKUC < entities.txt
+cat entities.txt | banshee list bulk-remove 21YKUC
+```
+
+______________________________________________________________________
+
+### `banshee list copy SOURCE_LIST_ID DESTINATION_LIST_ID`
+
+Copy the entities from one list to another. The source list's entities are read and added to the destination.
+
+| Option        | Short | Default | Description                                                                                                                                                                                                                     |
+| ------------- | ----- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--overwrite` | `-o`  | off     | Overwrite mode: keep entities present in both lists, add new ones, and remove any entities on the destination that are **not** in the source. Without it, entities are only appended to the destination and nothing is removed. |
+
+If the source list is empty the command exits without modifying the destination, even with `--overwrite`.
+
+```
+banshee list copy 1b0s1q 21YKUC
+
+# Make the destination mirror the source exactly (adds missing, removes stale)
+banshee list copy 1b0s1q 21YKUC --overwrite
+```
+
+**Response:** Plain text grouped by outcome — `ADDED:`, `REMOVED:` (overwrite only), and `UNCHANGED:` blocks listing the affected entities. Not JSON; do not pipe to `jq`.
+
+______________________________________________________________________
+
+### `banshee list clear LIST_ID`
+
+Remove **all** entities from a list (destructive — use with care). Text-match entries cannot be removed via the API. The list itself is not deleted; only its entities are removed.
+
+```
+banshee list clear 1b0s1q
+```
+
+**Response:** Plain text. Prints `No entities to remove` when the list is already empty, `Successfully removed <N> entities` on success, or — if any removals fail — `<N> entities were not removed from the list:` followed by the still-present entities. Not JSON.
+
+# pba
+
+> **Playbook Alerts** - automation-driven alerts. IDs are 36-char UUIDs and the `task:` prefix is optional (e.g. `d144a9ec-90e6-40fe-89b0-d85ed65d3e9c` or `task:d144a9ec-90e6-40fe-89b0-d85ed65d3e9c`). PBA-exclusive categories: `domain_abuse`, `cyber_vulnerability`, `third_party_risk`, `code_repo_leakage`, `identity_novel_exposures`, `geopolitics_facility`, `malware_report`. For legacy rule-based alerts (short opaque IDs), use [`ca`](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/ca/index.md) instead.
+>
+> See [index.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/index.md) for authentication, readiness checks, output conventions, and shared LLM notes.
+
+### `banshee pba search`
+
+Search Playbook Alerts with rich filter options.
+
+| Option            | Short | Default | Description                                                                                                                                                                               |
+| ----------------- | ----- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--created TEXT`  | `-C`  |         | Filter by created date (e.g. `1d`, `7d`)                                                                                                                                                  |
+| `--updated TEXT`  | `-u`  |         | Filter by updated date                                                                                                                                                                    |
+| `--category`      | `-c`  | all     | One or more categories (repeatable): `domain_abuse`, `cyber_vulnerability`, `third_party_risk`, `code_repo_leakage`, `identity_novel_exposures`, `geopolitics_facility`, `malware_report` |
+| `--entity TEXT`   | `-e`  |         | Filter by associated entity (repeatable)                                                                                                                                                  |
+| `--priority`      | `-P`  | all     | `Informational`, `Moderate`, `High` (repeatable)                                                                                                                                          |
+| `--status`        | `-s`  | all     | `New`, `InProgress`, `Dismissed`, `Resolved` (repeatable)                                                                                                                                 |
+| `--org-id TEXT`   | `-o`  | all     | Filter by owning organisation ID (repeatable). Accepts a 10-char ID or a 16-char `uhash:` form                                                                                            |
+| `--limit INTEGER` | `-l`  | `100`   | Max results (1–10000)                                                                                                                                                                     |
+| `--pretty`        | `-p`  |         | Pretty print                                                                                                                                                                              |
+
+**Response shape:** Returns a JSON object with three top-level keys: `.data` (array of alert records), `.counts` (`{returned, total}`), and `.status` (request status object: `{status_code, status_message}`). Alert records are under `.data[]` with fields: `playbook_alert_id`, `alert_rule` (`{id, label, name}`), `category`, `priority`, `status`, `title`, `created`, `updated`, `actions_taken`, `owner_organisation_details`.
+
+```
+banshee pba search --created 1d
+banshee pba search -C 1d -u 1d -p
+banshee pba search --limit 1000 --category identity_novel_exposures --category domain_abuse
+banshee pba search --updated 7d --category domain_abuse --pretty
+banshee pba search -c identity_novel_exposures -c third_party_risk -P High -P Moderate -s New
+banshee pba search -e idn:recordedfuture.com -e idn:example.com -c domain_abuse -u 7d
+banshee pba search -o 69sKLfTGsS -o uhash:5zQaSyRpA1 -C 7d -P High
+```
+
+______________________________________________________________________
+
+### `banshee pba lookup ALERT_ID`
+
+Retrieve a single Playbook Alert by ID. Accepts a 36-char UUID with or without the `task:` prefix — the CLI auto-prepends `task:` to bare UUIDs.
+
+```
+banshee pba lookup task:d144a9ec-90e6-40fe-89b0-d85ed65d3e9c
+banshee pba lookup d144a9ec-90e6-40fe-89b0-d85ed65d3e9c
+banshee pba lookup task:d144a9ec-90e6-40fe-89b0-d85ed65d3e9c -p
+```
+
+**Response shape:** Returns a single JSON object with four top-level keys: `playbook_alert_id`, `panel_status`, `panel_evidence_summary`, `panel_log_v2`.
+
+**`.panel_status`** — alert metadata and current disposition:
+
+| Field                           | Description                                                         |
+| ------------------------------- | ------------------------------------------------------------------- |
+| `.panel_status.status`          | Current status: `New`, `InProgress`, `Dismissed`, `Resolved`        |
+| `.panel_status.priority`        | Priority: `Informational`, `Moderate`, `High`                       |
+| `.panel_status.case_rule_label` | Human-readable rule name (e.g. `"Data Leakage on Code Repository"`) |
+| `.panel_status.entity_id`       | RF entity ID of the primary subject (e.g. `"url:https://..."`)      |
+| `.panel_status.entity_name`     | Primary entity name                                                 |
+| `.panel_status.risk_score`      | RF risk score integer                                               |
+| `.panel_status.targets[]`       | Array of `{name}` objects — entities targeted or affected           |
+| `.panel_status.actions_taken[]` | Actions already recorded on the alert                               |
+| `.panel_status.created`         | Creation timestamp (ISO 8601)                                       |
+| `.panel_status.updated`         | Last updated timestamp (ISO 8601)                                   |
+
+**`.panel_evidence_summary`** — evidence detail; structure varies by alert category. For `code_repo_leakage`:
+
+| Field                                              | Description                              |
+| -------------------------------------------------- | ---------------------------------------- |
+| `.panel_evidence_summary.repository.name`          | Repository URL                           |
+| `.panel_evidence_summary.repository.owner.name`    | Repository owner login                   |
+| `.panel_evidence_summary.evidence[]`               | Array of evidence items                  |
+| `.panel_evidence_summary.evidence[].url`           | Source URL of the exposed content        |
+| `.panel_evidence_summary.evidence[].content`       | Snippet of the exposed content           |
+| `.panel_evidence_summary.evidence[].assessments[]` | Assessment objects: `{id, title, value}` |
+| `.panel_evidence_summary.evidence[].targets[]`     | Target entities: `{name}`                |
+| `.panel_evidence_summary.evidence[].published`     | Publication timestamp                    |
+
+```
+# Summary: entity, rule, status
+banshee pba lookup task:<ID> | jq '{entity: .panel_status.entity_name, rule: .panel_status.case_rule_label, status: .panel_status.status, priority: .panel_status.priority}'
+
+# Extract evidence URLs (code_repo_leakage)
+banshee pba lookup task:<ID> | jq '[.panel_evidence_summary.evidence[].url]'
+```
+
+______________________________________________________________________
+
+### `banshee pba update [ALERT_IDS]...`
+
+Update one or more Playbook Alerts. IDs accept `task:` prefix or bare UUID. Can be piped.
+
+| Option            | Short | Description                                                                  |
+| ----------------- | ----- | ---------------------------------------------------------------------------- |
+| `--status`        | `-s`  | New status: `New`, `InProgress`, `Dismissed`, `Resolved`                     |
+| `--reopen`        | `-r`  | Reopen strategy (for Dismissed/Resolved only): `Never`, `SignificantUpdates` |
+| `--priority`      | `-p`  | New priority: `Informational`, `Moderate`, `High`                            |
+| `--comment TEXT`  | `-t`  | Add a comment                                                                |
+| `--assignee TEXT` | `-a`  | Reassign (accepts `uhash:3aXZxdkM12`)                                        |
+
+**Valid status/reopen combinations:** `Dismissed → Never`, `Resolved → Never`, `Resolved → SignificantUpdates`
+
+```
+# Single update
+banshee pba update task:c5dd878b-e5e2-4a19-ad28-a5b770a0aa64 -s Resolved
+
+# Multiple IDs
+banshee pba update c5dd878b-e5e2-4a19-ad28-a5b770a0aa64 a0ce3533-7438-4a6a-9cfd-9eb150fc540c -s Resolved
+
+# Pipe from search
+banshee pba search -c domain_abuse -P Informational | jq -r '.data[].playbook_alert_id' | banshee pba update -s Resolved
+
+# From file
+banshee pba update -s Dismissed < alerts.txt
+cat alerts.txt | banshee pba update -s Dismissed
+
+# Full example
+banshee pba update 26ca663b-a1d8-4dbd-85ef-4bd3cecaa935 c5dd878b-e5e2-4a19-ad28-a5b770a0aa64 -s InProgress -p Informational -t "Bumping priority down due to recent findings."
+```
+
+**Response:** Returns plain text, not JSON — one line per updated alert: `SUCCESS:\n<ALERT_ID>`. Do not pipe to `jq`.
+
+______________________________________________________________________
+
+### `banshee pba export`
+
+Fetch full alert details for the alerts produced by `pba search` and emit them as JSON or CSV. Input is **stdin only** — pipe the JSON object from `banshee pba search`; there are no positional arguments.
+
+| Option  | Short | Default | Description                                                            |
+| ------- | ----- | ------- | ---------------------------------------------------------------------- |
+| `--csv` |       | JSON    | Output as CSV (fixed column set) instead of JSON (full alert details). |
+
+```
+banshee pba search --created 1d -l 10 | banshee pba export > alerts.json
+banshee pba search --updated 7d --category identity_novel_exposures | banshee pba export --csv > identity_alerts.csv
+```
+
+**Input:** Expects the JSON object emitted by `banshee pba search` on stdin — the export reads `.data[]` and requires `playbook_alert_id` and `category` on each record (these drive the category-specific fetch). Running with no piped input (a TTY) raises a `BadParameter` error.
+
+**Response shape (default):** A JSON array of full Playbook Alert objects — the same per-alert structure returned by `banshee pba lookup` (`playbook_alert_id`, `panel_status`, `panel_evidence_summary`, `panel_log_v2`).
+
+**Response shape (`--csv`):** CSV with a header row and these fixed columns: `ID`, `Priority`, `Alert Rule`, `Status`, `Created`, `Updated`, `Subject`, `Assignee`, `Assessments`, `Entities`, `Reopen Strategy`, `Onwards Actions`. `Assessments` and `Entities` are `;`-joined; commas inside field values are replaced with spaces.
+
+# pcap
+
+> See [index.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/index.md) for authentication, readiness checks, output conventions, and shared LLM notes.
+>
+> **Prerequisite:** `tshark` must be installed and in `PATH`. In Banshee 1.2.0, `banshee pcap enrich --help` also fails if `tshark` is missing, so verify with `command -v tshark` first.
+
+### `banshee pcap enrich FILE_PATH`
+
+Parse a pcap file, extract IPs and domains, enrich with RF threat intelligence. By default, only shows indicators above the risk score threshold (65).
+
+| Option                 | Short | Default | Description                                                                                                      |
+| ---------------------- | ----- | ------- | ---------------------------------------------------------------------------------------------------------------- |
+| `--risk-score INTEGER` | `-r`  | `65`    | Show only indicators above this score (1–99)                                                                     |
+| `--threat-hunt`        | `-t`  | `false` | Also include indicators linked to threat actors even if below the score threshold (retrospective threat hunting) |
+| `--pretty`             | `-p`  |         | Pretty print                                                                                                     |
+
+Default JSON output is a flat array of records with fields such as `ioc`, `risk_score`, `most_malicious_rule`, `rule_evidence`, `ta_names`, `malwares`, and `wireshark_query`.
+
+```
+banshee pcap enrich sandbox.pcap
+banshee pcap enrich honeypot-traffic.pcap -r 25 -t -p
+
+# Summarize hits from JSON output
+banshee pcap enrich sandbox.pcap -r 25 -t | jq '[.[] | {indicator: .ioc, score: .risk_score, top_rule: .most_malicious_rule, evidence_rules: [(.rule_evidence // [])[].rule]}] | sort_by(-.score)'
+```
+
+# risklist
+
+> See [index.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/index.md) for authentication, readiness checks, output conventions, and shared LLM notes.
+
+### `banshee risklist fetch`
+
+Download a risk list from RF or load a local custom file.
+
+| Option                    | Short | Description                                                                 |
+| ------------------------- | ----- | --------------------------------------------------------------------------- |
+| `--entity-type`           | `-e`  | Entity type: `ip`, `domain`, `url`, `hash`, `vulnerability`                 |
+| `--list-name TEXT`        | `-l`  | `default`, `large`, or any rule name from `banshee ioc rules`               |
+| `--custom-list-path TEXT` | `-c`  | Path to a local risk list file                                              |
+| `--output-path TEXT`      | `-o`  | Output path (defaults to CWD with auto-generated name)                      |
+| `--as-json`               | `-j`  | Convert downloaded list to JSON (only with `--list-name` + `--entity-type`) |
+
+```
+banshee risklist fetch -e domain -l default
+banshee risklist fetch -c /custom/path/to/list.csv
+banshee risklist fetch -e ip -l recentValidatedCnc -o ./custom_name.csv
+```
+
+______________________________________________________________________
+
+### `banshee risklist create`
+
+Build a custom merged risk list from one or more risk rules, with optional score filtering. Can write locally or upload to RF Fusion.
+
+| Option                 | Short | Default | Description                                                                                      |
+| ---------------------- | ----- | ------- | ------------------------------------------------------------------------------------------------ |
+| `--entity-type`        | `-e`  |         | Entity type: `ip`, `domain`, `url`, `hash`, `vulnerability`                                      |
+| `--risk-rule TEXT`     | `-R`  |         | Risk rule to include (repeatable): `default`, `large`, or any rule name from `banshee ioc rules` |
+| `--risk-score INTEGER` | `-r`  |         | Minimum risk score threshold (5–99)                                                              |
+| `--format`             | `-f`  | `csv`   | Output format: `csv`, `edl`, `json`                                                              |
+| `--output-path TEXT`   | `-o`  | CWD     | Output file path                                                                                 |
+| `--fusion`             | `-F`  |         | Upload to RF Fusion (use with `--output-path` as Fusion destination path)                        |
+
+**Output formats:**
+
+- `csv` — Comma-separated with headers: `Name, Risk, RiskString, EvidenceDetails`
+- `edl` — Plain list of IOC values, one per line (for firewall/EDL feeds)
+- `json` — Full JSON array of risk list entries
+
+```
+banshee risklist create -e ip -R default -r 70 -o ip_risklist_70.csv
+banshee risklist create -e domain -R analystNote -R recentPhishing -r 80
+banshee risklist create -e ip -R recentActiveCnc -R recentValidatedCnc -f edl
+banshee risklist create -e hash -R default -f json -o /tmp/hash_risklist.json
+banshee risklist create -e ip -R recentValidatedCnc -F -o /home/risklists/ip_cnc_risklist.csv
+```
+
+______________________________________________________________________
+
+### `banshee risklist stat`
+
+Show metadata for a risk list — whether it exists in Fusion and its current etag.
+
+| Option                    | Short | Description                                                      |
+| ------------------------- | ----- | ---------------------------------------------------------------- |
+| `--entity-type`           | `-e`  | Entity type                                                      |
+| `--list-name TEXT`        | `-l`  | List name                                                        |
+| `--custom-list-path TEXT` | `-c`  | Path to local risk list file                                     |
+| `--pretty`                | `-p`  | Pretty print                                                     |
+| `--count`                 | `-C`  | Show IOC counts and risk score distribution across the risk list |
+
+```
+banshee risklist stat -e ip -l recentValidatedCnc
+banshee risklist stat -e domain -l domain_risklist
+banshee risklist stat -e ip -l default --count
+```
+
+**Response shape:** Returns a single JSON object:
+
+| Field     | Description                                                                                                |
+| --------- | ---------------------------------------------------------------------------------------------------------- |
+| `.name`   | Risk list name as stored in Fusion (e.g. `"recentValidatedCnc_ip_risklist"`)                               |
+| `.exists` | `true`/`false` — whether the list exists in RF Fusion                                                      |
+| `.etag`   | Etag hash string for cache validation                                                                      |
+| `.counts` | *(only with `--count`)* Object mapping each risk score to its IOC count, e.g. `{"28": 261110, "65": 6531}` |
+
+**Live-test note:** During 2026-05-01 testing, `--custom-list-path /tmp/banshee_smoke_risklist.json` attempted a Fusion API lookup and returned `400 Bad Request`; prefer `-e`/`-l` unless validating a known Fusion-backed custom path.
+
+# rules
+
+> See [index.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/index.md) for authentication, readiness checks, output conventions, and shared LLM notes.
+
+### `banshee rules search`
+
+Search and download Sigma, YARA, and Snort detection rules from Recorded Future.
+
+| Option                    | Short | Default | Description                                                                                                                                                             |
+| ------------------------- | ----- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--type`                  | `-t`  |         | Rule type (repeatable, OR logic): `sigma`, `yara`, `snort`                                                                                                              |
+| `--threat-actor-map`      | `-T`  |         | Filter by actors in your Threat Actor Map                                                                                                                               |
+| `--threat-actor-category` | `-C`  |         | Filter by threat actor category (repeatable, OR logic). Categories include nation-state groups, ransomware groups, hacktivists, financially motivated actors, and more. |
+| `--threat-malware-map`    | `-M`  |         | Filter by malware in your Malware Threat Map                                                                                                                            |
+| `--org-id TEXT`           | `-O`  |         | Organization ID for MSSP/multi-org accounts (for use with threat maps)                                                                                                  |
+| `--entity TEXT`           | `-e`  |         | Filter by RF entity ID (repeatable, OR logic). Use `banshee entity search` to find IDs. MITRE codes accepted (e.g. `mitre:T1486`).                                      |
+| `--created-after TEXT`    | `-a`  |         | Relative (`1d`, `7d`) or absolute (`2024-01-01`)                                                                                                                        |
+| `--created-before TEXT`   | `-b`  |         | Relative or absolute date                                                                                                                                               |
+| `--updated-after TEXT`    | `-u`  |         | Relative or absolute date                                                                                                                                               |
+| `--updated-before TEXT`   | `-U`  |         | Relative or absolute date                                                                                                                                               |
+| `--id TEXT`               | `-i`  |         | Filter by Insikt Note document ID (e.g. `doc:lmRPGB`)                                                                                                                   |
+| `--title TEXT`            | `-n`  |         | Freetext search on associated Insikt Note titles                                                                                                                        |
+| `--limit INTEGER`         | `-l`  | `10`    | Max results (1–1000)                                                                                                                                                    |
+| `--output-path TEXT`      | `-o`  |         | Save rules to directory (omit to print to console)                                                                                                                      |
+| `--pretty`                | `-p`  |         | Pretty print                                                                                                                                                            |
+
+```
+banshee rules search -t yara -t snort -l 20 -a 3d
+banshee rules search -t sigma --entity mitre:T1486 --entity kK5UbE
+banshee rules search --id doc:0uTafk
+banshee rules search --title Ransomware -p
+banshee rules search -t yara --output-path .
+banshee rules search --threat-actor-map -o fetched_rules
+```
+
+**Response shape:** Returns a flat JSON array (when not using `--output-path`). Each item represents an Insikt Note with associated detection rules:
+
+| Field          | Description                                              |
+| -------------- | -------------------------------------------------------- |
+| `.id`          | Insikt Note document ID (e.g. `doc:o6_lui`)              |
+| `.type`        | Rule type: `sigma`, `yara`, or `snort`                   |
+| `.title`       | Insikt Note title                                        |
+| `.description` | Full Insikt Note description text                        |
+| `.created`     | Note creation timestamp (ISO 8601)                       |
+| `.updated`     | Note last updated timestamp (ISO 8601)                   |
+| `.rules[]`     | Array of rule objects — one note may have multiple rules |
+
+`.rules[]` item fields:
+
+| Field         | Description                                                                      |
+| ------------- | -------------------------------------------------------------------------------- |
+| `.content`    | Raw rule text (YAML for Sigma, plain text for YARA/Snort)                        |
+| `.file_name`  | Suggested filename for saving the rule                                           |
+| `.entities[]` | Entities referenced by the rule: `{id, name, type}` (may include `display_name`) |
+
+```
+# List all sigma rule titles and filenames from the last 7 days
+banshee rules search -t sigma -l 50 -a 7d | jq '[.[] | {title, file: .rules[0].file_name}]'
+
+# Extract all MITRE ATT&CK IDs referenced by rules
+banshee rules search -t sigma -l 20 | jq '[.[].rules[].entities[] | select(.type == "MitreAttackIdentifier") | .name] | unique'
+
+# Print raw Sigma rule content
+banshee rules search --id doc:0uTafk | jq -r '.[0].rules[0].content'
+```
+
+# sandbox
+
+> See [index.md](https://recordedfuture-professionalservices.github.io/ps-banshee/knowledge-base/index.md) for authentication, readiness checks, output conventions, and shared LLM notes.
+
+Sandbox commands require `RF_SANDBOX_TOKEN` in addition to `RF_TOKEN`. Set `RF_SANDBOX_CHOICE` (or the global `--sandbox-choice`) to target a specific region: `eu` (default), `usa`, `apj`, `public`, or `private`.
+
+______________________________________________________________________
+
+### `banshee sandbox stats`
+
+Aggregate sandbox submissions over a configurable lookback window and print a SOC morning brief: submission volume, score distribution, top malware families, platform coverage, extracted C2s, and SOAR-validated network IOCs.
+
+| Option           | Short | Default | Description                            |
+| ---------------- | ----- | ------- | -------------------------------------- |
+| `--days INTEGER` | `-d`  | `7`     | Lookback window in days (min 1)        |
+| `--subset`       | `-s`  | `org`   | Sample scope: `owned`, `public`, `org` |
+| `--pretty`       | `-p`  |         | Human-readable Rich layout             |
+
+Score buckets (triage 1–10 scale):
+
+| Bucket                   | Score Range | Meaning                        |
+| ------------------------ | ----------- | ------------------------------ |
+| `malicious`              | 8–10        | Known malware, high confidence |
+| `suspicious`             | 5–7         | Strong behavioural indicators  |
+| `potentially_suspicious` | 3–4         | Some indicators                |
+| `clean`                  | 1–2         | Low risk or benign             |
+
+```
+banshee sandbox stats
+banshee sandbox stats --days 14 --subset owned --pretty
+banshee sandbox stats -d 30 | jq '.by_score'
+```
+
+**Response shape:** Returns a single JSON object:
+
+| Field                    | Description                                                                                                 |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------- |
+| `.period_start`          | Start of the aggregation window (ISO 8601)                                                                  |
+| `.period_end`            | End of the aggregation window (ISO 8601)                                                                    |
+| `.period_days`           | Lookback window in days                                                                                     |
+| `.subset`                | Scope used (`owned`, `public`, `org`)                                                                       |
+| `.total`                 | Total submissions in the window                                                                             |
+| `.pending`               | Submissions still being analysed                                                                            |
+| `.failed`                | Submissions that errored                                                                                    |
+| `.by_kind`               | Object mapping submission kind (`file`, `url`, etc.) to count                                               |
+| `.by_platform`           | Object mapping platform tag to count                                                                        |
+| `.by_score`              | Object mapping score bucket name to count                                                                   |
+| `.by_file_type`          | Object mapping file extension to count                                                                      |
+| `.top_tags`              | Object with keys `malware_families`, `botnets`, `arch_file`, `behavioral_ttp` — each maps tag name to count |
+| `.top_iocs`              | Object with keys `extracted_c2`, `verified_network`, `malicious_sha256` — each is an array of IOC strings   |
+| `.daily_by_family`       | Object mapping malware family to daily counts                                                               |
+| `.trend_vs_prior_period` | Object with `total` and `reported` sub-objects, each containing `current`, `prev`, and `pct_change`         |
+| `.soar_skipped`          | `true` when SOAR validation was skipped (`.top_iocs.verified_network` will be empty)                        |
+
+______________________________________________________________________
+
+### `banshee sandbox list`
+
+List sandbox samples — your own, your organisation's (default), or the public feed.
+
+| Option            | Short | Default | Description                            |
+| ----------------- | ----- | ------- | -------------------------------------- |
+| `--subset`        | `-s`  | `org`   | Sample scope: `owned`, `public`, `org` |
+| `--limit INTEGER` | `-l`  | `20`    | Max results (1–4095)                   |
+| `--pretty`        | `-p`  |         | Human-readable table                   |
+
+```
+banshee sandbox list
+banshee sandbox list --subset owned
+banshee sandbox list -s public -l 50
+banshee sandbox list -p
+banshee sandbox list | jq '.[].sha256'
+```
+
+**Response shape:** Returns a flat JSON array. Each item:
+
+| Field        | Description                                                 |
+| ------------ | ----------------------------------------------------------- |
+| `.id`        | Sample ID (e.g. `260722-x8lgjahyvx`)                        |
+| `.status`    | Analysis status: `pending`, `running`, `reported`, `failed` |
+| `.kind`      | Submission kind: `file`, `url`, `fetch`, `import`           |
+| `.filename`  | Original filename (may be empty for URL submissions)        |
+| `.submitted` | Submission timestamp (ISO 8601)                             |
+| `.completed` | Completion timestamp (ISO 8601; absent if still running)    |
+| `.sha256`    | SHA-256 of the submitted file                               |
+| `.user_id`   | UUID of the submitting user                                 |
+
+______________________________________________________________________
+
+### `banshee sandbox search`
+
+Search samples matching structured filters (hash, family, tag, botnet, wallet, IP, domain, URL, submission-date window) or a raw Triage query. At least one filter or `--query` must be provided.
+
+| Option                   | Short | Default | Description                                                          |
+| ------------------------ | ----- | ------- | -------------------------------------------------------------------- |
+| `--hash TEXT`            |       |         | Filter by file hash (MD5/SHA1/SHA256)                                |
+| `--family TEXT`          |       |         | Filter by malware family name                                        |
+| `--tag TEXT`             | `-T`  |         | Filter by tag (repeatable)                                           |
+| `--botnet TEXT`          |       |         | Filter by botnet name                                                |
+| `--wallet TEXT`          |       |         | Filter by wallet address                                             |
+| `--ip TEXT`              |       |         | Filter by IP address                                                 |
+| `--domain TEXT`          |       |         | Filter by domain                                                     |
+| `--url TEXT`             |       |         | Filter by URL                                                        |
+| `--from-date YYYY-MM-DD` |       |         | Submitted on or after this date                                      |
+| `--to-date YYYY-MM-DD`   |       |         | Submitted on or before this date                                     |
+| `--query TEXT`           | `-q`  |         | Raw Triage query string (combined with structured filters using AND) |
+| `--limit INTEGER`        | `-l`  | `50`    | Max results (1–200)                                                  |
+| `--pretty`               | `-p`  |         | Human-readable table                                                 |
+
+```
+banshee sandbox search --hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+banshee sandbox search --family emotet
+banshee sandbox search --ip 1.2.3.4 --domain evil.example
+banshee sandbox search -T ransomware -T persistence
+banshee sandbox search --from-date 2026-07-01 --to-date 2026-07-31 --family vidar
+banshee sandbox search -q "NOT family:emotet" -l 100
+banshee sandbox search --family emotet -p
+banshee sandbox search --family emotet | jq '.[].sha256'
+```
+
+**Response shape:** Returns a JSON array — same structure as `sandbox list` items.
+
+______________________________________________________________________
+
+### `banshee sandbox get`
+
+Fetch a summary for a single sandbox sample by ID: current status, overall score, target, creation and completion timestamps, SHA256, and per-task breakdown. Works for both in-progress and completed samples.
+
+| Argument/Option        | Short | Description                |
+| ---------------------- | ----- | -------------------------- |
+| `SAMPLE_ID` (required) |       | Sandbox sample ID          |
+| `--pretty`             | `-p`  | Human-readable Rich layout |
+
+```
+banshee sandbox get 260501-h4p7laawme
+banshee sandbox get 260501-h4p7laawme -p
+banshee sandbox get 260501-h4p7laawme | jq '.score'
+banshee sandbox get 260501-h4p7laawme | jq '.tasks | keys'
+```
+
+**Response shape:** Returns a single JSON object:
+
+| Field        | Description                                                                    |
+| ------------ | ------------------------------------------------------------------------------ |
+| `.sample`    | Sample ID                                                                      |
+| `.status`    | Analysis status: `pending`, `running`, `static_analysis`, `reported`, `failed` |
+| `.target`    | Primary detonation target (filename or URL)                                    |
+| `.score`     | Overall triage score (1–10; `0` while analysis is in progress)                 |
+| `.created`   | Submission timestamp (ISO 8601)                                                |
+| `.completed` | Completion timestamp (ISO 8601; absent while still running)                    |
+| `.sha256`    | SHA-256 of the submitted file (absent for URL submissions)                     |
+| `.owner`     | Submitting user ID                                                             |
+| `.tasks`     | Object mapping task ID → `{kind, status, score, tags, platform}`               |
+
+______________________________________________________________________
+
+### `banshee sandbox download` *(mutating on disk)*
+
+Download the original submitted sample bytes for one or more sample IDs. Each sample is wrapped in an AES-encrypted ZIP archive with password `infected` to prevent accidental detonation by antivirus, secure email gateways, or file managers. Extract with `7z x -pinfected <sample-id>.zip` — standard `unzip` does not handle AES-encrypted zips reliably.
+
+Sample IDs may be passed as positional arguments or piped on stdin (whitespace-separated). Prompts for confirmation unless `--yes` is given. Bytes exist briefly in this process's memory during download and zipping — aggressive EDR memory scanning could still fire. Run this on an analyst-owned box, not a daily-driver corporate laptop.
+
+| Argument/Option     | Short | Default    | Description                                                        |
+| ------------------- | ----- | ---------- | ------------------------------------------------------------------ |
+| `SAMPLE_IDS`        |       |            | One or more sample IDs (or read from stdin)                        |
+| `--output-dir PATH` | `-d`  | (required) | Directory to save encrypted zip archives into (created if missing) |
+| `--yes`             | `-y`  |            | Skip confirmation prompt                                           |
+| `--workers INTEGER` | `-w`  | `1`        | Parallel download workers (1–16)                                   |
+
+```
+banshee sandbox download 260501-h4p7laawme -d ./samples
+banshee sandbox download id1 id2 id3 -d ./samples --yes -w 4
+echo 'id1 id2 id3' | banshee sandbox download -d ./samples --yes
+
+# Extract
+7z x -pinfected ./samples/260501-h4p7laawme.zip
+```
+
+**Response:** Warning line printed once on stderr; per-sample `[<id>] Saved: <path> (<bytes> bytes, sha256=<hex>)` lines on stderr for each successful download; `[<id>] ERROR: <msg>` for failures. A partial-failure batch continues to completion and exits 1; a fully successful batch exits 0.
+
+Archive contents: single entry named `<sample-id>` (no extension guessing) containing the raw sample bytes.
+
+______________________________________________________________________
+
+### `banshee sandbox delete` *(mutating)*
+
+Delete a sandbox sample by ID and remove all associated task artifacts. Prompts for confirmation unless `--yes` is given.
+
+| Argument/Option        | Description              |
+| ---------------------- | ------------------------ |
+| `SAMPLE_ID` (required) | Sample ID to delete      |
+| `--yes` / `-y`         | Skip confirmation prompt |
+
+```
+banshee sandbox delete 260501-h4p7laawme
+banshee sandbox delete 260501-h4p7laawme -y
+```
+
+**Response:** No output on success; exits 0.
+
+______________________________________________________________________
+
+### `banshee sandbox submit` *(mutating)*
+
+Submit a sample for analysis. A local file is uploaded, a URL is detonated in a browser (or downloaded first with `--fetch`), and a public sample can be imported by ID with `--import`.
+
+| Argument/Option      | Short | Description                                                                                           |
+| -------------------- | ----- | ----------------------------------------------------------------------------------------------------- |
+| `TARGET` (required)  |       | File path, URL, or public sample ID (with `--import`)                                                 |
+| `--fetch`            |       | Download the URL first, then analyse the file. Mutually exclusive with `--import`                     |
+| `--import`           |       | Treat the target as a public sample ID. Mutually exclusive with `--fetch`                             |
+| `--profile TEXT`     |       | Analysis profile name or ID (repeatable; mutually exclusive with `--interactive`)                     |
+| `--timeout INTEGER`  | `-t`  | Analysis timeout in seconds (1–3600)                                                                  |
+| `--network`          | `-N`  | Network mode: `internet`, `drop`, `tor`, `vpn`, `sim200`, `sim404`, `simnx`                           |
+| `--geolocation TEXT` |       | VPN exit country code; requires `--network vpn`                                                       |
+| `--tags TEXT`        | `-T`  | Custom tag (repeatable)                                                                               |
+| `--password TEXT`    |       | Password for protected archives                                                                       |
+| `--wait`             | `-w`  | Poll until analysis finishes, then print the overview report                                          |
+| `--interactive`      | `-i`  | Pause at static analysis for profile selection via `set-profile`; mutually exclusive with `--profile` |
+| `--pretty`           | `-p`  | Human-readable output                                                                                 |
+
+```
+banshee sandbox submit malware.exe
+banshee sandbox submit https://evil.com
+banshee sandbox submit https://cdn.evil.com/payload.exe --fetch
+banshee sandbox submit 250601-abc123 --import
+banshee sandbox submit malware.zip --password infected --profile win10-x64 -T case-42
+banshee sandbox submit malware.exe --network vpn --geolocation us -t 300
+banshee sandbox submit malware.exe --wait | jq '.analysis.score'
+banshee sandbox submit archive.zip --interactive --wait --pretty
+```
+
+**Response shape (default):** Returns the submitted sample as a JSON object with the same fields as `sandbox list` items (`id`, `status`, `kind`, `filename`, `submitted`, `sha256`, `user_id`). Use `.id` to track or report on the submission.
+
+**Response shape (with `--wait`):** Returns the overview report — same structure as `sandbox report overview`.
+
+______________________________________________________________________
+
+### `banshee sandbox set-profile` *(mutating)*
+
+Assign analysis profiles to a sample paused at static analysis (submitted with `--interactive`). Use `--auto` to let the sandbox choose automatically, or `--pick FILE:PROFILE` for manual per-file mapping.
+
+| Argument/Option        | Short | Description                                                                |
+| ---------------------- | ----- | -------------------------------------------------------------------------- |
+| `SAMPLE_ID` (required) |       | ID of the sample paused at static analysis                                 |
+| `--auto`               | `-a`  | Auto-select profiles for all files. Mutually exclusive with `--pick`       |
+| `--pick FILE:PROFILE`  |       | Map one file to one profile (repeatable). Mutually exclusive with `--auto` |
+| `--pretty`             | `-p`  | Human-readable output                                                      |
+
+```
+banshee sandbox set-profile 260501-h4p7laawme --auto
+banshee sandbox set-profile 260501-h4p7laawme --pick file.exe:win10-x64
+banshee sandbox set-profile 260501-h4p7laawme --pick file.exe:win10-x64 --pick doc.docx:office365
+banshee sandbox set-profile 260501-h4p7laawme --pick file.exe:win10-x64 | jq '.success'
+```
+
+______________________________________________________________________
+
+### `banshee sandbox profile list`
+
+List all analysis profiles available in Recorded Future Sandbox.
+
+| Option     | Short | Description          |
+| ---------- | ----- | -------------------- |
+| `--pretty` | `-p`  | Human-readable table |
+
+```
+banshee sandbox profile list
+banshee sandbox profile list -p
+banshee sandbox profile list | jq '.[].name'
+```
+
+**Response shape:** Returns a flat JSON array. Each item:
+
+| Field          | Description                                                                |
+| -------------- | -------------------------------------------------------------------------- |
+| `.id`          | Profile UUID                                                               |
+| `.name`        | Profile name                                                               |
+| `.tags`        | Array of OS/locale tags (e.g. `["os:windows10-2004-x64", "locale:en-us"]`) |
+| `.network`     | Network mode (e.g. `"internet"`, `"tor"`, `"vpn"`)                         |
+| `.geolocation` | Array of VPN exit country codes (empty when not applicable)                |
+| `.timeout`     | Analysis timeout in seconds                                                |
+| `.options`     | Object with optional fields such as `browser`                              |
+
+______________________________________________________________________
+
+### `banshee sandbox profile get`
+
+Fetch a single analysis profile by ID or name.
+
+| Argument/Option                 | Short | Description          |
+| ------------------------------- | ----- | -------------------- |
+| `PROFILE_ID_OR_NAME` (required) |       | Profile UUID or name |
+| `--pretty`                      | `-p`  | Human-readable table |
+
+```
+banshee sandbox profile get 022b8c4e-22ab-46a4-ac49-a2732b2412b7
+banshee sandbox profile get 'Windows 7 Long'
+banshee sandbox profile get w7-long -p
+banshee sandbox profile get w7-long | jq '.tags'
+```
+
+**Response shape:** Single profile object — same fields as items in `sandbox profile list`.
+
+______________________________________________________________________
+
+### `banshee sandbox profile create` *(mutating)*
+
+Create a new analysis profile. The profile name must be unique within your organisation.
+
+| Option               | Short | Default    | Description                                                                      |
+| -------------------- | ----- | ---------- | -------------------------------------------------------------------------------- |
+| `--name TEXT`        | `-n`  | (required) | Profile name (must be unique)                                                    |
+| `--tag TEXT`         | `-T`  | (required) | OS/locale tag (repeatable). A locale tag must be paired with at least one OS tag |
+| `--timeout INTEGER`  | `-t`  | `120`      | Analysis timeout in seconds (1–3600)                                             |
+| `--network`          | `-N`  |            | Network mode: `internet`, `drop`, `tor`, `vpn`, `sim200`, `sim404`, `simnx`      |
+| `--geolocation TEXT` |       |            | VPN exit country code; requires `--network vpn` (repeatable)                     |
+| `--browser`          | `-b`  |            | Browser: `chrome`, `firefox`, `ie11`, `microsoft-edge`                           |
+| `--pretty`           | `-p`  |            | Human-readable table                                                             |
+
+```
+banshee sandbox profile create -n w10-quick -T os:windows10-2004-x64 -t 120
+banshee sandbox profile create -n w10-vpn -T os:windows10-2004-x64 -t 300 -N vpn --geolocation se
+banshee sandbox profile create -n w10-ff -T os:windows10-2004-x64 -T locale:en-us -t 120 -b firefox -p
+banshee sandbox profile create -n w10-quick -T os:windows10-2004-x64 -t 120 | jq '.id'
+```
+
+**Response shape:** Returns the created profile as a JSON object — same fields as `sandbox profile list` items.
+
+______________________________________________________________________
+
+### `banshee sandbox profile update` *(mutating)*
+
+Update an existing analysis profile. Only the options you supply change — omitted options keep their current value. Use `--unset` to clear `network`, `browser`, or `geolocation`.
+
+| Argument/Option                 | Short | Description                                                                 |
+| ------------------------------- | ----- | --------------------------------------------------------------------------- |
+| `PROFILE_ID_OR_NAME` (required) |       | Profile UUID or name                                                        |
+| `--name TEXT`                   | `-n`  | New profile name                                                            |
+| `--tag TEXT`                    | `-T`  | OS/locale tag; replaces all existing tags (repeatable)                      |
+| `--timeout INTEGER`             | `-t`  | Analysis timeout in seconds (1–3600)                                        |
+| `--network`                     | `-N`  | Network mode: `internet`, `drop`, `tor`, `vpn`, `sim200`, `sim404`, `simnx` |
+| `--geolocation TEXT`            |       | VPN exit country code; requires `--network vpn` (repeatable)                |
+| `--browser`                     | `-b`  | Browser: `chrome`, `firefox`, `ie11`, `microsoft-edge`                      |
+| `--unset`                       |       | Clear a field: `network`, `browser`, or `geolocation` (repeatable)          |
+| `--pretty`                      | `-p`  | Human-readable status message                                               |
+
+```
+banshee sandbox profile update ernie -n ernie-v2
+banshee sandbox profile update ernie -T os:windows10-2004-x64 -T locale:en-us
+banshee sandbox profile update ernie -t 300 -N vpn --geolocation us --geolocation gb
+banshee sandbox profile update ernie --unset browser --unset network
+banshee sandbox profile update ernie -n ernie-v2 | jq '.updated'
+```
+
+**Response shape:** Returns `{"updated": true}` when the profile exists and was updated, or `{"updated": false}` when it does not exist. Exits 0 either way.
+
+______________________________________________________________________
+
+### `banshee sandbox profile delete` *(mutating)*
+
+Delete an analysis profile by ID or name. Safe to repeat: deleting a profile that no longer exists prints a warning and exits 0.
+
+| Argument/Option                 | Short | Description              |
+| ------------------------------- | ----- | ------------------------ |
+| `PROFILE_ID_OR_NAME` (required) |       | Profile UUID or name     |
+| `--yes` / `-y`                  |       | Skip confirmation prompt |
+
+```
+banshee sandbox profile delete 022b8c4e-22ab-46a4-ac49-a2732b2412b7
+banshee sandbox profile delete 'Windows 7 Long'
+banshee sandbox profile delete w7-long -y
+```
+
+**Response:** No output on success; exits 0.
+
+______________________________________________________________________
+
+### `banshee sandbox report overview`
+
+Fetch the full overview report for a completed sandbox sample: verdict score, malware family, tags, hashes, detection signatures, extracted malware configs, network IOCs, and per-task results. The sample must be in `reported` status.
+
+| Argument/Option        | Short | Description                                         |
+| ---------------------- | ----- | --------------------------------------------------- |
+| `SAMPLE_ID` (required) |       | Sandbox sample ID                                   |
+| `--wait`               | `-w`  | Poll for up to 30 minutes until the report is ready |
+| `--pretty`             | `-p`  | Human-readable summarised view                      |
+
+```
+banshee sandbox report overview 260501-h4p7laawme
+banshee sandbox report overview 260501-h4p7laawme -p
+banshee sandbox report overview 260501-h4p7laawme --wait
+banshee sandbox report overview 260501-h4p7laawme | jq '.analysis'
+banshee sandbox report overview 260501-h4p7laawme | jq '.targets[].iocs'
+```
+
+**Response shape:** Returns a single JSON object:
+
+| Field         | Description                                                                                        |
+| ------------- | -------------------------------------------------------------------------------------------------- |
+| `.version`    | Report format version                                                                              |
+| `.build`      | Sandbox build info                                                                                 |
+| `.analysis`   | Verdict object: score, malware family, tags                                                        |
+| `.sample`     | Sample metadata: id, kind, filename, sha256, submitted, completed                                  |
+| `.signatures` | Detection signatures across all tasks                                                              |
+| `.targets`    | Array of detonated target objects, each with `.iocs` (network IOCs) and malware config extractions |
+| `.tasks`      | Array of per-task summaries: task ID, platform, status, verdict score                              |
+
+______________________________________________________________________
+
+### `banshee sandbox report static`
+
+Fetch the static (pre-detonation) analysis report for a sandbox sample: verdict score, tags, unpacked files, static detection signatures, and extracted malware configs. Available as soon as static analysis finishes — before behavioural tasks complete.
+
+| Argument/Option        | Short | Description                                         |
+| ---------------------- | ----- | --------------------------------------------------- |
+| `SAMPLE_ID` (required) |       | Sandbox sample ID                                   |
+| `--wait`               | `-w`  | Poll for up to 10 minutes until the report is ready |
+| `--pretty`             | `-p`  | Human-readable summarised view                      |
+
+```
+banshee sandbox report static 260501-h4p7laawme
+banshee sandbox report static 260501-h4p7laawme -p
+banshee sandbox report static 260501-h4p7laawme --wait
+banshee sandbox report static 260501-h4p7laawme | jq '.analysis'
+banshee sandbox report static 260501-h4p7laawme | jq '.files[].sha256'
+```
+
+**Response shape:** Returns a single JSON object:
+
+| Field           | Description                                                                                  |
+| --------------- | -------------------------------------------------------------------------------------------- |
+| `.version`      | Report format version                                                                        |
+| `.build`        | Sandbox build info                                                                           |
+| `.sample`       | Sample metadata: id, kind, filename, sha256, submitted                                       |
+| `.task`         | Static task metadata                                                                         |
+| `.analysis`     | Verdict object: score, tags, static signatures                                               |
+| `.files`        | Array of unpacked files — each has `sha256`, `filename`, `size`, and static analysis details |
+| `.unpack_count` | Total number of files unpacked from the submission                                           |
+| `.error_count`  | Number of files that could not be unpacked                                                   |
+
+______________________________________________________________________
+
+### `banshee sandbox report behavioral`
+
+Fetch the behavioral (post-detonation) reports for a completed sandbox sample, one object per completed behavioral task. Incomplete tasks are omitted from the output and noted on stderr; the command exits non-zero until every task has finished. An empty array with exit 0 is returned when the sample has no behavioral tasks.
+
+Process command lines in `--pretty` view are truncated by default — pass `--full-cmd` if you need them in full (they are taken verbatim from the malware sample, so treat them as untrusted).
+
+| Argument/Option        | Short | Description                                                            |
+| ---------------------- | ----- | ---------------------------------------------------------------------- |
+| `SAMPLE_ID` (required) |       | Sandbox sample ID                                                      |
+| `--wait`               | `-w`  | Poll for up to 30 minutes until all tasks are complete                 |
+| `--full-cmd`           |       | Show full untruncated process command lines (treat as untrusted input) |
+| `--pretty`             | `-p`  | Human-readable summarised view per task                                |
+
+```
+banshee sandbox report behavioral 260501-h4p7laawme
+banshee sandbox report behavioral 260501-h4p7laawme -p
+banshee sandbox report behavioral 260501-h4p7laawme --wait
+banshee sandbox report behavioral 260501-h4p7laawme -p --full-cmd
+banshee sandbox report behavioral 260501-h4p7laawme | jq '.[].analysis.score'
+banshee sandbox report behavioral 260501-h4p7laawme | jq '.[].network.flows'
+```
+
+**Response shape:** Returns a JSON array. Each item corresponds to one behavioral task:
+
+| Field         | Description                                                                                                      |
+| ------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `.task_id`    | Behavioral task ID                                                                                               |
+| `.version`    | Report format version                                                                                            |
+| `.build`      | Sandbox build info                                                                                               |
+| `.sample`     | Sample metadata: id, kind, filename, sha256                                                                      |
+| `.task`       | Task metadata: platform, status, started, completed                                                              |
+| `.analysis`   | Verdict object: score, malware family, tags                                                                      |
+| `.tags`       | Array of behavioural tags (e.g. `discovery`, `execution`)                                                        |
+| `.signatures` | Array of triggered detection signatures                                                                          |
+| `.processes`  | Array of observed processes — each has `pid`, `name`, `cmd` (truncated unless `--full-cmd`), and child processes |
+| `.network`    | Network activity: `.flows` (connection records), `.dns` (DNS queries), `.http` (HTTP requests)                   |
+| `.dumped`     | Array of dumped/extracted files with their SHA-256 hashes                                                        |
+# Optional
+
+# Installing PS Banshee
+
+## Installation methods
+
+Install [ps-banshee](https://pypi.org/project/ps-banshee/) with `pipx` or `pip`.
+
+## Installation
+
+PS Banshee requires Python 3.10 or later (up to 3.13).
+
+### Recommended: pipx (isolated environment)
+
+To install globally, run:
+
+```
+pipx install ps-banshee
+```
+
+Installing pipx
+
+If you don't have pipx installed, see the [installation guide](https://github.com/pypa/pipx?tab=readme-ov-file#install-pipx).
+
+### Alternative: pip (current environment)
+
+To install in the current environment, run:
+
+```
+pip install ps-banshee
+```
+
+### Dependencies
+
+All required Python dependencies are resolved automatically by `pip`.\
+To use the `pcap` command, ensure you have:
+
+- tshark 3.0.0 or later
+
+## Authorization
+
+PS Banshee reads your Recorded Future API key from the `RF_TOKEN` environment variable (recommended) or from the `-k` / `--api-key` flag on each command.
+
+### Option 1: Set `RF_TOKEN` (recommended)
+
+Current shell only:
+
+```
+export RF_TOKEN=<your_api_key>
+```
+
+Persist for future shells (zsh — adjust to `~/.bashrc` for bash). Open a new shell after running this (or run `source ~/.zshrc` to apply in the current shell):
+
+```
+echo 'export RF_TOKEN=<your_api_key>' >> ~/.zshrc
+```
+
+Current session only:
+
+```
+$env:RF_TOKEN = '<your_api_key>'
+```
+
+Persist for future sessions (open a new PowerShell after running this):
+
+```
+setx RF_TOKEN <your_api_key>
+```
+
+Current session only:
+
+```
+set RF_TOKEN=<your_api_key>
+```
+
+Persist for future sessions (open a new Command Prompt after running this):
+
+```
+setx RF_TOKEN <your_api_key>
+```
+
+### Option 2: Pass with `-k` per command
+
+```
+banshee -k <your_api_key> <command> <sub-command> <arguments>
+```
+
+This works on any platform, but is more verbose and the key may land in shell history.
+
+## Upgrading PS Banshee
+
+To upgrade PS Banshee to a newer version, reinstall using the updated wheel file.
+
+Upgrading from v1.0.0 or earlier
+
+If you are upgrading from v1.0.0 or an earlier version, you must uninstall the existing package first before installing the new version.
+
+**If installed with pipx:**
+
+```
+pipx uninstall banshee 
+pipx install ps-banshee
+```
+
+**If installed with pip:**
+
+```
+pip uninstall banshee
+pip install ps-banshee
+```
+
+**If installed with pipx:**
+
+```
+pipx install --force ps-banshee
+```
+
+**If installed with pip:**
+
+```
+pip install --upgrade ps-banshee
+```
+
+## Shell autocompletion
+
+After installing PS Banshee, enable command auto completion with:
+
+```
+banshee --install-completion
+```
+
+Restart your shell to complete the installation. You can now use TAB to auto-complete commands.
+
+## Uninstallation
+
+To remove PS Banshee from your system, use the appropriate command based on your installation method.
+
+**If installed with pipx:**
+
+```
+pipx uninstall ps-banshee
+```
+
+**If installed with pip:**
+
+```
+pip uninstall ps-banshee
+```
+
+## Next steps
+
+See the [first steps](https://recordedfuture-professionalservices.github.io/ps-banshee/getting-started/first-steps/index.md) to start using PS Banshee.
+
+# Using with AI agents
+
+Banshee is designed to be driven from the terminal — including by AI coding agents such as Claude Code, Codex, and any other LLM that can run shell commands. Two artifacts are published to help an agent learn the CLI:
+
+- **Index** — concise table of contents for selective fetches: [llms.txt](https://recordedfuture-professionalservices.github.io/ps-banshee/llms.txt)
+- **Full bundle** — every command group inlined in a single document: [llms-full.txt](https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt)
+
+Both follow the [llms.txt](https://llmstxt.org/) convention.
+
+## Make `banshee` discoverable to your agent
+
+Copy the snippet below and paste it into whichever rules/instructions file your agent reads — `CLAUDE.md`, `AGENTS.md`, or the equivalent for your tool:
+
+```
+## Recorded Future (banshee CLI)
+
+When a request involves Recorded Future or threat intelligence, use the
+`banshee` CLI. This covers, for example:
+
+- checking or enriching the risk of an IOC (IP, domain, URL, file hash, or CVE)
+- looking up or searching for entities
+- triaging Classic or Playbook alerts
+- managing RF lists and watchlists
+- fetching or building risk lists
+- finding or downloading detection rules (Sigma, YARA, Snort)
+- enriching an email (`.eml`) or packet capture (`.pcap`)
+
+First fetch the full command reference, then run `banshee`:
+<https://recordedfuture-professionalservices.github.io/ps-banshee/llms-full.txt>
+
+If that URL is unreachable, or a command from the reference isn't present in your
+installed version, run `banshee --help` (and `banshee <group> --help`) to confirm
+the commands your binary actually supports.
+```
+
+## Authorization
+
+Set the `RF_TOKEN` environment variable in the agent's shell before invoking banshee. The env-var path is strongly preferred for agent workflows — the agent doesn't have to remember to pass `-k` on every call.
+
+See [Installation → Authorization](https://recordedfuture-professionalservices.github.io/ps-banshee/getting-started/installation/#authorization) for full setup instructions (macOS, Linux, Windows).
+
+# PS Banshee use cases overview
+
+Below are some of the core use cases to get started:
+
+- [Alerts Management](https://recordedfuture-professionalservices.github.io/ps-banshee/usecases/alerts/index.md)
+- [Detection Rules](https://recordedfuture-professionalservices.github.io/ps-banshee/usecases/detection-rules/index.md)
+- [Email Enrichment](https://recordedfuture-professionalservices.github.io/ps-banshee/usecases/email/index.md)
+- [Entity Match](https://recordedfuture-professionalservices.github.io/ps-banshee/usecases/entity/index.md)
+- [IOC Enrichment](https://recordedfuture-professionalservices.github.io/ps-banshee/usecases/enrichment/index.md)
+- [Packet Capture Analysis](https://recordedfuture-professionalservices.github.io/ps-banshee/usecases/pcap/index.md)
+- [Risk Lists](https://recordedfuture-professionalservices.github.io/ps-banshee/usecases/risklists/index.md)
+- [Watchlist Management](https://recordedfuture-professionalservices.github.io/ps-banshee/usecases/watchlist/index.md)
