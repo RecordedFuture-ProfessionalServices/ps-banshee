@@ -13,6 +13,7 @@ banshee [OPTIONS] <COMMAND>
 <h3 class="commands-reference">Commands</h3>
 
 <dl class="commands-reference">
+    <dt><a href="#banshee-analyst-notes"><code>banshee analyst-notes</code></a></dt><dd><p>Recorded Future Analyst Notes の取得と管理</p></dd>
     <dt><a href="#banshee-ca"><code>banshee ca</code></a></dt><dd><p>Recorded Future Classic Alerts の検索、参照、更新</p></dd>
     <dt><a href="#banshee-email"><code>banshee email</code></a></dt><dd><p>メールファイル（EML）を Recorded Future インテリジェンスでエンリッチ</p></dd>
     <dt><a href="#banshee-entity"><code>banshee entity</code></a></dt><dd><p>Recorded Future エンティティの検索と参照</p></dd>
@@ -23,6 +24,304 @@ banshee [OPTIONS] <COMMAND>
     <dt><a href="#banshee-risklist"><code>banshee risklist</code></a></dt><dd><p>リスクリストの管理</p></dd>
     <dt><a href="#banshee-rules"><code>banshee rules</code></a></dt><dd><p>検知ルールの検索とダウンロード</p></dd>
 </dl>
+
+## banshee analyst-notes
+
+Recorded Future Analyst Notes の取得と管理を行います。
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes [OPTIONS] COMMAND [ARGS]...
+```
+
+<h3 class="commands-reference">Commands</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-analyst-notes-search"><code>banshee analyst-notes search</code></a></dt><dd><p>Analyst Notes を検索する</p></dd>
+    <dt><a href="#banshee-analyst-notes-lookup"><code>banshee analyst-notes lookup</code></a></dt><dd><p>1 件の Analyst Note を参照する</p></dd>
+    <dt><a href="#banshee-analyst-notes-publish"><code>banshee analyst-notes publish</code></a></dt><dd><p>Analyst Note を公開する</p></dd>
+    <dt><a href="#banshee-analyst-notes-delete"><code>banshee analyst-notes delete</code></a></dt><dd><p>Analyst Note を削除する</p></dd>
+    <dt><a href="#banshee-analyst-notes-attachment"><code>banshee analyst-notes attachment</code></a></dt><dd><p>ノートに関連する添付ファイルを保存する</p></dd>
+    <dt><a href="#banshee-analyst-notes-export"><code>banshee analyst-notes export</code></a></dt><dd><p>Analyst Notes を JSON または CSV 形式でエクスポートする</p></dd>
+</dl>
+
+### banshee analyst-notes search
+
+Analyst Notes を検索します。
+
+デフォルトでは、結果を JSON 形式で出力します。
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes search [OPTIONS]
+```
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-search--published"><a href="#banshee-analyst-notes-search--published"><code>--published</code>, <code>-P</code></a> <i>published</i></dt><dd>
+    <p>公開日時でフィルタリングします。例: 1d; 12h</p>
+    <p>先頭の <code>-</code> は省略可能で、<code>-1d</code> と <code>1d</code> は同等です</p>
+    <p>デフォルトは -1d</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--entity"><a href="#banshee-analyst-notes-search--entity"><code>--entity</code>, <code>-e</code></a> <i>entity</i></dt><dd>
+    <p>関連エンティティでノートをフィルタリングします。例: <code>-e idn:recordedfuture.com</code></p><dd></dd>
+    <dt id="banshee-analyst-notes-search--author"><a href="#banshee-analyst-notes-search--author"><code>--author</code>, <code>-a</code></a> <i>author</i></dt><dd>
+    <p>著者でノートをフィルタリングします。例: <code>-a source:e40Ulk</code></p><dd></dd>
+    <dt id="banshee-analyst-notes-search--title"><a href="#banshee-analyst-notes-search--title"><code>--title</code>, <code>-t</code></a> <i>title</i></dt><dd>
+    <p>特定のタイトルでノートをフィルタリングします</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--topic"><a href="#banshee-analyst-notes-search--topic"><code>--topic</code>, <code>-T</code></a> <i>topic</i></dt><dd>
+    <p>トピックでノートをフィルタリングします（繰り返し指定可）</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--label"><a href="#banshee-analyst-notes-search--label"><code>--label</code>, <code>-l</code></a> <i>label</i></dt><dd>
+    <p>特定のラベルでノートをフィルタリングします</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--source"><a href="#banshee-analyst-notes-search--source"><code>--source</code>, <code>-s</code></a> <i>source</i></dt><dd>
+    <p>特定のソースでノートをフィルタリングします</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--max-results"><a href="#banshee-analyst-notes-search--max-results"><code>--max_results</code>, <code>-r</code></a> <i>max-results</i></dt><dd>
+    <p>結果の件数を制限します</p>
+    <p>最大件数は 1000 件です</p>
+    <p>デフォルトは 100 件です</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--pretty"><a href="#banshee-analyst-notes-search--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>人間が読みやすい形式で結果を整形して表示する</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--help"><a href="#banshee-analyst-notes-search--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>このコマンドのヘルプを表示する</p>
+</dl>
+
+### banshee analyst-notes lookup
+
+1 件の Analyst Note を参照します。
+
+デフォルトでは、結果を JSON 形式で出力します。
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes lookup [OPTIONS] NOTE_ID
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-lookup--note-id"><a href="#banshee-analyst-notes-lookup--note-id"><code>NOTE_ID</code></a></dt><dd><p>参照するノート ID</p>
+    <p>ノート ID は '<strong>doc:</strong>' プレフィックスあり・なし両方で指定できます</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-lookup--tagged-text"><a href="#banshee-analyst-notes-lookup--tagged-text"><code>--tagged_text</code></a>, <code>-t</code></dt><dd>
+    <p>ノートテキスト内のエンティティに Recorded Future ID を付加します</p><dd></dd>
+    <dt id="banshee-analyst-notes-lookup--pretty"><a href="#banshee-analyst-notes-lookup--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>人間が読みやすい形式で結果を整形して表示する</p><dd></dd>
+    <dt id="banshee-analyst-notes-lookup--help"><a href="#banshee-analyst-notes-lookup--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>このコマンドのヘルプを表示する</p>
+</dl>
+
+### banshee analyst-notes publish
+
+Analyst Note を公開します。`--note_entities` または `--context_entities` のいずれか少なくとも一方が必要です。
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes publish [OPTIONS] TITLE [NOTE_TEXT]
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-publish--title"><a href="#banshee-analyst-notes-publish--title"><code>TITLE</code></a></dt><dd><p>作成する Analyst Note のタイトル</p></dd>
+    <dt id="banshee-analyst-notes-publish--note-text"><a href="#banshee-analyst-notes-publish--note-text"><code>NOTE_TEXT</code></a></dt><dd><p>省略可能。公開するノートテキスト。省略した場合は標準入力から読み込みます</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-publish--topic"><a href="#banshee-analyst-notes-publish--topic"><code>--topic</code></a>, <code>-t</code> <i>topic</i></dt><dd>
+    <p>作成するノートに関連付けるトピック（繰り返し指定可）</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--note-entities"><a href="#banshee-analyst-notes-publish--note-entities"><code>--note_entities</code></a>, <code>-e</code> <i>entity</i></dt><dd>
+    <p>作成するノート内のエンティティ（繰り返し指定可）</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--context-entities"><a href="#banshee-analyst-notes-publish--context-entities"><code>--context_entities</code></a>, <code>-c</code> <i>entity</i></dt><dd>
+    <p>作成するノートに関連付けるコンテキストエンティティ（繰り返し指定可）</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--validation-urls"><a href="#banshee-analyst-notes-publish--validation-urls"><code>--validation_urls</code></a>, <code>-v</code> <i>url</i></dt><dd>
+    <p>作成するノートに関連付けるバリデーション URL（繰り返し指定可）</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--help"><a href="#banshee-analyst-notes-publish--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>このコマンドのヘルプを表示する</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<p>タイトルとノートテキストを指定し、少なくとも 1 件のノートエンティティまたはコンテキストエンティティを指定します:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes publish "A note example" "An example to show how the command can be used" -e "idn:test.com"
+banshee analyst-notes publish "A note example" "Note text" -c "idn:example.com" -t "TXSFt1" -v "https://example.com/report"
+</code></pre>
+
+<h3 class="commands-reference">Supplying Note Text</h3>
+
+<h4>1. Directly as an argument:</h4>
+
+<pre><code class="language-bash">
+banshee analyst-notes publish "A note example" "Note text" -e "idn:test.com"
+</code></pre>
+
+<h4>2. From a file or standard input:</h4>
+
+<p>ノートテキストを含むファイル（例: <code>note.txt</code>）がある場合:</p>
+
+<pre><code class="language-text">
+An example note from a text file.
+</code></pre>
+
+<p>以下のコマンドで公開できます:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes publish "Note from a file" -c "idn:example.com" &lt; note.txt
+cat note.txt | banshee analyst-notes publish "Note from a file" -c "idn:example.com"
+</code></pre>
+
+### banshee analyst-notes delete
+
+Analyst Note を削除します。
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes delete [OPTIONS] NOTE_ID
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-delete--note-id"><a href="#banshee-analyst-notes-delete--note-id"><code>NOTE_ID</code></a></dt><dd><p>削除するノート ID</p>
+    <p>ノート ID は '<strong>doc:</strong>' プレフィックスあり・なし両方で指定できます</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-delete--help"><a href="#banshee-analyst-notes-delete--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>このコマンドのヘルプを表示する</p>
+</dl>
+
+### banshee analyst-notes attachment
+
+1 件以上の Analyst Note に関連する添付ファイルをディスクに保存します。
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes attachment [OPTIONS] [NOTE_IDS]...
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-attachment--note-ids"><a href="#banshee-analyst-notes-attachment--note-ids"><code>NOTE_IDS</code></a></dt><dd><p>取得する 1 件以上のノート ID（スペース区切り）</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-attachment--output-dir"><a href="#banshee-analyst-notes-attachment--output-dir"><code>--output-dir</code></a>, <code>-d</code> <i>directory</i></dt><dd>
+    <p>ノートの添付ファイルを保存するディレクトリ（存在しない場合は作成されます）</p>
+    <p>このオプションは必須です</p><dd></dd>
+    <dt id="banshee-analyst-notes-attachment--help"><a href="#banshee-analyst-notes-attachment--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>このコマンドのヘルプを表示する</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<p>1 件以上のノート ID（スペース区切り）と添付ファイルの保存先ディレクトリを指定します:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes attachment doc:BVL5hdB -d ./note_attachments
+banshee analyst-notes attachment doc:BVL5hdB doc:e40Ulk -d ./note_attachments
+</code></pre>
+
+<p>いずれかのノートに添付ファイルがない場合、警告が表示され、コマンドは非ゼロのステータスで終了します。</p>
+
+<h3 class="commands-reference">Supplying Note IDs</h3>
+
+<h4>1. Directly as arguments (single or multiple):</h4>
+
+<pre><code class="language-bash">
+banshee analyst-notes attachment NOTE_ID -d ./note_attachments
+banshee analyst-notes attachment NOTE_ID_1 NOTE_ID_2 -d ./note_attachments
+</code></pre>
+
+<h4>2. From a file or standard input:</h4>
+
+<p>ノート ID を 1 行ずつ記載したファイル（例: <code>notes.txt</code>）がある場合:</p>
+
+<pre><code class="language-text">
+doc:BVL8-ZX
+doc:BVMThf2
+doc:BVMKAYV
+</code></pre>
+
+<p>以下のコマンドで、一覧に含まれるすべての添付ファイルを取得できます:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes attachment -d ./note_attachments &lt; notes.txt
+cat notes.txt | banshee analyst-notes attachment -d ./note_attachments
+</code></pre>
+
+<h4>3. By piping from a search command:</h4>
+
+<p><a href="#banshee-analyst-notes-search"><code>banshee analyst-notes search</code></a> が生成する JSON 配列を直接パイプで渡すことができます:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes search -P 1d | banshee analyst-notes attachment -d ./note_attachments
+</code></pre>
+
+### banshee analyst-notes export
+
+Analyst Notes を JSON または CSV 形式でエクスポートします。標準入力からノート ID を読み込みます。通常は [`banshee analyst-notes search`](#banshee-analyst-notes-search) からパイプで渡します。
+
+<h3 class="commands-reference">Output Formats</h3>
+
+<p><b>JSON（デフォルト）</b> — 各 ID に対して Recorded Future API が返す<i>完全な</i>ノートオブジェクトを出力します。トップレベルのフィールドすべてに加え、属性、エンティティ、トピック、ソースの詳細なども含みます。ダウンストリームのツール連携、<code>jq</code> パイプライン、再取り込みに最適です。</p>
+
+<p><b>CSV（<a href="#banshee-analyst-notes-export--csv"><code>--csv</code></a>）</b> — スプレッドシートやレポート作成向けの概要サマリーを出力します。以下に示す 8 列のみを書き込みます（先頭にヘッダー行あり）。JSON レスポンスに含まれるその他のフィールドはすべて省略されます。ノートテキスト内のカンマおよび改行はスペースに置換されます。</p>
+
+| Field | Description |
+|---|---|
+| `ID` | Analyst Note ID（`doc:` プレフィックスを含む） |
+| `Title` | ノートのタイトル |
+| `Note Text` | ノートのテキスト |
+| `Note Entities` | ノート内のエンティティ（`id:name` 形式、スペース区切り） |
+| `Published` | 公開タイムスタンプ |
+| `Topics` | ノートのトピック（スペース区切り） |
+| `Source Name` | ノートのソース名 |
+| `Portal Url` | Recorded Future ポータル上のノートへのリンク |
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes search [SEARCH_OPTIONS] | banshee analyst-notes export [OPTIONS]
+```
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-export--csv"><a href="#banshee-analyst-notes-export--csv"><code>--csv</code></a></dt><dd>
+    <p>上記の固定列セットで CSV として出力します。このフラグを指定しない場合、コマンドは JSON を出力します。</p><dd></dd>
+    <dt id="banshee-analyst-notes-export--help"><a href="#banshee-analyst-notes-export--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>このコマンドのヘルプを表示する</p>
+</dl>
+
+<h3 class="commands-reference">Piped Input</h3>
+
+<p><code>banshee analyst-notes export</code> はパイプ入力のみを受け付けます。<a href="#banshee-analyst-notes-search"><code>banshee analyst-notes search</code></a> が生成する JSON 配列を受け取り、各ノートの <code>id</code> を抽出して、すべてのノートの完全なデータを取得します。パイプなしでコマンドを実行するとエラーになります。</p>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee analyst-notes search -P 1d | banshee analyst-notes export > notes.json
+banshee analyst-notes search -T "TXSFt1" -P 1w | banshee analyst-notes export --csv > notes.csv
+</code></pre>
 
 ## banshee ca
 
@@ -87,12 +386,12 @@ banshee ca search [OPTIONS]
 
 <dl class="commands-reference">
     <dt id="banshee-ca-search--triggered"><a href="#banshee-ca-search--triggered"><code>--triggered</code>, <code>-t</code></a> <i>triggered</i></dt><dd>
-    <p>トリガー日時でフィルタします。例: 1d; 12h; [2024-08-01, 2024-08-14]; [2024-09-23 12:03:58.000, 2024-09-23 12:03:58.567)</p>
-    <p>デフォルト値は 1d です。</p><dd></dd>
+    <p>トリガー日時でフィルタリングします。例: 1d; 12h; [2024-08-01, 2024-08-14]; [2024-09-23 12:03:58.000, 2024-09-23 12:03:58.567)</p>
+    <p>デフォルトは 1d です</p><dd></dd>
     <dt id="banshee-ca-search--rule"><a href="#banshee-ca-search--rule"><code>--rule</code></a> <i>rule-name</i></dt><dd>
-    <p>アラートルール名でフィルタします（フリーテキスト）。</p><dd></dd>
+    <p>アラートルール名でフィルタリングします（フリーテキスト）</p><dd></dd>
     <dt id="banshee-ca-search--status"><a href="#banshee-ca-search--status"><code>--status</code></a>,  <code>-s</code> <i>alert-status</i></dt><dd>
-    <p>アラートのステータスでフィルタします。</p>
+    <p>アラートのステータスでフィルタリングします</p>
     <p>指定可能な値: <code>New</code>, <code>Pending</code>, <code>Dismissed</code>, <code>Resolved</code></p><dd></dd>
     <dt id="banshee-ca-search--pretty"><a href="#banshee-ca-search--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>人間が読みやすい形式で結果を整形して表示する</p><dd></dd>
@@ -115,7 +414,7 @@ banshee ca rules [OPTIONS] [FREETEXT]
 <h3 class="commands-reference">Arguments</h3>
 
 <dl class="commands-reference">
-    <dt id="banshee-ca-rules--freetext"><a href="#banshee-ca-rules--freetext"><code>FREETEXT</code></a></dt><dd><p>省略可能。アラートルールを名前でフィルタするために使用するフリーテキスト。</p></dd>
+    <dt id="banshee-ca-rules--freetext"><a href="#banshee-ca-rules--freetext"><code>FREETEXT</code></a></dt><dd><p>省略可能。アラートルールを名前でフィルタリングするために使用するフリーテキスト。</p></dd>
 </dl>
 
 <h3 class="commands-reference">Options</h3>
@@ -147,12 +446,12 @@ banshee ca update [OPTIONS] ALERT_IDS...
 
 <dl class="commands-reference">
     <dt id="banshee-ca-update--status"><a href="#banshee-ca-update--status"><code>--status</code></a>,  <code>-s</code> <i>alert-status</i></dt><dd>
-    <p>アラートをこのステータスに更新します。</p>
+    <p>アラートをこのステータスに更新します</p>
     <p>指定可能な値: <code>New</code>, <code>Pending</code>, <code>Dismissed</code>, <code>Resolved</code></p><dd></dd>
     <dt id="banshee-ca-update--note"><a href="#banshee-ca-update--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
-    <p>アラートのノートテキスト。</p><p>ノートの文字数上限は 1000 文字です。</p><dd></dd>
+    <p>アラートのノートテキスト。</p><p>ノートの文字数上限は 1000 文字です</p><dd></dd>
     <dt id="banshee-ca-update--append"><a href="#banshee-ca-update--append"><code>--append</code></a>,  <code>-a</code></dt><dd>
-    <p>アラートにすでにノートが存在する場合、このフラグを指定するとノートテキストを追記します。</p><dd></dd>
+    <p>アラートにすでにノートが存在する場合、このフラグを指定するとノートテキストを追記します</p><dd></dd>
     <dt id="banshee-ca-update--assignee"><a href="#banshee-ca-update--assignee"><code>--assignee</code></a>,  <code>-a</code> <i>assignee</i></dt><dd>
     <p>アラートを割り当てる新しいユーザー。uhash またはユーザーのメールアドレスを指定します。例: uhash:3aXZxdkM12, analyst@acme.com</p><dd></dd>
     <dt id="banshee-ca-update--help"><a href="#banshee-ca-update--help"><code>--help</code></a>, <code>-h</code></dt><dd>
