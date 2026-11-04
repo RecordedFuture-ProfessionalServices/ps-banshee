@@ -13,6 +13,7 @@ banshee [OPTIONS] <COMMAND>
 <h3 class="commands-reference">Commands</h3>
 
 <dl class="commands-reference">
+    <dt><a href="#banshee-analyst-notes"><code>banshee analyst-notes</code></a></dt><dd><p>ดึงข้อมูลและจัดการ Recorded Future Analyst Notes</p></dd>
     <dt><a href="#banshee-ca"><code>banshee ca</code></a></dt><dd><p>ค้นหา ดูข้อมูล และอัปเดต Recorded Future Classic Alerts</p></dd>
     <dt><a href="#banshee-email"><code>banshee email</code></a></dt><dd><p>เสริมข้อมูลไฟล์อีเมล (EML) ด้วย Recorded Future intelligence</p></dd>
     <dt><a href="#banshee-entity"><code>banshee entity</code></a></dt><dd><p>ค้นหาและดูข้อมูล entity ของ Recorded Future</p></dd>
@@ -23,6 +24,304 @@ banshee [OPTIONS] <COMMAND>
     <dt><a href="#banshee-risklist"><code>banshee risklist</code></a></dt><dd><p>จัดการ Risk Lists</p></dd>
     <dt><a href="#banshee-rules"><code>banshee rules</code></a></dt><dd><p>ค้นหาและดาวน์โหลด detection rules</p></dd>
 </dl>
+
+## banshee analyst-notes
+
+ดึงข้อมูลและจัดการ Recorded Future Analyst Notes
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes [OPTIONS] COMMAND [ARGS]...
+```
+
+<h3 class="commands-reference">Commands</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-analyst-notes-search"><code>banshee analyst-notes search</code></a></dt><dd><p>ค้นหา Analyst Notes</p></dd>
+    <dt><a href="#banshee-analyst-notes-lookup"><code>banshee analyst-notes lookup</code></a></dt><dd><p>ดูข้อมูล Analyst Note รายการเดียว</p></dd>
+    <dt><a href="#banshee-analyst-notes-publish"><code>banshee analyst-notes publish</code></a></dt><dd><p>เผยแพร่ Analyst Note</p></dd>
+    <dt><a href="#banshee-analyst-notes-delete"><code>banshee analyst-notes delete</code></a></dt><dd><p>ลบ Analyst Note</p></dd>
+    <dt><a href="#banshee-analyst-notes-attachment"><code>banshee analyst-notes attachment</code></a></dt><dd><p>บันทึก attachment ที่เกี่ยวข้องกับ note</p></dd>
+    <dt><a href="#banshee-analyst-notes-export"><code>banshee analyst-notes export</code></a></dt><dd><p>ส่งออก Analyst Notes เป็น JSON หรือ CSV</p></dd>
+</dl>
+
+### banshee analyst-notes search
+
+ค้นหา Analyst Notes
+
+โดยค่าเริ่มต้น คำสั่งจะแสดงผลลัพธ์ในรูปแบบ JSON
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes search [OPTIONS]
+```
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-search--published"><a href="#banshee-analyst-notes-search--published"><code>--published</code>, <code>-P</code></a> <i>published</i></dt><dd>
+    <p>กรองตามเวลาที่เผยแพร่ เช่น: 1d; 12h</p>
+    <p>เครื่องหมาย <code>-</code> นำหน้าเป็นตัวเลือก โดย <code>-1d</code> และ <code>1d</code> มีความหมายเทียบเท่ากัน</p>
+    <p>ค่าเริ่มต้นคือ -1d</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--entity"><a href="#banshee-analyst-notes-search--entity"><code>--entity</code>, <code>-e</code></a> <i>entity</i></dt><dd>
+    <p>กรอง note ตาม entity ที่เกี่ยวข้อง เช่น: <code>-e idn:recordedfuture.com</code></p><dd></dd>
+    <dt id="banshee-analyst-notes-search--author"><a href="#banshee-analyst-notes-search--author"><code>--author</code>, <code>-a</code></a> <i>author</i></dt><dd>
+    <p>กรอง note ตามผู้เขียน เช่น: <code>-a source:e40Ulk</code></p><dd></dd>
+    <dt id="banshee-analyst-notes-search--title"><a href="#banshee-analyst-notes-search--title"><code>--title</code>, <code>-t</code></a> <i>title</i></dt><dd>
+    <p>กรอง note ตามชื่อเรื่องที่ระบุ</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--topic"><a href="#banshee-analyst-notes-search--topic"><code>--topic</code>, <code>-T</code></a> <i>topic</i></dt><dd>
+    <p>กรอง note ตาม topic (ระบุได้หลายครั้ง)</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--label"><a href="#banshee-analyst-notes-search--label"><code>--label</code>, <code>-l</code></a> <i>label</i></dt><dd>
+    <p>กรอง note ตาม label ที่ระบุ</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--source"><a href="#banshee-analyst-notes-search--source"><code>--source</code>, <code>-s</code></a> <i>source</i></dt><dd>
+    <p>กรอง note ตาม source ที่ระบุ</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--max-results"><a href="#banshee-analyst-notes-search--max-results"><code>--max_results</code>, <code>-r</code></a> <i>max-results</i></dt><dd>
+    <p>จำกัดจำนวนผลลัพธ์</p>
+    <p>ค่าสูงสุดคือ 1000</p>
+    <p>ค่าเริ่มต้นคือ 100</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--pretty"><a href="#banshee-analyst-notes-search--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>แสดงผลลัพธ์ในรูปแบบที่อ่านง่ายสำหรับมนุษย์</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--help"><a href="#banshee-analyst-notes-search--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>
+</dl>
+
+### banshee analyst-notes lookup
+
+ดูข้อมูล Analyst Note รายการเดียว
+
+โดยค่าเริ่มต้น คำสั่งจะแสดงผลลัพธ์ในรูปแบบ JSON
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes lookup [OPTIONS] NOTE_ID
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-lookup--note-id"><a href="#banshee-analyst-notes-lookup--note-id"><code>NOTE_ID</code></a></dt><dd><p>Note ID ที่ต้องการดูข้อมูล</p>
+    <p>Note ID สามารถระบุได้ทั้งแบบมีและไม่มี prefix '<strong>doc:</strong>'</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-lookup--tagged-text"><a href="#banshee-analyst-notes-lookup--tagged-text"><code>--tagged_text</code></a>, <code>-t</code></dt><dd>
+    <p>เพิ่ม Recorded Future ID ให้กับ entity ในข้อความของ note</p><dd></dd>
+    <dt id="banshee-analyst-notes-lookup--pretty"><a href="#banshee-analyst-notes-lookup--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>แสดงผลลัพธ์ในรูปแบบที่อ่านง่ายสำหรับมนุษย์</p><dd></dd>
+    <dt id="banshee-analyst-notes-lookup--help"><a href="#banshee-analyst-notes-lookup--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>
+</dl>
+
+### banshee analyst-notes publish
+
+เผยแพร่ Analyst Note โดยต้องระบุ `--note_entities` หรือ `--context_entities` อย่างน้อยหนึ่งรายการ
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes publish [OPTIONS] TITLE [NOTE_TEXT]
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-publish--title"><a href="#banshee-analyst-notes-publish--title"><code>TITLE</code></a></dt><dd><p>ชื่อเรื่องของ Analyst Note ที่สร้าง</p></dd>
+    <dt id="banshee-analyst-notes-publish--note-text"><a href="#banshee-analyst-notes-publish--note-text"><code>NOTE_TEXT</code></a></dt><dd><p>ไม่บังคับ ข้อความของ note ที่จะเผยแพร่ หากละเว้น จะอ่านข้อความจาก stdin</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-publish--topic"><a href="#banshee-analyst-notes-publish--topic"><code>--topic</code></a>, <code>-t</code> <i>topic</i></dt><dd>
+    <p>Topic ที่จะเชื่อมโยงกับ note ที่สร้าง (ระบุได้หลายครั้ง)</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--note-entities"><a href="#banshee-analyst-notes-publish--note-entities"><code>--note_entities</code></a>, <code>-e</code> <i>entity</i></dt><dd>
+    <p>Entity ภายใน note ที่สร้าง (ระบุได้หลายครั้ง)</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--context-entities"><a href="#banshee-analyst-notes-publish--context-entities"><code>--context_entities</code></a>, <code>-c</code> <i>entity</i></dt><dd>
+    <p>Context entity ที่จะเชื่อมโยงกับ note ที่สร้าง (ระบุได้หลายครั้ง)</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--validation-urls"><a href="#banshee-analyst-notes-publish--validation-urls"><code>--validation_urls</code></a>, <code>-v</code> <i>url</i></dt><dd>
+    <p>URL สำหรับการตรวจสอบที่จะเชื่อมโยงกับ note ที่สร้าง (ระบุได้หลายครั้ง)</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--help"><a href="#banshee-analyst-notes-publish--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<p>ระบุชื่อเรื่องและข้อความของ note พร้อมกับ note entity หรือ context entity อย่างน้อยหนึ่งรายการ:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes publish "A note example" "An example to show how the command can be used" -e "idn:test.com"
+banshee analyst-notes publish "A note example" "Note text" -c "idn:example.com" -t "TXSFt1" -v "https://example.com/report"
+</code></pre>
+
+<h3 class="commands-reference">Supplying Note Text</h3>
+
+<h4>1. ระบุโดยตรงเป็น argument:</h4>
+
+<pre><code class="language-bash">
+banshee analyst-notes publish "A note example" "Note text" -e "idn:test.com"
+</code></pre>
+
+<h4>2. จากไฟล์หรือ standard input:</h4>
+
+<p>หากมีไฟล์ (เช่น <code>note.txt</code>) ที่มีข้อความของ note:</p>
+
+<pre><code class="language-text">
+An example note from a text file.
+</code></pre>
+
+<p>สามารถเผยแพร่ได้โดยใช้:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes publish "Note from a file" -c "idn:example.com" &lt; note.txt
+cat note.txt | banshee analyst-notes publish "Note from a file" -c "idn:example.com"
+</code></pre>
+
+### banshee analyst-notes delete
+
+ลบ Analyst Note
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes delete [OPTIONS] NOTE_ID
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-delete--note-id"><a href="#banshee-analyst-notes-delete--note-id"><code>NOTE_ID</code></a></dt><dd><p>Note ID ที่ต้องการลบ</p>
+    <p>Note ID สามารถระบุได้ทั้งแบบมีและไม่มี prefix '<strong>doc:</strong>'</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-delete--help"><a href="#banshee-analyst-notes-delete--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>
+</dl>
+
+### banshee analyst-notes attachment
+
+บันทึก attachment ที่เกี่ยวข้องกับ Analyst Note หนึ่งรายการหรือมากกว่าลงดิสก์
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes attachment [OPTIONS] [NOTE_IDS]...
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-attachment--note-ids"><a href="#banshee-analyst-notes-attachment--note-ids"><code>NOTE_IDS</code></a></dt><dd><p>Note ID หนึ่งรายการหรือมากกว่า คั่นด้วยช่องว่าง</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-attachment--output-dir"><a href="#banshee-analyst-notes-attachment--output-dir"><code>--output-dir</code></a>, <code>-d</code> <i>directory</i></dt><dd>
+    <p>Directory สำหรับบันทึก attachment ของ note (สร้างหากไม่มี)</p>
+    <p>option นี้จำเป็น</p><dd></dd>
+    <dt id="banshee-analyst-notes-attachment--help"><a href="#banshee-analyst-notes-attachment--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>
+</dl>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<p>ระบุ Note ID หนึ่งรายการหรือมากกว่า (คั่นด้วยช่องว่าง) และ directory สำหรับบันทึก attachment:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes attachment doc:BVL5hdB -d ./note_attachments
+banshee analyst-notes attachment doc:BVL5hdB doc:e40Ulk -d ./note_attachments
+</code></pre>
+
+<p>หาก note ใดไม่มี attachment จะแสดงคำเตือนและคำสั่งจะออกด้วย exit code ที่ไม่ใช่ศูนย์</p>
+
+<h3 class="commands-reference">Supplying Note IDs</h3>
+
+<h4>1. ระบุโดยตรงเป็น arguments (รายการเดียวหรือหลายรายการ):</h4>
+
+<pre><code class="language-bash">
+banshee analyst-notes attachment NOTE_ID -d ./note_attachments
+banshee analyst-notes attachment NOTE_ID_1 NOTE_ID_2 -d ./note_attachments
+</code></pre>
+
+<h4>2. จากไฟล์หรือ standard input:</h4>
+
+<p>หากมีไฟล์ (เช่น <code>notes.txt</code>) ที่มี Note ID หนึ่งรายการต่อบรรทัด:</p>
+
+<pre><code class="language-text">
+doc:BVL8-ZX
+doc:BVMThf2
+doc:BVMKAYV
+</code></pre>
+
+<p>สามารถดึง attachment ทั้งหมดที่ระบุในไฟล์ได้โดยใช้:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes attachment -d ./note_attachments &lt; notes.txt
+cat notes.txt | banshee analyst-notes attachment -d ./note_attachments
+</code></pre>
+
+<h4>3. โดย pipe จากคำสั่ง search:</h4>
+
+<p>JSON array ที่ <a href="#banshee-analyst-notes-search"><code>banshee analyst-notes search</code></a> สร้างขึ้นสามารถ pipe เข้ามาได้โดยตรง:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes search -P 1d | banshee analyst-notes attachment -d ./note_attachments
+</code></pre>
+
+### banshee analyst-notes export
+
+ส่งออก Analyst Notes เป็น JSON หรือ CSV โดยอ่าน note ID จาก stdin — โดยทั่วไปจะ pipe มาจาก [`banshee analyst-notes search`](#banshee-analyst-notes-search)
+
+<h3 class="commands-reference">Output Formats</h3>
+
+<p><b>JSON (ค่าเริ่มต้น)</b> — ส่งออก object note แบบ <i>เต็มรูปแบบ</i> สำหรับแต่ละ ID ตามที่ Recorded Future API ส่งกลับมา ประกอบด้วยฟิลด์ระดับบนสุดทั้งหมด รวมถึง attributes, entities, topics, รายละเอียด source และอื่น ๆ เหมาะสำหรับการนำไปใช้กับเครื่องมือ downstream, <code>jq</code> pipelines หรือการนำเข้าใหม่</p>
+
+<p><b>CSV (<a href="#banshee-analyst-notes-export--csv"><code>--csv</code></a>)</b> — ส่งออกสรุประดับสูงสำหรับใช้กับ spreadsheet และการรายงาน โดยเขียนเฉพาะ 8 คอลัมน์ที่ระบุด้านล่าง (โดยมีแถวหัวตารางก่อน) และละเว้นฟิลด์อื่นที่มีอยู่ใน JSON response ทั้งหมด เครื่องหมายจุลภาคและการขึ้นบรรทัดใหม่ในข้อความของ note จะถูกแทนที่ด้วยช่องว่าง</p>
+
+| Field | Description |
+|---|---|
+| `ID` | Analyst Note ID (รวม prefix `doc:`) |
+| `Title` | ชื่อเรื่องของ note |
+| `Note Text` | ข้อความของ note |
+| `Note Entities` | Entity ใน note ในรูปแบบ `id:name` คั่นด้วยช่องว่าง |
+| `Published` | timestamp ที่เผยแพร่ |
+| `Topics` | Topic ของ note คั่นด้วยช่องว่าง |
+| `Source Name` | ชื่อ source ของ note |
+| `Portal Url` | ลิงก์ไปยัง note ใน Recorded Future portal |
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee analyst-notes search [SEARCH_OPTIONS] | banshee analyst-notes export [OPTIONS]
+```
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-export--csv"><a href="#banshee-analyst-notes-export--csv"><code>--csv</code></a></dt><dd>
+    <p>ส่งออกเป็น CSV ด้วยชุดคอลัมน์ที่กำหนดตามที่อธิบายข้างต้น หากไม่ระบุ flag นี้ คำสั่งจะส่งออกเป็น JSON</p><dd></dd>
+    <dt id="banshee-analyst-notes-export--help"><a href="#banshee-analyst-notes-export--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>แสดงความช่วยเหลือสำหรับคำสั่งนี้</p>
+</dl>
+
+<h3 class="commands-reference">Piped Input</h3>
+
+<p><code>banshee analyst-notes export</code> รับเฉพาะ input ที่ pipe มาเท่านั้น โดยจะนำ JSON array ที่ <a href="#banshee-analyst-notes-search"><code>banshee analyst-notes search</code></a> สร้างขึ้นมาดึง <code>id</code> ของแต่ละ note และดึงข้อมูล note ทุกรายการแบบเต็ม การรันคำสั่งโดยไม่มี pipe จะถูกปฏิเสธพร้อมข้อผิดพลาด</p>
+
+<h3 class="commands-reference">Example Usage</h3>
+
+<pre><code class="language-bash">
+banshee analyst-notes search -P 1d | banshee analyst-notes export > notes.json
+banshee analyst-notes search -T "TXSFt1" -P 1w | banshee analyst-notes export --csv > notes.csv
+</code></pre>
 
 ## banshee ca
 
@@ -152,7 +451,7 @@ banshee ca update [OPTIONS] ALERT_IDS...
     <dt id="banshee-ca-update--note"><a href="#banshee-ca-update--note"><code>--note</code></a>,  <code>-n</code> <i>note</i></dt><dd>
     <p>ข้อความบันทึกสำหรับ alert</p><p>ความยาวสูงสุดของบันทึกคือ 1,000 อักขระ</p><dd></dd>
     <dt id="banshee-ca-update--append"><a href="#banshee-ca-update--append"><code>--append</code></a>,  <code>-a</code></dt><dd>
-    <p>Flag นี้จะต่อท้ายข้อความบันทึก หาก alert มีบันทึกอยู่แล้ว</p><dd></dd>
+    <p>flag นี้จะต่อท้ายข้อความบันทึก หาก alert มีบันทึกอยู่แล้ว</p><dd></dd>
     <dt id="banshee-ca-update--assignee"><a href="#banshee-ca-update--assignee"><code>--assignee</code></a>,  <code>-a</code> <i>assignee</i></dt><dd>
     <p>ผู้ใช้ใหม่ที่ต้องการมอบหมาย alert ให้ รับค่า uhash หรืออีเมลของผู้ใช้ เช่น: uhash:3aXZxdkM12, analyst@acme.com</p><dd></dd>
     <dt id="banshee-ca-update--help"><a href="#banshee-ca-update--help"><code>--help</code></a>, <code>-h</code></dt><dd>
@@ -1085,8 +1384,8 @@ banshee list search [OPTIONS] LIST_ID
     </p><dd></dd>
     <dt id="banshee-list-search--limit"><a href="#banshee-list-search--limit"><code>--limit</code>, <code>-l</code></a> <i>limit</i></dt><dd>
     <p>จำกัดจำนวนผลลัพธ์</p>
-    <p>ค่าสูงสุดคือ 3,000</p>
-    <p>ค่าเริ่มต้นคือ 1,000</p><dd></dd>
+    <p>ค่าสูงสุดคือ 3 000</p>
+    <p>ค่าเริ่มต้นคือ 1 000</p><dd></dd>
     <dt id="banshee-list-info--pretty"><a href="#banshee-list-info--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>แสดงผลลัพธ์ในรูปแบบที่อ่านง่ายสำหรับมนุษย์</p><dd></dd>
     <dt id="banshee-list-info--help"><a href="#banshee-list-info--help"><code>--help</code></a>, <code>-h</code></dt><dd>
@@ -1575,7 +1874,7 @@ banshee pba search [OPTIONS]
     <p>รับค่า ID 10 อักขระ หรือรูปแบบ <code>uhash:</code> 16 อักขระ เช่น: <code>-o 69sKLfTGsS -o uhash:5zQaSyRpA1</code></p><dd></dd>
     <dt id="banshee-pba-search--limit"><a href="#banshee-pba-search--limit"><code>--limit</code>, <code>-l</code></a> <i>limit</i></dt><dd>
     <p>จำกัดจำนวนผลลัพธ์</p>
-    <p>ค่าสูงสุดคือ 10,000</p>
+    <p>ค่าสูงสุดคือ 10 000</p>
     <p>ค่าเริ่มต้นคือ 100</p><dd></dd>
     <dt id="banshee-pba-search--pretty"><a href="#banshee-pba-search--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
     <p>แสดงผลลัพธ์ในรูปแบบที่อ่านง่ายสำหรับมนุษย์</p><dd></dd>

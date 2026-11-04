@@ -1,7 +1,11 @@
 # リリース履歴
 
+## 1.8.0 - 2026-10-29
 
-## 1.7.0 - 2026-10-06
+### 追加
+- Recorded Future Analyst Notes と連携するための新しい [`analyst-notes`](reference/commands.md#banshee-analyst-notes) コマンドを追加。
+
+## 1.7.0 - 2026-10-14
 
 ### 追加
 - [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) コマンドに、追加するすべてのエンティティにノートを付与するための新しい [`-n`/`--note`](reference/commands.md#banshee-list-bulk-add--note) オプションを追加。
@@ -17,9 +21,10 @@
 ### 変更
 - `psengine` の依存関係を更新。
 
+
 ## 1.6.0 - 2026-09-15
 ### 追加
-- EML ファイルから添付ファイルを抽出し、パスワード保護されたアーカイブに保存した後、Recorded Future Sandbox に分析のために送信するための新しい ['email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) サブコマンドを追加。
+- EML ファイルから添付ファイルを抽出し、パスワード保護されたアーカイブに保存した後、Recorded Future Sandbox に分析のために送信するための新しい [`email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) サブコマンドを追加。
 
 ## 1.5.0 - 2026-08-21
 
@@ -36,7 +41,7 @@
 ## v.1.4.0 - 2026-07-13
 
 ### 追加
-- [`risklist stat`](reference/commands.md#banshee-risklist-stat) コマンドに、リスクリストをダウンロードしてリスクスコアごとのインジケーター数のテーブルを表示するための新しい [`-C`/`--count`](reference/commands.md#banshee-risklist-stat--count) オプションを追加。
+- [`risklist stat`](reference/commands.md#banshee-risklist-stat) コマンドに、リスクリスト（risk list）をダウンロードしてリスクスコアごとのインジケーター数のテーブルを表示するための新しい [`-C`/`--count`](reference/commands.md#banshee-risklist-stat--count) オプションを追加。
 
 ## v1.3.1 - 2026-06-30
 
