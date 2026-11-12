@@ -10,6 +10,9 @@
 # for having all necessary licenses, permissions, rights, and/or consents to any data        #
 # accessed from any third party API.                                                         #
 ##############################################################################################
+
+import re
+import sys
 from typing import Annotated
 
 from typer import Argument, BadParameter, Option, Typer
@@ -25,11 +28,30 @@ CMD_RICH_HELP = 'Recorded Future Links'
 
 app = Typer(no_args_is_help=True)
 
+_PIPED_INPUT_HINT = (
+    "Expected piped JSON output from 'banshee links search'"
+    "(e.g. 'banshee links search BUl6R5r -l 1d --small | banshee links export)"
+)
+
+
+def _parse_entities(value: list[str]):
+    if not value:
+        raise BadParameter('No entities provided.')
+
+    links = value
+    if isinstance(value, str):
+        links = [x for x in re.split(r'\s+', value) if x]
+
+        if not len(links):
+            raise BadParameter('No links provided.')
+
+    return links
+
 
 @banshee_cmd(app=app, help_='Search and export linked entities', epilog='')
 def search(
-    entity_id: list[str] = Argument(  # noqa: B008
-        default=None,
+    entity_ids: list[str] = Argument(  # noqa: B008
+        ... if sys.stdin.isatty() else None,  # noqa: B008
         show_default=False,
         help='One or more whitespace separated Entities IDs',
     ),
@@ -114,8 +136,22 @@ def search(
             show_default=False,
         ),
     ] = False,
+    skip_enrichmment: Annotated[
+        bool,
+        Option(
+            '--skip-enrichment',
+            help='Skip running additional enrichment of entities.',
+            show_default=False,
+        ),
+    ] = False,
     pretty: OPT_PRETTY_PRINT = False,
 ):
+
+    if entity_ids is None:
+        entity_ids = sys.stdin.read()
+
+    entity_ids = _parse_entities(entity_ids)
+
     if small and large:
         raise BadParameter('--small and --large are mutually exclusive.')
     if small and not large:
@@ -126,7 +162,7 @@ def search(
         scope = 'medium'
 
     search_links(
-        entity_id,
+        entity_ids,
         return_entity_types,
         source,
         sections,
@@ -135,5 +171,6 @@ def search(
         connected_entities,
         limit,
         scope,
+        skip_enrichmment,
         pretty,
     )

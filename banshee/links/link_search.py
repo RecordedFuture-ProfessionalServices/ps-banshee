@@ -10,11 +10,38 @@
 # for having all necessary licenses, permissions, rights, and/or consents to any data        #
 # accessed from any third party API.                                                         #
 ##############################################################################################
+from collections import defaultdict
 
+from psengine.enrich import EnrichmentSoarError, SoarMgr
 from psengine.links import LinksMgr
 from rich import print_json
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
+
+from .constants import _TYPE_MAPPING, MAX_ENRICHMENT_WORKERS, PRETTY_IOC_DISPLAY_CAP
+from .helpers import _print_search
+
+
+def _sort_links_iocs(results: list, limit: int | None = None):
+    """Sort the result links for an entity into a readable dict."""
+    sorted_iocs = defaultdict(set)
+    for result in results:
+        for ioc_type, iocs in result.iocs().items():
+            converted_type = _TYPE_MAPPING.get(ioc_type)
+            if converted_type:
+                sorted_iocs[converted_type].update(i.name for i in iocs[:limit])
+    return sorted_iocs
+
+
+def _enrich_linked_iocs(to_enrich: dict):
+    """Enrich the linked IOC's via SOAR manager."""
+    try:
+        soar_mgr = SoarMgr()
+        enriched = soar_mgr.soar(**to_enrich, max_workers=MAX_ENRICHMENT_WORKERS)
+        return {r.entity: r for r in enriched}
+    except EnrichmentSoarError:
+        Console(stderr=True).print('NOTE: SOAR Enrichment failed, skipping additional enrichment.')
+        return {}
 
 
 def search_links(
@@ -27,6 +54,7 @@ def search_links(
     connected_entities: list[str],
     limit_per_type: int,
     search_scope: str,
+    skip_enrichment: bool,
     pretty: bool,
 ):
     """Search for links between given entities."""
@@ -38,7 +66,7 @@ def search_links(
         transient=True,
         console=Console(stderr=True),
     ) as progress:
-        progress.add_task(description='Searching for Links')
+        task = progress.add_task(description='Searching for Links')
         results = link_manager.search(
             entities=entity_ids,
             sections=sections,
@@ -51,13 +79,30 @@ def search_links(
             per_entity_type=limit_per_type,
         )
 
+        enriched = {}
+        if not skip_enrichment:
+            progress.update(task, description='Extracting IOCs to enrich')
+            iocs_to_enrich = _sort_links_iocs(
+                results, limit=PRETTY_IOC_DISPLAY_CAP if pretty else None
+            )
+            if iocs_to_enrich:
+                progress.update(task, description='Enriching linked IOCs')
+                enriched = _enrich_linked_iocs(iocs_to_enrich)
+
     if pretty:
+        console = Console(stderr=True)
         for result in results:
-            entity = result.entity
-            print(f'Entity: {entity.name}')
-            print(f'Total Links: {len(result.links)}')
-            for link in result.links[:5]:
-                print(f' -> {link.name} Source: {link.source}')
+            console.print(f'[bold]{result.entity.name} ({result.entity.id_})[/bold]')
+            _print_search(console, result, enriched)
 
     else:
-        print_json(data=[result.model_dump() for result in results])
+        out = []
+        for r in results:
+            d = r.model_dump(mode='json')
+            for link, link_dict in zip(r.links, d['links']):
+                e = enriched.get(link.name)
+                link_dict['enrichment'] = (
+                    e.content.model_dump(mode='json') if e and e.is_enriched and e.content else None
+                )
+            out.append(d)
+        print_json(data=out)
