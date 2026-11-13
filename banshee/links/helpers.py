@@ -32,7 +32,7 @@ def _print_search(console: Console, result: dict, enrichment: dict):
 
         for iocs in result.iocs().values():
             for ioc in iocs[:PRETTY_IOC_DISPLAY_CAP]:
-                ioc_intel_card = f'[link={_intel_card_url(ioc)}]{ioc.name}[/link]'
+                ioc_intel_card = f'[underline][link={_intel_card_url(ioc)}]{ioc.name}[/link][/underline]'
                 e = enrichment.get(ioc.name)
                 enriched = e and e.is_enriched and e.content
                 top_risk_rule = (enriched and e.content.risk.rule.most_critical) or 'N/A'
@@ -52,7 +52,7 @@ def _print_search(console: Console, result: dict, enrichment: dict):
 
         for ttp in result.ttps()[:PRETTY_IOC_DISPLAY_CAP]:
             tbl.add_row(
-                f'[link={_intel_card_url(ttp)}]{ttp.name}[/link]',
+                f'[underline][link={_intel_card_url(ttp)}]{ttp.name}[/link][/underline]',
                 ttp.display_name,
             )
 
@@ -66,7 +66,7 @@ def _print_search(console: Console, result: dict, enrichment: dict):
 
         for malware in result.malwares()[:PRETTY_IOC_DISPLAY_CAP]:
             tbl.add_row(
-                f'[link={_intel_card_url(malware)}]{malware.name}[/link]',
+                f'[underline][link={_intel_card_url(malware)}]{malware.name}[/link][/underline]',
             )
         console.print(tbl)
         console.print()
@@ -78,7 +78,7 @@ def _print_search(console: Console, result: dict, enrichment: dict):
 
         for ta in result.threat_actors()[:PRETTY_IOC_DISPLAY_CAP]:
             tbl.add_row(
-                f'[link={_intel_card_url(ta)}]{ta.name}[/link]',
+                f'[underline][link={_intel_card_url(ta)}]{ta.name}[/link][/underline]',
             )
         console.print(tbl)
         console.print()
