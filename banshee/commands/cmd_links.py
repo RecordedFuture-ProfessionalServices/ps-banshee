@@ -19,7 +19,7 @@ from typer import Argument, BadParameter, Option, Typer
 
 from ..branding import banshee_cmd
 from ..links.constants import LinkSource
-from ..links.link_search import search_links
+from ..links.links_search import search_links
 from .args import OPT_PRETTY_PRINT
 
 CMD_NAME = 'links'
@@ -50,12 +50,12 @@ def _parse_entities(value: list[str]):
 
 @banshee_cmd(app=app, help_='Search and export linked entities', epilog='')
 def search(
-    entity_ids: list[str] = Argument(  # noqa: B008
+    entities: list[str] = Argument(  # noqa: B008
         ... if sys.stdin.isatty() else None,  # noqa: B008
         show_default=False,
         help='One or more whitespace separated Entities IDs',
     ),
-    return_entity_types: Annotated[
+    entity_types: Annotated[
         list[str],
         Option(
             '--type',
@@ -64,7 +64,7 @@ def search(
             show_default=False,
         ),
     ] = None,
-    source: Annotated[
+    sources: Annotated[
         LinkSource,
         Option(
             '--source',
@@ -109,7 +109,7 @@ def search(
             show_default=False,
         ),
     ] = None,
-    limit: Annotated[
+    per_entity_type: Annotated[
         int,
         Option(
             '--limit',
@@ -136,7 +136,7 @@ def search(
             show_default=False,
         ),
     ] = False,
-    skip_enrichmment: Annotated[
+    skip_enrichment: Annotated[
         bool,
         Option(
             '--skip-enrichment',
@@ -147,10 +147,10 @@ def search(
     pretty: OPT_PRETTY_PRINT = False,
 ):
 
-    if entity_ids is None:
-        entity_ids = sys.stdin.read()
+    if entities is None:
+        entities = sys.stdin.read()
 
-    entity_ids = _parse_entities(entity_ids)
+    entities = _parse_entities(entities)
 
     if small and large:
         raise BadParameter('--small and --large are mutually exclusive.')
@@ -162,15 +162,15 @@ def search(
         scope = 'medium'
 
     search_links(
-        entity_ids,
-        return_entity_types,
-        source,
-        sections,
-        timeframe,
-        events,
-        connected_entities,
-        limit,
-        scope,
-        skip_enrichmment,
-        pretty,
+        entities=entities,
+        entity_types=entity_types,
+        sources=sources,
+        sections=sections,
+        timeframe=timeframe,
+        events=events,
+        connected_entities=connected_entities,
+        per_entity_type=per_entity_type,
+        search_scope=scope,
+        skip_enrichment=skip_enrichment,
+        pretty=pretty,
     )

@@ -45,14 +45,14 @@ def _enrich_linked_iocs(to_enrich: dict):
 
 
 def search_links(
-    entity_ids: list[str],
-    return_entity_types: list[str],
-    source: str,
+    entities: list[str],
+    entity_types: list[str],
+    sources: str,
     sections: list[str],
     timeframe: str,
     events: list[str],
     connected_entities: list[str],
-    limit_per_type: int,
+    per_entity_type: int,
     search_scope: str,
     skip_enrichment: bool,
     pretty: bool,
@@ -68,15 +68,15 @@ def search_links(
     ) as progress:
         task = progress.add_task(description='Searching for Links')
         results = link_manager.search(
-            entities=entity_ids,
+            entities=entities,
             sections=sections,
-            entity_types=return_entity_types,
-            sources=source,
+            entity_types=entity_types,
+            sources=sources,
             timeframe=timeframe,
             events=events,
             connected_entities=connected_entities,
             search_scope=search_scope,
-            per_entity_type=limit_per_type,
+            per_entity_type=per_entity_type,
         )
 
         enriched = {}

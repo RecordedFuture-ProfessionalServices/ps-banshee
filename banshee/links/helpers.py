@@ -32,7 +32,9 @@ def _print_search(console: Console, result: dict, enrichment: dict):
 
         for iocs in result.iocs().values():
             for ioc in iocs[:PRETTY_IOC_DISPLAY_CAP]:
-                ioc_intel_card = f'[underline][link={_intel_card_url(ioc)}]{ioc.name}[/link][/underline]'
+                ioc_intel_card = (
+                    f'[underline][link={_intel_card_url(ioc)}]{ioc.name}[/link][/underline]'
+                )
                 e = enrichment.get(ioc.name)
                 enriched = e and e.is_enriched and e.content
                 top_risk_rule = (enriched and e.content.risk.rule.most_critical) or 'N/A'
