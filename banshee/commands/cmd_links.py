@@ -21,6 +21,7 @@ from ..branding import banshee_cmd
 from ..links.constants import LinkSource
 from ..links.links_search import search_links
 from .args import OPT_PRETTY_PRINT
+from .epilogs import EPILOG_LINKS_SEARCH
 
 CMD_NAME = 'links'
 CMD_HELP = 'Fetch and export linked entities'
@@ -28,32 +29,40 @@ CMD_RICH_HELP = 'Recorded Future Links'
 
 app = Typer(no_args_is_help=True)
 
-_PIPED_INPUT_HINT = (
-    "Expected piped JSON output from 'banshee links search'"
-    "(e.g. 'banshee links search BUl6R5r -l 1d --small | banshee links export)"
-)
 
-
-def _parse_entities(value: list[str]):
+def _parse_entity_ids(value: list[str] | str):
     if not value:
         raise BadParameter('No entities provided.')
 
-    links = value
+    entity_ids = value
     if isinstance(value, str):
-        links = [x for x in re.split(r'\s+', value) if x]
+        entity_ids = [x for x in re.split(r'\s+', value) if x]
 
-        if not len(links):
-            raise BadParameter('No links provided.')
+        if not entity_ids:
+            raise BadParameter('No entities provided.')
 
-    return links
+    for entity_id in entity_ids:
+        _validate_entity_ids(entity_id)
+
+    return entity_ids
 
 
-@banshee_cmd(app=app, help_='Search and export linked entities', epilog='')
+def _validate_entity_ids(entity_id: str):
+    if entity_id is None:
+        raise BadParameter('No entity_id provided.')
+    if not isinstance(entity_id, str):
+        raise BadParameter('Invalid entity_id provided.')
+    if len(entity_id) != 6:
+        raise BadParameter(f'Invalid entity ID: {entity_id}. ')
+    return entity_id
+
+
+@banshee_cmd(app=app, help_='Search and export linked entities', epilog=EPILOG_LINKS_SEARCH)
 def search(
     entities: list[str] = Argument(  # noqa: B008
         ... if sys.stdin.isatty() else None,  # noqa: B008
         show_default=False,
-        help='One or more whitespace separated Entities IDs',
+        help='One or more whitespace separated entity IDs',
     ),
     entity_types: Annotated[
         list[str],
@@ -150,7 +159,7 @@ def search(
     if entities is None:
         entities = sys.stdin.read()
 
-    entities = _parse_entities(entities)
+    entities = _parse_entity_ids(entities)
 
     if small and large:
         raise BadParameter('--small and --large are mutually exclusive.')

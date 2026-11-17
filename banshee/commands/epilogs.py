@@ -1031,3 +1031,33 @@ doc:BVMe5lk
 * banshee analyst-notes search -P -1d | banshee analyst-notes attachment -d $HOME/Documents/note_attachment
 
 """
+
+EPILOG_LINKS_SEARCH = """
+## Example Usage
+
+* banshee links search BUl6R5r
+
+* banshee links search BUl6R5r -T 10d --small -p
+
+* banshee links search BUl6R5r sIG7Rn -T 10d --large > ./links.json
+
+## File / Stdin Input
+
+Pipe or redirect a newline-separated file of entity ID's (one per line):
+
+```
+
+> cat link_entities.txt
+
+BUl6R5r
+
+JLHNoH
+
+sIG7Rn
+
+```
+
+* banshee links search -T 1d < link_entities.txt
+
+* cat link_entities.txt | banshee links search -T 1d --large > ./links_out.json
+"""

@@ -21,14 +21,14 @@ from banshee.links.constants import LinkSource
 runner = CliRunner()
 
 _DEFAULTS = {
-    'entity_ids': None,
-    'return_entity_types': None,
-    'source': None,
+    'entities': None,
+    'entity_types': None,
+    'sources': None,
     'sections': None,
     'timeframe': None,
     'events': None,
     'connected_entities': None,
-    'limit_per_type': None,
+    'per_entity_type': None,
     'search_scope': 'medium',
     'skip_enrichment': False,
     'pretty': False,
@@ -47,20 +47,47 @@ class TestCmdLinksSearch:
     def test_search_single_entity(self, mock_search):
         result = runner.invoke(app, ['I60vfZ'])
         assert result.exit_code == 0
-        mock_search.assert_called_once_with(**{**_DEFAULTS, 'entity_ids': ['I60vfZ']})
+        mock_search.assert_called_once_with(**{**_DEFAULTS, 'entities': ['I60vfZ']})
 
     @patch('banshee.commands.cmd_links.search_links')
     def test_search_multiple_entities(self, mock_search):
         result = runner.invoke(app, ['I60vfZ', 'QCwdoU'])
         assert result.exit_code == 0
-        mock_search.assert_called_once_with(**{**_DEFAULTS, 'entity_ids': ['I60vfZ', 'QCwdoU']})
+        mock_search.assert_called_once_with(**{**_DEFAULTS, 'entities': ['I60vfZ', 'QCwdoU']})
+
+    @patch('banshee.commands.cmd_links.search_links')
+    def test_invalid_entity_id(self, mock_search):
+        result = runner.invoke(app, ['192.168.1.1'])
+        assert result.exit_code == 2
+        mock_search.assert_not_called()
+        assert 'Invalid entity ID: 192.168.1.1' in result.output
+
+    @patch('banshee.commands.cmd_links.search_links')
+    def test_search_valid_and_invalid_entity_id(self, mock_search):
+        result = runner.invoke(app, ['I60vfZ', 'https://example.com'])
+        assert result.exit_code == 2
+        mock_search.assert_not_called()
+        assert 'Invalid entity ID: https://example.com' in result.output
+
+    @patch('banshee.commands.cmd_links.search_links')
+    def test_search_valid_entities_from_stdin(self, mock_search):
+        result = runner.invoke(app, [], input='I60vfZ QCwdoU\n')
+        assert result.exit_code == 0
+        mock_search.assert_called_once_with(**{**_DEFAULTS, 'entities': ['I60vfZ', 'QCwdoU']})
+
+    @patch('banshee.commands.cmd_links.search_links')
+    def test_search_invalid_entities_from_stdin(self, mock_search):
+        result = runner.invoke(app, ['I60vfZ', 'https://example.com'])
+        assert result.exit_code == 2
+        mock_search.assert_not_called()
+        assert 'Invalid entity ID: https://example.com' in result.output
 
     @patch('banshee.commands.cmd_links.search_links')
     def test_search_small_scope(self, mock_search):
         result = runner.invoke(app, ['I60vfZ', '--small'])
         assert result.exit_code == 0
         mock_search.assert_called_once_with(
-            **{**_DEFAULTS, 'entity_ids': ['I60vfZ'], 'search_scope': 'small'}
+            **{**_DEFAULTS, 'entities': ['I60vfZ'], 'search_scope': 'small'}
         )
 
     @patch('banshee.commands.cmd_links.search_links')
@@ -68,7 +95,7 @@ class TestCmdLinksSearch:
         result = runner.invoke(app, ['I60vfZ', '--large'])
         assert result.exit_code == 0
         mock_search.assert_called_once_with(
-            **{**_DEFAULTS, 'entity_ids': ['I60vfZ'], 'search_scope': 'large'}
+            **{**_DEFAULTS, 'entities': ['I60vfZ'], 'search_scope': 'large'}
         )
 
     @patch('banshee.commands.cmd_links.search_links')
@@ -82,7 +109,7 @@ class TestCmdLinksSearch:
         result = runner.invoke(app, ['I60vfZ', '--skip-enrichment'])
         assert result.exit_code == 0
         mock_search.assert_called_once_with(
-            **{**_DEFAULTS, 'entity_ids': ['I60vfZ'], 'skip_enrichment': True}
+            **{**_DEFAULTS, 'entities': ['I60vfZ'], 'skip_enrichment': True}
         )
 
     @patch('banshee.commands.cmd_links.search_links')
@@ -90,7 +117,7 @@ class TestCmdLinksSearch:
         result = runner.invoke(app, ['I60vfZ', '--limit', '1'])
         assert result.exit_code == 0
         mock_search.assert_called_once_with(
-            **{**_DEFAULTS, 'entity_ids': ['I60vfZ'], 'limit_per_type': 1}
+            **{**_DEFAULTS, 'entities': ['I60vfZ'], 'per_entity_type': 1}
         )
 
     @patch('banshee.commands.cmd_links.search_links')
@@ -98,7 +125,7 @@ class TestCmdLinksSearch:
         result = runner.invoke(app, ['I60vfZ', '--limit', '1000000'])
         assert result.exit_code == 0
         mock_search.assert_called_once_with(
-            **{**_DEFAULTS, 'entity_ids': ['I60vfZ'], 'limit_per_type': 1000000}
+            **{**_DEFAULTS, 'entities': ['I60vfZ'], 'per_entity_type': 1000000}
         )
 
     @patch('banshee.commands.cmd_links.search_links')
@@ -118,7 +145,7 @@ class TestCmdLinksSearch:
         result = runner.invoke(app, ['I60vfZ', '--limit', '67'])
         assert result.exit_code == 0
         mock_search.assert_called_once_with(
-            **{**_DEFAULTS, 'entity_ids': ['I60vfZ'], 'limit_per_type': 67}
+            **{**_DEFAULTS, 'entities': ['I60vfZ'], 'per_entity_type': 67}
         )
 
     @patch('banshee.commands.cmd_links.search_links')
@@ -148,14 +175,14 @@ class TestCmdLinksSearch:
         mock_search.assert_called_once_with(
             **{
                 **_DEFAULTS,
-                'entity_ids': ['I60vfZ'],
-                'return_entity_types': ['type:Malware'],
-                'source': LinkSource.TECHNICAL,
+                'entities': ['I60vfZ'],
+                'entity_types': ['type:Malware'],
+                'sources': LinkSource.TECHNICAL,
                 'sections': ['Indicators and Detection Rules'],
                 'timeframe': '-1d',
                 'events': ['type:MalwareAnalysis'],
                 'connected_entities': ['T1005'],
-                'limit_per_type': 64,
+                'per_entity_type': 64,
                 'pretty': True,
             }
         )
