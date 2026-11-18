@@ -1,6 +1,11 @@
 # 發行歷程
 
-## 1.1.1 - 2026-10-14
+## 1.8.0 - 2026-10-29
+
+### 新增
+- 新增 ['analyst-notes'](reference/commands.md#banshee-analyst-notes) 指令，用於與 Recorded Future Analyst Notes 互動。
+
+## 1.7.0 - 2026-10-14
 
 ### 新增
 - 為 [`list bulk-add`](reference/commands.md#banshee-list-bulk-add) 新增 [`-n`/`--note`](reference/commands.md#banshee-list-bulk-add--note) 選項，可為所有正在新增的實體附加備註。
@@ -15,6 +20,7 @@
 
 ### 變更
 - 更新 `psengine` 相依套件版本。
+
 
 ## 1.6.0 - 2026-09-15
 ### 新增
