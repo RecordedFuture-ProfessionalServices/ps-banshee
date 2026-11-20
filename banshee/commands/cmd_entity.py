@@ -15,20 +15,21 @@ import re
 import sys
 from typing import Annotated
 
-from typer import Argument, Option, Typer, BadParameter
+from typer import Argument, BadParameter, Option, Typer
 
 from ..branding import banshee_cmd
 from ..entity_match import EntityType, entity_lookup, entity_search
 from ..entity_match.constants import LinkSource
 from ..entity_match.links import search_links
 from .args import OPT_PRETTY_PRINT
-from .epilogs import EPILOG_ENTITY_LOOKUP, EPILOG_ENTITY_SEARCH, EPILOG_ENTITY_LINKS
+from .epilogs import EPILOG_ENTITY_LINKS, EPILOG_ENTITY_LOOKUP, EPILOG_ENTITY_SEARCH
 
 CMD_NAME = 'entity'
 CMD_HELP = 'Search and lookup entities'
 CMD_RICH_HELP = 'Entity Match'
 
 app = Typer(no_args_is_help=True)
+
 
 def _parse_entity_ids(value: list[str] | str):
     if not value:
@@ -45,6 +46,7 @@ def _parse_entity_ids(value: list[str] | str):
 
     return entity_ids
 
+
 def _validate_entity_ids(entity_id: str):
     if entity_id is None:
         raise BadParameter('No entity_id provided.')
@@ -53,6 +55,7 @@ def _validate_entity_ids(entity_id: str):
     if len(entity_id) < 6 or len(entity_id) > 7:
         raise BadParameter(f'Invalid entity ID: {entity_id}. ')
     return entity_id
+
 
 @banshee_cmd(app=app, help_='Lookup an entity by its ID', epilog=EPILOG_ENTITY_LOOKUP)
 def lookup(

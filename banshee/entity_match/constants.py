@@ -167,6 +167,7 @@ class EntityType(str, Enum):
     WinRegKey = 'WinRegKey'
     YaraDetectionRule = 'YaraDetectionRule'
 
+
 _TYPE_MAPPING = {
     'type:IpAddress': 'ip',
     'type:InternetDomainName': 'domain',

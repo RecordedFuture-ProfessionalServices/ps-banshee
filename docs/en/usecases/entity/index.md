@@ -13,6 +13,8 @@ Search and resolve entities directly in PS Banshee using [`banshee entity`](../.
 
 - Use [`banshee entity search`](../../reference/commands.md#banshee-entity-search) when you have an entity name and/or type and need to find the corresponding entity ID. 
 
-- Use [`banshee entity lookup`](../../reference/commands.md#banshee-entity-lookup) when you have an entity ID and need to retrieve the name and type. 
+- Use [`banshee entity lookup`](../../reference/commands.md#banshee-entity-lookup) when you have an entity ID and need to retrieve the name and type.
+
+- Use [`banshee entity links`](../../reference/commands.md#banshee-entity-links) to retrieve and enrich linked entities.
 
 Once you have the correct entity ID, utilize it in subsequent PS Banshee commands like [`banshee list add`](../../reference/commands.md#banshee-list-add) to ensure accurate entity referencing in your organization's watchlists.

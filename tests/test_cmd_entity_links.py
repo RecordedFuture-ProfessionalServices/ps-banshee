@@ -45,7 +45,7 @@ class TestCmdLinksSearch:
 
     @patch('banshee.commands.cmd_entity.search_links')
     def test_search_single_entity(self, mock_search):
-        result = runner.invoke(app, ['links','I60vfZ'])
+        result = runner.invoke(app, ['links', 'I60vfZ'])
         assert result.exit_code == 0
         mock_search.assert_called_once_with(**{**_DEFAULTS, 'entities': ['I60vfZ']})
 

@@ -18,7 +18,11 @@ from rich import print_json
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
-from banshee.entity_match.constants import _TYPE_MAPPING, MAX_ENRICHMENT_WORKERS, PRETTY_IOC_DISPLAY_CAP
+from banshee.entity_match.constants import (
+    _TYPE_MAPPING,
+    MAX_ENRICHMENT_WORKERS,
+    PRETTY_IOC_DISPLAY_CAP,
+)
 from banshee.entity_match.helpers import _print_search
 
 

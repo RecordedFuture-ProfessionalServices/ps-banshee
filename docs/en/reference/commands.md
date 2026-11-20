@@ -573,6 +573,7 @@ banshee entity [OPTIONS] COMMAND [ARGS]...
 <dl class="commands-reference">
     <dt><a href="#banshee-entity-lookup"><code>banshee entity lookup</code></a></dt><dd><p>Lookup an entity by its ID</p></dd>
     <dt><a href="#banshee-entity-search"><code>banshee entity search</code></a></dt><dd><p>Search entities by name and/or type</p></dd>
+    <dt><a href="#banshee-entity-links"><code>banshee entity links</code></a></dt><dd><p>Search and export linked IOCs to entities</p></dd>
 </dl>
 
 ### banshee entity lookup
@@ -787,6 +788,89 @@ banshee entity search [OPTIONS] NAME
     <dt id="banshee-entity-search--help"><a href="#banshee-entity-search--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>Show help for this command</p>
 </dl>
+
+### banshee entity links
+
+Search and export linked IOCs to entities
+
+Fetches entities linked to one or more entities (IOCs, detection rules, malware, TTPs, threat actors). Entity IDs are Recorded Future entity IDs (for example from [`banshee entity search`](#banshee-entity-search)), not entity names. Linked IOCs are enriched via SOAR unless [`--skip-enrichment`](#banshee-entity-links--skip-enrichment) is set.
+
+By default the command will print results in JSON format. The output is an array with one object per input entity, each containing the searched `entity` and its `links`. Each link has an `enrichment` field holding the SOAR enrichment for linked IOCs, or `null` for non-IOC links, unenriched IOCs, or when enrichment is skipped. If SOAR enrichment fails, a note is printed to stderr and enrichment is skipped.
+
+Entity IDs can be passed as whitespace separated arguments, or piped / redirected on stdin (one per line).
+
+<h3 class="commands-reference">Usage</h3>
+
+```
+banshee entity links [OPTIONS] [ENTITIES]...
+```
+
+<h3 class="commands-reference">Arguments</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-entity-links--entities"><a href="#banshee-entity-links--entities"><code>ENTITIES</code></a></dt><dd><p>One or more whitespace separated entity IDs</p></dd>
+</dl>
+
+<h3 class="commands-reference">Options</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-entity-links--type"><a href="#banshee-entity-links--type"><code>--type</code>, <code>-t</code></a> <i>entity-type</i></dt><dd>
+    <p>Type of entity to return</p>
+    <p>Can be supplied multiple times for different entity types</p><dd></dd>
+    <dt id="banshee-entity-links--source"><a href="#banshee-entity-links--source"><code>--source</code>, <code>-s</code></a> <i>source</i></dt><dd>
+    <p>Source of the links to return</p>
+    <p>Supported values are:</p>
+    <ul>
+        <li><code>Technical</code></li>
+        <li><code>Insikt</code></li>
+    </ul> <dd></dd>
+    <dt id="banshee-entity-links--sections"><a href="#banshee-entity-links--sections"><code>--sections</code>, <code>-S</code></a> <i>section</i></dt><dd>
+    <p>Filter by the type of link, for example <code>'Indicators and Detection Rules'</code></p>
+    <p>Can be supplied multiple times</p><dd></dd>
+    <dt id="banshee-entity-links--timeframe"><a href="#banshee-entity-links--timeframe"><code>--timeframe</code>, <code>-T</code></a> <i>timeframe</i></dt><dd>
+    <p>Timeframe in which the link was made, for example <code>-1d</code></p>
+    <p>The maximum is <code>-90d</code></p><dd></dd>
+    <dt id="banshee-entity-links--events"><a href="#banshee-entity-links--events"><code>--events</code>, <code>-e</code></a> <i>event</i></dt><dd>
+    <p>Filter by the type of event, for example <code>type:MalwareAnalysis</code></p>
+    <p>Can be supplied multiple times</p><dd></dd>
+    <dt id="banshee-entity-links--connected-entities"><a href="#banshee-entity-links--connected-entities"><code>--connected-entities</code>, <code>-c</code></a> <i>entity-id</i></dt><dd>
+    <p>Only return entities that are also connected to these entities</p>
+    <p>Can be supplied multiple times</p><dd></dd>
+    <dt id="banshee-entity-links--limit"><a href="#banshee-entity-links--limit"><code>--limit</code>, <code>-l</code></a> <i>limit</i></dt><dd>
+    <p>Limit the number of entities to return per type</p>
+    <p>Must be between 1 and 1,000,000</p><dd></dd>
+    <dt id="banshee-entity-links--small"><a href="#banshee-entity-links--small"><code>--small</code></a></dt><dd>
+    <p>Search 10 references and 10 Insikt Notes per event type</p>
+    <p>Cannot be combined with <code>--large</code>. With neither option a medium scope is used</p><dd></dd>
+    <dt id="banshee-entity-links--large"><a href="#banshee-entity-links--large"><code>--large</code></a></dt><dd>
+    <p>Search 100 references and 500 Insikt Notes per event type</p>
+    <p>Cannot be combined with <code>--small</code></p><dd></dd>
+    <dt id="banshee-entity-links--skip-enrichment"><a href="#banshee-entity-links--skip-enrichment"><code>--skip-enrichment</code></a></dt><dd>
+    <p>Skip running additional SOAR enrichment of linked IOCs</p><dd></dd>
+    <dt id="banshee-entity-links--pretty"><a href="#banshee-entity-links--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>Pretty print the results in a human readable format</p>
+    <p>Shows per-entity tables of linked IOCs, TTPs, malware and threat actors, each capped at 20 rows</p><dd></dd>
+    <dt id="banshee-entity-links--help"><a href="#banshee-entity-links--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>Show help for this command</p>
+</dl>
+
+<h3 class="commands-reference">Examples</h3>
+
+<pre><code class="language-bash">
+banshee entity links BUl6R5r
+banshee entity links BUl6R5r -T -10d --small -p
+banshee entity links BUl6R5r sIG7Rn -T -10d --large > links.json
+
+# Skip enrichment for faster results
+banshee entity links BUl6R5r --skip-enrichment
+
+# Entity IDs from a file or pipe
+banshee entity links -T -1d < link_entities.txt
+cat link_entities.txt | banshee entity links -T -1d --large > links_out.json
+
+# Find an entity ID first, then search its links
+banshee entity search wannacry -t Malware -l 1 | jq -r '.[].id' | banshee entity links --small
+</code></pre>
 
 
 ## banshee email

@@ -1,5 +1,10 @@
 # Release History
 
+## 1.9.0 -
+
+### Added
+- New [`entity links`](reference/commands.md#banshee-entity-links) command to fetch and enrich links to a given entity.
+
 ## 1.8.0 - 2026-10-29
 
 ### Added
