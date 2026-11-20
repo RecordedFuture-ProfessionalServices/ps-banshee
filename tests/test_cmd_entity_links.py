@@ -15,8 +15,8 @@ from unittest.mock import patch
 
 from typer.testing import CliRunner
 
-from banshee.commands.cmd_links import app
-from banshee.links.constants import LinkSource
+from banshee.commands.cmd_entity import app
+from banshee.entity_match.constants import LinkSource
 
 runner = CliRunner()
 
@@ -36,123 +36,124 @@ _DEFAULTS = {
 
 
 class TestCmdLinksSearch:
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_search_no_entities(self, mock_search):
-        result = runner.invoke(app, [])
+        result = runner.invoke(app, ['links'])
         assert result.exit_code == 2
         assert 'No entities provided.' in result.output
         mock_search.assert_not_called()
 
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_search_single_entity(self, mock_search):
-        result = runner.invoke(app, ['I60vfZ'])
+        result = runner.invoke(app, ['links','I60vfZ'])
         assert result.exit_code == 0
         mock_search.assert_called_once_with(**{**_DEFAULTS, 'entities': ['I60vfZ']})
 
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_search_multiple_entities(self, mock_search):
-        result = runner.invoke(app, ['I60vfZ', 'QCwdoU'])
+        result = runner.invoke(app, ['links', 'I60vfZ', 'QCwdoU'])
         assert result.exit_code == 0
         mock_search.assert_called_once_with(**{**_DEFAULTS, 'entities': ['I60vfZ', 'QCwdoU']})
 
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_invalid_entity_id(self, mock_search):
-        result = runner.invoke(app, ['192.168.1.1'])
+        result = runner.invoke(app, ['links', '192.168.1.1'])
         assert result.exit_code == 2
         mock_search.assert_not_called()
         assert 'Invalid entity ID: 192.168.1.1' in result.output
 
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_search_valid_and_invalid_entity_id(self, mock_search):
-        result = runner.invoke(app, ['I60vfZ', 'https://example.com'])
+        result = runner.invoke(app, ['links', 'I60vfZ', 'https://example.com'])
         assert result.exit_code == 2
         mock_search.assert_not_called()
         assert 'Invalid entity ID: https://example.com' in result.output
 
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_search_valid_entities_from_stdin(self, mock_search):
-        result = runner.invoke(app, [], input='I60vfZ QCwdoU\n')
+        result = runner.invoke(app, ['links'], input='I60vfZ QCwdoU')
         assert result.exit_code == 0
         mock_search.assert_called_once_with(**{**_DEFAULTS, 'entities': ['I60vfZ', 'QCwdoU']})
 
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_search_invalid_entities_from_stdin(self, mock_search):
-        result = runner.invoke(app, ['I60vfZ', 'https://example.com'])
+        result = runner.invoke(app, ['links', 'I60vfZ', 'https://example.com'])
         assert result.exit_code == 2
         mock_search.assert_not_called()
         assert 'Invalid entity ID: https://example.com' in result.output
 
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_search_small_scope(self, mock_search):
-        result = runner.invoke(app, ['I60vfZ', '--small'])
+        result = runner.invoke(app, ['links', 'I60vfZ', '--small'])
         assert result.exit_code == 0
         mock_search.assert_called_once_with(
             **{**_DEFAULTS, 'entities': ['I60vfZ'], 'search_scope': 'small'}
         )
 
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_search_large_scope(self, mock_search):
-        result = runner.invoke(app, ['I60vfZ', '--large'])
+        result = runner.invoke(app, ['links', 'I60vfZ', '--large'])
         assert result.exit_code == 0
         mock_search.assert_called_once_with(
             **{**_DEFAULTS, 'entities': ['I60vfZ'], 'search_scope': 'large'}
         )
 
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_search_small_large_scope(self, mock_search):
-        result = runner.invoke(app, ['I60vfZ', '--large', '--small'])
+        result = runner.invoke(app, ['links', 'I60vfZ', '--large', '--small'])
         assert result.exit_code == 2
         mock_search.assert_not_called()
 
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_search_skip_enrichment(self, mock_search):
-        result = runner.invoke(app, ['I60vfZ', '--skip-enrichment'])
+        result = runner.invoke(app, ['links', 'I60vfZ', '--skip-enrichment'])
         assert result.exit_code == 0
         mock_search.assert_called_once_with(
             **{**_DEFAULTS, 'entities': ['I60vfZ'], 'skip_enrichment': True}
         )
 
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_search_min_limit(self, mock_search):
-        result = runner.invoke(app, ['I60vfZ', '--limit', '1'])
+        result = runner.invoke(app, ['links', 'I60vfZ', '--limit', '1'])
         assert result.exit_code == 0
         mock_search.assert_called_once_with(
             **{**_DEFAULTS, 'entities': ['I60vfZ'], 'per_entity_type': 1}
         )
 
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_search_max_limit(self, mock_search):
-        result = runner.invoke(app, ['I60vfZ', '--limit', '1000000'])
+        result = runner.invoke(app, ['links', 'I60vfZ', '--limit', '1000000'])
         assert result.exit_code == 0
         mock_search.assert_called_once_with(
             **{**_DEFAULTS, 'entities': ['I60vfZ'], 'per_entity_type': 1000000}
         )
 
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_search_limit_out_of_range_low(self, mock_search):
-        result = runner.invoke(app, ['I60vfZ', '--limit', '0'])
+        result = runner.invoke(app, ['links', 'I60vfZ', '--limit', '0'])
         assert result.exit_code == 2
         mock_search.assert_not_called()
 
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_search_limit_out_of_range_high(self, mock_search):
-        result = runner.invoke(app, ['I60vfZ', '--limit', '1000001'])
+        result = runner.invoke(app, ['links', 'I60vfZ', '--limit', '1000001'])
         assert result.exit_code == 2
         mock_search.assert_not_called()
 
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_search_limit_within_range(self, mock_search):
-        result = runner.invoke(app, ['I60vfZ', '--limit', '67'])
+        result = runner.invoke(app, ['links', 'I60vfZ', '--limit', '67'])
         assert result.exit_code == 0
         mock_search.assert_called_once_with(
             **{**_DEFAULTS, 'entities': ['I60vfZ'], 'per_entity_type': 67}
         )
 
-    @patch('banshee.commands.cmd_links.search_links')
+    @patch('banshee.commands.cmd_entity.search_links')
     def test_search_all_single_values(self, mock_search):
         result = runner.invoke(
             app,
             [
+                'links',
                 'I60vfZ',
                 '-t',
                 'type:Malware',
@@ -188,7 +189,7 @@ class TestCmdLinksSearch:
         )
 
     def test_search_help_available(self):
-        result = runner.invoke(app, ['--help'])
+        result = runner.invoke(app, ['links', '--help'])
         assert result.exit_code == 0
         assert '--type' in result.output
         assert '--source' in result.output

@@ -16,15 +16,15 @@ from unittest.mock import MagicMock, patch
 import pytest
 from psengine.enrich import EnrichmentSoarError
 
-from banshee.links.constants import MAX_ENRICHMENT_WORKERS, LinkSource
-from banshee.links.links_search import _enrich_linked_iocs, _sort_links_iocs, search_links
+from banshee.entity_match.constants import MAX_ENRICHMENT_WORKERS, LinkSource
+from banshee.entity_match.links import _enrich_linked_iocs, _sort_links_iocs, search_links
 
-_PATCH_LINK_MGR = patch('banshee.links.links_search.LinksMgr')
-_PATCH_LINK_SORT = patch('banshee.links.links_search._sort_links_iocs')
-_PATCH_SOAR_MGR = patch('banshee.links.links_search.SoarMgr')
-_PATCH_PRINT_SEARCH = patch('banshee.links.links_search._print_search')
-_PATCH_PRINT_JSON = patch('banshee.links.links_search.print_json')
-_PATCH_ENRICH = patch('banshee.links.links_search._enrich_linked_iocs')
+_PATCH_LINK_MGR = patch('banshee.entity_match.links.LinksMgr')
+_PATCH_LINK_SORT = patch('banshee.entity_match.links._sort_links_iocs')
+_PATCH_SOAR_MGR = patch('banshee.entity_match.links.SoarMgr')
+_PATCH_PRINT_SEARCH = patch('banshee.entity_match.links._print_search')
+_PATCH_PRINT_JSON = patch('banshee.entity_match.links.print_json')
+_PATCH_ENRICH = patch('banshee.entity_match.links._enrich_linked_iocs')
 
 _ARGS = {
     'entities': ['I60vfZ'],

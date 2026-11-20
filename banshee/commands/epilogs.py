@@ -1032,14 +1032,20 @@ doc:BVMe5lk
 
 """
 
-EPILOG_LINKS_SEARCH = """
+EPILOG_ENTITY_LINKS = """
 ## Example Usage
 
-* banshee links search BUl6R5r
+* banshee entity links BUl6R5r
 
-* banshee links search BUl6R5r -T 10d --small -p
+* banshee entity links BUl6R5r -T 10d --small -p
 
-* banshee links search BUl6R5r sIG7Rn -T 10d --large > ./links.json
+* banshee entity links BUl6R5r sIG7Rn -T 10d --large > ./links.json
+
+## Input from Entity Search
+
+After the search command "jq" can be used to extract ID's:
+
+* banshee entity search wannacry -t Malware -l 1 | jq -r '.[].id' | banshee entity links --small
 
 ## File / Stdin Input
 
@@ -1057,7 +1063,7 @@ sIG7Rn
 
 ```
 
-* banshee links search -T 1d < link_entities.txt
+* banshee entity links -T 1d < link_entities.txt
 
-* cat link_entities.txt | banshee links search -T 1d --large > ./links_out.json
+* cat link_entities.txt | banshee entity links -T 1d --large > ./links_out.json
 """

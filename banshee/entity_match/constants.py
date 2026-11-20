@@ -166,3 +166,23 @@ class EntityType(str, Enum):
     WebMoneyID = 'WebMoneyID'
     WinRegKey = 'WinRegKey'
     YaraDetectionRule = 'YaraDetectionRule'
+
+_TYPE_MAPPING = {
+    'type:IpAddress': 'ip',
+    'type:InternetDomainName': 'domain',
+    'type:Hash': 'hash_',
+    'type:Url': 'url',
+    'type:CyberVulnerability': 'vulnerability',
+}
+
+MAX_ENRICHMENT_WORKERS = 20
+PRETTY_IOC_DISPLAY_CAP = 20
+
+INTEL_CARD_BASE = 'https://app.recordedfuture.com/portal/intelligence-card'
+
+
+class LinkSource(Enum):
+    """Enum for possible source types from links."""
+
+    TECHNICAL = 'Technical'
+    INSIKT = 'Insikt'
