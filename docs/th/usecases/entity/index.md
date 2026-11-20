@@ -15,4 +15,6 @@
 
 - ใช้ [`banshee entity lookup`](../../reference/commands.md#banshee-entity-lookup) เมื่อมี ID ของเอนทิตีและต้องการดึงข้อมูลชื่อและประเภทของเอนทิตีนั้น
 
+- ใช้ [`banshee entity links`](../../reference/commands.md#banshee-entity-links) เพื่อดึงข้อมูลและเสริมความสมบูรณ์ให้กับเอนทิตีที่เชื่อมโยงกัน
+
 เมื่อได้รับ ID เอนทิตีที่ถูกต้องแล้ว ให้นำไปใช้ในคำสั่ง PS Banshee ลำดับถัดไป เช่น [`banshee list add`](../../reference/commands.md#banshee-list-add) เพื่อให้มั่นใจว่าการอ้างอิงเอนทิตีใน watchlist ขององค์กรมีความถูกต้องแม่นยำ

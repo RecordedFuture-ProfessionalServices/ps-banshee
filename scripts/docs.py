@@ -531,7 +531,7 @@ def _run_translation(model_spec: str, system_prompt: str, source: str, existing:
             f'may be outdated):\n\n{existing}'
         )
 
-    settings = ModelSettings(max_tokens=64000)
+    settings = ModelSettings(max_tokens=128000)
     last_err: str | None = None
     for _ in range(3):
         prompt = (

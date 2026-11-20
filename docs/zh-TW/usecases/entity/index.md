@@ -15,4 +15,6 @@
 
 - 當您擁有實體 ID，且需要取得名稱與類型時，請使用 [`banshee entity lookup`](../../reference/commands.md#banshee-entity-lookup)。
 
+- 如需取得並豐富關聯實體的資訊，請使用 [`banshee entity links`](../../reference/commands.md#banshee-entity-links)。
+
 取得正確的實體 ID 後，請將其用於後續的 PS Banshee 命令，例如 [`banshee list add`](../../reference/commands.md#banshee-list-add)，以確保在貴組織的監控清單（watchlist）中準確參照實體。

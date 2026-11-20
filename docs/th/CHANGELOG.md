@@ -1,5 +1,15 @@
 # ประวัติการเผยแพร่
 
+## 1.9.0 -
+
+### เพิ่มใหม่
+- คำสั่ง [`entity links`](reference/commands.md#banshee-entity-links) ใหม่สำหรับดึงข้อมูลและ enrich ลิงก์ที่เชื่อมโยงกับ entity ที่กำหนด
+
+## 1.8.0 - 2026-10-29
+
+### เพิ่มใหม่
+- คำสั่ง ['analyst-notes'](reference/commands.md#banshee-analyst-notes) ใหม่สำหรับโต้ตอบกับ Recorded Future Analyst Notes
+
 ## 1.7.0 - 2026-10-14
 
 ### เพิ่มใหม่
@@ -15,6 +25,7 @@
 
 ### เปลี่ยนแปลง
 - อัปเดต dependencies ของ `psengine`
+
 
 ## 1.6.0 - 2026-09-15
 ### เพิ่มใหม่

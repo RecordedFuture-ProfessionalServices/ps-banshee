@@ -13,6 +13,7 @@ banshee [OPTIONS] <COMMAND>
 <h3 class="commands-reference">命令</h3>
 
 <dl class="commands-reference">
+    <dt><a href="#banshee-analyst-notes"><code>banshee analyst-notes</code></a></dt><dd><p>擷取並管理 Recorded Future Analyst Notes</p></dd>
     <dt><a href="#banshee-ca"><code>banshee ca</code></a></dt><dd><p>搜尋、查詢及更新 Recorded Future Classic Alerts</p></dd>
     <dt><a href="#banshee-email"><code>banshee email</code></a></dt><dd><p>以 Recorded Future 情報豐富化電子郵件檔案 (EML)</p></dd>
     <dt><a href="#banshee-entity"><code>banshee entity</code></a></dt><dd><p>搜尋及查詢 Recorded Future 實體</p></dd>
@@ -23,6 +24,304 @@ banshee [OPTIONS] <COMMAND>
     <dt><a href="#banshee-risklist"><code>banshee risklist</code></a></dt><dd><p>管理 Risk Lists（風險清單）</p></dd>
     <dt><a href="#banshee-rules"><code>banshee rules</code></a></dt><dd><p>搜尋並下載偵測規則</p></dd>
 </dl>
+
+## banshee analyst-notes
+
+擷取並管理 Recorded Future Analyst Notes
+
+<h3 class="commands-reference">用法</h3>
+
+```
+banshee analyst-notes [OPTIONS] COMMAND [ARGS]...
+```
+
+<h3 class="commands-reference">命令</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-analyst-notes-search"><code>banshee analyst-notes search</code></a></dt><dd><p>搜尋 Analyst Notes</p></dd>
+    <dt><a href="#banshee-analyst-notes-lookup"><code>banshee analyst-notes lookup</code></a></dt><dd><p>查詢單一 Analyst Note</p></dd>
+    <dt><a href="#banshee-analyst-notes-publish"><code>banshee analyst-notes publish</code></a></dt><dd><p>發布 Analyst Note</p></dd>
+    <dt><a href="#banshee-analyst-notes-delete"><code>banshee analyst-notes delete</code></a></dt><dd><p>刪除 Analyst Note</p></dd>
+    <dt><a href="#banshee-analyst-notes-attachment"><code>banshee analyst-notes attachment</code></a></dt><dd><p>儲存與備註相關聯的附件</p></dd>
+    <dt><a href="#banshee-analyst-notes-export"><code>banshee analyst-notes export</code></a></dt><dd><p>將 Analyst Notes 匯出為 JSON 或 CSV 格式</p></dd>
+</dl>
+
+### banshee analyst-notes search
+
+搜尋 Analyst Notes。
+
+預設情況下，此命令將以 JSON 格式輸出結果。
+
+<h3 class="commands-reference">用法</h3>
+
+```
+banshee analyst-notes search [OPTIONS]
+```
+
+<h3 class="commands-reference">選項</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-search--published"><a href="#banshee-analyst-notes-search--published"><code>--published</code>, <code>-P</code></a> <i>published</i></dt><dd>
+    <p>依發布時間篩選，例如：1d；12h</p>
+    <p>前導的 <code>-</code> 為選用，<code>-1d</code> 與 <code>1d</code> 等效</p>
+    <p>預設為 -1d</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--entity"><a href="#banshee-analyst-notes-search--entity"><code>--entity</code>, <code>-e</code></a> <i>entity</i></dt><dd>
+    <p>依關聯實體篩選備註，例如：<code>-e idn:recordedfuture.com</code></p><dd></dd>
+    <dt id="banshee-analyst-notes-search--author"><a href="#banshee-analyst-notes-search--author"><code>--author</code>, <code>-a</code></a> <i>author</i></dt><dd>
+    <p>依作者篩選備註，例如：<code>-a source:e40Ulk</code></p><dd></dd>
+    <dt id="banshee-analyst-notes-search--title"><a href="#banshee-analyst-notes-search--title"><code>--title</code>, <code>-t</code></a> <i>title</i></dt><dd>
+    <p>依特定標題篩選備註</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--topic"><a href="#banshee-analyst-notes-search--topic"><code>--topic</code>, <code>-T</code></a> <i>topic</i></dt><dd>
+    <p>依主題篩選備註（可重複指定）</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--label"><a href="#banshee-analyst-notes-search--label"><code>--label</code>, <code>-l</code></a> <i>label</i></dt><dd>
+    <p>依特定標籤篩選備註</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--source"><a href="#banshee-analyst-notes-search--source"><code>--source</code>, <code>-s</code></a> <i>source</i></dt><dd>
+    <p>依特定來源篩選備註</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--max-results"><a href="#banshee-analyst-notes-search--max-results"><code>--max_results</code>, <code>-r</code></a> <i>max-results</i></dt><dd>
+    <p>限制結果數量</p>
+    <p>最大限制為 1000</p>
+    <p>預設為 100</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--pretty"><a href="#banshee-analyst-notes-search--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>以人類可讀的格式美化輸出結果</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--help"><a href="#banshee-analyst-notes-search--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>顯示此命令的說明</p>
+</dl>
+
+### banshee analyst-notes lookup
+
+查詢單一 Analyst Note。
+
+預設情況下，此命令將以 JSON 格式輸出結果。
+
+<h3 class="commands-reference">用法</h3>
+
+```
+banshee analyst-notes lookup [OPTIONS] NOTE_ID
+```
+
+<h3 class="commands-reference">引數</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-lookup--note-id"><a href="#banshee-analyst-notes-lookup--note-id"><code>NOTE_ID</code></a></dt><dd><p>要查詢的備註 ID</p>
+    <p>備註 ID 可附帶或不附帶「<strong>doc:</strong>」前綴</p></dd>
+</dl>
+
+<h3 class="commands-reference">選項</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-lookup--tagged-text"><a href="#banshee-analyst-notes-lookup--tagged-text"><code>--tagged_text</code></a>, <code>-t</code></dt><dd>
+    <p>在備註文字中的實體加入 Recorded Future ID</p><dd></dd>
+    <dt id="banshee-analyst-notes-lookup--pretty"><a href="#banshee-analyst-notes-lookup--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>以人類可讀的格式美化輸出結果</p><dd></dd>
+    <dt id="banshee-analyst-notes-lookup--help"><a href="#banshee-analyst-notes-lookup--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>顯示此命令的說明</p>
+</dl>
+
+### banshee analyst-notes publish
+
+發布 Analyst Note。`--note_entities` 或 `--context_entities` 至少須提供其中一個。
+
+<h3 class="commands-reference">用法</h3>
+
+```
+banshee analyst-notes publish [OPTIONS] TITLE [NOTE_TEXT]
+```
+
+<h3 class="commands-reference">引數</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-publish--title"><a href="#banshee-analyst-notes-publish--title"><code>TITLE</code></a></dt><dd><p>所建立 Analyst Note 的標題</p></dd>
+    <dt id="banshee-analyst-notes-publish--note-text"><a href="#banshee-analyst-notes-publish--note-text"><code>NOTE_TEXT</code></a></dt><dd><p>選用。要發布的備註文字。若省略，則從 stdin 讀取文字</p></dd>
+</dl>
+
+<h3 class="commands-reference">選項</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-publish--topic"><a href="#banshee-analyst-notes-publish--topic"><code>--topic</code></a>, <code>-t</code> <i>topic</i></dt><dd>
+    <p>與所建立備註相關聯的主題（可重複指定）</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--note-entities"><a href="#banshee-analyst-notes-publish--note-entities"><code>--note_entities</code></a>, <code>-e</code> <i>entity</i></dt><dd>
+    <p>所建立備註中的實體（可重複指定）</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--context-entities"><a href="#banshee-analyst-notes-publish--context-entities"><code>--context_entities</code></a>, <code>-c</code> <i>entity</i></dt><dd>
+    <p>與所建立備註相關聯的情境實體（可重複指定）</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--validation-urls"><a href="#banshee-analyst-notes-publish--validation-urls"><code>--validation_urls</code></a>, <code>-v</code> <i>url</i></dt><dd>
+    <p>與所建立備註相關聯的驗證 URL（可重複指定）</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--help"><a href="#banshee-analyst-notes-publish--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>顯示此命令的說明</p>
+</dl>
+
+<h3 class="commands-reference">使用範例</h3>
+
+<p>提供標題與備註文字，以及至少一個備註實體或情境實體：</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes publish "A note example" "An example to show how the command can be used" -e "idn:test.com"
+banshee analyst-notes publish "A note example" "Note text" -c "idn:example.com" -t "TXSFt1" -v "https://example.com/report"
+</code></pre>
+
+<h3 class="commands-reference">提供備註文字的方式</h3>
+
+<h4>1. 直接作為引數傳入：</h4>
+
+<pre><code class="language-bash">
+banshee analyst-notes publish "A note example" "Note text" -e "idn:test.com"
+</code></pre>
+
+<h4>2. 從檔案或標準輸入讀取：</h4>
+
+<p>若您有一個包含備註文字的檔案（例如 <code>note.txt</code>）：</p>
+
+<pre><code class="language-text">
+An example note from a text file.
+</code></pre>
+
+<p>可使用以下命令發布：</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes publish "Note from a file" -c "idn:example.com" &lt; note.txt
+cat note.txt | banshee analyst-notes publish "Note from a file" -c "idn:example.com"
+</code></pre>
+
+### banshee analyst-notes delete
+
+刪除 Analyst Note。
+
+<h3 class="commands-reference">用法</h3>
+
+```
+banshee analyst-notes delete [OPTIONS] NOTE_ID
+```
+
+<h3 class="commands-reference">引數</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-delete--note-id"><a href="#banshee-analyst-notes-delete--note-id"><code>NOTE_ID</code></a></dt><dd><p>要刪除的備註 ID</p>
+    <p>備註 ID 可附帶或不附帶「<strong>doc:</strong>」前綴</p></dd>
+</dl>
+
+<h3 class="commands-reference">選項</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-delete--help"><a href="#banshee-analyst-notes-delete--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>顯示此命令的說明</p>
+</dl>
+
+### banshee analyst-notes attachment
+
+將一或多份 Analyst Notes 相關聯的附件儲存至磁碟。
+
+<h3 class="commands-reference">用法</h3>
+
+```
+banshee analyst-notes attachment [OPTIONS] [NOTE_IDS]...
+```
+
+<h3 class="commands-reference">引數</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-attachment--note-ids"><a href="#banshee-analyst-notes-attachment--note-ids"><code>NOTE_IDS</code></a></dt><dd><p>一或多個以空白字元分隔的備註 ID</p></dd>
+</dl>
+
+<h3 class="commands-reference">選項</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-attachment--output-dir"><a href="#banshee-analyst-notes-attachment--output-dir"><code>--output-dir</code></a>, <code>-d</code> <i>directory</i></dt><dd>
+    <p>儲存備註附件的目錄（若不存在則自動建立）</p>
+    <p>此選項為必填</p><dd></dd>
+    <dt id="banshee-analyst-notes-attachment--help"><a href="#banshee-analyst-notes-attachment--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>顯示此命令的說明</p>
+</dl>
+
+<h3 class="commands-reference">使用範例</h3>
+
+<p>提供一或多個備註 ID（以空白字元分隔）及附件儲存目錄：</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes attachment doc:BVL5hdB -d ./note_attachments
+banshee analyst-notes attachment doc:BVL5hdB doc:e40Ulk -d ./note_attachments
+</code></pre>
+
+<p>若任何備註沒有附件，將輸出警告，且命令以非零狀態結束。</p>
+
+<h3 class="commands-reference">提供備註 ID 的方式</h3>
+
+<h4>1. 直接作為引數傳入（單筆或多筆）：</h4>
+
+<pre><code class="language-bash">
+banshee analyst-notes attachment NOTE_ID -d ./note_attachments
+banshee analyst-notes attachment NOTE_ID_1 NOTE_ID_2 -d ./note_attachments
+</code></pre>
+
+<h4>2. 從檔案或標準輸入讀取：</h4>
+
+<p>若您有一個每行一筆備註 ID 的檔案（例如 <code>notes.txt</code>）：</p>
+
+<pre><code class="language-text">
+doc:BVL8-ZX
+doc:BVMThf2
+doc:BVMKAYV
+</code></pre>
+
+<p>可使用以下命令擷取所有列出的附件：</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes attachment -d ./note_attachments &lt; notes.txt
+cat notes.txt | banshee analyst-notes attachment -d ./note_attachments
+</code></pre>
+
+<h4>3. 透過搜尋命令的管道傳入：</h4>
+
+<p>可直接將 <a href="#banshee-analyst-notes-search"><code>banshee analyst-notes search</code></a> 產生的 JSON 陣列透過管道傳入：</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes search -P 1d | banshee analyst-notes attachment -d ./note_attachments
+</code></pre>
+
+### banshee analyst-notes export
+
+將 Analyst Notes 匯出為 JSON 或 CSV 格式。從 stdin 讀取備註 ID——通常透過管道從 [`banshee analyst-notes search`](#banshee-analyst-notes-search) 傳入。
+
+<h3 class="commands-reference">輸出格式</h3>
+
+<p><b>JSON（預設）</b>——為每個 ID 輸出 Recorded Future API 回傳的<i>完整</i>備註物件：包含所有頂層欄位及屬性、實體、主題、來源詳情等。適合用於下游工具、<code>jq</code> 管道或資料重新匯入。</p>
+
+<p><b>CSV（<a href="#banshee-analyst-notes-export--csv"><code>--csv</code></a>）</b>——輸出適用於試算表和報告的高層次摘要。僅寫入以下八個欄位（首行為標題列）；JSON 回應中的其他所有欄位均省略。備註文字中的逗號和換行符將以空格取代。</p>
+
+| 欄位 | 說明 |
+|---|---|
+| `ID` | Analyst Note ID（含 `doc:` 前綴） |
+| `Title` | 備註標題 |
+| `Note Text` | 備註文字 |
+| `Note Entities` | 備註中的實體，以 `id:name` 格式、空格分隔 |
+| `Published` | 發布時間戳記 |
+| `Topics` | 備註主題，以空格分隔 |
+| `Source Name` | 備註來源名稱 |
+| `Portal Url` | Recorded Future 入口網站中備註的連結 |
+
+<h3 class="commands-reference">用法</h3>
+
+```
+banshee analyst-notes search [SEARCH_OPTIONS] | banshee analyst-notes export [OPTIONS]
+```
+
+<h3 class="commands-reference">選項</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-export--csv"><a href="#banshee-analyst-notes-export--csv"><code>--csv</code></a></dt><dd>
+    <p>以上述固定欄位集輸出為 CSV。若未指定此旗標，命令將輸出 JSON。</p><dd></dd>
+    <dt id="banshee-analyst-notes-export--help"><a href="#banshee-analyst-notes-export--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>顯示此命令的說明</p>
+</dl>
+
+<h3 class="commands-reference">管道輸入</h3>
+
+<p><code>banshee analyst-notes export</code> 僅接受管道輸入。它會消費由 <a href="#banshee-analyst-notes-search"><code>banshee analyst-notes search</code></a> 產生的 JSON 陣列，提取每筆備註的 <code>id</code>，並逐一完整擷取每份備註。若未透過管道執行此命令，將回傳錯誤並拒絕執行。</p>
+
+<h3 class="commands-reference">使用範例</h3>
+
+<pre><code class="language-bash">
+banshee analyst-notes search -P 1d | banshee analyst-notes export > notes.json
+banshee analyst-notes search -T "TXSFt1" -P 1w | banshee analyst-notes export --csv > notes.csv
+</code></pre>
 
 ## banshee ca
 
@@ -274,6 +573,7 @@ banshee entity [OPTIONS] COMMAND [ARGS]...
 <dl class="commands-reference">
     <dt><a href="#banshee-entity-lookup"><code>banshee entity lookup</code></a></dt><dd><p>依 ID 查詢實體</p></dd>
     <dt><a href="#banshee-entity-search"><code>banshee entity search</code></a></dt><dd><p>依名稱及／或類型搜尋實體</p></dd>
+    <dt><a href="#banshee-entity-links"><code>banshee entity links</code></a></dt><dd><p>搜尋並匯出與實體相關聯的 IOC</p></dd>
 </dl>
 
 ### banshee entity lookup
@@ -489,6 +789,89 @@ banshee entity search [OPTIONS] NAME
     <p>顯示此命令的說明</p>
 </dl>
 
+### banshee entity links
+
+搜尋並匯出與實體相關聯的 IOC
+
+擷取與一或多個實體相關聯的實體（IOC、偵測規則、惡意程式、TTP、威脅行為者）。實體 ID 為 Recorded Future 實體 ID（例如來自 [`banshee entity search`](#banshee-entity-search)），而非實體名稱。除非設定了 [`--skip-enrichment`](#banshee-entity-links--skip-enrichment)，否則相關聯的 IOC 將透過 SOAR 進行豐富化。
+
+預設情況下，此命令將以 JSON 格式輸出結果。輸出為陣列，每個輸入實體對應一個物件，各物件包含所搜尋的 `entity` 及其 `links`。每筆連結含有 `enrichment` 欄位，存放相關聯 IOC 的 SOAR 豐富化結果；非 IOC 連結、未豐富化的 IOC 或跳過豐富化時則為 `null`。若 SOAR 豐富化失敗，將於 stderr 輸出提示並略過豐富化。
+
+實體 ID 可作為以空白字元分隔的引數傳入，或透過 stdin 重新導向（每行一個）。
+
+<h3 class="commands-reference">用法</h3>
+
+```
+banshee entity links [OPTIONS] [ENTITIES]...
+```
+
+<h3 class="commands-reference">引數</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-entity-links--entities"><a href="#banshee-entity-links--entities"><code>ENTITIES</code></a></dt><dd><p>一或多個以空白字元分隔的實體 ID</p></dd>
+</dl>
+
+<h3 class="commands-reference">選項</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-entity-links--type"><a href="#banshee-entity-links--type"><code>--type</code>, <code>-t</code></a> <i>entity-type</i></dt><dd>
+    <p>要回傳的實體類型</p>
+    <p>可重複指定以篩選不同的實體類型</p><dd></dd>
+    <dt id="banshee-entity-links--source"><a href="#banshee-entity-links--source"><code>--source</code>, <code>-s</code></a> <i>source</i></dt><dd>
+    <p>要回傳的連結來源</p>
+    <p>支援的值：</p>
+    <ul>
+        <li><code>Technical</code></li>
+        <li><code>Insikt</code></li>
+    </ul> <dd></dd>
+    <dt id="banshee-entity-links--sections"><a href="#banshee-entity-links--sections"><code>--sections</code>, <code>-S</code></a> <i>section</i></dt><dd>
+    <p>依連結類型篩選，例如 <code>'Indicators and Detection Rules'</code></p>
+    <p>可重複指定</p><dd></dd>
+    <dt id="banshee-entity-links--timeframe"><a href="#banshee-entity-links--timeframe"><code>--timeframe</code>, <code>-T</code></a> <i>timeframe</i></dt><dd>
+    <p>建立連結的時間範圍，例如 <code>-1d</code></p>
+    <p>最大值為 <code>-90d</code></p><dd></dd>
+    <dt id="banshee-entity-links--events"><a href="#banshee-entity-links--events"><code>--events</code>, <code>-e</code></a> <i>event</i></dt><dd>
+    <p>依事件類型篩選，例如 <code>type:MalwareAnalysis</code></p>
+    <p>可重複指定</p><dd></dd>
+    <dt id="banshee-entity-links--connected-entities"><a href="#banshee-entity-links--connected-entities"><code>--connected-entities</code>, <code>-c</code></a> <i>entity-id</i></dt><dd>
+    <p>僅回傳同時與這些實體相關聯的實體</p>
+    <p>可重複指定</p><dd></dd>
+    <dt id="banshee-entity-links--limit"><a href="#banshee-entity-links--limit"><code>--limit</code>, <code>-l</code></a> <i>limit</i></dt><dd>
+    <p>限制每種類型回傳的實體數量</p>
+    <p>必須介於 1 至 1,000,000 之間</p><dd></dd>
+    <dt id="banshee-entity-links--small"><a href="#banshee-entity-links--small"><code>--small</code></a></dt><dd>
+    <p>每種事件類型搜尋 10 筆參考資料及 10 筆 Insikt Notes</p>
+    <p>不可與 <code>--large</code> 同時使用。若兩者均未指定，則使用中等範圍</p><dd></dd>
+    <dt id="banshee-entity-links--large"><a href="#banshee-entity-links--large"><code>--large</code></a></dt><dd>
+    <p>每種事件類型搜尋 100 筆參考資料及 500 筆 Insikt Notes</p>
+    <p>不可與 <code>--small</code> 同時使用</p><dd></dd>
+    <dt id="banshee-entity-links--skip-enrichment"><a href="#banshee-entity-links--skip-enrichment"><code>--skip-enrichment</code></a></dt><dd>
+    <p>略過對相關聯 IOC 的額外 SOAR 豐富化</p><dd></dd>
+    <dt id="banshee-entity-links--pretty"><a href="#banshee-entity-links--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>以人類可讀的格式美化輸出結果</p>
+    <p>以每個實體的表格形式顯示相關聯的 IOC、TTP、惡意程式及威脅行為者，每張表格最多顯示 20 列</p><dd></dd>
+    <dt id="banshee-entity-links--help"><a href="#banshee-entity-links--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>顯示此命令的說明</p>
+</dl>
+
+<h3 class="commands-reference">範例</h3>
+
+<pre><code class="language-bash">
+banshee entity links BUl6R5r
+banshee entity links BUl6R5r -T -10d --small -p
+banshee entity links BUl6R5r sIG7Rn -T -10d --large > links.json
+
+# Skip enrichment for faster results
+banshee entity links BUl6R5r --skip-enrichment
+
+# Entity IDs from a file or pipe
+banshee entity links -T -1d < link_entities.txt
+cat link_entities.txt | banshee entity links -T -1d --large > links_out.json
+
+# Find an entity ID first, then search its links
+banshee entity search wannacry -t Malware -l 1 | jq -r '.[].id' | banshee entity links --small
+</code></pre>
+
 
 ## banshee email
 
@@ -592,7 +975,7 @@ banshee email extract-attachments [OPTIONS] FILE_PATH
 
 <dl class="commands-reference">
     <dt id="banshee-email-extract-attachments--zip-path"><a href="#banshee-email-extract-attachments--zip-path"><code>--zip-path</code></a>, <code>-z</code> <i>zip-path</i></dt><dd>
-    <p>指定儲存包含提取檔案的壓縮檔的自訂路徑</p>
+    <p>指定儲存包含提取檔案之壓縮檔的自訂路徑</p>
     <p>預設為當前目錄</p></dd>
     <dt id="banshee-email-extract-attachments--pretty"><a href="#banshee-email-extract-attachments--pretty"><code>--pretty</code></a>, <code>-p</code></dt><dd>
     <p>以人類可讀的格式美化輸出結果</p></dd>
@@ -2324,7 +2707,7 @@ banshee sandbox download 260501-h4p7laawme -d ./samples
 banshee sandbox download id1 id2 id3 -d ./samples --yes -w 4
 echo 'id1 id2 id3' | banshee sandbox download -d ./samples --yes
 
-# 解壓縮
+# Extract
 7z x -pinfected ./samples/260501-h4p7laawme.zip
 </code></pre>
 
@@ -2566,10 +2949,10 @@ banshee sandbox profile get w7-long | jq '.tags'
 <p>標籤定義設定檔的作業系統與環境。地區設定標籤必須搭配至少一個 <code>os</code> 標籤使用。</p>
 
 <pre><code class="language-bash">
-# 僅指定作業系統
+# OS only
 banshee sandbox profile create -n my-profile -T os:windows10-2004-x64
 
-# 指定作業系統 + 地區設定
+# OS + locale
 banshee sandbox profile create -n my-profile -T os:windows10-2004-x64 -T locale:en-us
 </code></pre>
 

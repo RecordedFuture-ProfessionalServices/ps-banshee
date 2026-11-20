@@ -13,6 +13,7 @@ banshee [OPTIONS] <COMMAND>
 <h3 class="commands-reference">명령어</h3>
 
 <dl class="commands-reference">
+    <dt><a href="#banshee-analyst-notes"><code>banshee analyst-notes</code></a></dt><dd><p>Recorded Future Analyst Notes 가져오기 및 관리</p></dd>
     <dt><a href="#banshee-ca"><code>banshee ca</code></a></dt><dd><p>Recorded Future Classic Alerts 검색, 조회 및 업데이트</p></dd>
     <dt><a href="#banshee-email"><code>banshee email</code></a></dt><dd><p>이메일 파일(EML)을 Recorded Future 인텔리전스로 보강</p></dd>
     <dt><a href="#banshee-entity"><code>banshee entity</code></a></dt><dd><p>Recorded Future 엔티티 검색 및 조회</p></dd>
@@ -23,6 +24,304 @@ banshee [OPTIONS] <COMMAND>
     <dt><a href="#banshee-risklist"><code>banshee risklist</code></a></dt><dd><p>Risk List 관리</p></dd>
     <dt><a href="#banshee-rules"><code>banshee rules</code></a></dt><dd><p>탐지 규칙 검색 및 다운로드</p></dd>
 </dl>
+
+## banshee analyst-notes
+
+Recorded Future Analyst Notes 가져오기 및 관리
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee analyst-notes [OPTIONS] COMMAND [ARGS]...
+```
+
+<h3 class="commands-reference">명령어</h3>
+
+<dl class="commands-reference">
+    <dt><a href="#banshee-analyst-notes-search"><code>banshee analyst-notes search</code></a></dt><dd><p>Analyst Notes 검색</p></dd>
+    <dt><a href="#banshee-analyst-notes-lookup"><code>banshee analyst-notes lookup</code></a></dt><dd><p>단일 Analyst Note 조회</p></dd>
+    <dt><a href="#banshee-analyst-notes-publish"><code>banshee analyst-notes publish</code></a></dt><dd><p>Analyst Note 게시</p></dd>
+    <dt><a href="#banshee-analyst-notes-delete"><code>banshee analyst-notes delete</code></a></dt><dd><p>Analyst Note 삭제</p></dd>
+    <dt><a href="#banshee-analyst-notes-attachment"><code>banshee analyst-notes attachment</code></a></dt><dd><p>노트에 연관된 첨부 파일 저장</p></dd>
+    <dt><a href="#banshee-analyst-notes-export"><code>banshee analyst-notes export</code></a></dt><dd><p>Analyst Notes를 JSON 또는 CSV로 내보내기</p></dd>
+</dl>
+
+### banshee analyst-notes search
+
+Analyst Notes를 검색합니다.
+
+기본적으로 결과는 JSON 형식으로 출력됩니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee analyst-notes search [OPTIONS]
+```
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-search--published"><a href="#banshee-analyst-notes-search--published"><code>--published</code>, <code>-P</code></a> <i>published</i></dt><dd>
+    <p>게시 시간 기준으로 필터링, 예: 1d; 12h</p>
+    <p>앞의 <code>-</code>는 선택 사항이며, <code>-1d</code>와 <code>1d</code>는 동일합니다.</p>
+    <p>기본값: -1d</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--entity"><a href="#banshee-analyst-notes-search--entity"><code>--entity</code>, <code>-e</code></a> <i>entity</i></dt><dd>
+    <p>연관된 엔티티로 노트 필터링, 예: <code>-e idn:recordedfuture.com</code></p><dd></dd>
+    <dt id="banshee-analyst-notes-search--author"><a href="#banshee-analyst-notes-search--author"><code>--author</code>, <code>-a</code></a> <i>author</i></dt><dd>
+    <p>작성자로 노트 필터링, 예: <code>-a source:e40Ulk</code></p><dd></dd>
+    <dt id="banshee-analyst-notes-search--title"><a href="#banshee-analyst-notes-search--title"><code>--title</code>, <code>-t</code></a> <i>title</i></dt><dd>
+    <p>특정 제목으로 노트 필터링</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--topic"><a href="#banshee-analyst-notes-search--topic"><code>--topic</code>, <code>-T</code></a> <i>topic</i></dt><dd>
+    <p>토픽으로 노트 필터링 (반복 가능)</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--label"><a href="#banshee-analyst-notes-search--label"><code>--label</code>, <code>-l</code></a> <i>label</i></dt><dd>
+    <p>특정 레이블로 노트 필터링</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--source"><a href="#banshee-analyst-notes-search--source"><code>--source</code>, <code>-s</code></a> <i>source</i></dt><dd>
+    <p>특정 소스로 노트 필터링</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--max-results"><a href="#banshee-analyst-notes-search--max-results"><code>--max_results</code>, <code>-r</code></a> <i>max-results</i></dt><dd>
+    <p>결과 수 제한</p>
+    <p>최대 제한: 1000</p>
+    <p>기본값: 100</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--pretty"><a href="#banshee-analyst-notes-search--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p><dd></dd>
+    <dt id="banshee-analyst-notes-search--help"><a href="#banshee-analyst-notes-search--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+### banshee analyst-notes lookup
+
+단일 Analyst Note를 조회합니다.
+
+기본적으로 결과는 JSON 형식으로 출력됩니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee analyst-notes lookup [OPTIONS] NOTE_ID
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-lookup--note-id"><a href="#banshee-analyst-notes-lookup--note-id"><code>NOTE_ID</code></a></dt><dd><p>조회할 Note ID</p>
+    <p>Note ID는 '<strong>doc:</strong>' 접두사 포함 여부와 관계없이 입력 가능합니다.</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-lookup--tagged-text"><a href="#banshee-analyst-notes-lookup--tagged-text"><code>--tagged_text</code></a>, <code>-t</code></dt><dd>
+    <p>노트 텍스트의 엔티티에 Recorded Future ID를 추가합니다.</p><dd></dd>
+    <dt id="banshee-analyst-notes-lookup--pretty"><a href="#banshee-analyst-notes-lookup--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p><dd></dd>
+    <dt id="banshee-analyst-notes-lookup--help"><a href="#banshee-analyst-notes-lookup--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+### banshee analyst-notes publish
+
+Analyst Note를 게시합니다. `--note_entities` 또는 `--context_entities` 중 최소 하나가 필요합니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee analyst-notes publish [OPTIONS] TITLE [NOTE_TEXT]
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-publish--title"><a href="#banshee-analyst-notes-publish--title"><code>TITLE</code></a></dt><dd><p>생성할 Analyst Note의 제목</p></dd>
+    <dt id="banshee-analyst-notes-publish--note-text"><a href="#banshee-analyst-notes-publish--note-text"><code>NOTE_TEXT</code></a></dt><dd><p>선택 사항. 게시할 노트 텍스트. 생략하면 stdin에서 텍스트를 읽습니다.</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-publish--topic"><a href="#banshee-analyst-notes-publish--topic"><code>--topic</code></a>, <code>-t</code> <i>topic</i></dt><dd>
+    <p>생성된 노트에 연결할 토픽 (반복 가능)</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--note-entities"><a href="#banshee-analyst-notes-publish--note-entities"><code>--note_entities</code></a>, <code>-e</code> <i>entity</i></dt><dd>
+    <p>생성된 노트 내의 엔티티 (반복 가능)</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--context-entities"><a href="#banshee-analyst-notes-publish--context-entities"><code>--context_entities</code></a>, <code>-c</code> <i>entity</i></dt><dd>
+    <p>생성된 노트에 연결할 컨텍스트 엔티티 (반복 가능)</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--validation-urls"><a href="#banshee-analyst-notes-publish--validation-urls"><code>--validation_urls</code></a>, <code>-v</code> <i>url</i></dt><dd>
+    <p>생성된 노트에 연결할 검증 URL (반복 가능)</p><dd></dd>
+    <dt id="banshee-analyst-notes-publish--help"><a href="#banshee-analyst-notes-publish--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<p>제목과 노트 텍스트를 제공하고, note 또는 context 엔티티를 최소 하나 지정합니다:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes publish "A note example" "An example to show how the command can be used" -e "idn:test.com"
+banshee analyst-notes publish "A note example" "Note text" -c "idn:example.com" -t "TXSFt1" -v "https://example.com/report"
+</code></pre>
+
+<h3 class="commands-reference">노트 텍스트 입력 방법</h3>
+
+<h4>1. 인수로 직접 입력:</h4>
+
+<pre><code class="language-bash">
+banshee analyst-notes publish "A note example" "Note text" -e "idn:test.com"
+</code></pre>
+
+<h4>2. 파일 또는 표준 입력에서 읽기:</h4>
+
+<p>노트 텍스트가 담긴 파일(예: <code>note.txt</code>)이 있는 경우:</p>
+
+<pre><code class="language-text">
+An example note from a text file.
+</code></pre>
+
+<p>다음 명령어로 게시할 수 있습니다:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes publish "Note from a file" -c "idn:example.com" &lt; note.txt
+cat note.txt | banshee analyst-notes publish "Note from a file" -c "idn:example.com"
+</code></pre>
+
+### banshee analyst-notes delete
+
+Analyst Note를 삭제합니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee analyst-notes delete [OPTIONS] NOTE_ID
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-delete--note-id"><a href="#banshee-analyst-notes-delete--note-id"><code>NOTE_ID</code></a></dt><dd><p>삭제할 Note ID</p>
+    <p>Note ID는 '<strong>doc:</strong>' 접두사 포함 여부와 관계없이 입력 가능합니다.</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-delete--help"><a href="#banshee-analyst-notes-delete--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+### banshee analyst-notes attachment
+
+하나 이상의 Analyst Note에 연관된 첨부 파일을 디스크에 저장합니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee analyst-notes attachment [OPTIONS] [NOTE_IDS]...
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-attachment--note-ids"><a href="#banshee-analyst-notes-attachment--note-ids"><code>NOTE_IDS</code></a></dt><dd><p>가져올 공백으로 구분된 하나 이상의 Note ID</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-attachment--output-dir"><a href="#banshee-analyst-notes-attachment--output-dir"><code>--output-dir</code></a>, <code>-d</code> <i>directory</i></dt><dd>
+    <p>노트 첨부 파일을 저장할 디렉토리 (없으면 생성됨)</p>
+    <p>이 옵션은 필수입니다.</p><dd></dd>
+    <dt id="banshee-analyst-notes-attachment--help"><a href="#banshee-analyst-notes-attachment--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<p>하나 이상의 Note ID(공백으로 구분)와 첨부 파일을 저장할 디렉토리를 지정합니다:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes attachment doc:BVL5hdB -d ./note_attachments
+banshee analyst-notes attachment doc:BVL5hdB doc:e40Ulk -d ./note_attachments
+</code></pre>
+
+<p>노트 중 첨부 파일이 없는 경우 경고가 출력되고 비정상 종료 코드로 종료됩니다.</p>
+
+<h3 class="commands-reference">Note ID 입력 방법</h3>
+
+<h4>1. 인수로 직접 입력 (단일 또는 복수):</h4>
+
+<pre><code class="language-bash">
+banshee analyst-notes attachment NOTE_ID -d ./note_attachments
+banshee analyst-notes attachment NOTE_ID_1 NOTE_ID_2 -d ./note_attachments
+</code></pre>
+
+<h4>2. 파일 또는 표준 입력에서 읽기:</h4>
+
+<p>한 줄에 하나의 Note ID가 있는 파일(예: <code>notes.txt</code>)이 있는 경우:</p>
+
+<pre><code class="language-text">
+doc:BVL8-ZX
+doc:BVMThf2
+doc:BVMKAYV
+</code></pre>
+
+<p>다음 명령어로 목록에 있는 모든 첨부 파일을 가져올 수 있습니다:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes attachment -d ./note_attachments &lt; notes.txt
+cat notes.txt | banshee analyst-notes attachment -d ./note_attachments
+</code></pre>
+
+<h4>3. 검색 명령어에서 파이프로 연결:</h4>
+
+<p><a href="#banshee-analyst-notes-search"><code>banshee analyst-notes search</code></a>가 생성한 JSON 배열을 직접 파이프로 연결할 수 있습니다:</p>
+
+<pre><code class="language-bash">
+banshee analyst-notes search -P 1d | banshee analyst-notes attachment -d ./note_attachments
+</code></pre>
+
+### banshee analyst-notes export
+
+Analyst Notes를 JSON 또는 CSV로 내보냅니다. stdin에서 Note ID를 읽으며, 일반적으로 [`banshee analyst-notes search`](#banshee-analyst-notes-search)에서 파이프로 연결합니다.
+
+<h3 class="commands-reference">출력 형식</h3>
+
+<p><b>JSON (기본값)</b> — Recorded Future API가 반환하는 각 ID의 <i>전체</i> 노트 객체를 출력합니다. 모든 최상위 필드와 속성, 엔티티, 토픽, 소스 세부 정보 등이 포함됩니다. 다운스트림 도구, <code>jq</code> 파이프라인 또는 재수집에 적합합니다.</p>
+
+<p><b>CSV (<a href="#banshee-analyst-notes-export--csv"><code>--csv</code></a>)</b> — 스프레드시트 및 보고용으로 설계된 요약 정보를 출력합니다. 아래에 나열된 8개 열만 작성되며(헤더 행 포함), JSON 응답에 있는 다른 모든 필드는 제외됩니다. 노트 텍스트의 쉼표 및 줄 바꿈은 공백으로 대체됩니다.</p>
+
+| 필드 | 설명 |
+|---|---|
+| `ID` | Analyst Note ID (`doc:` 접두사 포함) |
+| `Title` | 노트 제목 |
+| `Note Text` | 노트 텍스트 |
+| `Note Entities` | 노트 내 엔티티 (`id:name` 형식, 공백 구분) |
+| `Published` | 게시 타임스탬프 |
+| `Topics` | 노트 토픽, 공백 구분 |
+| `Source Name` | 노트 소스 이름 |
+| `Portal Url` | Recorded Future 포털의 노트 링크 |
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee analyst-notes search [SEARCH_OPTIONS] | banshee analyst-notes export [OPTIONS]
+```
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-analyst-notes-export--csv"><a href="#banshee-analyst-notes-export--csv"><code>--csv</code></a></dt><dd>
+    <p>위에서 설명한 고정 열 집합으로 CSV 형식으로 출력합니다. 이 플래그가 없으면 JSON으로 출력됩니다.</p><dd></dd>
+    <dt id="banshee-analyst-notes-export--help"><a href="#banshee-analyst-notes-export--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">파이프 입력</h3>
+
+<p><code>banshee analyst-notes export</code>는 파이프 입력만 허용합니다. <a href="#banshee-analyst-notes-search"><code>banshee analyst-notes search</code></a>가 생성한 JSON 배열을 소비하여 각 노트의 <code>id</code>를 추출하고, 모든 노트를 전체 내용으로 가져옵니다. 파이프 없이 명령어를 실행하면 오류가 발생합니다.</p>
+
+<h3 class="commands-reference">사용 예시</h3>
+
+<pre><code class="language-bash">
+banshee analyst-notes search -P 1d | banshee analyst-notes export > notes.json
+banshee analyst-notes search -T "TXSFt1" -P 1w | banshee analyst-notes export --csv > notes.csv
+</code></pre>
 
 ## banshee ca
 
@@ -274,6 +573,7 @@ banshee entity [OPTIONS] COMMAND [ARGS]...
 <dl class="commands-reference">
     <dt><a href="#banshee-entity-lookup"><code>banshee entity lookup</code></a></dt><dd><p>ID로 엔티티 조회</p></dd>
     <dt><a href="#banshee-entity-search"><code>banshee entity search</code></a></dt><dd><p>이름 및/또는 유형으로 엔티티 검색</p></dd>
+    <dt><a href="#banshee-entity-links"><code>banshee entity links</code></a></dt><dd><p>엔티티에 연결된 IOC 검색 및 내보내기</p></dd>
 </dl>
 
 ### banshee entity lookup
@@ -488,6 +788,89 @@ banshee entity search [OPTIONS] NAME
     <dt id="banshee-entity-search--help"><a href="#banshee-entity-search--help"><code>--help</code></a>, <code>-h</code></dt><dd>
     <p>이 명령어의 도움말 표시</p>
 </dl>
+
+### banshee entity links
+
+엔티티에 연결된 IOC를 검색하고 내보냅니다.
+
+하나 이상의 엔티티(IOC, 탐지 규칙, 악성코드, TTP, 위협 행위자)에 연결된 엔티티를 가져옵니다. 엔티티 ID는 엔티티 이름이 아닌 Recorded Future 엔티티 ID입니다(예: [`banshee entity search`](#banshee-entity-search)에서 확인 가능). 연결된 IOC는 [`--skip-enrichment`](#banshee-entity-links--skip-enrichment)를 설정하지 않는 한 SOAR를 통해 보강됩니다.
+
+기본적으로 결과는 JSON 형식으로 출력됩니다. 출력은 입력 엔티티당 하나의 객체가 담긴 배열이며, 각 객체에는 검색된 `entity`와 그 `links`가 포함됩니다. 각 링크에는 연결된 IOC의 SOAR 보강 결과를 담은 `enrichment` 필드가 있으며, 비 IOC 링크, 보강되지 않은 IOC, 또는 보강을 건너뛴 경우에는 `null`입니다. SOAR 보강이 실패하면 stderr에 메시지가 출력되고 보강이 건너뛰어집니다.
+
+엔티티 ID는 공백으로 구분된 인수로 전달하거나 stdin에서 파이프/리디렉션(한 줄에 하나씩)으로 입력할 수 있습니다.
+
+<h3 class="commands-reference">사용법</h3>
+
+```
+banshee entity links [OPTIONS] [ENTITIES]...
+```
+
+<h3 class="commands-reference">인수</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-entity-links--entities"><a href="#banshee-entity-links--entities"><code>ENTITIES</code></a></dt><dd><p>공백으로 구분된 하나 이상의 엔티티 ID</p></dd>
+</dl>
+
+<h3 class="commands-reference">옵션</h3>
+
+<dl class="commands-reference">
+    <dt id="banshee-entity-links--type"><a href="#banshee-entity-links--type"><code>--type</code>, <code>-t</code></a> <i>entity-type</i></dt><dd>
+    <p>반환할 엔티티 유형</p>
+    <p>다른 엔티티 유형에 대해 여러 번 지정 가능</p><dd></dd>
+    <dt id="banshee-entity-links--source"><a href="#banshee-entity-links--source"><code>--source</code>, <code>-s</code></a> <i>source</i></dt><dd>
+    <p>반환할 링크의 소스</p>
+    <p>지원 값:</p>
+    <ul>
+        <li><code>Technical</code></li>
+        <li><code>Insikt</code></li>
+    </ul> <dd></dd>
+    <dt id="banshee-entity-links--sections"><a href="#banshee-entity-links--sections"><code>--sections</code>, <code>-S</code></a> <i>section</i></dt><dd>
+    <p>링크 유형으로 필터링, 예: <code>'Indicators and Detection Rules'</code></p>
+    <p>여러 번 지정 가능</p><dd></dd>
+    <dt id="banshee-entity-links--timeframe"><a href="#banshee-entity-links--timeframe"><code>--timeframe</code>, <code>-T</code></a> <i>timeframe</i></dt><dd>
+    <p>링크가 만들어진 기간, 예: <code>-1d</code></p>
+    <p>최대값: <code>-90d</code></p><dd></dd>
+    <dt id="banshee-entity-links--events"><a href="#banshee-entity-links--events"><code>--events</code>, <code>-e</code></a> <i>event</i></dt><dd>
+    <p>이벤트 유형으로 필터링, 예: <code>type:MalwareAnalysis</code></p>
+    <p>여러 번 지정 가능</p><dd></dd>
+    <dt id="banshee-entity-links--connected-entities"><a href="#banshee-entity-links--connected-entities"><code>--connected-entities</code>, <code>-c</code></a> <i>entity-id</i></dt><dd>
+    <p>지정한 엔티티에도 연결된 엔티티만 반환</p>
+    <p>여러 번 지정 가능</p><dd></dd>
+    <dt id="banshee-entity-links--limit"><a href="#banshee-entity-links--limit"><code>--limit</code>, <code>-l</code></a> <i>limit</i></dt><dd>
+    <p>유형별로 반환할 엔티티 수 제한</p>
+    <p>1 이상 1,000,000 이하여야 합니다.</p><dd></dd>
+    <dt id="banshee-entity-links--small"><a href="#banshee-entity-links--small"><code>--small</code></a></dt><dd>
+    <p>이벤트 유형당 참조 10개, Insikt Notes 10개를 검색합니다.</p>
+    <p><code>--large</code>와 함께 사용할 수 없습니다. 두 옵션 모두 없으면 중간 범위가 사용됩니다.</p><dd></dd>
+    <dt id="banshee-entity-links--large"><a href="#banshee-entity-links--large"><code>--large</code></a></dt><dd>
+    <p>이벤트 유형당 참조 100개, Insikt Notes 500개를 검색합니다.</p>
+    <p><code>--small</code>과 함께 사용할 수 없습니다.</p><dd></dd>
+    <dt id="banshee-entity-links--skip-enrichment"><a href="#banshee-entity-links--skip-enrichment"><code>--skip-enrichment</code></a></dt><dd>
+    <p>연결된 IOC에 대한 추가 SOAR 보강을 건너뜁니다.</p><dd></dd>
+    <dt id="banshee-entity-links--pretty"><a href="#banshee-entity-links--pretty"><code>--pretty</code></a>,  <code>-p</code></dt><dd>
+    <p>결과를 사람이 읽기 쉬운 형식으로 보기 좋게 출력</p>
+    <p>엔티티별로 연결된 IOC, TTP, 악성코드, 위협 행위자 테이블을 각 20행까지 표시합니다.</p><dd></dd>
+    <dt id="banshee-entity-links--help"><a href="#banshee-entity-links--help"><code>--help</code></a>, <code>-h</code></dt><dd>
+    <p>이 명령어의 도움말 표시</p>
+</dl>
+
+<h3 class="commands-reference">예시</h3>
+
+<pre><code class="language-bash">
+banshee entity links BUl6R5r
+banshee entity links BUl6R5r -T -10d --small -p
+banshee entity links BUl6R5r sIG7Rn -T -10d --large > links.json
+
+# 더 빠른 결과를 위해 보강 건너뛰기
+banshee entity links BUl6R5r --skip-enrichment
+
+# 파일 또는 파이프에서 엔티티 ID 입력
+banshee entity links -T -1d < link_entities.txt
+cat link_entities.txt | banshee entity links -T -1d --large > links_out.json
+
+# 엔티티 ID를 먼저 찾은 후 링크 검색
+banshee entity search wannacry -t Malware -l 1 | jq -r '.[].id' | banshee entity links --small
+</code></pre>
 
 
 ## banshee email

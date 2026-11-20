@@ -1,5 +1,15 @@
 # 릴리스 히스토리
 
+## 1.9.0 -
+
+### Added
+- 특정 엔터티에 대한 링크를 가져오고 보강하는 새로운 [`entity links`](reference/commands.md#banshee-entity-links) 명령어를 추가하였습니다.
+
+## 1.8.0 - 2026-10-29
+
+### Added
+- Recorded Future Analyst Notes와 상호작용하는 새로운 ['analyst-notes'](reference/commands.md#banshee-analyst-notes) 명령어를 추가하였습니다.
+
 ## 1.7.0 - 2026-10-14
 
 ### Added
@@ -16,9 +26,10 @@
 ### Changed
 - `psengine` 의존성을 업그레이드하였습니다.
 
+
 ## 1.6.0 - 2026-09-15
 ### Added
-- EML 파일에서 첨부 파일을 추출하고, 비밀번호로 보호된 아카이브에 저장한 후 분석을 위해 Recorded Future Sandbox에 제출하는 새로운 [`email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) 서브 명령어를 추가하였습니다.
+- EML 파일에서 첨부 파일을 추출하고, 비밀번호로 보호된 아카이브에 저장한 후 분석을 위해 Recorded Future Sandbox에 제출하는 새로운 ['email extract-attachments`](reference/commands.md#banshee-email-extract-attachments) 서브 명령어를 추가하였습니다.
 
 ## 1.5.0 - 2026-08-21
 

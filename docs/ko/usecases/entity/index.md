@@ -15,4 +15,6 @@ Recorded Future 엔터티에 대한 자세한 정보는 [여기](https://support
 
 - 엔터티 ID를 알고 있고 이름과 유형을 검색해야 할 경우 [`banshee entity lookup`](../../reference/commands.md#banshee-entity-lookup)을 사용하십시오.
 
+- 연결된 엔터티를 조회하고 보강하려면 [`banshee entity links`](../../reference/commands.md#banshee-entity-links)를 사용하십시오.
+
 올바른 엔터티 ID를 확보한 후에는 [`banshee list add`](../../reference/commands.md#banshee-list-add)와 같은 후속 PS Banshee 명령에 해당 ID를 활용하여 조직의 감시 목록(watchlist)에서 정확한 엔터티 참조를 보장하십시오.
