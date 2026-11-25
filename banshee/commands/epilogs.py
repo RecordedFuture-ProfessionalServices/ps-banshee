@@ -1037,7 +1037,7 @@ EPILOG_ENTITY_LINKS = """
 
 * banshee entity links BUl6R5r
 
-* banshee entity links BUl6R5r -T 10d --small -p
+* banshee entity links BUl6R5r -T -10d --small -p
 
 * banshee entity links BUl6R5r sIG7Rn -T -10d --large > ./links.json
 
@@ -1063,7 +1063,7 @@ sIG7Rn
 
 ```
 
-* banshee entity links -T 1d < link_entities.txt
+* banshee entity links -T -1d < link_entities.txt
 
 * cat link_entities.txt | banshee entity links -T -1d --large > ./links_out.json
 """
