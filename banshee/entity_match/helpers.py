@@ -10,6 +10,7 @@
 # for having all necessary licenses, permissions, rights, and/or consents to any data        #
 # accessed from any third party API.                                                         #
 ##############################################################################################
+
 from urllib.parse import quote
 
 from rich.console import Console
@@ -22,12 +23,13 @@ def _intel_card_url(ioc) -> str:
     return f'{INTEL_CARD_BASE}/{quote(f"{ioc.id_}", safe="")}'
 
 
-def _print_search(console: Console, result: dict, enrichment: dict):
+def pretty_print_links(console: Console, result: dict, enrichment: dict):
     if result.iocs():
         console.print('[bold]Linked IOCs[/bold]', style='dim')
         tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 2), header_style='dim')
         tbl.add_column('IOC', style='bold cyan')
         tbl.add_column('Risk Score', style='bold', width=10)
+        tbl.add_column('Link Source', style='dim')
         tbl.add_column('Top Risk Rule', style='dim')
 
         for iocs in result.iocs().values():
@@ -38,11 +40,7 @@ def _print_search(console: Console, result: dict, enrichment: dict):
                 e = enrichment.get(ioc.name)
                 enriched = e and e.is_enriched and e.content
                 top_risk_rule = (enriched and e.content.risk.rule.most_critical) or 'N/A'
-                tbl.add_row(
-                    ioc_intel_card,
-                    str(ioc.risk_score),
-                    top_risk_rule,
-                )
+                tbl.add_row(ioc_intel_card, str(ioc.risk_score), ioc.source.title(), top_risk_rule)
         console.print(tbl)
         console.print()
 
@@ -51,11 +49,13 @@ def _print_search(console: Console, result: dict, enrichment: dict):
         tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 2), header_style='dim')
         tbl.add_column('TTP', style='bold cyan')
         tbl.add_column('TTP Name', style='bold')
+        tbl.add_column('Link Source', style='dim')
 
         for ttp in result.ttps()[:PRETTY_IOC_DISPLAY_CAP]:
             tbl.add_row(
                 f'[underline][link={_intel_card_url(ttp)}]{ttp.name}[/link][/underline]',
                 ttp.display_name,
+                ttp.source.title(),
             )
 
         console.print(tbl)
@@ -65,10 +65,12 @@ def _print_search(console: Console, result: dict, enrichment: dict):
         console.print('[bold]Linked Malware[/bold]', style='dim')
         tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 2), header_style='dim')
         tbl.add_column('Malware', style='bold cyan')
+        tbl.add_column('Link Source', style='dim')
 
         for malware in result.malwares()[:PRETTY_IOC_DISPLAY_CAP]:
             tbl.add_row(
                 f'[underline][link={_intel_card_url(malware)}]{malware.name}[/link][/underline]',
+                malware.source.title(),
             )
         console.print(tbl)
         console.print()
@@ -77,10 +79,12 @@ def _print_search(console: Console, result: dict, enrichment: dict):
         console.print('[bold]Linked Threat Actors[/bold]', style='dim')
         tbl = Table(show_header=True, box=None, padding=(0, 2, 0, 2), header_style='dim')
         tbl.add_column('Treat Actor', style='bold cyan')
+        tbl.add_column('Link Source', style='dim')
 
         for ta in result.threat_actors()[:PRETTY_IOC_DISPLAY_CAP]:
             tbl.add_row(
                 f'[underline][link={_intel_card_url(ta)}]{ta.name}[/link][/underline]',
+                ta.source.title(),
             )
         console.print(tbl)
         console.print()

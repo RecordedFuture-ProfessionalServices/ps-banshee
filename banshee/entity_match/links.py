@@ -23,7 +23,7 @@ from banshee.entity_match.constants import (
     MAX_ENRICHMENT_WORKERS,
     PRETTY_IOC_DISPLAY_CAP,
 )
-from banshee.entity_match.helpers import _print_search
+from banshee.entity_match.helpers import pretty_print_links
 
 
 def _sort_links_iocs(results: list, limit: int | None = None):
@@ -97,7 +97,7 @@ def search_links(
         console = Console(stderr=True)
         for result in results:
             console.print(f'[bold]{result.entity.name} ({result.entity.id_})[/bold]')
-            _print_search(console, result, enriched)
+            pretty_print_links(console, result, enriched)
 
     else:
         out = []
